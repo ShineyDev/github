@@ -36,7 +36,8 @@ class License():
         self.limitations = limitations
 
     def __repr__(self):
-        return "<License name='{0}' id='{1}' url='{2}'>".format(self.name, self.id, self.url)
+        return "<{0} name='{1}' id='{2}' url='{3}'>".format(
+            self.__class__.__name__, self.name, self.id, self.url)
 
     @classmethod
     def from_data(cls, data: dict):
@@ -58,15 +59,12 @@ class License():
                    permissions=permissions, conditions=conditions,
                    limitations=limitations)
 
-class PartialLicense():
+class PartialLicense(License):
     def __init__(self, key: str, id: str, name: str, url: str):
         self.key = key
         self.id = id
         self.name = name
         self.url = url
-
-    def __repr__(self):
-        return "<PartialLicense name='{0}' id='{1}' url='{2}'>".format(self.name, self.id, self.url)
 
     @classmethod
     def from_data(cls, data: typing.Union[list, dict]):
