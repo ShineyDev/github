@@ -28,6 +28,9 @@
     <Compile Include="github.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="license.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ratelimit.py">
       <SubType>Code</SubType>
     </Compile>
