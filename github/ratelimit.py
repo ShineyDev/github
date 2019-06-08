@@ -16,8 +16,6 @@
     limitations under the License.
 """
 
-import datetime
-
 from .utils import (
     abc,
 )
