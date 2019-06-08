@@ -18,5 +18,7 @@
 
 class Cache():
     def __getattribute__(self, name):
-        if (hasattr(self, name)):
+        try:
             return super().__getattribute__(name)
+        except (AttributeError) as e:
+            return None
