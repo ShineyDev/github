@@ -53,4 +53,5 @@ class RateLimit():
         graphql = GraphQLRateLimit.from_data(data["resources"]["graphql"])
         integration_manifest = IntegrationManifestRateLimit.from_data(data["resources"]["integration_manifest"])
 
-        return cls(core=core, search=search, graphql=graphql, integration_manifest=integration_manifest)
+        return cls(core=core, search=search, graphql=graphql,
+                   integration_manifest=integration_manifest)
