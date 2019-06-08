@@ -31,6 +31,9 @@ class License():
         self.conditions = conditions
         self.limitations = limitations
 
+    def __repr__(self):
+        return "<License name='{0}' url='{1}'>".format(self.name, self.url)
+
     @classmethod
     def from_data(cls, data: dict):
         key = data["key"]
