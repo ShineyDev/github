@@ -16,6 +16,9 @@
     limitations under the License.
 """
 
+import typing
+
+
 class License():
     def __init__(self, *, key: str, id: str, name: str, url: str, body: str,
                  description: str, implementation: str, permissions: list,
@@ -66,8 +69,8 @@ class PartialLicense():
         return "<PartialLicense name='{0}' id={1} url='{2}'>".format(self.name, self.id, self.url)
 
     @classmethod
-    def from_data(cls, data: dict):
-        if ("license" in data.keys()):
+    def from_data(cls, data: typing.Union[list, dict]):
+        if (isinstance(data, dict)):
             # https://developer.github.com/v3/licenses/#get-the-contents-of-a-repositorys-license
 
             key = data["license"]["key"]
