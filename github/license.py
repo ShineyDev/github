@@ -84,10 +84,10 @@ class PartialLicense():
 
             licenses = list()
             for (license) in data:
-                key = data["key"]
-                id = data["id"]
-                name = data["name"]
-                url = data["url"]
+                key = license["key"]
+                id = license["id"]
+                name = license["name"]
+                url = license["url"]
 
                 license = cls(key=key, id=id, name=name, url=url)
                 licenses.append(license)
