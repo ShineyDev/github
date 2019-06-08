@@ -70,6 +70,12 @@ class PartialLicense(License):
     def from_data(cls, data: typing.Union[list, dict]):
         if (isinstance(data, dict)):
             # https://developer.github.com/v3/licenses/#get-the-contents-of-a-repositorys-license
+            # https://developer.github.com/v3/repos/#get
+            # https://developer.github.com/v3/repos/#list-user-repositories
+            # https://developer.github.com/v3/repos/#list-organization-repositories
+            # https://developer.github.com/v3/repos/forks/#list-forks
+            # https://developer.github.com/v3/activity/watching/#list-repositories-being-watched
+            # https://developer.github.com/v3/teams/#list-team-repos
 
             key = data["license"]["key"]
             id = data["license"]["spdx_id"]
