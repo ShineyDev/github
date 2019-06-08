@@ -36,7 +36,7 @@ class License():
         self.limitations = limitations
 
     def __repr__(self):
-        return "<License name='{0}' id={1} url='{2}'>".format(self.name, self.id, self.url)
+        return "<License name='{0}' id='{1}' url='{2}'>".format(self.name, self.id, self.url)
 
     @classmethod
     def from_data(cls, data: dict):
@@ -66,7 +66,7 @@ class PartialLicense():
         self.url = url
 
     def __repr__(self):
-        return "<PartialLicense name='{0}' id={1} url='{2}'>".format(self.name, self.id, self.url)
+        return "<PartialLicense name='{0}' id='{1}' url='{2}'>".format(self.name, self.id, self.url)
 
     @classmethod
     def from_data(cls, data: typing.Union[list, dict]):
