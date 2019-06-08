@@ -17,11 +17,12 @@
 """
 
 class License():
-    def __init__(self, *, key: str, name: str, url: str, body: str,
+    def __init__(self, *, key: str, id: str, name: str, url: str, body: str,
                  description: str, implementation: str, permissions: list,
                  conditions: list, limitations: list):
         
         self.key = key
+        self.id = id
         self.name = name
         self.url = url
         self.body = body
@@ -32,11 +33,12 @@ class License():
         self.limitations = limitations
 
     def __repr__(self):
-        return "<License name='{0}' url='{1}'>".format(self.name, self.url)
+        return "<License name='{0}' id={1} url='{2}'>".format(self.name, self.id, self.url)
 
     @classmethod
     def from_data(cls, data: dict):
         key = data["key"]
+        id = data["spdx_id"]
         name = data["name"]
         url = data["html_url"]
         body = data["body"]
@@ -46,7 +48,7 @@ class License():
         conditions = data["conditions"]
         limitations = data["limitations"]
 
-        return cls(key=key, name=name, url=url, body=body,
+        return cls(key=key, id=id, name=name, url=url, body=body,
                    description=description, implementation=implementation,
                    permissions=permissions, conditions=conditions,
                    limitations=limitations)
