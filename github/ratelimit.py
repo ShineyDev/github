@@ -48,6 +48,8 @@ class RateLimit():
 
     @classmethod
     def from_data(cls, data: dict):
+        # https://developer.github.com/v3/rate_limit/#get-your-current-rate-limit-status
+
         core = CoreRateLimit.from_data(data["resources"]["core"])
         search = SearchRateLimit.from_data(data["resources"]["search"])
         graphql = GraphQLRateLimit.from_data(data["resources"]["graphql"])
