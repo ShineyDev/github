@@ -16,9 +16,8 @@
     limitations under the License.
 """
 
+from . import *
 from .cache import *
 from .github import *
 from .ratelimit import *
 from .request import *
-
-from . import *
