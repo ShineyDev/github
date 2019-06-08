@@ -74,7 +74,7 @@ class PartialLicense():
             # https://developer.github.com/v3/licenses/#get-the-contents-of-a-repositorys-license
 
             key = data["license"]["key"]
-            id = data["license"]["id"]
+            id = data["license"]["spdx_id"]
             name = data["license"]["name"]
             url = data["license"]["url"]
 
@@ -85,7 +85,7 @@ class PartialLicense():
             licenses = list()
             for (license) in data:
                 key = license["key"]
-                id = license["id"]
+                id = license["spdx_id"]
                 name = license["name"]
                 url = license["url"]
 
