@@ -37,6 +37,8 @@ class License():
 
     @classmethod
     def from_data(cls, data: dict):
+        # https://developer.github.com/v3/licenses/#get-an-individual-license
+
         key = data["key"]
         id = data["spdx_id"]
         name = data["name"]
@@ -52,3 +54,39 @@ class License():
                    description=description, implementation=implementation,
                    permissions=permissions, conditions=conditions,
                    limitations=limitations)
+
+class PartialLicense():
+    def __init__(self, key: str, id: str, name: str, url: str):
+        self.key = key
+        self.id = id
+        self.name = name
+        self.url = url
+
+    def __repr__(self):
+        return "<PartialLicense name='{0}' id={1} url='{2}'>".format(self.name, self.id, self.url)
+
+    @classmethod
+    def from_data(cls, data: dict):
+        if ("license" in data.keys()):
+            # https://developer.github.com/v3/licenses/#get-the-contents-of-a-repositorys-license
+
+            key = data["license"]["key"]
+            id = data["license"]["id"]
+            name = data["license"]["name"]
+            url = data["license"]["url"]
+
+            return cls(key=key, id=id, name=name, url=url)
+        else:
+            # https://developer.github.com/v3/licenses/#list-commonly-used-licenses
+
+            licenses = list()
+            for (license) in data:
+                key = data["key"]
+                id = data["id"]
+                name = data["name"]
+                url = data["url"]
+
+                license = cls(key=key, id=id, name=name, url=url)
+                licenses.append(license)
+
+            return licenses
