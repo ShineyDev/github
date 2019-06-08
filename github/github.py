@@ -121,7 +121,7 @@ class GitHub():
     def preview(self, value: bool):
         self._requester._preview = value
 
-    async def fetch_licence(self, key: str):
+    async def fetch_license(self, key: str):
         # https://developer.github.com/v3/licenses/#get-an-individual-license
 
         method = "GET"
