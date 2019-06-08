@@ -17,6 +17,8 @@
 """
 
 from . import (
+    cache,
+    license,
     ratelimit,
     request,
 )
@@ -25,7 +27,7 @@ from . import (
 _DEFAULT_BASE_URL = "https://api.github.com"
 _DEFAULT_STATUS_URL = "https://status.github.com"
 _DEFAULT_TIMEOUT = 15
-_DEFAULT_PER_PAGE = 30
+_DEFAULT_USER_AGENT = "ShineyDev/github"
 
 
 class GitHub():
@@ -46,9 +48,7 @@ class GitHub():
         base_url = base_url or _DEFAULT_BASE_URL
         status_url = status_url or _DEFAULT_STATUS_URL
         timeout = timeout or _DEFAULT_TIMEOUT
-
-        if (not user_agent):
-            user_agent = "ShineyDev/github"
+        user_agent = user_agent or _DEFAULT_USER_AGENT
 
         self._cache = cache.Cache()
 
@@ -121,10 +121,22 @@ class GitHub():
     def preview(self, value: bool):
         self._requester._preview = value
 
+    async def fetch_licence(self, key: str):
+        # https://developer.github.com/v3/licenses/#get-an-individual-license
+
+        method = "GET"
+        url = "/licenses/{0}".format(key)
+
+        data = await self._requester.request(method, url)
+        return license.License.from_data(data)
+
     async def fetch_rate_limit(self):
         # https://developer.github.com/v3/rate_limit/#get-your-current-rate-limit-status
 
-        data = await self._requester.request("GET", "/rate_limit")
+        method = "GET"
+        url = "/rate_limit"
+
+        data = await self._requester.request(method, url)
         return ratelimit.RateLimit.from_data(data)
     
     def get_rate_limit(self):
