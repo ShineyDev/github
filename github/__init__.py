@@ -19,5 +19,6 @@
 from . import *
 from .cache import *
 from .github import *
+from .license import *
 from .ratelimit import *
 from .request import *
