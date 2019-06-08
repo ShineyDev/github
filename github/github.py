@@ -130,6 +130,15 @@ class GitHub():
         data = await self._requester.request(method, url)
         return license.License.from_data(data)
 
+    async def fetch_licenses(self):
+        # https://developer.github.com/v3/licenses/#list-commonly-used-licenses
+
+        method = "GET"
+        url = "/licenses"
+
+        data = await self._requester.request(method, url)
+        return license.PartialLicense.from_data(data)
+
     async def fetch_rate_limit(self):
         # https://developer.github.com/v3/rate_limit/#get-your-current-rate-limit-status
 
