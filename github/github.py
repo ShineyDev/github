@@ -137,7 +137,13 @@ class GitHub():
         url = "/licenses"
 
         data = await self._requester.request(method, url)
-        return license.PartialLicense.from_data(data)
+        licenses = license.PartialLicense.from_data(data)
+
+        self._cache.licenses = licenses
+        return licenses
+
+    def get_licenses(self):
+        return self._cache.licenses
 
     async def fetch_rate_limit(self):
         # https://developer.github.com/v3/rate_limit/#get-your-current-rate-limit-status
@@ -147,6 +153,3 @@ class GitHub():
 
         data = await self._requester.request(method, url)
         return ratelimit.RateLimit.from_data(data)
-    
-    def get_rate_limit(self):
-        return self._cache.rate_limit
