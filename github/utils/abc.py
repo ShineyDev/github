@@ -16,27 +16,32 @@
     limitations under the License.
 """
 
-import datetime
-
 from . import (
     utils,
 )
 
 
-class RateLimitABC():
-    def __init__(self, *, limit: int, remaining: int, reset: datetime.datetime):
-        self.limit = limit
-        self.remaining = remaining
-        self.reset = reset
+class DataStore():
+    def __init__(self, **data):
+        self._data = data
+        for (key, value) in self._data.items():
+            setattr(self, key, value)
 
+class RateLimit(DataStore):
     def __repr__(self):
         return "<{0} limit={1} remaining={2} reset={3}>".format(
             self.__class__.__name__, self.limit, self.remaining, self.reset.timestamp())
     
     @classmethod
     def from_data(cls, data: dict):
-        limit = data["limit"]
-        remaining = data["remaining"]
-        reset = utils.snowflake_time(data["reset"])
+        if (data is None):
+            return None
 
-        return cls(limit=limit, remaining=remaining, reset=reset)
+        data_ = {
+            "_data"    : data,
+            "limit"    : data.get("limit"),
+            "remaining": data.get("remaining"),
+            "reset"    : utils.snowflake_to_datetime(data.get("limit")),
+        }
+
+        return cls(**data_)
