@@ -32,7 +32,7 @@ from .utils import (
 
 class Repository(abc.DataStore):
     def __repr__(self):
-        return "<Repository full_name='{0}' url='{1}'>".format(self.full_name, self.url)
+        return "<{0} full_name='{1}' url='{2}'>".format(self.__class__.__name__, self.full_name, self.url)
 
     @classmethod
     def from_data(cls, data: dict):
@@ -68,7 +68,7 @@ class Repository(abc.DataStore):
             "license"           : license.PartialLicense.from_data(data.get("license")),
             "organization"      : organization.Organization.from_data(data.get("organization")),
             "owner"             : user.User.from_data(data.get("owner")),
-            "parent"            : Repository.from_data(data.get("parent")),
+            "parent"            : PartialRepository.from_data(data.get("parent")),
             "permissions"       : permissions.RepositoryPermissions.from_data(data.get("permissions")),
             "pushed_at"         : utils.iso_to_datetime(data.get("pushed_at")),
             "name"              : data.get("name"),
@@ -76,7 +76,7 @@ class Repository(abc.DataStore):
             "node_id"           : data.get("node_id"),
             "open_issues_count" : data.get("open_issues_count"),
             "size"              : data.get("size"),
-            "source"            : Repository.from_data(data.get("source")),
+            "source"            : PartialRepository.from_data(data.get("source")),
             "star_count"        : data.get("stargazers_count"),
             "subscriber_count"  : data.get("subscribers_count"),
             "topics"            : data.get("topics"),
