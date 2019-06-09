@@ -17,6 +17,9 @@
 """
 
 class Cache():
+    license_cache = list()
+    repository_cache = list()
+
     def __getattribute__(self, name):
         try:
             return super().__getattribute__(name)
