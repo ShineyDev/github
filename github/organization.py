@@ -1,5 +1,5 @@
 """
-/utils/utils.py
+/organization.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -16,11 +16,23 @@
     limitations under the License.
 """
 
-import datetime
+from .utils import (
+    abc,
+)
 
 
-def iso_to_datetime(iso: str) -> datetime.datetime:
-    ...
+class Organization(abc.DataStore):
+    def __repr__(self):
+        return "<Organization >".format()
 
-def snowflake_to_datetime(timestamp: int) -> datetime.datetime:
-    return datetime.datetime.utcfromtimestamp(timestamp)
+    @classmethod
+    def from_data(self, data: dict):
+        if (data is None):
+            return None
+
+        data_ = {
+            "_data": data,
+            
+        }
+
+        return cls(**data_)

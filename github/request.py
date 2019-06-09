@@ -26,9 +26,8 @@ from .utils import (
 
 
 class Requester():
-    def __init__(self, *, token: str, username: str, password: str,
-                 base_url: str, status_url: str, timeout: int, client_id: str,
-                 client_secret: str, user_agent: str, preview: bool):
+    def __init__(self, *, token, username, password, base_url, status_url,
+                 timeout, client_id, client_secret, user_agent, preview):
 
         self._token = token
         self._username = username
@@ -98,7 +97,7 @@ class Requester():
     def preview(self, value: bool):
         self._preview = value
 
-    def _get_authorization(self):
+    def _get_authorization(self) -> str:
         if (self._token):
             return "token {0}".format(self._token)
         elif (self._username and self._password):
@@ -119,7 +118,7 @@ class Requester():
         async with context.SessionContext(session) as session:
             return await self._actual_request(method, url, json=json, headers=headers_, session=session)
 
-    async def _actual_request(self, method: str, url: str, *, json: dict, headers: dict, session: aiohttp.ClientSession):
+    async def _actual_request(self, method, url, *, json, headers, session):
         async with session.request(method, url, json=json, headers=headers) as response:
             if (response.status not in range(200, 300)):
                 try:

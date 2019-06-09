@@ -18,56 +18,45 @@
 
 import typing
 
+from .utils import (
+    abc,
+)
 
-class License():
-    def __init__(self, *, key: str, id: str, name: str, url: str, body: str,
-                 description: str, implementation: str, permissions: list,
-                 conditions: list, limitations: list):
-        
-        self.key = key
-        self.id = id
-        self.name = name
-        self.url = url
-        self.body = body
-        self.description = description
-        self.implementation = implementation
-        self.permissions = permissions
-        self.conditions = conditions
-        self.limitations = limitations
 
+class License(abc.DataStore):
     def __repr__(self):
-        return "<{0} name='{1}' id='{2}' url='{3}'>".format(
+        return "<{0} id='{1}' name='{2}' url='{3}'>".format(
             self.__class__.__name__, self.name, self.id, self.url)
 
     @classmethod
     def from_data(cls, data: dict):
+        if (data is None):
+            return None
+
         # https://developer.github.com/v3/licenses/#get-an-individual-license
 
-        key = data["key"]
-        id = data["spdx_id"]
-        name = data["name"]
-        url = data["html_url"]
-        body = data["body"]
-        description = data["description"]
-        implementation = data["implementation"]
-        permissions = data["permissions"]
-        conditions = data["conditions"]
-        limitations = data["limitations"]
+        data_ = {
+            "_data"         : data,
+            "body"          : data.get("body"),
+            "conditions"    : data.get("conditions"),
+            "description"   : data.get("description"),
+            "id"            : data.get("spdx_id"),
+            "implementation": data.get("implementation"),
+            "key"           : data.get("key"),
+            "limitations"   : data.get("limitations"),
+            "name"          : data.get("name"),
+            "permissions"   : data.get("permissions"),
+            "url"           : data.get("url"),
+        }
 
-        return cls(key=key, id=id, name=name, url=url, body=body,
-                   description=description, implementation=implementation,
-                   permissions=permissions, conditions=conditions,
-                   limitations=limitations)
+        return cls(**data_)
 
 class PartialLicense(License):
-    def __init__(self, key: str, id: str, name: str, url: str):
-        self.key = key
-        self.id = id
-        self.name = name
-        self.url = url
-
     @classmethod
     def from_data(cls, data: typing.Union[list, dict]):
+        if (data is None):
+            return None
+
         if (isinstance(data, dict)):
             # https://developer.github.com/v3/licenses/#get-the-contents-of-a-repositorys-license
             # https://developer.github.com/v3/repos/#get
@@ -77,23 +66,32 @@ class PartialLicense(License):
             # https://developer.github.com/v3/activity/watching/#list-repositories-being-watched
             # https://developer.github.com/v3/teams/#list-team-repos
 
-            key = data["license"]["key"]
-            id = data["license"]["spdx_id"]
-            name = data["license"]["name"]
-            url = data["license"]["url"]
+            data = data.get("license")
 
-            return cls(key=key, id=id, name=name, url=url)
+            data_ = {
+                "_data": data,
+                "id"   : data.get("spdx_id"),
+                "key"  : data.get("key"),
+                "name" : data.get("name"),
+                "url"  : data.get("url"),
+            }
+
+            return cls(**data_)
         else:
             # https://developer.github.com/v3/licenses/#list-commonly-used-licenses
 
             licenses = list()
-            for (license) in data:
-                key = license["key"]
-                id = license["spdx_id"]
-                name = license["name"]
-                url = license["url"]
 
-                license = cls(key=key, id=id, name=name, url=url)
+            for (license) in data:
+                data_ = {
+                    "_data": data,
+                    "id"   : data.get("spdx_id"),
+                    "key"  : data.get("key"),
+                    "name" : data.get("name"),
+                    "url"  : data.get("url"),
+                }
+
+                license = cls(**data_)
                 licenses.append(license)
 
             return licenses

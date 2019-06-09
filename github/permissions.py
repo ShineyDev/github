@@ -1,5 +1,5 @@
 """
-/utils/utils.py
+/permissions.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -16,11 +16,25 @@
     limitations under the License.
 """
 
-import datetime
+from .utils import (
+    abc,
+)
 
 
-def iso_to_datetime(iso: str) -> datetime.datetime:
-    ...
+class RepositoryPermissions(abc.DataStore):
+    def __repr__(self):
+        return "<RepositoryPermissions admin={0} pull={1} push={2}>".format(self.admin, self.pull, self.push)
 
-def snowflake_to_datetime(timestamp: int) -> datetime.datetime:
-    return datetime.datetime.utcfromtimestamp(timestamp)
+    @classmethod
+    def from_data(cls, data: dict):
+        if (data is None):
+            return None
+
+        data_ = {
+            "_data": data,
+            "admin": data.get("admin"),
+            "pull" : data.get("pull"),
+            "push" : data.get("push"),
+        }
+
+        return cls(**data_)

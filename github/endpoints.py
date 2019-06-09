@@ -1,5 +1,5 @@
 """
-/utils/utils.py
+/endpoints.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -16,11 +16,12 @@
     limitations under the License.
 """
 
-import datetime
+from .utils import (
+    abc
+)
 
 
-def iso_to_datetime(iso: str) -> datetime.datetime:
-    ...
-
-def snowflake_to_datetime(timestamp: int) -> datetime.datetime:
-    return datetime.datetime.utcfromtimestamp(timestamp)
+class Endpoints(abc.DataStore):
+    @classmethod
+    def from_data(cls, data: dict):
+        return cls(**data)

@@ -20,6 +20,7 @@ from . import (
     cache,
     license,
     ratelimit,
+    repository,
     request,
 )
 
@@ -153,3 +154,12 @@ class GitHub():
 
         data = await self._requester.request(method, url)
         return ratelimit.RateLimit.from_data(data)
+
+    async def fetch_repository(self, owner: str, repo: str):
+        # https://developer.github.com/v3/repos/#get
+
+        method = "GET"
+        url = "/repos/{0}/{1}".format(owner, repo)
+
+        data = await self._requester.request(method, url)
+        return repository.Repository.from_data(data)

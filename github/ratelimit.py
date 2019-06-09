@@ -21,37 +21,38 @@ from .utils import (
 )
 
 
-class CoreRateLimit(abc.RateLimitABC):
+class CoreRateLimit(abc.RateLimit):
     pass
 
-class SearchRateLimit(abc.RateLimitABC):
+class SearchRateLimit(abc.RateLimit):
     pass
 
-class GraphQLRateLimit(abc.RateLimitABC):
+class GraphQLRateLimit(abc.RateLimit):
     pass
 
-class IntegrationManifestRateLimit(abc.RateLimitABC):
+class IntegrationManifestRateLimit(abc.RateLimit):
     pass
 
-class RateLimit():
-    def __init__(self, *, core, search, graphql, integration_manifest):
-        self.core = core
-        self.search = search
-        self.graphql = graphql
-        self.integration_manifest = integration_manifest
-
+class RateLimit(abc.DataStore):
     def __repr__(self):
         return "<RateLimit core={0} search={1} graphql={2} integration_manifest={3}>".format(
             self.core.remaining, self.search.remaining, self.graphql.remaining, self.integration_manifest.remaining)
 
     @classmethod
     def from_data(cls, data: dict):
+        if (data is None):
+            return None
+
         # https://developer.github.com/v3/rate_limit/#get-your-current-rate-limit-status
 
-        core = CoreRateLimit.from_data(data["resources"]["core"])
-        search = SearchRateLimit.from_data(data["resources"]["search"])
-        graphql = GraphQLRateLimit.from_data(data["resources"]["graphql"])
-        integration_manifest = IntegrationManifestRateLimit.from_data(data["resources"]["integration_manifest"])
+        data = data.get("resources")
 
-        return cls(core=core, search=search, graphql=graphql,
-                   integration_manifest=integration_manifest)
+        data_ = {
+            "_data"               : data,
+            "core"                : CoreRateLimit.from_data(data.get("core")),
+            "graphql"             : SearchRateLimit.from_data(data.get("search")),
+            "integration_manifest": GraphQLRateLimit.from_data(data.get("graphql")),
+            "search"              : IntegrationManifestRateLimit.from_data(data.get("integration_manifest")),
+        }
+
+        return cls(**data_)

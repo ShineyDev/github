@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0f71b064-bad6-4be5-8857-8a2d713fff56</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>__init__.py</StartupFile>
+    <StartupFile>license.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -25,16 +25,31 @@
     <Compile Include="cache.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="endpoints.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="github.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="license.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="organization.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="permissions.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ratelimit.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="repository.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="request.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="user.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="utils\abc.py">

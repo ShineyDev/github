@@ -18,7 +18,12 @@
 
 from . import *
 from .cache import *
+from .endpoints import *
 from .github import *
 from .license import *
+from .organization import *
+from .permissions import *
 from .ratelimit import *
+from .repository import *
 from .request import *
+from .user import *
