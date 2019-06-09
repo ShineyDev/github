@@ -17,7 +17,17 @@
 """
 
 import datetime
+import typing
 
+
+def get(iterable: typing.Iterable, **attributes):
+    for (i) in iterable:
+        for (k, v) in attributes.items():
+            try:
+                if (getattr(i, k) == v):
+                    return i
+            except (AttributeError) as e:
+                pass
 
 def iso_to_datetime(iso: str) -> datetime.datetime:
     ...
