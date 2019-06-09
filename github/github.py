@@ -24,6 +24,10 @@ from . import (
     request,
 )
 
+from .utils import (
+    utils,
+)
+
 
 _DEFAULT_BASE_URL = "https://api.github.com"
 _DEFAULT_STATUS_URL = "https://status.github.com"
@@ -122,44 +126,70 @@ class GitHub():
     def preview(self, value: bool):
         self._requester._preview = value
 
-    async def fetch_license(self, key: str):
+    async def fetch_license(self, key: str, *, cache: bool=True):
         # https://developer.github.com/v3/licenses/#get-an-individual-license
 
         method = "GET"
         url = "/licenses/{0}".format(key)
 
         data = await self._requester.request(method, url)
-        return license.License.from_data(data)
+        result = license.License.from_data(data)
 
-    async def fetch_licenses(self):
+        if (cache):
+            self._cache.license_cache.append(result)
+
+        return result
+
+    def get_license(self, key: str):
+        return utils.get(self._cache.license_cache, key=key)
+
+    async def fetch_licenses(self, *, cache: bool=True):
         # https://developer.github.com/v3/licenses/#list-commonly-used-licenses
 
         method = "GET"
         url = "/licenses"
 
         data = await self._requester.request(method, url)
-        licenses = license.PartialLicense.from_data(data)
+        result = license.PartialLicense.from_data(data)
 
-        self._cache.licenses = licenses
-        return licenses
+        if (cache):
+            self._cache.licenses = result
+
+        return result
 
     def get_licenses(self):
         return self._cache.licenses
 
-    async def fetch_rate_limit(self):
+    async def fetch_rate_limit(self, *, cache: bool=True):
         # https://developer.github.com/v3/rate_limit/#get-your-current-rate-limit-status
 
         method = "GET"
         url = "/rate_limit"
 
         data = await self._requester.request(method, url)
-        return ratelimit.RateLimit.from_data(data)
+        result = ratelimit.RateLimit.from_data(data)
 
-    async def fetch_repository(self, owner: str, repo: str):
+        if (cache):
+            ...
+
+        return result
+
+    def get_rate_limit(self):
+        raise NotImplemented()
+
+    async def fetch_repository(self, owner: str, name: str, *, cache: bool=True):
         # https://developer.github.com/v3/repos/#get
 
         method = "GET"
-        url = "/repos/{0}/{1}".format(owner, repo)
+        url = "/repos/{0}/{1}".format(owner, name)
 
         data = await self._requester.request(method, url)
-        return repository.Repository.from_data(data)
+        result = repository.Repository.from_data(data)
+
+        if (cache):
+            self._cache.repository_cache.append(result)
+
+        return result
+
+    def get_repository(self, owner: str, name: str):
+        return utils.get(self._cache.repository_cache, owner=owner, name=name)
