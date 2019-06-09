@@ -40,7 +40,7 @@ class Repository(abc.DataStore):
             return None
 
         endpoints_ = {
-            k: v for (k, v) in data.keys() if k.endswith("_url")
+            k: v for (k, v) in data.items() if k.endswith("_url")
         }
 
         data_ = {
@@ -68,7 +68,7 @@ class Repository(abc.DataStore):
             "license"           : license.PartialLicense.from_data(data.get("license")),
             "organization"      : organization.Organization.from_data(data.get("organization")),
             "owner"             : user.User.from_data(data.get("owner")),
-            "parent"            : PartialRepository.from_data(data.get("parent")),
+            "parent"            : Repository.from_data(data.get("parent")),
             "permissions"       : permissions.RepositoryPermissions.from_data(data.get("permissions")),
             "pushed_at"         : utils.iso_to_datetime(data.get("pushed_at")),
             "name"              : data.get("name"),
@@ -76,10 +76,10 @@ class Repository(abc.DataStore):
             "node_id"           : data.get("node_id"),
             "open_issues_count" : data.get("open_issues_count"),
             "size"              : data.get("size"),
-            "source"            : PartialRepository.from_data(data.get("source")),
+            "source"            : Repository.from_data(data.get("source")),
             "star_count"        : data.get("stargazers_count"),
             "subscriber_count"  : data.get("subscribers_count"),
-            "topics"            : data.get("topics"),
+            "topics"            : data.get("topics", list()),
             "updated_at"        : utils.iso_to_datetime(data.get("updated_at")),
             "url"               : data.get("html_url"),
             "watcher_count"     : data.get("watchers_count"),
