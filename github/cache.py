@@ -16,9 +16,25 @@
     limitations under the License.
 """
 
+class _Cache():
+    def __init__(self):
+        self._cache = list()
+
+    def __iter__(self):
+        for (i) in self._cache:
+            yield i
+
+    def append(self, object):
+        if (object not in self._cache):
+            self._cache.append(object)
+
+        for (i, item) in enumerate(self._cache):
+            if (item == object):
+                self._cache[i] = object
+
 class Cache():
-    license_cache = list()
-    repository_cache = list()
+    license_cache = _Cache()
+    repository_cache = _Cache()
 
     def __getattribute__(self, name):
         try:
