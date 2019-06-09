@@ -75,7 +75,11 @@ class PartialLicense(License):
             # https://developer.github.com/v3/activity/watching/#list-repositories-being-watched
             # https://developer.github.com/v3/teams/#list-team-repos
 
-            data = data.get("license")
+            if ("license" in data.keys()):
+                data = data.get("license")
+
+                if (data is None):
+                    return None
 
             data_ = {
                 "_data": data,
