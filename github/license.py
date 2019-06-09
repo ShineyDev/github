@@ -24,6 +24,15 @@ from .utils import (
 
 
 class License(abc.DataStore):
+    def __eq__(self, other):
+        if (type(self) != type(other)):
+            return False
+
+        if (self.id != other.id):
+            return False
+
+        return True
+
     def __repr__(self):
         return "<{0} id='{1}' name='{2}' url='{3}'>".format(
             self.__class__.__name__, self.name, self.id, self.url)

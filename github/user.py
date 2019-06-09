@@ -22,6 +22,9 @@ from .utils import (
 
 
 class User(abc.DataStore):
+    def __eq__(self, other):
+        ...
+
     def __repr__(self):
         return "<User >".format()
 

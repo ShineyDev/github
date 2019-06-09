@@ -22,6 +22,9 @@ from .utils import (
 
 
 class Organization(abc.DataStore):
+    def __eq__(self, other):
+        ...
+
     def __repr__(self):
         return "<{0} >".format(self.__class__.__name__)
 

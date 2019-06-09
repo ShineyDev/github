@@ -31,6 +31,15 @@ from .utils import (
 
 
 class Repository(abc.DataStore):
+    def __eq__(self, other):
+        if (type(self) != type(other)):
+            return False
+
+        if (self.id != other.id):
+            return False
+
+        return True
+
     def __repr__(self):
         return "<{0} full_name='{1}' url='{2}'>".format(self.__class__.__name__, self.full_name, self.url)
 
