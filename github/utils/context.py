@@ -20,7 +20,7 @@ import aiohttp
 
 
 class SessionContext():
-    def __init__(self, session: aiohttp.ClientSession):
+    def __init__(self, session):
         self.session = session
         self.callable = True if callable(session) else False
 
