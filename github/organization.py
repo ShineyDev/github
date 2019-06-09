@@ -23,7 +23,7 @@ from .utils import (
 
 class Organization(abc.DataStore):
     def __repr__(self):
-        return "<Organization >".format()
+        return "<{0} >".format(self.__class__.__name__)
 
     @classmethod
     def from_data(self, data: dict):
