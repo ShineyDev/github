@@ -35,8 +35,8 @@ class IntegrationManifestRateLimit(abc.RateLimit):
 
 class RateLimit(abc.DataStore):
     def __repr__(self):
-        return "<RateLimit core={0} search={1} graphql={2} integration_manifest={3}>".format(
-            self.core.remaining, self.search.remaining, self.graphql.remaining, self.integration_manifest.remaining)
+        return "<{0} core={1} search={2} graphql={3} integration_manifest={4}>".format(
+            self.__class__.__name__, self.core.remaining, self.search.remaining, self.graphql.remaining, self.integration_manifest.remaining)
 
     @classmethod
     def from_data(cls, data: dict):
