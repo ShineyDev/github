@@ -23,7 +23,7 @@ from .utils import (
 
 class RepositoryPermissions(abc.DataStore):
     def __repr__(self):
-        return "<{0} admin={0} pull={1} push={2}>".format(self.__class__.__name__, self.admin, self.pull, self.push)
+        return "<{0} admin={1} pull={2} push={3}>".format(self.__class__.__name__, self.admin, self.pull, self.push)
 
     @classmethod
     def from_data(cls, data: dict):
