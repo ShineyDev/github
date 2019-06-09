@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0f71b064-bad6-4be5-8857-8a2d713fff56</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>license.py</StartupFile>
+    <StartupFile>__init__.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
