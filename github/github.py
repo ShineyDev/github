@@ -184,7 +184,7 @@ class GitHub():
         url = "/repos/{0}/{1}".format(owner, name)
 
         data = await self._requester.request(method, url)
-        result = repository.Repository.from_data(data)
+        result = repository.Repository.from_data(data, requester=self._requester)
 
         if (cache):
             self._cache.repository_cache.append(result)

@@ -21,6 +21,7 @@ from . import (
     license,
     organization,
     permissions,
+    request,
     user,
 )
 
@@ -44,7 +45,7 @@ class Repository(abc.DataStore):
         return "<{0} full_name='{1}' url='{2}'>".format(self.__class__.__name__, self.full_name, self.url)
 
     @classmethod
-    def from_data(cls, data: dict):
+    def from_data(cls, data: dict, *, requester: request.Requester):
         if (data is None):
             return None
 
@@ -55,6 +56,7 @@ class Repository(abc.DataStore):
         data_ = {
             "_data"             : data,
             "_endpoints"        : endpoints.Endpoints.from_data(endpoints_),
+            "_requester"        : requester,
             "allow_merge_commit": data.get("allow_merge_commit"),
             "allow_rebase_merge": data.get("allow_rebase_merge"),
             "allow_squash_merge": data.get("allow_squash_merge"),
