@@ -17,6 +17,7 @@
 """
 
 from . import *
+
 from .cache import *
 from .endpoints import *
 from .github import *
@@ -27,3 +28,5 @@ from .ratelimit import *
 from .repository import *
 from .request import *
 from .user import *
+
+from .utils.errors import *
