@@ -83,15 +83,15 @@ class Repository(abc.DataStore):
             "is_private"        : data.get("private"),
             "language"          : data.get("language"),
             "license"           : license.PartialLicense.from_data(data.get("license")),
+            "name"              : data.get("name"),
+            "network_count"     : data.get("network_count"),
+            "node_id"           : data.get("node_id"),
+            "open_issues_count" : data.get("open_issues_count"),
             "organization"      : organization.Organization.from_data(data.get("organization")),
             "owner"             : user.User.from_data(data.get("owner")),
             "parent"            : Repository.from_data(data.get("parent"), requester=requester),
             "permissions"       : permissions.RepositoryPermissions.from_data(data.get("permissions")),
             "pushed_at"         : utils.iso_to_datetime(data.get("pushed_at")),
-            "name"              : data.get("name"),
-            "network_count"     : data.get("network_count"),
-            "node_id"           : data.get("node_id"),
-            "open_issues_count" : data.get("open_issues_count"),
             "size"              : data.get("size"),
             "source"            : Repository.from_data(data.get("source"), requester=requester),
             "star_count"        : data.get("stargazers_count"),
@@ -111,7 +111,7 @@ class Repository(abc.DataStore):
         url = "/repos/{0}/{1}/license".format(self._data["owner"]["login"], self.name)
 
         data = await self._requester.request(method, url)
-        result = license.License.from_data(data)
+        result = license.PartialLicense.from_data(data)
 
         if (cache):
             self._cache.license = result
