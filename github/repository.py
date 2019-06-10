@@ -17,6 +17,7 @@
 """
 
 from . import (
+    cache,
     endpoints,
     license,
     organization,
@@ -32,6 +33,11 @@ from .utils import (
 
 
 class Repository(abc.DataStore):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self._cache = cache.Cache()
+
     def __eq__(self, other):
         if (type(self) != type(other)):
             return False
@@ -79,7 +85,7 @@ class Repository(abc.DataStore):
             "license"           : license.PartialLicense.from_data(data.get("license")),
             "organization"      : organization.Organization.from_data(data.get("organization")),
             "owner"             : user.User.from_data(data.get("owner")),
-            "parent"            : Repository.from_data(data.get("parent")),
+            "parent"            : Repository.from_data(data.get("parent"), requester=requester),
             "permissions"       : permissions.RepositoryPermissions.from_data(data.get("permissions")),
             "pushed_at"         : utils.iso_to_datetime(data.get("pushed_at")),
             "name"              : data.get("name"),
@@ -87,7 +93,7 @@ class Repository(abc.DataStore):
             "node_id"           : data.get("node_id"),
             "open_issues_count" : data.get("open_issues_count"),
             "size"              : data.get("size"),
-            "source"            : Repository.from_data(data.get("source")),
+            "source"            : Repository.from_data(data.get("source"), requester=requester),
             "star_count"        : data.get("stargazers_count"),
             "subscriber_count"  : data.get("subscribers_count"),
             "topics"            : data.get("topics", list()),
@@ -97,3 +103,21 @@ class Repository(abc.DataStore):
         }
 
         return cls(**data_)
+
+    async def fetch_license(self, cache: bool=True):
+        # https://developer.github.com/v3/licenses/#get-the-contents-of-a-repositorys-license
+
+        method = "GET"
+        url = "/repos/{0}/{1}/license".format(self._data["owner"]["login"], self.name)
+
+        data = await self._requester.request(method, url)
+        result = license.License.from_data(data)
+
+        if (cache):
+            self._cache.license = result
+            self.license = result
+
+        return result
+
+    def get_license(self):
+        return self._cache.license or self.license
