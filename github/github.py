@@ -58,6 +58,7 @@ class GitHub():
         self._cache = cache.Cache()
 
         self._requester = request.Requester(
+            main=self,
             token=self.token,
             username=self.username,
             password=self.password,
