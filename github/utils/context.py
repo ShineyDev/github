@@ -38,4 +38,5 @@ class SessionContext():
         if (self._callable):
             await self.session.close()
 
-        raise errors.GitHubError(str(exc_value)) from exc_value
+        if (exc_value is not None):
+            raise errors.GitHubError(str(exc_value)) from exc_value
