@@ -33,11 +33,6 @@ from .utils import (
 
 
 class Repository(abc.DataStore):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self._cache = cache.Cache()
-
     def __eq__(self, other):
         if (type(self) != type(other)):
             return False
@@ -60,6 +55,7 @@ class Repository(abc.DataStore):
         }
 
         data_ = {
+            "_cache"            : cache.Cache(),
             "_data"             : data,
             "_endpoints"        : endpoints.Endpoints.from_data(endpoints_),
             "_requester"        : requester,
