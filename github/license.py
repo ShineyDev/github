@@ -35,7 +35,7 @@ class License(abc.DataStore):
 
     def __repr__(self):
         return "<{0} id='{1}' name='{2}' url='{3}'>".format(
-            self.__class__.__name__, self.name, self.id, self.url)
+            self.__class__.__name__, self.id, self.name, self.url)
 
     @classmethod
     def from_data(cls, data: dict):
