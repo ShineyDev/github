@@ -29,17 +29,13 @@ from .utils import (
 )
 
 
-_DEFAULT_BASE_URL = "https://api.github.com"
-_DEFAULT_STATUS_URL = "https://status.github.com"
-_DEFAULT_TIMEOUT = 15
+_DEFAULT_BASE_URL = "https://api.github.com/"
 _DEFAULT_USER_AGENT = "ShineyDev/github"
 
 
 class GitHub():
     def __init__(self, token_or_username: str=None, password: str=None,
-                 *, base_url: str=None, status_url: str=None,
-                 timeout: int=None, client_id: str=None,
-                 client_secret: str=None, user_agent: str=None,
+                 *, base_url: str=None, user_agent: str=None,
                  preview: bool=False):
         if (not password):
             self.token = token_or_username
@@ -51,8 +47,6 @@ class GitHub():
             self.password = password
 
         base_url = base_url or _DEFAULT_BASE_URL
-        status_url = status_url or _DEFAULT_STATUS_URL
-        timeout = timeout or _DEFAULT_TIMEOUT
         user_agent = user_agent or _DEFAULT_USER_AGENT
 
         self._cache = cache.Cache()
@@ -63,10 +57,6 @@ class GitHub():
             username=self.username,
             password=self.password,
             base_url=base_url,
-            status_url=status_url,
-            timeout=timeout,
-            client_id=client_id,
-            client_secret=client_secret,
             user_agent=user_agent,
             preview=preview,
         )

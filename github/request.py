@@ -27,8 +27,7 @@ from .utils import (
 
 class Requester():
     def __init__(self, *, main, token, username, password, base_url,
-                 status_url, timeout, client_id, client_secret, user_agent,
-                 preview):
+                 user_agent, preview):
 
         self._main = main
 
@@ -37,10 +36,6 @@ class Requester():
         self._password = password
 
         self._base_url = base_url.rstrip("/")
-        self._status_url = status_url
-        self._timeout = timeout
-        self._client_id = client_id
-        self._client_secret = client_secret
         self._user_agent = user_agent
         self._preview = preview
 
