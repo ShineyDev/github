@@ -18,18 +18,24 @@
 
 import aiohttp
 
+from . import (
+    errors,
+)
+
 
 class SessionContext():
     def __init__(self, session):
         self.session = session
-        self.callable = True if callable(session) else False
+        self._callable = True if callable(session) else False
 
     async def __aenter__(self):
-        if (self.callable):
+        if (self._callable):
             self.session = self.session()
 
         return self.session
 
-    async def __aexit__(self, *args):
-        if (self.callable):
+    async def __aexit__(self, exc_type, exc_value, traceback):
+        if (self._callable):
             await self.session.close()
+
+        raise errors.GitHubError(str(exc_value)) from exc_value

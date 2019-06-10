@@ -120,7 +120,7 @@ class Requester():
 
         async with context.SessionContext(session) as session:
             return await self._request(method, url, json=json, headers=headers_, session=session)
-
+        
     async def _request(self, method, url, *, json, headers, session):
         async with session.request(method, url, json=json, headers=headers) as response:
             if (response.status not in range(200, 300)):
