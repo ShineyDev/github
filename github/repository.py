@@ -53,7 +53,7 @@ class Repository(abc.DataStore):
         data_ = {
             "_cache"    : cache.Cache(),
             "_data"     : data,
-            "_endpoints": endpoints.Endpoints.from_data(endpoints_),
+            "_endpoints": endpoints.Endpoints.from_data({k: v for (k, v) in data.items() if k.endswith("_url")}),
             "_requester": requester,
         }
 
