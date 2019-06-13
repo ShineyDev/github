@@ -26,7 +26,7 @@ class User(abc.DataStore):
         ...
 
     def __repr__(self):
-        return "<User >".format()
+        return "<{0} >".format(self.__class__.__name__)
 
     @classmethod
     def from_data(cls, data: dict):
