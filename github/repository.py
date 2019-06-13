@@ -50,7 +50,7 @@ class Repository(abc.DataStore):
         if (data is None):
             return None
 
-        data_ = {
+        current = {
             "_cache"    : cache.Cache(),
             "_data"     : data,
             "_endpoints": endpoints.Endpoints.from_data({k: v for (k, v) in data.items() if k.endswith("_url")}),
@@ -85,13 +85,13 @@ class Repository(abc.DataStore):
             "watchers_count"   : "watcher_count",
         }
 
-        return cls._from_data(data, current=data_, converters=converters, defaults=defaults, overwrites=overwrites)
+        return cls._from_data(data, current=current, converters=converters, defaults=defaults, overwrites=overwrites)
 
     async def fetch_license(self, cache: bool=True):
         # https://developer.github.com/v3/licenses/#get-the-contents-of-a-repositorys-license
 
         method = "GET"
-        url = "/repos/{0}/{1}/license".format(self._data["owner"]["login"], self.name)
+        url = "/repos/{0}/{1}/license".format(self.owner.login, self.name)
 
         data = await self._requester.request(method, url)
         result = license.PartialLicense.from_data(data)
