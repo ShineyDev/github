@@ -33,9 +33,4 @@ class User(abc.DataStore):
         if (data is None):
             return None
 
-        data_ = {
-            "_data": data,
-            
-        }
-
-        return cls(**data_)
+        return cls._from_data(data)

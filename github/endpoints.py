@@ -24,4 +24,4 @@ from .utils import (
 class Endpoints(abc.DataStore):
     @classmethod
     def from_data(cls, data: dict):
-        return cls(**data)
+        return cls._from_data(data)

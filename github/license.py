@@ -44,21 +44,7 @@ class License(abc.DataStore):
 
         # https://developer.github.com/v3/licenses/#get-an-individual-license
 
-        data_ = {
-            "_data"         : data,
-            "body"          : data.get("body"),
-            "conditions"    : data.get("conditions"),
-            "description"   : data.get("description"),
-            "id"            : data.get("spdx_id"),
-            "implementation": data.get("implementation"),
-            "key"           : data.get("key"),
-            "limitations"   : data.get("limitations"),
-            "name"          : data.get("name"),
-            "permissions"   : data.get("permissions"),
-            "url"           : data.get("url"),
-        }
-
-        return cls(**data_)
+        return cls._from_data(data)
 
 class PartialLicense(License):
     @classmethod
@@ -81,30 +67,14 @@ class PartialLicense(License):
                 if (data is None):
                     return None
 
-            data_ = {
-                "_data": data,
-                "id"   : data.get("spdx_id"),
-                "key"  : data.get("key"),
-                "name" : data.get("name"),
-                "url"  : data.get("url"),
-            }
-
-            return cls(**data_)
+            return cls._from_data(data)
         else:
             # https://developer.github.com/v3/licenses/#list-commonly-used-licenses
 
             licenses = list()
 
             for (license) in data:
-                data_ = {
-                    "_data": data,
-                    "id"   : data.get("spdx_id"),
-                    "key"  : data.get("key"),
-                    "name" : data.get("name"),
-                    "url"  : data.get("url"),
-                }
-
-                license = cls(**data_)
+                license = cls._from_data(data)
                 licenses.append(license)
 
             return licenses

@@ -47,12 +47,11 @@ class RateLimit(abc.DataStore):
 
         data = data.get("resources")
 
-        data_ = {
-            "_data"               : data,
-            "core"                : CoreRateLimit.from_data(data.get("core")),
-            "graphql"             : SearchRateLimit.from_data(data.get("search")),
-            "integration_manifest": GraphQLRateLimit.from_data(data.get("graphql")),
-            "search"              : IntegrationManifestRateLimit.from_data(data.get("integration_manifest")),
+        converters = {
+            "core"                : CoreRateLimit.from_data,
+            "graphql"             : SearchRateLimit.from_data,
+            "integration_manifest": GraphQLRateLimit.from_data,
+            "search"              : IntegrationManifestRateLimit.from_data,
         }
 
-        return cls(**data_)
+        return cls._from_data(data, converters=converters)

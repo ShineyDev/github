@@ -30,11 +30,4 @@ class RepositoryPermissions(abc.DataStore):
         if (data is None):
             return None
 
-        data_ = {
-            "_data": data,
-            "admin": data.get("admin"),
-            "pull" : data.get("pull"),
-            "push" : data.get("push"),
-        }
-
-        return cls(**data_)
+        return cls._from_data(data)

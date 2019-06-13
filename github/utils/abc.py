@@ -37,6 +37,8 @@ class DataStore():
         defaults = defaults or dict()
         converters = converters or dict()
 
+        current["_data"] = data
+
         for (key, value) in data.items():
             if (key in converters.keys()):
                 converter = converters[key]
@@ -71,11 +73,8 @@ class RateLimit(DataStore):
         if (data is None):
             return None
 
-        data_ = {
-            "_data"    : data,
-            "limit"    : data.get("limit"),
-            "remaining": data.get("remaining"),
-            "reset"    : utils.snowflake_to_datetime(data.get("limit")),
+        converters = {
+            "reset": utils.snowflake_to_datetime,
         }
 
-        return cls(**data_)
+        return cls._from_data(data, converters=converters)
