@@ -50,55 +50,42 @@ class Repository(abc.DataStore):
         if (data is None):
             return None
 
-        endpoints_ = {
-            k: v for (k, v) in data.items() if k.endswith("_url")
-        }
-
         data_ = {
-            "_cache"            : cache.Cache(),
-            "_data"             : data,
-            "_endpoints"        : endpoints.Endpoints.from_data(endpoints_),
-            "_requester"        : requester,
-            "allow_merge_commit": data.get("allow_merge_commit"),
-            "allow_rebase_merge": data.get("allow_rebase_merge"),
-            "allow_squash_merge": data.get("allow_squash_merge"),
-            "created_at"        : utils.iso_to_datetime(data.get("created_at")),
-            "default_branch"    : data.get("default_branch"),
-            "description"       : data.get("description"),
-            "fork_count"        : data.get("forks_count"),
-            "full_name"         : data.get("full_name"),
-            "has_downloads"     : data.get("has_downloads"),
-            "has_issues"        : data.get("has_issues"),
-            "has_pages"         : data.get("has_pages"),
-            "has_projects"      : data.get("has_projects"),
-            "has_wiki"          : data.get("has_wiki"),
-            "id"                : data.get("id"),
-            "is_archived"       : data.get("archived"),
-            "is_disabled"       : data.get("disabled"),
-            "is_fork"           : data.get("fork"),
-            "is_private"        : data.get("private"),
-            "language"          : data.get("language"),
-            "license"           : license.PartialLicense.from_data(data.get("license")),
-            "name"              : data.get("name"),
-            "network_count"     : data.get("network_count"),
-            "node_id"           : data.get("node_id"),
-            "open_issues_count" : data.get("open_issues_count"),
-            "organization"      : organization.Organization.from_data(data.get("organization")),
-            "owner"             : user.User.from_data(data.get("owner")),
-            "parent"            : Repository.from_data(data.get("parent"), requester=requester),
-            "permissions"       : permissions.RepositoryPermissions.from_data(data.get("permissions")),
-            "pushed_at"         : utils.iso_to_datetime(data.get("pushed_at")),
-            "size"              : data.get("size"),
-            "source"            : Repository.from_data(data.get("source"), requester=requester),
-            "star_count"        : data.get("stargazers_count"),
-            "subscriber_count"  : data.get("subscribers_count"),
-            "topics"            : data.get("topics", list()),
-            "updated_at"        : utils.iso_to_datetime(data.get("updated_at")),
-            "url"               : data.get("html_url"),
-            "watcher_count"     : data.get("watchers_count"),
+            "_cache"    : cache.Cache(),
+            "_data"     : data,
+            "_endpoints": endpoints.Endpoints.from_data(endpoints_),
+            "_requester": requester,
         }
 
-        return cls(**data_)
+        converters = {
+            "created_at"  : utils.iso_to_datetime,
+            "license"     : license.PartialLicense.from_data,
+            "organization": organization.Organization.from_data,
+            "owner"       : user.User.from_data,
+            "parent"      : (Repository.from_data, tuple(), dict(requester=requester)),
+            "permissions" : permissions.RepositoryPermissions.from_data,
+            "pushed_at"   : utils.iso_to_datetime,
+            "source"      : (Repository.from_data, tuple(), dict(requester=requester)),
+            "updated_at"  : utils.iso_to_datetime,
+        }
+
+        defaults = {
+            "topics": list(),
+        }
+
+        overwrites = {
+            "archived"         : "is_archived",
+            "disabled"         : "is_disabled",
+            "fork"             : "is_fork",
+            "forks_count"      : "fork_count",
+            "html_url"         : "url",
+            "private"          : "is_private",
+            "stargazers_count" : "star_count",
+            "subscribers_count": "subscriber_count",
+            "watchers_count"   : "watcher_count",
+        }
+
+        return cls._from_data(data, current=data_, converters=converters, defaults=defaults, overwrites=overwrites)
 
     async def fetch_license(self, cache: bool=True):
         # https://developer.github.com/v3/licenses/#get-the-contents-of-a-repositorys-license

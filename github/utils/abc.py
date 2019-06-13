@@ -27,6 +27,40 @@ class DataStore():
         for (key, value) in self._data.items():
             setattr(self, key, value)
 
+    @classmethod
+    def _from_data(cls, data: dict, *, current: dict=None,
+                      overwrites: dict=None, defaults: dict=None,
+                      converters: dict=None):
+
+        current = current or dict()
+        overwrites = overwrites or dict()
+        defaults = defaults or dict()
+        converters = converters or dict()
+
+        for (key, value) in data.items():
+            if (key in converters.keys()):
+                converter = converters[key]
+                if (isinstance(converter, tuple)):
+                    converter, args, kwargs = converter
+                    value = converter(value, *args, **kwargs)
+                else:
+                    value = converter(value)
+
+            if (key in defaults.keys()):
+                if (value is None):
+                    value = defaults[key]
+
+            if (key in overwrites.keys()):
+                key = overwrites[key]
+
+            current[key] = value
+
+        for (key, value) in defaults.items():
+            if (key not in current.keys()):
+                current[key] = value
+
+        return cls(**current)
+
 class RateLimit(DataStore):
     def __repr__(self):
         return "<{0} limit={1} remaining={2} reset={3}>".format(
