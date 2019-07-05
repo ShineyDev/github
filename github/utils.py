@@ -36,11 +36,11 @@ def get(iterable: typing.Iterable, **attributes):
 def iso_to_datetime(iso: str) -> datetime.datetime:
     match = re.fullmatch(ISO_REGEX, iso)
     if (match):
-        year = match.group(0)
-        month = match.group(1)
-        day = match.group(2)
-        hour = match.group(3)
-        minute = match.group(4)
-        second = match.group(5)
+        year = int(match.group(1))
+        month = int(match.group(2))
+        day = int(match.group(3))
+        hour = int(match.group(4))
+        minute = int(match.group(5))
+        second = int(match.group(6))
 
         return datetime.datetime(year, month, day, hour, minute, second)
