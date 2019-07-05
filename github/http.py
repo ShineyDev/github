@@ -56,7 +56,7 @@ class HTTPClient():
                 text = await response.text()
                 raise errors.GitHubError("{0}: {1}".format(response.status, text)) from e
             else:
-                if ("errors" in data.keys()):
+                if "errors" in data.keys():
                     message = data["errors"][0]["message"]
                     raise errors.GitHubError(message)
 
@@ -74,15 +74,49 @@ class HTTPClient():
         async with context.SessionContext(session) as session:
             data = await self._request(json=json, headers=headers, session=session)
 
-        return data["data"]
+        return data.get("data")
 
     async def fetch_authenticated_user(self):
         query = """
           query {
             viewer {
+              anyPinnableItems
+              bio
+              company
+              createdAt
+              databaseId
+              id
+              isBountyHunter
+              isCampusExpert
+              isDeveloperProgramMember
+              isEmployee
+              isHireable
+              isSiteAdmin
+              isViewer
               location
               login
               name
+              updatedAt
+              websiteUrl
+            }
+          }
+        """
+
+        json = {
+            "query": query,
+        }
+
+        data = await self.request(json=json)
+        return data
+
+    async def fetch_rate_limit(self):
+        query = """
+          query {
+            rateLimit {
+              cost
+              limit
+              remaining
+              resetAt
             }
           }
         """
@@ -98,9 +132,45 @@ class HTTPClient():
         query = """
           query ($login: String!) {
             user (login: $login) {
+              anyPinnableItems
+              bio
+              company
+              createdAt
+              databaseId
+              id
+              isBountyHunter
+              isCampusExpert
+              isDeveloperProgramMember
+              isEmployee
+              isHireable
+              isSiteAdmin
+              isViewer
               location
               login
               name
+              updatedAt
+              websiteUrl
+            }
+          }
+        """
+
+        variables = {
+            "login": login,
+        }
+
+        json = {
+            "query": query,
+            "variables": variables,
+        }
+
+        data = await self.request(json=json)
+        return data
+
+    async def fetch_user_email(self, login):
+        query = """
+          query ($login: String!) {
+            user (login: $login) {
+              email
             }
           }
         """
