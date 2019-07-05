@@ -1,5 +1,5 @@
 """
-/organization.py
+/github/errors.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -16,21 +16,5 @@
     limitations under the License.
 """
 
-from .utils import (
-    abc,
-)
-
-
-class Organization(abc.DataStore):
-    def __eq__(self, other):
-        ...
-
-    def __repr__(self):
-        return "<{0} >".format(self.__class__.__name__)
-
-    @classmethod
-    def from_data(self, data: dict):
-        if (data is None):
-            return None
-
-        return cls._from_data(data)
+class GitHubError(Exception):
+    pass

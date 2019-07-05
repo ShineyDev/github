@@ -1,5 +1,5 @@
 """
-/__init__.py
+/github/__init__.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -16,17 +16,8 @@
     limitations under the License.
 """
 
-from . import *
+from github import *
+from github.objects import *
 
-from .cache import *
-from .endpoints import *
-from .github import *
-from .license import *
-from .organization import *
-from .permissions import *
-from .ratelimit import *
-from .repository import *
-from .request import *
-from .user import *
-
-from .utils.errors import *
+from github.errors import *
+from github.github import *

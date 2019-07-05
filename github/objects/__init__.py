@@ -1,5 +1,5 @@
 """
-/permissions.py
+/github/objects/__init__.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -16,18 +16,4 @@
     limitations under the License.
 """
 
-from .utils import (
-    abc,
-)
-
-
-class RepositoryPermissions(abc.DataStore):
-    def __repr__(self):
-        return "<{0} admin={1} pull={2} push={3}>".format(self.__class__.__name__, self.admin, self.pull, self.push)
-
-    @classmethod
-    def from_data(cls, data: dict):
-        if (data is None):
-            return None
-
-        return cls._from_data(data)
+from github.objects import abc

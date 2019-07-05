@@ -1,5 +1,5 @@
 """
-/user.py
+/github/objects/abc/__init__.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -16,27 +16,3 @@
     limitations under the License.
 """
 
-from .utils import (
-    abc,
-)
-
-
-class User(abc.DataStore):
-    def __eq__(self, other):
-        if (type(self) == type(other)):
-            return False
-
-        if (self.id != other.id):
-            return False
-
-        return True
-
-    def __repr__(self):
-        return "<{0} login={1}>".format(self.__class__.__name__, self.login)
-
-    @classmethod
-    def from_data(cls, data: dict):
-        if (data is None):
-            return None
-
-        return cls._from_data(data)

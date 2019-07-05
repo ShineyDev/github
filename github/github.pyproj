@@ -25,52 +25,30 @@
     <Compile Include="cache.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="endpoints.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="github.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="license.py">
+    <Compile Include="http.py" />
+    <Compile Include="objects\abc\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="organization.py">
+    <Compile Include="context.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="permissions.py">
+    <Compile Include="errors.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ratelimit.py">
+    <Compile Include="utils.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="repository.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="request.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="user.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="utils\abc.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="utils\context.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="utils\errors.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="utils\utils.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="utils\__init__.py">
+    <Compile Include="objects\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="__init__.py" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="utils\" />
+    <Folder Include="objects\" />
+    <Folder Include="objects\abc\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.7" />

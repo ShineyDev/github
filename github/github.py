@@ -1,5 +1,5 @@
 """
-/github.py
+/github/github.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -16,171 +16,53 @@
     limitations under the License.
 """
 
-from . import (
-    cache,
-    license,
-    ratelimit,
-    repository,
-    request,
-)
-
-from .utils import (
-    utils,
-)
-
-
-_DEFAULT_BASE_URL = "https://api.github.com/"
-_DEFAULT_USER_AGENT = "ShineyDev/github"
+from github import http
 
 
 class GitHub():
-    def __init__(self, token_or_username: str=None, password: str=None,
-                 *, base_url: str=None, user_agent: str=None,
-                 preview: bool=False):
-        if (not password):
-            self.token = token_or_username
-            self.username = None
-            self.password = None
-        else:
-            self.token = None
-            self.username = token_or_username
-            self.password = password
-
-        base_url = base_url or _DEFAULT_BASE_URL
-        user_agent = user_agent or _DEFAULT_USER_AGENT
-
-        self._cache = cache.Cache()
-
-        self._requester = request.Requester(
-            main=self,
-            token=self.token,
-            username=self.username,
-            password=self.password,
-            base_url=base_url,
-            user_agent=user_agent,
-            preview=preview,
-        )
+    def __init__(self, token: str=None, *, base_url: str=None, user_agent: str=None):
+        self.http = http.HTTPClient(token, base_url=base_url, user_agent=user_agent)
 
     @property
     def base_url(self) -> str:
-        return self._requester._base_url
+        """
+        The base url used by the wrapper.
+
+        This can be changed to allow support for GitHub Enterprise.
+        """
+
+        return self.http.base_url
 
     @base_url.setter
-    def base_url(self, value: str):
-        self._requester._base_url = value
-
-    @property
-    def status_url(self) -> str:
-        return self._requester._status_url
-
-    @status_url.setter
-    def status_url(self, value: str):
-        self._requester._status_url = value
-
-    @property
-    def timeout(self) -> int:
-        return self._requester._timeout
-
-    @timeout.setter
-    def timeout(self, value: int):
-        self._requester._timeout = value
-
-    @property
-    def client_id(self) -> str:
-        return self._requester._client_id
-
-    @client_id.setter
-    def client_id(self, value: str):
-        self._requester._client_id = value
-
-    @property
-    def client_secret(self) -> str:
-        return self._requester._client_secret
-
-    @client_secret.setter
-    def client_secret(self, value: str):
-        self._requester._client_secret = value
+    def base_url(self, value: str=None):
+        self.http.base_url = value
 
     @property
     def user_agent(self) -> str:
-        return self._requester._user_agent
+        """
+        The user-agent sent by the wrapper.
+
+        This can be changed to allow GitHub to contact you in case of issues.
+        """
+
+        return self.http.user_agent
 
     @user_agent.setter
-    def user_agent(self, value: str):
-        self._requester._user_agent = value
+    def user_agent(self, value: str=None):
+        self.http.user_agent = value
 
-    @property
-    def preview(self) -> bool:
-        return self._requester._preview
+    async def fetch_authenticated_user(self):
+        """
 
-    @preview.setter
-    def preview(self, value: bool):
-        self._requester._preview = value
+        """
 
-    async def fetch_license(self, key: str, *, cache: bool=True):
-        # https://developer.github.com/v3/licenses/#get-an-individual-license
+        data = await self.http.fetch_authenticated_user()
+        return user.AuthenticatedUser.from_data(self.http, data)
 
-        method = "GET"
-        url = "/licenses/{0}".format(key)
+    async def fetch_user(self, login: str):
+        """
 
-        data = await self._requester.request(method, url)
-        result = license.License.from_data(data)
+        """
 
-        if (cache):
-            self._cache.license_cache.append(result)
-
-        return result
-
-    def get_license(self, key: str):
-        return utils.get(self._cache.license_cache, key=key)
-
-    async def fetch_licenses(self, *, cache: bool=True):
-        # https://developer.github.com/v3/licenses/#list-commonly-used-licenses
-
-        method = "GET"
-        url = "/licenses"
-
-        data = await self._requester.request(method, url)
-        result = license.PartialLicense.from_data(data)
-
-        if (cache):
-            self._cache.licenses = result
-
-        return result
-
-    def get_licenses(self):
-        return self._cache.licenses
-
-    async def fetch_rate_limit(self, *, cache: bool=True):
-        # https://developer.github.com/v3/rate_limit/#get-your-current-rate-limit-status
-
-        method = "GET"
-        url = "/rate_limit"
-
-        data = await self._requester.request(method, url)
-        result = ratelimit.RateLimit.from_data(data)
-
-        if (cache):
-            ...
-
-        return result
-
-    def get_rate_limit(self):
-        raise NotImplemented()
-
-    async def fetch_repository(self, owner: str, name: str, *, cache: bool=True):
-        # https://developer.github.com/v3/repos/#get
-
-        method = "GET"
-        url = "/repos/{0}/{1}".format(owner, name)
-
-        data = await self._requester.request(method, url)
-        result = repository.Repository.from_data(data, requester=self._requester)
-
-        if (cache):
-            self._cache.repository_cache.append(result)
-
-        return result
-
-    def get_repository(self, owner: str, name: str):
-        return utils.get(self._cache.repository_cache, owner=owner, name=name)
+        data = await self.http.fetch_user(login)
+        return user.User.from_data(self.http, data)

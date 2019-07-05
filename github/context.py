@@ -1,5 +1,5 @@
 """
-/utils/__init__.py
+/github/context.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -16,9 +16,22 @@
     limitations under the License.
 """
 
-from . import (
-    abc,
-    context,
-    errors,
-    utils,
-)
+import aiohttp
+
+from github import errors
+
+
+class SessionContext():
+    def __init__(self, session):
+        self.session = session
+        self._has_session = bool(session)
+
+    async def __aenter__(self):
+        if not self._has_session:
+            self.session = aiohttp.ClientSession()
+
+        return self.session
+
+    async def __aexit__(self, exc_type, exc_value, exc_traceback):
+        if not self._has_session:
+            await self.session.close()

@@ -1,5 +1,5 @@
 """
-/utils/utils.py
+/github/utils.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -17,7 +17,11 @@
 """
 
 import datetime
+import re
 import typing
+
+
+ISO_REGEX = r"([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})Z"
 
 
 def get(iterable: typing.Iterable, **attributes):
@@ -30,7 +34,13 @@ def get(iterable: typing.Iterable, **attributes):
                 pass
 
 def iso_to_datetime(iso: str) -> datetime.datetime:
-    ...
+    match = re.fullmatch(ISO_REGEX, iso)
+    if (match):
+        year = match.group(0)
+        month = match.group(1)
+        day = match.group(2)
+        hour = match.group(3)
+        minute = match.group(4)
+        second = match.group(5)
 
-def snowflake_to_datetime(timestamp: int) -> datetime.datetime:
-    return datetime.datetime.utcfromtimestamp(timestamp)
+        return datetime.datetime(year, month, day, hour, minute, second)
