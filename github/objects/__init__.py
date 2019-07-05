@@ -17,3 +17,6 @@
 """
 
 from github.objects import abc
+
+from github.objects import ratelimit
+from github.objects import user
