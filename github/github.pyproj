@@ -29,6 +29,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="http.py" />
+    <Compile Include="objects\abc\actor.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="objects\abc\node.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="objects\abc\repository.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="objects\abc\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -36,6 +45,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="errors.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="objects\ratelimit.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="objects\user.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="utils.py">
