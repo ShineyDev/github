@@ -17,6 +17,8 @@
 """
 
 from github import http
+from github.objects import ratelimit
+from github.objects import user
 
 
 class GitHub():
@@ -26,7 +28,7 @@ class GitHub():
     @property
     def base_url(self) -> str:
         """
-        The base url used by the wrapper.
+        Get or set the base url used by the wrapper.
 
         This can be changed to allow support for GitHub Enterprise.
         """
@@ -40,7 +42,7 @@ class GitHub():
     @property
     def user_agent(self) -> str:
         """
-        The user-agent sent by the wrapper.
+        Get or set the user-agent sent by the wrapper.
 
         This can be changed to allow GitHub to contact you in case of issues.
         """
@@ -58,6 +60,14 @@ class GitHub():
 
         data = await self.http.fetch_authenticated_user()
         return user.AuthenticatedUser.from_data(self.http, data)
+
+    async def fetch_rate_limit(self):
+        """
+
+        """
+
+        data = await self.http.fetch_rate_limit()
+        return ratelimit.RateLimit.from_data(data)
 
     async def fetch_user(self, login: str):
         """
