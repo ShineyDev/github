@@ -161,21 +161,42 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
     
-    async def fetch_rate_limit(self):
-        query = """
-          query {
-            rateLimit {
-              cost
-              limit
-              remaining
-              resetAt
-            }
-          }
-        """
+    async def fetch_rate_limit(self, *, dry):
+        if dry is not None:
+            query = """
+              query ($dry: Boolean!) {
+                rateLimit (dryRun: $dry) {
+                  cost
+                  limit
+                  remaining
+                  resetAt
+                }
+              }
+            """
 
-        json = {
-            "query": query,
-        }
+            variables = {
+                "dry": dry,
+            }
+
+            json = {
+                "query": query,
+                "variables": variables,
+            }
+        else:
+            query = """
+              query {
+                rateLimit {
+                  cost
+                  limit
+                  remaining
+                  resetAt
+                }
+              }
+            """
+
+            json = {
+                "query": query,
+            }
 
         data = await self.request(json=json)
         return data

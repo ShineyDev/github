@@ -80,12 +80,12 @@ class GitHub():
         data = await self.http.fetch_codes_of_conduct()
         return codeofconduct.CodeOfConduct.from_data(data)
 
-    async def fetch_rate_limit(self):
+    async def fetch_rate_limit(self, *, dry: bool=None):
         """
 
         """
 
-        data = await self.http.fetch_rate_limit()
+        data = await self.http.fetch_rate_limit(dry=dry)
         return ratelimit.RateLimit.from_data(data)
 
     async def fetch_user(self, login: str):
