@@ -160,6 +160,27 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data
+
+    async def fetch_metadata(self):
+        query = """
+          query {
+            meta {
+              gitHubServicesSha
+              gitIpAddresses
+              hookIpAddresses
+              importerIpAddresses
+              isPasswordAuthenticationVerifiable
+              pagesIpAddresses
+            }
+          }
+        """
+
+        json = {
+            "query": query,
+        }
+
+        data = await self.request(json=json)
+        return data
     
     async def fetch_rate_limit(self, *, dry):
         if dry is not None:

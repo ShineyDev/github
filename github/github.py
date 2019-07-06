@@ -80,6 +80,14 @@ class GitHub():
         data = await self.http.fetch_codes_of_conduct()
         return codeofconduct.CodeOfConduct.from_data(data)
 
+    async def fetch_metadata(self):
+        """
+
+        """
+
+        data = await self.http.fetch_metadata()
+        return metadata.Metadata.from_data(data)
+
     async def fetch_rate_limit(self, *, dry: bool=None):
         """
 
