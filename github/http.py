@@ -80,7 +80,9 @@ class HTTPClient():
         query = """
           query {
             viewer {
+              __typename
               anyPinnableItems
+              avatarUrl
               bio
               company
               createdAt
@@ -97,6 +99,7 @@ class HTTPClient():
               login
               name
               updatedAt
+              url
               websiteUrl
             }
           }
@@ -132,7 +135,9 @@ class HTTPClient():
         query = """
           query ($login: String!) {
             user (login: $login) {
+              __typename
               anyPinnableItems
+              avatarUrl
               bio
               company
               createdAt
@@ -149,6 +154,7 @@ class HTTPClient():
               login
               name
               updatedAt
+              url
               websiteUrl
             }
           }
