@@ -20,4 +20,4 @@ from github.objects.abc import *
 
 from github.objects.abc.actor import *
 from github.objects.abc.node import *
-from github.objects.abc.repository import *
+from github.objects.abc.repositoryowner import *
