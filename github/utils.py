@@ -28,14 +28,14 @@ def get(iterable: typing.Iterable, **attributes):
     for (i) in iterable:
         for (k, v) in attributes.items():
             try:
-                if (getattr(i, k) == v):
+                if getattr(i, k) == v:
                     return i
             except (AttributeError) as e:
                 pass
 
 def iso_to_datetime(iso: str) -> datetime.datetime:
     match = re.fullmatch(ISO_REGEX, iso)
-    if (match):
+    if match:
         year = int(match.group(1))
         month = int(match.group(2))
         day = int(match.group(3))
