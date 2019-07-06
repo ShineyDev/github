@@ -52,7 +52,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
         self.http = http
 
     def __repr__(self):
-        return "<{0} login='{1}' url='{2}'>".format(self.__class__.__name__, self.login, self.url)
+        return "<{0} login='{1}'>".format(self.__class__.__name__, self.login)
 
     @classmethod
     def from_data(cls, data, http):
