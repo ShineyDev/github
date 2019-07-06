@@ -27,6 +27,8 @@ DEFAULT_USER_AGENT = "ShineyDev/github"
 
 
 class HTTPClient():
+    __slots__ = ("_token", "_base_url", "_user_agent")
+
     def __init__(self, token=None, *, base_url=None, user_agent=None):
         self._token = token
         self._base_url = base_url or DEFAULT_BASE_URL

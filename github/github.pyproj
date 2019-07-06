@@ -35,7 +35,7 @@
     <Compile Include="objects\abc\node.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="objects\abc\repository.py">
+    <Compile Include="objects\abc\repositoryowner.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="objects\abc\__init__.py">

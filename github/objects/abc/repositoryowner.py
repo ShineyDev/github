@@ -1,5 +1,5 @@
 """
-/github/objects/abc/repository.py
+/github/objects/abc/repositoryowner.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -17,16 +17,14 @@
 """
 
 
-"""
-https://developer.github.com/v4/interface/repositoryowner/
-
-... implemented by ...
-User
-"""
 class RepositoryOwner():
     """
     Represents an owner of a Repository.
+
+    https://developer.github.com/v4/interface/repositoryowner/
     """
+
+    __slots__ = ()
 
     async def fetch_repository(self, name: str):
         """

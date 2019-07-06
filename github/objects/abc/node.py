@@ -17,16 +17,14 @@
 """
 
 
-"""
-https://developer.github.com/v4/interface/node/
-
-... implemented by ...
-User
-"""
 class Node():
     """
     Represents an object with an ID.
+
+    https://developer.github.com/v4/interface/node/
     """
+
+    __slots__ = ()
 
     @property
     def id(self) -> str:

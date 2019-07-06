@@ -22,13 +22,15 @@ from github.objects import user
 
 
 class GitHub():
+    __slots__ = ("http",)
+
     def __init__(self, token: str=None, *, base_url: str=None, user_agent: str=None):
         self.http = http.HTTPClient(token, base_url=base_url, user_agent=user_agent)
 
     @property
     def base_url(self) -> str:
         """
-        Get or set the base url used by the wrapper.
+        The base url used by the wrapper.
 
         This can be changed to allow support for GitHub Enterprise.
         """
@@ -42,7 +44,7 @@ class GitHub():
     @property
     def user_agent(self) -> str:
         """
-        Get or set the user-agent sent by the wrapper.
+        The user-agent sent by the wrapper.
 
         This can be changed to allow GitHub to contact you in case of issues.
         """
