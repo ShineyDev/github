@@ -17,6 +17,7 @@
 """
 
 from github import http
+from github.objects import codeofconduct
 from github.objects import ratelimit
 from github.objects import user
 
@@ -62,6 +63,22 @@ class GitHub():
 
         data = await self.http.fetch_authenticated_user()
         return user.AuthenticatedUser.from_data(data, self.http)
+
+    async def fetch_code_of_conduct(self, key: str):
+        """
+
+        """
+
+        data = await self.http.fetch_code_of_conduct(key)
+        return codeofconduct.CodeOfConduct.from_data(data)
+
+    async def fetch_codes_of_conduct(self):
+        """
+
+        """
+
+        data = await self.http.fetch_codes_of_conduct()
+        return codeofconduct.CodeOfConduct.from_data(data)
 
     async def fetch_rate_limit(self):
         """

@@ -114,6 +114,53 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
+    async def fetch_code_of_conduct(self, key):
+        query = """
+          query ($key: String!) {
+            codeOfConduct (key: $key) {
+              __typename
+              body
+              id
+              key
+              name
+              url
+            }
+          }
+        """
+
+        variables = {
+            "key": key,
+        }
+
+        json = {
+            "query": query,
+            "variables": variables,
+        }
+
+        data = await self.request(json=json)
+        return data
+
+    async def fetch_codes_of_conduct(self):
+        query = """
+          query {
+            codesOfConduct {
+              __typename
+              body
+              id
+              key
+              name
+              url
+            }
+          }
+        """
+
+        json = {
+            "query": query,
+        }
+
+        data = await self.request(json=json)
+        return data
+    
     async def fetch_rate_limit(self):
         query = """
           query {

@@ -47,6 +47,9 @@
     <Compile Include="errors.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="objects\codeofconduct.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="objects\ratelimit.py">
       <SubType>Code</SubType>
     </Compile>
