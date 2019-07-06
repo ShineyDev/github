@@ -36,7 +36,7 @@ class CodeOfConduct(abc.Node):
 
     @classmethod
     def from_data(cls, data):
-        if ("codeOfConduct" in data):
+        if "codeOfConduct" in data:
             return cls(data["codeOfConduct"])
         else:
             codes = list()
