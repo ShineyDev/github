@@ -26,6 +26,15 @@ class Node():
 
     __slots__ = ()
 
+    def __eq__(self, other):
+        if type(self) != type(other):
+            return False
+
+        if self.id != other.id:
+            return False
+
+        return True
+
     @property
     def id(self) -> str:
         """
