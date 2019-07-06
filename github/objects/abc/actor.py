@@ -18,18 +18,17 @@
 
 
 """
-https://developer.github.com/v4/interface/actor/
-
-... implemented by ...
-User
-
 ... not implemented ...
 resourcePath
 """
 class Actor():
     """
     Represents an object which can take actions on GitHub.
+
+    https://developer.github.com/v4/interface/actor/
     """
+
+    __slots__ = ()
 
     @property
     def avatar_url(self) -> str:
