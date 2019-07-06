@@ -61,7 +61,7 @@ class GitHub():
         """
 
         data = await self.http.fetch_authenticated_user()
-        return user.AuthenticatedUser.from_data(self.http, data)
+        return user.AuthenticatedUser.from_data(data, self.http)
 
     async def fetch_rate_limit(self):
         """
@@ -77,4 +77,4 @@ class GitHub():
         """
 
         data = await self.http.fetch_user(login)
-        return user.User.from_data(self.http, data)
+        return user.User.from_data(data, self.http)

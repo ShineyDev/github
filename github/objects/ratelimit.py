@@ -23,11 +23,19 @@ from github import utils
 
 class RateLimit():
     """
+    Represents the viewer's rate limit.
 
+    https://developer.github.com/v4/object/ratelimit/
     """
+
+    __slots__ = ("data",)
 
     def __init__(self, data):
         self.data = data
+
+    def __repr__(self):
+        return "<{0} cost={1} limit={2} remaining={3} reset_at={4}>".format(
+            self.__class__.__name__, self.cost, self.limit, self.remaining, self.reset_at.timestamp())
 
     @classmethod
     def from_data(cls, data):
@@ -36,7 +44,7 @@ class RateLimit():
     @property
     def cost(self) -> int:
         """
-
+        The point cost for the current query counting against the rate limit.
         """
 
         return self.data.get("cost")
@@ -44,7 +52,7 @@ class RateLimit():
     @property
     def limit(self) -> int:
         """
-
+        The maximum number of points the viewer is permitted to consume in a 60 minute window.
         """
 
         return self.data.get("limit")
@@ -52,7 +60,7 @@ class RateLimit():
     @property
     def remaining(self) -> int:
         """
-
+        The number of points remaining in the current rate limit window.
         """
 
         return self.data.get("remaining")
@@ -60,7 +68,7 @@ class RateLimit():
     @property
     def reset_at(self) -> datetime.datetime:
         """
-
+        The time at which the current rate limit window resets in UTC.
         """
 
         return utils.iso_to_datetime(self.data.get("resetAt"))

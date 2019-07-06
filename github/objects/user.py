@@ -23,8 +23,6 @@ from github.objects import abc
 
 
 """
-https://developer.github.com/v4/object/user/
-
 ... not implemented ...
 repositoriesContributedTo
 starredRepositories
@@ -43,15 +41,22 @@ viewerIsFollowing
 class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     """
     Represents a GitHub user account.
+
+    https://developer.github.com/v4/object/user/
     """
 
-    def __init__(self, http, data):
-        self.http = http
+    __slots__ = ("data", "http")
+
+    def __init__(self, data, http):
         self.data = data
+        self.http = http
+
+    def __repr__(self):
+        return "<{0} login='{1}' url='{2}'>".format(self.__class__.__name__, self.login, self.url)
 
     @classmethod
-    def from_data(cls, http, data):
-        return cls(http, data["user"])
+    def from_data(cls, data, http):
+        return cls(data["user"], http)
 
     @property
     def bio(self) -> str:
@@ -204,9 +209,9 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
 
 class AuthenticatedUser(User):
     """
-
+    Represents the authenticated GitHub user account, "viewer".
     """
 
     @classmethod
-    def from_data(cls, http, data):
-        return cls(http, data["viewer"])
+    def from_data(cls, data, http):
+        return cls(data["viewer"], http)
