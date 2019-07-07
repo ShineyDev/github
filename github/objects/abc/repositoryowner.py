@@ -16,7 +16,6 @@
     limitations under the License.
 """
 
-
 class RepositoryOwner():
     """
     Represents an owner of a Repository.

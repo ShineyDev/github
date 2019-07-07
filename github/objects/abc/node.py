@@ -16,7 +16,6 @@
     limitations under the License.
 """
 
-
 class Node():
     """
     Represents an object with an ID.
