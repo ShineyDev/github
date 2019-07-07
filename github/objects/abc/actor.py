@@ -54,9 +54,17 @@ class Actor():
 
         return self.data.get("url")
 
-    async def fetch_avatar_url(self, size: int=None, *, cache: bool=True) -> str:
+    async def fetch_avatar_url(self, size: int=None, *, cache: bool=False) -> str:
+        """
+        Fetches a url pointing to this actor's public avatar.
         """
 
-        """
+        if (self.type == "User"):
+            data = await self.http.fetch_user_avatar_url(self.login, size)
 
-        ...
+        avatar_url = data["user"]["avatarUrl"]
+        
+        if cache:
+            self.data["avatarUrl"] = avatar_url
+
+        return avatar_url
