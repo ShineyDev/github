@@ -161,6 +161,97 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
+    async def fetch_license(self, key):
+        query = """
+          query ($key: String!) {
+            license (key: $key) {
+              __typename
+              body
+              conditions {
+                description
+                key
+                label
+              }
+              description
+              featured
+              hidden
+              id
+              implementation
+              key
+              limitations {
+                description
+                key
+                label
+              }
+              name
+              nickname
+              permissions {
+                description
+                key
+                label
+              }
+              pseudoLicense
+              spdxId
+              url
+            }
+          }
+        """
+
+        variables = {
+            "key": key,
+        }
+
+        json = {
+            "query": query,
+            "variables": variables,
+        }
+
+        data = await self.request(json=json)
+        return data
+
+    async def fetch_licenses(self):
+        query = """
+          query {
+            licenses {
+              __typename
+              body
+              conditions {
+                description
+                key
+                label
+              }
+              description
+              featured
+              hidden
+              id
+              implementation
+              key
+              limitations {
+                description
+                key
+                label
+              }
+              name
+              nickname
+              permissions {
+                description
+                key
+                label
+              }
+              pseudoLicense
+              spdxId
+              url
+            }
+          }
+        """
+
+        json = {
+            "query": query,
+        }
+
+        data = await self.request(json=json)
+        return data
+
     async def fetch_metadata(self):
         query = """
           query {

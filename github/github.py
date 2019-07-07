@@ -18,11 +18,16 @@
 
 from github import http
 from github.objects import codeofconduct
+from github.objects import license
 from github.objects import ratelimit
 from github.objects import user
 
 
 class GitHub():
+    """
+
+    """
+
     __slots__ = ("http",)
 
     def __init__(self, token: str=None, *, base_url: str=None, user_agent: str=None):
@@ -79,6 +84,22 @@ class GitHub():
 
         data = await self.http.fetch_codes_of_conduct()
         return codeofconduct.CodeOfConduct.from_data(data)
+
+    async def fetch_license(self, key: str):
+        """
+
+        """
+
+        data = await self.http.fetch_license(key)
+        return license.License.from_data(data)
+
+    async def fetch_licenses(self):
+        """
+
+        """
+
+        data = await self.http.fetch_licenses()
+        return license.License.from_data(data)
 
     async def fetch_metadata(self):
         """
