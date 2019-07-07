@@ -354,6 +354,46 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
+    async def fetch_user_avatar_url(self, login, size):
+        if size is not None:
+            query = """
+              query ($login: String!, $size: Int!) {
+                user (login: $login) {
+                  avatarUrl (size: $size)
+                }
+              }
+            """
+
+            variables = {
+                "login": login,
+                "size": size,
+            }
+
+            json = {
+                "query": query,
+                "variables": variables,
+            }
+        else:
+            query = """
+              query ($login: String!) {
+                user (login: $login) {
+                  avatarUrl
+                }
+              }
+            """
+
+            variables = {
+                "login": login,
+            }
+
+            json = {
+                "query": query,
+                "variables": variables,
+            }
+
+        data = await self.request(json=json)
+        return data
+
     async def fetch_user_email(self, login):
         query = """
           query ($login: String!) {
