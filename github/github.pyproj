@@ -56,9 +56,6 @@
     <Compile Include="objects\permissions.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="objects\rule.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="objects\metadata.py">
       <SubType>Code</SubType>
     </Compile>
