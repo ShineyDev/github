@@ -29,7 +29,7 @@ DEFAULT_USER_AGENT = "ShineyDev/github"
 class HTTPClient():
     __slots__ = ("_token", "_base_url", "_user_agent")
 
-    def __init__(self, token=None, *, base_url=None, user_agent=None):
+    def __init__(self, token, *, base_url, user_agent):
         self._token = token
         self._base_url = base_url or DEFAULT_BASE_URL
         self._user_agent = user_agent or DEFAULT_USER_AGENT
@@ -70,7 +70,7 @@ class HTTPClient():
         """
 
         headers = headers or dict()
-        headers.update({"Authorization": "Bearer {0}".format(self._token)})
+        headers.update({"Authorization": "bearer {0}".format(self._token)})
         headers.update({"User-Agent": self._user_agent})
 
         async with context.SessionContext(session) as session:

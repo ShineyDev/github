@@ -30,7 +30,7 @@ class GitHub():
 
     __slots__ = ("http",)
 
-    def __init__(self, token: str=None, *, base_url: str=None, user_agent: str=None):
+    def __init__(self, token: str, *, base_url: str=None, user_agent: str=None):
         self.http = http.HTTPClient(token, base_url=base_url, user_agent=user_agent)
 
     @property
