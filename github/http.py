@@ -272,6 +272,50 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data
+
+    async def fetch_node(self, id):
+        query = """
+          query ($id: ID!) {
+            node (id: $id) {
+              __typename
+              id
+            }
+          }
+        """
+
+        variables = {
+            "id": id,
+        }
+
+        json = {
+            "query": query,
+            "variables": variables,
+        }
+
+        data = await self.request(json=json)
+        return data
+
+    async def fetch_nodes(self, *ids):
+        query = """
+          query ($ids: [ID!]!) {
+            nodes (ids: $ids) {
+              __typename
+              id
+            }
+          }
+        """
+
+        variables = {
+            "ids": ids,
+        }
+
+        json = {
+            "query": query,
+            "variables": variables,
+        }
+
+        data = await self.request(json=json)
+        return data
     
     async def fetch_rate_limit(self, *, dry):
         if dry is not None:

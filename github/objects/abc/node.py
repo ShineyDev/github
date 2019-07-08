@@ -23,7 +23,10 @@ class Node():
     https://developer.github.com/v4/interface/node/
     """
 
-    __slots__ = ()
+    __slots__ = ("data",)
+
+    def __init__(self, data):
+        self.data = data
 
     def __eq__(self, other):
         if type(self) != type(other):
@@ -34,6 +37,21 @@ class Node():
 
         return True
 
+    def __repr__(self):
+        return "<{0} id='{1}'>".format(self.__class__.__name__, self.id)
+
+    @classmethod
+    def from_data(cls, data):
+        if "node" in data:
+            return cls(data["node"])
+        else:
+            nodes = list()
+
+            for (node) in data["nodes"]:
+                nodes.append(cls(node))
+
+            return nodes
+        
     @property
     def id(self) -> str:
         """

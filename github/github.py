@@ -21,6 +21,7 @@ from github.objects import codeofconduct
 from github.objects import license
 from github.objects import ratelimit
 from github.objects import user
+from github.objects.abc import node
 
 
 class GitHub():
@@ -108,6 +109,22 @@ class GitHub():
 
         data = await self.http.fetch_metadata()
         return metadata.Metadata.from_data(data)
+
+    async def fetch_node(self, id: str):
+        """
+
+        """
+
+        data = await self.http.fetch_node(id)
+        return node.Node.from_data(data)
+
+    async def fetch_nodes(self, *ids: str):
+        """
+
+        """
+
+        data = await self.http.fetch_nodes(*ids)
+        return node.Node.from_data(data)
 
     async def fetch_rate_limit(self, *, dry: bool=None):
         """
