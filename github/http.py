@@ -145,7 +145,7 @@ class HTTPClient():
 
     async def fetch_all_codes_of_conduct(self):
         query = """
-          query codes_of_conduct {
+          query all_codes_of_conduct {
             codesOfConduct {
               __typename
               body
@@ -217,7 +217,7 @@ class HTTPClient():
 
     async def fetch_all_licenses(self):
         query = """
-          query licenses {
+          query all_licenses {
             licenses {
               __typename
               body
