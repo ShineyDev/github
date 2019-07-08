@@ -78,12 +78,20 @@ class GitHub():
         data = await self.http.fetch_code_of_conduct(key)
         return codeofconduct.CodeOfConduct.from_data(data)
 
-    async def fetch_codes_of_conduct(self):
+    async def fetch_codes_of_conduct(self, *keys: str):
         """
 
         """
 
-        data = await self.http.fetch_codes_of_conduct()
+        data = await self.http.fetch_codes_of_conduct(*keys)
+        return codeofconduct.CodeOfConduct.from_data(data)
+
+    async def fetch_all_codes_of_conduct(self):
+        """
+
+        """
+
+        data = await self.http.fetch_all_codes_of_conduct()
         return codeofconduct.CodeOfConduct.from_data(data)
 
     async def fetch_license(self, key: str):
@@ -94,12 +102,20 @@ class GitHub():
         data = await self.http.fetch_license(key)
         return license.License.from_data(data)
 
-    async def fetch_licenses(self):
+    async def fetch_licenses(self, *keys: str):
         """
 
         """
 
-        data = await self.http.fetch_licenses()
+        data = await self.http.fetch_licenses(*keys)
+        return license.License.from_data(data)
+
+    async def fetch_all_licenses(self):
+        """
+
+        """
+
+        data = await self.http.fetch_all_licenses()
         return license.License.from_data(data)
 
     async def fetch_metadata(self):

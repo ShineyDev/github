@@ -140,7 +140,10 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
-    async def fetch_codes_of_conduct(self):
+    async def fetch_codes_of_conduct(self, *keys):
+        ...
+
+    async def fetch_all_codes_of_conduct(self):
         query = """
           query codes_of_conduct {
             codesOfConduct {
@@ -209,7 +212,10 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
-    async def fetch_licenses(self):
+    async def fetch_licenses(self, *keys):
+        ...
+
+    async def fetch_all_licenses(self):
         query = """
           query licenses {
             licenses {
