@@ -36,7 +36,7 @@ class GitHub():
     @property
     def base_url(self) -> str:
         """
-        The base url used by the wrapper.
+        The base url used by this wrapper.
 
         This can be changed to allow support for GitHub Enterprise.
         """
@@ -50,7 +50,7 @@ class GitHub():
     @property
     def user_agent(self) -> str:
         """
-        The user-agent sent by the wrapper.
+        The user-agent sent by this wrapper.
 
         This can be changed to allow GitHub to contact you in case of issues.
         """
