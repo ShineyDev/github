@@ -80,7 +80,7 @@ class HTTPClient():
 
     async def fetch_authenticated_user(self):
         query = """
-          query {
+          query authenticated_user {
             viewer {
               __typename
               anyPinnableItems
@@ -116,7 +116,7 @@ class HTTPClient():
 
     async def fetch_code_of_conduct(self, key):
         query = """
-          query ($key: String!) {
+          query code_of_conduct ($key: String!) {
             codeOfConduct (key: $key) {
               __typename
               body
@@ -142,7 +142,7 @@ class HTTPClient():
 
     async def fetch_codes_of_conduct(self):
         query = """
-          query {
+          query codes_of_conduct {
             codesOfConduct {
               __typename
               body
@@ -163,7 +163,7 @@ class HTTPClient():
 
     async def fetch_license(self, key):
         query = """
-          query ($key: String!) {
+          query license ($key: String!) {
             license (key: $key) {
               __typename
               body
@@ -211,7 +211,7 @@ class HTTPClient():
 
     async def fetch_licenses(self):
         query = """
-          query {
+          query licenses {
             licenses {
               __typename
               body
@@ -254,7 +254,7 @@ class HTTPClient():
 
     async def fetch_metadata(self):
         query = """
-          query {
+          query metadata {
             meta {
               gitHubServicesSha
               gitIpAddresses
@@ -275,7 +275,7 @@ class HTTPClient():
 
     async def fetch_node(self, id):
         query = """
-          query ($id: ID!) {
+          query node ($id: ID!) {
             node (id: $id) {
               __typename
               id
@@ -297,7 +297,7 @@ class HTTPClient():
 
     async def fetch_nodes(self, *ids):
         query = """
-          query ($ids: [ID!]!) {
+          query nodes ($ids: [ID!]!) {
             nodes (ids: $ids) {
               __typename
               id
@@ -320,7 +320,7 @@ class HTTPClient():
     async def fetch_rate_limit(self, *, dry):
         if dry is not None:
             query = """
-              query ($dry: Boolean!) {
+              query rate_limit ($dry: Boolean!) {
                 rateLimit (dryRun: $dry) {
                   cost
                   limit
@@ -340,7 +340,7 @@ class HTTPClient():
             }
         else:
             query = """
-              query {
+              query rate_limit {
                 rateLimit {
                   cost
                   limit
@@ -359,7 +359,7 @@ class HTTPClient():
 
     async def fetch_user(self, login):
         query = """
-          query ($login: String!) {
+          query user ($login: String!) {
             user (login: $login) {
               __typename
               anyPinnableItems
@@ -401,7 +401,7 @@ class HTTPClient():
     async def fetch_user_avatar_url(self, login, size):
         if size is not None:
             query = """
-              query ($login: String!, $size: Int!) {
+              query user_avatar_url ($login: String!, $size: Int!) {
                 user (login: $login) {
                   avatarUrl (size: $size)
                 }
@@ -419,7 +419,7 @@ class HTTPClient():
             }
         else:
             query = """
-              query ($login: String!) {
+              query user_avatar_url ($login: String!) {
                 user (login: $login) {
                   avatarUrl
                 }
@@ -440,7 +440,7 @@ class HTTPClient():
 
     async def fetch_user_email(self, login):
         query = """
-          query ($login: String!) {
+          query user_email ($login: String!) {
             user (login: $login) {
               email
             }
