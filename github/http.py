@@ -141,7 +141,7 @@ class HTTPClient():
         return data
 
     async def fetch_codes_of_conduct(self, *keys):
-        ...
+        raise NotImplementedError("this method hasn't been implemented yet")
 
     async def fetch_all_codes_of_conduct(self):
         query = """
@@ -213,7 +213,7 @@ class HTTPClient():
         return data
 
     async def fetch_licenses(self, *keys):
-        ...
+        raise NotImplementedError("this method hasn't been implemented yet")
 
     async def fetch_all_licenses(self):
         query = """
