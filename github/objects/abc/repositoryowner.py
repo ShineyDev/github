@@ -25,6 +25,14 @@ class RepositoryOwner():
 
     __slots__ = ()
 
+    @property
+    def has_pinnable_items(self) -> bool:
+        """
+        Whether this repository owner has any items that can be pinned to their profile.
+        """
+
+        return self.data.get("anyPinnableItems")
+
     async def fetch_repository(self, name: str):
         """
 

@@ -61,7 +61,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     @property
     def bio(self) -> str:
         """
-
+        The user's public profile bio.
         """
 
         return self.data.get("bio")
@@ -69,7 +69,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     @property
     def company(self) -> str:
         """
-
+        The user's public profile company.
         """
 
         return self.data.get("company")
@@ -77,7 +77,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     @property
     def created_at(self) -> datetime.datetime:
         """
-
+        The date and time this user was created.
         """
 
         return utils.iso_to_datetime(self.data.get("createdAt"))
@@ -85,7 +85,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     @property
     def database_id(self) -> int:
         """
-
+        The user's primary key from the database.
         """
 
         return self.data.get("databaseId")
@@ -93,23 +93,15 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     @property
     def email(self) -> str:
         """
-
+        The user's publicly visible profile email.
         """
 
         return self.data.get("email")
 
     @property
-    def has_pinnable_items(self) -> bool:
-        """
-
-        """
-
-        return self.data.get("anyPinnableItems")
-
-    @property
     def is_bounty_hunter(self) -> bool:
         """
-
+        Whether this user is a participant in the GitHub Security Bug Bounty.
         """
 
         return self.data.get("isBountyHunter")
@@ -117,7 +109,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     @property
     def is_campus_expert(self) -> bool:
         """
-
+        Whether this user is a participant in the GitHub Campus Experts Program.
         """
 
         return self.data.get("isCampusExpert")
@@ -125,7 +117,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     @property
     def is_developer_program_member(self) -> bool:
         """
-
+        Whether this user is a GitHub Developer Program member.
         """
 
         return self.data.get("isDeveloperProgramMember")
@@ -133,7 +125,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     @property
     def is_employee(self) -> bool:
         """
-
+        Whether this user is a GitHub employee.
         """
 
         return self.data.get("isEmployee")
@@ -141,7 +133,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     @property
     def is_hireable(self) -> bool:
         """
-
+        Whether this user has marked themselves as for hire.
         """
 
         return self.data.get("isHireable")
@@ -149,7 +141,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     @property
     def is_site_administrator(self) -> bool:
         """
-
+        Whether this user is a site administrator.
         """
 
         return self.data.get("isSiteAdmin")
@@ -157,7 +149,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     @property
     def is_viewer(self) -> bool:
         """
-
+        Whether or not this user is the viewing user.
         """
 
         return self.data.get("isViewer")
@@ -165,7 +157,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     @property
     def location(self) -> str:
         """
-
+        The user's public profile location.
         """
 
         return self.data.get("location")
@@ -173,7 +165,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     @property
     def name(self) -> str:
         """
-
+        The user's public profile name.
         """
 
         return self.data.get("name")
@@ -181,7 +173,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     @property
     def updated_at(self) -> datetime.datetime:
         """
-
+        The date and time this user was last updated.
         """
 
         return utils.iso_to_datetime(self.data.get("updatedAt"))
@@ -189,7 +181,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     @property
     def website(self) -> str:
         """
-
+        A url pointing to this user's public website/blog.
         """
 
         return self.data.get("websiteUrl")

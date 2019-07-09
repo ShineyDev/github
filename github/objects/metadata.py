@@ -18,7 +18,7 @@
 
 class Metadata():
     """
-
+    Represents information about the GitHub instance.
 
     https://developer.github.com/v4/object/githubmetadata/
     """
@@ -35,7 +35,7 @@ class Metadata():
     @property
     def git_ip_addresses(self):
         """
-
+        IP addresses that users connect to for git operations.
         """
 
         return self.data.get("gitIpAddresses")
@@ -43,7 +43,7 @@ class Metadata():
     @property
     def github_services_sha(self):
         """
-
+        SHA of github-services.
         """
 
         return self.data.get("gitHubServicesSha")
@@ -51,7 +51,7 @@ class Metadata():
     @property
     def hook_ip_addresses(self):
         """
-
+        IP addresses that service hooks are sent from.
         """
 
         return self.data.get("hookIpAddresses")
@@ -59,7 +59,7 @@ class Metadata():
     @property
     def importer_ip_addresses(self):
         """
-
+        IP addresses that the importer connects from.
         """
 
         return self.data.get("importerIpAddresses")
@@ -67,7 +67,7 @@ class Metadata():
     @property
     def is_authentication_verifiable(self):
         """
-
+        Whether or not users are verified.
         """
 
         return self.data.get("isPasswordAuthenticationVerifiable")
@@ -75,7 +75,7 @@ class Metadata():
     @property
     def pages_ip_addresses(self):
         """
-
+        IP addresses for GitHub Pages' A records.
         """
 
         return self.data.get("pagesIpAddresses")
