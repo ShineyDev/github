@@ -36,7 +36,7 @@ class License(abc.Node):
 
     @classmethod
     def from_data(cls, data):
-        if "license" in data:
+        if "license" in data.keys():
             return cls(data["license"])
         else:
             licenses = list()
