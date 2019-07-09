@@ -56,7 +56,11 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
 
     @classmethod
     def from_data(cls, data, http):
-        return cls(data["user"], http)
+        if "user" in data.keys():
+            return cls(data["user"], http)
+        else:
+            # HTTPClient.fetch_users
+            ...
 
     @property
     def bio(self) -> str:

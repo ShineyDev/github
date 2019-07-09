@@ -36,15 +36,18 @@ class CodeOfConduct(abc.Node):
 
     @classmethod
     def from_data(cls, data):
-        if "codeOfConduct" in data:
+        if "codeOfConduct" in data.keys():
             return cls(data["codeOfConduct"])
-        else:
+        elif "codesOfConduct" in data.keys():
             codes = list()
 
             for (code) in data["codesOfConduct"]:
                 codes.append(cls(code))
 
             return codes
+        else:
+            # HTTPClient.fetch_codes_of_conduct
+            ...
 
     @property
     def body(self):

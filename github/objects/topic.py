@@ -36,7 +36,7 @@ class Topic(abc.Node):
     def from_data(cls, data):
         if "topic" in data.keys():
             return cls(data["topic"])
-        else:
+        elif "topics" in data.keys():
             topics = list()
 
             for (topic) in data["topics"]:

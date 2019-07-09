@@ -42,9 +42,9 @@ class Node():
 
     @classmethod
     def from_data(cls, data):
-        if "node" in data:
+        if "node" in data.keys():
             return cls(data["node"])
-        else:
+        elif "nodes" in data.keys():
             nodes = list()
 
             for (node) in data["nodes"]:

@@ -435,6 +435,9 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
+    async def fetch_users(self, *logins):
+        raise NotImplementedError("this method hasn't been implemented yet")
+
     async def fetch_user_avatar_url(self, login, size):
         if size is not None:
             query = """

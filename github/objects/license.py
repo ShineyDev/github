@@ -38,13 +38,16 @@ class License(abc.Node):
     def from_data(cls, data):
         if "license" in data.keys():
             return cls(data["license"])
-        else:
+        elif "licenses" in data.keys():
             licenses = list()
 
             for (license) in data["licenses"]:
                 licenses.append(cls(license))
 
             return licenses
+        else:
+            # HTTPClient.fetch_licenses
+            ...
 
     @property
     def body(self):

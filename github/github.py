@@ -174,3 +174,12 @@ class GitHub():
 
         data = await self.http.fetch_user(login)
         return user.User.from_data(data, self.http)
+
+    async def fetch_users(self, *logins: str):
+        """
+
+        """
+
+        data = await self.http.fetch_users(*logins)
+        return user.User.from_data(data, self.http)
+    
