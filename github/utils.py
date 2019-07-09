@@ -68,8 +68,10 @@ def datetime_to_iso(dt: datetime.datetime) -> str:
     :py:class:`str`:
         An ISO-8601 string.
     """
-
-    ...
+    
+    format_str = "%Y-%m-%dT%H:%M:%SZ"
+    iso = dt.strftime(format_str)
+    return iso
 
 def iso_to_datetime(iso: str) -> datetime.datetime:
     """
