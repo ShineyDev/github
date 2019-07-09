@@ -62,6 +62,9 @@
     <Compile Include="objects\ratelimit.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="objects\topic.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="objects\user.py">
       <SubType>Code</SubType>
     </Compile>

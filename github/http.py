@@ -363,6 +363,37 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
+    async def fetch_topic(self, name):
+        query = """
+          query topic ($name: String!) {
+            topic (name: $name) {
+              __typename
+              id
+              name
+              relatedTopics (first: 10) {
+                __typename
+                id
+                name
+              }
+            }
+          }
+        """
+
+        variables = {
+            "name": name,
+        }
+
+        json = {
+            "query": query,
+            "variables": variables,
+        }
+
+        data = await self.request(json=json)
+        return data
+
+    async def fetch_topics(self, *names):
+        raise NotImplementedError("this method hasn't been implemented yet")
+
     async def fetch_user(self, login):
         query = """
           query user ($login: String!) {
