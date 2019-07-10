@@ -146,12 +146,12 @@ class GitHub():
         data = await self.http.fetch_nodes(*ids)
         return node.Node.from_data(data)
 
-    async def fetch_rate_limit(self, *, dry: bool=None) -> ratelimit.RateLimit:
+    async def fetch_rate_limit(self) -> ratelimit.RateLimit:
         """
 
         """
 
-        data = await self.http.fetch_rate_limit(dry=dry)
+        data = await self.http.fetch_rate_limit()
         return ratelimit.RateLimit.from_data(data)
 
     async def fetch_topic(self, name: str) -> topic.Topic:
