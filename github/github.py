@@ -21,6 +21,7 @@ import typing
 from github import http
 from github.objects import codeofconduct
 from github.objects import license
+from github.objects import metadata
 from github.objects import ratelimit
 from github.objects import topic
 from github.objects import user
