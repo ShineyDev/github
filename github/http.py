@@ -79,6 +79,8 @@ class HTTPClient():
         return data.get("data")
 
     async def fetch_authenticated_user(self) -> dict:
+        # https://developer.github.com/v4/object/user/
+
         query = """
           query authenticated_user {
             viewer {
@@ -115,6 +117,8 @@ class HTTPClient():
         return data
 
     async def fetch_code_of_conduct(self, key: str) -> dict:
+        # https://developer.github.com/v4/object/codeofconduct/
+
         query = """
           query code_of_conduct ($key: String!) {
             codeOfConduct (key: $key) {
@@ -141,9 +145,13 @@ class HTTPClient():
         return data
 
     async def fetch_codes_of_conduct(self, *keys: str) -> dict:
+        # https://developer.github.com/v4/object/codeofconduct/
+
         raise NotImplementedError("this method hasn't been implemented yet")
 
     async def fetch_all_codes_of_conduct(self) -> dict:
+        # https://developer.github.com/v4/object/codeofconduct/
+
         query = """
           query all_codes_of_conduct {
             codesOfConduct {
@@ -165,6 +173,8 @@ class HTTPClient():
         return data
 
     async def fetch_license(self, key: str) -> dict:
+        # https://developer.github.com/v4/object/license/
+
         query = """
           query license ($key: String!) {
             license (key: $key) {
@@ -213,9 +223,13 @@ class HTTPClient():
         return data
 
     async def fetch_licenses(self, *keys: str) -> dict:
+        # https://developer.github.com/v4/object/license/
+
         raise NotImplementedError("this method hasn't been implemented yet")
 
     async def fetch_all_licenses(self) -> dict:
+        # https://developer.github.com/v4/object/license/
+
         query = """
           query all_licenses {
             licenses {
@@ -259,6 +273,8 @@ class HTTPClient():
         return data
 
     async def fetch_metadata(self) -> dict:
+        # https://developer.github.com/v4/object/githubmetadata/
+
         query = """
           query metadata {
             meta {
@@ -280,6 +296,8 @@ class HTTPClient():
         return data
 
     async def fetch_node(self, id) -> dict:
+        # https://developer.github.com/v4/interface/node/
+
         query = """
           query node ($id: ID!) {
             node (id: $id) {
@@ -302,6 +320,8 @@ class HTTPClient():
         return data
 
     async def fetch_nodes(self, *ids: str) -> dict:
+        # https://developer.github.com/v4/interface/node/
+
         query = """
           query nodes ($ids: [ID!]!) {
             nodes (ids: $ids) {
@@ -324,6 +344,8 @@ class HTTPClient():
         return data
     
     async def fetch_rate_limit(self, *, dry: bool) -> dict:
+        # https://developer.github.com/v4/object/ratelimit/
+
         if dry is not None:
             query = """
               query rate_limit ($dry: Boolean!) {
@@ -364,6 +386,8 @@ class HTTPClient():
         return data
 
     async def fetch_topic(self, name: str) -> dict:
+        # https://developer.github.com/v4/object/topic/
+
         query = """
           query topic ($name: String!) {
             topic (name: $name) {
@@ -392,9 +416,13 @@ class HTTPClient():
         return data
 
     async def fetch_topics(self, *names: str) -> dict:
+        # https://developer.github.com/v4/object/topic/
+
         raise NotImplementedError("this method hasn't been implemented yet")
 
     async def fetch_user(self, login: str) -> dict:
+        # https://developer.github.com/v4/object/user/
+
         query = """
           query user ($login: String!) {
             user (login: $login) {
@@ -436,6 +464,8 @@ class HTTPClient():
         return data
 
     async def fetch_users(self, *logins: str) -> dict:
+        # https://developer.github.com/v4/object/user/
+
         raise NotImplementedError("this method hasn't been implemented yet")
 
     async def fetch_user_avatar_url(self, login: str, size: int) -> dict:
