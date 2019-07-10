@@ -343,7 +343,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
     
-    async def fetch_rate_limit(self, *, dry: bool) -> dict:
+    async def fetch_rate_limit(self, *, dry: bool=None) -> dict:
         # https://developer.github.com/v4/object/ratelimit/
 
         if dry is not None:
@@ -468,7 +468,7 @@ class HTTPClient():
 
         raise NotImplementedError("this method hasn't been implemented yet")
 
-    async def fetch_user_avatar_url(self, login: str, size: int) -> dict:
+    async def fetch_user_avatar_url(self, login: str, size: int=None) -> dict:
         if size is not None:
             query = """
               query user_avatar_url ($login: String!, $size: Int!) {
@@ -481,11 +481,6 @@ class HTTPClient():
             variables = {
                 "login": login,
                 "size": size,
-            }
-
-            json = {
-                "query": query,
-                "variables": variables,
             }
         else:
             query = """
@@ -500,10 +495,10 @@ class HTTPClient():
                 "login": login,
             }
 
-            json = {
-                "query": query,
-                "variables": variables,
-            }
+        json = {
+            "query": query,
+            "variables": variables,
+        }
 
         data = await self.request(json=json)
         return data
