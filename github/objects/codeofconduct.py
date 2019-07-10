@@ -16,6 +16,8 @@
     limitations under the License.
 """
 
+import typing
+
 from github.objects import abc
 
 
@@ -28,14 +30,14 @@ class CodeOfConduct(abc.Node):
 
     __slots__ = ("data",)
 
-    def __init__(self, data):
+    def __init__(self, data: dict):
         self.data = data
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<{0} key='{1}'>".format(self.__class__.__name__, self.key)
 
     @classmethod
-    def from_data(cls, data):
+    def from_data(cls, data: dict) -> typing.Union["CodeOfConduct", typing.Iterable["CodeOfConduct"]]:
         if "codeOfConduct" in data.keys():
             return cls(data["codeOfConduct"])
         elif "codesOfConduct" in data.keys():
@@ -50,7 +52,7 @@ class CodeOfConduct(abc.Node):
             ...
 
     @property
-    def body(self):
+    def body(self) -> str:
         """
         The body of this Code of Conduct.
         """
@@ -58,7 +60,7 @@ class CodeOfConduct(abc.Node):
         return self.data.get("body")
 
     @property
-    def key(self):
+    def key(self) -> str:
         """
         The key for this Code of Conduct.
         """
@@ -66,17 +68,17 @@ class CodeOfConduct(abc.Node):
         return self.data.get("key")
 
     @property
-    def name(self):
+    def name(self) -> str:
         """
-        The formal name of this Code of Conduct.
+        The name of this Code of Conduct.
         """
 
         return self.data.get("name")
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
-        The http url for this Code of Conduct.
+        The url for this Code of Conduct.
         """
 
         return self.data.get("url")

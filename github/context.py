@@ -17,12 +17,13 @@
 """
 
 import aiohttp
+import typing
 
 from github import errors
 
 
 class SessionContext():
-    def __init__(self, session):
+    def __init__(self, session: typing.Optional[aiohttp.ClientSession]=None):
         self.session = session
         self._has_session = bool(session)
 

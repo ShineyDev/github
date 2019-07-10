@@ -30,15 +30,15 @@ class RateLimit():
 
     __slots__ = ("data",)
 
-    def __init__(self, data):
+    def __init__(self, data: dict):
         self.data = data
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<{0} cost={1} limit={2} remaining={3} reset_at={4}>".format(
             self.__class__.__name__, self.cost, self.limit, self.remaining, self.reset_at.timestamp())
 
     @classmethod
-    def from_data(cls, data):
+    def from_data(cls, data: dict) -> "RateLimit":
         return cls(data["rateLimit"])
 
     @property

@@ -17,6 +17,7 @@
 """
 
 import datetime
+import typing
 
 from github import utils
 from github.objects import abc
@@ -47,15 +48,15 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
 
     __slots__ = ("data", "http")
 
-    def __init__(self, data, http):
+    def __init__(self, data: dict, http):
         self.data = data
         self.http = http
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<{0} login='{1}'>".format(self.__class__.__name__, self.login)
 
     @classmethod
-    def from_data(cls, data, http):
+    def from_data(cls, data: dict, http) -> typing.Union["User", typing.Iterable["User"]]:
         if "user" in data.keys():
             return cls(data["user"], http)
         else:
@@ -209,5 +210,5 @@ class AuthenticatedUser(User):
     """
 
     @classmethod
-    def from_data(cls, data, http):
+    def from_data(cls, data: dict, http) -> typing.Union["AuthenticatedUser", typing.Iterable["AuthenticatedUser"]]:
         return cls(data["viewer"], http)

@@ -16,6 +16,9 @@
     limitations under the License.
 """
 
+import typing
+
+
 class Node():
     """
     Represents an object with an ID.
@@ -25,10 +28,10 @@ class Node():
 
     __slots__ = ("data",)
 
-    def __init__(self, data):
+    def __init__(self, data: dict):
         self.data = data
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         if type(self) != type(other):
             return False
 
@@ -37,11 +40,11 @@ class Node():
 
         return True
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<{0} id='{1}'>".format(self.__class__.__name__, self.id)
 
     @classmethod
-    def from_data(cls, data):
+    def from_data(cls, data: dict) -> typing.Union["Node", typing.Iterable["Node"]]:
         if "node" in data.keys():
             return cls(data["node"])
         elif "nodes" in data.keys():

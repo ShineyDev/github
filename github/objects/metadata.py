@@ -16,6 +16,9 @@
     limitations under the License.
 """
 
+import typing
+
+
 class Metadata():
     """
     Represents information about the GitHub instance.
@@ -25,15 +28,15 @@ class Metadata():
 
     __slots__ = ("data",)
 
-    def __init__(self, data):
+    def __init__(self, data: dict):
         self.data = data
 
     @classmethod
-    def from_data(cls, data):
+    def from_data(cls, data: dict) -> "Metadata":
         return cls(data["meta"])
 
     @property
-    def git_ip_addresses(self):
+    def git_ip_addresses(self) -> typing.Iterable[str]:
         """
         IP addresses that users connect to for git operations.
         """
@@ -41,7 +44,7 @@ class Metadata():
         return self.data.get("gitIpAddresses")
 
     @property
-    def github_services_sha(self):
+    def github_services_sha(self) -> str:
         """
         SHA of github-services.
         """
@@ -49,7 +52,7 @@ class Metadata():
         return self.data.get("gitHubServicesSha")
 
     @property
-    def hook_ip_addresses(self):
+    def hook_ip_addresses(self) -> typing.Iterable[str]:
         """
         IP addresses that service hooks are sent from.
         """
@@ -57,7 +60,7 @@ class Metadata():
         return self.data.get("hookIpAddresses")
 
     @property
-    def importer_ip_addresses(self):
+    def importer_ip_addresses(self) -> typing.Iterable[str]:
         """
         IP addresses that the importer connects from.
         """
@@ -65,7 +68,7 @@ class Metadata():
         return self.data.get("importerIpAddresses")
 
     @property
-    def is_authentication_verifiable(self):
+    def is_authentication_verifiable(self) -> bool:
         """
         Whether or not users are verified.
         """
@@ -73,7 +76,7 @@ class Metadata():
         return self.data.get("isPasswordAuthenticationVerifiable")
 
     @property
-    def pages_ip_addresses(self):
+    def pages_ip_addresses(self) -> typing.Iterable[str]:
         """
         IP addresses for GitHub Pages' A records.
         """

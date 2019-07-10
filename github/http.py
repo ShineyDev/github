@@ -29,28 +29,28 @@ DEFAULT_USER_AGENT = "ShineyDev/github"
 class HTTPClient():
     __slots__ = ("_token", "_base_url", "_user_agent")
 
-    def __init__(self, token, *, base_url, user_agent):
+    def __init__(self, token: str, *, base_url: str=None, user_agent: str=None):
         self._token = token
         self._base_url = base_url or DEFAULT_BASE_URL
         self._user_agent = user_agent or DEFAULT_USER_AGENT
 
     @property
-    def base_url(self):
+    def base_url(self) -> str:
         return self._base_url
 
     @base_url.setter
-    def base_url(self, value):
+    def base_url(self, value: str):
         self._base_url = value or DEFAULT_BASE_URL
 
     @property
-    def user_agent(self):
+    def user_agent(self) -> str:
         return self._user_agent
 
     @user_agent.setter
-    def user_agent(self, value):
+    def user_agent(self, value: str):
         self._user_agent = value or DEFAULT_USER_AGENT
 
-    async def _request(self, *, json, headers, session):
+    async def _request(self, *, json: dict, headers: dict, session: aiohttp.ClientSession):
         async with session.post(self._base_url, json=json, headers=headers) as response:
             try:
                 data = await response.json()
@@ -78,7 +78,7 @@ class HTTPClient():
 
         return data.get("data")
 
-    async def fetch_authenticated_user(self):
+    async def fetch_authenticated_user(self) -> dict:
         query = """
           query authenticated_user {
             viewer {
@@ -114,7 +114,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
-    async def fetch_code_of_conduct(self, key):
+    async def fetch_code_of_conduct(self, key: str) -> dict:
         query = """
           query code_of_conduct ($key: String!) {
             codeOfConduct (key: $key) {
@@ -140,10 +140,10 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
-    async def fetch_codes_of_conduct(self, *keys):
+    async def fetch_codes_of_conduct(self, *keys: str) -> dict:
         raise NotImplementedError("this method hasn't been implemented yet")
 
-    async def fetch_all_codes_of_conduct(self):
+    async def fetch_all_codes_of_conduct(self) -> dict:
         query = """
           query all_codes_of_conduct {
             codesOfConduct {
@@ -164,7 +164,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
-    async def fetch_license(self, key):
+    async def fetch_license(self, key: str) -> dict:
         query = """
           query license ($key: String!) {
             license (key: $key) {
@@ -212,10 +212,10 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
-    async def fetch_licenses(self, *keys):
+    async def fetch_licenses(self, *keys: str) -> dict:
         raise NotImplementedError("this method hasn't been implemented yet")
 
-    async def fetch_all_licenses(self):
+    async def fetch_all_licenses(self) -> dict:
         query = """
           query all_licenses {
             licenses {
@@ -258,7 +258,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
-    async def fetch_metadata(self):
+    async def fetch_metadata(self) -> dict:
         query = """
           query metadata {
             meta {
@@ -279,7 +279,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
-    async def fetch_node(self, id):
+    async def fetch_node(self, id) -> dict:
         query = """
           query node ($id: ID!) {
             node (id: $id) {
@@ -301,7 +301,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
-    async def fetch_nodes(self, *ids):
+    async def fetch_nodes(self, *ids: str) -> dict:
         query = """
           query nodes ($ids: [ID!]!) {
             nodes (ids: $ids) {
@@ -323,7 +323,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
     
-    async def fetch_rate_limit(self, *, dry):
+    async def fetch_rate_limit(self, *, dry: bool) -> dict:
         if dry is not None:
             query = """
               query rate_limit ($dry: Boolean!) {
@@ -363,7 +363,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
-    async def fetch_topic(self, name):
+    async def fetch_topic(self, name: str) -> dict:
         query = """
           query topic ($name: String!) {
             topic (name: $name) {
@@ -391,10 +391,10 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
-    async def fetch_topics(self, *names):
+    async def fetch_topics(self, *names: str) -> dict:
         raise NotImplementedError("this method hasn't been implemented yet")
 
-    async def fetch_user(self, login):
+    async def fetch_user(self, login: str) -> dict:
         query = """
           query user ($login: String!) {
             user (login: $login) {
@@ -435,10 +435,10 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
-    async def fetch_users(self, *logins):
+    async def fetch_users(self, *logins: str) -> dict:
         raise NotImplementedError("this method hasn't been implemented yet")
 
-    async def fetch_user_avatar_url(self, login, size):
+    async def fetch_user_avatar_url(self, login: str, size: int) -> dict:
         if size is not None:
             query = """
               query user_avatar_url ($login: String!, $size: Int!) {
@@ -478,7 +478,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data
 
-    async def fetch_user_email(self, login):
+    async def fetch_user_email(self, login: str) -> dict:
         query = """
           query user_email ($login: String!) {
             user (login: $login) {

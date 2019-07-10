@@ -16,6 +16,8 @@
     limitations under the License.
 """
 
+import typing
+
 from github.objects import abc
 
 
@@ -28,14 +30,14 @@ class License(abc.Node):
 
     __slots__ = ("data",)
 
-    def __init__(self, data):
+    def __init__(self, data: dict):
         self.data = data
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<{0} key='{1}'>".format(self.__class__.__name__, self.key)
 
     @classmethod
-    def from_data(cls, data):
+    def from_data(cls, data: dict) -> typing.Union["License", typing.Iterable["License"]]:
         if "license" in data.keys():
             return cls(data["license"])
         elif "licenses" in data.keys():
@@ -50,7 +52,7 @@ class License(abc.Node):
             ...
 
     @property
-    def body(self):
+    def body(self) -> str:
         """
         The full text of the license.
         """
@@ -58,7 +60,7 @@ class License(abc.Node):
         return self.data.get("body")
 
     @property
-    def conditions(self):
+    def conditions(self) -> typing.Iterable["LicenseRule"]:
         """
         The conditions set by the license.
         """
@@ -66,7 +68,7 @@ class License(abc.Node):
         return LicenseRule.from_data(self.data.get("conditions"))
 
     @property
-    def description(self):
+    def description(self) -> str:
         """
         A human-readable description of the license.
         """
@@ -74,7 +76,7 @@ class License(abc.Node):
         return self.data.get("description")
 
     @property
-    def implementation(self):
+    def implementation(self) -> str:
         """
         Instructions on how to implement the license.
         """
@@ -82,7 +84,7 @@ class License(abc.Node):
         return self.data.get("implementation")
 
     @property
-    def is_featured(self):
+    def is_featured(self) -> bool:
         """
         Whether the license is featured.
         """
@@ -90,7 +92,7 @@ class License(abc.Node):
         return self.data.get("featured")
 
     @property
-    def is_hidden(self):
+    def is_hidden(self) -> bool:
         """
         Whether the license is not displayed in license pickers.
         """
@@ -98,7 +100,7 @@ class License(abc.Node):
         return self.data.get("hidden")
 
     @property
-    def is_pseudo(self):
+    def is_pseudo(self) -> bool:
         """
         Whether the license is a pseudo-license placeholder.
         """
@@ -106,7 +108,7 @@ class License(abc.Node):
         return self.data.get("pseudoLicense")
 
     @property
-    def key(self):
+    def key(self) -> str:
         """
         The lowercased SPDX ID of the license.
         """
@@ -114,7 +116,7 @@ class License(abc.Node):
         return self.data.get("key")
 
     @property
-    def limitations(self):
+    def limitations(self) -> typing.Iterable["LicenseRule"]:
         """
         The limitations set by the license.
         """
@@ -122,7 +124,7 @@ class License(abc.Node):
         return LicenseRule.from_data(self.data.get("limitations"))
 
     @property
-    def name(self):
+    def name(self) -> str:
         """
         The license' full name specified by https://spdx.org/licenses.
         """
@@ -130,7 +132,7 @@ class License(abc.Node):
         return self.data.get("name")
 
     @property
-    def nickname(self):
+    def nickname(self) -> str:
         """
         The license' customary short name.
         """
@@ -138,7 +140,7 @@ class License(abc.Node):
         return self.data.get("nickname")
 
     @property
-    def permissions(self):
+    def permissions(self) -> typing.Iterable["LicenseRule"]:
         """
         The permissions set by the license.
         """
@@ -146,7 +148,7 @@ class License(abc.Node):
         return LicenseRule.from_data(self.data.get("permissions"))
 
     @property
-    def spdx_id(self):
+    def spdx_id(self) -> str:
         """
         The license' short identifier specified by https://spdx.org/licenses.
         """
@@ -154,7 +156,7 @@ class License(abc.Node):
         return self.data.get("spdxId")
 
     @property
-    def url(self):
+    def url(self) -> str:
         """
         The url to the license on https://choosealicense.com.
         """
@@ -170,14 +172,14 @@ class LicenseRule():
 
     __slots__ = ("data",)
 
-    def __init__(self, data):
+    def __init__(self, data: dict):
         self.data = data
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<{0} key='{1}'>".format(self.__class__.__name__, self.key)
 
     @classmethod
-    def from_data(cls, data):
+    def from_data(cls, data: dict) -> typing.Iterable["LicenseRule"]:
         rules = list()
 
         for (rule) in data:
@@ -186,7 +188,7 @@ class LicenseRule():
         return rules
     
     @property
-    def description(self):
+    def description(self) -> str:
         """
         A description of the rule.
         """
@@ -194,7 +196,7 @@ class LicenseRule():
         return self.data.get("description")
 
     @property
-    def key(self):
+    def key(self) -> str:
         """
         The machine-readable rule key.
         """
@@ -202,7 +204,7 @@ class LicenseRule():
         return self.data.get("key")
 
     @property
-    def label(self):
+    def label(self) -> str:
         """
         The human-readable rule label.
         """

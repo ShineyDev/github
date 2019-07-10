@@ -16,6 +16,8 @@
     limitations under the License.
 """
 
+import typing
+
 from github.objects import abc
 
 
@@ -26,14 +28,14 @@ class Topic(abc.Node):
 
     __slots__ = ("data",)
 
-    def __init__(self, data):
+    def __init__(self, data: dict):
         self.data = data
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<{0} name='{1}'>".format(self.__class__.__name__, self.name)
 
     @classmethod
-    def from_data(cls, data):
+    def from_data(cls, data: dict) -> typing.Union["Topic", typing.Iterable["Topic"]]:
         if "topic" in data.keys():
             return cls(data["topic"])
         elif "topics" in data.keys():
@@ -45,7 +47,7 @@ class Topic(abc.Node):
             return topic
 
     @property
-    def name(self):
+    def name(self) -> str:
         """
         The topic's name.
         """
@@ -53,7 +55,7 @@ class Topic(abc.Node):
         return self.data.get("name")
 
     @property
-    def related_topics(self):
+    def related_topics(self) -> typing.Iterable["PartialTopic"]:
         """
         A list of related topics.
         """
@@ -69,14 +71,14 @@ class PartialTopic(abc.Node):
 
     __slots__ = ("data",)
 
-    def __init__(self, data):
+    def __init__(self, data: dict):
         self.data = data
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<{0} name='{1}'>".format(self.__class__.__name__, self.name)
 
     @classmethod
-    def from_data(cls, data):
+    def from_data(cls, data: list) -> typing.Iterable["PartialTopic"]:
         topics = list()
 
         for (topic) in data:
@@ -85,7 +87,7 @@ class PartialTopic(abc.Node):
         return topics
 
     @property
-    def name(self):
+    def name(self) -> str:
         """
         The topic's name.
         """
