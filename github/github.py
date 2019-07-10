@@ -16,6 +16,8 @@
     limitations under the License.
 """
 
+import typing
+
 from github import http
 from github.objects import codeofconduct
 from github.objects import license
@@ -63,7 +65,7 @@ class GitHub():
     def user_agent(self, value: str=None):
         self.http.user_agent = value
 
-    async def fetch_authenticated_user(self):
+    async def fetch_authenticated_user(self) -> user.AuthenticatedUser:
         """
 
         """
@@ -71,7 +73,7 @@ class GitHub():
         data = await self.http.fetch_authenticated_user()
         return user.AuthenticatedUser.from_data(data, self.http)
 
-    async def fetch_code_of_conduct(self, key: str):
+    async def fetch_code_of_conduct(self, key: str) -> codeofconduct.CodeOfConduct:
         """
 
         """
@@ -79,7 +81,7 @@ class GitHub():
         data = await self.http.fetch_code_of_conduct(key)
         return codeofconduct.CodeOfConduct.from_data(data)
 
-    async def fetch_codes_of_conduct(self, *keys: str):
+    async def fetch_codes_of_conduct(self, *keys: str) -> typing.Iterable[codeofconduct.CodeOfConduct]:
         """
 
         """
@@ -87,7 +89,7 @@ class GitHub():
         data = await self.http.fetch_codes_of_conduct(*keys)
         return codeofconduct.CodeOfConduct.from_data(data)
 
-    async def fetch_all_codes_of_conduct(self):
+    async def fetch_all_codes_of_conduct(self) -> typing.Iterable[codeofconduct.CodeOfConduct]:
         """
 
         """
@@ -95,7 +97,7 @@ class GitHub():
         data = await self.http.fetch_all_codes_of_conduct()
         return codeofconduct.CodeOfConduct.from_data(data)
 
-    async def fetch_license(self, key: str):
+    async def fetch_license(self, key: str) -> license.License:
         """
 
         """
@@ -103,7 +105,7 @@ class GitHub():
         data = await self.http.fetch_license(key)
         return license.License.from_data(data)
 
-    async def fetch_licenses(self, *keys: str):
+    async def fetch_licenses(self, *keys: str) -> typing.Iterable[license.License]:
         """
 
         """
@@ -111,7 +113,7 @@ class GitHub():
         data = await self.http.fetch_licenses(*keys)
         return license.License.from_data(data)
 
-    async def fetch_all_licenses(self):
+    async def fetch_all_licenses(self) -> typing.Iterable[license.License]:
         """
 
         """
@@ -119,7 +121,7 @@ class GitHub():
         data = await self.http.fetch_all_licenses()
         return license.License.from_data(data)
 
-    async def fetch_metadata(self):
+    async def fetch_metadata(self) -> metadata.Metadata:
         """
 
         """
@@ -127,7 +129,7 @@ class GitHub():
         data = await self.http.fetch_metadata()
         return metadata.Metadata.from_data(data)
 
-    async def fetch_node(self, id: str):
+    async def fetch_node(self, id: str) -> node.Node:
         """
 
         """
@@ -135,7 +137,7 @@ class GitHub():
         data = await self.http.fetch_node(id)
         return node.Node.from_data(data)
 
-    async def fetch_nodes(self, *ids: str):
+    async def fetch_nodes(self, *ids: str) -> typing.Iterable[node.Node]:
         """
 
         """
@@ -143,7 +145,7 @@ class GitHub():
         data = await self.http.fetch_nodes(*ids)
         return node.Node.from_data(data)
 
-    async def fetch_rate_limit(self, *, dry: bool=None):
+    async def fetch_rate_limit(self, *, dry: bool=None) -> ratelimit.RateLimit:
         """
 
         """
@@ -151,7 +153,7 @@ class GitHub():
         data = await self.http.fetch_rate_limit(dry=dry)
         return ratelimit.RateLimit.from_data(data)
 
-    async def fetch_topic(self, name: str):
+    async def fetch_topic(self, name: str) -> topic.Topic:
         """
 
         """
@@ -159,7 +161,7 @@ class GitHub():
         data = await self.http.fetch_topic(name)
         return topic.Topic.from_data(data)
 
-    async def fetch_topics(self, *names: str):
+    async def fetch_topics(self, *names: str) -> typing.Iterable[topic.Topic]:
         """
 
         """
@@ -167,7 +169,7 @@ class GitHub():
         data = await self.http.fetch_topics(*names)
         return topic.Topic.from_data(data)
 
-    async def fetch_user(self, login: str):
+    async def fetch_user(self, login: str) -> user.User:
         """
 
         """
@@ -175,7 +177,7 @@ class GitHub():
         data = await self.http.fetch_user(login)
         return user.User.from_data(data, self.http)
 
-    async def fetch_users(self, *logins: str):
+    async def fetch_users(self, *logins: str) -> typing.Iterable[user.User]:
         """
 
         """
