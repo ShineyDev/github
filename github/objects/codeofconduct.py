@@ -34,22 +34,19 @@ class CodeOfConduct(abc.Node):
         self.data = data
 
     def __repr__(self) -> str:
-        return "<{0} key='{1}'>".format(self.__class__.__name__, self.key)
+        return "<{0.__class__.__name__} key='{0.key}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: dict) -> typing.Union["CodeOfConduct", typing.Iterable["CodeOfConduct"]]:
-        if "codeOfConduct" in data.keys():
-            return cls(data["codeOfConduct"])
-        elif "codesOfConduct" in data.keys():
+    def from_data(cls, data: typing.Union[dict, list]) -> typing.Union["CodeOfConduct", typing.Iterable["CodeOfConduct"]]:
+        if isinstance(data, dict):
+            return cls(data)
+        elif isintance(data, list):
             codes = list()
 
-            for (code) in data["codesOfConduct"]:
+            for (code) in data:
                 codes.append(cls(code))
 
             return codes
-        else:
-            # HTTPClient.fetch_codes_of_conduct
-            ...
 
     @property
     def body(self) -> str:
@@ -57,7 +54,7 @@ class CodeOfConduct(abc.Node):
         The body of this Code of Conduct.
         """
 
-        return self.data.get("body")
+        return self.data["body"]
 
     @property
     def key(self) -> str:
@@ -65,7 +62,7 @@ class CodeOfConduct(abc.Node):
         The key for this Code of Conduct.
         """
 
-        return self.data.get("key")
+        return self.data["key"]
 
     @property
     def name(self) -> str:
@@ -73,7 +70,7 @@ class CodeOfConduct(abc.Node):
         The name of this Code of Conduct.
         """
 
-        return self.data.get("name")
+        return self.data["name"]
 
     @property
     def url(self) -> str:
@@ -81,4 +78,4 @@ class CodeOfConduct(abc.Node):
         The url for this Code of Conduct.
         """
 
-        return self.data.get("url")
+        return self.data["url"]
