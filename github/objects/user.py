@@ -183,7 +183,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
 
         return self.data["websiteUrl"]
 
-    async def fetch_email(self, *, cache: bool=True) -> str:
+    async def fetch_email(self, *, cache: bool=True) -> typing.Optional[str]:
         """
         Fetches the user's email.
         """
