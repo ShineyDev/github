@@ -34,8 +34,7 @@ class RateLimit():
         self.data = data
 
     def __repr__(self) -> str:
-        return "<{0} limit={2} remaining={3} reset_at={4}>".format(
-            self.__class__.__name__, self.limit, self.remaining, self.reset_at.timestamp())
+        return "<{0.__class__.__name__} limit={0.limit} remaining={0.remaining} reset_at={0.reset_at.timestamp()}>".format(self)
 
     @classmethod
     def from_data(cls, data: dict) -> "RateLimit":
