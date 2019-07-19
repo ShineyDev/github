@@ -16,10 +16,6 @@
     limitations under the License.
 """
 
-"""
-... not implemented ...
-resourcePath
-"""
 class Actor():
     """
     Represents an object which can take actions on GitHub.
@@ -35,7 +31,7 @@ class Actor():
         A url pointing to this actor's public avatar.
         """
 
-        return self.data.get("avatarUrl")
+        return self.data["avatarUrl"]
 
     @property
     def login(self) -> str:
@@ -43,7 +39,7 @@ class Actor():
         The username for this actor.
         """
 
-        return self.data.get("login")
+        return self.data["login"]
 
     @property
     def url(self) -> str:
@@ -51,17 +47,17 @@ class Actor():
         The http url for this actor.
         """
 
-        return self.data.get("url")
+        return self.data["url"]
 
     async def fetch_avatar_url(self, size: int=None, *, cache: bool=False) -> str:
         """
         Fetches a url pointing to this actor's public avatar.
         """
 
-        if (self.type == "User"):
-            data = await self.http.fetch_user_avatar_url(self.login, size)
-
-        avatar_url = data["user"]["avatarUrl"]
+        if self.data["__typename"] == "User":
+            avatar_url = await self.http.fetch_user_avatar_url(self.login, size)
+        elif self.data["__typename"] == "Organization":
+            ...
         
         if cache:
             self.data["avatarUrl"] = avatar_url
