@@ -41,5 +41,5 @@ class RepositoryOwner():
         # prevent cyclic imports
         from github.objects import repository
 
-        data = self.http.fetch_repository(self.login, name, include_parent=include_parent, include_template=include_template)
-        return repository.Repository.from_data(data)
+        data = await self.http.fetch_repository(self.login, name, include_parent=include_parent, include_template=include_template)
+        return repository.Repository.from_data(data, self.http)
