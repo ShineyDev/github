@@ -33,7 +33,7 @@ class Metadata():
 
     @classmethod
     def from_data(cls, data: dict) -> "Metadata":
-        return cls(data["meta"])
+        return cls(data)
 
     @property
     def git_ip_addresses(self) -> typing.Iterable[str]:
