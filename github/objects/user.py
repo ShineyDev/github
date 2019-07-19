@@ -23,22 +23,6 @@ from github import utils
 from github.objects import abc
 
 
-"""
-... not implemented ...
-repositoriesContributedTo
-starredRepositories
-bioHTML
-companyHTML
-contributionsCollection
-itemShowcase
-pinnedItemsRemaining
-projectsResourcePath
-projectsUrl
-viewerCanChangePinnedItems
-viewerCanCreateProjects
-viewerCanFollow
-viewerIsFollowing
-"""
 class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     """
     Represents a GitHub user account.
@@ -53,15 +37,19 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
         self.http = http
 
     def __repr__(self) -> str:
-        return "<{0} login='{1}'>".format(self.__class__.__name__, self.login)
+        return "<{0.__class__.__name__} login='{0.login}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: dict, http) -> typing.Union["User", typing.Iterable["User"]]:
-        if "user" in data.keys():
-            return cls(data["user"], http)
-        else:
-            # HTTPClient.fetch_users
-            ...
+    def from_data(cls, data: typing.Union[dict, list], http) -> typing.Union["User", typing.Iterable["User"]]:
+        if isinstance(data, dict):
+            return cls(data, http)
+        elif isinstance(data, list):
+            users = list()
+
+            for (user) in data:
+                users.append(cls(user))
+
+            return users
 
     @property
     def bio(self) -> str:
@@ -69,23 +57,23 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
         The user's public profile bio.
         """
 
-        return self.data.get("bio")
+        return self.data["bio"] or ""
 
     @property
-    def company(self) -> str:
+    def company(self) -> typing.Optional[str]:
         """
         The user's public profile company.
         """
 
-        return self.data.get("company")
+        return self.data["company"]
     
     @property
     def created_at(self) -> datetime.datetime:
         """
-        The date and time this user was created.
+        The date and time the user was created.
         """
 
-        return utils.iso_to_datetime(self.data.get("createdAt"))
+        return utils.iso_to_datetime(self.data["createdAt"])
 
     @property
     def database_id(self) -> int:
@@ -93,15 +81,15 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
         The user's primary key from the database.
         """
 
-        return self.data.get("databaseId")
+        return self.data["databaseId"]
 
     @property
-    def email(self) -> str:
+    def email(self) -> typing.Optional[str]:
         """
         The user's publicly visible profile email.
         """
 
-        return self.data.get("email")
+        return self.data["email"]
 
     @property
     def is_bounty_hunter(self) -> bool:
@@ -109,7 +97,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
         Whether this user is a participant in the GitHub Security Bug Bounty.
         """
 
-        return self.data.get("isBountyHunter")
+        return self.data["isBountyHunter"]
 
     @property
     def is_campus_expert(self) -> bool:
@@ -117,7 +105,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
         Whether this user is a participant in the GitHub Campus Experts Program.
         """
 
-        return self.data.get("isCampusExpert")
+        return self.data["isCampusExpert"]
 
     @property
     def is_developer_program_member(self) -> bool:
@@ -125,7 +113,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
         Whether this user is a GitHub Developer Program member.
         """
 
-        return self.data.get("isDeveloperProgramMember")
+        return self.data["isDeveloperProgramMember"]
 
     @property
     def is_employee(self) -> bool:
@@ -133,7 +121,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
         Whether this user is a GitHub employee.
         """
 
-        return self.data.get("isEmployee")
+        return self.data["isEmployee"]
 
     @property
     def is_hireable(self) -> bool:
@@ -141,7 +129,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
         Whether this user has marked themselves as for hire.
         """
 
-        return self.data.get("isHireable")
+        return self.data["isHireable"]
 
     @property
     def is_site_administrator(self) -> bool:
@@ -149,7 +137,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
         Whether this user is a site administrator.
         """
 
-        return self.data.get("isSiteAdmin")
+        return self.data["isSiteAdmin"]
 
     @property
     def is_viewer(self) -> bool:
@@ -157,47 +145,48 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
         Whether or not this user is the viewing user.
         """
 
-        return self.data.get("isViewer")
+        return self.data["isViewer"]
 
     @property
-    def location(self) -> str:
+    def location(self) -> typing.Optional[str]:
         """
         The user's public profile location.
         """
 
-        return self.data.get("location")
+        return self.data["location"]
 
     @property
-    def name(self) -> str:
+    def name(self) -> typing.Optional[str]:
         """
         The user's public profile name.
         """
 
-        return self.data.get("name")
+        return self.data["name"]
     
     @property
-    def updated_at(self) -> datetime.datetime:
+    def updated_at(self) -> typing.Optional[datetime.datetime]:
         """
         The date and time this user was last updated.
         """
 
-        return utils.iso_to_datetime(self.data.get("updatedAt"))
+        updated_at = self.data["updatedAt"]
+        if updated_at:
+            return utils.iso_to_datetime(updated_at)
 
     @property
-    def website(self) -> str:
+    def website(self) -> typing.Optional[str]:
         """
         A url pointing to this user's public website/blog.
         """
 
-        return self.data.get("websiteUrl")
+        return self.data["websiteUrl"]
 
     async def fetch_email(self, *, cache: bool=True) -> str:
         """
-
+        Fetches the user's email.
         """
 
-        data = await self.http.fetch_user_email(self.login)
-        email = data["user"]["email"]
+        email = await self.http.fetch_user_email(self.login)
 
         if cache:
             self.data["email"] = email
@@ -210,5 +199,5 @@ class AuthenticatedUser(User):
     """
 
     @classmethod
-    def from_data(cls, data: dict, http) -> typing.Union["AuthenticatedUser", typing.Iterable["AuthenticatedUser"]]:
-        return cls(data["viewer"], http)
+    def from_data(cls, data: dict, http) -> "AuthenticatedUser":
+        return cls(data, http)
