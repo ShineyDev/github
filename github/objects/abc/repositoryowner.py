@@ -33,7 +33,7 @@ class RepositoryOwner():
 
         return self.data["anyPinnableItems"]
 
-    async def fetch_repository(self, name: str) -> "repository.Repository":
+    async def fetch_repository(self, name: str, *, include_parent: bool=True, include_template: bool=True) -> "repository.Repository":
         """
         Fetches a repository from this repository owner.
         """
@@ -41,5 +41,5 @@ class RepositoryOwner():
         # prevent cyclic imports
         from github.objects import repository
 
-        data = self.http.fetch_repository(self.login, name)
+        data = self.http.fetch_repository(self.login, name, include_parent=include_parent, include_template=include_template)
         return repository.Repository.from_data(data)
