@@ -41,16 +41,16 @@ class Node():
         return True
 
     def __repr__(self) -> str:
-        return "<{0} id='{1}'>".format(self.__class__.__name__, self.id)
+        return "<{0.__class__.__name__} id='{0.id}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: dict) -> typing.Union["Node", typing.Iterable["Node"]]:
-        if "node" in data.keys():
-            return cls(data["node"])
-        elif "nodes" in data.keys():
+    def from_data(cls, data: typing.Union[dict, list]) -> typing.Union["Node", typing.Iterable["Node"]]:
+        if isinstance(data, dict):
+            return cls(data)
+        elif isinstance(data, list):
             nodes = list()
 
-            for (node) in data["nodes"]:
+            for (node) in data:
                 nodes.append(cls(node))
 
             return nodes
@@ -61,7 +61,7 @@ class Node():
         ID of the object.
         """
 
-        return self.data.get("id")
+        return self.data["id"]
 
     @property
     def type(self) -> str:
@@ -69,4 +69,4 @@ class Node():
         The name of the current object type.
         """
 
-        return self.data.get("__typename")
+        return self.data["__typename"]
