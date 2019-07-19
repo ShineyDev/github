@@ -32,16 +32,16 @@ class Topic(abc.Node):
         self.data = data
 
     def __repr__(self) -> str:
-        return "<{0} name='{1}'>".format(self.__class__.__name__, self.name)
+        return "<{0.__class__.__name__} name='{0.name}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: dict) -> typing.Union["Topic", typing.Iterable["Topic"]]:
-        if "topic" in data.keys():
-            return cls(data["topic"])
-        elif "topics" in data.keys():
+    def from_data(cls, data: typing.Union[dict, list]) -> typing.Union["Topic", typing.Iterable["Topic"]]:
+        if isinstance(data, dict):
+            return cls(data)
+        elif isinstance(data, list):
             topics = list()
 
-            for (topic) in data["topics"]:
+            for (topic) in data:
                 topics.append(cls(topic))
 
             return topic
@@ -52,7 +52,7 @@ class Topic(abc.Node):
         The topic's name.
         """
 
-        return self.data.get("name")
+        return self.data["name"]
 
     @property
     def related_topics(self) -> typing.Iterable["PartialTopic"]:
@@ -60,7 +60,7 @@ class Topic(abc.Node):
         A list of related topics.
         """
 
-        return PartialTopic.from_data(self.data.get("relatedTopics"))
+        return PartialTopic.from_data(self.data["relatedTopics"])
 
 class PartialTopic(abc.Node):
     """
@@ -75,7 +75,7 @@ class PartialTopic(abc.Node):
         self.data = data
 
     def __repr__(self) -> str:
-        return "<{0} name='{1}'>".format(self.__class__.__name__, self.name)
+        return "<{0.__class__.__name__} name='{0.name}'>".format(self)
 
     @classmethod
     def from_data(cls, data: list) -> typing.Iterable["PartialTopic"]:
