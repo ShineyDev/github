@@ -87,9 +87,11 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
     def email(self) -> typing.Optional[str]:
         """
         The user's publicly visible profile email.
+
+        This is only ever available after a call to :meth:`.fetch_email` due to token scopes.
         """
 
-        return self.data["email"]
+        return self.data.get("email", None)
 
     @property
     def is_bounty_hunter(self) -> bool:
