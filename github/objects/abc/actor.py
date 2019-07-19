@@ -49,7 +49,7 @@ class Actor():
 
         return self.data["url"]
 
-    async def fetch_avatar_url(self, size: int=None, *, cache: bool=False) -> str:
+    async def fetch_avatar_url(self, *, size: int=None, cache: bool=False) -> str:
         """
         Fetches a url pointing to this actor's public avatar.
         """
