@@ -39,7 +39,7 @@ class RateLimit():
 
     @classmethod
     def from_data(cls, data: dict) -> "RateLimit":
-        return cls(data["rateLimit"])
+        return cls(data)
 
     @property
     def limit(self) -> int:
