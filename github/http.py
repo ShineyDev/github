@@ -114,7 +114,7 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return data
+        return data["viewer"]
 
     async def fetch_code_of_conduct(self, key: str) -> dict:
         # https://developer.github.com/v4/object/codeofconduct/
@@ -142,7 +142,7 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return data
+        return data["codeOfConduct"]
 
     async def fetch_codes_of_conduct(self, *keys: str) -> dict:
         # https://developer.github.com/v4/object/codeofconduct/
@@ -170,7 +170,7 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return data
+        return data["codesOfConduct"]
 
     async def fetch_license(self, key: str) -> dict:
         # https://developer.github.com/v4/object/license/
@@ -220,7 +220,7 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return data
+        return data["license"]
 
     async def fetch_licenses(self, *keys: str) -> dict:
         # https://developer.github.com/v4/object/license/
@@ -270,7 +270,7 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return data
+        return data["licenses"]
 
     async def fetch_metadata(self) -> dict:
         # https://developer.github.com/v4/object/githubmetadata/
@@ -293,7 +293,7 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return data
+        return data["meta"]
 
     async def fetch_node(self, id) -> dict:
         # https://developer.github.com/v4/interface/node/
@@ -317,7 +317,7 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return data
+        return data["node"]
 
     async def fetch_nodes(self, *ids: str) -> dict:
         # https://developer.github.com/v4/interface/node/
@@ -341,7 +341,7 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return data
+        return data["nodes"]
     
     async def fetch_rate_limit(self) -> dict:
         # https://developer.github.com/v4/object/ratelimit/
@@ -361,7 +361,357 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return data
+        return data["rateLimit"]
+
+    async def fetch_repository(self, owner: str, name: str, *, include_parent: bool, include_template: bool) -> dict:
+        # https://developer.github.com/v4/object/repository/
+
+        query = """
+          query repository ($owner: String!,
+                            $name: String!,
+                            $include_parent: Boolean!,
+                            $include_template: Boolean!) {
+            repository (owner: $owner, name: $name) {
+              __typename
+              codeOfConduct {
+                __typename
+                body
+                id
+                key
+                name
+                url
+              }
+              createdAt
+              databaseId
+              defaultBranchRef {
+                name
+              }
+              description
+              diskUsage
+              forkCount
+              hasIssuesEnabled
+              hasWikiEnabled
+              id
+              isArchived
+              isDisabled
+              isFork
+              isLocked
+              isMirror
+              isPrivate
+              isTemplate
+              licenseInfo {
+                __typename
+                body
+                conditions {
+                  description
+                  key
+                  label
+                }
+                description
+                featured
+                hidden
+                id
+                implementation
+                key
+                limitations {
+                  description
+                  key
+                  label
+                }
+                name
+                nickname
+                permissions {
+                  description
+                  key
+                  label
+                }
+                pseudoLicense
+                spdxId
+                url
+              }
+              lockReason
+              mergeCommitAllowed
+              name
+              owner {
+                ... on User {
+                  __typename
+                  anyPinnableItems
+                  avatarUrl
+                  bio
+                  company
+                  createdAt
+                  databaseId
+                  id
+                  isBountyHunter
+                  isCampusExpert
+                  isDeveloperProgramMember
+                  isEmployee
+                  isHireable
+                  isSiteAdmin
+                  isViewer
+                  location
+                  login
+                  name
+                  updatedAt
+                  url
+                  websiteUrl
+                }
+                ... on Organization {
+                  __typename
+                  id
+                }
+              }
+              parent @include (if: $include_parent) {
+                __typename
+                codeOfConduct {
+                  __typename
+                  body
+                  id
+                  key
+                  name
+                  url
+                }
+                createdAt
+                databaseId
+                defaultBranchRef {
+                  name
+                }
+                description
+                diskUsage
+                forkCount
+                hasIssuesEnabled
+                hasWikiEnabled
+                id
+                isArchived
+                isDisabled
+                isFork
+                isLocked
+                isMirror
+                isPrivate
+                isTemplate
+                licenseInfo {
+                  __typename
+                  body
+                  conditions {
+                    description
+                    key
+                    label
+                  }
+                  description
+                  featured
+                  hidden
+                  id
+                  implementation
+                  key
+                  limitations {
+                    description
+                    key
+                    label
+                  }
+                  name
+                  nickname
+                  permissions {
+                    description
+                    key
+                    label
+                  }
+                  pseudoLicense
+                  spdxId
+                  url
+                }
+                lockReason
+                mergeCommitAllowed
+                name
+                owner {
+                  ... on User {
+                    __typename
+                    anyPinnableItems
+                    avatarUrl
+                    bio
+                    company
+                    createdAt
+                    databaseId
+                    id
+                    isBountyHunter
+                    isCampusExpert
+                    isDeveloperProgramMember
+                    isEmployee
+                    isHireable
+                    isSiteAdmin
+                    isViewer
+                    location
+                    login
+                    name
+                    updatedAt
+                    url
+                    websiteUrl
+                  }
+                  ... on Organization {
+                    __typename
+                    id
+                  }
+                }
+                primaryLanguage {
+                  __typename
+                  color
+                  id
+                  name
+                }
+                pushedAt
+                rebaseMergeAllowed
+                squashMergeAllowed
+                updatedAt
+                url
+                viewerCanAdminister
+                viewerCanCreateProjects
+                viewerCanSubscribe
+                viewerCanUpdateTopics
+                viewerPermission
+                viewerSubscription
+              }
+              primaryLanguage {
+                __typename
+                color
+                id
+                name
+              }
+              pushedAt
+              rebaseMergeAllowed
+              squashMergeAllowed
+              templateRepository @include (if: $include_template) {
+                __typename
+                codeOfConduct {
+                  __typename
+                  body
+                  id
+                  key
+                  name
+                  url
+                }
+                createdAt
+                databaseId
+                defaultBranchRef {
+                  name
+                }
+                description
+                diskUsage
+                forkCount
+                hasIssuesEnabled
+                hasWikiEnabled
+                id
+                isArchived
+                isDisabled
+                isFork
+                isLocked
+                isMirror
+                isPrivate
+                isTemplate
+                licenseInfo {
+                  __typename
+                  body
+                  conditions {
+                    description
+                    key
+                    label
+                  }
+                  description
+                  featured
+                  hidden
+                  id
+                  implementation
+                  key
+                  limitations {
+                    description
+                    key
+                    label
+                  }
+                  name
+                  nickname
+                  permissions {
+                    description
+                    key
+                    label
+                  }
+                  pseudoLicense
+                  spdxId
+                  url
+                }
+                lockReason
+                mergeCommitAllowed
+                name
+                owner {
+                  ... on User {
+                    __typename
+                    anyPinnableItems
+                    avatarUrl
+                    bio
+                    company
+                    createdAt
+                    databaseId
+                    id
+                    isBountyHunter
+                    isCampusExpert
+                    isDeveloperProgramMember
+                    isEmployee
+                    isHireable
+                    isSiteAdmin
+                    isViewer
+                    location
+                    login
+                    name
+                    updatedAt
+                    url
+                    websiteUrl
+                  }
+                  ... on Organization {
+                    __typename
+                    id
+                  }
+                }
+                primaryLanguage {
+                  __typename
+                  color
+                  id
+                  name
+                }
+                pushedAt
+                rebaseMergeAllowed
+                squashMergeAllowed
+                updatedAt
+                url
+                viewerCanAdminister
+                viewerCanCreateProjects
+                viewerCanSubscribe
+                viewerCanUpdateTopics
+                viewerPermission
+                viewerSubscription
+              }
+              updatedAt
+              url
+              viewerCanAdminister
+              viewerCanCreateProjects
+              viewerCanSubscribe
+              viewerCanUpdateTopics
+              viewerPermission
+              viewerSubscription
+            }
+          }
+        """
+
+        variables = {
+            "owner": owner,
+            "name": name,
+            "include_parent": include_parent,
+            "include_template": include_template,
+        }
+
+        json = {
+            "query": query,
+            "variables": variables,
+        }
+
+        data = await self.request(json=json)
+        return data["repository"]
 
     async def fetch_topic(self, name: str) -> dict:
         # https://developer.github.com/v4/object/topic/
@@ -391,7 +741,7 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return data
+        return data["topic"]
 
     async def fetch_topics(self, *names: str) -> dict:
         # https://developer.github.com/v4/object/topic/
@@ -439,7 +789,7 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return data
+        return data["user"]
 
     async def fetch_users(self, *logins: str) -> dict:
         # https://developer.github.com/v4/object/user/
@@ -449,7 +799,8 @@ class HTTPClient():
     async def fetch_user_avatar_url(self, login: str, size: int=None) -> dict:
         if size is not None:
             query = """
-              query user_avatar_url ($login: String!, $size: Int!) {
+              query user_avatar_url ($login: String!,
+                                     $size: Int!) {
                 user (login: $login) {
                   avatarUrl (size: $size)
                 }
@@ -479,7 +830,7 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return data
+        return data["user"]["avatarUrl"]
 
     async def fetch_user_email(self, login: str) -> dict:
         query = """
@@ -500,4 +851,4 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return data
+        return data["user"]["email"]
