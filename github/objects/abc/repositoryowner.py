@@ -28,14 +28,18 @@ class RepositoryOwner():
     @property
     def has_pinnable_items(self) -> bool:
         """
-        Whether this repository owner has any items that can be pinned to their profile.
+        Whether or not this repository owner has any items that can be pinned to their profile.
         """
 
-        return self.data.get("anyPinnableItems")
+        return self.data["anyPinnableItems"]
 
-    async def fetch_repository(self, name: str):
+    async def fetch_repository(self, name: str) -> "repository.Repository":
+        """
+        Fetches a repository from this repository owner.
         """
 
-        """
+        # prevent cyclic imports
+        from github.objects import repository
 
-        ...
+        data = self.http.fetch_repository(self.login, name)
+        return repository.Repository.from_data(data)
