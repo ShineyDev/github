@@ -50,16 +50,29 @@
     <Compile Include="objects\codeofconduct.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="objects\language.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="objects\license.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="objects\permissions.py">
+    <Compile Include="objects\licenserule.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="objects\repositorylockreason.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="objects\repositorypermissions.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="objects\metadata.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="objects\ratelimit.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="objects\repository.py" />
+    <Compile Include="objects\repositorysubscription.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="objects\topic.py">
