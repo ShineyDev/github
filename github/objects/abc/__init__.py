@@ -16,8 +16,6 @@
     limitations under the License.
 """
 
-from github.objects.abc import *
-
-from github.objects.abc.actor import *
-from github.objects.abc.node import *
-from github.objects.abc.repositoryowner import *
+from github.objects.abc.actor import Actor
+from github.objects.abc.node import Node
+from github.objects.abc.repositoryowner import RepositoryOwner

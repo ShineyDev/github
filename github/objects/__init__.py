@@ -16,7 +16,15 @@
     limitations under the License.
 """
 
-from github.objects import abc
-
-from github.objects import ratelimit
-from github.objects import user
+from github.objects.codeofconduct import CodeOfConduct
+from github.objects.language import Language
+from github.objects.license import License
+from github.objects.licenserule import LicenseRule
+from github.objects.metadata import Metadata
+from github.objects.ratelimit import RateLimit
+from github.objects.repository import Repository, PartialRepository
+from github.objects.repositorylockreason import RepositoryLockReason
+from github.objects.repositorypermissions import RepositoryPermissions
+from github.objects.repositorysubscription import RepositorySubscription
+from github.objects.topic import Topic
+from github.objects.user import User, AuthenticatedUser

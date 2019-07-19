@@ -16,8 +16,7 @@
     limitations under the License.
 """
 
-from github import *
 from github.objects import *
 
-from github.errors import *
-from github.github import *
+from github.errors import GitHubError
+from github.github import GitHub
