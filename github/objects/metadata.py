@@ -41,7 +41,7 @@ class Metadata():
         IP addresses that users connect to for git operations.
         """
 
-        return self.data.get("gitIpAddresses")
+        return self.data["gitIpAddresses"]
 
     @property
     def github_services_sha(self) -> str:
@@ -49,7 +49,7 @@ class Metadata():
         SHA of github-services.
         """
 
-        return self.data.get("gitHubServicesSha")
+        return self.data["gitHubServicesSha"]
 
     @property
     def hook_ip_addresses(self) -> typing.Iterable[str]:
@@ -57,7 +57,7 @@ class Metadata():
         IP addresses that service hooks are sent from.
         """
 
-        return self.data.get("hookIpAddresses")
+        return self.data["hookIpAddresses"]
 
     @property
     def importer_ip_addresses(self) -> typing.Iterable[str]:
@@ -65,7 +65,7 @@ class Metadata():
         IP addresses that the importer connects from.
         """
 
-        return self.data.get("importerIpAddresses")
+        return self.data["importerIpAddresses"]
 
     @property
     def is_authentication_verifiable(self) -> bool:
@@ -73,7 +73,7 @@ class Metadata():
         Whether or not users are verified.
         """
 
-        return self.data.get("isPasswordAuthenticationVerifiable")
+        return self.data["isPasswordAuthenticationVerifiable"]
 
     @property
     def pages_ip_addresses(self) -> typing.Iterable[str]:
@@ -81,4 +81,4 @@ class Metadata():
         IP addresses for GitHub Pages' A records.
         """
 
-        return self.data.get("pagesIpAddresses")
+        return self.data["pagesIpAddresses"]
