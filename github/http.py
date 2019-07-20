@@ -708,6 +708,70 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["repository"]
 
+    async def fetch_repository_assignable_users(self, owner: str, name: str):
+        # https://developer.github.com/v4/object/user/
+
+        query = """
+          query repository_assignable_users ($owner: String!, $name: String!, $cursor: String!) {
+            repository (owner: $owner, name: $name) {
+              assignableUsers (first: 10, after: $cursor) {
+                nodes {
+                  __typename
+                  anyPinnableItems
+                  avatarUrl
+                  bio
+                  company
+                  createdAt
+                  databaseId
+                  id
+                  isBountyHunter
+                  isCampusExpert
+                  isDeveloperProgramMember
+                  isEmployee
+                  isHireable
+                  isSiteAdmin
+                  isViewer
+                  location
+                  login
+                  name
+                  updatedAt
+                  url
+                  websiteUrl
+                }
+                pageInfo {
+                  endCursor
+                  hasNextPage
+                }
+              }
+            }
+          }
+        """
+
+        nodes = list()
+        
+        cursor = "Y3Vyc29yOnYyOjA="
+        has_next_page = True
+
+        while has_next_page:
+            variables = {
+                "owner": owner,
+                "name": name,
+                "cursor": cursor,
+            }
+
+            json = {
+                "query": query,
+                "variables": variables,
+            }
+
+            data = await self.request(json=json)
+            nodes.extend(data["repository"]["assignableUsers"]["nodes"])
+
+            cursor = data["repository"]["assignableUsers"]["pageInfo"]["endCursor"]
+            has_next_page = data["repository"]["assignableUsers"]["pageInfo"]["hasNextPage"]
+
+        return nodes
+
     async def fetch_topic(self, name: str) -> dict:
         # https://developer.github.com/v4/object/topic/
 

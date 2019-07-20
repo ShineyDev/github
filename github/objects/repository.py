@@ -355,6 +355,14 @@ class Repository(abc.Node):
 
         return repositorysubscription.RepositorySubscription.from_data(self.data["viewerSubscription"])
 
+    async def fetch_assignable_users(self):
+        """
+        Fetches a list of users that can be assigned to issues in the repository.
+        """
+
+        data = await self.http.fetch_repository_assignable_users(self.owner.login, self.name)
+        return user.User.from_data(data, self.http)
+
 class PartialRepository(abc.Node):
     """
     Represents a GitHub repository.
@@ -655,3 +663,11 @@ class PartialRepository(abc.Node):
         """
 
         return repositorysubscription.RepositorySubscription.from_data(self.data["viewerSubscription"])
+
+    async def fetch_assignable_users(self):
+        """
+        Fetches a list of users that can be assigned to issues in the repository.
+        """
+
+        data = await self.http.fetch_repository_assignable_users(self.owner.login, self.name)
+        return user.User.from_data(data, self.http)
