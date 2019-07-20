@@ -255,7 +255,7 @@ class Repository(abc.Node):
         if not parent:
             return None
 
-        return PartialRepository.from_data(parent)
+        return PartialRepository.from_data(parent, self.http)
 
     @property
     def primary_language(self) -> language.Language:
@@ -287,7 +287,7 @@ class Repository(abc.Node):
         if not template:
             return None
 
-        return PartialRepository.from_data(template)
+        return PartialRepository.from_data(template, self.http)
 
     @property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
