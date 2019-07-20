@@ -32,7 +32,7 @@ class LicenseRule():
         self.data = data
 
     def __repr__(self) -> str:
-        return "<{0.__class_.__name__} key='{0.key}'>".format(self)
+        return "<{0.__class__.__name__} key='{0.key}'>".format(self)
 
     @classmethod
     def from_data(cls, data: list) -> typing.Iterable["LicenseRule"]:
