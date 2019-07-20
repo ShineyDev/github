@@ -1,5 +1,5 @@
 """
-/github/objects/repositorypermissions.py
+/github/objects/permissions.py
 
     Copyright (c) 2019 ShineyDev
     

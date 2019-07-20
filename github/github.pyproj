@@ -59,10 +59,10 @@
     <Compile Include="objects\licenserule.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="objects\repositorylockreason.py">
+    <Compile Include="objects\lockreason.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="objects\repositorypermissions.py">
+    <Compile Include="objects\permissions.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="objects\metadata.py">
@@ -72,7 +72,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="objects\repository.py" />
-    <Compile Include="objects\repositorysubscription.py">
+    <Compile Include="objects\subscription.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="objects\topic.py">

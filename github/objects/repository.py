@@ -24,9 +24,9 @@ from github.objects import abc
 from github.objects import codeofconduct
 from github.objects import language
 from github.objects import license
-from github.objects import repositorylockreason
-from github.objects import repositorypermissions
-from github.objects import repositorysubscription
+from github.objects import lockreason
+from github.objects import permissions
+from github.objects import subscription
 from github.objects import user
 
 
@@ -215,14 +215,14 @@ class Repository(abc.Node):
             return license.License.from_data(license_)
 
     @property
-    def lock_reason(self) -> typing.Optional[repositorylockreason.RepositoryLockReason]:
+    def lock_reason(self) -> typing.Optional[lockreason.RepositoryLockReason]:
         """
         The reason for the repository to be in a locked state.
         """
 
         lock_reason = self.data["lockReason"]
         if lock_reason:
-            return repositorylockreason.RepositoryLockReason.from_data(lock_reason)
+            return lockreason.RepositoryLockReason.from_data(lock_reason)
 
     @property
     def name(self) -> str:
@@ -340,20 +340,20 @@ class Repository(abc.Node):
         return self.data["viewerCanUpdateTopics"]
 
     @property
-    def viewer_permissions(self) -> repositorypermissions.RepositoryPermissions:
+    def viewer_permissions(self) -> permissions.RepositoryPermissions:
         """
         The authenticated user's permissions in the repository.
         """
 
-        return repositorypermissions.RepositoryPermissions.from_data(self.data["viewerPermission"])
+        return permissions.RepositoryPermissions.from_data(self.data["viewerPermission"])
 
     @property
-    def viewer_subscription(self) -> repositorysubscription.RepositorySubscription:
+    def viewer_subscription(self) -> subscription.RepositorySubscription:
         """
         The authenticated user's subscription to the repository.
         """
 
-        return repositorysubscription.RepositorySubscription.from_data(self.data["viewerSubscription"])
+        return subscription.RepositorySubscription.from_data(self.data["viewerSubscription"])
 
     async def fetch_assignable_users(self):
         """
@@ -556,14 +556,14 @@ class PartialRepository(abc.Node):
             return license.License.from_data(license_)
 
     @property
-    def lock_reason(self) -> typing.Optional[repositorylockreason.RepositoryLockReason]:
+    def lock_reason(self) -> typing.Optional[lockreason.RepositoryLockReason]:
         """
         The reason for the repository to be in a locked state.
         """
 
         lock_reason = self.data["lockReason"]
         if lock_reason:
-            return repositorylockreason.RepositoryLockReason.from_data(lock_reason)
+            return lockreason.RepositoryLockReason.from_data(lock_reason)
 
     @property
     def name(self) -> str:
@@ -657,20 +657,20 @@ class PartialRepository(abc.Node):
         return self.data["viewerCanUpdateTopics"]
 
     @property
-    def viewer_permissions(self) -> repositorypermissions.RepositoryPermissions:
+    def viewer_permissions(self) -> permissions.RepositoryPermissions:
         """
         The authenticated user's permissions in the repository.
         """
 
-        return repositorypermissions.RepositoryPermissions.from_data(self.data["viewerPermission"])
+        return permissions.RepositoryPermissions.from_data(self.data["viewerPermission"])
 
     @property
-    def viewer_subscription(self) -> repositorysubscription.RepositorySubscription:
+    def viewer_subscription(self) -> subscription.RepositorySubscription:
         """
         The authenticated user's subscription to the repository.
         """
 
-        return repositorysubscription.RepositorySubscription.from_data(self.data["viewerSubscription"])
+        return subscription.RepositorySubscription.from_data(self.data["viewerSubscription"])
 
     async def fetch_assignable_users(self):
         """

@@ -1,5 +1,5 @@
 """
-/github/objects/repositorylockreason.py
+/github/objects/lockreason.py
 
     Copyright (c) 2019 ShineyDev
     

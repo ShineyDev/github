@@ -1,5 +1,5 @@
 """
-/github/objects/repositorysubscription.py
+/github/objects/subscription.py
 
     Copyright (c) 2019 ShineyDev
     
