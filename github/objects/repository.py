@@ -363,6 +363,14 @@ class Repository(abc.Node):
         data = await self.http.fetch_repository_assignable_users(self.owner.login, self.name)
         return user.User.from_data(data, self.http)
 
+    async def fetch_collaborators(self):
+        """
+        Fetches a list of collaborators associated with the repository.
+        """
+
+        data = await self.http.fetch_repository_collaborators(self.owner.login, self.name)
+        return user.User.from_data(data, self.http)
+
 class PartialRepository(abc.Node):
     """
     Represents a GitHub repository.
@@ -670,4 +678,12 @@ class PartialRepository(abc.Node):
         """
 
         data = await self.http.fetch_repository_assignable_users(self.owner.login, self.name)
+        return user.User.from_data(data, self.http)
+
+    async def fetch_collaborators(self):
+        """
+        Fetches a list of collaborators associated with the repository.
+        """
+
+        data = await self.http.fetch_repository_collaborators(self.owner.login, self.name)
         return user.User.from_data(data, self.http)

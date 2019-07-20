@@ -772,6 +772,70 @@ class HTTPClient():
 
         return nodes
 
+    async def fetch_repository_collaborators(self, owner: str, name: str):
+        # https://developer.github.com/v4/object/user/
+
+        query = """
+          query repository_collaborators ($owner: String!, $name: String!, $cursor: String!) {
+            repository (owner: $owner, name: $name) {
+              collaborators (first: 10, after: $cursor) {
+                nodes {
+                  __typename
+                  anyPinnableItems
+                  avatarUrl
+                  bio
+                  company
+                  createdAt
+                  databaseId
+                  id
+                  isBountyHunter
+                  isCampusExpert
+                  isDeveloperProgramMember
+                  isEmployee
+                  isHireable
+                  isSiteAdmin
+                  isViewer
+                  location
+                  login
+                  name
+                  updatedAt
+                  url
+                  websiteUrl
+                }
+                pageInfo {
+                  endCursor
+                  hasNextPage
+                }
+              }
+            }
+          }
+        """
+
+        nodes = list()
+        
+        cursor = "Y3Vyc29yOnYyOjA="
+        has_next_page = True
+
+        while has_next_page:
+            variables = {
+                "owner": owner,
+                "name": name,
+                "cursor": cursor,
+            }
+
+            json = {
+                "query": query,
+                "variables": variables,
+            }
+
+            data = await self.request(json=json)
+            nodes.extend(data["repository"]["collaborators"]["nodes"])
+
+            cursor = data["repository"]["collaborators"]["pageInfo"]["endCursor"]
+            has_next_page = data["repository"]["collaborators"]["pageInfo"]["hasNextPage"]
+
+        return nodes
+
     async def fetch_topic(self, name: str) -> dict:
         # https://developer.github.com/v4/object/topic/
 
