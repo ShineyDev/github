@@ -132,7 +132,7 @@ class License(abc.Node):
         return self.data["name"]
 
     @property
-    def nickname(self) -> str:
+    def nickname(self) -> typing.Optional[str]:
         """
         The license' customary short name.
         """
