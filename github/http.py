@@ -363,14 +363,11 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["rateLimit"]
 
-    async def fetch_repository(self, owner: str, name: str, *, include_parent: bool, include_template: bool) -> dict:
+    async def fetch_repository(self, owner: str, name: str) -> dict:
         # https://developer.github.com/v4/object/repository/
 
         query = """
-          query repository ($owner: String!,
-                            $name: String!,
-                            $include_parent: Boolean!,
-                            $include_template: Boolean!) {
+          query repository ($owner: String!, $name: String!) {
             repository (owner: $owner, name: $name) {
               __typename
               codeOfConduct {
@@ -461,7 +458,7 @@ class HTTPClient():
                   id
                 }
               }
-              parent @include (if: $include_parent) {
+              parent {
                 __typename
                 codeOfConduct {
                   __typename
@@ -578,7 +575,7 @@ class HTTPClient():
               pushedAt
               rebaseMergeAllowed
               squashMergeAllowed
-              templateRepository @include (if: $include_template) {
+              templateRepository {
                 __typename
                 codeOfConduct {
                   __typename
@@ -701,8 +698,6 @@ class HTTPClient():
         variables = {
             "owner": owner,
             "name": name,
-            "include_parent": include_parent,
-            "include_template": include_template,
         }
 
         json = {

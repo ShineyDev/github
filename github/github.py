@@ -155,12 +155,12 @@ class GitHub():
         data = await self.http.fetch_rate_limit()
         return ratelimit.RateLimit.from_data(data)
 
-    async def fetch_repository(self, owner: str, name: str, *, include_parent: bool=True, include_template: bool=True) -> repository.Repository:
+    async def fetch_repository(self, owner: str, name: str) -> repository.Repository:
         """
 
         """
 
-        data = await self.http.fetch_repository(owner, name, include_parent=include_parent, include_template=include_template)
+        data = await self.http.fetch_repository(owner, name)
         return repository.Repository.from_data(data, self.http)
 
     async def fetch_topic(self, name: str) -> topic.Topic:
