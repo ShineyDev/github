@@ -47,7 +47,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
             users = list()
 
             for (user) in data:
-                users.append(cls(user))
+                users.append(cls(user, http))
 
             return users
 
