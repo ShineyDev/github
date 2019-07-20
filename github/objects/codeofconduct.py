@@ -40,7 +40,7 @@ class CodeOfConduct(abc.Node):
     def from_data(cls, data: typing.Union[dict, list]) -> typing.Union["CodeOfConduct", typing.Iterable["CodeOfConduct"]]:
         if isinstance(data, dict):
             return cls(data)
-        elif isintance(data, list):
+        elif isinstance(data, list):
             codes = list()
 
             for (code) in data:
