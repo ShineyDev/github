@@ -20,3 +20,6 @@ from github.objects import *
 
 from github.errors import GitHubError
 from github.github import GitHub
+
+
+__version__ = "0.1.0a"
