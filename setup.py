@@ -44,9 +44,7 @@ classifiers = [
 ]
 
 extras_require = {
-    "docs": [
-        "sphinx",
-    ],
+    "docs": ["sphinx"],
 }
 
 project_urls = {
