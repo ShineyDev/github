@@ -11,7 +11,6 @@ with open("requirements.txt", "r") as file_stream:
 with open("github/__init__.py", "r") as file_stream:
     version = re.search(r"^__version__ = [\"]([^\"]*)[\"]", file_stream.read(), re.MULTILINE).group(1)
 
-"""
 if version.endswith(("a", "b", "rc")):
     # append version identifier based on commit count and current commit id
 
@@ -29,7 +28,6 @@ if version.endswith(("a", "b", "rc")):
             version += "+g" + out.decode("utf-8").strip()
     except (Exception) as e:
         pass
-"""
 
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
