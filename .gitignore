@@ -4,7 +4,11 @@
 # python cache
 __pycache__/
 
-# project stuff
+# pypi
+build/
 dist/
+github.py.egg-info/
+
+# project stuff
 *.bat
 *.ps1
