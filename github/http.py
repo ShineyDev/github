@@ -64,19 +64,19 @@ class HTTPClient():
 
                 return data
 
-    async def request(self, *, json: dict=None, headers: dict=None, session: aiohttp.ClientSession=None):
+    async def request(self, *, json: dict, headers: dict=None, session: aiohttp.ClientSession=None):
         """
-
+        
         """
 
         headers = headers or dict()
         headers.update({"Authorization": "bearer {0}".format(self._token)})
         headers.update({"User-Agent": self._user_agent})
-
+        
         async with context.SessionContext(session) as session:
             data = await self._request(json=json, headers=headers, session=session)
 
-        return data.get("data")
+        return data["data"]
 
     async def fetch_authenticated_user(self) -> dict:
         # https://developer.github.com/v4/object/user/
