@@ -27,6 +27,17 @@ DEFAULT_USER_AGENT = "ShineyDev/github"
 
 
 class HTTPClient():
+    """
+    Represents a GitHub 'connection' or client.
+
+    This class contains the behind-the-scenes code for the
+    :class:`~github.github.GitHub` class and should not be created by
+    the user.
+
+    This class is only exposed for
+    :meth:`~github.http.HTTPClient.request <HTTPClient.request>`.
+    """
+
     __slots__ = ("_token", "_base_url", "_user_agent")
 
     def __init__(self, token: str, *, base_url: str=None, user_agent: str=None):
@@ -66,7 +77,23 @@ class HTTPClient():
 
     async def request(self, *, json: dict, headers: dict=None, session: aiohttp.ClientSession=None):
         """
-        
+        Performs a request to the GitHub API.
+
+        Parameters
+        ----------
+        json: :class:`dict`
+            The JSON object to be posted to the API. This object must
+            contain a ``"query"`` key and can optionally contain a
+            ``"variables"`` key.
+        headers: Optional[:class:`dict`]
+            The headers to be passed to the API.
+
+            .. warning::
+
+                You cannot update the user-agent via this method and
+                must use the :attr:`.user_agent` property instead.
+        session: Optional[:class:`aiohttp.ClientSession`]
+            The session to request the API with.
         """
 
         headers = headers or dict()

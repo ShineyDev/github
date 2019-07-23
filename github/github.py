@@ -31,7 +31,31 @@ from github.objects.abc import node
 
 class GitHub():
     """
+    Represents a GitHub 'connection' or token.
 
+    This is the base class of the wrapper and is used to interact with
+    the GitHub API.
+
+    Parameters
+    ----------
+    token: :class:`str`
+        The authentication token. Do not prefix this token with
+        anything, the wrapper will do this for you.
+
+        You can get a personal access token, needed for this wrapper,
+        from https://github.com/settings/tokens.
+    base_url: Optional[:class:`str`]
+        The base url used by this wrapper. This can be changed to allow
+        support for GitHub Enterprise.
+    user_agent: Optional[:class:`str`]
+        The user-agent sent by this wrapper. This can be changed to
+        allow GitHub to contact you in case of issues.
+
+    Attributes
+    ----------
+    http: :class:`~github.http.HTTPClient`
+        The HTTPClient for the passed token. This is only exposed for
+        :meth:`~github.http.HTTPClient.request <HTTPClient.request>`.
     """
 
     __slots__ = ("http",)
@@ -42,9 +66,8 @@ class GitHub():
     @property
     def base_url(self) -> str:
         """
-        The base url used by this wrapper.
-
-        This can be changed to allow support for GitHub Enterprise.
+        The base url used by this wrapper. This can be changed to allow
+        support for GitHub Enterprise.
         """
 
         return self.http.base_url
@@ -56,9 +79,8 @@ class GitHub():
     @property
     def user_agent(self) -> str:
         """
-        The user-agent sent by this wrapper.
-
-        This can be changed to allow GitHub to contact you in case of issues.
+        The user-agent sent by this wrapper. This can be changed to
+        allow GitHub to contact you in case of issues.
         """
 
         return self.http.user_agent
@@ -69,6 +91,8 @@ class GitHub():
 
     async def fetch_authenticated_user(self) -> user.AuthenticatedUser:
         """
+        |coro|
+
 
         """
 
@@ -77,6 +101,8 @@ class GitHub():
 
     async def fetch_code_of_conduct(self, key: str) -> codeofconduct.CodeOfConduct:
         """
+        |coro|
+
 
         """
 
@@ -85,6 +111,8 @@ class GitHub():
 
     async def fetch_codes_of_conduct(self, *keys: str) -> typing.Iterable[codeofconduct.CodeOfConduct]:
         """
+        |coro|
+
 
         """
 
@@ -93,6 +121,8 @@ class GitHub():
 
     async def fetch_all_codes_of_conduct(self) -> typing.Iterable[codeofconduct.CodeOfConduct]:
         """
+        |coro|
+
 
         """
 
@@ -101,6 +131,8 @@ class GitHub():
 
     async def fetch_license(self, key: str) -> license.License:
         """
+        |coro|
+
 
         """
 
@@ -109,6 +141,8 @@ class GitHub():
 
     async def fetch_licenses(self, *keys: str) -> typing.Iterable[license.License]:
         """
+        |coro|
+
 
         """
 
@@ -117,6 +151,8 @@ class GitHub():
 
     async def fetch_all_licenses(self) -> typing.Iterable[license.License]:
         """
+        |coro|
+
 
         """
 
@@ -125,6 +161,8 @@ class GitHub():
 
     async def fetch_metadata(self) -> metadata.Metadata:
         """
+        |coro|
+
 
         """
 
@@ -133,6 +171,8 @@ class GitHub():
 
     async def fetch_node(self, id: str) -> node.Node:
         """
+        |coro|
+
 
         """
 
@@ -141,6 +181,8 @@ class GitHub():
 
     async def fetch_nodes(self, *ids: str) -> typing.Iterable[node.Node]:
         """
+        |coro|
+
 
         """
 
@@ -149,6 +191,8 @@ class GitHub():
 
     async def fetch_rate_limit(self) -> ratelimit.RateLimit:
         """
+        |coro|
+
 
         """
 
@@ -157,6 +201,8 @@ class GitHub():
 
     async def fetch_repository(self, owner: str, name: str) -> repository.Repository:
         """
+        |coro|
+
 
         """
 
@@ -165,6 +211,8 @@ class GitHub():
 
     async def fetch_topic(self, name: str) -> topic.Topic:
         """
+        |coro|
+
 
         """
 
@@ -173,6 +221,8 @@ class GitHub():
 
     async def fetch_topics(self, *names: str) -> typing.Iterable[topic.Topic]:
         """
+        |coro|
+
 
         """
 
@@ -181,6 +231,8 @@ class GitHub():
 
     async def fetch_user(self, login: str) -> user.User:
         """
+        |coro|
+
 
         """
 
@@ -189,6 +241,8 @@ class GitHub():
 
     async def fetch_users(self, *logins: str) -> typing.Iterable[user.User]:
         """
+        |coro|
+
 
         """
 
