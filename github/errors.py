@@ -39,7 +39,7 @@ class GitHubError(Exception):
         The response of the failed HTTP request.
     """
 
-    def __init__(self, message: str, *, response: aiohttp.ClientResponse=None, data: typing.Optional[dict]=None):
+    def __init__(self, message: str, *, response: aiohttp.ClientResponse, data: typing.Optional[dict]=None):
         self.message = message
         self.data = data
         self.response = response
