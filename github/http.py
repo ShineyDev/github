@@ -47,7 +47,7 @@ class HTTPClient():
         self._session = session
 
         self._exceptions = {
-            401: errors.Forbidden,
+            401: errors.Unauthorized,
         }
 
     @property
@@ -80,7 +80,7 @@ class HTTPClient():
                 except (KeyError) as e:
                     exception = errors.HTTPException
 
-                raise exception(message)
+                raise exception(message, response=response)
 
             data = await response.json()
 
