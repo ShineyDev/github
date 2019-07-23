@@ -18,3 +18,9 @@
 
 class GitHubError(Exception):
     pass
+
+class HTTPException(GitHubError):
+    pass
+
+class Forbidden(HTTPException):
+    pass

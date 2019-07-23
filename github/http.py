@@ -38,13 +38,17 @@ class HTTPClient():
     :meth:`~github.http.HTTPClient.request <HTTPClient.request>`.
     """
 
-    __slots__ = ("_token", "_base_url", "_user_agent", "_session")
+    __slots__ = ("_token", "_base_url", "_user_agent", "_session", "_exceptions")
 
     def __init__(self, token: str, *, base_url: str=None, user_agent: str=None, session: aiohttp.ClientSession=None):
         self._token = token
         self._base_url = base_url or DEFAULT_BASE_URL
         self._user_agent = user_agent or DEFAULT_USER_AGENT
         self._session = session
+
+        self._exceptions = {
+            401: errors.Forbidden,
+        }
 
     @property
     def base_url(self) -> str:
@@ -64,17 +68,27 @@ class HTTPClient():
 
     async def _request(self, *, json: dict, headers: dict, session: aiohttp.ClientSession):
         async with session.post(self._base_url, json=json, headers=headers) as response:
-            try:
-                data = await response.json()
-            except (aiohttp.client_exceptions.ContentTypeError) as e:
-                text = await response.text()
-                raise errors.GitHubError("{0}: {1}".format(response.status, text)) from e
-            else:
-                if "errors" in data.keys():
-                    message = data["errors"][0]["message"]
-                    raise errors.GitHubError(message)
+            if response.status not in range(200, 300):
+                try:
+                    json = await response.json()
+                    message = json["message"]
+                except (aiohttp.client_exceptions.ContentTypeError, KeyError) as e:
+                    message = "response failed with status-code: {0}".format(response.status)
 
-                return data
+                try:
+                    exception = self._exceptions[response.status]
+                except (KeyError) as e:
+                    exception = errors.HTTPException
+
+                raise exception(message)
+
+            data = await response.json()
+
+            if "errors" in data.keys():
+                message = data["errors"][0]["message"]
+                raise errors.GitHubError(message)
+
+            return data
 
     async def request(self, *, json: dict, headers: dict=None, session: aiohttp.ClientSession=None):
         """
