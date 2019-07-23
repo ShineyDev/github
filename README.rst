@@ -9,7 +9,7 @@ github.py
    :target: https://pypi.python.org/pypi/github.py
    :alt: PyPI status information
 
-.. image:: https://img.shields.io/pypi/v/github.py.svg
+.. image:: https://img.shields.io/pypi/v/github.py.svg?color=blue
    :target: https://pypi.python.org/pypi/github.py
    :alt: PyPI version information
 
