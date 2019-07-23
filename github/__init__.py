@@ -19,8 +19,6 @@
 import collections
 
 from github.objects import *
-
-from github.errors import GitHubError
 from github.github import GitHub
 
 
