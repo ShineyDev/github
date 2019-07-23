@@ -47,7 +47,13 @@ class HTTPClient():
         self._session = session
 
         self._exceptions = {
+            # HTTP status-code
             401: errors.Unauthorized,
+
+            # GitHub status-message
+            "NOT_FOUND": errors.NotFound,
+            "FORBIDDEN": errors.Forbidden,
+            "INTERNAL": errors.Internal,
         }
 
     @property
@@ -73,6 +79,7 @@ class HTTPClient():
                     json = await response.json()
                     message = json["message"]
                 except (aiohttp.client_exceptions.ContentTypeError, KeyError) as e:
+                    json = None
                     message = "response failed with status-code: {0}".format(response.status)
 
                 try:
@@ -80,13 +87,20 @@ class HTTPClient():
                 except (KeyError) as e:
                     exception = errors.HTTPException
 
-                raise exception(message, response=response)
+                raise exception(message, response=response, data=json)
 
             data = await response.json()
 
             if "errors" in data.keys():
                 message = data["errors"][0]["message"]
-                raise errors.GitHubError(message)
+                
+                try:
+                    type = data["errors"][0]["type"]
+                    exception = self._exceptions[type]
+                except (KeyError) as e:
+                    exception = errors.GitHubError
+
+                raise exception(message, response=response, data=data)
 
             return data
 
