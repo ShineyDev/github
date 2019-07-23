@@ -16,6 +16,7 @@
     limitations under the License.
 """
 
+import aiohttp
 import typing
 
 from github import http
@@ -50,6 +51,8 @@ class GitHub():
     user_agent: Optional[:class:`str`]
         The user-agent sent by this wrapper. This can be changed to
         allow GitHub to contact you in case of issues.
+    session: Optional[:class:`aiohttp.ClientSession`]
+        The session to be passed to the :class:`~github.http.HTTPClient`.
 
     Attributes
     ----------
@@ -60,8 +63,8 @@ class GitHub():
 
     __slots__ = ("http",)
 
-    def __init__(self, token: str, *, base_url: str=None, user_agent: str=None):
-        self.http = http.HTTPClient(token, base_url=base_url, user_agent=user_agent)
+    def __init__(self, token: str, *, base_url: str=None, user_agent: str=None, session: aiohttp.ClientSession=None):
+        self.http = http.HTTPClient(token, base_url=base_url, user_agent=user_agent, session=session)
 
     @property
     def base_url(self) -> str:

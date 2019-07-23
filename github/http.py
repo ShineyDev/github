@@ -38,12 +38,13 @@ class HTTPClient():
     :meth:`~github.http.HTTPClient.request <HTTPClient.request>`.
     """
 
-    __slots__ = ("_token", "_base_url", "_user_agent")
+    __slots__ = ("_token", "_base_url", "_user_agent", "_session")
 
-    def __init__(self, token: str, *, base_url: str=None, user_agent: str=None):
+    def __init__(self, token: str, *, base_url: str=None, user_agent: str=None, session: aiohttp.ClientSession=None):
         self._token = token
         self._base_url = base_url or DEFAULT_BASE_URL
         self._user_agent = user_agent or DEFAULT_USER_AGENT
+        self._session = session
 
     @property
     def base_url(self) -> str:
@@ -100,6 +101,7 @@ class HTTPClient():
         headers.update({"Authorization": "bearer {0}".format(self._token)})
         headers.update({"User-Agent": self._user_agent})
         
+        session = session or self._session
         async with context.SessionContext(session) as session:
             data = await self._request(json=json, headers=headers, session=session)
 
