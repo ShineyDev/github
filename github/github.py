@@ -54,6 +54,12 @@ class GitHub():
     session: Optional[:class:`aiohttp.ClientSession`]
         The session to be passed to the :class:`~github.http.HTTPClient`.
 
+        .. warning::
+
+            If you don't pass your own session, a new one will be
+            created and closed during every request - this is not ideal
+            for creating more-or-less frequent requests to the API.
+
     Attributes
     ----------
     http: :class:`~github.http.HTTPClient`
