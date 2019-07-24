@@ -1,6 +1,10 @@
 github.py
 =========
 
+.. image:: https://readthedocs.org/projects/githubpy/badge/?version=latest
+   :target: https://githubpy.readthedocs.io/en/latest/
+   :alt: Documentation Status
+
 .. image:: https://img.shields.io/github/contributors/ShineyDev/github.py.svg
    :target: https://github.com/ShineyDev/github.py/graphs/contributors
    :alt: GitHub contributors
