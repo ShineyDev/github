@@ -30,7 +30,7 @@ Fetch a repository's license:
 
 .. You can find more examples in ``examples/``.
 
-Objects
+Classes
 -------
 
 .. toctree::
@@ -39,27 +39,17 @@ Objects
     http
 
     objects/index
-
-Abstract Base Classes
----------------------
-
-.. toctree::
-
     objects/abc/index
-
-Utilities
----------
-
-.. toctree::
-
-    utils
 
 Other
 -----
 
 .. toctree::
+    :maxdepth: 2
 
+    changelog/index
     errors
+    utils
 
 Still can't find what you're looking for?
 
