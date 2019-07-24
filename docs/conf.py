@@ -25,7 +25,7 @@ highlight_language = "python3"
 html_experimental_html5_writer = True
 html_static_path = ["_static"]
 html_theme = "basic"
-master_doc = "index"
+master_doc = "rst/index"
 pygments_style = "friendly"
 source_suffix = ".rst"
 
