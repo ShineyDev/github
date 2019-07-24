@@ -20,11 +20,11 @@ from github.objects.codeofconduct import CodeOfConduct
 from github.objects.language import Language
 from github.objects.license import License
 from github.objects.licenserule import LicenseRule
-from github.objects.lockreason import RepositoryLockReason
 from github.objects.metadata import Metadata
-from github.objects.permissions import RepositoryPermissions
 from github.objects.ratelimit import RateLimit
 from github.objects.repository import Repository, PartialRepository
-from github.objects.subscription import RepositorySubscription
+from github.objects.repositorylockreason import RepositoryLockReason
+from github.objects.repositorypermissions import RepositoryPermissions
+from github.objects.repositorysubscription import RepositorySubscription
 from github.objects.topic import Topic
 from github.objects.user import User, AuthenticatedUser

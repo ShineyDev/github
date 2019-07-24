@@ -24,9 +24,9 @@ from github.objects import abc
 from github.objects import codeofconduct
 from github.objects import language
 from github.objects import license
-from github.objects import lockreason
-from github.objects import permissions
-from github.objects import subscription
+from github.objects import repositorylockreason
+from github.objects import repositorypermissions
+from github.objects import repositorysubscription
 from github.objects import user
 
 
@@ -215,7 +215,7 @@ class Repository(abc.Node):
             return license.License.from_data(license_)
 
     @property
-    def lock_reason(self) -> typing.Optional[lockreason.RepositoryLockReason]:
+    def lock_reason(self) -> typing.Optional[repositorylockreason.RepositoryLockReason]:
         """
         The reason for the repository to be in a locked state.
         """
@@ -340,7 +340,7 @@ class Repository(abc.Node):
         return self.data["viewerCanUpdateTopics"]
 
     @property
-    def viewer_permissions(self) -> permissions.RepositoryPermissions:
+    def viewer_permissions(self) -> repositorypermissions.RepositoryPermissions:
         """
         The authenticated user's permissions in the repository.
         """
@@ -348,7 +348,7 @@ class Repository(abc.Node):
         return permissions.RepositoryPermissions.from_data(self.data["viewerPermission"])
 
     @property
-    def viewer_subscription(self) -> subscription.RepositorySubscription:
+    def viewer_subscription(self) -> repositorysubscription.RepositorySubscription:
         """
         The authenticated user's subscription to the repository.
         """
@@ -556,7 +556,7 @@ class PartialRepository(abc.Node):
             return license.License.from_data(license_)
 
     @property
-    def lock_reason(self) -> typing.Optional[lockreason.RepositoryLockReason]:
+    def lock_reason(self) -> typing.Optional[repositorylockreason.RepositoryLockReason]:
         """
         The reason for the repository to be in a locked state.
         """
@@ -657,7 +657,7 @@ class PartialRepository(abc.Node):
         return self.data["viewerCanUpdateTopics"]
 
     @property
-    def viewer_permissions(self) -> permissions.RepositoryPermissions:
+    def viewer_permissions(self) -> repositorypermissions.RepositoryPermissions:
         """
         The authenticated user's permissions in the repository.
         """
@@ -665,7 +665,7 @@ class PartialRepository(abc.Node):
         return permissions.RepositoryPermissions.from_data(self.data["viewerPermission"])
 
     @property
-    def viewer_subscription(self) -> subscription.RepositorySubscription:
+    def viewer_subscription(self) -> repositorysubscription.RepositorySubscription:
         """
         The authenticated user's subscription to the repository.
         """
