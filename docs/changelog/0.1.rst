@@ -1,4 +1,4 @@
 .. github.py changelog, v0.1.*
 
-v1.0.*
+v0.1.*
 ======
