@@ -58,7 +58,7 @@ project_urls = {
 }
 
 setuptools.setup(classifiers=classifiers,
-                 description="A python wrapper for the GitHub API",
+                 description="An asynchronous Python wrapper for the GitHub API, v4.",
                  extras_require=extras_require,
                  install_requires=install_requires,
                  long_description=readme,
