@@ -98,6 +98,3 @@ def iso_to_datetime(iso: str) -> datetime.datetime:
         second = int(match.group(6))
 
         return datetime.datetime(year, month, day, hour, minute, second)
-
-def hex_to_rgb(hex: str) -> typing.Tuple[int, int, int]:
-    ... # going to remove this in a very-soon future commit

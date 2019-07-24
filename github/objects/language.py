@@ -43,8 +43,7 @@ class Language(abc.Node):
         The (r, g, b) color of the language in the official UI.
         """
 
-        color = self.data["color"]
-        return utils.hex_to_rgb(color)
+        return self.data["color"]
 
     @property
     def name(self) -> str:
