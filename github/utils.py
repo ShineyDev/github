@@ -60,12 +60,12 @@ def datetime_to_iso(dt: datetime.datetime) -> str:
 
     Parameters
     ----------
-    dt: :py:class:`datetime.datetime`
+    dt: :class:`datetime.datetime`
         A datetime object.
 
     Returns
     -------
-    :py:class:`str`:
+    :class:`str`
         An ISO-8601 string.
     """
     
@@ -79,12 +79,12 @@ def iso_to_datetime(iso: str) -> datetime.datetime:
 
     Parameters
     ----------
-    iso: :py:class:`str`:
+    iso: :class:`str`
         An ISO-8601 string.
 
     Returns
     -------
-    :py:class:`datetime.datetime`
+    :class:`datetime.datetime`
         A datetime object.
     """
 
@@ -100,4 +100,4 @@ def iso_to_datetime(iso: str) -> datetime.datetime:
         return datetime.datetime(year, month, day, hour, minute, second)
 
 def hex_to_rgb(hex: str) -> typing.Tuple[int, int, int]:
-    ...
+    ... # going to remove this in a very-soon future commit

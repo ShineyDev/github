@@ -48,15 +48,27 @@ class GitHubError(Exception):
 class HTTPException(GitHubError):
     """
     This exception is raised when a HTTP request operation fails.
+    """
 
-    Attributes
-    ----------
-    message: :class:`str`
-        The error message.
-    data: Optional[:class:`dict`]
-        The data returned by the API.
-    response: :class:`aiohttp.ClientResponse`
-        The response of the failed HTTP request.
+    pass
+
+class Forbidden(HTTPException):
+    """
+    This exception is raised when a "FORBIDDEN" status-message is returned.
+    """
+
+    pass
+
+class Internal(HTTPException):
+    """
+    This exception is raised when an "INTERNAL" status-message is returned.
+    """
+
+    pass
+
+class NotFound(HTTPException):
+    """
+    This exception is raised when a "NOT_FOUND" status-message is returned.
     """
 
     pass
@@ -66,63 +78,6 @@ class Unauthorized(HTTPException):
     This exception is raised when a 401 status-code is returned.
 
     This exception is typically raised when invalid credentials are passed.
-
-    Attributes
-    ----------
-    message: :class:`str`
-        The error message.
-    data: :class:`dict`
-        The data returned by the API.
-    response: :class:`aiohttp.ClientResponse`
-        The response of the failed HTTP request.
-    """
-
-    pass
-
-class Forbidden(HTTPException):
-    """
-    This exception is raised when a "FORBIDDEN" status-message is returned.
-
-    Attributes
-    ----------
-    message: :class:`str`
-        The error message.
-    data: :class:`dict`
-        The data returned by the API.
-    response: :class:`aiohttp.ClientResponse`
-        The response of the failed HTTP request.
-    """
-
-    pass
-
-class NotFound(HTTPException):
-    """
-    This exception is raised when a "NOT_FOUND" status-message is returned.
-
-    Attributes
-    ----------
-    message: :class:`str`
-        The error message.
-    data: :class:`dict`
-        The data returned by the API.
-    response: :class:`aiohttp.ClientResponse`
-        The response of the failed HTTP request.
-    """
-
-    pass
-
-class Internal(HTTPException):
-    """
-    This exception is raised when an "INTERNAL" status-message is returned.
-
-    Attributes
-    ----------
-    message: :class:`str`
-        The error message.
-    data: :class:`dict`
-        The data returned by the API.
-    response: :class:`aiohttp.ClientResponse`
-        The response of the failed HTTP request.
     """
 
     pass

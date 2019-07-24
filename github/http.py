@@ -31,11 +31,11 @@ class HTTPClient():
     Represents a GitHub 'connection' or client.
 
     This class contains the behind-the-scenes code for the
-    :class:`~github.github.GitHub` class and should not be created by
+    :class:`~github.GitHub` class and should not be created by
     the user.
 
     This class is only exposed for
-    :meth:`~github.http.HTTPClient.request <HTTPClient.request>`.
+    :meth:`~HTTPClient.request`.
     """
 
     __slots__ = ("_token", "_base_url", "_user_agent", "_session", "_exceptions")
@@ -120,7 +120,7 @@ class HTTPClient():
             .. warning::
 
                 You cannot update the user-agent via this method and
-                must use the :attr:`.user_agent` property instead.
+                must use the :attr:`~github.GitHub.user_agent` property instead.
         session: Optional[:class:`aiohttp.ClientSession`]
             The session to request the API with.
         """

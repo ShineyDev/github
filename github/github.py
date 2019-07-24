@@ -64,7 +64,7 @@ class GitHub():
     ----------
     http: :class:`~github.http.HTTPClient`
         The HTTPClient for the passed token. This is only exposed for
-        :meth:`~github.http.HTTPClient.request <HTTPClient.request>`.
+        :meth:`~github.http.HTTPClient.request`.
     """
 
     __slots__ = ("http",)
