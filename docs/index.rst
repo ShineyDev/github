@@ -47,9 +47,10 @@ Other
 .. toctree::
     :maxdepth: 2
 
-    changelog/index
     errors
     utils
+    
+    changelog
 
 Still can't find what you're looking for?
 
