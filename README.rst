@@ -40,10 +40,10 @@ To install a ``final`` version of the wrapper do the following:
 .. code:: sh
 
     # Windows
-    py -3 -m pip install -U github.py
+    py -3 -m pip install --upgrade github.py
 
     # Linux / OS X
-    python3 -m pip install -U github.py
+    python3 -m pip install --upgrade github.py
 
 To install the development version of the wrapper do the following:
 
@@ -52,12 +52,12 @@ To install the development version of the wrapper do the following:
     # Windows
     git clone https://github.com/ShineyDev/github.py
     cd github.py
-    py -3 -m pip install -U .
+    py -3 -m pip install --upgrade .
 
     # Linux / OS X
     git clone https://github.com/ShineyDev/github.py
     cd github.py
-    python3 -m pip install -U .
+    python3 -m pip install --upgrade .
 
 Examples
 --------
