@@ -57,10 +57,12 @@ project_urls = {
     "Source": "https://github.com/ShineyDev/github.py/",
 }
 
-setuptools.setup(classifiers=classifiers,
+setuptools.setup(author="ShineyDev",
+                 classifiers=classifiers,
                  description="An asynchronous Python wrapper for the GitHub API, v4.",
                  extras_require=extras_require,
                  install_requires=install_requires,
+                 license="Apache Software License",
                  long_description=readme,
                  long_description_content_type="text/x-rst",
                  name="github.py",
