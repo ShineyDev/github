@@ -84,16 +84,6 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
         return self.data["databaseId"]
 
     @property
-    def email(self) -> typing.Optional[str]:
-        """
-        The user's publicly visible profile email.
-
-        This is only ever available after a call to :meth:`.fetch_email` due to token scopes.
-        """
-
-        return self.data.get("email", None)
-
-    @property
     def is_bounty_hunter(self) -> bool:
         """
         Whether this user is a participant in the GitHub Security Bug Bounty.
@@ -183,16 +173,12 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
 
         return self.data["websiteUrl"]
 
-    async def fetch_email(self, *, cache: bool=True) -> typing.Optional[str]:
+    async def fetch_email(self) -> typing.Optional[str]:
         """
         Fetches the user's email.
         """
 
         email = await self.http.fetch_user_email(self.login)
-
-        if cache:
-            self.data["email"] = email
-
         return email
 
 class AuthenticatedUser(User):
