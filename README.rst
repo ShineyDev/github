@@ -31,6 +31,7 @@ Features
 --------
 
 #. Modern API using ``async`` and ``await`` syntax.
+#. `Descriptive documentation <https://githubpy.readthedocs.io/en/latest/>`_.
 
 .. #. 100% coverage of the supported GitHub API. (soon)
 

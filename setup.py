@@ -52,7 +52,7 @@ extras_require = {
 }
 
 project_urls = {
-    #"Documentation": "...",
+    "Documentation": "https://githubpy.readthedocs.io/en/latest/",
     "Issue Tracker": "https://github.com/ShineyDev/github.py/issues/",
     "Source": "https://github.com/ShineyDev/github.py/",
 }
