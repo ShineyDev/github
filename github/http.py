@@ -80,24 +80,39 @@ class HTTPClient():
                     message = json["message"]
                 except (aiohttp.client_exceptions.ContentTypeError, KeyError) as e:
                     json = None
-                    message = "response failed with status-code: {0}".format(response.status)
+                    message = "response failed with status-code {0}".format(response.status)
 
                 try:
+                    # handled HTTP status-code
                     exception = self._exceptions[response.status]
                 except (KeyError) as e:
+                    # arbitrary HTTP status-code
                     exception = errors.HTTPException
 
                 raise exception(message, response=response, data=json)
 
+            # this should, theoretically, never error since gql only
+            # responds with json unless it raises a HTTP error-code
+            # outside of the 200-300 range
             data = await response.json()
 
             if "errors" in data.keys():
                 message = data["errors"][0]["message"]
                 
                 try:
+                    # "we only return the type key for errors returned
+                    # from the resolvers during execution, the
+                    # validation stage doesn't return this type key as
+                    # it's essentially validating the payload, by which
+                    # it's checking the syntax, and for parse errors,
+                    # then checking that the fields, connections and
+                    # parameters are valid"
                     type = data["errors"][0]["type"]
+                    
+                    # handled GitHub status-message
                     exception = self._exceptions[type]
                 except (KeyError) as e:
+                    # arbitrary GitHub status-message
                     exception = errors.GitHubError
 
                 raise exception(message, response=response, data=data)
