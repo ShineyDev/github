@@ -180,7 +180,26 @@ class HTTPClient():
     async def fetch_codes_of_conduct(self, *keys: str) -> list:
         # https://developer.github.com/v4/object/codeofconduct/
 
-        raise NotImplementedError("this method hasn't been implemented yet")
+        fields = ["__typename", "body", "id", "key", "name", "url"]
+        fields = [query.Field(name=name) for name in fields]
+
+        builder = query.Builder(name="fetch_codes_of_conduct")
+
+        for (i, key) in enumerate(keys):
+            collection = query.Collection(name="codeOfConduct", alias=f"_{i}")
+            collection.add_argument(query.CollectionArgument(name="key", value=f"\"{key}\""))
+            
+            for (field) in fields:
+                collection.add_field(field)
+                
+            builder.add_collection(collection)
+
+        json = {
+            "query": builder.build(),
+        }
+
+        data = await self.request(json=json)
+        return [value for (key, value) in data.items()]
 
     async def fetch_all_codes_of_conduct(self) -> list:
         # https://developer.github.com/v4/object/codeofconduct/
