@@ -80,7 +80,7 @@ Fetch a repository's license:
     repo = await g.fetch_repository("ShineyDev", "github.py")
     print(repo.license)
 
-Fetch the authenticated user's public gists with a custom query via HTTPClient.request:
+Fetch the authenticated user's first 10 public gists with a custom query via HTTPClient.request:
 
 .. code:: py
 
@@ -90,27 +90,24 @@ Fetch the authenticated user's public gists with a custom query via HTTPClient.r
     # get one from https://github.com/settings/tokens. for this example,
     # your token will need the `public_repo` scope.
 
-    nodes = github.query.Collection(name="nodes")
-    nodes.add_field(github.query.Field(name="url"))
-    
-    gists = github.query.Collection(name="gists")
-    gists.add_argument(github.query.CollectionArgument(name="privacy", value="$privacy"))
-    gists.add_argument(github.query.CollectionArgument(name="first", value="10"))
-    gists.add_collection(nodes)
-    
-    viewer = github.query.Collection(name="viewer")
-    viewer.add_collection(gists)
-    
-    query = github.query.Builder(name="fetch_authenticated_user_gists", type="query")
-    query.add_argument(github.query.QueryArgument(name="$privacy", type="GistPrivacy!"))
-    query.add_collection(viewer)
+    query = """
+      query fetch_authenticated_user_gists ($privacy: GistPrivacy!) {
+        viewer {
+          gists (privacy: $privacy, first: 10) {
+            nodes {
+              url
+            }
+          }
+        }
+      }
+    """
 
     variables = {
         "privacy": "PUBLIC",
     }
 
     json = {
-        "query": query.build(),
+        "query": query,
         "variables": variables,
     }
 
