@@ -1,5 +1,5 @@
 """
-/github/objects/subscription.py
+/github/enums/repositorysubscription.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -19,6 +19,8 @@
 class RepositorySubscription():
     """
     Represents a user's subscription state for a repository.
+
+    https://developer.github.com/v4/enum/subscriptionstate/
     """
 
     __slots__ = ("_subscription",)
@@ -27,19 +29,11 @@ class RepositorySubscription():
         self._subscription = subscription
 
     def __repr__(self) -> str:
-        return "<{0.__class__.__name__} subscription='{0._subscription}'>".format(self)
+        return "<{0.__class__.__name__} '{0._subscription}'>".format(self)
 
     @classmethod
     def from_data(cls, subscription: str) -> "RepositorySubscription":
         return cls(subscription)
-
-    @property
-    def subscription(self) -> str:
-        """
-        The user's subscription state as a string.
-        """
-
-        return self._subscription
 
     @property
     def subscribed(self) -> bool:

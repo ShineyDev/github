@@ -1,5 +1,5 @@
 """
-/github/objects/permissions.py
+/github/enums/repositorypermissions.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -19,6 +19,8 @@
 class RepositoryPermissions():
     """
     Represents a user's access level to a repository.
+
+    https://developer.github.com/v4/enum/repositorypermission/
     """
 
     __slots__ = ("_permission",)
@@ -27,19 +29,11 @@ class RepositoryPermissions():
         self._permission = permission
 
     def __repr__(self) -> str:
-        return "<{0.__class__.__name__} permission='{0._permission}'>".format(self)
+        return "<{0.__class__.__name__} '{0._permission}'>".format(self)
 
     @classmethod
     def from_data(cls, permission: str) -> "RepositoryPermissions":
         return cls(permission)
-
-    @property
-    def permission(self) -> str:
-        """
-        The user's permission as a string.
-        """
-
-        return self._permission
     
     @property
     def administrator(self) -> bool:

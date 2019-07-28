@@ -1,5 +1,5 @@
 """
-/github/objects/lockreason.py
+/github/enums/repositorylockreason.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -19,6 +19,8 @@
 class RepositoryLockReason():
     """
     Represents the reason for a given repository to be in a locked state.
+
+    https://developer.github.com/v4/enum/repositorylockreason/
     """
 
     __slots__ = ("_lock_reason",)
@@ -27,19 +29,11 @@ class RepositoryLockReason():
         self._lock_reason = lock_reason
 
     def __repr__(self) -> str:
-        return "<{0.__class__.__name__} lock_reason='{0._lock_reason}'>".format(self)
+        return "<{0.__class__.__name__} '{0._lock_reason}'>".format(self)
 
     @classmethod
     def from_data(cls, lock_reason: str) -> "RepositoryLockReason":
         return cls(lock_reason)
-
-    @property
-    def lock_reason(self) -> str:
-        """
-        The repository's lock reason as a string.
-        """
-
-        return self._lock_reason
 
     @property
     def billing(self) -> bool:
