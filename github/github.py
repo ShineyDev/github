@@ -20,14 +20,15 @@ import aiohttp
 import typing
 
 from github import http
-from github.objects import codeofconduct
-from github.objects import license
-from github.objects import metadata
-from github.objects import ratelimit
-from github.objects import repository
-from github.objects import topic
-from github.objects import user
-from github.objects.abc import node
+from github.abc import Node
+from github.objects import AuthenticatedUser
+from github.objects import CodeOfConduct
+from github.objects import License
+from github.objects import Metadata
+from github.objects import RateLimit
+from github.objects import Repository
+from github.objects import Topic
+from github.objects import User
 
 
 class GitHub():
@@ -98,7 +99,7 @@ class GitHub():
     def user_agent(self, value: str=None):
         self.http.user_agent = value
 
-    async def fetch_authenticated_user(self) -> user.AuthenticatedUser:
+    async def fetch_authenticated_user(self) -> AuthenticatedUser:
         """
         |coro|
 
@@ -106,9 +107,9 @@ class GitHub():
         """
 
         data = await self.http.fetch_authenticated_user()
-        return user.AuthenticatedUser.from_data(data, self.http)
+        return AuthenticatedUser.from_data(data, self.http)
 
-    async def fetch_code_of_conduct(self, key: str) -> codeofconduct.CodeOfConduct:
+    async def fetch_code_of_conduct(self, key: str) -> CodeOfConduct:
         """
         |coro|
 
@@ -116,9 +117,9 @@ class GitHub():
         """
 
         data = await self.http.fetch_code_of_conduct(key)
-        return codeofconduct.CodeOfConduct.from_data(data)
+        return CodeOfConduct.from_data(data)
 
-    async def fetch_codes_of_conduct(self, *keys: str) -> typing.Iterable[codeofconduct.CodeOfConduct]:
+    async def fetch_codes_of_conduct(self, *keys: str) -> typing.Iterable[CodeOfConduct]:
         """
         |coro|
 
@@ -126,9 +127,9 @@ class GitHub():
         """
 
         data = await self.http.fetch_codes_of_conduct(*keys)
-        return codeofconduct.CodeOfConduct.from_data(data)
+        return CodeOfConduct.from_data(data)
 
-    async def fetch_all_codes_of_conduct(self) -> typing.Iterable[codeofconduct.CodeOfConduct]:
+    async def fetch_all_codes_of_conduct(self) -> typing.Iterable[CodeOfConduct]:
         """
         |coro|
 
@@ -136,9 +137,9 @@ class GitHub():
         """
 
         data = await self.http.fetch_all_codes_of_conduct()
-        return codeofconduct.CodeOfConduct.from_data(data)
+        return CodeOfConduct.from_data(data)
 
-    async def fetch_license(self, key: str) -> license.License:
+    async def fetch_license(self, key: str) -> License:
         """
         |coro|
 
@@ -146,9 +147,9 @@ class GitHub():
         """
 
         data = await self.http.fetch_license(key)
-        return license.License.from_data(data)
+        return License.from_data(data)
 
-    async def fetch_licenses(self, *keys: str) -> typing.Iterable[license.License]:
+    async def fetch_licenses(self, *keys: str) -> typing.Iterable[License]:
         """
         |coro|
 
@@ -156,9 +157,9 @@ class GitHub():
         """
 
         data = await self.http.fetch_licenses(*keys)
-        return license.License.from_data(data)
+        return License.from_data(data)
 
-    async def fetch_all_licenses(self) -> typing.Iterable[license.License]:
+    async def fetch_all_licenses(self) -> typing.Iterable[License]:
         """
         |coro|
 
@@ -166,9 +167,9 @@ class GitHub():
         """
 
         data = await self.http.fetch_all_licenses()
-        return license.License.from_data(data)
+        return License.from_data(data)
 
-    async def fetch_metadata(self) -> metadata.Metadata:
+    async def fetch_metadata(self) -> Metadata:
         """
         |coro|
 
@@ -176,9 +177,9 @@ class GitHub():
         """
 
         data = await self.http.fetch_metadata()
-        return metadata.Metadata.from_data(data)
+        return Metadata.from_data(data)
 
-    async def fetch_node(self, id: str) -> node.Node:
+    async def fetch_node(self, id: str) -> Node:
         """
         |coro|
 
@@ -186,9 +187,9 @@ class GitHub():
         """
 
         data = await self.http.fetch_node(id)
-        return node.Node.from_data(data)
+        return Node.from_data(data)
 
-    async def fetch_nodes(self, *ids: str) -> typing.Iterable[node.Node]:
+    async def fetch_nodes(self, *ids: str) -> typing.Iterable[Node]:
         """
         |coro|
 
@@ -196,9 +197,9 @@ class GitHub():
         """
 
         data = await self.http.fetch_nodes(*ids)
-        return node.Node.from_data(data)
+        return Node.from_data(data)
 
-    async def fetch_rate_limit(self) -> ratelimit.RateLimit:
+    async def fetch_rate_limit(self) -> RateLimit:
         """
         |coro|
 
@@ -206,9 +207,9 @@ class GitHub():
         """
 
         data = await self.http.fetch_rate_limit()
-        return ratelimit.RateLimit.from_data(data)
+        return RateLimit.from_data(data)
 
-    async def fetch_repository(self, owner: str, name: str) -> repository.Repository:
+    async def fetch_repository(self, owner: str, name: str) -> Repository:
         """
         |coro|
 
@@ -216,9 +217,9 @@ class GitHub():
         """
 
         data = await self.http.fetch_repository(owner, name)
-        return repository.Repository.from_data(data, self.http)
+        return Repository.from_data(data, self.http)
 
-    async def fetch_topic(self, name: str) -> topic.Topic:
+    async def fetch_topic(self, name: str) -> Topic:
         """
         |coro|
 
@@ -226,9 +227,9 @@ class GitHub():
         """
 
         data = await self.http.fetch_topic(name)
-        return topic.Topic.from_data(data)
+        return Topic.from_data(data)
 
-    async def fetch_topics(self, *names: str) -> typing.Iterable[topic.Topic]:
+    async def fetch_topics(self, *names: str) -> typing.Iterable[Topic]:
         """
         |coro|
 
@@ -236,9 +237,9 @@ class GitHub():
         """
 
         data = await self.http.fetch_topics(*names)
-        return topic.Topic.from_data(data)
+        return Topic.from_data(data)
 
-    async def fetch_user(self, login: str) -> user.User:
+    async def fetch_user(self, login: str) -> User:
         """
         |coro|
 
@@ -246,9 +247,9 @@ class GitHub():
         """
 
         data = await self.http.fetch_user(login)
-        return user.User.from_data(data, self.http)
+        return User.from_data(data, self.http)
 
-    async def fetch_users(self, *logins: str) -> typing.Iterable[user.User]:
+    async def fetch_users(self, *logins: str) -> typing.Iterable[User]:
         """
         |coro|
 
@@ -256,5 +257,5 @@ class GitHub():
         """
 
         data = await self.http.fetch_users(*logins)
-        return user.User.from_data(data, self.http)
+        return User.from_data(data, self.http)
     

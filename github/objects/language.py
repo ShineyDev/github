@@ -17,12 +17,14 @@
 """
 
 from github import utils
-from github.objects import abc
+from github.abc import Node
 
 
-class Language(abc.Node):
+class Language(Node):
     """
     Represents a programming language found in repositories.
+
+    https://developer.github.com/v4/object/language/
     """
 
     __slots__ = ("data",)
@@ -38,9 +40,9 @@ class Language(abc.Node):
         return cls(data)
 
     @property
-    def color(self) -> tuple:
+    def color(self) -> str:
         """
-        The (r, g, b) color of the language in the official UI.
+        The color of the language in the GitHub UI.
         """
 
         return self.data["color"]

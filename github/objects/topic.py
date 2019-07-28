@@ -18,12 +18,14 @@
 
 import typing
 
-from github.objects import abc
+from github.abc import Node
 
 
-class Topic(abc.Node):
+class Topic(Node):
     """
     Represents a GitHub topic.
+
+    https://developer.github.com/v4/object/topic/
     """
 
     __slots__ = ("data",)
@@ -62,7 +64,7 @@ class Topic(abc.Node):
 
         return PartialTopic.from_data(self.data["relatedTopics"])
 
-class PartialTopic(abc.Node):
+class PartialTopic(Node):
     """
     Represents a GitHub topic.
 

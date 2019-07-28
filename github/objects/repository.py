@@ -20,17 +20,16 @@ import datetime
 import typing
 
 from github import utils
-from github.objects import abc
-from github.objects import codeofconduct
-from github.objects import language
-from github.objects import license
-from github.objects import repositorylockreason
-from github.objects import repositorypermissions
-from github.objects import repositorysubscription
-from github.objects import user
+from github.abc import Node
+from github.enums import RepositoryLockReason
+from github.enums import RepositoryPermissions
+from github.enums import RepositorySubscription
+from github.objects import CodeOfConduct
+from github.objects import Language
+from github.objects import License
 
 
-class Repository(abc.Node):
+class Repository(Node):
     """
     Represents a GitHub repository.
 
@@ -75,14 +74,14 @@ class Repository(abc.Node):
         return self.data["squashMergeAllowed"]
 
     @property
-    def code_of_conduct(self) -> typing.Optional[codeofconduct.CodeOfConduct]:
+    def code_of_conduct(self) -> typing.Optional[CodeOfConduct]:
         """
         The repository's code of conduct.
         """
 
-        codeofconduct_ = self.data["codeOfConduct"]
-        if codeofconduct_:
-            return codeofconduct.CodeOfConduct.from_data(codeofconduct_)
+        codeofconduct = self.data["codeOfConduct"]
+        if codeofconduct:
+            return CodeOfConduct.from_data(codeofconduct_)
 
     @property
     def created_at(self) -> datetime.datetime:
@@ -90,7 +89,8 @@ class Repository(abc.Node):
         The date and time when the repository was created.
         """
 
-        return utils.iso_to_datetime(self.data["createdAt"])
+        created_at = self.data["createdAt"]
+        return utils.iso_to_datetime(created_at)
 
     @property
     def database_id(self) -> int:
@@ -205,24 +205,24 @@ class Repository(abc.Node):
         return self.data["isTemplate"]
 
     @property
-    def license(self) -> typing.Optional[license.License]:
+    def license(self) -> typing.Optional[License]:
         """
         The repository's license.
         """
 
-        license_ = self.data["licenseInfo"]
-        if license_:
-            return license.License.from_data(license_)
+        license = self.data["licenseInfo"]
+        if license:
+            return License.from_data(license_)
 
     @property
-    def lock_reason(self) -> typing.Optional[repositorylockreason.RepositoryLockReason]:
+    def lock_reason(self) -> typing.Optional[RepositoryLockReason]:
         """
         The reason for the repository to be in a locked state.
         """
 
         lock_reason = self.data["lockReason"]
         if lock_reason:
-            return lockreason.RepositoryLockReason.from_data(lock_reason)
+            return RepositoryLockReason.from_data(lock_reason)
 
     @property
     def name(self) -> str:
@@ -233,17 +233,21 @@ class Repository(abc.Node):
         return self.data["name"]
 
     @property
-    def owner(self) -> typing.Union[user.User]: # add org
+    def owner(self) -> typing.Union["User"]:
         """
         The owner of the repository.
         """
 
-        owner = self.data["owner"]
+        # prevent cyclic imports
+        from github.objects import User
 
-        if owner["__typename"] == "User":
-            return user.User.from_data(owner, self.http)
-        elif owner["__typename"] == "Organization":
+        owner = self.data["owner"]
+        
+        if owner["__typename"] == "Organization":
+            # TODO: implement github.Organization
             ...
+        elif owner["__typename"] == "User":
+            return User.from_data(owner, self.http)
 
     @property
     def parent(self) -> typing.Optional["PartialRepository"]:
@@ -258,14 +262,14 @@ class Repository(abc.Node):
         return PartialRepository.from_data(parent, self.http)
 
     @property
-    def primary_language(self) -> language.Language:
+    def primary_language(self) -> Language:
         """
         The primary language of the repository.
         """
 
         primary_language = self.data["primaryLanguage"]
         if primary_language:
-            return language.Language.from_data(primary_language)
+            return Language.from_data(primary_language)
 
     @property
     def pushed_at(self) -> typing.Optional[datetime.datetime]:
@@ -340,40 +344,50 @@ class Repository(abc.Node):
         return self.data["viewerCanUpdateTopics"]
 
     @property
-    def viewer_permissions(self) -> repositorypermissions.RepositoryPermissions:
+    def viewer_permissions(self) -> RepositoryPermissions:
         """
         The authenticated user's permissions in the repository.
         """
 
-        return permissions.RepositoryPermissions.from_data(self.data["viewerPermission"])
+        permissions = self.data["viewerPermission"]
+        return RepositoryPermissions.from_data(permissions)
 
     @property
-    def viewer_subscription(self) -> repositorysubscription.RepositorySubscription:
+    def viewer_subscription(self) -> RepositorySubscription:
         """
         The authenticated user's subscription to the repository.
         """
 
-        return subscription.RepositorySubscription.from_data(self.data["viewerSubscription"])
+        subscription = self.data["viewerSubscription"]
+        return RepositorySubscription.from_data(subscription)
 
     async def fetch_assignable_users(self):
         """
         Fetches a list of users that can be assigned to issues in the repository.
         """
 
+        # prevent cyclic imports
+        from github.objects import User
+
         data = await self.http.fetch_repository_assignable_users(self.owner.login, self.name)
-        return user.User.from_data(data, self.http)
+        return User.from_data(data, self.http)
 
     async def fetch_collaborators(self):
         """
         Fetches a list of collaborators associated with the repository.
         """
 
-        data = await self.http.fetch_repository_collaborators(self.owner.login, self.name)
-        return user.User.from_data(data, self.http)
+        # prevent cyclic imports
+        from github.objects import User
 
-class PartialRepository(abc.Node):
+        data = await self.http.fetch_repository_collaborators(self.owner.login, self.name)
+        return User.from_data(data, self.http)
+
+class PartialRepository(Node):
     """
     Represents a GitHub repository.
+
+    https://developer.github.com/v4/object/repository/
 
     This partial-class doesn't implement the :attr:`Repository.parent` and :attr:`Repository.template` attributes.
     """
@@ -416,14 +430,14 @@ class PartialRepository(abc.Node):
         return self.data["squashMergeAllowed"]
 
     @property
-    def code_of_conduct(self) -> typing.Optional[codeofconduct.CodeOfConduct]:
+    def code_of_conduct(self) -> typing.Optional[CodeOfConduct]:
         """
         The repository's code of conduct.
         """
 
-        codeofconduct_ = self.data["codeOfConduct"]
-        if codeofconduct_:
-            return codeofconduct.CodeOfConduct.from_data(codeofconduct_)
+        codeofconduct = self.data["codeOfConduct"]
+        if codeofconduct:
+            return CodeOfConduct.from_data(codeofconduct)
 
     @property
     def created_at(self) -> datetime.datetime:
@@ -431,7 +445,8 @@ class PartialRepository(abc.Node):
         The date and time when the repository was created.
         """
 
-        return utils.iso_to_datetime(self.data["createdAt"])
+        created_at = self.data["createdAt"]
+        return utils.iso_to_datetime(created_at)
 
     @property
     def database_id(self) -> int:
@@ -546,24 +561,24 @@ class PartialRepository(abc.Node):
         return self.data["isTemplate"]
 
     @property
-    def license(self) -> typing.Optional[license.License]:
+    def license(self) -> typing.Optional[License]:
         """
         The repository's license.
         """
 
-        license_ = self.data["licenseInfo"]
-        if license_:
-            return license.License.from_data(license_)
+        license = self.data["licenseInfo"]
+        if license:
+            return License.from_data(license)
 
     @property
-    def lock_reason(self) -> typing.Optional[repositorylockreason.RepositoryLockReason]:
+    def lock_reason(self) -> typing.Optional[RepositoryLockReason]:
         """
         The reason for the repository to be in a locked state.
         """
 
         lock_reason = self.data["lockReason"]
         if lock_reason:
-            return lockreason.RepositoryLockReason.from_data(lock_reason)
+            return RepositoryLockReason.from_data(lock_reason)
 
     @property
     def name(self) -> str:
@@ -574,27 +589,31 @@ class PartialRepository(abc.Node):
         return self.data["name"]
 
     @property
-    def owner(self) -> typing.Union[user.User]: # add org
+    def owner(self) -> typing.Union["User"]:
         """
         The owner of the repository.
         """
 
-        owner = self.data["owner"]
+        # prevent cyclic imports
+        from github.objects import User
 
-        if owner["__typename"] == "User":
-            return user.User.from_data(owner, self.http)
-        elif owner["__typename"] == "Organization":
+        owner = self.data["owner"]
+        
+        if owner["__typename"] == "Organization":
+            # TODO: implement github.Organization
             ...
+        elif owner["__typename"] == "User":
+            return User.from_data(owner, self.http)
 
     @property
-    def primary_language(self) -> language.Language:
+    def primary_language(self) -> Language:
         """
         The primary language of the repository.
         """
 
         primary_language = self.data["primaryLanguage"]
         if primary_language:
-            return language.Language.from_data(primary_language)
+            return Language.from_data(primary_language)
 
     @property
     def pushed_at(self) -> typing.Optional[datetime.datetime]:
@@ -657,33 +676,41 @@ class PartialRepository(abc.Node):
         return self.data["viewerCanUpdateTopics"]
 
     @property
-    def viewer_permissions(self) -> repositorypermissions.RepositoryPermissions:
+    def viewer_permissions(self) -> RepositoryPermissions:
         """
         The authenticated user's permissions in the repository.
         """
 
-        return permissions.RepositoryPermissions.from_data(self.data["viewerPermission"])
+        permissions = self.data["viewerPermission"]
+        return RepositoryPermissions.from_data(permissions)
 
     @property
-    def viewer_subscription(self) -> repositorysubscription.RepositorySubscription:
+    def viewer_subscription(self) -> RepositorySubscription:
         """
         The authenticated user's subscription to the repository.
         """
 
-        return subscription.RepositorySubscription.from_data(self.data["viewerSubscription"])
+        subscription = self.data["viewerSubscription"]
+        return RepositorySubscription.from_data(subscription)
 
     async def fetch_assignable_users(self):
         """
         Fetches a list of users that can be assigned to issues in the repository.
         """
 
+        # prevent cyclic imports
+        from github.objects import User
+
         data = await self.http.fetch_repository_assignable_users(self.owner.login, self.name)
-        return user.User.from_data(data, self.http)
+        return User.from_data(data, self.http)
 
     async def fetch_collaborators(self):
         """
         Fetches a list of collaborators associated with the repository.
         """
 
+        # prevent cyclic imports
+        from github.objects import User
+
         data = await self.http.fetch_repository_collaborators(self.owner.login, self.name)
-        return user.User.from_data(data, self.http)
+        return User.from_data(data, self.http)

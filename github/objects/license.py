@@ -18,13 +18,12 @@
 
 import typing
 
-from github.objects import abc
-from github.objects import licenserule
+from github.abc import Node
 
 
-class License(abc.Node):
+class License(Node):
     """
-    A repository's open source license.
+    A repository's source license.
 
     https://developer.github.com/v4/object/license/
     """
@@ -63,8 +62,11 @@ class License(abc.Node):
         The conditions set by the license.
         """
 
+        # prevent cyclic imports
+        from github.objects import LicenseRule
+
         conditions = self.data["conditions"]
-        return licenserule.LicenseRule.from_data(conditions)
+        return LicenseRule.from_data(conditions)
 
     @property
     def description(self) -> str:
@@ -120,8 +122,11 @@ class License(abc.Node):
         The limitations set by the license.
         """
 
+        # prevent cyclic imports
+        from github.objects import LicenseRule
+
         limitations = self.data["limitations"]
-        return licenserule.LicenseRule.from_data(limitations)
+        return LicenseRule.from_data(limitations)
 
     @property
     def name(self) -> str:
@@ -145,8 +150,11 @@ class License(abc.Node):
         The permissions set by the license.
         """
 
+        # prevent cyclic imports
+        from github.objects import LicenseRule
+
         permissions = self.data["permissions"]
-        return licenserule.LicenseRule.from_data(permissions)
+        return LicenseRule.from_data(permissions)
 
     @property
     def spdx_id(self) -> str:

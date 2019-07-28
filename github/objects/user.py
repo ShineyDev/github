@@ -20,10 +20,11 @@ import datetime
 import typing
 
 from github import utils
-from github.objects import abc
+from github.abc import Actor, Node, RepositoryOwner
+from github.objects import CommitComment
 
 
-class User(abc.Actor, abc.Node, abc.RepositoryOwner):
+class User(Actor, Node, RepositoryOwner):
     """
     Represents a GitHub user account.
 
@@ -172,7 +173,7 @@ class User(abc.Actor, abc.Node, abc.RepositoryOwner):
         """
 
         return self.data["websiteUrl"]
-
+    
     async def fetch_email(self) -> typing.Optional[str]:
         """
         Fetches the user's email.
