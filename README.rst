@@ -80,7 +80,7 @@ Fetch a repository's license:
     repo = await g.fetch_repository("ShineyDev", "github.py")
     print(repo.license)
 
-Fetch the authenticated user's public gists with a custom query via :meth:`~github.http.HTTPClient.request`:
+Fetch the authenticated user's public gists with a custom query via HTTPClient.request:
 
 .. code:: py
 
@@ -117,4 +117,4 @@ Fetch the authenticated user's public gists with a custom query via :meth:`~gith
     data = await g.http.request(json=json)
     gists = github.Gist.from_data(data["viewer"]["gists"]["nodes"], g.http)
 
-You can find more examples in ``examples/``.
+You can find more examples in the ``examples/`` directory.
