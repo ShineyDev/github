@@ -28,14 +28,14 @@ class Deletable():
     @property
     def viewer_can_delete(self) -> bool:
         """
-        Whether or not the authenticated user can delete this object.
+        Whether or not the authenticated user can delete the deletable.
         """
 
         return self.data["viewerCanDelete"]
 
     async def delete(self):
         """
-        Deletes the object.
+        Deletes the deletable.
         """
 
         if self.data["__typename"] == "CommitComment":
