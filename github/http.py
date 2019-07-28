@@ -20,6 +20,7 @@ import aiohttp
 
 from github import context
 from github import errors
+from github import query
 
 
 DEFAULT_BASE_URL = "https://api.github.com/graphql"
@@ -135,7 +136,8 @@ class HTTPClient():
             .. warning::
 
                 You cannot update the user-agent via this method and
-                must use the :attr:`~github.GitHub.user_agent` property instead.
+                must use the :attr:`~github.GitHub.user_agent` property
+                instead.
         session: Optional[:class:`aiohttp.ClientSession`]
             The session to request the API with.
         """
@@ -153,36 +155,8 @@ class HTTPClient():
     async def fetch_authenticated_user(self) -> dict:
         # https://developer.github.com/v4/object/user/
 
-        query = """
-          query authenticated_user {
-            viewer {
-              __typename
-              anyPinnableItems
-              avatarUrl
-              bio
-              company
-              createdAt
-              databaseId
-              id
-              isBountyHunter
-              isCampusExpert
-              isDeveloperProgramMember
-              isEmployee
-              isHireable
-              isSiteAdmin
-              isViewer
-              location
-              login
-              name
-              updatedAt
-              url
-              websiteUrl
-            }
-          }
-        """
-
         json = {
-            "query": query,
+            "query": query.FETCH_AUTHENTICATED_USER,
         }
 
         data = await self.request(json=json)
@@ -191,25 +165,12 @@ class HTTPClient():
     async def fetch_code_of_conduct(self, key: str) -> dict:
         # https://developer.github.com/v4/object/codeofconduct/
 
-        query = """
-          query code_of_conduct ($key: String!) {
-            codeOfConduct (key: $key) {
-              __typename
-              body
-              id
-              key
-              name
-              url
-            }
-          }
-        """
-
         variables = {
             "key": key,
         }
 
         json = {
-            "query": query,
+            "query": query.FETCH_CODE_OF_CONDUCT,
             "variables": variables,
         }
 
@@ -224,21 +185,8 @@ class HTTPClient():
     async def fetch_all_codes_of_conduct(self) -> dict:
         # https://developer.github.com/v4/object/codeofconduct/
 
-        query = """
-          query all_codes_of_conduct {
-            codesOfConduct {
-              __typename
-              body
-              id
-              key
-              name
-              url
-            }
-          }
-        """
-
         json = {
-            "query": query,
+            "query": query.FETCH_ALL_CODES_OF_CONDUCT,
         }
 
         data = await self.request(json=json)
@@ -247,47 +195,12 @@ class HTTPClient():
     async def fetch_license(self, key: str) -> dict:
         # https://developer.github.com/v4/object/license/
 
-        query = """
-          query license ($key: String!) {
-            license (key: $key) {
-              __typename
-              body
-              conditions {
-                description
-                key
-                label
-              }
-              description
-              featured
-              hidden
-              id
-              implementation
-              key
-              limitations {
-                description
-                key
-                label
-              }
-              name
-              nickname
-              permissions {
-                description
-                key
-                label
-              }
-              pseudoLicense
-              spdxId
-              url
-            }
-          }
-        """
-
         variables = {
             "key": key,
         }
 
         json = {
-            "query": query,
+            "query": query.FETCH_LICENSE,
             "variables": variables,
         }
 
@@ -302,43 +215,8 @@ class HTTPClient():
     async def fetch_all_licenses(self) -> dict:
         # https://developer.github.com/v4/object/license/
 
-        query = """
-          query all_licenses {
-            licenses {
-              __typename
-              body
-              conditions {
-                description
-                key
-                label
-              }
-              description
-              featured
-              hidden
-              id
-              implementation
-              key
-              limitations {
-                description
-                key
-                label
-              }
-              name
-              nickname
-              permissions {
-                description
-                key
-                label
-              }
-              pseudoLicense
-              spdxId
-              url
-            }
-          }
-        """
-
         json = {
-            "query": query,
+            "query": query.FETCH_ALL_LICENSES,
         }
 
         data = await self.request(json=json)
@@ -347,21 +225,8 @@ class HTTPClient():
     async def fetch_metadata(self) -> dict:
         # https://developer.github.com/v4/object/githubmetadata/
 
-        query = """
-          query metadata {
-            meta {
-              gitHubServicesSha
-              gitIpAddresses
-              hookIpAddresses
-              importerIpAddresses
-              isPasswordAuthenticationVerifiable
-              pagesIpAddresses
-            }
-          }
-        """
-
         json = {
-            "query": query,
+            "query": query.FETCH_METADATA,
         }
 
         data = await self.request(json=json)
@@ -370,21 +235,12 @@ class HTTPClient():
     async def fetch_node(self, id) -> dict:
         # https://developer.github.com/v4/interface/node/
 
-        query = """
-          query node ($id: ID!) {
-            node (id: $id) {
-              __typename
-              id
-            }
-          }
-        """
-
         variables = {
             "id": id,
         }
 
         json = {
-            "query": query,
+            "query": query.FETCH_NODE,
             "variables": variables,
         }
 
@@ -394,21 +250,12 @@ class HTTPClient():
     async def fetch_nodes(self, *ids: str) -> dict:
         # https://developer.github.com/v4/interface/node/
 
-        query = """
-          query nodes ($ids: [ID!]!) {
-            nodes (ids: $ids) {
-              __typename
-              id
-            }
-          }
-        """
-
         variables = {
             "ids": ids,
         }
 
         json = {
-            "query": query,
+            "query": query.FETCH_NODES,
             "variables": variables,
         }
 
@@ -418,18 +265,8 @@ class HTTPClient():
     async def fetch_rate_limit(self) -> dict:
         # https://developer.github.com/v4/object/ratelimit/
 
-        query = """
-          query rate_limit {
-            rateLimit {
-              limit
-              remaining
-              resetAt
-            }
-          }
-        """
-
         json = {
-            "query": query,
+            "query": query.FETCH_RATE_LIMIT,
         }
 
         data = await self.request(json=json)
@@ -438,342 +275,13 @@ class HTTPClient():
     async def fetch_repository(self, owner: str, name: str) -> dict:
         # https://developer.github.com/v4/object/repository/
 
-        query = """
-          query repository ($owner: String!, $name: String!) {
-            repository (owner: $owner, name: $name) {
-              __typename
-              codeOfConduct {
-                __typename
-                body
-                id
-                key
-                name
-                url
-              }
-              createdAt
-              databaseId
-              defaultBranchRef {
-                name
-              }
-              description
-              diskUsage
-              forkCount
-              hasIssuesEnabled
-              hasWikiEnabled
-              id
-              isArchived
-              isDisabled
-              isFork
-              isLocked
-              isMirror
-              isPrivate
-              isTemplate
-              licenseInfo {
-                __typename
-                body
-                conditions {
-                  description
-                  key
-                  label
-                }
-                description
-                featured
-                hidden
-                id
-                implementation
-                key
-                limitations {
-                  description
-                  key
-                  label
-                }
-                name
-                nickname
-                permissions {
-                  description
-                  key
-                  label
-                }
-                pseudoLicense
-                spdxId
-                url
-              }
-              lockReason
-              mergeCommitAllowed
-              name
-              owner {
-                ... on User {
-                  __typename
-                  anyPinnableItems
-                  avatarUrl
-                  bio
-                  company
-                  createdAt
-                  databaseId
-                  id
-                  isBountyHunter
-                  isCampusExpert
-                  isDeveloperProgramMember
-                  isEmployee
-                  isHireable
-                  isSiteAdmin
-                  isViewer
-                  location
-                  login
-                  name
-                  updatedAt
-                  url
-                  websiteUrl
-                }
-                ... on Organization {
-                  __typename
-                  id
-                }
-              }
-              parent {
-                __typename
-                codeOfConduct {
-                  __typename
-                  body
-                  id
-                  key
-                  name
-                  url
-                }
-                createdAt
-                databaseId
-                defaultBranchRef {
-                  name
-                }
-                description
-                diskUsage
-                forkCount
-                hasIssuesEnabled
-                hasWikiEnabled
-                id
-                isArchived
-                isDisabled
-                isFork
-                isLocked
-                isMirror
-                isPrivate
-                isTemplate
-                licenseInfo {
-                  __typename
-                  body
-                  conditions {
-                    description
-                    key
-                    label
-                  }
-                  description
-                  featured
-                  hidden
-                  id
-                  implementation
-                  key
-                  limitations {
-                    description
-                    key
-                    label
-                  }
-                  name
-                  nickname
-                  permissions {
-                    description
-                    key
-                    label
-                  }
-                  pseudoLicense
-                  spdxId
-                  url
-                }
-                lockReason
-                mergeCommitAllowed
-                name
-                owner {
-                  ... on User {
-                    __typename
-                    anyPinnableItems
-                    avatarUrl
-                    bio
-                    company
-                    createdAt
-                    databaseId
-                    id
-                    isBountyHunter
-                    isCampusExpert
-                    isDeveloperProgramMember
-                    isEmployee
-                    isHireable
-                    isSiteAdmin
-                    isViewer
-                    location
-                    login
-                    name
-                    updatedAt
-                    url
-                    websiteUrl
-                  }
-                  ... on Organization {
-                    __typename
-                    id
-                  }
-                }
-                primaryLanguage {
-                  __typename
-                  color
-                  id
-                  name
-                }
-                pushedAt
-                rebaseMergeAllowed
-                squashMergeAllowed
-                updatedAt
-                url
-                viewerCanAdminister
-                viewerCanCreateProjects
-                viewerCanSubscribe
-                viewerCanUpdateTopics
-                viewerPermission
-                viewerSubscription
-              }
-              primaryLanguage {
-                __typename
-                color
-                id
-                name
-              }
-              pushedAt
-              rebaseMergeAllowed
-              squashMergeAllowed
-              templateRepository {
-                __typename
-                codeOfConduct {
-                  __typename
-                  body
-                  id
-                  key
-                  name
-                  url
-                }
-                createdAt
-                databaseId
-                defaultBranchRef {
-                  name
-                }
-                description
-                diskUsage
-                forkCount
-                hasIssuesEnabled
-                hasWikiEnabled
-                id
-                isArchived
-                isDisabled
-                isFork
-                isLocked
-                isMirror
-                isPrivate
-                isTemplate
-                licenseInfo {
-                  __typename
-                  body
-                  conditions {
-                    description
-                    key
-                    label
-                  }
-                  description
-                  featured
-                  hidden
-                  id
-                  implementation
-                  key
-                  limitations {
-                    description
-                    key
-                    label
-                  }
-                  name
-                  nickname
-                  permissions {
-                    description
-                    key
-                    label
-                  }
-                  pseudoLicense
-                  spdxId
-                  url
-                }
-                lockReason
-                mergeCommitAllowed
-                name
-                owner {
-                  ... on User {
-                    __typename
-                    anyPinnableItems
-                    avatarUrl
-                    bio
-                    company
-                    createdAt
-                    databaseId
-                    id
-                    isBountyHunter
-                    isCampusExpert
-                    isDeveloperProgramMember
-                    isEmployee
-                    isHireable
-                    isSiteAdmin
-                    isViewer
-                    location
-                    login
-                    name
-                    updatedAt
-                    url
-                    websiteUrl
-                  }
-                  ... on Organization {
-                    __typename
-                    id
-                  }
-                }
-                primaryLanguage {
-                  __typename
-                  color
-                  id
-                  name
-                }
-                pushedAt
-                rebaseMergeAllowed
-                squashMergeAllowed
-                updatedAt
-                url
-                viewerCanAdminister
-                viewerCanCreateProjects
-                viewerCanSubscribe
-                viewerCanUpdateTopics
-                viewerPermission
-                viewerSubscription
-              }
-              updatedAt
-              url
-              viewerCanAdminister
-              viewerCanCreateProjects
-              viewerCanSubscribe
-              viewerCanUpdateTopics
-              viewerPermission
-              viewerSubscription
-            }
-          }
-        """
-
         variables = {
             "owner": owner,
             "name": name,
         }
 
         json = {
-            "query": query,
+            "query": query.FETCH_REPOSITORY,
             "variables": variables,
         }
 
@@ -782,42 +290,6 @@ class HTTPClient():
 
     async def fetch_repository_assignable_users(self, owner: str, name: str):
         # https://developer.github.com/v4/object/user/
-
-        query = """
-          query repository_assignable_users ($owner: String!, $name: String!, $cursor: String!) {
-            repository (owner: $owner, name: $name) {
-              assignableUsers (first: 10, after: $cursor) {
-                nodes {
-                  __typename
-                  anyPinnableItems
-                  avatarUrl
-                  bio
-                  company
-                  createdAt
-                  databaseId
-                  id
-                  isBountyHunter
-                  isCampusExpert
-                  isDeveloperProgramMember
-                  isEmployee
-                  isHireable
-                  isSiteAdmin
-                  isViewer
-                  location
-                  login
-                  name
-                  updatedAt
-                  url
-                  websiteUrl
-                }
-                pageInfo {
-                  endCursor
-                  hasNextPage
-                }
-              }
-            }
-          }
-        """
 
         nodes = list()
         
@@ -832,7 +304,7 @@ class HTTPClient():
             }
 
             json = {
-                "query": query,
+                "query": query.FETCH_REPOSITORY_ASSIGNABLE_USERS,
                 "variables": variables,
             }
 
@@ -847,42 +319,6 @@ class HTTPClient():
     async def fetch_repository_collaborators(self, owner: str, name: str):
         # https://developer.github.com/v4/object/user/
 
-        query = """
-          query repository_collaborators ($owner: String!, $name: String!, $cursor: String!) {
-            repository (owner: $owner, name: $name) {
-              collaborators (first: 10, after: $cursor) {
-                nodes {
-                  __typename
-                  anyPinnableItems
-                  avatarUrl
-                  bio
-                  company
-                  createdAt
-                  databaseId
-                  id
-                  isBountyHunter
-                  isCampusExpert
-                  isDeveloperProgramMember
-                  isEmployee
-                  isHireable
-                  isSiteAdmin
-                  isViewer
-                  location
-                  login
-                  name
-                  updatedAt
-                  url
-                  websiteUrl
-                }
-                pageInfo {
-                  endCursor
-                  hasNextPage
-                }
-              }
-            }
-          }
-        """
-
         nodes = list()
         
         cursor = "Y3Vyc29yOnYyOjA="
@@ -896,7 +332,7 @@ class HTTPClient():
             }
 
             json = {
-                "query": query,
+                "query": query.FETCH_REPOSITORY_COLLABORATORS,
                 "variables": variables,
             }
 
@@ -911,27 +347,12 @@ class HTTPClient():
     async def fetch_topic(self, name: str) -> dict:
         # https://developer.github.com/v4/object/topic/
 
-        query = """
-          query topic ($name: String!) {
-            topic (name: $name) {
-              __typename
-              id
-              name
-              relatedTopics (first: 10) {
-                __typename
-                id
-                name
-              }
-            }
-          }
-        """
-
         variables = {
             "name": name,
         }
 
         json = {
-            "query": query,
+            "query": query.FETCH_TOPIC,
             "variables": variables,
         }
 
@@ -946,40 +367,12 @@ class HTTPClient():
     async def fetch_user(self, login: str) -> dict:
         # https://developer.github.com/v4/object/user/
 
-        query = """
-          query user ($login: String!) {
-            user (login: $login) {
-              __typename
-              anyPinnableItems
-              avatarUrl
-              bio
-              company
-              createdAt
-              databaseId
-              id
-              isBountyHunter
-              isCampusExpert
-              isDeveloperProgramMember
-              isEmployee
-              isHireable
-              isSiteAdmin
-              isViewer
-              location
-              login
-              name
-              updatedAt
-              url
-              websiteUrl
-            }
-          }
-        """
-
         variables = {
             "login": login,
         }
 
         json = {
-            "query": query,
+            "query": query.FETCH_USER,
             "variables": variables,
         }
 
@@ -992,35 +385,15 @@ class HTTPClient():
         raise NotImplementedError("this method hasn't been implemented yet")
 
     async def fetch_user_avatar_url(self, login: str, size: int=None) -> dict:
-        if size is not None:
-            query = """
-              query user_avatar_url ($login: String!,
-                                     $size: Int!) {
-                user (login: $login) {
-                  avatarUrl (size: $size)
-                }
-              }
-            """
+        # https://developer.github.com/v4/scalar/uri/
 
-            variables = {
-                "login": login,
-                "size": size,
-            }
-        else:
-            query = """
-              query user_avatar_url ($login: String!) {
-                user (login: $login) {
-                  avatarUrl
-                }
-              }
-            """
-
-            variables = {
-                "login": login,
-            }
+        variables = {
+            "login": login,
+            "size": size,
+        }
 
         json = {
-            "query": query,
+            "query": query.FETCH_USER_AVATAR_URL,
             "variables": variables,
         }
 
@@ -1028,20 +401,14 @@ class HTTPClient():
         return data["user"]["avatarUrl"]
 
     async def fetch_user_email(self, login: str) -> dict:
-        query = """
-          query user_email ($login: String!) {
-            user (login: $login) {
-              email
-            }
-          }
-        """
+        # https://developer.github.com/v4/scalar/string/
 
         variables = {
             "login": login,
         }
 
         json = {
-            "query": query,
+            "query": query.FETCH_USER_EMAIL,
             "variables": variables,
         }
 
