@@ -306,7 +306,7 @@ class Collection():
 
         for (field) in self._fields:
             field = field.build()
-            query += "  {0}\n".format()
+            query += "  {0}\n".format(field)
 
         # collection (arg: $arg) {
         #   collection (arg: $arg) {
