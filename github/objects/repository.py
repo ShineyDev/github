@@ -212,7 +212,7 @@ class Repository(Node):
 
         license = self.data["licenseInfo"]
         if license:
-            return License.from_data(license_)
+            return License.from_data(license)
 
     @property
     def lock_reason(self) -> typing.Optional[RepositoryLockReason]:
