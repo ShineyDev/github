@@ -1,6 +1,6 @@
 .. currentmodule:: github.objects
 
 Objects
--------
+=======
 
 

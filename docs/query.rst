@@ -1,0 +1,6 @@
+.. currentmodule:: github
+
+Queries & Mutations
+===================
+
+

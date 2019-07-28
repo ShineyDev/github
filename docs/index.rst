@@ -34,12 +34,14 @@ Classes
 -------
 
 .. toctree::
+    :maxdepth: 1
 
     github
     http
-
+    
+    abc/index
+    enums/index
     objects/index
-    objects/abc/index
 
 Other
 -----
@@ -49,6 +51,7 @@ Other
 
     errors
     utils
+    query
     
     changelog
 

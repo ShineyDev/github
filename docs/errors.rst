@@ -1,7 +1,7 @@
 .. currentmodule:: github.errors
 
 Errors
-------
+======
 
 .. autoexception:: GitHubError
 

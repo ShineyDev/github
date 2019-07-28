@@ -1,7 +1,7 @@
 .. currentmodule:: github.utils
 
 Utilities
----------
+=========
 
 .. autofunction:: get
 

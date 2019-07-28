@@ -1,0 +1,6 @@
+.. currentmodule:: github.enums
+
+Enumerables
+-----------
+
+
