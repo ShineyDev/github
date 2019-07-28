@@ -119,7 +119,7 @@ class GitHub():
         data = await self.http.fetch_code_of_conduct(key)
         return CodeOfConduct.from_data(data)
 
-    async def fetch_codes_of_conduct(self, *keys: str) -> typing.Iterable[CodeOfConduct]:
+    async def fetch_codes_of_conduct(self, *keys: str) -> typing.List[CodeOfConduct]:
         """
         |coro|
 
@@ -129,7 +129,7 @@ class GitHub():
         data = await self.http.fetch_codes_of_conduct(*keys)
         return CodeOfConduct.from_data(data)
 
-    async def fetch_all_codes_of_conduct(self) -> typing.Iterable[CodeOfConduct]:
+    async def fetch_all_codes_of_conduct(self) -> typing.List[CodeOfConduct]:
         """
         |coro|
 
@@ -149,7 +149,7 @@ class GitHub():
         data = await self.http.fetch_license(key)
         return License.from_data(data)
 
-    async def fetch_licenses(self, *keys: str) -> typing.Iterable[License]:
+    async def fetch_licenses(self, *keys: str) -> typing.List[License]:
         """
         |coro|
 
@@ -159,7 +159,7 @@ class GitHub():
         data = await self.http.fetch_licenses(*keys)
         return License.from_data(data)
 
-    async def fetch_all_licenses(self) -> typing.Iterable[License]:
+    async def fetch_all_licenses(self) -> typing.List[License]:
         """
         |coro|
 
@@ -189,7 +189,7 @@ class GitHub():
         data = await self.http.fetch_node(id)
         return Node.from_data(data)
 
-    async def fetch_nodes(self, *ids: str) -> typing.Iterable[Node]:
+    async def fetch_nodes(self, *ids: str) -> typing.List[Node]:
         """
         |coro|
 
@@ -229,7 +229,7 @@ class GitHub():
         data = await self.http.fetch_topic(name)
         return Topic.from_data(data)
 
-    async def fetch_topics(self, *names: str) -> typing.Iterable[Topic]:
+    async def fetch_topics(self, *names: str) -> typing.List[Topic]:
         """
         |coro|
 
@@ -249,7 +249,7 @@ class GitHub():
         data = await self.http.fetch_user(login)
         return User.from_data(data, self.http)
 
-    async def fetch_users(self, *logins: str) -> typing.Iterable[User]:
+    async def fetch_users(self, *logins: str) -> typing.List[User]:
         """
         |coro|
 

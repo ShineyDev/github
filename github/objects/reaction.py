@@ -40,7 +40,7 @@ class Reaction():
         return "<{0.__class__.__name__} content='{0.content}'>".format(self)
 
     @classmethod
-    def from_data(data: list, http) -> typing.Iterable["Reaction"]:
+    def from_data(data: list, http) -> typing.List["Reaction"]:
         reactions = list()
 
         for (reaction) in data:
@@ -75,7 +75,7 @@ class Reaction():
         return self.data["content"]
 
     @property
-    def users(self) -> typing.Iterable["User"]:
+    def users(self) -> typing.List["User"]:
         """
         A list of :class:`github.User` who reacted.
         """

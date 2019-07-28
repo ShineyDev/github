@@ -57,7 +57,7 @@ class License(Node):
         return self.data["body"]
 
     @property
-    def conditions(self) -> typing.Iterable["LicenseRule"]:
+    def conditions(self) -> typing.List["LicenseRule"]:
         """
         The conditions set by the license.
         """
@@ -117,7 +117,7 @@ class License(Node):
         return self.data["key"]
 
     @property
-    def limitations(self) -> typing.Iterable["LicenseRule"]:
+    def limitations(self) -> typing.List["LicenseRule"]:
         """
         The limitations set by the license.
         """
@@ -145,7 +145,7 @@ class License(Node):
         return self.data["nickname"]
 
     @property
-    def permissions(self) -> typing.Iterable["LicenseRule"]:
+    def permissions(self) -> typing.List["LicenseRule"]:
         """
         The permissions set by the license.
         """

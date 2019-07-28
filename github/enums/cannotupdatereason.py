@@ -35,7 +35,7 @@ class CannotUpdateReason():
         return "<{0.__class__.__name__} '{0._reason}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: list) -> typing.Iterable["CannotUpdateReason"]:
+    def from_data(cls, data: list) -> typing.List["CannotUpdateReason"]:
         reasons = list()
 
         for (reason) in data:

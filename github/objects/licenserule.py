@@ -35,7 +35,7 @@ class LicenseRule():
         return "<{0.__class__.__name__} key='{0.key}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: list) -> typing.Iterable["LicenseRule"]:
+    def from_data(cls, data: list) -> typing.List["LicenseRule"]:
         rules = list()
 
         for (rule) in data:

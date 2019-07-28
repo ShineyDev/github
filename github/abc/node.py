@@ -44,7 +44,7 @@ class Node():
         return "<{0.__class__.__name__} id='{0.id}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: typing.Union[dict, list]) -> typing.Union["Node", typing.Iterable["Node"]]:
+    def from_data(cls, data: typing.Union[dict, list]) -> typing.Union["Node", typing.List["Node"]]:
         if isinstance(data, dict):
             return cls(data)
         elif isinstance(data, list):

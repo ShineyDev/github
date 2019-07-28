@@ -36,7 +36,7 @@ class Metadata():
         return cls(data)
 
     @property
-    def git_ip_addresses(self) -> typing.Iterable[str]:
+    def git_ip_addresses(self) -> typing.List[str]:
         """
         IP addresses that users connect to for git operations.
         """
@@ -52,7 +52,7 @@ class Metadata():
         return self.data["gitHubServicesSha"]
 
     @property
-    def hook_ip_addresses(self) -> typing.Iterable[str]:
+    def hook_ip_addresses(self) -> typing.List[str]:
         """
         IP addresses that service hooks are sent from.
         """
@@ -60,7 +60,7 @@ class Metadata():
         return self.data["hookIpAddresses"]
 
     @property
-    def importer_ip_addresses(self) -> typing.Iterable[str]:
+    def importer_ip_addresses(self) -> typing.List[str]:
         """
         IP addresses that the importer connects from.
         """
@@ -76,7 +76,7 @@ class Metadata():
         return self.data["isPasswordAuthenticationVerifiable"]
 
     @property
-    def pages_ip_addresses(self) -> typing.Iterable[str]:
+    def pages_ip_addresses(self) -> typing.List[str]:
         """
         IP addresses for GitHub Pages' A records.
         """

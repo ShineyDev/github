@@ -41,7 +41,7 @@ class User(Actor, Node, RepositoryOwner):
         return "<{0.__class__.__name__} login='{0.login}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: typing.Union[dict, list], http) -> typing.Union["User", typing.Iterable["User"]]:
+    def from_data(cls, data: typing.Union[dict, list], http) -> typing.Union["User", typing.List["User"]]:
         if isinstance(data, dict):
             return cls(data, http)
         elif isinstance(data, list):
@@ -174,7 +174,7 @@ class User(Actor, Node, RepositoryOwner):
 
         return self.data["websiteUrl"]
 
-    async def fetch_commit_comments(self) -> typing.Iterable[CommitComment]:
+    async def fetch_commit_comments(self) -> typing.List[CommitComment]:
         """
         Fetches the user's commit comments.
         """

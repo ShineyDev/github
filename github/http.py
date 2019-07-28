@@ -73,7 +73,7 @@ class HTTPClient():
     def user_agent(self, value: str):
         self._user_agent = value or DEFAULT_USER_AGENT
 
-    async def _request(self, *, json: dict, headers: dict, session: aiohttp.ClientSession):
+    async def _request(self, *, json: dict, headers: dict, session: aiohttp.ClientSession) -> dict:
         async with session.post(self._base_url, json=json, headers=headers) as response:
             if response.status not in range(200, 300):
                 try:
@@ -120,7 +120,7 @@ class HTTPClient():
 
             return data
 
-    async def request(self, *, json: dict, headers: dict=None, session: aiohttp.ClientSession=None):
+    async def request(self, *, json: dict, headers: dict=None, session: aiohttp.ClientSession=None) -> dict:
         """
         Performs a request to the GitHub API.
 
@@ -177,12 +177,12 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["codeOfConduct"]
 
-    async def fetch_codes_of_conduct(self, *keys: str) -> dict:
+    async def fetch_codes_of_conduct(self, *keys: str) -> list:
         # https://developer.github.com/v4/object/codeofconduct/
 
         raise NotImplementedError("this method hasn't been implemented yet")
 
-    async def fetch_all_codes_of_conduct(self) -> dict:
+    async def fetch_all_codes_of_conduct(self) -> list:
         # https://developer.github.com/v4/object/codeofconduct/
 
         json = {
@@ -207,7 +207,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["license"]
 
-    async def fetch_licenses(self, *keys: str) -> dict:
+    async def fetch_licenses(self, *keys: str) -> list:
         # https://developer.github.com/v4/object/license/
 
         raise NotImplementedError("this method hasn't been implemented yet")
@@ -247,7 +247,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["node"]
 
-    async def fetch_nodes(self, *ids: str) -> dict:
+    async def fetch_nodes(self, *ids: str) -> list:
         # https://developer.github.com/v4/interface/node/
 
         variables = {
@@ -288,7 +288,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["repository"]
 
-    async def fetch_repository_assignable_users(self, owner: str, name: str):
+    async def fetch_repository_assignable_users(self, owner: str, name: str) -> list:
         # https://developer.github.com/v4/object/user/
 
         nodes = list()
@@ -316,7 +316,7 @@ class HTTPClient():
 
         return nodes
 
-    async def fetch_repository_collaborators(self, owner: str, name: str):
+    async def fetch_repository_collaborators(self, owner: str, name: str) -> list:
         # https://developer.github.com/v4/object/user/
 
         nodes = list()
@@ -359,7 +359,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["topic"]
 
-    async def fetch_topics(self, *names: str) -> dict:
+    async def fetch_topics(self, *names: str) -> list:
         # https://developer.github.com/v4/object/topic/
 
         raise NotImplementedError("this method hasn't been implemented yet")
@@ -379,12 +379,12 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["user"]
 
-    async def fetch_users(self, *logins: str) -> dict:
+    async def fetch_users(self, *logins: str) -> list:
         # https://developer.github.com/v4/object/user/
 
         raise NotImplementedError("this method hasn't been implemented yet")
 
-    async def fetch_user_avatar_url(self, login: str, size: int=None) -> dict:
+    async def fetch_user_avatar_url(self, login: str, size: int=None) -> str:
         # https://developer.github.com/v4/scalar/uri/
 
         variables = {
@@ -400,7 +400,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["user"]["avatarUrl"]
 
-    async def fetch_user_commit_comments(self, login: str) -> dict:
+    async def fetch_user_commit_comments(self, login: str) -> list:
         # https://developer.github.com/v4/object/commitcomment/
 
         nodes = list()
@@ -427,7 +427,7 @@ class HTTPClient():
 
         return nodes
 
-    async def fetch_user_email(self, login: str) -> dict:
+    async def fetch_user_email(self, login: str) -> str:
         # https://developer.github.com/v4/scalar/string/
 
         variables = {

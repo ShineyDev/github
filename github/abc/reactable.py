@@ -31,7 +31,7 @@ class Reactable():
     __slots__ = ()
 
     @property
-    def reactions(self) -> typing.Iterable["Reaction"]:
+    def reactions(self) -> typing.List["Reaction"]:
         """
         A list of :class:`~github.Reaction`.
         """

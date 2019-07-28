@@ -37,7 +37,7 @@ class CodeOfConduct(Node):
         return "<{0.__class__.__name__} key='{0.key}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: typing.Union[dict, list]) -> typing.Union["CodeOfConduct", typing.Iterable["CodeOfConduct"]]:
+    def from_data(cls, data: typing.Union[dict, list]) -> typing.Union["CodeOfConduct", typing.List["CodeOfConduct"]]:
         if isinstance(data, dict):
             return cls(data)
         elif isinstance(data, list):

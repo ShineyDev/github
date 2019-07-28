@@ -37,7 +37,7 @@ class Topic(Node):
         return "<{0.__class__.__name__} name='{0.name}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: typing.Union[dict, list]) -> typing.Union["Topic", typing.Iterable["Topic"]]:
+    def from_data(cls, data: typing.Union[dict, list]) -> typing.Union["Topic", typing.List["Topic"]]:
         if isinstance(data, dict):
             return cls(data)
         elif isinstance(data, list):
@@ -57,7 +57,7 @@ class Topic(Node):
         return self.data["name"]
 
     @property
-    def related_topics(self) -> typing.Iterable["PartialTopic"]:
+    def related_topics(self) -> typing.List["PartialTopic"]:
         """
         A list of related topics.
         """
@@ -80,7 +80,7 @@ class PartialTopic(Node):
         return "<{0.__class__.__name__} name='{0.name}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: list) -> typing.Iterable["PartialTopic"]:
+    def from_data(cls, data: list) -> typing.List["PartialTopic"]:
         topics = list()
 
         for (topic) in data:
