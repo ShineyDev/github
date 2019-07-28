@@ -1,5 +1,5 @@
 """
-/github/objects/abc/repositoryowner.py
+/github/abc/repositoryowner.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -33,13 +33,13 @@ class RepositoryOwner():
 
         return self.data["anyPinnableItems"]
 
-    async def fetch_repository(self, name: str) -> "repository.Repository":
+    async def fetch_repository(self, name: str) -> "Repository":
         """
         Fetches a repository from this repository owner.
         """
 
         # prevent cyclic imports
-        from github.objects import repository
+        from github.objects import Repository
 
         data = await self.http.fetch_repository(self.login, name)
-        return repository.Repository.from_data(data, self.http)
+        return Repository.from_data(data, self.http)

@@ -1,5 +1,5 @@
 """
-/github/objects/abc/node.py
+/github/abc/node.py
 
     Copyright (c) 2019 ShineyDev
     

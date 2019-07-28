@@ -1,5 +1,5 @@
 """
-/github/objects/abc/__init__.py
+/github/abc/__init__.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -16,6 +16,11 @@
     limitations under the License.
 """
 
-from github.objects.abc.actor import Actor
-from github.objects.abc.node import Node
-from github.objects.abc.repositoryowner import RepositoryOwner
+from github.abc.actor import Actor
+from github.abc.comment import Comment
+from github.abc.deletable import Deletable
+from github.abc.node import Node
+from github.abc.reactable import Reactable
+from github.abc.repositorynode import RepositoryNode
+from github.abc.repositoryowner import RepositoryOwner
+from github.abc.updatable import Updatable

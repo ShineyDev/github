@@ -1,5 +1,5 @@
 """
-/github/objects/abc/actor.py
+/github/abc/actor.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -49,17 +49,21 @@ class Actor():
 
         return self.data["url"]
 
-    async def fetch_avatar_url(self, *, size: int=None, cache: bool=False) -> str:
+    async def fetch_avatar_url(self, *, size: int=None) -> str:
         """
         Fetches a url pointing to this actor's public avatar.
         """
-
-        if self.data["__typename"] == "User":
-            avatar_url = await self.http.fetch_user_avatar_url(self.login, size)
-        elif self.data["__typename"] == "Organization":
-            ...
         
-        if cache:
-            self.data["avatarUrl"] = avatar_url
+        if self.data["__typename"] == "Bot":
+            # TODO: implement github.Bot
+            ...
+        elif self.data["__typename"] == "Mannequin":
+            # TODO: implement github.Mannequin
+            ...
+        elif self.data["__typename"] == "Organization":
+            # TODO: implement github.Organization
+            ...
+        elif self.data["__typename"] == "User":
+            avatar_url = await self.http.fetch_user_avatar_url(self.login, size)
 
         return avatar_url
