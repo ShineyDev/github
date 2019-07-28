@@ -3,6 +3,15 @@
 Changelog
 =========
 
+v0.2.1
+------
+
+Bug Fixes
+~~~~~~~~~
+
+* Fix :attr:`github.Repository.license` AttributeError.
+* Fix :meth:`github.query.Collection.build` IndexError.
+
 v0.2.0
 ------
 
