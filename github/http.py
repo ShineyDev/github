@@ -400,6 +400,33 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["user"]["avatarUrl"]
 
+    async def fetch_user_commit_comments(self, login: str) -> dict:
+        # https://developer.github.com/v4/object/commitcomment/
+
+        nodes = list()
+        
+        cursor = "Y3Vyc29yOnYyOjA="
+        has_next_page = True
+
+        while has_next_page:
+            variables = {
+                "login": login,
+                "cursor": cursor,
+            }
+
+            json = {
+                "query": query.FETCH_USER_COMMIT_COMMENTS,
+                "variables": variables,
+            }
+
+            data = await self.request(json=json)
+            nodes.extend(data["user"]["commitComments"]["nodes"])
+
+            cursor = data["user"]["commitComments"]["pageInfo"]["endCursor"]
+            has_next_page = data["user"]["commitComments"]["pageInfo"]["hasNextPage"]
+
+        return nodes
+
     async def fetch_user_email(self, login: str) -> dict:
         # https://developer.github.com/v4/scalar/string/
 

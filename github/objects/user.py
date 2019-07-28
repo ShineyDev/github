@@ -173,6 +173,14 @@ class User(Actor, Node, RepositoryOwner):
         """
 
         return self.data["websiteUrl"]
+
+    async def fetch_commit_comments(self) -> typing.Iterable[CommitComment]:
+        """
+        Fetches the user's commit comments.
+        """
+
+        comments = await self.http.fetch_user_commit_comments(self.login)
+        return comments
     
     async def fetch_email(self) -> typing.Optional[str]:
         """

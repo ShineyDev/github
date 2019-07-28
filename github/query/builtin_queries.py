@@ -633,6 +633,10 @@ query fetch_user_avatar_url ($login: String!, $size: Int=null) {
 }
 """
 
+FETCH_USER_COMMIT_COMMENTS = """
+
+"""
+
 FETCH_USER_EMAIL = """
 query fetch_user_email ($login: String!) {
   user (login: $login) {

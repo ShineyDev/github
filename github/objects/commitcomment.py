@@ -1,5 +1,5 @@
 """
-/github/objects/__init__.py
+/github/objects/commitcomment.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -16,14 +16,19 @@
     limitations under the License.
 """
 
-from github.objects.codeofconduct import CodeOfConduct
-from github.objects.commitcomment import CommitComment
-from github.objects.language import Language
-from github.objects.license import License
-from github.objects.licenserule import LicenseRule
-from github.objects.metadata import Metadata
-from github.objects.ratelimit import RateLimit
-from github.objects.reaction import Reaction
-from github.objects.repository import Repository, PartialRepository
-from github.objects.topic import Topic, PartialTopic
-from github.objects.user import User, AuthenticatedUser
+from github.abc import Comment
+from github.abc import Deletable
+from github.abc import Node
+from github.abc import Reactable
+from github.abc import RepositoryNode
+from github.abc import Updatable
+
+
+class CommitComment(Comment, Deletable, Node, Reactable, RepositoryNode, Updatable):
+    """
+    Represents a comment on a :class:`~github.Commit`.
+
+    https://developer.github.com/v4/object/commitcomment/
+    """
+
+    ...
