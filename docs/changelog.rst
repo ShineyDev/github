@@ -3,6 +3,14 @@
 Changelog
 =========
 
+v0.2.2
+------
+
+Bug Fixes
+~~~~~~~~~
+
+* Fix typehints. (this should now allow linters and IDEs to work correctly)
+
 v0.2.1
 ------
 
