@@ -30,7 +30,7 @@ An asynchronous Python wrapper for the GitHub API, v4.
 Features
 --------
 
-#. Modern API using ``async`` and ``await`` syntax.
+#. Modern, reliable, asynchronous API.
 #. `Descriptive documentation <https://githubpy.readthedocs.io/en/latest/>`_.
 
 .. #. 100% coverage of the supported GitHub API. (soon)
@@ -38,7 +38,7 @@ Features
 Installation
 ------------
 
-**Python 3 or higher is required.**
+**Python 3.5.2 or higher is required.**
 
 To install a ``final`` version of the wrapper do the following:
 
@@ -71,8 +71,18 @@ Fetch a repository's license:
 
 .. code:: py
 
-    import asyncio
-    loop = asyncio.get_event_loop()
+    import github
+    g = github.GitHub("token")
+    # you'll need a personal access token to use this library - you can
+    # get one from https://github.com/settings/tokens. for this example,
+    # your token will need the `public_repo` scope.
+
+    repo = await g.fetch_repository("ShineyDev", "github.py")
+    print(repo.license)
+
+Fetch the authenticated user's public gists with a custom query via :meth:`~github.http.HTTPClient.request`:
+
+.. code:: py
 
     import github
     g = github.GitHub("token")
@@ -80,11 +90,31 @@ Fetch a repository's license:
     # get one from https://github.com/settings/tokens. for this example,
     # your token will need the `public_repo` scope.
 
-    async def main():
-        repo = await g.fetch_repository("ShineyDev", "github.py")
-        return repo.license
+    nodes = github.query.Collection(name="nodes")
+    nodes.add_field(github.query.Field(name="url"))
+    
+    gists = github.query.Collection(name="gists")
+    gists.add_argument(github.query.CollectionArgument(name="privacy", value="$privacy"))
+    gists.add_argument(github.query.CollectionArgument(name="first", value="10"))
+    gists.add_collection(nodes)
+    
+    viewer = github.query.Collection(name="viewer")
+    viewer.add_collection(gists)
+    
+    query = github.query.Builder(name="fetch_authenticated_user_gists", type="query")
+    query.add_argument(github.query.QueryArgument(name="$privacy", type="GistPrivacy!"))
+    query.add_collection(viewer)
 
-    license = loop.run_until_complete(main())
-    print(license.name)
+    variables = {
+        "privacy": "PUBLIC",
+    }
 
-.. You can find more examples in ``examples/``.
+    json = {
+        "query": query.build(),
+        "variables": variables,
+    }
+
+    data = await g.http.request(json=json)
+    gists = github.Gist.from_data(data["viewer"]["gists"]["nodes"], g.http)
+
+You can find more examples in ``examples/``.
