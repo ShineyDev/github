@@ -48,10 +48,12 @@ Other
 
 .. toctree::
     :maxdepth: 2
+    
+    query
+    logging
 
     errors
     utils
-    query
     
     changelog
 
