@@ -4,4 +4,5 @@ HTTP
 ====
 
 .. autoclass:: HTTPClient
+    :member-order: bysource
     :members:

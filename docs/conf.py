@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.abspath(".."))
 
 extensions = ["sphinx.ext.autodoc", "sphinx.ext.extlinks", "sphinx.ext.intersphinx", "sphinx.ext.napoleon"]
 
-autodoc_member_order = "bysource"
+autodoc_typehints = "none"
 extlinks = {"issue": ("https://github.com/ShineyDev/github.py/issues/%s", "#")}
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
