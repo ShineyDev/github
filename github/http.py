@@ -35,8 +35,7 @@ class HTTPClient():
     :class:`~github.GitHub` class and should not be created by
     the user.
 
-    This class is only exposed for
-    :meth:`~HTTPClient.request`.
+    This class is only exposed for :meth:`~HTTPClient.request`.
     """
 
     __slots__ = ("_token", "_base_url", "_user_agent", "_session", "_exceptions")
@@ -186,8 +185,8 @@ class HTTPClient():
         builder = query.Builder(name="fetch_codes_of_conduct")
 
         for (i, key) in enumerate(keys):
-            collection = query.Collection(name="codeOfConduct", alias=f"_{i}")
-            collection.add_argument(query.CollectionArgument(name="key", value=f"\"{key}\""))
+            collection = query.Collection(name="codeOfConduct", alias="_{0}".format(i))
+            collection.add_argument(query.CollectionArgument(name="key", value="\"{0}\"".format(key)))
             
             for (field) in fields:
                 collection.add_field(field)
