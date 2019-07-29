@@ -16,6 +16,8 @@
     limitations under the License.
 """
 
+import logging
+
 import aiohttp
 
 from github import context
@@ -25,6 +27,12 @@ from github import query
 
 DEFAULT_BASE_URL = "https://api.github.com/graphql"
 DEFAULT_USER_AGENT = "ShineyDev/github"
+
+
+def _create_logger(*, name: str) -> logging.Logger:
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.INFO)
+    return logger
 
 
 class HTTPClient():
@@ -38,13 +46,15 @@ class HTTPClient():
     This class is only exposed for :meth:`~HTTPClient.request`.
     """
 
-    __slots__ = ("_token", "_base_url", "_user_agent", "_session", "_exceptions")
+    __slots__ = ("_token", "_base_url", "_user_agent", "_session", "_logger", "_exceptions")
 
     def __init__(self, token: str, *, base_url: str=None, user_agent: str=None, session: aiohttp.ClientSession=None):
         self._token = token
         self._base_url = base_url or DEFAULT_BASE_URL
         self._user_agent = user_agent or DEFAULT_USER_AGENT
         self._session = session
+
+        self._logger = _create_logger(name="github.http")
 
         self._exceptions = {
             # HTTP status-code
@@ -73,6 +83,8 @@ class HTTPClient():
         self._user_agent = value or DEFAULT_USER_AGENT
 
     async def _request(self, *, json: dict, headers: dict, session: aiohttp.ClientSession) -> dict:
+        self._logger.info("attempting request to '{0}' with data: {1}".format(self._base_url, json))
+
         async with session.post(self._base_url, json=json, headers=headers) as response:
             if response.status not in range(200, 300):
                 try:
@@ -117,6 +129,7 @@ class HTTPClient():
 
                 raise exception(message, response=response, data=data)
 
+            self._logger.info("passed with data: {0}".format(data))
             return data
 
     async def request(self, *, json: dict, headers: dict=None, session: aiohttp.ClientSession=None) -> dict:
@@ -146,8 +159,13 @@ class HTTPClient():
         headers.update({"User-Agent": self._user_agent})
         
         session = session or self._session
-        async with context.SessionContext(session) as session:
-            data = await self._request(json=json, headers=headers, session=session)
+
+        try:
+            async with context.SessionContext(session) as session:
+                data = await self._request(json=json, headers=headers, session=session)
+        except (Exception) as e:
+            self._logger.exception("failed with exception: ")
+            raise
 
         return data["data"]
 
