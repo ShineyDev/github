@@ -31,7 +31,6 @@ DEFAULT_USER_AGENT = "ShineyDev/github"
 
 def _create_logger(*, name: str) -> logging.Logger:
     logger = logging.getLogger(name)
-    logger.setLevel(logging.INFO)
     return logger
 
 
@@ -83,7 +82,7 @@ class HTTPClient():
         self._user_agent = value or DEFAULT_USER_AGENT
 
     async def _request(self, *, json: dict, headers: dict, session: aiohttp.ClientSession) -> dict:
-        self._logger.info("attempting request to '{0}' with data: {1}".format(self._base_url, json))
+        self._logger.debug("attempting request to '{0}' with data: {0}".format(self._base_url, json))
 
         async with session.post(self._base_url, json=json, headers=headers) as response:
             if response.status not in range(200, 300):
@@ -129,7 +128,8 @@ class HTTPClient():
 
                 raise exception(message, response=response, data=data)
 
-            self._logger.info("passed with data: {0}".format(data))
+            self._logger.debug("passed with data: {0}".format(data))
+
             return data
 
     async def request(self, *, json: dict, headers: dict=None, session: aiohttp.ClientSession=None) -> dict:
