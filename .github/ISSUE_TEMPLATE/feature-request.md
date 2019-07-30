@@ -1,11 +1,11 @@
 ---
+
 name: Feature Request
 about: Suggest a feature for this API wrapper.
-title: "[FEATURE]"
-labels: enhancement
-assignees: ''
+title: "[FEATURE] - ..."
 
 ---
+
 
 ### The Problem
 <!-- a clear description of what the problem is. -->

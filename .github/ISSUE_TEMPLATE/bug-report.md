@@ -1,11 +1,11 @@
 ---
+
 name: Bug Report
 about: Report broken or incorrect behavior.
 title: "[BUG] - ..."
-labels: bug
-assignees: ShineyDev
 
 ---
+
 
 ### Description
 <!-- a clear description of what the bug is. -->
