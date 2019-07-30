@@ -1,13 +1,13 @@
 github.py
 =========
 
-.. image:: https://readthedocs.org/projects/githubpy/badge/?version=latest
-   :target: https://githubpy.readthedocs.io/en/latest/
-   :alt: Documentation Status
-
 .. image:: https://img.shields.io/github/contributors/ShineyDev/github.py.svg
    :target: https://github.com/ShineyDev/github.py/graphs/contributors
    :alt: GitHub contributors
+
+.. image:: https://readthedocs.org/projects/githubpy/badge/?version=latest
+   :target: https://githubpy.readthedocs.io/en/latest/
+   :alt: Documentation Status
 
 .. image:: https://img.shields.io/pypi/status/github.py.svg
    :target: https://pypi.python.org/pypi/github.py
@@ -30,7 +30,7 @@ An asynchronous Python wrapper for the GitHub API, v4.
 Features
 --------
 
-#. Modern, reliable, asynchronous API.
+#. Modern, asynchronous, reliable, typed API.
 #. `Descriptive documentation <https://githubpy.readthedocs.io/en/latest/>`_.
 
 .. #. 100% coverage of the supported GitHub API. (soon)
