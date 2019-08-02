@@ -186,6 +186,9 @@ class GitHub():
 
         """
 
+        # https://developer.github.com/v4/guides/using-global-node-ids/
+        # TODO: implement features as described above
+
         data = await self.http.fetch_node(id)
         return Node.from_data(data)
 
@@ -195,6 +198,9 @@ class GitHub():
 
 
         """
+
+        # https://developer.github.com/v4/guides/using-global-node-ids/
+        # TODO: implement features as described above
 
         data = await self.http.fetch_nodes(*ids)
         return Node.from_data(data)
