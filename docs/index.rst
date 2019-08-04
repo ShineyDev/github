@@ -25,7 +25,6 @@ Other
     :maxdepth: 2
     
     query
-    logging
 
     errors
     utils

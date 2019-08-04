@@ -29,11 +29,6 @@ DEFAULT_BASE_URL = "https://api.github.com/graphql"
 DEFAULT_USER_AGENT = "ShineyDev/github"
 
 
-def _create_logger(*, name: str) -> logging.Logger:
-    logger = logging.getLogger(name)
-    return logger
-
-
 class HTTPClient():
     """
     Represents a GitHub 'connection' or client.
@@ -45,15 +40,13 @@ class HTTPClient():
     This class is only exposed for :meth:`~HTTPClient.request`.
     """
 
-    __slots__ = ("_token", "_base_url", "_user_agent", "_session", "_logger", "_exceptions")
+    __slots__ = ("_token", "_base_url", "_user_agent", "_session", "_exceptions")
 
     def __init__(self, token: str, *, base_url: str=None, user_agent: str=None, session: aiohttp.ClientSession=None):
         self._token = token
         self._base_url = base_url or DEFAULT_BASE_URL
         self._user_agent = user_agent or DEFAULT_USER_AGENT
         self._session = session
-
-        self._logger = _create_logger(name="github.http")
 
         self._exceptions = {
             # HTTP status-code
@@ -82,15 +75,16 @@ class HTTPClient():
         self._user_agent = value or DEFAULT_USER_AGENT
 
     async def _request(self, *, json: dict, headers: dict, session: aiohttp.ClientSession) -> dict:
-        self._logger.debug("attempting request to '{0}' with data: {0}".format(self._base_url, json))
-
         async with session.post(self._base_url, json=json, headers=headers) as response:
             if response.status not in range(200, 300):
                 try:
-                    json = await response.json()
-                    message = json["message"]
+                    # even when giving a status-code outside of the
+                    # [200, 300) range gql can still give us json data
+                    # with relevant metadata
+                    data = await response.json()
+                    message = data["message"]
                 except (aiohttp.client_exceptions.ContentTypeError, KeyError) as e:
-                    json = None
+                    data = None
                     message = "response failed with status-code {0}".format(response.status)
 
                 try:
@@ -100,11 +94,11 @@ class HTTPClient():
                     # arbitrary HTTP status-code
                     exception = errors.HTTPException
 
-                raise exception(message, response=response, data=json)
+                raise exception(message, response=response, data=data)
 
             # this should, theoretically, never error since gql only
-            # responds with json unless it raises a HTTP error-code
-            # outside of the 200-300 range
+            # responds with json data unless it raises a HTTP
+            # status-code outside of the [200, 300) range
             data = await response.json()
 
             if "errors" in data.keys():
@@ -127,8 +121,6 @@ class HTTPClient():
                     exception = errors.GitHubError
 
                 raise exception(message, response=response, data=data)
-
-            self._logger.debug("passed with data: {0}".format(data))
 
             return data
 
@@ -160,12 +152,8 @@ class HTTPClient():
         
         session = session or self._session
 
-        try:
-            async with context.SessionContext(session) as session:
-                data = await self._request(json=json, headers=headers, session=session)
-        except (Exception) as e:
-            self._logger.exception("failed with exception: ")
-            raise
+        async with context.SessionContext(session) as session:
+            data = await self._request(json=json, headers=headers, session=session)
 
         return data["data"]
 
