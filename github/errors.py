@@ -23,11 +23,47 @@ import aiohttp
 
 class GitHubError(Exception):
     """
-    The base Exception class for the wrapper. This could be used to
-    catch all exceptions thrown by the wrapper.
+    The base exception class for the wrapper. This can be used to catch
+    all exceptions thrown by the wrapper.
 
     This exception is raised when GitHub returns arbitrary errors in
     the JSON response. The given error is the first error in the list.
+
+    Attributes
+    ----------
+    message: :class:`str`
+        The error message.
+    data: Optional[:class:`dict`]
+        The data returned by the API.
+    response: Optional[:class:`aiohttp.ClientResponse`]
+        The response of the failed HTTP request.
+    """
+
+    def __init__(self, message: str, *, data: typing.Optional[dict]=None, response: typing.Optional[aiohttp.ClientResponse]=None):
+        self.message = message
+        self.data = data
+        self.response = response
+        super().__init__("{0.status}: {1}".format(response, message))
+
+class HTTPException(GitHubError):
+    """
+    This exception is raised when a HTTP request operation fails.
+
+    Attributes
+    ----------
+    message: :class:`str`
+        The error message.
+    data: Optional[:class:`dict`]
+        The data returned by the API.
+    response: :class:`aiohttp.ClientResponse`
+        The response of the failed HTTP request.
+    """
+
+    pass
+
+class Forbidden(HTTPException):
+    """
+    This exception is raised when a "FORBIDDEN" status-message is returned.
 
     Attributes
     ----------
@@ -39,29 +75,20 @@ class GitHubError(Exception):
         The response of the failed HTTP request.
     """
 
-    def __init__(self, message: str, *, response: aiohttp.ClientResponse, data: typing.Optional[dict]=None):
-        self.message = message
-        self.data = data
-        self.response = response
-        super().__init__("{1.status}: {0}".format(message, response))
-
-class HTTPException(GitHubError):
-    """
-    This exception is raised when a HTTP request operation fails.
-    """
-
-    pass
-
-class Forbidden(HTTPException):
-    """
-    This exception is raised when a "FORBIDDEN" status-message is returned.
-    """
-
     pass
 
 class Internal(HTTPException):
     """
     This exception is raised when an "INTERNAL" status-message is returned.
+
+    Attributes
+    ----------
+    message: :class:`str`
+        The error message.
+    data: :class:`dict`
+        The data returned by the API.
+    response: :class:`aiohttp.ClientResponse`
+        The response of the failed HTTP request.
     """
 
     pass
@@ -69,6 +96,15 @@ class Internal(HTTPException):
 class NotFound(HTTPException):
     """
     This exception is raised when a "NOT_FOUND" status-message is returned.
+
+    Attributes
+    ----------
+    message: :class:`str`
+        The error message.
+    data: :class:`dict`
+        The data returned by the API.
+    response: :class:`aiohttp.ClientResponse`
+        The response of the failed HTTP request.
     """
 
     pass
@@ -78,6 +114,15 @@ class Unauthorized(HTTPException):
     This exception is raised when a 401 status-code is returned.
 
     This exception is typically raised when invalid credentials are passed.
+
+    Attributes
+    ----------
+    message: :class:`str`
+        The error message.
+    data: Optional[:class:`dict`]
+        The data returned by the API.
+    response: :class:`aiohttp.ClientResponse`
+        The response of the failed HTTP request.
     """
 
     pass
