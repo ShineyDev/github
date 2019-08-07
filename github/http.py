@@ -53,9 +53,9 @@ class HTTPClient():
             401: errors.Unauthorized,
 
             # GitHub status-message
-            "NOT_FOUND": errors.NotFound,
             "FORBIDDEN": errors.Forbidden,
             "INTERNAL": errors.Internal,
+            "NOT_FOUND": errors.NotFound,
         }
 
     @property

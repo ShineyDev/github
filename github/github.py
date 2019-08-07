@@ -103,7 +103,19 @@ class GitHub():
         """
         |coro|
 
+        Fetches the authenticated GitHub user.
 
+        Raises
+        ------
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        :class:`~github.AuthenticatedUser`
+            The authenticated GitHub user.
         """
 
         data = await self.http.fetch_authenticated_user()
@@ -113,7 +125,26 @@ class GitHub():
         """
         |coro|
 
+        Fetches a GitHub code of conduct.
 
+        Parameters
+        ----------
+        key: :class:`str`
+            The code of conduct key.
+
+        Raises
+        ------
+        ~github.errors.NotFound
+            A code of conduct with the given key does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        :class:`~github.CodeOfConduct`
+            A GitHub code of conduct.
         """
 
         data = await self.http.fetch_code_of_conduct(key)
@@ -123,7 +154,26 @@ class GitHub():
         """
         |coro|
 
+        Fetches a list of GitHub codes of conduct.
 
+        Parameters
+        ----------
+        *keys: :class:`str`
+            The code of conduct keys.
+
+        Raises
+        ------
+        ~github.errors.NotFound
+            A code of conduct with the given key does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        List[:class:`~github.CodeOfConduct`]
+            A list of GitHub codes of conduct.
         """
 
         data = await self.http.fetch_codes_of_conduct(*keys)
@@ -133,7 +183,19 @@ class GitHub():
         """
         |coro|
 
+        Fetches a list of GitHub codes of conduct.
 
+        Raises
+        ------
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        List[:class:`~github.CodeOfConduct`]
+            A list of GitHub codes of conduct.
         """
 
         data = await self.http.fetch_all_codes_of_conduct()
@@ -143,7 +205,26 @@ class GitHub():
         """
         |coro|
 
+        Fetches a GitHub license.
 
+        Parameters
+        ----------
+        key: :class:`str`
+            The license key.
+
+        Raises
+        ------
+        ~github.errors.NotFound
+            A license with the given key does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        :class:`~github.License`
+            A GitHub license.
         """
 
         data = await self.http.fetch_license(key)
@@ -153,7 +234,26 @@ class GitHub():
         """
         |coro|
 
+        Fetches a list of GitHub licenses.
 
+        Parameters
+        ----------
+        *keys: :class:`str`
+            The license keys.
+
+        Raises
+        ------
+        ~github.errors.NotFound
+            A license with the given key does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        List[:class:`~github.License`]
+            A list of GitHub licenses.
         """
 
         data = await self.http.fetch_licenses(*keys)
@@ -163,7 +263,19 @@ class GitHub():
         """
         |coro|
 
+        Fetches a list of GitHub licenses.
 
+        Raises
+        ------
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        List[:class:`~github.License`]
+            A list of GitHub licenses.
         """
 
         data = await self.http.fetch_all_licenses()
@@ -173,7 +285,19 @@ class GitHub():
         """
         |coro|
 
+        Fetches GitHub metadata.
 
+        Raises
+        ------
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        :class:`github.Metadata`
+            GitHub metadata.
         """
 
         data = await self.http.fetch_metadata()
@@ -183,7 +307,26 @@ class GitHub():
         """
         |coro|
 
+        Fetches a GitHub node.
 
+        Parameters
+        ----------
+        id: :class:`str`
+            The node ID.
+
+        Raises
+        ------
+        ~github.errors.NotFound
+            A node with the given id does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        :class:`github.Node`
+            A GitHub node.
         """
 
         # https://developer.github.com/v4/guides/using-global-node-ids/
@@ -196,7 +339,26 @@ class GitHub():
         """
         |coro|
 
+        Fetches a list of GitHub nodes.
 
+        Parameters
+        ----------
+        *ids: :class:`str`
+            The node IDs.
+
+        Raises
+        ------
+        ~github.errors.NotFound
+            A node with the given id does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        List[:class:`github.Node`]
+            A list of GitHub nodes.
         """
 
         # https://developer.github.com/v4/guides/using-global-node-ids/
@@ -209,7 +371,19 @@ class GitHub():
         """
         |coro|
 
+        Fetches the current GitHub rate limit.
 
+        Raises
+        ------
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        :class:`github.RateLimit`
+            The current GitHub rate limit.
         """
 
         data = await self.http.fetch_rate_limit()
@@ -219,7 +393,28 @@ class GitHub():
         """
         |coro|
 
+        Fetches a GitHub repository.
 
+        Parameters
+        ----------
+        owner: :class:`str`
+            The owner's login.
+        name: :class:`str`
+            The repository name.
+
+        Raises
+        ------
+        ~github.errors.NotFound
+            A repository with the given owner and name does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        :class:`github.Repository`
+            A GitHub repository.
         """
 
         data = await self.http.fetch_repository(owner, name)
@@ -229,7 +424,26 @@ class GitHub():
         """
         |coro|
 
+        Fetches a GitHub topic.
 
+        Parameters
+        ----------
+        name: :class:`str`
+            The topic name.
+
+        Raises
+        ------
+        ~github.errors.NotFound
+            A topic with the given name does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        :class:`github.Topic`
+            A GitHub topic.
         """
 
         data = await self.http.fetch_topic(name)
@@ -239,7 +453,26 @@ class GitHub():
         """
         |coro|
 
+        Fetches a list of GitHub topics.
 
+        Parameters
+        ----------
+        *names: :class:`str`
+            The topic names.
+
+        Raises
+        ------
+        ~github.errors.NotFound
+            A topic with the given name does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        List[:class:`github.Topic`]
+            A list of GitHub topics.
         """
 
         data = await self.http.fetch_topics(*names)
@@ -249,7 +482,26 @@ class GitHub():
         """
         |coro|
 
+        Fetches a GitHub user.
 
+        Parameters
+        ----------
+        login: :class:`str`
+            The user's login.
+
+        Raises
+        ------
+        ~github.errors.NotFound
+            A user with the given login does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        :class:`github.User`
+            A GitHub user.
         """
 
         data = await self.http.fetch_user(login)
@@ -259,7 +511,26 @@ class GitHub():
         """
         |coro|
 
+        Fetches a list of GitHub users.
 
+        Parameters
+        ----------
+        *logins: :class:`str`
+            The user's logins.
+
+        Raises
+        ------
+        ~github.errors.NotFound
+            A user with the given login does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        List[:class:`github.User`]
+            A list of GitHub users.
         """
 
         data = await self.http.fetch_users(*logins)
