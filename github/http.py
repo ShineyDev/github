@@ -144,6 +144,29 @@ class HTTPClient():
                 instead.
         session: Optional[:class:`aiohttp.ClientSession`]
             The session to request the API with.
+
+        Raises
+        ------
+        ~github.errors.Forbidden
+            A ``"FORBIDDEN"`` status-message was returned.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.NotFound
+            A ``"NOT_FOUND"`` status-message was returned.
+        ~github.errors.Unauthorized
+            A ``401`` status-code was returned.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+
+        Returns
+        -------
+        :class:`dict`
+            The data returned by the API.
+
+            .. note::
+                This data only includes that within the ``"data"`` object.
         """
 
         headers = headers or dict()

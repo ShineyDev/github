@@ -44,8 +44,10 @@ class GitHub():
         The authentication token. Do not prefix this token with
         anything, the wrapper will do this for you.
 
-        You can get a personal access token, needed for this wrapper,
-        from https://github.com/settings/tokens.
+        .. note::
+
+            You can get a personal access token, needed for this
+            wrapper, from https://github.com/settings/tokens.
     base_url: Optional[:class:`str`]
         The base url used by this wrapper. This can be changed to allow
         support for GitHub Enterprise.
@@ -53,7 +55,8 @@ class GitHub():
         The user-agent sent by this wrapper. This can be changed to
         allow GitHub to contact you in case of issues.
     session: Optional[:class:`aiohttp.ClientSession`]
-        The session to be passed to the :class:`~github.http.HTTPClient`.
+        The session to be passed to the
+        :class:`~github.http.HTTPClient`.
 
         .. warning::
 
@@ -296,7 +299,7 @@ class GitHub():
 
         Returns
         -------
-        :class:`github.Metadata`
+        :class:`~github.Metadata`
             GitHub metadata.
         """
 
@@ -325,7 +328,7 @@ class GitHub():
 
         Returns
         -------
-        :class:`github.Node`
+        :class:`~github.Node`
             A GitHub node.
         """
 
@@ -357,7 +360,7 @@ class GitHub():
 
         Returns
         -------
-        List[:class:`github.Node`]
+        List[:class:`~github.Node`]
             A list of GitHub nodes.
         """
 
@@ -382,7 +385,7 @@ class GitHub():
 
         Returns
         -------
-        :class:`github.RateLimit`
+        :class:`~github.RateLimit`
             The current GitHub rate limit.
         """
 
@@ -413,7 +416,7 @@ class GitHub():
 
         Returns
         -------
-        :class:`github.Repository`
+        :class:`~github.Repository`
             A GitHub repository.
         """
 
@@ -442,7 +445,7 @@ class GitHub():
 
         Returns
         -------
-        :class:`github.Topic`
+        :class:`~github.Topic`
             A GitHub topic.
         """
 
@@ -471,7 +474,7 @@ class GitHub():
 
         Returns
         -------
-        List[:class:`github.Topic`]
+        List[:class:`~github.Topic`]
             A list of GitHub topics.
         """
 
@@ -500,7 +503,7 @@ class GitHub():
 
         Returns
         -------
-        :class:`github.User`
+        :class:`~github.User`
             A GitHub user.
         """
 
@@ -529,7 +532,7 @@ class GitHub():
 
         Returns
         -------
-        List[:class:`github.User`]
+        List[:class:`~github.User`]
             A list of GitHub users.
         """
 

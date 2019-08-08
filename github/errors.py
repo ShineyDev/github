@@ -63,7 +63,7 @@ class HTTPException(GitHubError):
 
 class Forbidden(HTTPException):
     """
-    This exception is raised when a "FORBIDDEN" status-message is returned.
+    This exception is raised when a ``"FORBIDDEN"`` status-message is returned.
 
     Attributes
     ----------
@@ -79,7 +79,7 @@ class Forbidden(HTTPException):
 
 class Internal(HTTPException):
     """
-    This exception is raised when an "INTERNAL" status-message is returned.
+    This exception is raised when an ``"INTERNAL"`` status-message is returned.
 
     Attributes
     ----------
@@ -95,7 +95,7 @@ class Internal(HTTPException):
 
 class NotFound(HTTPException):
     """
-    This exception is raised when a "NOT_FOUND" status-message is returned.
+    This exception is raised when a ``"NOT_FOUND"`` status-message is returned.
 
     Attributes
     ----------
@@ -111,7 +111,7 @@ class NotFound(HTTPException):
 
 class Unauthorized(HTTPException):
     """
-    This exception is raised when a 401 status-code is returned.
+    This exception is raised when a ``401`` status-code is returned.
 
     This exception is typically raised when invalid credentials are passed.
 
