@@ -35,7 +35,7 @@ class GitHubError(Exception):
         The error message.
     data: Optional[:class:`dict`]
         The data returned by the API.
-    response: Optional[:class:`aiohttp.ClientResponse`]
+    response: :class:`aiohttp.ClientResponse`
         The response of the failed HTTP request.
     """
 
@@ -43,7 +43,11 @@ class GitHubError(Exception):
         self.message = message
         self.data = data
         self.response = response
-        super().__init__("{0.status}: {1}".format(response, message))
+
+        if response is not None:
+            super().__init__("{0.status}: {1}".format(response, message))
+        else:
+            super().__init__(message)
 
 class HTTPException(GitHubError):
     """
@@ -55,15 +59,21 @@ class HTTPException(GitHubError):
         The error message.
     data: Optional[:class:`dict`]
         The data returned by the API.
-    response: :class:`aiohttp.ClientResponse`
+    response: Optional[:class:`aiohttp.ClientResponse`]
         The response of the failed HTTP request.
+
+        .. note::
+            
+            If :attr:`.response` is ``None``, the exception will have a
+            ``__cause__`` attribute containing the actual exception.
     """
 
     pass
 
 class Forbidden(HTTPException):
     """
-    This exception is raised when a ``"FORBIDDEN"`` status-message is returned.
+    This exception is raised when a ``"FORBIDDEN"`` status-message is
+    returned.
 
     Attributes
     ----------
@@ -79,7 +89,8 @@ class Forbidden(HTTPException):
 
 class Internal(HTTPException):
     """
-    This exception is raised when an ``"INTERNAL"`` status-message is returned.
+    This exception is raised when an ``"INTERNAL"`` status-message is
+    returned.
 
     Attributes
     ----------
@@ -95,7 +106,8 @@ class Internal(HTTPException):
 
 class NotFound(HTTPException):
     """
-    This exception is raised when a ``"NOT_FOUND"`` status-message is returned.
+    This exception is raised when a ``"NOT_FOUND"`` status-message is
+    returned.
 
     Attributes
     ----------
@@ -113,7 +125,8 @@ class Unauthorized(HTTPException):
     """
     This exception is raised when a ``401`` status-code is returned.
 
-    This exception is typically raised when invalid credentials are passed.
+    This exception is typically raised when invalid credentials are
+    passed.
 
     Attributes
     ----------

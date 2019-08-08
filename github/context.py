@@ -25,7 +25,7 @@ from github import errors
 class SessionContext():
     def __init__(self, session: typing.Optional[aiohttp.ClientSession]=None):
         self.session = session
-        self._has_session = bool(session)
+        self._has_session = session is not None
 
     async def __aenter__(self):
         if not self._has_session:
@@ -36,3 +36,7 @@ class SessionContext():
     async def __aexit__(self, exc_type, exc_value, exc_traceback):
         if not self._has_session:
             await self.session.close()
+
+        if exc_value is not None:
+            if not issubclass(exc_type, errors.GitHubError):
+                raise errors.HTTPException(exc_value) from exc_value
