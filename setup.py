@@ -48,7 +48,10 @@ classifiers = [
 ]
 
 extras_require = {
-    "docs": ["sphinx"],
+    "docs": [
+        "sphinx",
+        "sphinxcontrib_trio",
+    ],
 }
 
 project_urls = {
