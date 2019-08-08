@@ -10,7 +10,13 @@ sys.path.insert(0, os.path.abspath(".."))
 
 # extensions
 
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.extlinks", "sphinx.ext.intersphinx", "sphinx.ext.napoleon"]
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.extlinks",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.napoleon",
+    "sphinxcontrib_trio",
+]
 
 autodoc_typehints = "none"
 
