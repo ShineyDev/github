@@ -6,10 +6,14 @@ Changelog
 v0.2.3
 ------
 
+Bug Fixes
+~~~~~~~~~
+
+* Properly handle :mod:`aiohttp` exceptions. (:issue:`5`)
+
 New Features
 ~~~~~~~~~~~~
 
-* Add logging.
 * Implement :meth:`github.http.HTTPClient.fetch_codes_of_conduct`.
 
 v0.2.2
