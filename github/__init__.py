@@ -25,7 +25,7 @@ from github.objects import *
 from github.github import GitHub
 
 
-__version__ = "0.2.3a"
+__version__ = "0.2.3"
 
 VersionInfo = collections.namedtuple("VersionInfo", "major minor micro releaselevel")
 version_info = VersionInfo(major=0, minor=2, micro=3, releaselevel="alpha")
