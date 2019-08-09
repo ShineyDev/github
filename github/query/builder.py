@@ -37,12 +37,6 @@ class Builder():
         The name of the query.
     type: :class:`str`
         The type of query to build.
-    arguments: List[:class:`~github.query.QueryArgument`]
-        A list of query arguments.
-    collections: List[:class:`~github.query.Collection`]
-        A list of query collections.
-    fields: List[:class:`~github.query.Field`]
-        A list of query fields.
     """
 
     __slots__ = ("name", "type", "_arguments", "_collections", "_fields")
@@ -208,12 +202,6 @@ class Collection():
         The name of the collection.
     alias: Optional[:class:`str`]
         An alias for the collection.
-    arguments: List[:class:`~github.query.CollectionArgument`]
-        A list of collection arguments.
-    collections: List[:class:`~github.query.Collection`]
-        A list of query collections.
-    fields: List[:class:`~github.query.Field`]
-        A list of query fields.
     """
     
     __slots__ = ("name", "alias", "_arguments", "_collections", "_fields")
@@ -279,16 +267,16 @@ class Collection():
             raise RuntimeError("collection '{0.name}' missing fields or collections".format(self))
 
         if self.alias:
-            query = "{0.alias}: {0.name} ".format(self)
+            collection = "{0.alias}: {0.name} ".format(self)
         else:
-            query = "{0.name} ".format(self)
+            collection = "{0.name} ".format(self)
 
         if self._arguments:
-            query += "("
-            query += ", ".join([argument.build() for argument in self._arguments])
-            query += ") "
+            collection += "("
+            collection += ", ".join([argument.build() for argument in self._arguments])
+            collection += ") "
 
-        query += "{\n"
+        collection += "{\n"
 
         # collection (arg: $arg) {
         # 
@@ -296,7 +284,7 @@ class Collection():
         for (collection) in self._collections:
             collection = collection.build()
             collection = textwrap.indent(collection, "  ")
-            query += "{0}\n".format(collection)
+            collection += "{0}\n".format(collection)
 
         # collection (arg: $arg) {
         #   collection (arg: $arg) {
@@ -306,7 +294,7 @@ class Collection():
 
         for (field) in self._fields:
             field = field.build()
-            query += "  {0}\n".format(field)
+            collection += "  {0}\n".format(field)
 
         # collection (arg: $arg) {
         #   collection (arg: $arg) {
@@ -315,7 +303,7 @@ class Collection():
         #   alias: field
         # 
 
-        query += "}"
+        collection += "}"
 
         # collection (arg: $arg) {
         #   collection (arg: $arg) {
@@ -324,7 +312,7 @@ class Collection():
         #   alias: field
         # }
 
-        return query
+        return collection
 
     def add_argument(self, argument: "CollectionArgument"):
         """
@@ -397,7 +385,8 @@ class CollectionArgument():
             The built collection argument.
         """
 
-        return "{0.name}: {0.value}".format(self)
+        argument = "{0.name}: {0.value}".format(self)
+        return argument
 
 class Field():
     """
@@ -435,8 +424,11 @@ class Field():
         """
 
         if self.alias:
-            return "{0.alias}: {0.name}".format(self)
-        return "{0.name}".format(self)
+            field = "{0.alias}: {0.name}".format(self)
+        else:
+            field = "{0.name}".format(self)
+
+        return field
 
 class QueryArgument():
     """
@@ -446,15 +438,19 @@ class QueryArgument():
     ----------
     name: :class:`str`
         The name of the query argument.
-    value: :class:`str`
-        The value for the query argument.
+    type: :class:`str`
+        The type for the query argument.
+    default: :class:`str`
+        The default for the query argument.
 
     Attributes
     ----------
     name: :class:`str`
         The name of the query argument.
-    value: :class:`str`
-        The value for the query argument.
+    type: :class:`str`
+        The type for the query argument.
+    default: :class:`str`
+        The default for the query argument.
     """
 
     __slots__ = ("name", "type", "default")
@@ -475,5 +471,8 @@ class QueryArgument():
         """
 
         if self.default:
-            return "{0.name}: {0.type}={0.default}".format(self)
-        return "{0.name}: {0.type}".format(self)
+            argument = "{0.name}: {0.type}={0.default}".format(self)
+        else:
+            argument = "{0.name}: {0.type}".format(self)
+
+        return argument
