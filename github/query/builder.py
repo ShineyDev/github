@@ -48,6 +48,7 @@ class Builder():
         self._arguments = list()
         self._collections = list()
         self._fields = list()
+        self._fragments = list()
 
     @property
     def arguments(self) -> typing.List["QueryArgument"]:
@@ -87,6 +88,19 @@ class Builder():
         """
 
         return self._fields
+
+    @property
+    def fragments(self) -> typing.List["Fragment"]:
+        """
+        A list of fragments.
+
+        Returns
+        -------
+        List[:class:`github.query.Fragment]
+            An list of fragments.
+        """
+
+        return self._fragments
 
     def build(self) -> str:
         """
@@ -147,6 +161,25 @@ class Builder():
         #   alias: field
         # }
 
+        for (fragment) in self._fragments:
+            fragment = fragment.build()
+            query += "\n\n"
+            query += fragment
+
+        # query fetch_user ($login: String!) {
+        #   collection (arg: $arg) {
+        #     ...
+        #   }
+        #   alias: field
+        # }
+        # 
+        # fragment UserFields on User {
+        #   collection (arg: $arg) {
+        #     ...
+        #   }
+        #   alias: field
+        # }
+
         return query
 
     def add_argument(self, argument: "QueryArgument"):
@@ -184,6 +217,18 @@ class Builder():
         """
 
         self._fields.append(field)
+
+    def add_fragment(self, fragment: "Fragment"):
+        """
+        Adds a fragment to the query.
+
+        Parameters
+        ----------
+        fragment: :class:`~github.query.Fragment`
+            The fragment to add.
+        """
+
+        self._fragments.append(fragment)
 
 class Collection():
     """
@@ -429,6 +474,136 @@ class Field():
             field = "{0.name}".format(self)
 
         return field
+
+class Fragment():
+    """
+    A helper class for building a fragment.
+
+    Parameters
+    ----------
+    name: :class:`str`
+        The name of the fragment.
+    type: :class:`str`
+        The type for the fragment.
+
+    Attributes
+    ----------
+    name: :class:`str`
+        The name of the fragment.
+    type: :class:`str`
+        The type for the fragment.
+    """
+
+    __slots__ = ("name", "type", "_collections", "_fields")
+
+    def __init__(self, *, name: str, type: str):
+        self.name = name
+        self.type = type
+
+        self._collections = list()
+        self._fields = list()
+
+    @property
+    def collections(self) -> typing.List[Collection]:
+        """
+        A list of collections.
+
+        Returns
+        -------
+        List[:class:`github.query.Collection]
+            A list of collections.
+        """
+
+        return self._collections
+
+    @property
+    def fields(self) -> typing.List[Field]:
+        """
+        A list of fields.
+
+        Returns
+        -------
+        List[:class:`github.query.Field]
+            An list of fields.
+        """
+
+        return self._fields
+
+    def build(self) -> str:
+        """
+        Builds the fragment.
+
+        Returns
+        -------
+        :class:`str`
+            The built fragment.
+        """
+
+        if not self._collections and not self._fields:
+            raise RuntimeError("fragment {0.name} missing fields or collections".format(self))
+
+        fragment = "fragment {0.name} on {0.type} ".format(self)
+        fragment += "{\n"
+
+        # fragment UserFields on User {
+        # 
+
+        for (collection) in self._collections:
+            collection = collection.build()
+            collection = textwrap.indent(collection, "  ")
+            fragment += "{0}\n".format(collection)
+
+        # fragment UserFields on User {
+        #   collection (arg: $arg) {
+        #     ...
+        #   }
+        # 
+
+        for (field) in self._fields:
+            field = field.build()
+            fragment += "  {0}\n".format(field)
+
+        # fragment UserFields on User {
+        #   collection (arg: $arg) {
+        #     ...
+        #   }
+        #   alias: field
+        # 
+
+        fragment += "}"
+
+        # fragment UserFields on User {
+        #   collection (arg: $arg) {
+        #     ...
+        #   }
+        #   alias: field
+        # }
+
+        return fragment
+
+    def add_collection(self, collection: Collection):
+        """
+        Adds a collection to the query.
+
+        Parameters
+        ----------
+        argument: :class:`~github.query.Collection`
+            The collection to add.
+        """
+
+        self._collections.append(collection)
+
+    def add_field(self, field: Field):
+        """
+        Adds a field to the query.
+
+        Parameters
+        ----------
+        argument: :class:`~github.query.Field`
+            The field to add.
+        """
+
+        self._fields.append(field)
 
 class QueryArgument():
     """
