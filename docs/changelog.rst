@@ -3,7 +3,7 @@
 Changelog
 =========
 
-v0.2.4
+v0.3.0
 ------
 
 New Features
