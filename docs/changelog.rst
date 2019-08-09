@@ -3,6 +3,14 @@
 Changelog
 =========
 
+v0.2.4
+------
+
+New Features
+~~~~~~~~~~~~
+
+* Implement :class:`github.query.Fragment`.
+
 v0.2.3
 ------
 
