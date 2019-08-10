@@ -278,7 +278,7 @@ class Builder():
 
         return query
 
-    def copy(self) -> Builder:
+    def copy(self) -> "Builder":
         """
         Creates a shallow-copy of this object.
 
