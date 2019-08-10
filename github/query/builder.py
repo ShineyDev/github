@@ -643,7 +643,7 @@ class CollectionArgument():
             The new object.
         """
 
-        return Collection.from_dict(self.to_dict())
+        return CollectionArgument.from_dict(self.to_dict())
 
     def to_dict(self) -> dict:
         """
@@ -737,7 +737,7 @@ class Field():
             The new object.
         """
 
-        return Collection.from_dict(self.to_dict())
+        return Field.from_dict(self.to_dict())
 
     def to_dict(self) -> dict:
         """
