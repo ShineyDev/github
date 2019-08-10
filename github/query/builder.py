@@ -688,6 +688,28 @@ class Field():
         self.name = name
         self.alias = alias
 
+    @classmethod
+    def from_dict(cls, data: dict) -> "Field":
+        """
+        Creates a :class:`~github.query.Field` object from a dict.
+
+        Parameters
+        ----------
+        data: :class:`dict`
+            The dict to convert into a :class:`~github.query.Field`.
+
+        Returns
+        -------
+        :class:`github.query.Field`
+            The :class:`~github.query.Field` object.
+        """
+
+        name = data["name"]
+        alias = data.get("alias", None)
+
+        field = cls(name=name, alias=alias)
+        return field
+
     def build(self) -> str:
         """
         Builds the field.
@@ -704,6 +726,37 @@ class Field():
             field = "{0.name}".format(self)
 
         return field
+
+    def copy(self) -> "Field":
+        """
+        Creates a shallow-copy of this object.
+
+        Returns
+        -------
+        :class:`github.query.Field`
+            The new object.
+        """
+
+        return Collection.from_dict(self.to_dict())
+
+    def to_dict(self) -> dict:
+        """
+        Creates a dict object from this :class:`~github.query.Field`.
+
+        Returns
+        -------
+        :class:`dict`
+            The dict object.
+        """
+
+        data = dict()
+
+        data["name"] = self.name
+
+        if self.alias is not None:
+            data["alias"] = self.alias
+
+        return data
 
 class Fragment():
     """
