@@ -102,9 +102,62 @@ class Builder():
 
         return self._fragments
 
+    def add_argument(self, argument: "QueryArgument"):
+        """
+        Adds an argument to the query.
+
+        Parameters
+        ----------
+        argument: :class:`~github.query.QueryArgument`
+            The argument to add.
+        """
+
+        self._arguments.append(argument)
+
+    def add_collection(self, collection: "Collection"):
+        """
+        Adds a collection to the query.
+
+        Parameters
+        ----------
+        argument: :class:`~github.query.Collection`
+            The collection to add.
+        """
+
+        self._collections.append(collection)
+
+    def add_field(self, field: "Field"):
+        """
+        Adds a field to the query.
+
+        Parameters
+        ----------
+        argument: :class:`~github.query.Field`
+            The field to add.
+        """
+
+        self._fields.append(field)
+
+    def add_fragment(self, fragment: "Fragment"):
+        """
+        Adds a fragment to the query.
+
+        Parameters
+        ----------
+        fragment: :class:`~github.query.Fragment`
+            The fragment to add.
+        """
+
+        self._fragments.append(fragment)
+
     def build(self) -> str:
         """
         Builds the query.
+
+        Raises
+        ------
+        RuntimeError
+            The query is missing fields and collections.
 
         Returns
         -------
@@ -113,9 +166,9 @@ class Builder():
         """
 
         if not self._collections and not self._fields:
-            raise RuntimeError("query missing fields or collections")
+            raise RuntimeError("query is missing fields or collections")
 
-        if self.name:
+        if self.name is not None:
             query = "{0.type} {0.name} ".format(self)
         else:
             query = "{0.type} ".format(self)
@@ -181,54 +234,6 @@ class Builder():
         # }
 
         return query
-
-    def add_argument(self, argument: "QueryArgument"):
-        """
-        Adds an argument to the query.
-
-        Parameters
-        ----------
-        argument: :class:`~github.query.QueryArgument`
-            The argument to add.
-        """
-
-        self._arguments.append(argument)
-
-    def add_collection(self, collection: "Collection"):
-        """
-        Adds a collection to the query.
-
-        Parameters
-        ----------
-        argument: :class:`~github.query.Collection`
-            The collection to add.
-        """
-
-        self._collections.append(collection)
-
-    def add_field(self, field: "Field"):
-        """
-        Adds a field to the query.
-
-        Parameters
-        ----------
-        argument: :class:`~github.query.Field`
-            The field to add.
-        """
-
-        self._fields.append(field)
-
-    def add_fragment(self, fragment: "Fragment"):
-        """
-        Adds a fragment to the query.
-
-        Parameters
-        ----------
-        fragment: :class:`~github.query.Fragment`
-            The fragment to add.
-        """
-
-        self._fragments.append(fragment)
 
 class Collection():
     """
@@ -298,9 +303,50 @@ class Collection():
 
         return self._fields
 
+    def add_argument(self, argument: "CollectionArgument"):
+        """
+        Adds an argument to the collection.
+
+        Parameters
+        ----------
+        argument: :class:`~github.query.CollectionArgument`
+            The argument to add.
+        """
+
+        self._arguments.append(argument)
+
+    def add_collection(self, collection: "Collection"):
+        """
+        Adds a collection to the collection.
+
+        Parameters
+        ----------
+        argument: :class:`~github.query.Collection`
+            The collection to add.
+        """
+
+        self._collections.append(collection)
+
+    def add_field(self, field: "Field"):
+        """
+        Adds a field to the collection.
+
+        Parameters
+        ----------
+        argument: :class:`~github.query.Field`
+            The field to add.
+        """
+
+        self._fields.append(field)
+
     def build(self) -> str:
         """
         Builds the collection.
+
+        Raises
+        ------
+        RuntimeError
+            The collection is missing fields or collections.
 
         Returns
         -------
@@ -309,9 +355,9 @@ class Collection():
         """
 
         if not self._collections and not self._fields:
-            raise RuntimeError("collection '{0.name}' missing fields or collections".format(self))
+            raise RuntimeError("collection '{0.name}' is missing fields or collections".format(self))
 
-        if self.alias:
+        if self.alias is not None:
             collection = "{0.alias}: {0.name} ".format(self)
         else:
             collection = "{0.name} ".format(self)
@@ -358,42 +404,6 @@ class Collection():
         # }
 
         return collection
-
-    def add_argument(self, argument: "CollectionArgument"):
-        """
-        Adds an argument to the collection.
-
-        Parameters
-        ----------
-        argument: :class:`~github.query.CollectionArgument`
-            The argument to add.
-        """
-
-        self._arguments.append(argument)
-
-    def add_collection(self, collection: "Collection"):
-        """
-        Adds a collection to the collection.
-
-        Parameters
-        ----------
-        argument: :class:`~github.query.Collection`
-            The collection to add.
-        """
-
-        self._collections.append(collection)
-
-    def add_field(self, field: "Field"):
-        """
-        Adds a field to the collection.
-
-        Parameters
-        ----------
-        argument: :class:`~github.query.Field`
-            The field to add.
-        """
-
-        self._fields.append(field)
 
 class CollectionArgument():
     """
@@ -468,7 +478,7 @@ class Field():
             The built field.
         """
 
-        if self.alias:
+        if self.alias is not None:
             field = "{0.alias}: {0.name}".format(self)
         else:
             field = "{0.name}".format(self)
@@ -529,9 +539,38 @@ class Fragment():
 
         return self._fields
 
+    def add_collection(self, collection: Collection):
+        """
+        Adds a collection to the fragment.
+
+        Parameters
+        ----------
+        argument: :class:`~github.query.Collection`
+            The collection to add.
+        """
+
+        self._collections.append(collection)
+
+    def add_field(self, field: Field):
+        """
+        Adds a field to the fragment.
+
+        Parameters
+        ----------
+        argument: :class:`~github.query.Field`
+            The field to add.
+        """
+
+        self._fields.append(field)
+
     def build(self) -> str:
         """
         Builds the fragment.
+
+        Raises
+        ------
+        RuntimeError
+            The fragment is missing fields or collections.
 
         Returns
         -------
@@ -540,7 +579,7 @@ class Fragment():
         """
 
         if not self._collections and not self._fields:
-            raise RuntimeError("fragment {0.name} missing fields or collections".format(self))
+            raise RuntimeError("fragment {0.name} is missing fields or collections".format(self))
 
         fragment = "fragment {0.name} on {0.type} ".format(self)
         fragment += "{\n"
@@ -580,30 +619,6 @@ class Fragment():
         # }
 
         return fragment
-
-    def add_collection(self, collection: Collection):
-        """
-        Adds a collection to the query.
-
-        Parameters
-        ----------
-        argument: :class:`~github.query.Collection`
-            The collection to add.
-        """
-
-        self._collections.append(collection)
-
-    def add_field(self, field: Field):
-        """
-        Adds a field to the query.
-
-        Parameters
-        ----------
-        argument: :class:`~github.query.Field`
-            The field to add.
-        """
-
-        self._fields.append(field)
 
 class QueryArgument():
     """
@@ -645,7 +660,7 @@ class QueryArgument():
             The built query argument.
         """
 
-        if self.default:
+        if self.default is not None:
             argument = "{0.name}: {0.type}={0.default}".format(self)
         else:
             argument = "{0.name}: {0.type}".format(self)
