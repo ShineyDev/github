@@ -786,6 +786,39 @@ class Fragment():
         self._collections = list()
         self._fields = list()
 
+    @classmethod
+    def from_dict(cls, data: dict) -> "Fragment":
+        """
+        Creates a :class:`~github.query.Fragment` object from a dict.
+
+        Parameters
+        ----------
+        data: :class:`dict`
+            The dict to convert into a :class:`~github.query.Fragment`.
+
+        Returns
+        -------
+        :class:`github.query.Fragment`
+            The :class:`~github.query.Fragment` object.
+        """
+
+        name = data["name"]
+        type = data["type"]
+
+        fragment = cls(name=name, type=type)
+        
+        collections = data.get("collections", list())
+        for (collection) in collections:
+            collection = Collection.from_dict(collection)
+            fragment.add_collection(collection)
+        
+        fields = data.get("fields", list())
+        for (field) in fields:
+            field = Field.from_dict(field)
+            fragment.add_field(fields)
+
+        return fragment
+
     @property
     def collections(self) -> typing.List[Collection]:
         """
@@ -892,6 +925,42 @@ class Fragment():
         # }
 
         return fragment
+
+    def copy(self) -> "Fragment":
+        """
+        Creates a shallow-copy of this object.
+
+        Returns
+        -------
+        :class:`github.query.Fragment`
+            The new object.
+        """
+
+        return Fragment.from_dict(self.to_dict())
+
+    def to_dict(self) -> dict:
+        """
+        Creates a dict object from this
+        :class:`~github.query.Fragment`.
+
+        Returns
+        -------
+        :class:`dict`
+            The dict object.
+        """
+
+        data = dict()
+
+        data["name"] = self.name
+        data["type"] = self.type
+
+        if self._collections:
+            data["collections"] = [c.to_dict() for c in self._collections]
+
+        if self._fields:
+            data["fields"] = [f.to_dict() for f in self._fields]
+
+        return data
 
 class QueryArgument():
     """
