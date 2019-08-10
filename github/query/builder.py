@@ -84,7 +84,7 @@ class Builder():
         fields = data.get("fields", list())
         for (field) in fields:
             field = Field.from_dict(field)
-            builder.add_field(fields)
+            builder.add_field(field)
         
         fragments = data.get("fragments", list())
         for (fragment) in fragments:
@@ -385,7 +385,7 @@ class Collection():
         fields = data.get("fields", list())
         for (field) in fields:
             field = Field.from_dict(field)
-            collection.add_field(fields)
+            collection.add_field(field)
 
         return collection
 
