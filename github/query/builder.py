@@ -815,7 +815,7 @@ class Fragment():
         fields = data.get("fields", list())
         for (field) in fields:
             field = Field.from_dict(field)
-            fragment.add_field(fields)
+            fragment.add_field(field)
 
         return fragment
 
