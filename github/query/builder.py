@@ -596,6 +596,30 @@ class CollectionArgument():
         self.name = name
         self.value = value
 
+    @classmethod
+    def from_dict(cls, data: dict) -> "CollectionArgument":
+        """
+        Creates a :class:`~github.query.CollectionArgument` object from
+        a dict.
+
+        Parameters
+        ----------
+        data: :class:`dict`
+            The dict to convert into a
+            :class:`~github.query.CollectionArgument`.
+
+        Returns
+        -------
+        :class:`github.query.CollectionArgument`
+            The :class:`~github.query.CollectionArgument` object.
+        """
+
+        name = data["name"]
+        value = data["value"]
+
+        argument = cls(name=name, value=value)
+        return argument
+
     def build(self) -> str:
         """
         Builds the collection argument.
@@ -608,6 +632,36 @@ class CollectionArgument():
 
         argument = "{0.name}: {0.value}".format(self)
         return argument
+
+    def copy(self) -> "CollectionArgument":
+        """
+        Creates a shallow-copy of this object.
+
+        Returns
+        -------
+        :class:`github.query.CollectionArgument`
+            The new object.
+        """
+
+        return Collection.from_dict(self.to_dict())
+
+    def to_dict(self) -> dict:
+        """
+        Creates a dict object from this
+        :class:`~github.query.CollectionArgument`.
+
+        Returns
+        -------
+        :class:`dict`
+            The dict object.
+        """
+
+        data = dict()
+
+        data["name"] = self.name
+        data["value"] = self.value
+
+        return data
 
 class Field():
     """
