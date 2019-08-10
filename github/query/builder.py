@@ -50,6 +50,49 @@ class Builder():
         self._fields = list()
         self._fragments = list()
 
+    @classmethod
+    def from_dict(cls, data: dict) -> "Builder":
+        """
+        Creates a :class:`~github.query.Builder` object from a dict.
+
+        Parameters
+        ----------
+        data: :class:`dict`
+            The dict to convert into a :class:`~github.query.Builder`.
+
+        Returns
+        -------
+        :class:`github.query.Builder`
+            The :class:`~github.query.Builder` object.
+        """
+
+        name = data.get("name", None)
+        type = data["type"]
+
+        builder = cls(name=name, type=type)
+        
+        arguments = data.get("arguments", list())
+        for (argument) in arguments:
+            argument = QueryArgument.from_dict(argument)
+            builder.add_argument(argument)
+        
+        collections = data.get("collections", list())
+        for (collection) in collections:
+            collection = Collection.from_dict(collection)
+            builder.add_collection(collection)
+        
+        fields = data.get("fields", list())
+        for (field) in fields:
+            field = Field.from_dict(field)
+            builder.add_field(fields)
+        
+        fragments = data.get("fragments", list())
+        for (fragment) in fragments:
+            fragment = Fragment.from_dict(fragment)
+            builder.add_fragment(fragment)
+
+        return builder
+
     @property
     def arguments(self) -> typing.List["QueryArgument"]:
         """
@@ -234,6 +277,49 @@ class Builder():
         # }
 
         return query
+
+    def copy(self) -> Builder:
+        """
+        Creates a shallow-copy of this object.
+
+        Returns
+        -------
+        :class:`github.query.Builder`
+            The new object.
+        """
+
+        return Builder.from_dict(self.to_dict())
+
+    def to_dict(self) -> dict:
+        """
+        Creates a dict object from this :class:`~github.query.Builder`.
+
+        Returns
+        -------
+        :class:`dict`
+            The dict object.
+        """
+
+        data = dict()
+
+        if self.name is not None:
+            data["name"] = self.name
+
+        data["type"] = self.type
+
+        if self._arguments:
+            data["arguments"] = [a.to_dict() for a in self._arguments]
+
+        if self._collections:
+            data["collections"] = [c.to_dict() for c in self._collections]
+
+        if self._fields:
+            data["fields"] = [f.to_dict() for f in self._fields]
+
+        if self._fragments:
+            data["fragments"] = [f.to_dict() for f in self._fragments]
+
+        return data
 
 class Collection():
     """
