@@ -992,6 +992,31 @@ class QueryArgument():
         self.type = type
         self.default = default
 
+    @classmethod
+    def from_dict(cls, data: dict) -> "QueryArgument":
+        """
+        Creates a :class:`~github.query.QueryArgument` object from a
+        dict.
+
+        Parameters
+        ----------
+        data: :class:`dict`
+            The dict to convert into a
+            :class:`~github.query.QueryArgument`.
+
+        Returns
+        -------
+        :class:`github.query.QueryArgument`
+            The :class:`~github.query.QueryArgument` object.
+        """
+
+        name = data["name"]
+        type = data["type"]
+        default = data.get("default", None)
+
+        argument = cls(name=name, type=type, default=default)
+        return argument
+
     def build(self) -> str:
         """
         Builds the query argument.
@@ -1008,3 +1033,36 @@ class QueryArgument():
             argument = "{0.name}: {0.type}".format(self)
 
         return argument
+
+    def copy(self) -> "QueryArgument":
+        """
+        Creates a shallow-copy of this object.
+
+        Returns
+        -------
+        :class:`github.query.CollectionArgument`
+            The new object.
+        """
+
+        return QueryArgument.from_dict(self.to_dict())
+
+    def to_dict(self) -> dict:
+        """
+        Creates a dict object from this
+        :class:`~github.query.QueryArgument`.
+
+        Returns
+        -------
+        :class:`dict`
+            The dict object.
+        """
+
+        data = dict()
+
+        data["name"] = self.name
+        data["value"] = self.value
+
+        if self.default is not None:
+            data["default"] = self.default
+
+        return data
