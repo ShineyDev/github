@@ -450,6 +450,9 @@ class Collection():
             The collection to add.
         """
 
+        # fix recursion
+        collection = collection.copy()
+
         self._collections.append(collection)
 
     def add_field(self, field: "Field"):
