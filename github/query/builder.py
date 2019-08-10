@@ -500,10 +500,10 @@ class Collection():
         # collection (arg: $arg) {
         # 
 
-        for (collection) in self._collections:
-            collection = collection.build()
-            collection = textwrap.indent(collection, "  ")
-            collection += "{0}\n".format(collection)
+        for (collection_) in self._collections:
+            collection_ = collection_.build()
+            collection_ = textwrap.indent(collection_, "  ")
+            collection += "{0}\n".format(collection_)
 
         # collection (arg: $arg) {
         #   collection (arg: $arg) {
