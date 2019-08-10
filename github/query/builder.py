@@ -444,14 +444,20 @@ class Collection():
         """
         Adds a collection to the collection.
 
+        .. warning::
+            
+            When passing ``self`` into this method a copy is made to
+            prevent recursion in :meth:`.build`.
+
         Parameters
         ----------
         argument: :class:`~github.query.Collection`
             The collection to add.
         """
 
-        # fix recursion
-        collection = collection.copy()
+        if collection is self:
+            # fix recursion
+            collection = collection.copy()
 
         self._collections.append(collection)
 
