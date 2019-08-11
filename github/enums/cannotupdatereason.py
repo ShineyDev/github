@@ -24,6 +24,8 @@ class CannotUpdateReason():
     Represents a reason the authenticated user cannot update a comment.
 
     https://developer.github.com/v4/enum/commentcannotupdatereason/
+
+    .. versionadded:: 0.2.0
     """
 
     __slots__ = ("data",)

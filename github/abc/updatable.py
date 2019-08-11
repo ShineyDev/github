@@ -24,6 +24,10 @@ from github.enums import CannotUpdateReason
 class Updatable():
     """
     Represents an object which can be updated.
+
+    https://developer.github.com/v4/interface/updatable/
+
+    .. versionadded:: 0.2.0
     """
 
     __slots__ = ()

@@ -28,6 +28,8 @@ class Comment():
     Represents a GitHub comment.
 
     https://developer.github.com/v4/interface/comment/
+
+    .. versionadded:: 0.2.0
     """
 
     __slots__ = ()

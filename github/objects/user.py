@@ -177,6 +177,8 @@ class User(Actor, Node, RepositoryOwner):
     async def fetch_commit_comments(self) -> typing.List[CommitComment]:
         """
         Fetches the user's commit comments.
+
+        .. versionadded:: 0.2.0
         """
 
         comments = await self.http.fetch_user_commit_comments(self.login)

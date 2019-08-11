@@ -40,7 +40,7 @@ Bug Fixes
 New Features
 ~~~~~~~~~~~~
 
-* Implement :meth:`github.http.HTTPClient.fetch_codes_of_conduct`.
+* Implement :meth:`github.GitHub.fetch_codes_of_conduct`.
 
 v0.2.2
 ------

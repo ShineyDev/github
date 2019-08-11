@@ -38,6 +38,9 @@ class GitHub():
     This is the base class of the wrapper and is used to interact with
     the GitHub API.
 
+    .. versionchanged:: 0.1.2
+        Added ``session`` kwarg.
+
     Parameters
     ----------
     token: :class:`str`
@@ -158,6 +161,8 @@ class GitHub():
         |coro|
 
         Fetches a list of GitHub codes of conduct.
+
+        .. versionadded:: 0.2.3
 
         Parameters
         ----------

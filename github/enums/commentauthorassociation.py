@@ -21,6 +21,8 @@ class CommentAuthorAssociation():
     Represents an actor's association with a repository.
 
     https://developer.github.com/v4/enum/commentauthorassociation/
+
+    .. versionadded:: 0.2.0
     """
 
     __slots__ = ("data",)

@@ -29,6 +29,8 @@ class CommitComment(Comment, Deletable, Node, Reactable, RepositoryNode, Updatab
     Represents a comment on a :class:`~github.Commit`.
 
     https://developer.github.com/v4/object/commitcomment/
+
+    .. versionadded:: 0.2.0
     """
 
     ...

@@ -26,6 +26,8 @@ class Reactable():
     Represents an object which can be reacted to.
 
     https://developer.github.com/v4/interface/reactable/
+
+    .. versionadded:: 0.2.0
     """
 
     __slots__ = ()

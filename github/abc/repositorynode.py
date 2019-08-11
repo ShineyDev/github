@@ -21,6 +21,8 @@ class RepositoryNode():
     Represents a node which belongs to a repository.
 
     https://developer.github.com/v4/interface/repositorynode/
+
+    .. versionadded:: 0.2.0
     """
 
     __slots__ = ()

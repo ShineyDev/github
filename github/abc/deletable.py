@@ -20,7 +20,9 @@ class Deletable():
     """
     Represents an object which can be deleted.
 
-    https://developer.github.com/v4/interface/deletable
+    https://developer.github.com/v4/interface/deletable/
+
+    .. versionadded:: 0.2.0
     """
 
     __slots__ = ()

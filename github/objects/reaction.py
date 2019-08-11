@@ -28,6 +28,8 @@ class Reaction():
     Represents a GitHub reaction.
 
     https://developer.github.com/v4/object/reactiongroup/
+
+    .. versionadded:: 0.2.0
     """
 
     __slots__ = ("data", "http")
