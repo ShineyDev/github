@@ -129,7 +129,7 @@ class Builder():
         Returns
         -------
         List[:class:`github.query.Field]
-            An list of fields.
+            A list of fields.
         """
 
         return self._fields
@@ -142,7 +142,7 @@ class Builder():
         Returns
         -------
         List[:class:`github.query.Fragment]
-            An list of fragments.
+            A list of fragments.
         """
 
         return self._fragments
@@ -165,7 +165,7 @@ class Builder():
 
         Parameters
         ----------
-        argument: :class:`~github.query.Collection`
+        collection: :class:`~github.query.Collection`
             The collection to add.
         """
 
@@ -177,7 +177,7 @@ class Builder():
 
         Parameters
         ----------
-        argument: :class:`~github.query.Field`
+        field: :class:`~github.query.Field`
             The field to add.
         """
 
@@ -211,7 +211,7 @@ class Builder():
         """
 
         if not self._collections and not self._fields:
-            raise RuntimeError("query is missing fields or collections")
+            raise RuntimeError("query is missing collections or fields")
 
         if self.name is not None:
             query = "{0.type} {0.name} ".format(self)
@@ -431,7 +431,7 @@ class Collection():
         Returns
         -------
         List[:class:`github.query.Field]
-            An list of fields.
+            A list of fields.
         """
 
         return self._fields
@@ -459,12 +459,12 @@ class Collection():
 
         Parameters
         ----------
-        argument: :class:`~github.query.Collection`
+        collection: :class:`~github.query.Collection`
             The collection to add.
         """
 
         if collection is self:
-            # fix recursion
+            # prevent recursion
             collection = collection.copy()
 
         self._collections.append(collection)
@@ -475,7 +475,7 @@ class Collection():
 
         Parameters
         ----------
-        argument: :class:`~github.query.Field`
+        field: :class:`~github.query.Field`
             The field to add.
         """
 
@@ -497,7 +497,7 @@ class Collection():
         """
 
         if not self._collections and not self._fields:
-            raise RuntimeError("collection '{0.name}' is missing fields or collections".format(self))
+            raise RuntimeError("collection '{0.name}' is missing collections or fields".format(self))
 
         if self.alias is not None:
             collection = "{0.alias}: {0.name} ".format(self)
@@ -877,7 +877,7 @@ class Fragment():
         Returns
         -------
         List[:class:`github.query.Field]
-            An list of fields.
+            A list of fields.
         """
 
         return self._fields
@@ -888,7 +888,7 @@ class Fragment():
 
         Parameters
         ----------
-        argument: :class:`~github.query.Collection`
+        collection: :class:`~github.query.Collection`
             The collection to add.
         """
 
@@ -900,7 +900,7 @@ class Fragment():
 
         Parameters
         ----------
-        argument: :class:`~github.query.Field`
+        field: :class:`~github.query.Field`
             The field to add.
         """
 
@@ -927,7 +927,7 @@ class Fragment():
         fragment = "fragment {0.name} on {0.type} ".format(self)
         fragment += "{\n"
 
-        # fragment UserFields on User {
+        # fragment UserFragment on User {
         # 
 
         for (collection) in self._collections:
@@ -935,7 +935,7 @@ class Fragment():
             collection = textwrap.indent(collection, "  ")
             fragment += "{0}\n".format(collection)
 
-        # fragment UserFields on User {
+        # fragment UserFragment on User {
         #   collection (arg: $arg) {
         #     ...
         #   }
@@ -945,7 +945,7 @@ class Fragment():
             field = field.build()
             fragment += "  {0}\n".format(field)
 
-        # fragment UserFields on User {
+        # fragment UserFragment on User {
         #   collection (arg: $arg) {
         #     ...
         #   }
@@ -954,7 +954,7 @@ class Fragment():
 
         fragment += "}"
 
-        # fragment UserFields on User {
+        # fragment UserFragment on User {
         #   collection (arg: $arg) {
         #     ...
         #   }
