@@ -861,7 +861,7 @@ class Fragment():
         The type for the fragment.
     """
 
-    __slots__ = ("name", "type", "_collections", "_fields")
+    __slots__ = ("name", "type", "_collections", "_fields", "_fragments")
 
     def __init__(self, *, name: str, type: str):
         self.name = name
@@ -869,6 +869,7 @@ class Fragment():
 
         self._collections = list()
         self._fields = list()
+        self._fragments = list()
 
     @classmethod
     def from_dict(cls, data: dict) -> "Fragment":
@@ -902,6 +903,11 @@ class Fragment():
         for (field) in fields:
             field = Field.from_dict(field)
             fragment.add_field(field)
+        
+        fragments = data.get("fragments", list())
+        for (fragment_) in fragments:
+            fragment_ = Fragment.from_dict(fragment_)
+            fragment.add_fragment(fragment_)
 
         return fragment
 
@@ -931,6 +937,19 @@ class Fragment():
 
         return self._fields
 
+    @property
+    def fragments(self) -> typing.List["Fragment"]:
+        """
+        A list of fragments.
+
+        Returns
+        -------
+        List[:class:`github.query.Fragment]
+            A list of fragments.
+        """
+
+        return self._fragments
+
     def add_collection(self, collection: Collection):
         """
         Adds a collection to the fragment.
@@ -955,6 +974,27 @@ class Fragment():
 
         self._fields.append(field)
 
+    def add_fragment(self, fragment: "Fragment"):
+        """
+        Adds a fragment to the fragment.
+
+        .. warning::
+            
+            When passing ``self`` into this method a copy is made to
+            prevent recursion in :meth:`.build`.
+
+        Parameters
+        ----------
+        fragment: :class:`~github.query.Fragment`
+            The fragment to add.
+        """
+
+        if fragment is self:
+            # prevent recursion
+            fragment = fragment.copy()
+
+        self._fragments.append(fragment)
+
     def build(self) -> str:
         """
         Builds the fragment.
@@ -962,7 +1002,7 @@ class Fragment():
         Raises
         ------
         RuntimeError
-            The fragment is missing fields or collections.
+            The fragment is missing fields, collections or fragments.
 
         Returns
         -------
@@ -970,13 +1010,24 @@ class Fragment():
             The built fragment.
         """
 
-        if not self._collections and not self._fields:
-            raise RuntimeError("fragment {0.name} is missing fields or collections".format(self))
+        if not self._collections and not self._fields and not self._fragments:
+            raise RuntimeError("fragment {0.name} is missing fields, collections or fragments".format(self))
 
         fragment = "fragment {0.name} on {0.type} ".format(self)
         fragment += "{\n"
 
         # fragment UserFragment on User {
+        # 
+
+        for (fragment_) in self._fragments:
+            fragment_ = fragment_.build_inline()
+            fragment_ = textwrap.indent(fragment_, "  ")
+            fragment += "{0}\n".format(fragment_)
+
+        # fragment UserFragment on User {
+        #   ... on Node {
+        #     id
+        #   }
         # 
 
         for (collection) in self._collections:
@@ -985,6 +1036,9 @@ class Fragment():
             fragment += "{0}\n".format(collection)
 
         # fragment UserFragment on User {
+        #   ... on Node {
+        #     id
+        #   }
         #   collection (arg: $arg) {
         #     ...
         #   }
@@ -995,6 +1049,9 @@ class Fragment():
             fragment += "  {0}\n".format(field)
 
         # fragment UserFragment on User {
+        #   ... on Node {
+        #     id
+        #   }
         #   collection (arg: $arg) {
         #     ...
         #   }
@@ -1004,6 +1061,70 @@ class Fragment():
         fragment += "}"
 
         # fragment UserFragment on User {
+        #   ... on Node {
+        #     id
+        #   }
+        #   collection (arg: $arg) {
+        #     ...
+        #   }
+        #   alias: field
+        # }
+
+        return fragment
+
+    def build_inline(self) -> str:
+        """
+        Builds the fragment as an inline fragment.
+
+        Raises
+        ------
+        RuntimeError
+            The fragment is missing fields or collections or you
+            attempted to nest an inline fragment.
+
+        Returns
+        -------
+        :class:`str`
+            The built fragment.
+        """
+
+        if self._fragments:
+            raise RuntimeError("inline fragments cannot be nested")
+
+        if not self._collections and not self._fields:
+            raise RuntimeError("fragment {0.name} is missing fields or collections".format(self))
+
+        fragment = "... on {0.type} ".format(self)
+        fragment += "{\n"
+
+        # ... on User {
+        # 
+
+        for (collection) in self._collections:
+            collection = collection.build()
+            collection = textwrap.indent(collection, "  ")
+            fragment += "{0}\n".format(collection)
+
+        # ... on User {
+        #   collection (arg: $arg) {
+        #     ...
+        #   }
+        # 
+
+        for (field) in self._fields:
+            field = field.build()
+            fragment += "  {0}\n".format(field)
+
+        # ... on User {
+        #   collection (arg: $arg) {
+        #     ...
+        #   }
+        #   alias: field
+        # 
+
+        fragment += "}"
+
+        # ... on User {
         #   collection (arg: $arg) {
         #     ...
         #   }
@@ -1049,6 +1170,9 @@ class Fragment():
 
         if self._fields:
             data["fields"] = [f.to_dict() for f in self._fields]
+
+        if self._fragments:
+            data["fragments"] = [f.to_dict() for f in self._fragments]
 
         return data
 
