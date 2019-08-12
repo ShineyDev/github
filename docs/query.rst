@@ -13,15 +13,15 @@ Building Queries & Mutations
     :member-order: bysource
     :members:
 
+.. autoclass:: CollectionArgument
+    :member-order: bysource
+    :members:
+
 .. autoclass:: Field
     :member-order: bysource
     :members:
 
 .. autoclass:: Fragment
-    :member-order: bysource
-    :members:
-
-.. autoclass:: CollectionArgument
     :member-order: bysource
     :members:
 
