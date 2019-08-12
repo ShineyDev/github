@@ -39,7 +39,7 @@ class Builder():
         The type of query to build.
     """
 
-    __slots__ = ("name", "type", "_arguments", "_collections", "_fields")
+    __slots__ = ("name", "type", "_arguments", "_collections", "_fields", "_fragments")
 
     def __init__(self, *, name: str=None, type: str=None):
         self.name = name
