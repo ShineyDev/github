@@ -60,12 +60,12 @@ class Builder():
         Parameters
         ----------
         data: :class:`dict`
-            The dict to convert into a :class:`~github.query.Builder`.
+            The dict to convert to a :class:`~github.query.Builder`.
 
         Returns
         -------
-        :class:`github.query.Builder`
-            The :class:`~github.query.Builder` object.
+        :class:`~github.query.Builder`
+            The builder object.
         """
 
         name = data.get("name", None)
@@ -102,7 +102,7 @@ class Builder():
 
         Returns
         -------
-        List[:class:`github.query.QueryArgument]
+        List[:class:`~github.query.QueryArgument`]
             A list of query arguments.
         """
 
@@ -115,7 +115,7 @@ class Builder():
 
         Returns
         -------
-        List[:class:`github.query.Collection]
+        List[:class:`~github.query.Collection`]
             A list of collections.
         """
 
@@ -128,7 +128,7 @@ class Builder():
 
         Returns
         -------
-        List[:class:`github.query.Field]
+        List[:class:`~github.query.Field`]
             A list of fields.
         """
 
@@ -141,7 +141,7 @@ class Builder():
 
         Returns
         -------
-        List[:class:`github.query.Fragment]
+        List[:class:`~github.query.Fragment`]
             A list of fragments.
         """
 
@@ -288,7 +288,7 @@ class Builder():
 
         Returns
         -------
-        :class:`github.query.Builder`
+        :class:`~github.query.Builder`
             The new object.
         """
 
@@ -367,13 +367,13 @@ class Collection():
         Parameters
         ----------
         data: :class:`dict`
-            The dict to convert into a
+            The dict to convert to a
             :class:`~github.query.Collection`.
 
         Returns
         -------
-        :class:`github.query.Collection`
-            The :class:`~github.query.Collection` object.
+        :class:`~github.query.Collection`
+            The collection object.
         """
 
         name = data["name"]
@@ -410,7 +410,7 @@ class Collection():
 
         Returns
         -------
-        List[:class:`github.query.CollectionArgument]
+        List[:class:`~github.query.CollectionArgument`]
             A list of collection arguments.
         """
 
@@ -423,7 +423,7 @@ class Collection():
 
         Returns
         -------
-        List[:class:`github.query.Collection]
+        List[:class:`~github.query.Collection`]
             A list of collections.
         """
 
@@ -436,7 +436,7 @@ class Collection():
 
         Returns
         -------
-        List[:class:`github.query.Field]
+        List[:class:`~github.query.Field`]
             A list of fields.
         """
 
@@ -451,7 +451,7 @@ class Collection():
 
         Returns
         -------
-        List[:class:`github.query.Fragments]
+        List[:class:`~github.query.Fragments`]
             A list of fragments.
         """
 
@@ -601,7 +601,7 @@ class Collection():
 
         Returns
         -------
-        :class:`github.query.Collection`
+        :class:`~github.query.Collection`
             The new object.
         """
 
@@ -677,13 +677,13 @@ class CollectionArgument():
         Parameters
         ----------
         data: :class:`dict`
-            The dict to convert into a
+            The dict to convert to a
             :class:`~github.query.CollectionArgument`.
 
         Returns
         -------
-        :class:`github.query.CollectionArgument`
-            The :class:`~github.query.CollectionArgument` object.
+        :class:`~github.query.CollectionArgument`
+            The collection argument object.
         """
 
         name = data["name"]
@@ -713,7 +713,7 @@ class CollectionArgument():
 
         Returns
         -------
-        :class:`github.query.CollectionArgument`
+        :class:`~github.query.CollectionArgument`
             The new object.
         """
 
@@ -778,8 +778,8 @@ class Field():
 
         Returns
         -------
-        :class:`github.query.Field`
-            The :class:`~github.query.Field` object.
+        :class:`~github.query.Field`
+            The field object.
         """
 
         name = data["name"]
@@ -813,7 +813,7 @@ class Field():
 
         Returns
         -------
-        :class:`github.query.Field`
+        :class:`~github.query.Field`
             The new object.
         """
 
@@ -881,12 +881,12 @@ class Fragment():
         Parameters
         ----------
         data: :class:`dict`
-            The dict to convert into a :class:`~github.query.Fragment`.
+            The dict to convert to a :class:`~github.query.Fragment`.
 
         Returns
         -------
-        :class:`github.query.Fragment`
-            The :class:`~github.query.Fragment` object.
+        :class:`~github.query.Fragment`
+            The fragment object.
         """
 
         name = data["name"]
@@ -918,7 +918,7 @@ class Fragment():
 
         Returns
         -------
-        List[:class:`github.query.Collection]
+        List[:class:`~github.query.Collection`]
             A list of collections.
         """
 
@@ -931,7 +931,7 @@ class Fragment():
 
         Returns
         -------
-        List[:class:`github.query.Field]
+        List[:class:`~github.query.Field`]
             A list of fields.
         """
 
@@ -944,7 +944,7 @@ class Fragment():
 
         Returns
         -------
-        List[:class:`github.query.Fragment]
+        List[:class:`~github.query.Fragment`]
             A list of fragments.
         """
 
@@ -1141,7 +1141,7 @@ class Fragment():
 
         Returns
         -------
-        :class:`github.query.Fragment`
+        :class:`~github.query.Fragment`
             The new object.
         """
 
@@ -1217,13 +1217,13 @@ class QueryArgument():
         Parameters
         ----------
         data: :class:`dict`
-            The dict to convert into a
+            The dict to convert to a
             :class:`~github.query.QueryArgument`.
 
         Returns
         -------
-        :class:`github.query.QueryArgument`
-            The :class:`~github.query.QueryArgument` object.
+        :class:`~github.query.QueryArgument`
+            The query argument object.
         """
 
         name = data["name"]
@@ -1258,7 +1258,7 @@ class QueryArgument():
 
         Returns
         -------
-        :class:`github.query.CollectionArgument`
+        :class:`~github.query.QueryArgument`
             The new object.
         """
 
