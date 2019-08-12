@@ -28,6 +28,8 @@ New Features
 * Implement :meth:`github.query.QueryArgument.to_dict`
 * Implement :meth:`github.query.QueryArgument.copy`
 * Implement :class:`github.query.Fragment`.
+* Implement :meth:`github.query.Builder.add_fragment`
+* Implement :meth:`github.query.Collection.add_fragment`
 
 v0.2.3
 ------
