@@ -346,7 +346,7 @@ class Collection():
         An alias for the collection.
     """
     
-    __slots__ = ("name", "alias", "_arguments", "_collections", "_fields")
+    __slots__ = ("name", "alias", "_arguments", "_collections", "_fields", "_fragments")
 
     def __init__(self, *, name: str, alias: str=None):
         self.name = name
@@ -355,6 +355,7 @@ class Collection():
         self._arguments = list()
         self._collections = list()
         self._fields = list()
+        self._fragments = list()
 
     @classmethod
     def from_dict(cls, data: dict) -> "Collection":
@@ -394,6 +395,11 @@ class Collection():
         for (field) in fields:
             field = Field.from_dict(field)
             collection.add_field(field)
+
+        fragments = data.get("fragments", list())
+        for (fragment) in fragments:
+            fragment = Fragment.from_dict(fragment)
+            collection.add_fragment(fragment)
 
         return collection
 
@@ -435,6 +441,21 @@ class Collection():
         """
 
         return self._fields
+
+    @property
+    def fragments(self) -> typing.List["Fragments"]:
+        """
+        A list of fragments.
+
+        .. versionadded:: 0.3.0
+
+        Returns
+        -------
+        List[:class:`github.query.Fragments]
+            A list of fragments.
+        """
+
+        return self._fragments
 
     def add_argument(self, argument: "CollectionArgument"):
         """
@@ -481,6 +502,20 @@ class Collection():
 
         self._fields.append(field)
 
+    def add_fragment(self, fragment: "Fragment"):
+        """
+        Adds a fragment to the collection.
+
+        .. versionadded:: 0.3.0
+
+        Parameters
+        ----------
+        fragment: :class:`~github.query.Fragment`
+            The fragment to add.
+        """
+
+        self._fragments.append(fragment)
+
     def build(self) -> str:
         """
         Builds the collection.
@@ -488,7 +523,7 @@ class Collection():
         Raises
         ------
         RuntimeError
-            The collection is missing fields or collections.
+            The collection is missing fields, collections or fragments.
 
         Returns
         -------
@@ -496,8 +531,8 @@ class Collection():
             The built collection.
         """
 
-        if not self._collections and not self._fields:
-            raise RuntimeError("collection '{0.name}' is missing collections or fields".format(self))
+        if not self._collections and not self._fields and not self._fragments:
+            raise RuntimeError("collection '{0.name}' is missing collections, fields or fragments".format(self))
 
         if self.alias is not None:
             collection = "{0.alias}: {0.name} ".format(self)
@@ -514,12 +549,21 @@ class Collection():
         # collection (arg: $arg) {
         # 
 
+        for (fragment) in self._fragments:
+            fragment = "... {0.name}".format(fragment)
+            collection += "  {0}\n".format(fragment)
+
+        # collection (arg: $arg) {
+        #   ... Fragment
+        # 
+
         for (collection_) in self._collections:
             collection_ = collection_.build()
             collection_ = textwrap.indent(collection_, "  ")
             collection += "{0}\n".format(collection_)
 
         # collection (arg: $arg) {
+        #   ... Fragment
         #   collection (arg: $arg) {
         #     ...
         #   }
@@ -530,6 +574,7 @@ class Collection():
             collection += "  {0}\n".format(field)
 
         # collection (arg: $arg) {
+        #   ... Fragment
         #   collection (arg: $arg) {
         #     ...
         #   }
@@ -539,6 +584,7 @@ class Collection():
         collection += "}"
 
         # collection (arg: $arg) {
+        #   ... Fragment
         #   collection (arg: $arg) {
         #     ...
         #   }
@@ -589,6 +635,9 @@ class Collection():
 
         if self._fields:
             data["fields"] = [f.to_dict() for f in self._fields]
+
+        if self._fragments:
+            data["fragments"] = [f.to_dict() for f in self._fragments]
 
         return data
 
