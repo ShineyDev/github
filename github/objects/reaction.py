@@ -21,6 +21,7 @@ import typing
 
 from github import utils
 from github.enums import Reaction as reaction_enum
+from .user import User
 
 
 class Reaction():
@@ -77,13 +78,10 @@ class Reaction():
         return self.data["content"]
 
     @property
-    def users(self) -> typing.List["User"]:
+    def users(self) -> typing.List[User]:
         """
         A list of :class:`github.User` who reacted.
         """
-
-        # prevent cyclic imports
-        from github.objects import User
 
         users = self.data["users"]
         return User.from_data(users, self.http)

@@ -21,7 +21,7 @@ import typing
 
 from github import utils
 from github.abc import Actor, Node, RepositoryOwner
-from github.objects import CommitComment
+from .commitcomment import CommitComment
 
 
 class User(Actor, Node, RepositoryOwner):

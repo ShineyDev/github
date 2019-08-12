@@ -24,9 +24,10 @@ from github.abc import Node
 from github.enums import RepositoryLockReason
 from github.enums import RepositoryPermissions
 from github.enums import RepositorySubscription
-from github.objects import CodeOfConduct
-from github.objects import Language
-from github.objects import License
+from .codeofconduct import CodeOfConduct
+from .language import Language
+from .license import License
+from .user import User
 
 
 class Repository(Node):
@@ -233,13 +234,10 @@ class Repository(Node):
         return self.data["name"]
 
     @property
-    def owner(self) -> typing.Union["User"]:
+    def owner(self) -> typing.Union[User]:
         """
         The owner of the repository.
         """
-
-        # prevent cyclic imports
-        from github.objects import User
 
         owner = self.data["owner"]
         
@@ -366,9 +364,6 @@ class Repository(Node):
         Fetches a list of users that can be assigned to issues in the repository.
         """
 
-        # prevent cyclic imports
-        from github.objects import User
-
         data = await self.http.fetch_repository_assignable_users(self.owner.login, self.name)
         return User.from_data(data, self.http)
 
@@ -376,9 +371,6 @@ class Repository(Node):
         """
         Fetches a list of collaborators associated with the repository.
         """
-
-        # prevent cyclic imports
-        from github.objects import User
 
         data = await self.http.fetch_repository_collaborators(self.owner.login, self.name)
         return User.from_data(data, self.http)
@@ -589,13 +581,10 @@ class PartialRepository(Node):
         return self.data["name"]
 
     @property
-    def owner(self) -> typing.Union["User"]:
+    def owner(self) -> typing.Union[User]:
         """
         The owner of the repository.
         """
-
-        # prevent cyclic imports
-        from github.objects import User
 
         owner = self.data["owner"]
         
@@ -693,24 +682,18 @@ class PartialRepository(Node):
         subscription = self.data["viewerSubscription"]
         return RepositorySubscription.from_data(subscription)
 
-    async def fetch_assignable_users(self):
+    async def fetch_assignable_users(self) -> typing.List[User]:
         """
         Fetches a list of users that can be assigned to issues in the repository.
         """
 
-        # prevent cyclic imports
-        from github.objects import User
-
         data = await self.http.fetch_repository_assignable_users(self.owner.login, self.name)
         return User.from_data(data, self.http)
 
-    async def fetch_collaborators(self):
+    async def fetch_collaborators(self) -> typing.List[User]:
         """
         Fetches a list of collaborators associated with the repository.
         """
-
-        # prevent cyclic imports
-        from github.objects import User
 
         data = await self.http.fetch_repository_collaborators(self.owner.login, self.name)
         return User.from_data(data, self.http)

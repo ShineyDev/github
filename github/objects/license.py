@@ -19,6 +19,7 @@
 import typing
 
 from github.abc import Node
+from .licenserule import LicenseRule
 
 
 class License(Node):
@@ -57,13 +58,10 @@ class License(Node):
         return self.data["body"]
 
     @property
-    def conditions(self) -> typing.List["LicenseRule"]:
+    def conditions(self) -> typing.List[LicenseRule]:
         """
         The conditions set by the license.
         """
-
-        # prevent cyclic imports
-        from github.objects import LicenseRule
 
         conditions = self.data["conditions"]
         return LicenseRule.from_data(conditions)
@@ -117,13 +115,10 @@ class License(Node):
         return self.data["key"]
 
     @property
-    def limitations(self) -> typing.List["LicenseRule"]:
+    def limitations(self) -> typing.List[LicenseRule]:
         """
         The limitations set by the license.
         """
-
-        # prevent cyclic imports
-        from github.objects import LicenseRule
 
         limitations = self.data["limitations"]
         return LicenseRule.from_data(limitations)
@@ -145,13 +140,10 @@ class License(Node):
         return self.data["nickname"]
 
     @property
-    def permissions(self) -> typing.List["LicenseRule"]:
+    def permissions(self) -> typing.List[LicenseRule]:
         """
         The permissions set by the license.
         """
-
-        # prevent cyclic imports
-        from github.objects import LicenseRule
 
         permissions = self.data["permissions"]
         return LicenseRule.from_data(permissions)
