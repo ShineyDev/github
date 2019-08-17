@@ -40,54 +40,60 @@ Installation
 
 **Python 3.5.2 or higher is required.**
 
-To install a ``final`` version of the wrapper do the following:
+To install a ``final`` version of the wrapper do one of the following:
 
 .. code:: sh
 
-    # Windows
+    # Windows (PyPI)
     py -3 -m pip install --upgrade github.py
 
-    # Linux / OS X
+    # Linux / OS X (PyPI)
     python3 -m pip install --upgrade github.py
 
-To install the development version of the wrapper do the following:
+To install the development version of the wrapper do one of the following:
 
 .. code:: sh
-    
-    # Windows
+
+    # Windows (Git)
     git clone https://github.com/ShineyDev/github.py
     cd github.py
     py -3 -m pip install --upgrade .
 
-    # shorthand
+    # Windows (Git, shorthand)
     py -3 -m pip install --upgrade git+https://github.com/ShineyDev/github.py
-
-    # Linux / OS X
+    
+    # Linux / OS X (Git)
     git clone https://github.com/ShineyDev/github.py
     cd github.py
     python3 -m pip install --upgrade .
 
-    # shorthand
+    # Linux / OS X (Git, shorthand)
     python3 -m pip install --upgrade git+https://github.com/ShineyDev/github.py
 
-To install documentation dependencies do the following:
+To install documentation dependencies do one of the following:
 
 .. code:: sh
 
-    # Windows
+    # Windows (PyPI)
+    py -3 -m pip install --upgrade github.py[docs]
+
+    # Windows (Git)
     git clone https://github.com/ShineyDev/github.py
     cd github.py
     py -3 -m pip install --upgrade .[docs]
 
-    # shorthand
+    # Windows (Git, shorthand)
     py -3 -m pip install --upgrade git+https://github.com/ShineyDev/github.py#egg=github.py[docs]
 
-    # Linux / OS X
+    # Linux / OS X (PyPI)
+    python3 -m pip install --upgrade github.py[docs]
+
+    # Linux / OS X (Git)
     git clone https://github.com/ShineyDev/github.py
     cd github.py
     python3 -m pip install --upgrade .[docs]
 
-    # shorthand
+    # Linux / OS X (Git, shorthand)
     python3 -m pip install --upgrade git+https://github.com/ShineyDev/github.py#egg=github.py[docs]
 
 Examples
