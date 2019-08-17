@@ -1,3 +1,7 @@
+<!-- check the contributing guidelines before sending this pull request. -->
+<!-- https://github.com/ShineyDev/github.py/blob/master/.github/CONTRIBUTING.md -->
+
+
 ### Description
 <!-- a clear description of what this PR does. -->
 
