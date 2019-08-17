@@ -59,10 +59,36 @@ To install the development version of the wrapper do the following:
     cd github.py
     py -3 -m pip install --upgrade .
 
+    # shorthand
+    py -3 -m pip install --upgrade git+https://github.com/ShineyDev/github.py
+
     # Linux / OS X
     git clone https://github.com/ShineyDev/github.py
     cd github.py
     python3 -m pip install --upgrade .
+
+    # shorthand
+    python3 -m pip install --upgrade git+https://github.com/ShineyDev/github.py
+
+To install documentation dependencies do the following:
+
+.. code:: sh
+
+    # Windows
+    git clone https://github.com/ShineyDev/github.py
+    cd github.py
+    py -3 -m pip install --upgrade .[docs]
+
+    # shorthand
+    py -3 -m pip install --upgrade git+https://github.com/ShineyDev/github.py#egg=github.py[docs]
+
+    # Linux / OS X
+    git clone https://github.com/ShineyDev/github.py
+    cd github.py
+    python3 -m pip install --upgrade .[docs]
+
+    # shorthand
+    python3 -m pip install --upgrade git+https://github.com/ShineyDev/github.py#egg=github.py[docs]
 
 Examples
 --------
