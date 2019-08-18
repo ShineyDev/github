@@ -18,20 +18,12 @@
 
 class RepositoryOwner():
     """
-    Represents an owner of a Repository.
+    Represents the owner of a GitHub repository.
 
     https://developer.github.com/v4/interface/repositoryowner/
     """
 
     __slots__ = ()
-
-    @property
-    def has_pinnable_items(self) -> bool:
-        """
-        Whether or not this repository owner has any items that can be pinned to their profile.
-        """
-
-        return self.data["anyPinnableItems"]
 
     async def fetch_repository(self, name: str) -> "Repository":
         """

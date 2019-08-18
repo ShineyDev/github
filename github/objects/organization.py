@@ -20,12 +20,13 @@ import typing
 
 from github.abc import Actor
 from github.abc import Node
+from github.abc import ProfileOwner
 from github.abc import RepositoryOwner
 from github.abc import Type
 from github.abc import UniformResourceLocatable
 
 
-class Organization(Actor, Node, RepositoryOwner, Type, UniformResourceLocatable):
+class Organization(Actor, Node, ProfileOwner, RepositoryOwner, Type, UniformResourceLocatable):
     """
     Represents a GitHub organization.
 
@@ -70,36 +71,12 @@ class Organization(Actor, Node, RepositoryOwner, Type, UniformResourceLocatable)
         return self.data["description"] or ""
 
     @property
-    def email(self) -> typing.Optional[str]:
-        """
-        The organization's public email.
-        """
-
-        return self.data["email"]
-
-    @property
     def is_verified(self) -> bool:
         """
         Whether or not the organization's public email is verified.
         """
 
         return self.data["isVerified"]
-
-    @property
-    def location(self) -> typing.Optional[str]:
-        """
-        The organization's location.
-        """
-
-        return self.data["location"]
-
-    @property
-    def name(self) -> str:
-        """
-        The organization's name.
-        """
-
-        return self.data["name"]
 
     @property
     def new_team_resource_path(self) -> str:
@@ -158,14 +135,6 @@ class Organization(Actor, Node, RepositoryOwner, Type, UniformResourceLocatable)
         return self.data["viewerCanAdminister"]
 
     @property
-    def viewer_can_change_pinned_items(self) -> bool:
-        """
-        Whether or not the authenticated user can change the items pinned to the organization's profile.
-        """
-
-        return self.data["viewerCanCreateProjects"]
-
-    @property
     def viewer_can_create_projects(self) -> bool:
         """
         Whether or not the authenticated user can create projects in the organization.
@@ -196,11 +165,3 @@ class Organization(Actor, Node, RepositoryOwner, Type, UniformResourceLocatable)
         """
 
         return self.data["viewerIsAMember"]
-
-    @property
-    def website(self) -> typing.Optional[str]:
-        """
-        The organization's website.
-        """
-
-        return self.data["websiteUrl"]

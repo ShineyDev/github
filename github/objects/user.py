@@ -22,13 +22,14 @@ import typing
 from github import utils
 from github.abc import Actor
 from github.abc import Node
+from github.abc import ProfileOwner
 from github.abc import RepositoryOwner
 from github.abc import Type
 from github.abc import UniformResourceLocatable
 from .commitcomment import CommitComment
 
 
-class User(Actor, Node, RepositoryOwner, Type, UniformResourceLocatable):
+class User(Actor, Node, ProfileOwner, RepositoryOwner, Type, UniformResourceLocatable):
     """
     Represents a GitHub user account.
 
@@ -143,22 +144,6 @@ class User(Actor, Node, RepositoryOwner, Type, UniformResourceLocatable):
         """
 
         return self.data["isViewer"]
-
-    @property
-    def location(self) -> typing.Optional[str]:
-        """
-        The user's public profile location.
-        """
-
-        return self.data["location"]
-
-    @property
-    def name(self) -> typing.Optional[str]:
-        """
-        The user's public profile name.
-        """
-
-        return self.data["name"]
     
     @property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
@@ -170,14 +155,6 @@ class User(Actor, Node, RepositoryOwner, Type, UniformResourceLocatable):
         if updated_at:
             return utils.iso_to_datetime(updated_at)
 
-    @property
-    def website(self) -> typing.Optional[str]:
-        """
-        A url pointing to this user's public website/blog.
-        """
-
-        return self.data["websiteUrl"]
-
     async def fetch_commit_comments(self) -> typing.List[CommitComment]:
         """
         Fetches the user's commit comments.
@@ -187,14 +164,6 @@ class User(Actor, Node, RepositoryOwner, Type, UniformResourceLocatable):
 
         comments = await self.http.fetch_user_commit_comments(self.login)
         return comments
-    
-    async def fetch_email(self) -> typing.Optional[str]:
-        """
-        Fetches the user's email.
-        """
-
-        email = await self.http.fetch_user_email(self.login)
-        return email
 
 class AuthenticatedUser(User):
     """

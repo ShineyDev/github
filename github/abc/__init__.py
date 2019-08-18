@@ -20,6 +20,7 @@ from github.abc.actor import Actor
 from github.abc.comment import Comment
 from github.abc.deletable import Deletable
 from github.abc.node import Node
+from github.abc.profileowner import ProfileOwner
 from github.abc.reactable import Reactable
 from github.abc.repositorynode import RepositoryNode
 from github.abc.repositoryowner import RepositoryOwner
