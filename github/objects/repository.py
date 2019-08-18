@@ -303,14 +303,6 @@ class Repository(Node, UniformResourceLocatable):
             return utils.iso_to_datetime(updated_at)
 
     @property
-    def url(self) -> str:
-        """
-        The repository's url.
-        """
-
-        return self.data["url"]
-
-    @property
     def viewer_can_administer(self) -> bool:
         """
         Whether or not the authenticated user can administer the repository.
@@ -624,14 +616,6 @@ class PartialRepository(Node):
         updated_at = self.data["updatedAt"]
         if updated_at:
             return utils.iso_to_datetime(updated_at)
-
-    @property
-    def url(self) -> str:
-        """
-        The repository's url.
-        """
-
-        return self.data["url"]
 
     @property
     def viewer_can_administer(self) -> bool:

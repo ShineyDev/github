@@ -41,14 +41,6 @@ class Actor():
 
         return self.data["login"]
 
-    @property
-    def url(self) -> str:
-        """
-        The http url for this actor.
-        """
-
-        return self.data["url"]
-
     async def fetch_avatar_url(self, *, size: int=None) -> str:
         """
         Fetches a url pointing to this actor's public avatar.

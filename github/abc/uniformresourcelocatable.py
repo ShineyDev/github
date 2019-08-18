@@ -32,3 +32,11 @@ class UniformResourceLocatable():
         """
 
         return self.data["resourcePath"]
+
+    @property
+    def url(self) -> str:
+        """
+        The url for this object.
+        """
+
+        return self.data["url"]
