@@ -384,6 +384,8 @@ class GitHub():
 
         Requires the ``read:org`` scope.
 
+        .. versionadded:: 0.3.1
+
         Raises
         ------
         ~github.errors.NotFound
@@ -460,6 +462,8 @@ class GitHub():
         |coro|
 
         Fetches a list of scopes associated with the token.
+
+        .. versionadded:: 0.3.1
 
         Raises
         ------
