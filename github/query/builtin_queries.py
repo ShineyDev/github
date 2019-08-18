@@ -326,6 +326,7 @@ query fetch_repository ($owner: String!, $name: String!) {
         location
         login
         name
+        resourcePath
         updatedAt
         url
         websiteUrl
@@ -418,6 +419,7 @@ query fetch_repository ($owner: String!, $name: String!) {
           location
           login
           name
+          resourcePath
           updatedAt
           url
           websiteUrl
@@ -539,6 +541,7 @@ query fetch_repository ($owner: String!, $name: String!) {
           location
           login
           name
+          resourcePath
           updatedAt
           url
           websiteUrl
@@ -598,6 +601,7 @@ query fetch_repository_assignable_users ($owner: String!, $name: String!, $curso
         location
         login
         name
+        resourcePath
         updatedAt
         url
         websiteUrl
@@ -634,6 +638,7 @@ query fetch_repository_collaborators ($owner: String!, $name: String!, $cursor: 
         location
         login
         name
+        resourcePath
         updatedAt
         url
         websiteUrl
