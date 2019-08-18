@@ -339,6 +339,21 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["organization"]["avatarUrl"]
+
+    async def fetch_organization_email(self, login: str) -> str:
+        # https://developer.github.com/v4/scalar/string/
+
+        variables = {
+            "login": login,
+        }
+
+        json = {
+            "query": query.FETCH_ORGANIZATION_EMAIL,
+            "variables": variables,
+        }
+
+        data = await self.request(json=json)
+        return data["organization"]["email"]
     
     async def fetch_rate_limit(self) -> dict:
         # https://developer.github.com/v4/object/ratelimit/

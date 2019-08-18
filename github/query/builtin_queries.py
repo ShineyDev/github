@@ -40,6 +40,7 @@ query fetch_authenticated_user {
     location
     login
     name
+    pinnedItemsRemaining
     resourcePath
     updatedAt
     url
@@ -226,6 +227,14 @@ query fetch_organization_avatar_url ($login: String!, $size: Int=null) {
 }
 """
 
+FETCH_ORGANIZATION_EMAIL = """
+query fetch_organization_email ($login: String!) {
+  organization (login: $login) {
+    email
+  }
+}
+"""
+
 FETCH_RATE_LIMIT = """
 query fetch_rate_limit {
   rateLimit {
@@ -352,6 +361,7 @@ query fetch_repository ($owner: String!, $name: String!) {
         location
         login
         name
+        pinnedItemsRemaining
         resourcePath
         updatedAt
         url
@@ -471,6 +481,7 @@ query fetch_repository ($owner: String!, $name: String!) {
           location
           login
           name
+          pinnedItemsRemaining
           resourcePath
           updatedAt
           url
@@ -619,6 +630,7 @@ query fetch_repository ($owner: String!, $name: String!) {
           location
           login
           name
+          pinnedItemsRemaining
           resourcePath
           updatedAt
           url
@@ -679,6 +691,7 @@ query fetch_repository_assignable_users ($owner: String!, $name: String!, $curso
         location
         login
         name
+        pinnedItemsRemaining
         resourcePath
         updatedAt
         url
@@ -716,6 +729,7 @@ query fetch_repository_collaborators ($owner: String!, $name: String!, $cursor: 
         location
         login
         name
+        pinnedItemsRemaining
         resourcePath
         updatedAt
         url
@@ -766,6 +780,7 @@ query fetch_user ($login: String!) {
     location
     login
     name
+    pinnedItemsRemaining
     resourcePath
     updatedAt
     url
