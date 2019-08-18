@@ -174,6 +174,39 @@ query fetch_nodes ($ids: [ID!]!) {
 }
 """
 
+FETCH_ORGANIZATION = """
+query fetch_organization ($login: String!) {
+  organization (login: $login) {
+    __typename
+    anyPinnableItems
+    avatarUrl
+    databaseId
+    description
+    email
+    id
+    isVerified
+    location
+    login
+    name
+    newTeamResourcePath
+    newTeamUrl
+    pinnedItemsRemaining
+    projectsResourcePath
+    projectsUrl
+    teamsResourcePath
+    teamsUrl
+    url
+    viewerCanAdminister
+    viewerCanChangePinnedItems
+    viewerCanCreateProjects
+    viewerCanCreateRepositories
+    viewerCanCreateTeams
+    viewerIsAMember
+    websiteUrl
+  }
+}
+"""
+
 FETCH_RATE_LIMIT = """
 query fetch_rate_limit {
   rateLimit {
