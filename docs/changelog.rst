@@ -9,27 +9,27 @@ v0.3.0
 New Features
 ~~~~~~~~~~~~
 
-* Implement :meth:`github.query.Builder.from_dict`
-* Implement :meth:`github.query.Builder.to_dict`
-* Implement :meth:`github.query.Builder.copy`
-* Implement :meth:`github.query.Collection.from_dict`
-* Implement :meth:`github.query.Collection.to_dict`
-* Implement :meth:`github.query.Collection.copy`
-* Implement :meth:`github.query.CollectionArgument.from_dict`
-* Implement :meth:`github.query.CollectionArgument.to_dict`
-* Implement :meth:`github.query.CollectionArgument.copy`
-* Implement :meth:`github.query.Field.from_dict`
-* Implement :meth:`github.query.Field.to_dict`
-* Implement :meth:`github.query.Field.copy`
-* Implement :meth:`github.query.Fragment.from_dict`
-* Implement :meth:`github.query.Fragment.to_dict`
-* Implement :meth:`github.query.Fragment.copy`
-* Implement :meth:`github.query.QueryArgument.from_dict`
-* Implement :meth:`github.query.QueryArgument.to_dict`
-* Implement :meth:`github.query.QueryArgument.copy`
+* Implement :meth:`github.query.Builder.from_dict`.
+* Implement :meth:`github.query.Builder.to_dict`.
+* Implement :meth:`github.query.Builder.copy`.
+* Implement :meth:`github.query.Collection.from_dict`.
+* Implement :meth:`github.query.Collection.to_dict`.
+* Implement :meth:`github.query.Collection.copy`.
+* Implement :meth:`github.query.CollectionArgument.from_dict`.
+* Implement :meth:`github.query.CollectionArgument.to_dict`.
+* Implement :meth:`github.query.CollectionArgument.copy`.
+* Implement :meth:`github.query.Field.from_dict`.
+* Implement :meth:`github.query.Field.to_dict`.
+* Implement :meth:`github.query.Field.copy`.
+* Implement :meth:`github.query.Fragment.from_dict`.
+* Implement :meth:`github.query.Fragment.to_dict`.
+* Implement :meth:`github.query.Fragment.copy`.
+* Implement :meth:`github.query.QueryArgument.from_dict`.
+* Implement :meth:`github.query.QueryArgument.to_dict`.
+* Implement :meth:`github.query.QueryArgument.copy`.
 * Implement :class:`github.query.Fragment`.
-* Implement :meth:`github.query.Builder.add_fragment`
-* Implement :meth:`github.query.Collection.add_fragment`
+* Implement :meth:`github.query.Builder.add_fragment`.
+* Implement :meth:`github.query.Collection.add_fragment`.
 
 v0.2.3
 ------
