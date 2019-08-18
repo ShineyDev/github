@@ -308,6 +308,21 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["nodes"]
+
+    async def fetch_organization(self, login: str) -> dict:
+        # https://developer.github.com/v4/object/organization/
+
+        variables = {
+            "login": login,
+        }
+
+        json = {
+            "query": query.FETCH_ORGANIZATION,
+            "variables": variables,
+        }
+
+        data = await self.request(json=json)
+        return data["organization"]
     
     async def fetch_rate_limit(self) -> dict:
         # https://developer.github.com/v4/object/ratelimit/

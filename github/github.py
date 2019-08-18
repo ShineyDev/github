@@ -25,6 +25,7 @@ from github.objects import AuthenticatedUser
 from github.objects import CodeOfConduct
 from github.objects import License
 from github.objects import Metadata
+from github.objects import Organization
 from github.objects import RateLimit
 from github.objects import Repository
 from github.objects import Topic
@@ -374,6 +375,32 @@ class GitHub():
 
         data = await self.http.fetch_nodes(*ids)
         return Node.from_data(data)
+
+    async def fetch_organization(self, login: str) -> Organization:
+        """
+        |coro|
+
+        Fetches a GitHub organization.
+
+        Requires the ``read:org`` scope.
+
+        Raises
+        ------
+        ~github.errors.NotFound
+            An organization with the given login does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        :class:`~github.RateLimit`
+            A GitHub organization.
+        """
+
+        data = await self.http.fetch_organization(login)
+        return Organization.from_data(data, self.http)
 
     async def fetch_rate_limit(self) -> RateLimit:
         """
