@@ -53,8 +53,7 @@ class Actor():
             # TODO: implement github.Mannequin
             ...
         elif self.data["__typename"] == "Organization":
-            # TODO: implement github.Organization
-            ...
+            avatar_url = await self.http.fetch_organization_avatar_url(self.login, size)
         elif self.data["__typename"] == "User":
             avatar_url = await self.http.fetch_user_avatar_url(self.login, size)
 

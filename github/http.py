@@ -323,6 +323,22 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["organization"]
+
+    async def fetch_organization_avatar_url(self, login: str, size: int=None) -> str:
+        # https://developer.github.com/v4/scalar/uri/
+
+        variables = {
+            "login": login,
+            "size": size,
+        }
+
+        json = {
+            "query": query.FETCH_ORGANIZATION_AVATAR_URL,
+            "variables": variables,
+        }
+
+        data = await self.request(json=json)
+        return data["organization"]["avatarUrl"]
     
     async def fetch_rate_limit(self) -> dict:
         # https://developer.github.com/v4/object/ratelimit/

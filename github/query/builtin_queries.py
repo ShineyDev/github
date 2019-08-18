@@ -211,6 +211,14 @@ query fetch_organization ($login: String!) {
 }
 """
 
+FETCH_ORGANIZATION_AVATAR_URL = """
+query fetch_organization_avatar_url ($login: String!, $size: Int=null) {
+  organization (login: $login) {
+    avatarUrl (size: $size)
+  }
+}
+"""
+
 FETCH_RATE_LIMIT = """
 query fetch_rate_limit {
   rateLimit {
