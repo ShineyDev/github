@@ -3,6 +3,19 @@
 Changelog
 =========
 
+v0.3.1
+------
+
+New Features
+~~~~~~~~~~~~
+
+* Implement :class:`github.abc.ProfileOwner`.
+* Implement :class:`github.abc.Type`.
+* Implement :class:`github.abc.UniformResourceLocatable`.
+* Implement :meth:`github.GitHub.fetch_organization`.
+* Implement :class:`github.Organization`.
+* Implement :meth:`github.GitHub.fetch_scopes`.
+
 v0.3.0
 ------
 
