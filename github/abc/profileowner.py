@@ -79,6 +79,8 @@ class ProfileOwner():
     async def fetch_email(self) -> typing.Optional[str]:
         """
         Fetches the profile owner's email.
+
+        Requires the ``user:email`` scope.
         """
 
         if self.data["__typename"] == "Organization":
