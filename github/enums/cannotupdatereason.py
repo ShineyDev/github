@@ -46,6 +46,14 @@ class CannotUpdateReason():
         return reasons
 
     @property
+    def archived(self) -> bool:
+        """
+        You cannot update this comment because the repository is archived.
+        """
+
+        return self._reason == "ARCHIVED"
+
+    @property
     def denied(self) -> bool:
         """
         You cannot update this comment.
