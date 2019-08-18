@@ -18,8 +18,10 @@
 
 import typing
 
+from github.abc import Type
 
-class LicenseRule():
+
+class LicenseRule(Type):
     """
     Represents a license's conditions, permissions, or limitations.
 

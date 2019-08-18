@@ -18,9 +18,10 @@
 
 from github import utils
 from github.abc import Node
+from github.abc import Type
 
 
-class Language(Node):
+class Language(Node, Type):
     """
     Represents a programming language found in repositories.
 

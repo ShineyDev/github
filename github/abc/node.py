@@ -62,11 +62,3 @@ class Node():
         """
 
         return self.data["id"]
-
-    @property
-    def type(self) -> str:
-        """
-        The name of the current object type.
-        """
-
-        return self.data["__typename"]

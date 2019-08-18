@@ -19,10 +19,11 @@
 import typing
 
 from github.abc import Node
+from github.abc import Type
 from .licenserule import LicenseRule
 
 
-class License(Node):
+class License(Node, Type):
     """
     A repository's source license.
 

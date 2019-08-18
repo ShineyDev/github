@@ -1,5 +1,5 @@
 """
-/github/objects/commitcomment.py
+/github/abc/type.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -16,22 +16,17 @@
     limitations under the License.
 """
 
-from github.abc import Comment
-from github.abc import Deletable
-from github.abc import Node
-from github.abc import Reactable
-from github.abc import RepositoryNode
-from github.abc import Type
-from github.abc import Updatable
-
-
-class CommitComment(Comment, Deletable, Node, Reactable, RepositoryNode, Updatable, Type):
+class Type():
     """
-    Represents a comment on a :class:`~github.Commit`.
-
-    https://developer.github.com/v4/object/commitcomment/
-
-    .. versionadded:: 0.2.0
+    Represents an object type.
     """
 
-    ...
+    __slots__ = ()
+
+    @property
+    def type(self) -> str:
+        """
+        The object type.
+        """
+
+        return self.data["__typename"]

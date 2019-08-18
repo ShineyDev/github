@@ -19,9 +19,10 @@
 import datetime
 
 from github import utils
+from github.abc import Type
 
 
-class RateLimit():
+class RateLimit(Type):
     """
     Represents the viewer's rate limit.
 

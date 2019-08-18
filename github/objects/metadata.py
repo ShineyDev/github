@@ -18,8 +18,10 @@
 
 import typing
 
+from github.abc import Type
 
-class Metadata():
+
+class Metadata(Type):
     """
     Represents information about the GitHub instance.
 

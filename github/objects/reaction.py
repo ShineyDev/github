@@ -20,11 +20,12 @@ import datetime
 import typing
 
 from github import utils
+from github.abc import Type
 from github.enums import Reaction as reaction_enum
 from .user import User
 
 
-class Reaction():
+class Reaction(Type):
     """
     Represents a GitHub reaction.
 

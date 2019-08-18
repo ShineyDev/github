@@ -82,6 +82,7 @@ query fetch_license ($key: String!) {
     __typename
     body
     conditions {
+      __typename
       description
       key
       label
@@ -93,6 +94,7 @@ query fetch_license ($key: String!) {
     implementation
     key
     limitations {
+      __typename
       description
       key
       label
@@ -100,6 +102,7 @@ query fetch_license ($key: String!) {
     name
     nickname
     permissions {
+      __typename
       description
       key
       label
@@ -117,6 +120,7 @@ query fetch_all_licenses {
     __typename
     body
     conditions {
+      __typename
       description
       key
       label
@@ -128,6 +132,7 @@ query fetch_all_licenses {
     implementation
     key
     limitations {
+      __typename
       description
       key
       label
@@ -135,6 +140,7 @@ query fetch_all_licenses {
     name
     nickname
     permissions {
+      __typename
       description
       key
       label
@@ -149,6 +155,7 @@ query fetch_all_licenses {
 FETCH_METADATA = """
 query fetch_metadata {
   meta {
+    __typename
     gitHubServicesSha
     gitIpAddresses
     hookIpAddresses
@@ -222,6 +229,7 @@ query fetch_organization_avatar_url ($login: String!, $size: Int=null) {
 FETCH_RATE_LIMIT = """
 query fetch_rate_limit {
   rateLimit {
+    __typename
     limit
     remaining
     resetAt
@@ -263,6 +271,7 @@ query fetch_repository ($owner: String!, $name: String!) {
       __typename
       body
       conditions {
+        __typename
         description
         key
         label
@@ -274,6 +283,7 @@ query fetch_repository ($owner: String!, $name: String!) {
       implementation
       key
       limitations {
+        __typename
         description
         key
         label
@@ -281,6 +291,7 @@ query fetch_repository ($owner: String!, $name: String!) {
       name
       nickname
       permissions {
+        __typename
         description
         key
         label
@@ -352,6 +363,7 @@ query fetch_repository ($owner: String!, $name: String!) {
         __typename
         body
         conditions {
+          __typename
           description
           key
           label
@@ -363,6 +375,7 @@ query fetch_repository ($owner: String!, $name: String!) {
         implementation
         key
         limitations {
+          __typename
           description
           key
           label
@@ -370,6 +383,7 @@ query fetch_repository ($owner: String!, $name: String!) {
         name
         nickname
         permissions {
+          __typename
           description
           key
           label
@@ -470,6 +484,7 @@ query fetch_repository ($owner: String!, $name: String!) {
         __typename
         body
         conditions {
+          __typename
           description
           key
           label
@@ -481,6 +496,7 @@ query fetch_repository ($owner: String!, $name: String!) {
         implementation
         key
         limitations {
+          __typename
           description
           key
           label
@@ -488,6 +504,7 @@ query fetch_repository ($owner: String!, $name: String!) {
         name
         nickname
         permissions {
+          __typename
           description
           key
           label

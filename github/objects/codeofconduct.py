@@ -19,9 +19,10 @@
 import typing
 
 from github.abc import Node
+from github.abc import Type
 
 
-class CodeOfConduct(Node):
+class CodeOfConduct(Node, Type):
     """
     Represents a Code of Conduct.
 

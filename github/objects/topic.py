@@ -19,9 +19,10 @@
 import typing
 
 from github.abc import Node
+from github.abc import Type
 
 
-class Topic(Node):
+class Topic(Node, Type):
     """
     Represents a GitHub topic.
 
