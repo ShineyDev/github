@@ -306,6 +306,32 @@ query fetch_repository ($owner: String!, $name: String!) {
     owner {
       ... on Organization {
         __typename
+        anyPinnableItems
+        avatarUrl
+        databaseId
+        description
+        email
+        id
+        isVerified
+        location
+        login
+        name
+        newTeamResourcePath
+        newTeamUrl
+        pinnedItemsRemaining
+        projectsResourcePath
+        projectsUrl
+        resourcePath
+        teamsResourcePath
+        teamsUrl
+        url
+        viewerCanAdminister
+        viewerCanChangePinnedItems
+        viewerCanCreateProjects
+        viewerCanCreateRepositories
+        viewerCanCreateTeams
+        viewerIsAMember
+        websiteUrl
       }
       ... on User {
         __typename
@@ -399,6 +425,32 @@ query fetch_repository ($owner: String!, $name: String!) {
       owner {
         ... on Organization {
           __typename
+          anyPinnableItems
+          avatarUrl
+          databaseId
+          description
+          email
+          id
+          isVerified
+          location
+          login
+          name
+          newTeamResourcePath
+          newTeamUrl
+          pinnedItemsRemaining
+          projectsResourcePath
+          projectsUrl
+          resourcePath
+          teamsResourcePath
+          teamsUrl
+          url
+          viewerCanAdminister
+          viewerCanChangePinnedItems
+          viewerCanCreateProjects
+          viewerCanCreateRepositories
+          viewerCanCreateTeams
+          viewerIsAMember
+          websiteUrl
         }
         ... on User {
           __typename
@@ -521,6 +573,32 @@ query fetch_repository ($owner: String!, $name: String!) {
       owner {
         ... on Organization {
           __typename
+          anyPinnableItems
+          avatarUrl
+          databaseId
+          description
+          email
+          id
+          isVerified
+          location
+          login
+          name
+          newTeamResourcePath
+          newTeamUrl
+          pinnedItemsRemaining
+          projectsResourcePath
+          projectsUrl
+          resourcePath
+          teamsResourcePath
+          teamsUrl
+          url
+          viewerCanAdminister
+          viewerCanChangePinnedItems
+          viewerCanCreateProjects
+          viewerCanCreateRepositories
+          viewerCanCreateTeams
+          viewerIsAMember
+          websiteUrl
         }
         ... on User {
           __typename

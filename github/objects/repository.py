@@ -29,6 +29,7 @@ from github.enums import RepositorySubscription
 from .codeofconduct import CodeOfConduct
 from .language import Language
 from .license import License
+from .organization import Organization
 from .user import User
 
 
@@ -244,8 +245,7 @@ class Repository(Node, Type, UniformResourceLocatable):
         owner = self.data["owner"]
         
         if owner["__typename"] == "Organization":
-            # TODO: implement github.Organization
-            ...
+            return Organization.from_data(owner, self.http)
         elif owner["__typename"] == "User":
             return User.from_data(owner, self.http)
 
@@ -583,8 +583,7 @@ class PartialRepository(Node):
         owner = self.data["owner"]
         
         if owner["__typename"] == "Organization":
-            # TODO: implement github.Organization
-            ...
+            return Organization.from_data(owner, self.http)
         elif owner["__typename"] == "User":
             return User.from_data(owner, self.http)
 
