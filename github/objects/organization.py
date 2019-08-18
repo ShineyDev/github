@@ -21,9 +21,10 @@ import typing
 from github.abc import Actor
 from github.abc import Node
 from github.abc import RepositoryOwner
+from github.abc import UniformResourceLocatable
 
 
-class Organization(Actor, Node, RepositoryOwner):
+class Organization(Actor, Node, RepositoryOwner, UniformResourceLocatable):
     """
     Represents a GitHub organization.
 

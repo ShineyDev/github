@@ -40,6 +40,7 @@ query fetch_authenticated_user {
     location
     login
     name
+    resourcePath
     updatedAt
     url
     websiteUrl
@@ -55,6 +56,7 @@ query fetch_code_of_conduct ($key: String!) {
     id
     key
     name
+    resourcePath
     url
   }
 }
@@ -68,6 +70,7 @@ query fetch_all_codes_of_conduct {
     id
     key
     name
+    resourcePath
     url
   }
 }
@@ -193,6 +196,7 @@ query fetch_organization ($login: String!) {
     pinnedItemsRemaining
     projectsResourcePath
     projectsUrl
+    resourcePath
     teamsResourcePath
     teamsUrl
     url
@@ -405,6 +409,7 @@ query fetch_repository ($owner: String!, $name: String!) {
       }
       pushedAt
       rebaseMergeAllowed
+      resourcePath
       squashMergeAllowed
       updatedAt
       url
@@ -423,6 +428,7 @@ query fetch_repository ($owner: String!, $name: String!) {
     }
     pushedAt
     rebaseMergeAllowed
+    resourcePath
     squashMergeAllowed
     templateRepository {
       __typename
@@ -521,6 +527,7 @@ query fetch_repository ($owner: String!, $name: String!) {
       }
       pushedAt
       rebaseMergeAllowed
+      resourcePath
       squashMergeAllowed
       updatedAt
       url
@@ -651,6 +658,7 @@ query fetch_user ($login: String!) {
     location
     login
     name
+    resourcePath
     updatedAt
     url
     websiteUrl

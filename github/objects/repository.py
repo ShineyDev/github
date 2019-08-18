@@ -21,6 +21,7 @@ import typing
 
 from github import utils
 from github.abc import Node
+from github.abc import UniformResourceLocatable
 from github.enums import RepositoryLockReason
 from github.enums import RepositoryPermissions
 from github.enums import RepositorySubscription
@@ -30,7 +31,7 @@ from .license import License
 from .user import User
 
 
-class Repository(Node):
+class Repository(Node, UniformResourceLocatable):
     """
     Represents a GitHub repository.
 

@@ -20,11 +20,14 @@ import datetime
 import typing
 
 from github import utils
-from github.abc import Actor, Node, RepositoryOwner
+from github.abc import Actor
+from github.abc import Node
+from github.abc import RepositoryOwner
+from github.abc import UniformResourceLocatable
 from .commitcomment import CommitComment
 
 
-class User(Actor, Node, RepositoryOwner):
+class User(Actor, Node, RepositoryOwner, UniformResourceLocatable):
     """
     Represents a GitHub user account.
 

@@ -1,5 +1,5 @@
 """
-/github/abc/__init__.py
+/github/abc/uniformresourcelocatable.py
 
     Copyright (c) 2019 ShineyDev
     
@@ -16,12 +16,19 @@
     limitations under the License.
 """
 
-from github.abc.actor import Actor
-from github.abc.comment import Comment
-from github.abc.deletable import Deletable
-from github.abc.node import Node
-from github.abc.reactable import Reactable
-from github.abc.repositorynode import RepositoryNode
-from github.abc.repositoryowner import RepositoryOwner
-from github.abc.updatable import Updatable
-from github.abc.uniformresourcelocatable import UniformResourceLocatable
+class UniformResourceLocatable():
+    """
+    Represents an object that can be retrieved by a URL.
+
+    https://developer.github.com/v4/interface/uniformresourcelocatable/
+    """
+
+    __slots__ = ()
+
+    @property
+    def resource_path(self) -> str:
+        """
+        The resource path for this object.
+        """
+
+        return self.data["resourcePath"]
