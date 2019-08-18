@@ -455,6 +455,28 @@ class GitHub():
         data = await self.http.fetch_repository(owner, name)
         return Repository.from_data(data, self.http)
 
+    async def fetch_scopes(self) -> list:
+        """
+        |coro|
+
+        Fetches a list of scopes associated with the token.
+
+        Raises
+        ------
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+
+        Returns
+        -------
+        List[:class:`str`]
+            A list of scopes associated with the token
+        """
+
+        data = await self.http.fetch_scopes()
+        return data
+
     async def fetch_topic(self, name: str) -> Topic:
         """
         |coro|

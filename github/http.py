@@ -74,8 +74,8 @@ class HTTPClient():
     def user_agent(self, value: str):
         self._user_agent = value or DEFAULT_USER_AGENT
 
-    async def _request(self, *, json: dict, headers: dict, session: aiohttp.ClientSession) -> dict:
-        async with session.post(self._base_url, json=json, headers=headers) as response:
+    async def _request(self, *, method: str, json: dict, headers: dict, session: aiohttp.ClientSession) -> dict:
+        async with session.request(method, self._base_url, json=json, headers=headers) as response:
             if response.status not in range(200, 300):
                 try:
                     # even when giving a status-code outside of the
@@ -95,6 +95,11 @@ class HTTPClient():
                     exception = errors.HTTPException
 
                 raise exception(message, response=response, data=data)
+
+            if method.upper() == "GET":
+                # we should only get here if the request came from
+                # HTTPClient.fetch_scopes
+                return response
 
             # this should, theoretically, never error since gql only
             # responds with json data unless it raises a HTTP
@@ -174,9 +179,8 @@ class HTTPClient():
         headers.update({"User-Agent": self._user_agent})
         
         session = session or self._session
-
         async with context.SessionContext(session) as session:
-            data = await self._request(json=json, headers=headers, session=session)
+            data = await self._request(method="POST", json=json, headers=headers, session=session)
 
         return data["data"]
 
@@ -436,6 +440,20 @@ class HTTPClient():
             has_next_page = data["repository"]["collaborators"]["pageInfo"]["hasNextPage"]
 
         return nodes
+
+    async def fetch_scopes(self) -> list:
+        # https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
+
+        headers = dict()
+        headers.update({"Authorization": "bearer {0}".format(self._token)})
+        headers.update({"User-Agent": self._user_agent})
+
+        session = self._session
+        async with context.SessionContext(session) as session:
+            response = await self._request(method="GET", json=None, headers=headers, session=session)
+
+        scopes = response.headers.get("X-OAuth-Scopes")
+        return [s for s in scopes.split(", ") if s]
 
     async def fetch_topic(self, name: str) -> dict:
         # https://developer.github.com/v4/object/topic/
