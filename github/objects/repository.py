@@ -21,6 +21,7 @@ import typing
 
 from github import utils
 from github.abc import Node
+from github.abc import ProjectOwner
 from github.abc import Type
 from github.abc import UniformResourceLocatable
 from github.enums import RepositoryLockReason
@@ -33,7 +34,7 @@ from .organization import Organization
 from .user import User
 
 
-class Repository(Node, Type, UniformResourceLocatable):
+class Repository(Node, ProjectOwner, Type, UniformResourceLocatable):
     """
     Represents a GitHub repository.
 
@@ -310,14 +311,6 @@ class Repository(Node, Type, UniformResourceLocatable):
         """
 
         return self.data["viewerCanAdminister"]
-
-    @property
-    def viewer_can_create_projects(self) -> bool:
-        """
-        Whether or not the authenticated user can create projects in the repository.
-        """
-
-        return self.data["viewerCanCreateProjects"]
 
     @property
     def viewer_can_subscribe(self) -> bool:
@@ -624,14 +617,6 @@ class PartialRepository(Node):
         """
 
         return self.data["viewerCanAdminister"]
-
-    @property
-    def viewer_can_create_projects(self) -> bool:
-        """
-        Whether or not the authenticated user can create projects in the repository.
-        """
-
-        return self.data["viewerCanCreateProjects"]
 
     @property
     def viewer_can_subscribe(self) -> bool:

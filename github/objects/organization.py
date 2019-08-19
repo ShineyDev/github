@@ -21,12 +21,13 @@ import typing
 from github.abc import Actor
 from github.abc import Node
 from github.abc import ProfileOwner
+from github.abc import ProjectOwner
 from github.abc import RepositoryOwner
 from github.abc import Type
 from github.abc import UniformResourceLocatable
 
 
-class Organization(Actor, Node, ProfileOwner, RepositoryOwner, Type, UniformResourceLocatable):
+class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type, UniformResourceLocatable):
     """
     Represents a GitHub organization.
 
@@ -95,22 +96,6 @@ class Organization(Actor, Node, ProfileOwner, RepositoryOwner, Type, UniformReso
         return self.data["newTeamUrl"]
 
     @property
-    def projects_resource_path(self) -> str:
-        """
-        The organization's projects resource path.
-        """
-
-        return self.data["projectsResourcePath"]
-
-    @property
-    def projects_url(self) -> str:
-        """
-        The organization's projects url.
-        """
-
-        return self.data["projectsUrl"]
-
-    @property
     def teams_resource_path(self) -> str:
         """
         The organization's teams resource path.
@@ -133,14 +118,6 @@ class Organization(Actor, Node, ProfileOwner, RepositoryOwner, Type, UniformReso
         """
 
         return self.data["viewerCanAdminister"]
-
-    @property
-    def viewer_can_create_projects(self) -> bool:
-        """
-        Whether or not the authenticated user can create projects in the organization.
-        """
-
-        return self.data["viewerCanCreateProjects"]
 
     @property
     def viewer_can_create_repositories(self) -> bool:

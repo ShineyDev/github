@@ -23,13 +23,14 @@ from github import utils
 from github.abc import Actor
 from github.abc import Node
 from github.abc import ProfileOwner
+from github.abc import ProjectOwner
 from github.abc import RepositoryOwner
 from github.abc import Type
 from github.abc import UniformResourceLocatable
 from .commitcomment import CommitComment
 
 
-class User(Actor, Node, ProfileOwner, RepositoryOwner, Type, UniformResourceLocatable):
+class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type, UniformResourceLocatable):
     """
     Represents a GitHub user account.
 
