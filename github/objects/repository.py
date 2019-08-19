@@ -52,7 +52,15 @@ class Repository(Node, ProjectOwner, Type, UniformResourceLocatable):
 
     @classmethod
     def from_data(cls, data, http):
-        return cls(data, http)
+        if isinstance(data, dict):
+            return cls(data)
+        elif isinstance(data, list):
+            repositories = list()
+
+            for (repository) in data:
+                repositories.append(cls(repository))
+
+            return repositories
 
     @property
     def allows_merge_commit(self) -> bool:

@@ -42,12 +42,12 @@ class CodeOfConduct(Node, Type):
         if isinstance(data, dict):
             return cls(data)
         elif isinstance(data, list):
-            codes = list()
+            codes_of_conduct = list()
 
-            for (code) in data:
-                codes.append(cls(code))
+            for (code_of_conduct) in data:
+                codes_of_conduct.append(cls(code_of_conduct))
 
-            return codes
+            return codes_of_conduct
 
     @property
     def body(self) -> str:

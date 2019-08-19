@@ -38,7 +38,15 @@ class Language(Node, Type):
 
     @classmethod
     def from_data(cls, data):
-        return cls(data)
+        if isinstance(data, dict):
+            return cls(data)
+        elif isinstance(data, list):
+            languages = list()
+
+            for (language) in data:
+                languages.append(cls(language))
+
+            return languages
 
     @property
     def color(self) -> str:
