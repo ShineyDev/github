@@ -41,6 +41,7 @@ class Comment():
         """
         
         # prevent cyclic imports
+        from github.objects import Organization
         from github.objects import User
 
         author = self.data["author"]
@@ -52,8 +53,7 @@ class Comment():
             # TODO: implement github.Mannequin
             ...
         elif author["__typename"] == "Organization":
-            # TODO: implement github.Organization
-            ...
+            return Organization.from_data(author, self.http)
         elif author["__typename"] == "User":
             return User.from_data(author, self.http)
 
@@ -114,6 +114,7 @@ class Comment():
         """
 
         # prevent cyclic imports
+        from github.objects import Organization
         from github.objects import User
 
         editor = self.data["author"]
@@ -125,8 +126,7 @@ class Comment():
             # TODO: implement github.Mannequin
             ...
         elif editor["__typename"] == "Organization":
-            # TODO: implement github.Organization
-            ...
+            return Organization.from_data(editor, self.http)
         elif editor["__typename"] == "User":
             return User.from_data(editor, self.http)
 
