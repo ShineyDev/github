@@ -46,7 +46,7 @@ class Updatable():
         A list of reasons why the authenticated user cannot update this updatable.
         """
 
-        reasons = self.data.get("viewerCannotUpdateReasons")
+        reasons = self.data["viewerCannotUpdateReasons"]
         if reasons is not None:
             return CannotUpdateReason.from_data(reasons)
 
