@@ -25,14 +25,14 @@ class RepositoryLockReason():
 
     __slots__ = ("_lock_reason",)
 
-    def __init__(self, lock_reason: str):
+    def __init__(self, lock_reason):
         self._lock_reason = lock_reason
 
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} '{0._lock_reason}'>".format(self)
 
     @classmethod
-    def from_data(cls, lock_reason: str) -> "RepositoryLockReason":
+    def from_data(cls, lock_reason):
         return cls(lock_reason)
 
     @property

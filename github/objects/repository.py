@@ -43,7 +43,7 @@ class Repository(Node, ProjectOwner, Type, UniformResourceLocatable):
 
     __slots__ = ("data", "http")
 
-    def __init__(self, data: dict, http):
+    def __init__(self, data, http):
         self.data = data
         self.http = http
 
@@ -51,7 +51,7 @@ class Repository(Node, ProjectOwner, Type, UniformResourceLocatable):
         return "<{0.__class__.__name__} owner='{0.owner.login}' name='{0.name}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: dict, http) -> "Repository":
+    def from_data(cls, data, http):
         return cls(data, http)
 
     @property

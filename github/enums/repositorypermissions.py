@@ -25,14 +25,14 @@ class RepositoryPermissions():
 
     __slots__ = ("_permission",)
 
-    def __init__(self, permission: str):
+    def __init__(self, permission):
         self._permission = permission
 
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} '{0._permission}'>".format(self)
 
     @classmethod
-    def from_data(cls, permission: str) -> "RepositoryPermissions":
+    def from_data(cls, permission):
         return cls(permission)
     
     @property

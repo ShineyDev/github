@@ -27,14 +27,14 @@ class CommentAuthorAssociation():
 
     __slots__ = ("data",)
 
-    def __init__(self, author_association: str):
+    def __init__(self, author_association):
         self._author_association = author_association
 
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} '{0._author_association}'>".format(self)
 
     @classmethod
-    def from_data(cls, author_association: str) -> "CommentAuthorAssociation":
+    def from_data(cls, author_association):
         return cls(author_association)
 
     @property

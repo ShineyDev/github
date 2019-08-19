@@ -30,14 +30,14 @@ class CannotUpdateReason():
 
     __slots__ = ("data",)
 
-    def __init__(self, reason: dict):
+    def __init__(self, reason):
         self._reason = reason
 
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} '{0._reason}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: list) -> typing.List["CannotUpdateReason"]:
+    def from_data(cls, data):
         reasons = list()
 
         for (reason) in data:

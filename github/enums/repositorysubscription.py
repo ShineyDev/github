@@ -25,14 +25,14 @@ class RepositorySubscription():
 
     __slots__ = ("_subscription",)
 
-    def __init__(self, subscription: str):
+    def __init__(self, subscription):
         self._subscription = subscription
 
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} '{0._subscription}'>".format(self)
 
     @classmethod
-    def from_data(cls, subscription: str) -> "RepositorySubscription":
+    def from_data(cls, subscription):
         return cls(subscription)
 
     @property

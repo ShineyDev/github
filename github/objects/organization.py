@@ -36,7 +36,7 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
 
     __slots__ = ("data", "http")
 
-    def __init__(self, data: dict, http):
+    def __init__(self, data, http):
         self.data = data
         self.http = http
 
@@ -44,7 +44,7 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
         return "<{0.__class__.__name__} login='{0.login}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: typing.Union[dict, list], http) -> typing.Union["Organization", typing.List["Organization"]]:
+    def from_data(cls, data, http):
         if isinstance(data, dict):
             return cls(data, http)
         elif isinstance(data, list):

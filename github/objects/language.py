@@ -30,14 +30,14 @@ class Language(Node, Type):
 
     __slots__ = ("data",)
 
-    def __init__(self, data: dict):
+    def __init__(self, data):
         self.data = data
 
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} name='{0.name}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: dict) -> "Language":
+    def from_data(cls, data):
         return cls(data)
 
     @property

@@ -30,14 +30,14 @@ class LicenseRule(Type):
 
     __slots__ = ("data",)
 
-    def __init__(self, data: dict):
+    def __init__(self, data):
         self.data = data
 
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} key='{0.key}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: list) -> typing.List["LicenseRule"]:
+    def from_data(cls, data):
         rules = list()
 
         for (rule) in data:

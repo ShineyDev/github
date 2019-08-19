@@ -31,14 +31,14 @@ class Topic(Node, Type):
 
     __slots__ = ("data",)
 
-    def __init__(self, data: dict):
+    def __init__(self, data):
         self.data = data
 
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} name='{0.name}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: typing.Union[dict, list]) -> typing.Union["Topic", typing.List["Topic"]]:
+    def from_data(cls, data):
         if isinstance(data, dict):
             return cls(data)
         elif isinstance(data, list):

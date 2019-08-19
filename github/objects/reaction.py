@@ -36,7 +36,7 @@ class Reaction(Type):
 
     __slots__ = ("data", "http")
 
-    def __init__(self, data: dict, http):
+    def __init__(self, data, http):
         self.data = data
         self.http = http
 
@@ -44,7 +44,7 @@ class Reaction(Type):
         return "<{0.__class__.__name__} content='{0.content}'>".format(self)
 
     @classmethod
-    def from_data(data: list, http) -> typing.List["Reaction"]:
+    def from_data(data, http):
         reactions = list()
 
         for (reaction) in data:

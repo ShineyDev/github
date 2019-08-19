@@ -42,7 +42,7 @@ class HTTPClient():
 
     __slots__ = ("_token", "_base_url", "_user_agent", "_session", "_exceptions")
 
-    def __init__(self, token: str, *, base_url: str=None, user_agent: str=None, session: aiohttp.ClientSession=None):
+    def __init__(self, token, *, base_url=None, user_agent=None, session=None):
         self._token = token
         self._base_url = base_url or DEFAULT_BASE_URL
         self._user_agent = user_agent or DEFAULT_USER_AGENT
@@ -63,7 +63,7 @@ class HTTPClient():
         return self._base_url
 
     @base_url.setter
-    def base_url(self, value: str):
+    def base_url(self, value: str=None):
         self._base_url = value or DEFAULT_BASE_URL
 
     @property
@@ -71,10 +71,10 @@ class HTTPClient():
         return self._user_agent
 
     @user_agent.setter
-    def user_agent(self, value: str):
+    def user_agent(self, value: str=None):
         self._user_agent = value or DEFAULT_USER_AGENT
 
-    async def _request(self, *, method: str, json: dict, headers: dict, session: aiohttp.ClientSession) -> dict:
+    async def _request(self, *, method, json, headers, session):
         async with session.request(method, self._base_url, json=json, headers=headers) as response:
             if response.status not in range(200, 300):
                 try:
@@ -184,7 +184,7 @@ class HTTPClient():
 
         return data["data"]
 
-    async def fetch_authenticated_user(self) -> dict:
+    async def fetch_authenticated_user(self):
         # https://developer.github.com/v4/object/user/
 
         json = {
@@ -194,7 +194,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["viewer"]
 
-    async def fetch_code_of_conduct(self, key: str) -> dict:
+    async def fetch_code_of_conduct(self, key):
         # https://developer.github.com/v4/object/codeofconduct/
 
         variables = {
@@ -209,7 +209,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["codeOfConduct"]
 
-    async def fetch_codes_of_conduct(self, *keys: str) -> list:
+    async def fetch_codes_of_conduct(self, *keys):
         # https://developer.github.com/v4/object/codeofconduct/
 
         fields = ["__typename", "body", "id", "key", "name", "url"]
@@ -233,7 +233,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return [value for (key, value) in data.items()]
 
-    async def fetch_all_codes_of_conduct(self) -> list:
+    async def fetch_all_codes_of_conduct(self):
         # https://developer.github.com/v4/object/codeofconduct/
 
         json = {
@@ -243,7 +243,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["codesOfConduct"]
 
-    async def fetch_license(self, key: str) -> dict:
+    async def fetch_license(self, key):
         # https://developer.github.com/v4/object/license/
 
         variables = {
@@ -258,12 +258,12 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["license"]
 
-    async def fetch_licenses(self, *keys: str) -> list:
+    async def fetch_licenses(self, *keys):
         # https://developer.github.com/v4/object/license/
 
         raise NotImplementedError("this method hasn't been implemented yet")
 
-    async def fetch_all_licenses(self) -> dict:
+    async def fetch_all_licenses(self):
         # https://developer.github.com/v4/object/license/
 
         json = {
@@ -273,7 +273,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["licenses"]
 
-    async def fetch_metadata(self) -> dict:
+    async def fetch_metadata(self):
         # https://developer.github.com/v4/object/githubmetadata/
 
         json = {
@@ -283,7 +283,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["meta"]
 
-    async def fetch_node(self, id) -> dict:
+    async def fetch_node(self, id):
         # https://developer.github.com/v4/interface/node/
 
         variables = {
@@ -298,7 +298,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["node"]
 
-    async def fetch_nodes(self, *ids: str) -> list:
+    async def fetch_nodes(self, *ids):
         # https://developer.github.com/v4/interface/node/
 
         variables = {
@@ -313,7 +313,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["nodes"]
 
-    async def fetch_organization(self, login: str) -> dict:
+    async def fetch_organization(self, login):
         # https://developer.github.com/v4/object/organization/
 
         variables = {
@@ -328,7 +328,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["organization"]
 
-    async def fetch_organization_avatar_url(self, login: str, size: int=None) -> str:
+    async def fetch_organization_avatar_url(self, login, size):
         # https://developer.github.com/v4/scalar/uri/
 
         variables = {
@@ -344,7 +344,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["organization"]["avatarUrl"]
 
-    async def fetch_organization_email(self, login: str) -> str:
+    async def fetch_organization_email(self, login):
         # https://developer.github.com/v4/scalar/string/
 
         variables = {
@@ -359,7 +359,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["organization"]["email"]
     
-    async def fetch_rate_limit(self) -> dict:
+    async def fetch_rate_limit(self):
         # https://developer.github.com/v4/object/ratelimit/
 
         json = {
@@ -369,7 +369,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["rateLimit"]
 
-    async def fetch_repository(self, owner: str, name: str) -> dict:
+    async def fetch_repository(self, owner, name):
         # https://developer.github.com/v4/object/repository/
 
         variables = {
@@ -385,7 +385,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["repository"]
 
-    async def fetch_repository_assignable_users(self, owner: str, name: str) -> list:
+    async def fetch_repository_assignable_users(self, owner, name):
         # https://developer.github.com/v4/object/user/
 
         nodes = list()
@@ -413,7 +413,7 @@ class HTTPClient():
 
         return nodes
 
-    async def fetch_repository_collaborators(self, owner: str, name: str) -> list:
+    async def fetch_repository_collaborators(self, owner, name):
         # https://developer.github.com/v4/object/user/
 
         nodes = list()
@@ -441,7 +441,7 @@ class HTTPClient():
 
         return nodes
 
-    async def fetch_scopes(self) -> list:
+    async def fetch_scopes(self):
         # https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
 
         headers = dict()
@@ -455,7 +455,7 @@ class HTTPClient():
         scopes = response.headers.get("X-OAuth-Scopes")
         return [s for s in scopes.split(", ") if s]
 
-    async def fetch_topic(self, name: str) -> dict:
+    async def fetch_topic(self, name):
         # https://developer.github.com/v4/object/topic/
 
         variables = {
@@ -470,12 +470,12 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["topic"]
 
-    async def fetch_topics(self, *names: str) -> list:
+    async def fetch_topics(self, *names):
         # https://developer.github.com/v4/object/topic/
 
         raise NotImplementedError("this method hasn't been implemented yet")
 
-    async def fetch_user(self, login: str) -> dict:
+    async def fetch_user(self, login):
         # https://developer.github.com/v4/object/user/
 
         variables = {
@@ -490,12 +490,12 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["user"]
 
-    async def fetch_users(self, *logins: str) -> list:
+    async def fetch_users(self, *logins):
         # https://developer.github.com/v4/object/user/
 
         raise NotImplementedError("this method hasn't been implemented yet")
 
-    async def fetch_user_avatar_url(self, login: str, size: int=None) -> str:
+    async def fetch_user_avatar_url(self, login, size):
         # https://developer.github.com/v4/scalar/uri/
 
         variables = {
@@ -511,7 +511,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["user"]["avatarUrl"]
 
-    async def fetch_user_commit_comments(self, login: str) -> list:
+    async def fetch_user_commit_comments(self, login):
         # https://developer.github.com/v4/object/commitcomment/
 
         nodes = list()
@@ -538,7 +538,7 @@ class HTTPClient():
 
         return nodes
 
-    async def fetch_user_email(self, login: str) -> str:
+    async def fetch_user_email(self, login):
         # https://developer.github.com/v4/scalar/string/
 
         variables = {

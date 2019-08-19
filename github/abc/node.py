@@ -28,7 +28,7 @@ class Node():
 
     __slots__ = ("data",)
 
-    def __init__(self, data: dict):
+    def __init__(self, data):
         self.data = data
 
     def __eq__(self, other) -> bool:
@@ -44,7 +44,7 @@ class Node():
         return "<{0.__class__.__name__} id='{0.id}'>".format(self)
 
     @classmethod
-    def from_data(cls, data: typing.Union[dict, list]) -> typing.Union["Node", typing.List["Node"]]:
+    def from_data(cls, data):
         if isinstance(data, dict):
             return cls(data)
         elif isinstance(data, list):

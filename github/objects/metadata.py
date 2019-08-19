@@ -30,11 +30,11 @@ class Metadata(Type):
 
     __slots__ = ("data",)
 
-    def __init__(self, data: dict):
+    def __init__(self, data):
         self.data = data
 
     @classmethod
-    def from_data(cls, data: dict) -> "Metadata":
+    def from_data(cls, data):
         return cls(data)
 
     @property
