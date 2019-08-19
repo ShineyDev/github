@@ -58,41 +58,28 @@ class Topic(Node, Type):
         return self.data["name"]
 
     @property
-    def related_topics(self) -> typing.List["PartialTopic"]:
+    def related_topics(self) -> typing.Optional[typing.List["PartialTopic"]]:
         """
         A list of related topics.
         """
 
-        return PartialTopic.from_data(self.data["relatedTopics"])
+        related = self.data["relatedTopics"]
+        if not related:
+            return None
 
-class PartialTopic(Node):
+        related["relatedTopics"] = None
+
+        return PartialTopic.from_data(related)
+
+class PartialTopic(Topic):
     """
     Represents a GitHub topic.
 
-    This partial-class doesn't implement the :attr:`Topic.related_topics` attribute.
+    https://developer.github.com/v4/object/topic/
+
+    Using this partial-class will result in the following attributes being ``None`` at all times:
+
+    * :attr:`~github.Topic.related_topics`
     """
 
     __slots__ = ("data",)
-
-    def __init__(self, data: dict):
-        self.data = data
-
-    def __repr__(self) -> str:
-        return "<{0.__class__.__name__} name='{0.name}'>".format(self)
-
-    @classmethod
-    def from_data(cls, data: list) -> typing.List["PartialTopic"]:
-        topics = list()
-
-        for (topic) in data:
-            topics.append(cls(topic))
-
-        return topics
-
-    @property
-    def name(self) -> str:
-        """
-        The topic's name.
-        """
-
-        return self.data.get("name")
