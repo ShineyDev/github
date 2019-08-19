@@ -47,7 +47,7 @@ class Topic(Node, Type):
             for (topic) in data:
                 topics.append(cls(topic))
 
-            return topic
+            return topics
 
     @property
     def name(self) -> str:
