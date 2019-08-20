@@ -3,6 +3,21 @@
 Changelog
 =========
 
+v0.3.2
+------
+
+Bug Fixes
+~~~~~~~~~
+
+* Fix :func:`github.utils.get` returning multiple of the same object even if it doesn't match all attributes.
+
+New Features
+~~~~~~~~~~~~
+
+* Implement :func:`github.utils.find_all`.
+* Implement :func:`github.utils.find`.
+* Implement :func:`github.utils.get_all`.
+
 v0.3.1
 ------
 
