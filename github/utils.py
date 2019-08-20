@@ -25,10 +25,107 @@ ISO_8601_DATETIME_REGEX = r"([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2
 ISO_8601_DATETIME_MS_REGEX = r"([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})\.([0-9]{3})Z"
 
 
-def get(iterable: typing.Iterable, **attributes):
+def find_all(iterable: typing.Iterable, predicate: typing.Callable) -> typing.List[typing.Any]:
+    """
+    A helper that returns all elements in the iterable that meet the
+    predicate.
+
+    If nothing is found that meets the predicate, then an empty list is
+    returned.
+
+    .. versionadded:: 0.3.2
+
+    Parameters
+    ----------
+    iterable
+        An iterable to search through.
+    predicate
+        A callable which takes one parameter and returns a boolean.
+
+    Returns
+    -------
+    List[Any]
+        The elements that met the predicate.
+    """
+
+    l = list()
+
+    for (i) in iterable:
+        if predicate(i):
+            l.append(i)
+
+    return l
+
+def find(iterable: typing.Iterable, predicate: typing.Callable) -> typing.Optional[typing.Any]:
     """
     A helper that returns the first element in the iterable that meets
-    all the traits passed in ``attributes``.
+    the predicate.
+
+    If nothing is found that meets the predicate, then ``None`` is
+    returned.
+
+    .. versionadded:: 0.3.2
+
+    Parameters
+    ----------
+    iterable
+        An iterable to search through.
+    predicate
+        A callable which takes one parameter and returns a boolean.
+
+    Returns
+    -------
+    Optional[Any]
+        The element that met the predicate.
+    """
+
+    l = find_all(iterable, predicate)
+    return l[0] if l else None
+
+def get_all(iterable: typing.Iterable, **attributes) -> typing.List[typing.Any]:
+    """
+    A helper that returns all elements in the iterable that meet all
+    of the traits passed in ``attributes``.
+
+    .. note::
+
+        When multiple attributes are specified, they are checked using
+        logical AND, not logical OR. Meaning they have to meet every
+        attribute passed in and not one of them.
+
+    If nothing is found that matches the attributes passed, then an 
+    empty list is returned.
+
+    .. versionadded:: 0.3.2
+
+    Parameters
+    ----------
+    iterable
+        An iterable to search through.
+    \\*\\*attributes
+        Keyword arguments that denote attributes to search with.
+
+    Returns
+    -------
+    List[Any]
+        The elements that met all traits passed in ``attributes``.
+    """
+
+    l = list()
+
+    for (i) in iterable:
+        try:
+            if all([getattr(i, k) == v for (k, v) in attributes.items()]):
+                l.append(i)
+        except (AttributeError) as e:
+            pass
+
+    return l
+
+def get(iterable: typing.Iterable, **attributes) -> typing.Optional[typing.Any]:
+    """
+    A helper that returns the first element in the iterable that meets
+    all of the traits passed in ``attributes``.
 
     .. note::
 
@@ -45,15 +142,15 @@ def get(iterable: typing.Iterable, **attributes):
         An iterable to search through.
     \\*\\*attributes
         Keyword arguments that denote attributes to search with.
+
+    Returns
+    -------
+    Optional[Any]
+        The element that met all traits passed in ``attributes``.
     """
 
-    for (i) in iterable:
-        for (k, v) in attributes.items():
-            try:
-                if getattr(i, k) == v:
-                    return i
-            except (AttributeError) as e:
-                pass
+    l = get_all(iterable, **attributes)
+    return l[0] if l else None
 
 def iso_to_datetime(iso: str) -> datetime.datetime:
     """
