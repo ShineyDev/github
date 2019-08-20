@@ -22,6 +22,7 @@ import typing
 
 
 ISO_REGEX = r"([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})Z"
+ISO_MS_REGEX = r"([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})Z"
 
 
 def get(iterable: typing.Iterable, **attributes):
@@ -53,25 +54,6 @@ def get(iterable: typing.Iterable, **attributes):
                     return i
             except (AttributeError) as e:
                 pass
-
-def datetime_to_iso(dt: datetime.datetime) -> str:
-    """
-    Converts a datetime object to ISO-8601.
-
-    Parameters
-    ----------
-    dt: :class:`datetime.datetime`
-        A datetime object.
-
-    Returns
-    -------
-    :class:`str`
-        An ISO-8601 string.
-    """
-    
-    iso_format = "%Y-%m-%dT%H:%M:%SZ"
-    iso = dt.strftime(iso_format)
-    return iso
 
 def iso_to_datetime(iso: str) -> datetime.datetime:
     """
