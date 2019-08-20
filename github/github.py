@@ -397,7 +397,7 @@ class GitHub():
 
         Returns
         -------
-        :class:`~github.RateLimit`
+        :class:`~github.Organization`
             A GitHub organization.
         """
 
