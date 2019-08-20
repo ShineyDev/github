@@ -6,15 +6,26 @@ Changelog
 v0.3.1
 ------
 
+Bug Fixes
+~~~~~~~~~
+
+* Fix typing in :class:`github.http.HTTPClient`.
+
 New Features
 ~~~~~~~~~~~~
 
 * Implement :class:`github.abc.ProfileOwner`.
+* Implement :class:`github.abc.ProjectOwner`.
 * Implement :class:`github.abc.Type`.
 * Implement :class:`github.abc.UniformResourceLocatable`.
 * Implement :meth:`github.GitHub.fetch_organization`.
 * Implement :class:`github.Organization`.
 * Implement :meth:`github.GitHub.fetch_scopes`.
+
+Removed Features
+~~~~~~~~~~~~~~~~
+
+* Remove typing from ``from_data`` and ``__init__`` non-user facing methods.
 
 v0.3.0
 ------
