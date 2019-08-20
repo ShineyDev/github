@@ -22,7 +22,7 @@ import typing
 
 
 ISO_REGEX = r"([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})Z"
-ISO_MS_REGEX = r"([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})Z"
+ISO_MS_REGEX = r"([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})\.([0-9]{3})Z"
 
 
 def get(iterable: typing.Iterable, **attributes):
@@ -70,6 +70,7 @@ def iso_to_datetime(iso: str) -> datetime.datetime:
         A datetime object.
     """
 
+    # https://developer.github.com/v4/scalar/datetime/
     match = re.fullmatch(ISO_REGEX, iso)
     if match:
         year = int(match.group(1))
@@ -80,3 +81,16 @@ def iso_to_datetime(iso: str) -> datetime.datetime:
         second = int(match.group(6))
 
         return datetime.datetime(year, month, day, hour, minute, second)
+
+    # https://developer.github.com/v4/scalar/precisedatetime/
+    match = re.fullmatch(ISO_MS_REGEX, iso)
+    if match:
+        year = int(match.group(1))
+        month = int(match.group(2))
+        day = int(match.group(3))
+        hour = int(match.group(4))
+        minute = int(match.group(5))
+        second = int(match.group(6))
+        microsecond = int(match.group(7)) * 1000
+
+        return datetime.datetime(year, month, day, hour, minute, second, microsecond)
