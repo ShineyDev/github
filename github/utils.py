@@ -25,6 +25,32 @@ ISO_8601_DATETIME_REGEX = r"([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2
 ISO_8601_DATETIME_MS_REGEX = r"([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})\.([0-9]{3})Z"
 
 
+def find(iterable: typing.Iterable, predicate: typing.Callable) -> typing.Optional[typing.Any]:
+    """
+    A helper that returns the first element in the iterable that meets
+    the predicate.
+
+    If nothing is found that meets the predicate, then ``None`` is
+    returned.
+
+    .. versionadded:: 0.3.2
+
+    Parameters
+    ----------
+    iterable
+        An iterable to search through.
+    predicate
+        A callable which takes one parameter and returns a boolean.
+
+    Returns
+    -------
+    Optional[Any]
+        The element that met the predicate.
+    """
+
+    l = find_all(iterable, predicate)
+    return l[0] if l else None
+
 def find_all(iterable: typing.Iterable, predicate: typing.Callable) -> typing.List[typing.Any]:
     """
     A helper that returns all elements in the iterable that meet the
@@ -56,30 +82,34 @@ def find_all(iterable: typing.Iterable, predicate: typing.Callable) -> typing.Li
 
     return l
 
-def find(iterable: typing.Iterable, predicate: typing.Callable) -> typing.Optional[typing.Any]:
+def get(iterable: typing.Iterable, **attributes) -> typing.Optional[typing.Any]:
     """
     A helper that returns the first element in the iterable that meets
-    the predicate.
+    all of the traits passed in ``attributes``.
 
-    If nothing is found that meets the predicate, then ``None`` is
-    returned.
+    .. note::
 
-    .. versionadded:: 0.3.2
+        When multiple attributes are specified, they are checked using
+        logical AND, not logical OR. Meaning they have to meet every
+        attribute passed in and not one of them.
+
+    If nothing is found that matches the attributes passed, then
+    ``None`` is returned.
 
     Parameters
     ----------
     iterable
         An iterable to search through.
-    predicate
-        A callable which takes one parameter and returns a boolean.
+    \\*\\*attributes
+        Keyword arguments that denote attributes to search with.
 
     Returns
     -------
     Optional[Any]
-        The element that met the predicate.
+        The element that met all traits passed in ``attributes``.
     """
 
-    l = find_all(iterable, predicate)
+    l = get_all(iterable, **attributes)
     return l[0] if l else None
 
 def get_all(iterable: typing.Iterable, **attributes) -> typing.List[typing.Any]:
@@ -121,36 +151,6 @@ def get_all(iterable: typing.Iterable, **attributes) -> typing.List[typing.Any]:
             pass
 
     return l
-
-def get(iterable: typing.Iterable, **attributes) -> typing.Optional[typing.Any]:
-    """
-    A helper that returns the first element in the iterable that meets
-    all of the traits passed in ``attributes``.
-
-    .. note::
-
-        When multiple attributes are specified, they are checked using
-        logical AND, not logical OR. Meaning they have to meet every
-        attribute passed in and not one of them.
-
-    If nothing is found that matches the attributes passed, then
-    ``None`` is returned.
-
-    Parameters
-    ----------
-    iterable
-        An iterable to search through.
-    \\*\\*attributes
-        Keyword arguments that denote attributes to search with.
-
-    Returns
-    -------
-    Optional[Any]
-        The element that met all traits passed in ``attributes``.
-    """
-
-    l = get_all(iterable, **attributes)
-    return l[0] if l else None
 
 def iso_to_datetime(iso: str) -> datetime.datetime:
     """
