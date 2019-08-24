@@ -13,4 +13,5 @@ dist/
 github.py.egg-info/
 
 # project stuff
+tests/
 *.bat
