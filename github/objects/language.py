@@ -57,6 +57,14 @@ class Language(Node, Type):
         return self.data["color"]
 
     @property
+    def colour(self) -> str:
+        """
+        An alias for :attr:`~Language.color`.
+        """
+
+        return self.color
+
+    @property
     def name(self) -> str:
         """
         The name of the language.
