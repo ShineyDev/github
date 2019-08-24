@@ -1,19 +1,21 @@
 .. currentmodule:: github.errors
 
+
 Errors
 ======
 
-.. autoexception:: GitHubError
+.. autoexception:: GitHubError()
 
-.. autoexception:: HTTPException
+.. autoexception:: HTTPException()
 
-.. autoexception:: Forbidden
+.. autoexception:: Forbidden()
 
-.. autoexception:: Internal
+.. autoexception:: Internal()
 
-.. autoexception:: NotFound
+.. autoexception:: NotFound()
 
-.. autoexception:: Unauthorized
+.. autoexception:: Unauthorized()
+
 
 Exception Hierarchy:
 

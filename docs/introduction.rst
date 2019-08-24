@@ -1,43 +1,10 @@
-.. github.py readme
+.. currentmodule:: github
 
 
-github.py
-=========
+Introduction
+============
 
-.. image:: https://img.shields.io/github/contributors/ShineyDev/github.py.svg
-   :target: https://github.com/ShineyDev/github.py/graphs/contributors
-   :alt: GitHub contributors
-
-.. image:: https://readthedocs.org/projects/githubpy/badge/?version=latest
-   :target: https://githubpy.readthedocs.io/en/latest/
-   :alt: Documentation Status
-
-.. image:: https://img.shields.io/pypi/status/github.py.svg
-   :target: https://pypi.python.org/pypi/github.py
-   :alt: PyPI status information
-
-.. image:: https://img.shields.io/pypi/v/github.py.svg?color=blue
-   :target: https://pypi.python.org/pypi/github.py
-   :alt: PyPI version information
-
-.. image:: https://img.shields.io/pypi/pyversions/github.py.svg
-   :target: https://pypi.python.org/pypi/github.py
-   :alt: PyPI supported Python versions
-
-.. image:: https://img.shields.io/pypi/l/github.py.svg
-   :target: https://pypi.python.org/pypi/github.py
-   :alt: PyPI license information
-
-An asynchronous Python wrapper for the GitHub API, v4.
-
-
-Features
---------
-
-#. Modern, asynchronous, reliable, typed API.
-#. `Descriptive documentation <https://githubpy.readthedocs.io/en/latest/>`_.
-
-.. #. 100% coverage of the supported GitHub API. (soon)
+This is the documentation of github.py. An asynchronous python wrapper for the GitHub API, v4.
 
 
 Installation

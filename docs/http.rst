@@ -1,8 +1,9 @@
 .. currentmodule:: github.http
 
-HTTP
-====
 
-.. autoclass:: HTTPClient
+HTTPClient
+==========
+
+.. autoclass:: HTTPClient()
     :member-order: bysource
     :members:

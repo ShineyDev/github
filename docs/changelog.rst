@@ -1,5 +1,6 @@
 .. currentmodule:: github
 
+
 Changelog
 =========
 
@@ -17,6 +18,7 @@ New Features
 * Implement :func:`github.utils.find_all`.
 * Implement :func:`github.utils.find`.
 * Implement :func:`github.utils.get_all`.
+
 
 v0.3.1
 ------
@@ -41,6 +43,7 @@ Removed Features
 ~~~~~~~~~~~~~~~~
 
 * Remove typing from ``from_data`` and ``__init__`` non-user facing methods.
+
 
 v0.3.0
 ------
@@ -70,6 +73,7 @@ New Features
 * Implement :meth:`github.query.Builder.add_fragment`.
 * Implement :meth:`github.query.Collection.add_fragment`.
 
+
 v0.2.3
 ------
 
@@ -83,6 +87,7 @@ New Features
 
 * Implement :meth:`github.GitHub.fetch_codes_of_conduct`.
 
+
 v0.2.2
 ------
 
@@ -90,6 +95,7 @@ Bug Fixes
 ~~~~~~~~~
 
 * Fix typehints. (this should now allow linters and IDEs to work correctly)
+
 
 v0.2.1
 ------
@@ -99,6 +105,7 @@ Bug Fixes
 
 * Fix :attr:`github.Repository.license` AttributeError.
 * Fix :meth:`github.query.Collection.build` IndexError.
+
 
 v0.2.0
 ------
@@ -132,6 +139,7 @@ Updated Features
 * Move ``github/objects/repositorypermissions`` to ``github/enums/repositorypermissions``.
 * Move ``github/objects/repositorysubscription`` to ``github/enums/repositorysubscription``.
 
+
 v0.1.3
 ------
 
@@ -149,6 +157,7 @@ Updated Features
 ~~~~~~~~~~~~~~~~
 
 * Update exception system.
+
 
 v0.1.2
 ------
@@ -168,6 +177,7 @@ Updated Features
 
 * Update exception system.
 
+
 v0.1.1
 ------
 
@@ -175,6 +185,7 @@ Bug Fixes
 ~~~~~~~~~
 
 * Fix ``python_requires``.
+
 
 v0.1.0
 ------
@@ -191,6 +202,7 @@ New Features
 ~~~~~~~~~~~~
 
 * Implement ``__main__`` for ``py -m github --version``.
+
 
 < v0.1.0
 --------

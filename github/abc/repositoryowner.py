@@ -27,7 +27,28 @@ class RepositoryOwner():
 
     async def fetch_repository(self, name: str) -> "Repository":
         """
+        |coro|
+
         Fetches a repository from this repository owner.
+
+        Parameters
+        ----------
+        name: :class:`str`
+            The name of the repository to fetch.
+
+        Raises
+        ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+
+        Returns
+        -------
+        :class:`github.Repository`
+            The repository.
         """
 
         # prevent cyclic imports

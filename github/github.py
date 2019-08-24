@@ -334,7 +334,7 @@ class GitHub():
 
         Returns
         -------
-        :class:`~github.Node`
+        :class:`~github.abc.Node`
             A GitHub node.
         """
 
@@ -366,7 +366,7 @@ class GitHub():
 
         Returns
         -------
-        List[:class:`~github.Node`]
+        List[:class:`~github.abc.Node`]
             A list of GitHub nodes.
         """
 

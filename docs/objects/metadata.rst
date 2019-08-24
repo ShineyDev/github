@@ -1,9 +1,10 @@
 .. currentmodule:: github
 
 
-GitHub
-======
+Metadata
+========
 
-.. autoclass:: GitHub
+.. autoclass:: Metadata()
     :member-order: bysource
+    :inherited-members:
     :members:

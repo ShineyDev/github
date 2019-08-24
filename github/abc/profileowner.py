@@ -78,9 +78,25 @@ class ProfileOwner():
     
     async def fetch_email(self) -> typing.Optional[str]:
         """
+        |coro|
+
         Fetches the profile owner's email.
 
         Requires the ``user:email`` scope.
+
+        Raises
+        ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+
+        Returns
+        -------
+        Optional[:class:`str`]
+            The url pointing to the profile owner's email.
         """
 
         if self.data["__typename"] == "Organization":

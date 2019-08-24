@@ -47,14 +47,42 @@ class Reactable():
     @property
     def viewer_can_react(self) -> bool:
         """
-        Whether or not the authenticated user can react to this reactable.
+        Whether or not the authenticated user can react to this
+        reactable.
         """
 
         return self.data["viewerCanReact"]
 
     async def add_reaction(self, reaction: str):
         """
+        |coro|
+
         Adds a reaction to the reactable.
+
+        Example
+        -------
+
+        .. code:: py
+
+            comment = g.fetch_node("MDU6SXNzdWU0Nzg1MzgwMzA=")
+            await command.add_reaction(github.enums.Reaction.EYES)
+
+        Parameters
+        ----------
+        reaction: :class:`str`
+            The reaction to add.
+
+        Raises
+        ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Forbidden
+            You don't have permission to add reactions to the
+            reactable.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
         """
 
         if reaction not in reaction_enum._dict.keys():
@@ -65,7 +93,34 @@ class Reactable():
 
     async def remove_reaction(self, reaction: str):
         """
+        |coro|
+
         Removes a reaction from the reactable.
+
+        Example
+        -------
+
+        .. code:: py
+
+            comment = g.fetch_node("MDU6SXNzdWU0Nzg1MzgwMzA=")
+            await command.remove_reaction(github.enums.Reaction.EYES)
+
+        Parameters
+        ----------
+        reaction: :class:`str`
+            The reaction to remove.
+
+        Raises
+        ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Forbidden
+            You don't have permission to remove reactions from the
+            reactable.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
         """
 
         if reaction not in reaction_enum._dict.keys():

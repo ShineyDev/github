@@ -37,7 +37,20 @@ class Deletable():
 
     async def delete(self):
         """
+        |coro|
+
         Deletes the deletable.
+
+        Raises
+        ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Forbidden
+            You don't have permission to delete this deletable.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
         """
 
         if self.data["__typename"] == "CommitComment":

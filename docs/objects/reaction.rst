@@ -1,9 +1,10 @@
 .. currentmodule:: github
 
 
-GitHub
-======
+Reaction
+========
 
-.. autoclass:: GitHub
+.. autoclass:: Reaction()
     :member-order: bysource
+    :inherited-members:
     :members:

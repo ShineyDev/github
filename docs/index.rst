@@ -1,9 +1,20 @@
 .. github.py documentation master file
 
+
 github.py
 =========
 
 An asynchronous Python wrapper for the GitHub API, v4.
+
+
+Getting Started
+---------------
+
+.. toctree::
+    :maxdepth: 2
+
+    introduction
+
 
 Classes
 -------
@@ -13,23 +24,31 @@ Classes
 
     github
     http
+
+.. toctree::
+    :maxdepth: 2
     
     abc/index
     enums/index
     objects/index
 
+
 Other
 -----
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
     
     query
 
     errors
     utils
+
+.. toctree::
+    :maxdepth: 2
     
     changelog
+
 
 Still can't find what you're looking for?
 

@@ -52,7 +52,24 @@ class Updatable():
 
     async def update(self, **kwargs):
         """
+        |coro|
+
         Updates the updatable.
+
+        Parameters
+        ----------
+        i'll do this later
+
+        Raises
+        ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Forbidden
+            You don't have permission to update this updatable.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
         """
 
         ...

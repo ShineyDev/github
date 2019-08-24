@@ -43,7 +43,28 @@ class Actor():
 
     async def fetch_avatar_url(self, *, size: int=None) -> str:
         """
-        Fetches a url pointing to this actor's public avatar.
+        |coro|
+
+        Fetches a url pointing to the actor's avatar.
+
+        Parameters
+        ----------
+        size: :class:`int`
+            The size of the avatar.
+
+        Raises
+        ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+
+        Returns
+        -------
+        :class:`str`
+            The url pointing to the actor's avatar.
         """
         
         if self.data["__typename"] == "Bot":

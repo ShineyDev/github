@@ -1,5 +1,6 @@
 .. currentmodule:: github.query
 
+
 Building Queries & Mutations
 ============================
 

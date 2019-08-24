@@ -127,7 +127,7 @@ class License(Node, Type):
     @property
     def name(self) -> str:
         """
-        The license' full name specified by https://spdx.org/licenses.
+        The full name of the license specified by |spdx|.
         """
 
         return self.data["name"]
@@ -135,7 +135,7 @@ class License(Node, Type):
     @property
     def nickname(self) -> typing.Optional[str]:
         """
-        The license' customary short name.
+        The customary short name of the license.
         """
 
         return self.data["nickname"]
@@ -152,7 +152,7 @@ class License(Node, Type):
     @property
     def spdx_id(self) -> str:
         """
-        The license' short identifier specified by https://spdx.org/licenses.
+        The short identifier of the license specified by |spdx|.
         """
 
         return self.data["spdxId"]
@@ -160,7 +160,7 @@ class License(Node, Type):
     @property
     def url(self) -> str:
         """
-        The url to the license on https://choosealicense.com.
+        The url to the license on |choosealicense|.
         """
 
         return self.data["url"]

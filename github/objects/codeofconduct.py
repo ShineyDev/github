@@ -52,7 +52,7 @@ class CodeOfConduct(Node, Type):
     @property
     def body(self) -> str:
         """
-        The body of this Code of Conduct.
+        The body of the Code of Conduct.
         """
 
         return self.data["body"]
@@ -60,7 +60,7 @@ class CodeOfConduct(Node, Type):
     @property
     def key(self) -> str:
         """
-        The key for this Code of Conduct.
+        The key of the Code of Conduct.
         """
 
         return self.data["key"]
@@ -68,7 +68,7 @@ class CodeOfConduct(Node, Type):
     @property
     def name(self) -> str:
         """
-        The name of this Code of Conduct.
+        The name of the Code of Conduct.
         """
 
         return self.data["name"]
@@ -76,7 +76,7 @@ class CodeOfConduct(Node, Type):
     @property
     def url(self) -> str:
         """
-        The url for this Code of Conduct.
+        The url of the Code of Conduct.
         """
 
         return self.data["url"]

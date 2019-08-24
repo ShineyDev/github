@@ -1,9 +1,10 @@
 .. currentmodule:: github
 
 
-GitHub
-======
+Language
+========
 
-.. autoclass:: GitHub
+.. autoclass:: Language()
     :member-order: bysource
+    :inherited-members:
     :members:
