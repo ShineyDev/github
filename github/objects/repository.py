@@ -53,12 +53,12 @@ class Repository(Node, ProjectOwner, Type, UniformResourceLocatable):
     @classmethod
     def from_data(cls, data, http):
         if isinstance(data, dict):
-            return cls(data)
+            return cls(data, http)
         elif isinstance(data, list):
             repositories = list()
 
             for (repository) in data:
-                repositories.append(cls(repository))
+                repositories.append(cls(repository, http))
 
             return repositories
 
