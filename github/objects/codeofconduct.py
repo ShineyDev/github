@@ -20,9 +20,10 @@ import typing
 
 from github.abc import Node
 from github.abc import Type
+from github.abc import UniformResourceLocatable
 
 
-class CodeOfConduct(Node, Type):
+class CodeOfConduct(Node, Type, UniformResourceLocatable):
     """
     Represents a Code of Conduct.
 
@@ -72,11 +73,3 @@ class CodeOfConduct(Node, Type):
         """
 
         return self.data["name"]
-
-    @property
-    def url(self) -> str:
-        """
-        The url of the Code of Conduct.
-        """
-
-        return self.data["url"]
