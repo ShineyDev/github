@@ -209,30 +209,6 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["codeOfConduct"]
 
-    async def fetch_codes_of_conduct(self, *keys):
-        # https://developer.github.com/v4/object/codeofconduct/
-
-        fields = ["__typename", "body", "id", "key", "name", "url"]
-        fields = [query.Field(name=name) for name in fields]
-
-        builder = query.Builder(name="fetch_codes_of_conduct")
-
-        for (i, key) in enumerate(keys):
-            collection = query.Collection(name="codeOfConduct", alias="_{0}".format(i))
-            collection.add_argument(query.CollectionArgument(name="key", value="\"{0}\"".format(key)))
-            
-            for (field) in fields:
-                collection.add_field(field)
-                
-            builder.add_collection(collection)
-
-        json = {
-            "query": builder.build(),
-        }
-
-        data = await self.request(json=json)
-        return [value for (key, value) in data.items()]
-
     async def fetch_all_codes_of_conduct(self):
         # https://developer.github.com/v4/object/codeofconduct/
 
@@ -257,11 +233,6 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["license"]
-
-    async def fetch_licenses(self, *keys):
-        # https://developer.github.com/v4/object/license/
-
-        raise NotImplementedError("this method hasn't been implemented yet")
 
     async def fetch_all_licenses(self):
         # https://developer.github.com/v4/object/license/
@@ -470,11 +441,6 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["topic"]
 
-    async def fetch_topics(self, *names):
-        # https://developer.github.com/v4/object/topic/
-
-        raise NotImplementedError("this method hasn't been implemented yet")
-
     async def fetch_user(self, login):
         # https://developer.github.com/v4/object/user/
 
@@ -489,11 +455,6 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["user"]
-
-    async def fetch_users(self, *logins):
-        # https://developer.github.com/v4/object/user/
-
-        raise NotImplementedError("this method hasn't been implemented yet")
 
     async def fetch_user_avatar_url(self, login, size):
         # https://developer.github.com/v4/scalar/uri/

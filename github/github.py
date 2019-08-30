@@ -157,37 +157,6 @@ class GitHub():
         data = await self.http.fetch_code_of_conduct(key)
         return CodeOfConduct.from_data(data)
 
-    async def fetch_codes_of_conduct(self, *keys: str) -> typing.List[CodeOfConduct]:
-        """
-        |coro|
-
-        Fetches a list of GitHub codes of conduct.
-
-        .. versionadded:: 0.2.3
-
-        Parameters
-        ----------
-        *keys: :class:`str`
-            The code of conduct keys.
-
-        Raises
-        ------
-        ~github.errors.NotFound
-            A code of conduct with the given key does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-
-        Returns
-        -------
-        List[:class:`~github.CodeOfConduct`]
-            A list of GitHub codes of conduct.
-        """
-
-        data = await self.http.fetch_codes_of_conduct(*keys)
-        return CodeOfConduct.from_data(data)
-
     async def fetch_all_codes_of_conduct(self) -> typing.List[CodeOfConduct]:
         """
         |coro|
@@ -237,35 +206,6 @@ class GitHub():
         """
 
         data = await self.http.fetch_license(key)
-        return License.from_data(data)
-
-    async def fetch_licenses(self, *keys: str) -> typing.List[License]:
-        """
-        |coro|
-
-        Fetches a list of GitHub licenses.
-
-        Parameters
-        ----------
-        *keys: :class:`str`
-            The license keys.
-
-        Raises
-        ------
-        ~github.errors.NotFound
-            A license with the given key does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-
-        Returns
-        -------
-        List[:class:`~github.License`]
-            A list of GitHub licenses.
-        """
-
-        data = await self.http.fetch_licenses(*keys)
         return License.from_data(data)
 
     async def fetch_all_licenses(self) -> typing.List[License]:
@@ -510,35 +450,6 @@ class GitHub():
         data = await self.http.fetch_topic(name)
         return Topic.from_data(data)
 
-    async def fetch_topics(self, *names: str) -> typing.List[Topic]:
-        """
-        |coro|
-
-        Fetches a list of GitHub topics.
-
-        Parameters
-        ----------
-        *names: :class:`str`
-            The topic names.
-
-        Raises
-        ------
-        ~github.errors.NotFound
-            A topic with the given name does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-
-        Returns
-        -------
-        List[:class:`~github.Topic`]
-            A list of GitHub topics.
-        """
-
-        data = await self.http.fetch_topics(*names)
-        return Topic.from_data(data)
-
     async def fetch_user(self, login: str) -> User:
         """
         |coro|
@@ -566,34 +477,5 @@ class GitHub():
         """
 
         data = await self.http.fetch_user(login)
-        return User.from_data(data, self.http)
-
-    async def fetch_users(self, *logins: str) -> typing.List[User]:
-        """
-        |coro|
-
-        Fetches a list of GitHub users.
-
-        Parameters
-        ----------
-        *logins: :class:`str`
-            The user's logins.
-
-        Raises
-        ------
-        ~github.errors.NotFound
-            A user with the given login does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-
-        Returns
-        -------
-        List[:class:`~github.User`]
-            A list of GitHub users.
-        """
-
-        data = await self.http.fetch_users(*logins)
         return User.from_data(data, self.http)
     
