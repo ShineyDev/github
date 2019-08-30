@@ -25,6 +25,7 @@ from github.abc.projectowner import ProjectOwner
 from github.abc.reactable import Reactable
 from github.abc.repositorynode import RepositoryNode
 from github.abc.repositoryowner import RepositoryOwner
+from github.abc.subscribable import Subscribable
 from github.abc.type import Type
 from github.abc.updatable import Updatable
 from github.abc.uniformresourcelocatable import UniformResourceLocatable

@@ -22,11 +22,11 @@ import typing
 from github import utils
 from github.abc import Node
 from github.abc import ProjectOwner
+from github.abc import Subscribable
 from github.abc import Type
 from github.abc import UniformResourceLocatable
 from github.enums import RepositoryLockReason
 from github.enums import RepositoryPermissions
-from github.enums import RepositorySubscription
 from .codeofconduct import CodeOfConduct
 from .language import Language
 from .license import License
@@ -34,7 +34,7 @@ from .organization import Organization
 from .user import User
 
 
-class Repository(Node, ProjectOwner, Type, UniformResourceLocatable):
+class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatable):
     """
     Represents a GitHub repository.
 
@@ -327,14 +327,6 @@ class Repository(Node, ProjectOwner, Type, UniformResourceLocatable):
         return self.data["viewerCanAdminister"]
 
     @property
-    def viewer_can_subscribe(self) -> bool:
-        """
-        Whether or not the authenticated user can subscribe to the repository.
-        """
-
-        return self.data["viewerCanSubscribe"]
-
-    @property
     def viewer_can_update_topics(self) -> bool:
         """
         Whether or not the authenticated user can update topics in the repository.
@@ -350,15 +342,6 @@ class Repository(Node, ProjectOwner, Type, UniformResourceLocatable):
 
         permissions = self.data["viewerPermission"]
         return RepositoryPermissions.from_data(permissions)
-
-    @property
-    def viewer_subscription(self) -> RepositorySubscription:
-        """
-        The authenticated user's subscription to the repository.
-        """
-
-        subscription = self.data["viewerSubscription"]
-        return RepositorySubscription.from_data(subscription)
 
     async def fetch_assignable_users(self):
         """
