@@ -192,6 +192,9 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["viewer"]
 
+    async def fetch_bot_avatar_url(self, login, size):
+        raise NotImplementedError("this method is not yet implemented")
+
     async def fetch_code_of_conduct(self, key):
         # https://developer.github.com/v4/object/codeofconduct/
 
@@ -241,6 +244,9 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["licenses"]
+
+    async def fetch_mannequin_avatar_url(self, login, size):
+        raise NotImplementedError("this method is not yet implemented")
 
     async def fetch_metadata(self):
         # https://developer.github.com/v4/object/githubmetadata/
