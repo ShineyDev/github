@@ -552,3 +552,8 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["user"]["email"]
+
+    async def update_subscription(self, id, state):
+        # https://developer.github.com/v4/mutation/updatesubscription/
+
+        raise NotImplementedError("this method is not yet implemented")

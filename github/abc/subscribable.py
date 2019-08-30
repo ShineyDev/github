@@ -50,7 +50,7 @@ class Subscribable():
         Updates the authenticated user's subscription state to "IGNORED".
         """
 
-        ...
+        await self.http.update_subscription(self.id, "IGNORED")
         
     async def subscribe(self):
         """
@@ -59,7 +59,7 @@ class Subscribable():
         Updates the authenticated user's subscription state to "SUBSCRIBED".
         """
 
-        ...
+        await self.http.update_subscription(self.id, "SUBSCRIBED")
 
     async def unsubscribe(self):
         """
@@ -68,4 +68,4 @@ class Subscribable():
         Updates the authenticated user's subscription state to "UNSUBSCRIBED".
         """
 
-        ...
+        await self.http.update_subscription(self.id, "UNSUBSCRIBED")
