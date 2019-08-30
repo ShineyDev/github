@@ -183,8 +183,6 @@ class HTTPClient():
         return data["data"]
 
     async def fetch_authenticated_user(self):
-        # https://developer.github.com/v4/object/user/
-
         json = {
             "query": query.FETCH_AUTHENTICATED_USER,
         }
@@ -196,8 +194,6 @@ class HTTPClient():
         raise NotImplementedError("this method is not yet implemented")
 
     async def fetch_code_of_conduct(self, key):
-        # https://developer.github.com/v4/object/codeofconduct/
-
         variables = {
             "key": key,
         }
@@ -211,8 +207,6 @@ class HTTPClient():
         return data["codeOfConduct"]
 
     async def fetch_all_codes_of_conduct(self):
-        # https://developer.github.com/v4/object/codeofconduct/
-
         json = {
             "query": query.FETCH_ALL_CODES_OF_CONDUCT,
         }
@@ -221,8 +215,6 @@ class HTTPClient():
         return data["codesOfConduct"]
 
     async def fetch_license(self, key):
-        # https://developer.github.com/v4/object/license/
-
         variables = {
             "key": key,
         }
@@ -236,8 +228,6 @@ class HTTPClient():
         return data["license"]
 
     async def fetch_all_licenses(self):
-        # https://developer.github.com/v4/object/license/
-
         json = {
             "query": query.FETCH_ALL_LICENSES,
         }
@@ -249,8 +239,6 @@ class HTTPClient():
         raise NotImplementedError("this method is not yet implemented")
 
     async def fetch_metadata(self):
-        # https://developer.github.com/v4/object/githubmetadata/
-
         json = {
             "query": query.FETCH_METADATA,
         }
@@ -259,8 +247,6 @@ class HTTPClient():
         return data["meta"]
 
     async def fetch_node(self, id):
-        # https://developer.github.com/v4/interface/node/
-
         variables = {
             "id": id,
         }
@@ -274,8 +260,6 @@ class HTTPClient():
         return data["node"]
 
     async def fetch_nodes(self, *ids):
-        # https://developer.github.com/v4/interface/node/
-
         variables = {
             "ids": ids,
         }
@@ -289,8 +273,6 @@ class HTTPClient():
         return data["nodes"]
 
     async def fetch_organization(self, login):
-        # https://developer.github.com/v4/object/organization/
-
         variables = {
             "login": login,
         }
@@ -304,8 +286,6 @@ class HTTPClient():
         return data["organization"]
 
     async def fetch_organization_avatar_url(self, login, size):
-        # https://developer.github.com/v4/scalar/uri/
-
         variables = {
             "login": login,
             "size": size,
@@ -320,8 +300,6 @@ class HTTPClient():
         return data["organization"]["avatarUrl"]
 
     async def fetch_organization_email(self, login):
-        # https://developer.github.com/v4/scalar/string/
-
         variables = {
             "login": login,
         }
@@ -335,8 +313,6 @@ class HTTPClient():
         return data["organization"]["email"]
     
     async def fetch_rate_limit(self):
-        # https://developer.github.com/v4/object/ratelimit/
-
         json = {
             "query": query.FETCH_RATE_LIMIT,
         }
@@ -345,8 +321,6 @@ class HTTPClient():
         return data["rateLimit"]
 
     async def fetch_repository(self, owner, name):
-        # https://developer.github.com/v4/object/repository/
-
         variables = {
             "owner": owner,
             "name": name,
@@ -361,8 +335,6 @@ class HTTPClient():
         return data["repository"]
 
     async def fetch_repository_assignable_users(self, owner, name):
-        # https://developer.github.com/v4/object/user/
-
         nodes = list()
         
         cursor = "Y3Vyc29yOnYyOjA="
@@ -389,8 +361,6 @@ class HTTPClient():
         return nodes
 
     async def fetch_repository_collaborators(self, owner, name):
-        # https://developer.github.com/v4/object/user/
-
         nodes = list()
         
         cursor = "Y3Vyc29yOnYyOjA="
@@ -417,8 +387,6 @@ class HTTPClient():
         return nodes
 
     async def fetch_scopes(self):
-        # https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
-
         headers = dict()
         headers.update({"Authorization": "bearer {0}".format(self._token)})
         headers.update({"User-Agent": self._user_agent})
@@ -431,8 +399,6 @@ class HTTPClient():
         return [s for s in scopes.split(", ") if s]
 
     async def fetch_topic(self, name):
-        # https://developer.github.com/v4/object/topic/
-
         variables = {
             "name": name,
         }
@@ -446,8 +412,6 @@ class HTTPClient():
         return data["topic"]
 
     async def fetch_user(self, login):
-        # https://developer.github.com/v4/object/user/
-
         variables = {
             "login": login,
         }
@@ -461,8 +425,6 @@ class HTTPClient():
         return data["user"]
 
     async def fetch_user_avatar_url(self, login, size):
-        # https://developer.github.com/v4/scalar/uri/
-
         variables = {
             "login": login,
             "size": size,
@@ -477,8 +439,6 @@ class HTTPClient():
         return data["user"]["avatarUrl"]
 
     async def fetch_user_commit_comments(self, login):
-        # https://developer.github.com/v4/object/commitcomment/
-
         nodes = list()
         
         cursor = "Y3Vyc29yOnYyOjA="
@@ -504,8 +464,6 @@ class HTTPClient():
         return nodes
 
     async def fetch_user_email(self, login):
-        # https://developer.github.com/v4/scalar/string/
-
         variables = {
             "login": login,
         }
@@ -519,6 +477,4 @@ class HTTPClient():
         return data["user"]["email"]
 
     async def update_subscription(self, id, state):
-        # https://developer.github.com/v4/mutation/updatesubscription/
-
         raise NotImplementedError("this method is not yet implemented")
