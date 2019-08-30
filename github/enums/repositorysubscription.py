@@ -18,7 +18,7 @@
 
 class RepositorySubscription():
     """
-    Represents a user's subscription state for a repository.
+    Represents a user's subscription state.
 
     https://developer.github.com/v4/enum/subscriptionstate/
     """
