@@ -35,7 +35,7 @@ class Comment():
     __slots__ = ()
 
     @property
-    def author(self) -> typing.Union["User"]:
+    def author(self) -> typing.Union["Organization", "User"]:
         """
         The actor who authored the comment.
         """
