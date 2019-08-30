@@ -16,8 +16,6 @@
     limitations under the License.
 """
 
-import logging
-
 import aiohttp
 
 from github import context
