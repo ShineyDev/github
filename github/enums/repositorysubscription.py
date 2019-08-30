@@ -36,6 +36,14 @@ class RepositorySubscription():
         return cls(subscription)
 
     @property
+    def ignored(self) -> bool:
+        """
+        The user is never notified.
+        """
+
+        return self._subscription == "IGNORED"
+
+    @property
     def subscribed(self) -> bool:
         """
         The user is notified of all conversations.
@@ -50,11 +58,3 @@ class RepositorySubscription():
         """
 
         return self._subscription == "UNSUBSCRIBED"
-
-    @property
-    def ignored(self) -> bool:
-        """
-        The user is never notified.
-        """
-
-        return self._subscription == "IGNORED"
