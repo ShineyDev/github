@@ -45,12 +45,7 @@ class Reaction(Type):
 
     @classmethod
     def from_data(data, http):
-        reactions = list()
-
-        for (reaction) in data:
-            reactions.append(cls(reaction, http))
-
-        return reactions
+        return [cls(reaction, http) for reaction in data]
 
     @property
     def created_at(self) -> datetime.datetime:

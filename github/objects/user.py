@@ -51,12 +51,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type, Unifo
         if isinstance(data, dict):
             return cls(data, http)
         elif isinstance(data, list):
-            users = list()
-
-            for (user) in data:
-                users.append(cls(user, http))
-
-            return users
+            return [cls(user, http) for user in data]
 
     @property
     def bio(self) -> str:
@@ -172,5 +167,5 @@ class AuthenticatedUser(User):
     """
 
     @classmethod
-    def from_data(cls, data: dict, http) -> "AuthenticatedUser":
+    def from_data(cls, data, http):
         return cls(data, http)

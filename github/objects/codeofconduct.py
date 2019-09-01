@@ -43,12 +43,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         if isinstance(data, dict):
             return cls(data)
         elif isinstance(data, list):
-            codes_of_conduct = list()
-
-            for (code_of_conduct) in data:
-                codes_of_conduct.append(cls(code_of_conduct))
-
-            return codes_of_conduct
+           return [cls(code) for code in data]
 
     @property
     def body(self) -> str:

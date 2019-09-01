@@ -38,12 +38,7 @@ class LicenseRule(Type):
 
     @classmethod
     def from_data(cls, data):
-        rules = list()
-
-        for (rule) in data:
-            rules.append(cls(rule))
-
-        return rules
+        return [cls(rule) for rule in data]
     
     @property
     def description(self) -> str:

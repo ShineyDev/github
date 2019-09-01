@@ -48,12 +48,7 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
         if isinstance(data, dict):
             return cls(data, http)
         elif isinstance(data, list):
-            organizations = list()
-
-            for (organization) in data:
-                organizations.append(cls(organization, http))
-
-            return organizations
+            return [cls(organization, http) for organization in data]
 
     @property
     def database_id(self) -> int:

@@ -43,12 +43,7 @@ class License(Node, Type):
         if isinstance(data, dict):
             return cls(data)
         elif isinstance(data, list):
-            licenses = list()
-
-            for (license) in data:
-                licenses.append(cls(license))
-
-            return licenses
+            return [cls(license) for license in data]
 
     @property
     def body(self) -> str:

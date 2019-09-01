@@ -42,12 +42,7 @@ class Topic(Node, Type):
         if isinstance(data, dict):
             return cls(data)
         elif isinstance(data, list):
-            topics = list()
-
-            for (topic) in data:
-                topics.append(cls(topic))
-
-            return topics
+            return [cls(topic) for topic in data]
 
     @property
     def name(self) -> str:

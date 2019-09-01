@@ -55,12 +55,7 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
         if isinstance(data, dict):
             return cls(data, http)
         elif isinstance(data, list):
-            repositories = list()
-
-            for (repository) in data:
-                repositories.append(cls(repository, http))
-
-            return repositories
+            return [cls(repository, http) for repository in data]
 
     @property
     def allows_merge_commit(self) -> bool:
