@@ -25,11 +25,21 @@ from github.abc import Type
 from github.abc import Updatable
 
 
-class CommitComment(Comment, Deletable, Node, Reactable, RepositoryNode, Updatable, Type):
+class CommitComment(Comment, Deletable, Node, Reactable, RepositoryNode, Type, Updatable):
     """
     Represents a comment on a :class:`~github.Commit`.
 
     https://developer.github.com/v4/object/commitcomment/
+
+    Implements:
+
+    * :class:`~github.abc.Comment`
+    * :class:`~github.abc.Deletable`
+    * :class:`~github.abc.Node`
+    * :class:`~github.abc.Reactable`
+    * :class:`~github.abc.RepositoryNode`
+    * :class:`~github.abc.Type`
+    * :class:`~github.abc.Updatable`
 
     .. versionadded:: 0.2.0
     """

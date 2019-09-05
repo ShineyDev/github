@@ -28,6 +28,11 @@ class License(Node, Type):
     A repository's source license.
 
     https://developer.github.com/v4/object/license/
+
+    Implements:
+
+    * :class:`~github.abc.Node`
+    * :class:`~github.abc.Type`
     """
 
     __slots__ = ("data",)

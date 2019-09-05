@@ -28,6 +28,12 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
     Represents a Code of Conduct.
 
     https://developer.github.com/v4/object/codeofconduct
+
+    Implements:
+
+    * :class:`~github.abc.Node`
+    * :class:`~github.abc.Type`
+    * :class:`~github.abc.UniformResourceLocatable`
     """
 
     __slots__ = ("data",)

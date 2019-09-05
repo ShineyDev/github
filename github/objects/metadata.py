@@ -26,6 +26,10 @@ class Metadata(Type):
     Represents information about the GitHub instance.
 
     https://developer.github.com/v4/object/githubmetadata/
+
+    Implements:
+
+    * :class:`~github.abc.Type`
     """
 
     __slots__ = ("data",)

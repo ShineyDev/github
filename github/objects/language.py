@@ -26,6 +26,11 @@ class Language(Node, Type):
     Represents a programming language found in repositories.
 
     https://developer.github.com/v4/object/language/
+
+    Implements:
+
+    * :class:`~github.abc.Node`
+    * :class:`~github.abc.Type`
     """
 
     __slots__ = ("data",)

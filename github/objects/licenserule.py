@@ -26,6 +26,10 @@ class LicenseRule(Type):
     Represents a license's conditions, permissions, or limitations.
 
     https://developer.github.com/v4/object/licenserule/
+
+    Implements:
+
+    * :class:`~github.abc.Type`
     """
 
     __slots__ = ("data",)

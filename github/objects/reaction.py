@@ -31,6 +31,10 @@ class Reaction(Type):
 
     https://developer.github.com/v4/object/reactiongroup/
 
+    Implements:
+
+    * :class:`~github.abc.Type`
+
     .. versionadded:: 0.2.0
     """
 

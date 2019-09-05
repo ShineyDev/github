@@ -39,6 +39,14 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     Represents a GitHub repository.
 
     https://developer.github.com/v4/object/repository/
+
+    Implements:
+
+    * :class:`~github.abc.Node`
+    * :class:`~github.abc.ProjectOwner`
+    * :class:`~github.abc.Subscribable`
+    * :class:`~github.abc.Type`
+    * :class:`~github.abc.UniformResourceLocatable`
     """
 
     __slots__ = ("data", "http")

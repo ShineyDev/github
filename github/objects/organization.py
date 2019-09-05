@@ -27,11 +27,22 @@ from github.abc import Type
 from github.abc import UniformResourceLocatable
 
 
-class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type, UniformResourceLocatable):
+class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
+                   UniformResourceLocatable):
     """
     Represents a GitHub organization.
 
     https://developer.github.com/v4/object/organization/
+
+    Implements:
+
+    * :class:`~github.abc.Actor`
+    * :class:`~github.abc.Node`
+    * :class:`~github.abc.ProfileOwner`
+    * :class:`~github.abc.ProjectOwner`
+    * :class:`~github.abc.RepositoryOwner`
+    * :class:`~github.abc.Type`
+    * :class:`~github.abc.UniformResourceLocatable`
     """
 
     __slots__ = ("data", "http")

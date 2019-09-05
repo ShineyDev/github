@@ -27,6 +27,10 @@ class RateLimit(Type):
     Represents the viewer's rate limit.
 
     https://developer.github.com/v4/object/ratelimit/
+
+    Implements:
+
+    * :class:`~github.abc.Type`
     """
 
     __slots__ = ("data",)

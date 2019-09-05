@@ -27,6 +27,11 @@ class Topic(Node, Type):
     Represents a GitHub topic.
 
     https://developer.github.com/v4/object/topic/
+
+    Implements:
+
+    * :class:`~github.abc.Node`
+    * :class:`~github.abc.Type`
     """
 
     __slots__ = ("data",)
