@@ -65,7 +65,7 @@ class Reactable():
         .. code:: py
 
             comment = g.fetch_node("MDU6SXNzdWU0Nzg1MzgwMzA=")
-            await command.add_reaction(github.enums.Reaction.EYES)
+            await comment.add_reaction(github.enums.Reaction.EYES)
 
         Parameters
         ----------
@@ -103,7 +103,7 @@ class Reactable():
         .. code:: py
 
             comment = g.fetch_node("MDU6SXNzdWU0Nzg1MzgwMzA=")
-            await command.remove_reaction(github.enums.Reaction.EYES)
+            await comment.remove_reaction(github.enums.Reaction.EYES)
 
         Parameters
         ----------
