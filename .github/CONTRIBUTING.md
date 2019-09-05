@@ -5,7 +5,7 @@ The following is a set of guidelines, not rules, for contributing to github.py.
 
 ## Issue Guidelines
 
-A good example issue can be found [here](https://github.com/ShineyDev/github.py/issues/5).
+A good example issue can be found [here](https://github.com/ShineyDev/github.py/issues/5/).
 
 For the most part, the chosen issue template will walk you through what to put in each section.
 
@@ -36,7 +36,7 @@ For the most part, the chosen issue template will walk you through what to put i
 
 ### Question
 
-- Questions related to GitHub should be sent to [GitHub Support](https://github.com/contact) instead.
+- Questions related to GitHub should be sent to [GitHub Support](https://github.com/contact/) instead.
 
 
 ## Pull Request Guidelines
