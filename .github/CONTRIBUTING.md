@@ -43,9 +43,11 @@ For the most part, the chosen issue template will walk you through what to put i
 
 <!-- A good example pull request can be found [here](...). -->
 
+It would be great if contributors could keep the style of this project consistent. This project follows PEP-8, mostly, with a `class`/`def` column limit of ~100.
+
 - Do not open duplicate pull requests - they will be closed.
 - Try to focus on a single aspect - if another pull request is necessary, create one.
-- Try to follow general python guidelines; such as [PEP-8](https://www.python.org/dev/peps/pep-0008/).
+- Try to follow general python guidelines; such as [PEP-8](https://www.python.org/dev/peps/pep-0008/). (notes above!)
 - Remember. :clap: To. :clap: Test.
 
 
