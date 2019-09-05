@@ -175,6 +175,18 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
 class AuthenticatedUser(User):
     """
     Represents the authenticated GitHub user account, "viewer".
+
+    https://developer.github.com/v4/object/user/
+
+    Implements:
+
+    * :class:`~github.abc.Actor`
+    * :class:`~github.abc.Node`
+    * :class:`~github.abc.ProfileOwner`
+    * :class:`~github.abc.ProjectOwner`
+    * :class:`~github.abc.RepositoryOwner`
+    * :class:`~github.abc.Type`
+    * :class:`~github.abc.UniformResourceLocatable`
     """
 
     @classmethod

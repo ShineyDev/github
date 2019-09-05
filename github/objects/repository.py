@@ -368,6 +368,14 @@ class PartialRepository(Repository):
 
     https://developer.github.com/v4/object/repository/
 
+    Implements:
+
+    * :class:`~github.abc.Node`
+    * :class:`~github.abc.ProjectOwner`
+    * :class:`~github.abc.Subscribable`
+    * :class:`~github.abc.Type`
+    * :class:`~github.abc.UniformResourceLocatable`
+
     Using this partial-class will result in the following attributes being ``None`` at all times:
 
     * :attr:`~github.Repository.parent`

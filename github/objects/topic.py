@@ -77,6 +77,11 @@ class PartialTopic(Topic):
 
     https://developer.github.com/v4/object/topic/
 
+    Implements:
+
+    * :class:`~github.abc.Node`
+    * :class:`~github.abc.Type`
+
     Using this partial-class will result in the following attributes being ``None`` at all times:
 
     * :attr:`~github.Topic.related_topics`
