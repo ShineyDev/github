@@ -22,6 +22,12 @@ from github.enums import RepositorySubscription as SubscriptionState
 class Subscribable():
     """
     Represents an object which can be subscribed to.
+
+    https://developer.github.com/v4/interface/subscribable/
+
+    Implemented by:
+
+    * :class:`~github.Repository`
     """
 
     __slots__ = ()

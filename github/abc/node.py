@@ -24,6 +24,18 @@ class Node():
     Represents an object with an ID.
 
     https://developer.github.com/v4/interface/node/
+
+    Implemented by:
+    
+    * :class:`~github.AuthenticatedUser`
+    * :class:`~github.CodeOfConduct`
+    * :class:`~github.CommitComment`
+    * :class:`~github.Language`
+    * :class:`~github.License`
+    * :class:`~github.Organization`
+    * :class:`~github.Repository`
+    * :class:`~github.Topic`
+    * :class:`~github.User`
     """
 
     __slots__ = ("data",)

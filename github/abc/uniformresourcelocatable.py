@@ -21,6 +21,14 @@ class UniformResourceLocatable():
     Represents an object that can be retrieved by a URL.
 
     https://developer.github.com/v4/interface/uniformresourcelocatable/
+
+    Implemented by:
+    
+    * :class:`~github.AuthenticatedUser`
+    * :class:`~github.CodeOfConduct`
+    * :class:`~github.Organization`
+    * :class:`~github.Repository`
+    * :class:`~github.User`
     """
 
     __slots__ = ()

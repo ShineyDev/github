@@ -21,6 +21,11 @@ class Actor():
     Represents an object which can take actions on GitHub.
 
     https://developer.github.com/v4/interface/actor/
+
+    Implemented by:
+
+    * :class:`~github.Organization`
+    * :class:`~github.User`
     """
 
     __slots__ = ()

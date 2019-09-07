@@ -19,6 +19,22 @@
 class Type():
     """
     Represents an object type.
+
+    Implemented by:
+    
+    * :class:`~github.AuthenticatedUser`
+    * :class:`~github.CodeOfConduct`
+    * :class:`~github.CommitComment`
+    * :class:`~github.Language`
+    * :class:`~github.License`
+    * :class:`~github.LicenseRule`
+    * :class:`~github.Metadata`
+    * :class:`~github.Organization`
+    * :class:`~github.RateLimit`
+    * :class:`~github.Reaction`
+    * :class:`~github.Repository`
+    * :class:`~github.Topic`
+    * :class:`~github.User`
     """
 
     __slots__ = ()

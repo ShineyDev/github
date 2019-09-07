@@ -27,6 +27,10 @@ class Updatable():
 
     https://developer.github.com/v4/interface/updatable/
 
+    Implemented by:
+
+    * :class:`~github.CommitComment`
+
     .. versionadded:: 0.2.0
     """
 

@@ -22,6 +22,10 @@ class RepositoryNode():
 
     https://developer.github.com/v4/interface/repositorynode/
 
+    Implemented by:
+
+    * :class:`~github.CommitComment`
+
     .. versionadded:: 0.2.0
     """
 

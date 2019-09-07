@@ -24,6 +24,12 @@ class ProfileOwner():
     Represents the owner of a GitHub profile.
 
     https://developer.github.com/v4/interface/profileowner/
+
+    Implemented by:
+    
+    * :class:`~github.AuthenticatedUser`
+    * :class:`~github.Organization`
+    * :class:`~github.User`
     """
 
     __slots__ = ()

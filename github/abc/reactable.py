@@ -27,6 +27,10 @@ class Reactable():
 
     https://developer.github.com/v4/interface/reactable/
 
+    Implemented by:
+
+    * :class:`~github.CommitComment`
+
     .. versionadded:: 0.2.0
     """
 

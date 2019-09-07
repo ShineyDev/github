@@ -21,6 +21,13 @@ class ProjectOwner():
     Represents the owner of a GitHub project.
 
     https://developer.github.com/v4/interface/projectowner/
+
+    Implemented by:
+
+    * :class:`~github.AuthenticatedUser`
+    * :class:`~github.Organization`
+    * :class:`~github.Repository`
+    * :class:`~github.User`
     """
 
     __slots__ = ()

@@ -21,6 +21,12 @@ class RepositoryOwner():
     Represents the owner of a GitHub repository.
 
     https://developer.github.com/v4/interface/repositoryowner/
+
+    Implemented by:
+
+    * :class:`~github.AuthenticatedUser`
+    * :class:`~github.Organization`
+    * :class:`~github.User`
     """
 
     __slots__ = ()
