@@ -24,7 +24,7 @@ from github import query
 
 
 DEFAULT_BASE_URL = "https://api.github.com/graphql"
-DEFAULT_USER_AGENT = "ShineyDev/github"
+DEFAULT_USER_AGENT = "ShineyDev/github.py"
 
 
 class HTTPClient():
