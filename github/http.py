@@ -182,6 +182,9 @@ class HTTPClient():
 
         return data["data"]
 
+    async def fetch_assignable_assignees(self, assignable_id):
+        raise NotImplementedError("this method is not yet implemented")
+
     async def fetch_authenticated_user(self):
         json = {
             "query": query.FETCH_AUTHENTICATED_USER,
@@ -475,6 +478,12 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["user"]["email"]
+
+    async def add_assignees(self, assignable_id, assignee_ids):
+        raise NotImplementedError("this method is not yet implemented")
+
+    async def remove_assignees(self, assignable_id, assignee_ids):
+        raise NotImplementedError("this method is not yet implemented")
 
     async def update_subscription(self, id, state):
         raise NotImplementedError("this method is not yet implemented")
