@@ -217,6 +217,9 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["codesOfConduct"]
 
+    async def fetch_commentable_comments(self, commentable_id):
+        raise NotImplementedError("this method is not yet implemented")
+
     async def fetch_license(self, key):
         variables = {
             "key": key,
@@ -480,6 +483,9 @@ class HTTPClient():
         return data["user"]["email"]
 
     async def add_assignees(self, assignable_id, assignee_ids):
+        raise NotImplementedError("this method is not yet implemented")
+
+    async def add_comment(self, commentable_id, body):
         raise NotImplementedError("this method is not yet implemented")
 
     async def close_issue(self, issue_id):

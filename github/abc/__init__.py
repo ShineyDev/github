@@ -20,6 +20,7 @@ from github.abc.actor import Actor
 from github.abc.assignable import Assignable
 from github.abc.closable import Closable
 from github.abc.comment import Comment
+from github.abc.commentable import Commentable
 from github.abc.deletable import Deletable
 from github.abc.node import Node
 from github.abc.profileowner import ProfileOwner
