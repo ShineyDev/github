@@ -18,6 +18,7 @@
 
 from github.enums.cannotupdatereason import CannotUpdateReason
 from github.enums.commentauthorassociation import CommentAuthorAssociation
+from github.enums.lockreason import LockReason
 from github.enums.reaction import Reaction
 from github.enums.repositorylockreason import RepositoryLockReason
 from github.enums.repositorypermissions import RepositoryPermissions
