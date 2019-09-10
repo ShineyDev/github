@@ -16,6 +16,8 @@
     limitations under the License.
 """
 
+import uuid
+
 import aiohttp
 
 from github import context
@@ -23,8 +25,8 @@ from github import errors
 from github import query
 
 
-DEFAULT_BASE_URL = "https://api.github.com/graphql"
-DEFAULT_USER_AGENT = "ShineyDev/github.py"
+_DEFAULT_BASE_URL = "https://api.github.com/graphql"
+_DEFAULT_USER_AGENT = "ShineyDev/github.py:{0}"
 
 
 class HTTPClient():
@@ -38,12 +40,14 @@ class HTTPClient():
     This class is only exposed for :meth:`~HTTPClient.request`.
     """
 
-    __slots__ = ("_token", "_base_url", "_user_agent", "_session", "_exceptions")
+    __slots__ = ("_uuid", "_token", "_base_url", "_user_agent", "_session", "_exceptions")
 
     def __init__(self, token, *, base_url=None, user_agent=None, session=None):
+        self._uuid = uuid.uuid4()
+
         self._token = token
-        self._base_url = base_url or DEFAULT_BASE_URL
-        self._user_agent = user_agent or DEFAULT_USER_AGENT
+        self._base_url = base_url or _DEFAULT_BASE_URL
+        self._user_agent = user_agent or _DEFAULT_USER_AGENT.format(self._uuid)
         self._session = session
 
         self._exceptions = {
@@ -62,7 +66,7 @@ class HTTPClient():
 
     @base_url.setter
     def base_url(self, value: str=None):
-        self._base_url = value or DEFAULT_BASE_URL
+        self._base_url = value or _DEFAULT_BASE_URL
 
     @property
     def user_agent(self) -> str:
@@ -70,7 +74,7 @@ class HTTPClient():
 
     @user_agent.setter
     def user_agent(self, value: str=None):
-        self._user_agent = value or DEFAULT_USER_AGENT
+        self._user_agent = value or _DEFAULT_USER_AGENT.format(self._uuid)
 
     async def _request(self, *, method, json, headers, session):
         async with session.request(method, self._base_url, json=json, headers=headers) as response:
