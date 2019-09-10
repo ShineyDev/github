@@ -22,6 +22,7 @@ from github.abc.closable import Closable
 from github.abc.comment import Comment
 from github.abc.commentable import Commentable
 from github.abc.deletable import Deletable
+from github.abc.labelable import Labelable
 from github.abc.node import Node
 from github.abc.profileowner import ProfileOwner
 from github.abc.projectowner import ProjectOwner
