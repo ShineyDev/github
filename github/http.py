@@ -220,6 +220,12 @@ class HTTPClient():
     async def fetch_commentable_comments(self, commentable_id):
         raise NotImplementedError("this method is not yet implemented")
 
+    async def fetch_label_issues(self, label_id):
+        raise NotImplementedError("this method is not yet implemented")
+
+    async def fetch_label_pull_requests(self, label_id):
+        raise NotImplementedError("this method is not yet implemented")
+
     async def fetch_labelable_labels(self, labelable_id):
         raise NotImplementedError("this method is not yet implemented")
 

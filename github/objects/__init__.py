@@ -18,6 +18,7 @@
 
 from github.objects.codeofconduct import CodeOfConduct
 from github.objects.commitcomment import CommitComment
+from github.objects.label import Label
 from github.objects.language import Language
 from github.objects.license import License
 from github.objects.licenserule import LicenseRule
