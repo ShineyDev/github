@@ -503,6 +503,9 @@ class HTTPClient():
     async def close_pull_request(self, pull_request_id):
         raise NotImplementedError("this method is not yet implemented")
 
+    async def lock(self, lockable_id, reason):
+        raise NotImplementedError("this method is not yet implemented")
+
     async def remove_assignees(self, assignable_id, assignee_ids):
         raise NotImplementedError("this method is not yet implemented")
 
@@ -513,6 +516,9 @@ class HTTPClient():
         raise NotImplementedError("this method is not yet implemented")
 
     async def reopen_pull_request(self, pull_request_id):
+        raise NotImplementedError("this method is not yet implemented")
+
+    async def unlock(self, lockable_id):
         raise NotImplementedError("this method is not yet implemented")
 
     async def update_subscription(self, id, state):
