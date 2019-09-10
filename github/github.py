@@ -16,8 +16,9 @@
     limitations under the License.
 """
 
-import aiohttp
 import typing
+
+import aiohttp
 
 from github import http
 from github.abc import Node
