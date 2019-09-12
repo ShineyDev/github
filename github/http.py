@@ -232,6 +232,9 @@ class HTTPClient():
     async def fetch_commentable_comments(self, commentable_id):
         raise NotImplementedError("this method is not yet implemented")
 
+    async def fetch_issue_participants(self, issue_id):
+        raise NotImplementedError("this method is not yet implemented")
+
     async def fetch_label_issues(self, label_id):
         raise NotImplementedError("this method is not yet implemented")
 
@@ -330,6 +333,9 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["organization"]["email"]
+
+    async def fetch_pull_request_participants(self, pull_request_id):
+        raise NotImplementedError("this method is not yet implemented")
     
     async def fetch_rate_limit(self):
         json = {

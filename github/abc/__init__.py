@@ -25,6 +25,7 @@ from github.abc.deletable import Deletable
 from github.abc.labelable import Labelable
 from github.abc.lockable import Lockable
 from github.abc.node import Node
+from github.abc.participable import Participable
 from github.abc.profileowner import ProfileOwner
 from github.abc.projectowner import ProjectOwner
 from github.abc.reactable import Reactable
