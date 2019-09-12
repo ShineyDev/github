@@ -186,6 +186,22 @@ class HTTPClient():
 
         return data["data"]
 
+    async def fetch_all_codes_of_conduct(self):
+        json = {
+            "query": query.FETCH_ALL_CODES_OF_CONDUCT,
+        }
+
+        data = await self.request(json=json)
+        return data["codesOfConduct"]
+
+    async def fetch_all_licenses(self):
+        json = {
+            "query": query.FETCH_ALL_LICENSES,
+        }
+
+        data = await self.request(json=json)
+        return data["licenses"]
+
     async def fetch_assignable_assignees(self, assignable_id):
         raise NotImplementedError("this method is not yet implemented")
 
@@ -213,14 +229,6 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["codeOfConduct"]
 
-    async def fetch_all_codes_of_conduct(self):
-        json = {
-            "query": query.FETCH_ALL_CODES_OF_CONDUCT,
-        }
-
-        data = await self.request(json=json)
-        return data["codesOfConduct"]
-
     async def fetch_commentable_comments(self, commentable_id):
         raise NotImplementedError("this method is not yet implemented")
 
@@ -245,14 +253,6 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["license"]
-
-    async def fetch_all_licenses(self):
-        json = {
-            "query": query.FETCH_ALL_LICENSES,
-        }
-
-        data = await self.request(json=json)
-        return data["licenses"]
 
     async def fetch_mannequin_avatar_url(self, login, size):
         raise NotImplementedError("this method is not yet implemented")
