@@ -1186,7 +1186,7 @@ class QueryArgument():
         The name of the query argument.
     type: :class:`str`
         The type for the query argument.
-    default: :class:`str`
+    default: Optional[:class:`str`]
         The default for the query argument.
 
     Attributes
@@ -1195,7 +1195,7 @@ class QueryArgument():
         The name of the query argument.
     type: :class:`str`
         The type for the query argument.
-    default: :class:`str`
+    default: Optional[:class:`str`]
         The default for the query argument.
     """
 
