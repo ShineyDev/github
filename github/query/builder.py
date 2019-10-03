@@ -550,8 +550,13 @@ class Collection():
         # 
 
         for (fragment) in self._fragments:
-            fragment = "... {0.name}".format(fragment)
-            collection += "  {0}\n".format(fragment)
+            if fragment.inline:
+                fragment = fragment.build_inline()
+                fragment = textwrap.indent(fragment, "  ")
+                collection += "{0}\n".format(fragment)
+            else:
+                fragment = "... {0.name}".format(fragment)
+                collection += "  {0}\n".format(fragment)
 
         # collection (arg: $arg) {
         #   ... Fragment
@@ -861,11 +866,12 @@ class Fragment():
         The type for the fragment.
     """
 
-    __slots__ = ("name", "type", "_collections", "_fields", "_fragments")
+    __slots__ = ("name", "type", "inline", "_collections", "_fields", "_fragments")
 
-    def __init__(self, *, name: str, type: str):
+    def __init__(self, *, name: str, type: str, inline: bool=True):
         self.name = name
         self.type = type
+        self.inline = inline
 
         self._collections = list()
         self._fields = list()
@@ -891,8 +897,9 @@ class Fragment():
 
         name = data["name"]
         type = data["type"]
+        inline = data["inline"]
 
-        fragment = cls(name=name, type=type)
+        fragment = cls(name=name, type=type, inline=inline)
         
         collections = data.get("collections", list())
         for (collection) in collections:
@@ -1164,6 +1171,7 @@ class Fragment():
 
         data["name"] = self.name
         data["type"] = self.type
+        data["inline"] = self.inline
 
         if self._collections:
             data["collections"] = [c.to_dict() for c in self._collections]
