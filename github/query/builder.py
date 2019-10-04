@@ -475,7 +475,7 @@ class Collection():
         return self._fields
 
     @property
-    def fragments(self) -> typing.List["Fragments"]:
+    def fragments(self) -> typing.List["Fragment"]:
         """
         A list of fragments.
 
