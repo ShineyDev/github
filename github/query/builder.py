@@ -202,7 +202,7 @@ class Builder():
         Raises
         ------
         RuntimeError
-            The query is missing fields and collections.
+            The query is missing collections or fields.
 
         Returns
         -------
@@ -451,7 +451,7 @@ class Collection():
 
         Returns
         -------
-        List[:class:`~github.query.Fragments`]
+        List[:class:`~github.query.Fragment`]
             A list of fragments.
         """
 
@@ -523,7 +523,7 @@ class Collection():
         Raises
         ------
         RuntimeError
-            The collection is missing fields, collections or fragments.
+            The collection is missing collections, fields or fragments.
 
         Returns
         -------
@@ -1016,7 +1016,7 @@ class Fragment():
         Raises
         ------
         RuntimeError
-            The fragment is missing fields, collections or fragments.
+            The fragment is missing collections, fields or fragments.
 
         Returns
         -------
@@ -1025,7 +1025,7 @@ class Fragment():
         """
 
         if not self._collections and not self._fields and not self._fragments:
-            raise RuntimeError("fragment {0.name} is missing fields, collections or fragments".format(self))
+            raise RuntimeError("fragment {0.name} is missing collections, fields or fragments".format(self))
 
         fragment = "fragment {0.name} on {0.type} ".format(self)
         fragment += "{\n"
@@ -1105,7 +1105,7 @@ class Fragment():
         Raises
         ------
         RuntimeError
-            The fragment is missing fields or collections or you
+            The fragment is missing collections or fields or you
             attempted to nest an inline fragment.
 
         Returns
@@ -1118,7 +1118,7 @@ class Fragment():
             raise RuntimeError("inline fragments cannot be nested")
 
         if not self._collections and not self._fields:
-            raise RuntimeError("fragment {0.name} is missing fields or collections".format(self))
+            raise RuntimeError("fragment {0.name} is missing collections or fields".format(self))
 
         fragment = "... on {0.type} ".format(self)
         fragment += "{\n"
