@@ -225,7 +225,7 @@ class Builder():
 
         query += "{\n"
 
-        # query fetch_user ($login: String!) {
+        # TYPE NAME ($NAME: TYPE=DEFAULT) {
         # 
 
         for (collection) in self._collections:
@@ -233,9 +233,9 @@ class Builder():
             collection = textwrap.indent(collection, "  ")
             query += "{0}\n".format(collection)
 
-        # query fetch_user ($login: String!) {
-        #   collection (arg: $arg) {
-        #     ...
+        # TYPE NAME ($NAME: TYPE=DEFAULT) {
+        #   ALIAS: NAME (NAME: VALUE) {
+        #     (continues in collection)
         #   }
         # 
 
@@ -243,20 +243,20 @@ class Builder():
             field = field.build()
             query += "  {0}\n".format(field)
 
-        # query fetch_user ($login: String!) {
-        #   collection (arg: $arg) {
-        #     ...
+        # TYPE NAME ($NAME: TYPE=DEFAULT) {
+        #   ALIAS: NAME (NAME: VALUE) {
+        #     (continues in collection)
         #   }
-        #   alias: field
+        #   ALIAS: NAME
         # 
 
         query += "}"
 
-        # query fetch_user ($login: String!) {
-        #   collection (arg: $arg) {
-        #     ...
+        # TYPE NAME ($NAME: TYPE=DEFAULT) {
+        #   ALIAS: NAME (NAME: VALUE) {
+        #     (continues in collection)
         #   }
-        #   alias: field
+        #   ALIAS: NAME
         # }
 
         for (fragment) in self._fragments:
@@ -264,18 +264,18 @@ class Builder():
             query += "\n\n"
             query += fragment
 
-        # query fetch_user ($login: String!) {
-        #   collection (arg: $arg) {
-        #     ...
+        # TYPE NAME ($NAME: TYPE=DEFAULT) {
+        #   ALIAS: NAME (NAME: VALUE) {
+        #     (continues in collection)
         #   }
-        #   alias: field
+        #   ALIAS: NAME
         # }
         # 
-        # fragment UserFields on User {
-        #   collection (arg: $arg) {
-        #     ...
+        # fragment NAME on TYPE {
+        #   ALIAS: NAME (NAME: VALUE) {
+        #     (continues in collection)
         #   }
-        #   alias: field
+        #   ALIAS: NAME
         # }
 
         return query
@@ -546,7 +546,7 @@ class Collection():
 
         collection += "{\n"
 
-        # collection (arg: $arg) {
+        # ALIAS: NAME (NAME: VALUE) {
         # 
 
         for (fragment) in self._fragments:
@@ -558,8 +558,15 @@ class Collection():
                 fragment = "... {0.name}".format(fragment)
                 collection += "  {0}\n".format(fragment)
 
-        # collection (arg: $arg) {
-        #   ... Fragment
+        # ALIAS: NAME (NAME: VALUE) {
+        #   ... NAME on TYPE {
+        #     (continues in fragment)
+        #   }
+        # 
+        # or
+        # 
+        # ALIAS: NAME (NAME: VALUE) {
+        #   ... NAME
         # 
 
         for (collection_) in self._collections:
@@ -567,10 +574,10 @@ class Collection():
             collection_ = textwrap.indent(collection_, "  ")
             collection += "{0}\n".format(collection_)
 
-        # collection (arg: $arg) {
-        #   ... Fragment
-        #   collection (arg: $arg) {
-        #     ...
+        # ALIAS: NAME (NAME: VALUE) {
+        #   ... NAME
+        #   ALIAS: NAME (NAME: VALUE) {
+        #     (continues recursively)
         #   }
         # 
 
@@ -578,22 +585,22 @@ class Collection():
             field = field.build()
             collection += "  {0}\n".format(field)
 
-        # collection (arg: $arg) {
-        #   ... Fragment
-        #   collection (arg: $arg) {
-        #     ...
+        # ALIAS: NAME (NAME: VALUE) {
+        #   ... NAME
+        #   ALIAS: NAME (NAME: VALUE) {
+        #     (continues recursively)
         #   }
-        #   alias: field
+        #   ALIAS: NAME
         # 
 
         collection += "}"
 
-        # collection (arg: $arg) {
-        #   ... Fragment
-        #   collection (arg: $arg) {
-        #     ...
+        # ALIAS: NAME (NAME: VALUE) {
+        #   ... NAME
+        #   ALIAS: NAME (NAME: VALUE) {
+        #     (continues recursively)
         #   }
-        #   alias: field
+        #   ALIAS: NAME
         # }
 
         return collection
@@ -1023,7 +1030,7 @@ class Fragment():
         fragment = "fragment {0.name} on {0.type} ".format(self)
         fragment += "{\n"
 
-        # fragment UserFragment on User {
+        # fragment NAME on TYPE {
         # 
 
         for (fragment_) in self._fragments:
@@ -1031,9 +1038,12 @@ class Fragment():
             fragment_ = textwrap.indent(fragment_, "  ")
             fragment += "{0}\n".format(fragment_)
 
-        # fragment UserFragment on User {
-        #   ... on Node {
-        #     id
+        # fragment NAME on TYPE {
+        #   ... on TYPE {
+        #     ALIAS: NAME (NAME: VALUE) {
+        #       (continues in collection)
+        #     }
+        #     ALIAS: NAME
         #   }
         # 
 
@@ -1042,12 +1052,15 @@ class Fragment():
             collection = textwrap.indent(collection, "  ")
             fragment += "{0}\n".format(collection)
 
-        # fragment UserFragment on User {
-        #   ... on Node {
-        #     id
+        # fragment NAME on TYPE {
+        #   ... on TYPE {
+        #     ALIAS: NAME (NAME: VALUE) {
+        #       (continues in collection)
+        #     }
+        #     ALIAS: NAME
         #   }
-        #   collection (arg: $arg) {
-        #     ...
+        #   ALIAS: NAME (NAME: VALUE) {
+        #     (continues in collection)
         #   }
         # 
 
@@ -1055,26 +1068,32 @@ class Fragment():
             field = field.build()
             fragment += "  {0}\n".format(field)
 
-        # fragment UserFragment on User {
-        #   ... on Node {
-        #     id
+        # fragment NAME on TYPE {
+        #   ... on TYPE {
+        #     ALIAS: NAME (NAME: VALUE) {
+        #       (continues in collection)
+        #     }
+        #     ALIAS: NAME
         #   }
-        #   collection (arg: $arg) {
-        #     ...
+        #   ALIAS: NAME (NAME: VALUE) {
+        #     (continues in collection)
         #   }
-        #   alias: field
+        #   ALIAS: NAME
         # 
 
         fragment += "}"
 
-        # fragment UserFragment on User {
-        #   ... on Node {
-        #     id
+        # fragment NAME on TYPE {
+        #   ... on TYPE {
+        #     ALIAS: NAME (NAME: VALUE) {
+        #       (continues in collection)
+        #     }
+        #     ALIAS: NAME
         #   }
-        #   collection (arg: $arg) {
-        #     ...
+        #   ALIAS: NAME (NAME: VALUE) {
+        #     (continues in collection)
         #   }
-        #   alias: field
+        #   ALIAS: NAME
         # }
 
         return fragment
@@ -1104,7 +1123,7 @@ class Fragment():
         fragment = "... on {0.type} ".format(self)
         fragment += "{\n"
 
-        # ... on User {
+        # ... on TYPE {
         # 
 
         for (collection) in self._collections:
@@ -1112,9 +1131,9 @@ class Fragment():
             collection = textwrap.indent(collection, "  ")
             fragment += "{0}\n".format(collection)
 
-        # ... on User {
-        #   collection (arg: $arg) {
-        #     ...
+        # ... on TYPE {
+        #   ALIAS: NAME (NAME: VALUE) {
+        #     (continues in collection)
         #   }
         # 
 
@@ -1122,20 +1141,20 @@ class Fragment():
             field = field.build()
             fragment += "  {0}\n".format(field)
 
-        # ... on User {
-        #   collection (arg: $arg) {
-        #     ...
+        # ... on TYPE {
+        #   ALIAS: NAME (NAME: VALUE) {
+        #     (continues in collection)
         #   }
-        #   alias: field
+        #   ALIAS: NAME
         # 
 
         fragment += "}"
 
-        # ... on User {
-        #   collection (arg: $arg) {
-        #     ...
+        # ... on TYPE {
+        #   ALIAS: NAME (NAME: VALUE) {
+        #     (continues in collection)
         #   }
-        #   alias: field
+        #   ALIAS: NAME
         # }
 
         return fragment
