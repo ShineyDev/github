@@ -151,11 +151,19 @@ class Builder():
         """
         Adds an argument to the query.
 
+        Raises
+        ------
+        TypeError
+            Invalid type was passed.
+
         Parameters
         ----------
         argument: :class:`~github.query.QueryArgument`
             The argument to add.
         """
+
+        if not isinstance(argument, QueryArgument):
+            raise TypeError("argument should be of type QueryArgument")
 
         self._arguments.append(argument)
 
@@ -163,11 +171,19 @@ class Builder():
         """
         Adds a collection to the query.
 
+        Raises
+        ------
+        TypeError
+            Invalid type was passed.
+
         Parameters
         ----------
         collection: :class:`~github.query.Collection`
             The collection to add.
         """
+
+        if not isinstance(collection, Collection):
+            raise TypeError("collection should be of type Collection")
 
         self._collections.append(collection)
 
@@ -175,11 +191,19 @@ class Builder():
         """
         Adds a field to the query.
 
+        Raises
+        ------
+        TypeError
+            Invalid type was passed.
+
         Parameters
         ----------
         field: :class:`~github.query.Field`
             The field to add.
         """
+
+        if not isinstance(field, Field):
+            raise TypeError("field should be of type Field")
 
         self._fields.append(field)
 
@@ -187,11 +211,19 @@ class Builder():
         """
         Adds a fragment to the query.
 
+        Raises
+        ------
+        TypeError
+            Invalid type was passed.
+
         Parameters
         ----------
         fragment: :class:`~github.query.Fragment`
             The fragment to add.
         """
+
+        if not isinstance(fragment, Fragment):
+            raise TypeError("fragment should be of type Fragment")
 
         self._fragments.append(fragment)
 
@@ -461,11 +493,19 @@ class Collection():
         """
         Adds an argument to the collection.
 
+        Raises
+        ------
+        TypeError
+            Invalid type was passed.
+
         Parameters
         ----------
         argument: :class:`~github.query.CollectionArgument`
             The argument to add.
         """
+
+        if not isinstance(argument, CollectionArgument):
+            raise TypeError("argument should be of type CollectionArgument")
 
         self._arguments.append(argument)
 
@@ -478,11 +518,19 @@ class Collection():
             When passing ``self`` into this method a copy is made to
             prevent recursion in :meth:`.build`.
 
+        Raises
+        ------
+        TypeError
+            Invalid type was passed.
+
         Parameters
         ----------
         collection: :class:`~github.query.Collection`
             The collection to add.
         """
+
+        if not isinstance(collection, Collection):
+            raise TypeError("collection should be of type Collection")
 
         if collection is self:
             # prevent recursion
@@ -494,11 +542,19 @@ class Collection():
         """
         Adds a field to the collection.
 
+        Raises
+        ------
+        TypeError
+            Invalid type was passed.
+
         Parameters
         ----------
         field: :class:`~github.query.Field`
             The field to add.
         """
+
+        if not isinstance(field, Field):
+            raise TypeError("field should be of type Field")
 
         self._fields.append(field)
 
@@ -508,11 +564,19 @@ class Collection():
 
         .. versionadded:: 0.3.0
 
+        Raises
+        ------
+        TypeError
+            Invalid type was passed.
+
         Parameters
         ----------
         fragment: :class:`~github.query.Fragment`
             The fragment to add.
         """
+
+        if not isinstance(fragment, Fragment):
+            raise TypeError("fragment should be of type Fragment")
 
         self._fragments.append(fragment)
 
@@ -968,11 +1032,19 @@ class Fragment():
         """
         Adds a collection to the fragment.
 
+        Raises
+        ------
+        TypeError
+            Invalid type was passed.
+
         Parameters
         ----------
         collection: :class:`~github.query.Collection`
             The collection to add.
         """
+
+        if not isinstance(collection, Collection):
+            raise TypeError("collection should be of type Collection")
 
         self._collections.append(collection)
 
@@ -980,11 +1052,19 @@ class Fragment():
         """
         Adds a field to the fragment.
 
+        Raises
+        ------
+        TypeError
+            Invalid type was passed.
+
         Parameters
         ----------
         field: :class:`~github.query.Field`
             The field to add.
         """
+
+        if not isinstance(field, Field):
+            raise TypeError("field should be of type Field")
 
         self._fields.append(field)
 
@@ -997,11 +1077,19 @@ class Fragment():
             When passing ``self`` into this method a copy is made to
             prevent recursion in :meth:`.build`.
 
+        Raises
+        ------
+        TypeError
+            Invalid type was passed.
+
         Parameters
         ----------
         fragment: :class:`~github.query.Fragment`
             The fragment to add.
         """
+
+        if not isinstance(fragment, Fragment):
+            raise TypeError("fragment should be of type Fragment")
 
         if fragment is self:
             # prevent recursion
