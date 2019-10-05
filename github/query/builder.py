@@ -160,12 +160,18 @@ class Builder():
         ------
         TypeError
             Invalid type was passed.
+
+        Returns
+        -------
+        :class:`~github.query.Builder`
+            ``self``, for fluent chaining.
         """
 
         if not isinstance(argument, QueryArgument):
             raise TypeError("argument should be of type QueryArgument")
 
         self._arguments.append(argument)
+        return self
 
     def add_collection(self, collection: "Collection"):
         """
@@ -180,12 +186,18 @@ class Builder():
         ------
         TypeError
             Invalid type was passed.
+
+        Returns
+        -------
+        :class:`~github.query.Builder`
+            ``self``, for fluent chaining.
         """
 
         if not isinstance(collection, Collection):
             raise TypeError("collection should be of type Collection")
 
         self._collections.append(collection)
+        return self
 
     def add_field(self, field: "Field"):
         """
@@ -200,12 +212,18 @@ class Builder():
         ------
         TypeError
             Invalid type was passed.
+
+        Returns
+        -------
+        :class:`~github.query.Builder`
+            ``self``, for fluent chaining.
         """
 
         if not isinstance(field, Field):
             raise TypeError("field should be of type Field")
 
         self._fields.append(field)
+        return self
 
     def add_fragment(self, fragment: "Fragment"):
         """
@@ -220,12 +238,18 @@ class Builder():
         ------
         TypeError
             Invalid type was passed.
+
+        Returns
+        -------
+        :class:`~github.query.Builder`
+            ``self``, for fluent chaining.
         """
 
         if not isinstance(fragment, Fragment):
             raise TypeError("fragment should be of type Fragment")
 
         self._fragments.append(fragment)
+        return self
 
     def build(self) -> str:
         """
@@ -502,12 +526,18 @@ class Collection():
         ------
         TypeError
             Invalid type was passed.
+
+        Returns
+        -------
+        :class:`~github.query.Collection`
+            ``self``, for fluent chaining.
         """
 
         if not isinstance(argument, CollectionArgument):
             raise TypeError("argument should be of type CollectionArgument")
 
         self._arguments.append(argument)
+        return self
 
     def add_collection(self, collection: "Collection"):
         """
@@ -527,6 +557,11 @@ class Collection():
         ------
         TypeError
             Invalid type was passed.
+
+        Returns
+        -------
+        :class:`~github.query.Collection`
+            ``self``, for fluent chaining.
         """
 
         if not isinstance(collection, Collection):
@@ -537,6 +572,7 @@ class Collection():
             collection = collection.copy()
 
         self._collections.append(collection)
+        return self
 
     def add_field(self, field: "Field"):
         """
@@ -551,12 +587,18 @@ class Collection():
         ------
         TypeError
             Invalid type was passed.
+
+        Returns
+        -------
+        :class:`~github.query.Collection`
+            ``self``, for fluent chaining.
         """
 
         if not isinstance(field, Field):
             raise TypeError("field should be of type Field")
 
         self._fields.append(field)
+        return self
 
     def add_fragment(self, fragment: "Fragment"):
         """
@@ -573,12 +615,18 @@ class Collection():
         ------
         TypeError
             Invalid type was passed.
+
+        Returns
+        -------
+        :class:`~github.query.Collection`
+            ``self``, for fluent chaining.
         """
 
         if not isinstance(fragment, Fragment):
             raise TypeError("fragment should be of type Fragment")
 
         self._fragments.append(fragment)
+        return self
 
     def build(self) -> str:
         """
@@ -1041,12 +1089,18 @@ class Fragment():
         ------
         TypeError
             Invalid type was passed.
+
+        Returns
+        -------
+        :class:`~github.query.Fragment`
+            ``self``, for fluent chaining.
         """
 
         if not isinstance(collection, Collection):
             raise TypeError("collection should be of type Collection")
 
         self._collections.append(collection)
+        return self
 
     def add_field(self, field: Field):
         """
@@ -1061,12 +1115,18 @@ class Fragment():
         ------
         TypeError
             Invalid type was passed.
+
+        Returns
+        -------
+        :class:`~github.query.Fragment`
+            ``self``, for fluent chaining.
         """
 
         if not isinstance(field, Field):
             raise TypeError("field should be of type Field")
 
         self._fields.append(field)
+        return self
 
     def add_fragment(self, fragment: "Fragment"):
         """
@@ -1086,6 +1146,11 @@ class Fragment():
         ------
         TypeError
             Invalid type was passed.
+
+        Returns
+        -------
+        :class:`~github.query.Fragment`
+            ``self``, for fluent chaining.
         """
 
         if not isinstance(fragment, Fragment):
@@ -1096,6 +1161,7 @@ class Fragment():
             fragment = fragment.copy()
 
         self._fragments.append(fragment)
+        return self
 
     def build(self) -> str:
         """
