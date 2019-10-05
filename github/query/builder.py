@@ -22,7 +22,7 @@ import typing
 
 class Builder():
     """
-    A helper class for building a query.
+    A helper class for building a query or mutation.
 
     Parameters
     ----------
@@ -382,6 +382,50 @@ class Builder():
             data["fragments"] = [f.to_dict() for f in self._fragments]
 
         return data
+
+class Query(Builder):
+    """
+    A helper class for building a query.
+
+    Parameters
+    ----------
+    name: Optional[:class:`str`]
+        The name of the query.
+
+    Attributes
+    ----------
+    name: Optional[:class:`str`]
+        The name of the query.
+    type: :class:`str`
+        The type of query to build.
+    """
+
+    __slots__ = ("name", "type", "_arguments", "_collections", "_fields", "_fragments")
+
+    def __init__(self, *, name: str=None):
+        super().__init__(name=name, type="query")
+
+class Mutation(Builder):
+    """
+    A helper class for building a mutation.
+
+    Parameters
+    ----------
+    name: Optional[:class:`str`]
+        The name of the query.
+
+    Attributes
+    ----------
+    name: Optional[:class:`str`]
+        The name of the query.
+    type: :class:`str`
+        The type of query to build.
+    """
+
+    __slots__ = ("name", "type", "_arguments", "_collections", "_fields", "_fragments")
+
+    def __init__(self, *, name: str=None):
+        super().__init__(name=name, type="mutation")
 
 class Collection():
     """

@@ -16,6 +16,7 @@
     limitations under the License.
 """
 
-from github.query.builder import Builder, Collection, CollectionArgument, Field, Fragment, QueryArgument
+from github.query.builder import Builder, Query, Mutation, Collection, CollectionArgument, Field, Fragment, QueryArgument
+
 from github.query.builtin_mutations import *
 from github.query.builtin_queries import *

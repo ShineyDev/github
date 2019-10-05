@@ -10,6 +10,14 @@ Building Queries & Mutations
     :member-order: bysource
     :members:
 
+.. autoclass:: Query
+    :member-order: bysource
+    :inherited-members:
+
+.. autoclass:: Mutation
+    :member-order: bysource
+    :inherited-members:
+
 .. autoclass:: Collection
     :member-order: bysource
     :members:
