@@ -32,6 +32,8 @@ class Comment():
     Implemented by:
 
     * :class:`~github.CommitComment`
+    * :class:`~github.Issue`
+    * :class:`~github.PullRequest`
 
     .. versionadded:: 0.2.0
     """

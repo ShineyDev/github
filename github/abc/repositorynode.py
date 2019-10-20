@@ -25,6 +25,9 @@ class RepositoryNode():
     Implemented by:
 
     * :class:`~github.CommitComment`
+    * :class:`~github.Issue`
+    * :class:`~github.Label`
+    * :class:`~github.PullRequest`
 
     .. versionadded:: 0.2.0
     """

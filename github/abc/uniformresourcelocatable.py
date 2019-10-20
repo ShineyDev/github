@@ -26,7 +26,10 @@ class UniformResourceLocatable():
     
     * :class:`~github.AuthenticatedUser`
     * :class:`~github.CodeOfConduct`
+    * :class:`~github.Issue`
+    * :class:`~github.Label`
     * :class:`~github.Organization`
+    * :class:`~github.PullRequest`
     * :class:`~github.Repository`
     * :class:`~github.User`
     """

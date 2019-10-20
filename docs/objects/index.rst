@@ -9,11 +9,14 @@ Objects
 
     codeofconduct
     commitcomment
+    issue
+    label
     language
     license
     licenserule
     metadata
     organization
+    pullrequest
     ratelimit
     reaction
     repository

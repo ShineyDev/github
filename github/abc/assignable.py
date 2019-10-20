@@ -24,6 +24,11 @@ class Assignable():
     Represents an object which can be assigned to.
 
     https://developer.github.com/v4/interface/assignable/
+
+    Implemented by:
+
+    * :class:`github.Issue`
+    * :class:`github.PullRequest`
     """
 
     __slots__ = ()

@@ -22,6 +22,11 @@ import typing
 class Participable():
     """
     Represents an object which can be participated in.
+
+    Implemented by:
+
+    * :class:`~github.Issue`
+    * :class:`~github.PullRequest`
     """
 
     __slots__ = ()

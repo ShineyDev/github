@@ -25,11 +25,14 @@ class Type():
     * :class:`~github.AuthenticatedUser`
     * :class:`~github.CodeOfConduct`
     * :class:`~github.CommitComment`
+    * :class:`~github.Issue`
+    * :class:`~github.Label`
     * :class:`~github.Language`
     * :class:`~github.License`
     * :class:`~github.LicenseRule`
     * :class:`~github.Metadata`
     * :class:`~github.Organization`
+    * :class:`~github.PullRequest`
     * :class:`~github.RateLimit`
     * :class:`~github.Reaction`
     * :class:`~github.Repository`

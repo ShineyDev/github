@@ -27,6 +27,11 @@ class Closable():
     Represents an object which can be closed.
 
     https://developer.github.com/v4/interface/closable/
+
+    Implemented by:
+
+    * :class:`github.Issue`
+    * :class:`github.PullRequest`
     """
 
     __slots__ = ()

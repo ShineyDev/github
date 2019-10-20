@@ -26,7 +26,9 @@ class Subscribable():
     https://developer.github.com/v4/interface/subscribable/
 
     Implemented by:
-
+    
+    * :class:`~github.Issue`
+    * :class:`~github.PullRequest`
     * :class:`~github.Repository`
     """
 

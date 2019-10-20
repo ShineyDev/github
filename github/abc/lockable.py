@@ -26,6 +26,11 @@ class Lockable():
     Represents an object which can be locked.
 
     https://developer.github.com/v4/interface/lockable/
+
+    Implemented by:
+
+    * :class:`~github.Issue`
+    * :class:`~github.PullRequest`
     """
 
     __slots__ = ()

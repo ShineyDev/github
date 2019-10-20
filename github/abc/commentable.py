@@ -22,6 +22,11 @@ import typing
 class Commentable():
     """
     Represents an object which can be commented on.
+
+    Implemented by:
+
+    * :class:`github.Issue`
+    * :class:`github.PullRequest`
     """
 
     __slots__ = ()

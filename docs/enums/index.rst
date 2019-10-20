@@ -9,6 +9,9 @@ Enumerables
 
     cannotupdatereason
     commentauthorassociation
+    issuestate
+    lockreason
+    pullrequeststate
     reaction
     repositorylockreason
     repositorypermissions

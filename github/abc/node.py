@@ -30,9 +30,12 @@ class Node():
     * :class:`~github.AuthenticatedUser`
     * :class:`~github.CodeOfConduct`
     * :class:`~github.CommitComment`
+    * :class:`~github.Issue`
+    * :class:`~github.Label`
     * :class:`~github.Language`
     * :class:`~github.License`
     * :class:`~github.Organization`
+    * :class:`~github.PullRequest`
     * :class:`~github.Repository`
     * :class:`~github.Topic`
     * :class:`~github.User`

@@ -8,14 +8,21 @@ Abstract Base Classes
     :maxdepth: 1
 
     actor
+    assignable
+    closable
     comment
+    commentable
     deletable
+    labelable
+    lockable
     node
+    participable
     profileowner
     projectowner
     reactable
     repositorynode
     repositoryowner
+    subscribable
     type
     uniformresourcelocatable
     updatable

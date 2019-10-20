@@ -24,6 +24,11 @@ class Labelable():
     Represents an object which can be labeled.
 
     https://developer.github.com/v4/interface/labelable/
+
+    Implemented by:
+
+    * :class:`github.Issue`
+    * :class:`github.PullRequest`
     """
 
     __slots__ = ()
