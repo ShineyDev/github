@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
-
 class Node():
     """
     Represents an object with an ID.
