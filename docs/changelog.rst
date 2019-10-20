@@ -4,6 +4,55 @@
 Changelog
 =========
 
+v0.4.0
+------
+
+Bug Fixes
+~~~~~~~~~
+
+* Fix node subclass equality.
+
+New Features
+~~~~~~~~~~~~
+
+* Implement :class:`github.Issue`.
+* Implement :class:`github.Label`.
+* Implement :class:`github.PullRequest`.
+* Implement :class:`github.abc.Assignable`.
+* Implement :class:`github.abc.Closable`.
+* Implement :class:`github.abc.Commentable`.
+* Implement :class:`github.abc.Labelable`.
+* Implement :class:`github.abc.Lockable`.
+* Implement :class:`github.abc.Participable`.
+* Implement :class:`github.enums.IssueState`.
+* Implement :class:`github.enums.LockReason`.
+* Implement :class:`github.enums.PullRequestState`.
+* Implement :attr:`github.query.Fragment.inline`.
+* Implement :class:`github.query.Query`.
+* Implement :class:`github.query.Mutation`.
+
+Updated Features
+~~~~~~~~~~~~~~~~
+
+* The default user agent now contains a `random UUID <https://docs.python.org/3/library/uuid.html#uuid.uuid4>`_.
+* :exc:`TypeError` is now raised when passing an invalid type to ``github.query.*.add_*`` methods.
+
+
+v0.3.3
+------
+
+New Features
+~~~~~~~~~~~~
+
+* Implement :class:`github.CodeOfConduct.resource_path`
+* Implement :class:`github.abc.Subscribable`
+
+Updated Features
+~~~~~~~~~~~~~~~~
+
+* :class:`github.Repository` now subclasses :class:`github.abc.Subscribable`.
+
+
 v0.3.2
 ------
 
