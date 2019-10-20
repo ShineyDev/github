@@ -25,6 +25,7 @@ from github.objects.license import License
 from github.objects.licenserule import LicenseRule
 from github.objects.metadata import Metadata
 from github.objects.organization import Organization
+from github.objects.pullrequest import PullRequest
 from github.objects.ratelimit import RateLimit
 from github.objects.reaction import Reaction
 from github.objects.repository import Repository, PartialRepository
