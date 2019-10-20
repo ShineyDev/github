@@ -45,7 +45,8 @@ class Node():
 
     def __eq__(self, other) -> bool:
         if type(self) != type(other):
-            return False
+            if not issubclass(type(self), type(other)):
+                return False
 
         if self.id != other.id:
             return False
