@@ -1,11 +1,11 @@
 ---
-
 name: Feature Request
 about: Suggest a feature for this API wrapper.
-title: "[FEATURE] - ..."
+title: ''
+labels: enhancement
+assignees: ''
 
 ---
-
 
 <!-- check the contributing guidelines before sending this issue. -->
 <!-- https://github.com/ShineyDev/github.py/blob/master/.github/CONTRIBUTING.md -->

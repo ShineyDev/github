@@ -1,11 +1,11 @@
 ---
-
 name: Bug Report
 about: Report broken or incorrect behavior.
-title: "[BUG] - ..."
+title: ''
+labels: bug
+assignees: ''
 
 ---
-
 
 <!-- check the contributing guidelines before sending this issue. -->
 <!-- https://github.com/ShineyDev/github.py/blob/master/.github/CONTRIBUTING.md -->
