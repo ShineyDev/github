@@ -398,7 +398,7 @@ class GitHub():
         data = await self.http.fetch_repository(owner, name)
         return Repository.from_data(data, self.http)
 
-    async def fetch_scopes(self) -> list:
+    async def fetch_scopes(self) -> typing.List[str]:
         """
         |coro|
 
