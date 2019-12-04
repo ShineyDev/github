@@ -4,14 +4,15 @@
 # python cache
 __pycache__/
 
-# documentation
+# python documentation
 docs/build/
 
-# pypi
+# python package-index
 build/
 dist/
 github.py.egg-info/
 
-# project stuff
-tests/
-*.bat
+# project
+github-design/
+github-helpers/
+github-tests/
