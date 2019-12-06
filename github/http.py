@@ -40,25 +40,24 @@ class HTTPClient():
     This class is only exposed for :meth:`~HTTPClient.request`.
     """
 
-    __slots__ = ("_uuid", "_token", "_base_url", "_user_agent", "_session", "_exceptions")
+    __slots__ = ("_exception_map", "_token", "_base_url", "_user_agent", "_uuid", "_session")
 
     def __init__(self, token, *, base_url=None, user_agent=None, session=None):
-        self._uuid = uuid.uuid4()
-
-        self._token = token
-        self._base_url = base_url or _DEFAULT_BASE_URL
-        self._user_agent = user_agent or _DEFAULT_USER_AGENT.format(self._uuid)
-        self._session = session
-
-        self._exceptions = {
+        self._exception_map = {
             # HTTP status-code
             401: errors.Unauthorized,
 
-            # GitHub status-message
+            # GitHub API status-message
             "FORBIDDEN": errors.Forbidden,
             "INTERNAL": errors.Internal,
             "NOT_FOUND": errors.NotFound,
         }
+
+        self._token = token
+        self._base_url = base_url or _DEFAULT_BASE_URL
+        self._user_agent = user_agent or _DEFAULT_USER_AGENT.format(self._uuid)
+        self._uuid = uuid.uuid4()
+        self._session = session
 
     @property
     def base_url(self) -> str:
@@ -91,7 +90,7 @@ class HTTPClient():
 
                 try:
                     # handled HTTP status-code
-                    exception = self._exceptions[response.status]
+                    exception = self._exception_map[response.status]
                 except (KeyError) as e:
                     # arbitrary HTTP status-code
                     exception = errors.HTTPException
@@ -122,7 +121,7 @@ class HTTPClient():
                     type = data["errors"][0]["type"]
                     
                     # handled GitHub status-message
-                    exception = self._exceptions[type]
+                    exception = self._exception_map[type]
                 except (KeyError) as e:
                     # arbitrary GitHub status-message
                     exception = errors.GitHubError
