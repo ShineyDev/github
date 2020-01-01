@@ -52,11 +52,12 @@ class HTTPClient():
             "INTERNAL": errors.Internal,
             "NOT_FOUND": errors.NotFound,
         }
+        
+        self._uuid = uuid.uuid4()
 
         self._token = token
         self._base_url = base_url or _DEFAULT_BASE_URL
         self._user_agent = user_agent or _DEFAULT_USER_AGENT.format(self._uuid)
-        self._uuid = uuid.uuid4()
         self._session = session
 
     @property
