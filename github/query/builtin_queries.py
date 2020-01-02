@@ -19,6 +19,16 @@
 from github.query import Builder
 
 
+FETCH_ACTOR_AVATAR_URL = """
+query fetch_actor_avatar_url ($actor_id: ID!, $size: Int=null) {
+  node (id: $actor_id) {
+    ... on Actor {
+      avatarUrl (size: $size)
+    }
+  }
+}
+"""
+
 FETCH_AUTHENTICATED_USER = """
 query fetch_authenticated_user {
   viewer {
@@ -215,16 +225,6 @@ query fetch_organization ($login: String!) {
     viewerCanCreateTeams
     viewerIsAMember
     websiteUrl
-  }
-}
-"""
-
-FETCH_ORGANIZATION_AVATAR_URL = """
-query fetch_organization_avatar_url ($organization_id: ID!, $size: Int=null) {
-  node (id: $organization_id) {
-    ... on Organization {
-      avatarUrl (size: $size)
-    }
   }
 }
 """
@@ -793,16 +793,6 @@ query fetch_user ($login: String!) {
     updatedAt
     url
     websiteUrl
-  }
-}
-"""
-
-FETCH_USER_AVATAR_URL = """
-query fetch_user_avatar_url ($user_id: ID!, $size: Int=null) {
-  node (id: $user_id) {
-    ... on User {
-      avatarUrl (size: $size)
-    }
   }
 }
 """
