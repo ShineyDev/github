@@ -28,16 +28,16 @@ github.py
    :target: https://pypi.python.org/pypi/github.py
    :alt: PyPI license information
 
-An asynchronous Python wrapper for the GitHub API, v4.
+
+An asynchronous Python wrapper for GitHub API, v4.
 
 
 Features
 --------
 
-#. Modern, asynchronous, reliable, typed API.
-#. `Descriptive documentation <https://githubpy.readthedocs.io/en/latest/>`_.
-
-.. #. 100% coverage of the supported GitHub API. (soon)
+#. Easy to use, modern Pythonic API using ``async``/``await`` syntax.
+#. 100% coverage of the supported GitHub API.
+#. All public-facing objects and methods are `documented <https://githubpy.readthedocs.io/en/latest/>`_.
 
 
 Installation
@@ -75,26 +75,6 @@ To install the development version of the wrapper do one of the following:
     # Linux / OS X (Git, shorthand)
     python3 -m pip install --upgrade git+https://github.com/ShineyDev/github.py
 
-To install documentation dependencies do one of the following:
-
-.. code:: sh
-
-    # Windows (Git)
-    git clone https://github.com/ShineyDev/github.py
-    cd github.py
-    py -3 -m pip install --upgrade .[docs]
-
-    # Windows (Git, shorthand)
-    py -3 -m pip install --upgrade git+https://github.com/ShineyDev/github.py#egg=github.py[docs]
-
-    # Linux / OS X (Git)
-    git clone https://github.com/ShineyDev/github.py
-    cd github.py
-    python3 -m pip install --upgrade .[docs]
-
-    # Linux / OS X (Git, shorthand)
-    python3 -m pip install --upgrade git+https://github.com/ShineyDev/github.py#egg=github.py[docs]
-
 
 Examples
 --------
@@ -110,7 +90,7 @@ Fetch a repository's license:
     # token will need the `public_repo` scope.
 
     repo = await g.fetch_repository("ShineyDev", "github.py")
-    license = repo.license
+    print(repo.license.name)
 
 You can find more examples in the |examples_directory|.
 
