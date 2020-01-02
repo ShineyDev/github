@@ -229,10 +229,10 @@ query fetch_organization ($login: String!) {
 }
 """
 
-FETCH_ORGANIZATION_EMAIL = """
-query fetch_organization_email ($organization_id: ID!) {
-  node (id: $organization_id) {
-    ... on Organization {
+FETCH_PROFILEOWNER_EMAIL = """
+query fetch_profileowner_email ($profileowner_id: ID!) {
+  node (id: $profileowner_id) {
+    ... on ProfileOwner {
       email
     }
   }
@@ -799,14 +799,4 @@ query fetch_user ($login: String!) {
 
 FETCH_USER_COMMIT_COMMENTS = """
 
-"""
-
-FETCH_USER_EMAIL = """
-query fetch_user_email ($user_id: ID!) {
-  node (id: $user_id) {
-    ... on User {
-      email
-    }
-  }
-}
 """

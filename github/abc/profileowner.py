@@ -105,9 +105,5 @@ class ProfileOwner():
             The url pointing to the profile owner's email.
         """
 
-        if self.data["__typename"] == "Organization":
-            email = await self.http.fetch_organization_email(self.id)
-        elif self.data["__typename"] == "User":
-            email = await self.http.fetch_user_email(self.id)
-
+        email = await self.http.fetch_profileowner_email(self.id)
         return email

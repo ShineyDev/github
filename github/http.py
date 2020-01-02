@@ -315,13 +315,13 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["organization"]
 
-    async def fetch_organization_email(self, organization_id):
+    async def fetch_profileowner_email(self, profileowner_id):
         variables = {
-            "organization_id": organization_id,
+            "profileowner_id": profileowner_id,
         }
 
         json = {
-            "query": query.FETCH_ORGANIZATION_EMAIL,
+            "query": query.FETCH_PROFILEOWNER_EMAIL,
             "variables": variables,
         }
 
@@ -465,19 +465,6 @@ class HTTPClient():
             has_next_page = data["node"]["commitComments"]["pageInfo"]["hasNextPage"]
 
         return nodes
-
-    async def fetch_user_email(self, user_id):
-        variables = {
-            "user_id": user_id,
-        }
-
-        json = {
-            "query": query.FETCH_USER_EMAIL,
-            "variables": variables,
-        }
-
-        data = await self.request(json=json)
-        return data["node"]["email"]
 
     async def add_assignees(self, assignable_id, assignee_ids):
         raise NotImplementedError("this method is not yet implemented")
