@@ -186,19 +186,8 @@ class HTTPClient():
 
         return data["data"]
 
-    async def fetch_actor_avatar_url(self, actor_id, size):
-        variables = {
-            "actor_id": actor_id,
-            "size": size,
-        }
-
-        json = {
-            "query": query.FETCH_ACTOR_AVATAR_URL,
-            "variables": variables,
-        }
-
-        data = await self.request(json=json)
-        return data["node"]["avatarUrl"]
+    # primary queries,
+    # these methods are invoked from the github.GitHub class
 
     async def fetch_all_codes_of_conduct(self):
         json = {
@@ -215,9 +204,6 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["licenses"]
-
-    async def fetch_assignable_assignees(self, assignable_id):
-        raise NotImplementedError("this method is not yet implemented")
 
     async def fetch_authenticated_user(self):
         json = {
@@ -239,21 +225,6 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["codeOfConduct"]
-
-    async def fetch_commentable_comments(self, commentable_id):
-        raise NotImplementedError("this method is not yet implemented")
-
-    async def fetch_issue_participants(self, issue_id):
-        raise NotImplementedError("this method is not yet implemented")
-
-    async def fetch_label_issues(self, label_id):
-        raise NotImplementedError("this method is not yet implemented")
-
-    async def fetch_label_pull_requests(self, label_id):
-        raise NotImplementedError("this method is not yet implemented")
-
-    async def fetch_labelable_labels(self, labelable_id):
-        raise NotImplementedError("this method is not yet implemented")
 
     async def fetch_license(self, key):
         variables = {
@@ -314,22 +285,6 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["organization"]
-
-    async def fetch_profileowner_email(self, profileowner_id):
-        variables = {
-            "profileowner_id": profileowner_id,
-        }
-
-        json = {
-            "query": query.FETCH_PROFILEOWNER_EMAIL,
-            "variables": variables,
-        }
-
-        data = await self.request(json=json)
-        return data["node"]["email"]
-
-    async def fetch_pull_request_participants(self, pull_request_id):
-        raise NotImplementedError("this method is not yet implemented")
     
     async def fetch_rate_limit(self):
         json = {
@@ -352,6 +307,96 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["repository"]
+
+    async def fetch_scopes(self):
+        headers = dict()
+        headers.update({"Authorization": "bearer {0}".format(self._token)})
+        headers.update({"User-Agent": self._user_agent})
+
+        session = self._session
+        async with context.SessionContext(session) as session:
+            response = await self._request(method="GET", json=None, headers=headers, session=session)
+
+        scopes = response.headers.get("X-OAuth-Scopes")
+        return [s for s in scopes.split(", ") if s]
+
+    async def fetch_topic(self, name):
+        variables = {
+            "name": name,
+        }
+
+        json = {
+            "query": query.FETCH_TOPIC,
+            "variables": variables,
+        }
+
+        data = await self.request(json=json)
+        return data["topic"]
+
+    async def fetch_user(self, login):
+        variables = {
+            "login": login,
+        }
+
+        json = {
+            "query": query.FETCH_USER,
+            "variables": variables,
+        }
+
+        data = await self.request(json=json)
+        return data["user"]
+
+    # secondary queries,
+    # these methods are invoked from classes in the github.abc or
+    # github.objects namespaces
+
+    async def fetch_actor_avatar_url(self, actor_id, size):
+        variables = {
+            "actor_id": actor_id,
+            "size": size,
+        }
+
+        json = {
+            "query": query.FETCH_ACTOR_AVATAR_URL,
+            "variables": variables,
+        }
+
+        data = await self.request(json=json)
+        return data["node"]["avatarUrl"]
+
+    async def fetch_assignable_assignees(self, assignable_id):
+        raise NotImplementedError("this method is not yet implemented")
+
+    async def fetch_commentable_comments(self, commentable_id):
+        raise NotImplementedError("this method is not yet implemented")
+
+    async def fetch_issue_participants(self, issue_id):
+        raise NotImplementedError("this method is not yet implemented")
+
+    async def fetch_label_issues(self, label_id):
+        raise NotImplementedError("this method is not yet implemented")
+
+    async def fetch_label_pull_requests(self, label_id):
+        raise NotImplementedError("this method is not yet implemented")
+
+    async def fetch_labelable_labels(self, labelable_id):
+        raise NotImplementedError("this method is not yet implemented")
+
+    async def fetch_profileowner_email(self, profileowner_id):
+        variables = {
+            "profileowner_id": profileowner_id,
+        }
+
+        json = {
+            "query": query.FETCH_PROFILEOWNER_EMAIL,
+            "variables": variables,
+        }
+
+        data = await self.request(json=json)
+        return data["node"]["email"]
+
+    async def fetch_pull_request_participants(self, pull_request_id):
+        raise NotImplementedError("this method is not yet implemented")
 
     async def fetch_repository_assignable_users(self, repository_id):
         nodes = list()
@@ -403,44 +448,6 @@ class HTTPClient():
 
         return nodes
 
-    async def fetch_scopes(self):
-        headers = dict()
-        headers.update({"Authorization": "bearer {0}".format(self._token)})
-        headers.update({"User-Agent": self._user_agent})
-
-        session = self._session
-        async with context.SessionContext(session) as session:
-            response = await self._request(method="GET", json=None, headers=headers, session=session)
-
-        scopes = response.headers.get("X-OAuth-Scopes")
-        return [s for s in scopes.split(", ") if s]
-
-    async def fetch_topic(self, name):
-        variables = {
-            "name": name,
-        }
-
-        json = {
-            "query": query.FETCH_TOPIC,
-            "variables": variables,
-        }
-
-        data = await self.request(json=json)
-        return data["topic"]
-
-    async def fetch_user(self, login):
-        variables = {
-            "login": login,
-        }
-
-        json = {
-            "query": query.FETCH_USER,
-            "variables": variables,
-        }
-
-        data = await self.request(json=json)
-        return data["user"]
-
     async def fetch_user_commit_comments(self, user_id):
         nodes = list()
         
@@ -465,6 +472,8 @@ class HTTPClient():
             has_next_page = data["node"]["commitComments"]["pageInfo"]["hasNextPage"]
 
         return nodes
+
+    # mutations
 
     async def add_assignees(self, assignable_id, assignee_ids):
         raise NotImplementedError("this method is not yet implemented")
