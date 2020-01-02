@@ -186,6 +186,20 @@ class HTTPClient():
 
         return data["data"]
 
+    async def fetch_actor_avatar_url(self, actor_id, size):
+        variables = {
+            "actor_id": actor_id,
+            "size": size,
+        }
+
+        json = {
+            "query": query.FETCH_ACTOR_AVATAR_URL,
+            "variables": variables,
+        }
+
+        data = await self.request(json=json)
+        return data["node"]["avatarUrl"]
+
     async def fetch_all_codes_of_conduct(self):
         json = {
             "query": query.FETCH_ALL_CODES_OF_CONDUCT,
@@ -212,9 +226,6 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["viewer"]
-
-    async def fetch_bot_avatar_url(self, bot_id, size):
-        raise NotImplementedError("this method is not yet implemented")
 
     async def fetch_code_of_conduct(self, key):
         variables = {
@@ -256,9 +267,6 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["license"]
-
-    async def fetch_mannequin_avatar_url(self, mannequin_id, size):
-        raise NotImplementedError("this method is not yet implemented")
 
     async def fetch_metadata(self):
         json = {
@@ -306,20 +314,6 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["organization"]
-
-    async def fetch_organization_avatar_url(self, organization_id, size):
-        variables = {
-            "organization_id": organization_id,
-            "size": size,
-        }
-
-        json = {
-            "query": query.FETCH_ORGANIZATION_AVATAR_URL,
-            "variables": variables,
-        }
-
-        data = await self.request(json=json)
-        return data["node"]["avatarUrl"]
 
     async def fetch_organization_email(self, organization_id):
         variables = {
@@ -446,20 +440,6 @@ class HTTPClient():
 
         data = await self.request(json=json)
         return data["user"]
-
-    async def fetch_user_avatar_url(self, user_id, size):
-        variables = {
-            "user_id": user_id,
-            "size": size,
-        }
-
-        json = {
-            "query": query.FETCH_USER_AVATAR_URL,
-            "variables": variables,
-        }
-
-        data = await self.request(json=json)
-        return data["node"]["avatarUrl"]
 
     async def fetch_user_commit_comments(self, user_id):
         nodes = list()

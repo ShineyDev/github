@@ -72,13 +72,5 @@ class Actor():
             The url pointing to the actor's avatar.
         """
         
-        if self.data["__typename"] == "Bot":
-            avatar_url = await self.http.fetch_bot_avatar_url(self.id, size)
-        elif self.data["__typename"] == "Mannequin":
-            avatar_url = await self.http.fetch_mannequin_avatar_url(self.id, size)
-        elif self.data["__typename"] == "Organization":
-            avatar_url = await self.http.fetch_organization_avatar_url(self.id, size)
-        elif self.data["__typename"] == "User":
-            avatar_url = await self.http.fetch_user_avatar_url(self.id, size)
-
+        avatar_url = await self.http.fetch_actor_avatar_url(self.id, size)
         return avatar_url
