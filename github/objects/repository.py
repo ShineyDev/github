@@ -349,17 +349,53 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     async def fetch_assignable_users(self):
         """
         Fetches a list of users that can be assigned to issues in the repository.
+
+        Raises
+        ------
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.NotFound
+            The repository does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+
+        Returns
+        -------
+        List[:class:`~github.User`]
+            A list of users that can be assigned to issues in the repository.
         """
 
-        data = await self.http.fetch_repository_assignable_users(self.owner.login, self.name)
+        data = await self.http.fetch_repository_assignable_users(self.id)
         return User.from_data(data, self.http)
 
     async def fetch_collaborators(self):
         """
         Fetches a list of collaborators associated with the repository.
+
+        Raises
+        ------
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.NotFound
+            The repository does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+
+        Returns
+        -------
+        List[:class:`~github.User`]
+            A list of collaborators associated with the repository.
         """
 
-        data = await self.http.fetch_repository_collaborators(self.owner.login, self.name)
+        data = await self.http.fetch_repository_collaborators(self.id)
         return User.from_data(data, self.http)
 
 class PartialRepository(Repository):

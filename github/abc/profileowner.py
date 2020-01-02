@@ -106,8 +106,8 @@ class ProfileOwner():
         """
 
         if self.data["__typename"] == "Organization":
-            email = await self.http.fetch_organization_email(self.login)
+            email = await self.http.fetch_organization_email(self.id)
         elif self.data["__typename"] == "User":
-            email = await self.http.fetch_user_email(self.login)
+            email = await self.http.fetch_user_email(self.id)
 
         return email

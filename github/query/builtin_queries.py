@@ -220,17 +220,21 @@ query fetch_organization ($login: String!) {
 """
 
 FETCH_ORGANIZATION_AVATAR_URL = """
-query fetch_organization_avatar_url ($login: String!, $size: Int=null) {
-  organization (login: $login) {
-    avatarUrl (size: $size)
+query fetch_organization_avatar_url ($organization_id: ID!, $size: Int=null) {
+  node (id: $organization_id) {
+    ... on Organization {
+      avatarUrl (size: $size)
+    }
   }
 }
 """
 
 FETCH_ORGANIZATION_EMAIL = """
-query fetch_organization_email ($login: String!) {
-  organization (login: $login) {
-    email
+query fetch_organization_email ($organization_id: ID!) {
+  node (id: $organization_id) {
+    ... on Organization {
+      email
+    }
   }
 }
 """
@@ -669,37 +673,39 @@ query fetch_repository ($owner: String!, $name: String!) {
 """
 
 FETCH_REPOSITORY_ASSIGNABLE_USERS = """
-query fetch_repository_assignable_users ($owner: String!, $name: String!, $cursor: String!) {
-  repository (owner: $owner, name: $name) {
-    assignableUsers (first: 10, after: $cursor) {
-      nodes {
-        __typename
-        anyPinnableItems
-        avatarUrl
-        bio
-        company
-        createdAt
-        databaseId
-        id
-        isBountyHunter
-        isCampusExpert
-        isDeveloperProgramMember
-        isEmployee
-        isHireable
-        isSiteAdmin
-        isViewer
-        location
-        login
-        name
-        pinnedItemsRemaining
-        resourcePath
-        updatedAt
-        url
-        websiteUrl
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
+query fetch_repository_assignable_users ($repository_id: ID!, $cursor: String!) {
+  node (id: $repository_id) {
+    ... on Repository {
+      assignableUsers (first: 10, after: $cursor) {
+        nodes {
+          __typename
+          anyPinnableItems
+          avatarUrl
+          bio
+          company
+          createdAt
+          databaseId
+          id
+          isBountyHunter
+          isCampusExpert
+          isDeveloperProgramMember
+          isEmployee
+          isHireable
+          isSiteAdmin
+          isViewer
+          location
+          login
+          name
+          pinnedItemsRemaining
+          resourcePath
+          updatedAt
+          url
+          websiteUrl
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
       }
     }
   }
@@ -707,37 +713,39 @@ query fetch_repository_assignable_users ($owner: String!, $name: String!, $curso
 """
 
 FETCH_REPOSITORY_COLLABORATORS = """
-query fetch_repository_collaborators ($owner: String!, $name: String!, $cursor: String!) {
-  repository (owner: $owner, name: $name) {
-    collaborators (first: 10, after: $cursor) {
-      nodes {
-        __typename
-        anyPinnableItems
-        avatarUrl
-        bio
-        company
-        createdAt
-        databaseId
-        id
-        isBountyHunter
-        isCampusExpert
-        isDeveloperProgramMember
-        isEmployee
-        isHireable
-        isSiteAdmin
-        isViewer
-        location
-        login
-        name
-        pinnedItemsRemaining
-        resourcePath
-        updatedAt
-        url
-        websiteUrl
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
+query fetch_repository_collaborators ($repository_id: ID!, $cursor: String!) {
+  node (id: $repository_id) {
+    ... on Repository {
+      collaborators (first: 10, after: $cursor) {
+        nodes {
+          __typename
+          anyPinnableItems
+          avatarUrl
+          bio
+          company
+          createdAt
+          databaseId
+          id
+          isBountyHunter
+          isCampusExpert
+          isDeveloperProgramMember
+          isEmployee
+          isHireable
+          isSiteAdmin
+          isViewer
+          location
+          login
+          name
+          pinnedItemsRemaining
+          resourcePath
+          updatedAt
+          url
+          websiteUrl
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
       }
     }
   }
@@ -790,9 +798,11 @@ query fetch_user ($login: String!) {
 """
 
 FETCH_USER_AVATAR_URL = """
-query fetch_user_avatar_url ($login: String!, $size: Int=null) {
-  user (login: $login) {
-    avatarUrl (size: $size)
+query fetch_user_avatar_url ($user_id: ID!, $size: Int=null) {
+  node (id: $user_id) {
+    ... on User {
+      avatarUrl (size: $size)
+    }
   }
 }
 """
@@ -802,9 +812,11 @@ FETCH_USER_COMMIT_COMMENTS = """
 """
 
 FETCH_USER_EMAIL = """
-query fetch_user_email ($login: String!) {
-  user (login: $login) {
-    email
+query fetch_user_email ($user_id: ID!) {
+  node (id: $user_id) {
+    ... on User {
+      email
+    }
   }
 }
 """

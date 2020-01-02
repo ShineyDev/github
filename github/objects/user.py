@@ -166,11 +166,27 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
         """
         Fetches the user's commit comments.
 
-        .. versionadded:: 0.2.0
+        Raises
+        ------
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.NotFound
+            The user does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+
+        Returns
+        -------
+        List[:class:`~github.CommitComment`]
+            A list of commit comments created by the user.
         """
 
-        comments = await self.http.fetch_user_commit_comments(self.login)
-        return comments
+        data = await self.http.fetch_user_commit_comments(self.id)
+        return CommitComment.from_data(data, self.http)
 
 class AuthenticatedUser(User):
     """

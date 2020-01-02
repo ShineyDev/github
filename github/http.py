@@ -213,7 +213,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["viewer"]
 
-    async def fetch_bot_avatar_url(self, login, size):
+    async def fetch_bot_avatar_url(self, bot_id, size):
         raise NotImplementedError("this method is not yet implemented")
 
     async def fetch_code_of_conduct(self, key):
@@ -257,7 +257,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["license"]
 
-    async def fetch_mannequin_avatar_url(self, login, size):
+    async def fetch_mannequin_avatar_url(self, mannequin_id, size):
         raise NotImplementedError("this method is not yet implemented")
 
     async def fetch_metadata(self):
@@ -307,9 +307,9 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["organization"]
 
-    async def fetch_organization_avatar_url(self, login, size):
+    async def fetch_organization_avatar_url(self, organization_id, size):
         variables = {
-            "login": login,
+            "organization_id": organization_id,
             "size": size,
         }
 
@@ -319,11 +319,11 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return data["organization"]["avatarUrl"]
+        return data["node"]["avatarUrl"]
 
-    async def fetch_organization_email(self, login):
+    async def fetch_organization_email(self, organization_id):
         variables = {
-            "login": login,
+            "organization_id": organization_id,
         }
 
         json = {
@@ -332,7 +332,7 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return data["organization"]["email"]
+        return data["node"]["email"]
 
     async def fetch_pull_request_participants(self, pull_request_id):
         raise NotImplementedError("this method is not yet implemented")
@@ -359,7 +359,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["repository"]
 
-    async def fetch_repository_assignable_users(self, owner, name):
+    async def fetch_repository_assignable_users(self, repository_id):
         nodes = list()
         
         cursor = "Y3Vyc29yOnYyOjA="
@@ -367,8 +367,7 @@ class HTTPClient():
 
         while has_next_page:
             variables = {
-                "owner": owner,
-                "name": name,
+                "repository_id": repository_id,
                 "cursor": cursor,
             }
 
@@ -378,14 +377,14 @@ class HTTPClient():
             }
 
             data = await self.request(json=json)
-            nodes.extend(data["repository"]["assignableUsers"]["nodes"])
+            nodes.extend(data["node"]["assignableUsers"]["nodes"])
 
-            cursor = data["repository"]["assignableUsers"]["pageInfo"]["endCursor"]
-            has_next_page = data["repository"]["assignableUsers"]["pageInfo"]["hasNextPage"]
+            cursor = data["node"]["assignableUsers"]["pageInfo"]["endCursor"]
+            has_next_page = data["node"]["assignableUsers"]["pageInfo"]["hasNextPage"]
 
         return nodes
 
-    async def fetch_repository_collaborators(self, owner, name):
+    async def fetch_repository_collaborators(self, repository_id):
         nodes = list()
         
         cursor = "Y3Vyc29yOnYyOjA="
@@ -393,8 +392,7 @@ class HTTPClient():
 
         while has_next_page:
             variables = {
-                "owner": owner,
-                "name": name,
+                "repository_id": repository_id,
                 "cursor": cursor,
             }
 
@@ -404,10 +402,10 @@ class HTTPClient():
             }
 
             data = await self.request(json=json)
-            nodes.extend(data["repository"]["collaborators"]["nodes"])
+            nodes.extend(data["node"]["collaborators"]["nodes"])
 
-            cursor = data["repository"]["collaborators"]["pageInfo"]["endCursor"]
-            has_next_page = data["repository"]["collaborators"]["pageInfo"]["hasNextPage"]
+            cursor = data["node"]["collaborators"]["pageInfo"]["endCursor"]
+            has_next_page = data["node"]["collaborators"]["pageInfo"]["hasNextPage"]
 
         return nodes
 
@@ -449,9 +447,9 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["user"]
 
-    async def fetch_user_avatar_url(self, login, size):
+    async def fetch_user_avatar_url(self, user_id, size):
         variables = {
-            "login": login,
+            "user_id": user_id,
             "size": size,
         }
 
@@ -461,9 +459,9 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return data["user"]["avatarUrl"]
+        return data["node"]["avatarUrl"]
 
-    async def fetch_user_commit_comments(self, login):
+    async def fetch_user_commit_comments(self, user_id):
         nodes = list()
         
         cursor = "Y3Vyc29yOnYyOjA="
@@ -471,7 +469,7 @@ class HTTPClient():
 
         while has_next_page:
             variables = {
-                "login": login,
+                "user_id": user_id,
                 "cursor": cursor,
             }
 
@@ -481,16 +479,16 @@ class HTTPClient():
             }
 
             data = await self.request(json=json)
-            nodes.extend(data["user"]["commitComments"]["nodes"])
+            nodes.extend(data["node"]["commitComments"]["nodes"])
 
-            cursor = data["user"]["commitComments"]["pageInfo"]["endCursor"]
-            has_next_page = data["user"]["commitComments"]["pageInfo"]["hasNextPage"]
+            cursor = data["node"]["commitComments"]["pageInfo"]["endCursor"]
+            has_next_page = data["node"]["commitComments"]["pageInfo"]["hasNextPage"]
 
         return nodes
 
-    async def fetch_user_email(self, login):
+    async def fetch_user_email(self, user_id):
         variables = {
-            "login": login,
+            "user_id": user_id,
         }
 
         json = {
@@ -499,7 +497,7 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return data["user"]["email"]
+        return data["node"]["email"]
 
     async def add_assignees(self, assignable_id, assignee_ids):
         raise NotImplementedError("this method is not yet implemented")
