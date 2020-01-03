@@ -63,12 +63,7 @@ class Topic(Node, Type):
         A list of related topics.
         """
 
-        related = self.data["relatedTopics"]
-        if not related:
-            return None
-
-        related["relatedTopics"] = None
-
+        related = self.data.get("relatedTopics", None)
         return PartialTopic.from_data(related)
 
 class PartialTopic(Topic):
