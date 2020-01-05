@@ -16,6 +16,7 @@
     limitations under the License.
 """
 
+from github.objects.bot import Bot
 from github.objects.codeofconduct import CodeOfConduct
 from github.objects.commitcomment import CommitComment
 from github.objects.issue import Issue
