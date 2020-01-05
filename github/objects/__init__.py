@@ -24,6 +24,7 @@ from github.objects.label import Label
 from github.objects.language import Language
 from github.objects.license import License
 from github.objects.licenserule import LicenseRule
+from github.objects.mannequin import Mannequin
 from github.objects.metadata import Metadata
 from github.objects.organization import Organization
 from github.objects.pullrequest import PullRequest

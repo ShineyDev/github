@@ -235,6 +235,9 @@ query fetch_profileowner_email ($profileowner_id: ID!) {
     ... on ProfileOwner {
       email
     }
+    ... on Mannequin {
+      email
+    }
   }
 }
 """
