@@ -314,7 +314,7 @@ class GitHub():
         # https://developer.github.com/v4/guides/using-global-node-ids/
         # TODO: implement features as described above
 
-        data = await self.http.fetch_nodes(*ids)
+        data = await self.http.fetch_nodes(ids)
         return Node.from_data(data)
 
     async def fetch_organization(self, login: str) -> Organization:

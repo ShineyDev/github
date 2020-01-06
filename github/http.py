@@ -260,7 +260,7 @@ class HTTPClient():
         data = await self.request(json=json)
         return data["node"]
 
-    async def fetch_nodes(self, *ids):
+    async def fetch_nodes(self, ids):
         variables = {
             "ids": ids,
         }
