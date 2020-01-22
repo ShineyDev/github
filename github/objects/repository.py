@@ -249,7 +249,7 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
         return self.data["name"]
 
     @property
-    def owner(self) -> typing.Union[User]:
+    def owner(self) -> typing.Union[Organization, User]:
         """
         The owner of the repository.
         """

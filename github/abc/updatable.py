@@ -45,14 +45,13 @@ class Updatable():
         return self.data["viewerCanUpdate"]
 
     @property
-    def viewer_cannot_update_reasons(self) -> typing.Optional[CannotUpdateReason]:
+    def viewer_cannot_update_reasons(self) -> typing.List[CannotUpdateReason]:
         """
         A list of reasons why the authenticated user cannot update this updatable.
         """
 
         reasons = self.data["viewerCannotUpdateReasons"]
-        if reasons is not None:
-            return CannotUpdateReason.from_data(reasons)
+        return CannotUpdateReason.from_data(reasons)
 
     async def update(self, **kwargs):
         """
