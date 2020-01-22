@@ -69,17 +69,17 @@ class Lockable():
         Raises
         ------
         ~github.errors.Forbidden
-            You don't have permission to lock the lockable.
+            You do not have permission to lock the lockable.
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
         ~github.errors.Internal
             A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             The lockable does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
         """
 
         await self.http.lock(self.id, reason)
@@ -93,17 +93,17 @@ class Lockable():
         Raises
         ------
         ~github.errors.Forbidden
-            You don't have permission to unlock the lockable.
+            You do not have permission to unlock the lockable.
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
         ~github.errors.Internal
             A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             The lockable does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
         """
 
         await self.http.unlock(self.id)

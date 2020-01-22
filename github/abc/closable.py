@@ -64,17 +64,17 @@ class Closable():
         Raises
         ------
         ~github.errors.Forbidden
-            You don't have permission to close the closable.
+            You do not have permission to close the closable.
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
         ~github.errors.Internal
             A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             The closable does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
         """
 
         if self.data["__typename"] == "Issue":
@@ -91,17 +91,17 @@ class Closable():
         Raises
         ------
         ~github.errors.Forbidden
-            You don't have permission to reopen the closable.
+            You do not have permission to reopen the closable.
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
         ~github.errors.Internal
             A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             The closable does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
         """
 
         if self.data["__typename"] == "Issue":

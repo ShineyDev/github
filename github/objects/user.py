@@ -99,7 +99,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     @property
     def is_bounty_hunter(self) -> bool:
         """
-        Whether this user is a participant in the GitHub Security Bug Bounty.
+        Whether the user is a participant in the GitHub Security Bug Bounty.
         """
 
         return self.data["isBountyHunter"]
@@ -107,7 +107,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     @property
     def is_campus_expert(self) -> bool:
         """
-        Whether this user is a participant in the GitHub Campus Experts Program.
+        Whether the user is a participant in the GitHub Campus Experts Program.
         """
 
         return self.data["isCampusExpert"]
@@ -115,7 +115,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     @property
     def is_developer_program_member(self) -> bool:
         """
-        Whether this user is a GitHub Developer Program member.
+        Whether the user is a GitHub Developer Program member.
         """
 
         return self.data["isDeveloperProgramMember"]
@@ -123,7 +123,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     @property
     def is_employee(self) -> bool:
         """
-        Whether this user is a GitHub employee.
+        Whether the user is a GitHub employee.
         """
 
         return self.data["isEmployee"]
@@ -131,7 +131,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     @property
     def is_hireable(self) -> bool:
         """
-        Whether this user has marked themselves as for hire.
+        Whether the user has marked themselves as for hire.
         """
 
         return self.data["isHireable"]
@@ -139,7 +139,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     @property
     def is_site_administrator(self) -> bool:
         """
-        Whether this user is a site administrator.
+        Whether the user is a site administrator.
         """
 
         return self.data["isSiteAdmin"]
@@ -147,7 +147,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     @property
     def is_viewer(self) -> bool:
         """
-        Whether or not this user is the viewing user.
+        Whether or not the user is the viewing user.
         """
 
         return self.data["isViewer"]
@@ -155,7 +155,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     @property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
         """
-        The date and time this user was last updated.
+        The date and time the user was last updated.
         """
 
         updated_at = self.data["updatedAt"]
@@ -168,16 +168,16 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
 
         Raises
         ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
         ~github.errors.Internal
             A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             The user does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
 
         Returns
         -------

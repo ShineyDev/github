@@ -4,8 +4,6 @@
 Building Queries & Mutations
 ============================
 
-.. versionadded:: 0.1.3
-
 .. autoclass:: Builder
     :member-order: bysource
     :members:

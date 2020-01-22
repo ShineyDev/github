@@ -35,25 +35,25 @@ class Participable():
         """
         |coro|
 
-        Fetches a list of users participating on this participable.
+        Fetches a list of users participating on the participable.
 
         Raises
         ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
         ~github.errors.Internal
             A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             The participable does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
 
         Returns
         -------
         List[:class:`~github.User`]
-            A list of users participating on this participable.
+            A list of users participating on the participable.
         """
 
         from github.objects import User

@@ -23,7 +23,8 @@ class Actor():
     https://developer.github.com/v4/interface/actor/
 
     Implemented by:
-
+    
+    * :class:`~github.AuthenticatedUser`
     * :class:`~github.Organization`
     * :class:`~github.User`
     """
@@ -33,7 +34,7 @@ class Actor():
     @property
     def avatar_url(self) -> str:
         """
-        A url pointing to this actor's public avatar.
+        A url pointing to the actor's public avatar.
         """
 
         return self.data["avatarUrl"]
@@ -41,7 +42,7 @@ class Actor():
     @property
     def login(self) -> str:
         """
-        The username for this actor.
+        The actor's username.
         """
 
         return self.data["login"]
@@ -54,7 +55,7 @@ class Actor():
 
         Parameters
         ----------
-        size: :class:`int`
+        size: Optional[:class:`int`]
             The size of the avatar.
 
         Raises
@@ -63,6 +64,10 @@ class Actor():
             An arbitrary GitHub-related error occurred.
         ~github.errors.HTTPException
             An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.NotFound
+            The actor does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
 

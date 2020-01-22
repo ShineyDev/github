@@ -32,8 +32,6 @@ class Updatable():
     * :class:`~github.CommitComment`
     * :class:`~github.Issue`
     * :class:`~github.PullRequest`
-
-    .. versionadded:: 0.2.0
     """
 
     __slots__ = ()
@@ -62,18 +60,18 @@ class Updatable():
 
         Updates the updatable.
 
-        Parameters
-        ----------
-        i'll do this later
-
         Raises
         ------
+        ~github.errors.Forbidden
+            You do not have permission to update the updatable.
         ~github.errors.GitHubError
             An arbitrary GitHub-related error occurred.
         ~github.errors.HTTPException
             An arbitrary HTTP-related error occurred.
-        ~github.errors.Forbidden
-            You don't have permission to update this updatable.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.NotFound
+            The updatable does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
         """

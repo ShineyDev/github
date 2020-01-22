@@ -39,7 +39,7 @@ class UniformResourceLocatable():
     @property
     def resource_path(self) -> str:
         """
-        The resource path for this object.
+        The resource path pointing to the resource.
         """
 
         return self.data["resourcePath"]
@@ -47,7 +47,7 @@ class UniformResourceLocatable():
     @property
     def url(self) -> str:
         """
-        The url for this object.
+        The url pointing to the resource.
         """
 
         return self.data["url"]

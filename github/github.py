@@ -40,9 +40,6 @@ class GitHub():
     This is the base class of the wrapper and is used to interact with
     the GitHub API.
 
-    .. versionchanged:: 0.1.2
-        Added ``session`` kwarg.
-
     Parameters
     ----------
     token: :class:`str`
@@ -65,9 +62,9 @@ class GitHub():
 
         .. warning::
 
-            If you don't pass your own session, a new one will be
+            If you do not pass your own session, a new one will be
             created and closed during every request - this is not ideal
-            for creating more-or-less frequent requests to the API.
+            for creating frequent requests to the API.
 
     Attributes
     ----------
@@ -115,10 +112,14 @@ class GitHub():
 
         Raises
         ------
-        ~github.errors.Unauthorized
-            Bad credentials were given.
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
         ~github.errors.HTTPException
             An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
 
         Returns
         -------
@@ -142,12 +143,16 @@ class GitHub():
 
         Raises
         ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             A code of conduct with the given key does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
 
         Returns
         -------
@@ -166,10 +171,14 @@ class GitHub():
 
         Raises
         ------
-        ~github.errors.Unauthorized
-            Bad credentials were given.
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
         ~github.errors.HTTPException
             An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
 
         Returns
         -------
@@ -193,12 +202,16 @@ class GitHub():
 
         Raises
         ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             A license with the given key does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
 
         Returns
         -------
@@ -217,10 +230,14 @@ class GitHub():
 
         Raises
         ------
-        ~github.errors.Unauthorized
-            Bad credentials were given.
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
         ~github.errors.HTTPException
             An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
 
         Returns
         -------
@@ -239,10 +256,14 @@ class GitHub():
 
         Raises
         ------
-        ~github.errors.Unauthorized
-            Bad credentials were given.
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
         ~github.errors.HTTPException
             An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
 
         Returns
         -------
@@ -266,12 +287,16 @@ class GitHub():
 
         Raises
         ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             A node with the given id does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
 
         Returns
         -------
@@ -298,12 +323,16 @@ class GitHub():
 
         Raises
         ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             A node with the given id does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
 
         Returns
         -------
@@ -325,16 +354,18 @@ class GitHub():
 
         Requires the ``read:org`` scope.
 
-        .. versionadded:: 0.3.1
-
         Raises
         ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             An organization with the given login does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
 
         Returns
         -------
@@ -353,10 +384,14 @@ class GitHub():
 
         Raises
         ------
-        ~github.errors.Unauthorized
-            Bad credentials were given.
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
         ~github.errors.HTTPException
             An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
 
         Returns
         -------
@@ -382,12 +417,16 @@ class GitHub():
 
         Raises
         ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             A repository with the given owner and name does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
 
         Returns
         -------
@@ -404,14 +443,16 @@ class GitHub():
 
         Fetches a list of scopes associated with the token.
 
-        .. versionadded:: 0.3.1
-
         Raises
         ------
-        ~github.errors.Unauthorized
-            Bad credentials were given.
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
         ~github.errors.HTTPException
             An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
 
         Returns
         -------
@@ -435,12 +476,16 @@ class GitHub():
 
         Raises
         ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             A topic with the given name does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
 
         Returns
         -------
@@ -464,12 +509,16 @@ class GitHub():
 
         Raises
         ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             A user with the given login does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
 
         Returns
         -------

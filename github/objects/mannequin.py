@@ -96,6 +96,10 @@ class Mannequin(Actor, Node, Type, UniformResourceLocatable):
             An arbitrary GitHub-related error occurred.
         ~github.errors.HTTPException
             An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.NotFound
+            The mannequin does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
 

@@ -35,12 +35,12 @@ class RepositoryOwner():
         """
         |coro|
 
-        Fetches a repository from this repository owner.
+        Fetches a repository from the repository owner.
 
         Parameters
         ----------
         name: :class:`str`
-            The name of the repository to fetch.
+            The repository name.
 
         Raises
         ------
@@ -48,6 +48,10 @@ class RepositoryOwner():
             An arbitrary GitHub-related error occurred.
         ~github.errors.HTTPException
             An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.NotFound
+            The repository does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
 

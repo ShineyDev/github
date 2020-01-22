@@ -34,8 +34,6 @@ class Reaction(Type):
     Implements:
 
     * :class:`~github.abc.Type`
-
-    .. versionadded:: 0.2.0
     """
 
     __slots__ = ("data", "http")
@@ -54,7 +52,7 @@ class Reaction(Type):
     @property
     def created_at(self) -> datetime.datetime:
         """
-        The date and time at which this reaction was added.
+        The date and time at which the reaction was added.
         """
 
         created_at = self.data["createdAt"]

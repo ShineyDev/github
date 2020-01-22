@@ -32,8 +32,6 @@ def find(iterable: typing.Iterable, predicate: typing.Callable) -> typing.Option
     If nothing is found that meets the predicate, then ``None`` is
     returned.
 
-    .. versionadded:: 0.3.2
-
     Parameters
     ----------
     iterable
@@ -57,8 +55,6 @@ def find_all(iterable: typing.Iterable, predicate: typing.Callable) -> typing.Li
 
     If nothing is found that meets the predicate, then an empty list is
     returned.
-
-    .. versionadded:: 0.3.2
 
     Parameters
     ----------
@@ -124,8 +120,6 @@ def get_all(iterable: typing.Iterable, **attributes) -> typing.List[typing.Any]:
 
     If nothing is found that matches the attributes passed, then an 
     empty list is returned.
-
-    .. versionadded:: 0.3.2
 
     Parameters
     ----------

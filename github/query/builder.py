@@ -55,8 +55,6 @@ class Builder():
         """
         Creates a :class:`~github.query.Builder` object from a dict.
 
-        .. versionadded:: 0.3.0
-
         Parameters
         ----------
         data: :class:`dict`
@@ -340,8 +338,6 @@ class Builder():
         """
         Creates a shallow-copy of this object.
 
-        .. versionadded:: 0.3.0
-
         Returns
         -------
         :class:`~github.query.Builder`
@@ -353,8 +349,6 @@ class Builder():
     def to_dict(self) -> dict:
         """
         Creates a dict object from this :class:`~github.query.Builder`.
-
-        .. versionadded:: 0.3.0
 
         Returns
         -------
@@ -462,8 +456,6 @@ class Collection():
         """
         Creates a :class:`~github.query.Collection` object from a dict.
 
-        .. versionadded:: 0.3.0
-
         Parameters
         ----------
         data: :class:`dict`
@@ -546,8 +538,6 @@ class Collection():
     def fragments(self) -> typing.List["Fragment"]:
         """
         A list of fragments.
-
-        .. versionadded:: 0.3.0
 
         Returns
         -------
@@ -647,8 +637,6 @@ class Collection():
     def add_fragment(self, fragment: "Fragment"):
         """
         Adds a fragment to the collection.
-
-        .. versionadded:: 0.3.0
 
         Parameters
         ----------
@@ -765,8 +753,6 @@ class Collection():
         """
         Creates a shallow-copy of this object.
 
-        .. versionadded:: 0.3.0
-
         Returns
         -------
         :class:`~github.query.Collection`
@@ -779,8 +765,6 @@ class Collection():
         """
         Creates a dict object from this
         :class:`~github.query.Collection`.
-
-        .. versionadded:: 0.3.0
 
         Returns
         -------
@@ -840,8 +824,6 @@ class CollectionArgument():
         Creates a :class:`~github.query.CollectionArgument` object from
         a dict.
 
-        .. versionadded:: 0.3.0
-
         Parameters
         ----------
         data: :class:`dict`
@@ -877,8 +859,6 @@ class CollectionArgument():
         """
         Creates a shallow-copy of this object.
 
-        .. versionadded:: 0.3.0
-
         Returns
         -------
         :class:`~github.query.CollectionArgument`
@@ -891,8 +871,6 @@ class CollectionArgument():
         """
         Creates a dict object from this
         :class:`~github.query.CollectionArgument`.
-
-        .. versionadded:: 0.3.0
 
         Returns
         -------
@@ -937,8 +915,6 @@ class Field():
         """
         Creates a :class:`~github.query.Field` object from a dict.
 
-        .. versionadded:: 0.3.0
-
         Parameters
         ----------
         data: :class:`dict`
@@ -977,8 +953,6 @@ class Field():
         """
         Creates a shallow-copy of this object.
 
-        .. versionadded:: 0.3.0
-
         Returns
         -------
         :class:`~github.query.Field`
@@ -990,8 +964,6 @@ class Field():
     def to_dict(self) -> dict:
         """
         Creates a dict object from this :class:`~github.query.Field`.
-
-        .. versionadded:: 0.3.0
 
         Returns
         -------
@@ -1011,8 +983,6 @@ class Field():
 class Fragment():
     """
     A helper class for building a fragment.
-
-    .. versionadded:: 0.3.0
 
     Parameters
     ----------
@@ -1044,8 +1014,6 @@ class Fragment():
     def from_dict(cls, data: dict) -> "Fragment":
         """
         Creates a :class:`~github.query.Fragment` object from a dict.
-
-        .. versionadded:: 0.3.0
 
         Parameters
         ----------
@@ -1361,8 +1329,6 @@ class Fragment():
         """
         Creates a shallow-copy of this object.
 
-        .. versionadded:: 0.3.0
-
         Returns
         -------
         :class:`~github.query.Fragment`
@@ -1375,8 +1341,6 @@ class Fragment():
         """
         Creates a dict object from this
         :class:`~github.query.Fragment`.
-
-        .. versionadded:: 0.3.0
 
         Returns
         -------
@@ -1437,8 +1401,6 @@ class QueryArgument():
         Creates a :class:`~github.query.QueryArgument` object from a
         dict.
 
-        .. versionadded:: 0.3.0
-
         Parameters
         ----------
         data: :class:`dict`
@@ -1479,8 +1441,6 @@ class QueryArgument():
         """
         Creates a shallow-copy of this object.
 
-        .. versionadded:: 0.3.0
-
         Returns
         -------
         :class:`~github.query.QueryArgument`
@@ -1493,8 +1453,6 @@ class QueryArgument():
         """
         Creates a dict object from this
         :class:`~github.query.QueryArgument`.
-
-        .. versionadded:: 0.3.0
 
         Returns
         -------

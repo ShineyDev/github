@@ -96,13 +96,17 @@ class ProfileOwner():
             An arbitrary GitHub-related error occurred.
         ~github.errors.HTTPException
             An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.NotFound
+            The profile owner does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
 
         Returns
         -------
         Optional[:class:`str`]
-            The url pointing to the profile owner's email.
+            The profile owner's email.
         """
 
         email = await self.http.fetch_profileowner_email(self.id)

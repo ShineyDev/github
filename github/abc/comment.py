@@ -34,8 +34,6 @@ class Comment():
     * :class:`~github.CommitComment`
     * :class:`~github.Issue`
     * :class:`~github.PullRequest`
-
-    .. versionadded:: 0.2.0
     """
 
     __slots__ = ()

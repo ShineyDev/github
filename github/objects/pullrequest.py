@@ -75,7 +75,7 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
     @property
     def additions(self) -> int:
         """
-        The number of additions in this pull request.
+        The number of additions in the pull request.
         """
 
         return self.data["additions"]
@@ -91,7 +91,7 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
     @property
     def deletions(self) -> int:
         """
-        The number of deletions in this pull request.
+        The number of deletions in the pull request.
         """
 
         return self.data["deletions"]

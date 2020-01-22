@@ -25,8 +25,6 @@ class Deletable():
     Implemented by:
 
     * :class:`~github.CommitComment`
-
-    .. versionadded:: 0.2.0
     """
 
     __slots__ = ()
@@ -47,12 +45,16 @@ class Deletable():
 
         Raises
         ------
+        ~github.errors.Forbidden
+            You do not have permission to delete the deletable.
         ~github.errors.GitHubError
             An arbitrary GitHub-related error occurred.
         ~github.errors.HTTPException
             An arbitrary HTTP-related error occurred.
-        ~github.errors.Forbidden
-            You don't have permission to delete this deletable.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.NotFound
+            The deletable does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
         """

@@ -48,7 +48,7 @@ class RateLimit(Type):
     @property
     def limit(self) -> int:
         """
-        The maximum number of points the viewer is permitted to consume in a 60 minute window.
+        The maximum number of points the viewer is permitted to consume in a rate limit window.
         """
 
         return self.data["limit"]
@@ -64,7 +64,7 @@ class RateLimit(Type):
     @property
     def reset_at(self) -> datetime.datetime:
         """
-        The time at which the current rate limit window resets in UTC.
+        The date and time at which the current rate limit window resets in UTC.
         """
 
         reset_at = self.data["resetAt"]

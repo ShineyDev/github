@@ -28,8 +28,6 @@ class RepositoryNode():
     * :class:`~github.Issue`
     * :class:`~github.Label`
     * :class:`~github.PullRequest`
-
-    .. versionadded:: 0.2.0
     """
 
     __slots__ = ()

@@ -45,7 +45,7 @@ class Type():
     @property
     def type(self) -> str:
         """
-        The object type.
+        The object's type.
         """
 
         return self.data["__typename"]

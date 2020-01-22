@@ -38,7 +38,7 @@ class PullRequestState():
     @property
     def closed(self) -> bool:
         """
-        The issue is closed.
+        The pull request is closed.
         """
 
         return self._state == "CLOSED"
@@ -46,7 +46,7 @@ class PullRequestState():
     @property
     def merged(self) -> bool:
         """
-        The issue is merged.
+        The pull request is merged.
         """
 
         return self._state == "MERGED"
@@ -54,7 +54,7 @@ class PullRequestState():
     @property
     def open(self) -> bool:
         """
-        The issue is open.
+        The pull request is open.
         """
 
         return self._state == "OPEN"

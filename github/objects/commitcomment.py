@@ -40,8 +40,6 @@ class CommitComment(Comment, Deletable, Node, Reactable, RepositoryNode, Type, U
     * :class:`~github.abc.RepositoryNode`
     * :class:`~github.abc.Type`
     * :class:`~github.abc.Updatable`
-
-    .. versionadded:: 0.2.0
     """
 
     __slots__ = ("data", "http")

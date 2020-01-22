@@ -71,7 +71,7 @@ class Node():
     @property
     def id(self) -> str:
         """
-        ID of the object.
+        The node's ID.
         """
 
         return self.data["id"]

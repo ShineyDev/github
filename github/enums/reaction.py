@@ -21,8 +21,6 @@ class Reaction:
     Represents a GitHub reaction.
 
     https://developer.github.com/v4/enum/reactioncontent/
-
-    .. versionadded:: 0.2.0
     """
 
     _dict = {

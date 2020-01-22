@@ -32,8 +32,6 @@ class Reactable():
     * :class:`~github.CommitComment`
     * :class:`~github.Issue`
     * :class:`~github.PullRequest`
-
-    .. versionadded:: 0.2.0
     """
 
     __slots__ = ()
@@ -80,13 +78,17 @@ class Reactable():
 
         Raises
         ------
+        ~github.errors.Forbidden
+            You do not have permission to add reactions to the
+            reactable.
         ~github.errors.GitHubError
             An arbitrary GitHub-related error occurred.
         ~github.errors.HTTPException
             An arbitrary HTTP-related error occurred.
-        ~github.errors.Forbidden
-            You don't have permission to add reactions to the
-            reactable.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.NotFound
+            The reactable does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
         """
@@ -118,13 +120,17 @@ class Reactable():
 
         Raises
         ------
+        ~github.errors.Forbidden
+            You do not have permission to remove reactions from the
+            reactable.
         ~github.errors.GitHubError
             An arbitrary GitHub-related error occurred.
         ~github.errors.HTTPException
             An arbitrary HTTP-related error occurred.
-        ~github.errors.Forbidden
-            You don't have permission to remove reactions from the
-            reactable.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.NotFound
+            The reactable does not exist.
         ~github.errors.Unauthorized
             Bad credentials were given.
         """
