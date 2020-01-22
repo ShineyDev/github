@@ -42,6 +42,14 @@ class Actor():
         return self.data["avatarUrl"]
 
     @property
+    def identicon_url(self) -> str:
+        """
+        A url pointing to the actor's identicon.
+        """
+
+        return "https://identicons.github.com/{0}.png".format(self.data["login"])
+
+    @property
     def login(self) -> str:
         """
         The actor's username.
