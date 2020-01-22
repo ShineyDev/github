@@ -45,8 +45,9 @@ Other
     utils
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
     
+    migrating
     changelog
 
 

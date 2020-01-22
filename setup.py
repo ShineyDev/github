@@ -12,8 +12,6 @@ with open("github/__init__.py", "r") as file_stream:
     version = re.search(r"^__version__ = [\"]([^\"]*)[\"]", file_stream.read(), re.MULTILINE).group(1)
 
 if version.endswith(("a", "b", "rc")):
-    # append version identifier based on commit count and current commit id
-
     try:
         import subprocess
 
