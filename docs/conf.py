@@ -41,7 +41,7 @@ source_suffix = ".rst"
 
 # project information
 
-copyright = "2019, ShineyDev"
+copyright = "2019-2020, ShineyDev"
 project = "github.py"
 
 with open("../github/__init__.py", "r") as file_stream:
