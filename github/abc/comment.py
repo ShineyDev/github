@@ -159,7 +159,9 @@ class Comment():
         """
 
         updated_at = self.data["updatedAt"]
-        return utils.iso_to_datetime(updated_at)
+
+        if updated_at:
+            return utils.iso_to_datetime(updated_at)
 
     @property
     def viewer_is_author(self) -> bool:
