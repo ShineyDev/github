@@ -23,6 +23,7 @@ class Type():
     Implemented by:
     
     * :class:`~github.AuthenticatedUser`
+    * :class:`~github.Bot`
     * :class:`~github.CodeOfConduct`
     * :class:`~github.CommitComment`
     * :class:`~github.Issue`
@@ -31,6 +32,7 @@ class Type():
     * :class:`~github.License`
     * :class:`~github.LicenseRule`
     * :class:`~github.Metadata`
+    * :class:`~github.Mannequin`
     * :class:`~github.Organization`
     * :class:`~github.PullRequest`
     * :class:`~github.RateLimit`

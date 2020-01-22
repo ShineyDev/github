@@ -25,9 +25,11 @@ class UniformResourceLocatable():
     Implemented by:
     
     * :class:`~github.AuthenticatedUser`
+    * :class:`~github.Bot`
     * :class:`~github.CodeOfConduct`
     * :class:`~github.Issue`
     * :class:`~github.Label`
+    * :class:`~github.Mannequin`
     * :class:`~github.Organization`
     * :class:`~github.PullRequest`
     * :class:`~github.Repository`

@@ -25,6 +25,8 @@ class Actor():
     Implemented by:
     
     * :class:`~github.AuthenticatedUser`
+    * :class:`~github.Bot`
+    * :class:`~github.Mannequin`
     * :class:`~github.Organization`
     * :class:`~github.User`
     """

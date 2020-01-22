@@ -25,12 +25,14 @@ class Node():
     Implemented by:
     
     * :class:`~github.AuthenticatedUser`
+    * :class:`~github.Bot`
     * :class:`~github.CodeOfConduct`
     * :class:`~github.CommitComment`
     * :class:`~github.Issue`
     * :class:`~github.Label`
     * :class:`~github.Language`
     * :class:`~github.License`
+    * :class:`~github.Mannequin`
     * :class:`~github.Organization`
     * :class:`~github.PullRequest`
     * :class:`~github.Repository`
