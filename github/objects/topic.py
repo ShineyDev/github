@@ -1,7 +1,7 @@
 """
 /github/objects/topic.py
 
-    Copyright (c) 2019 ShineyDev
+    Copyright (c) 2019-2020 ShineyDev
     
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
