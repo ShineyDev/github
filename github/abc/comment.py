@@ -159,7 +159,6 @@ class Comment():
         """
 
         updated_at = self.data["updatedAt"]
-
         if updated_at:
             return utils.iso_to_datetime(updated_at)
 
