@@ -7,6 +7,7 @@ Objects
 .. toctree::
     :maxdepth: 1
 
+    bot
     codeofconduct
     commitcomment
     issue
@@ -14,6 +15,7 @@ Objects
     language
     license
     licenserule
+    mannequin
     metadata
     organization
     pullrequest
