@@ -50,6 +50,7 @@ class GitHub():
 
             You can get a personal access token, needed for this
             wrapper, from https://github.com/settings/tokens.
+
     base_url: Optional[:class:`str`]
         The base url used by this wrapper. This can be changed to allow
         support for GitHub Enterprise.
