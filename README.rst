@@ -37,7 +37,7 @@ Features
 
 #. Easy to use, modern Pythonic API using ``async``/``await`` syntax.
 #. 100% coverage of the supported GitHub API.
-#. All user-facing objects and methods are documented. `RTD <https://githubpy.readthedocs.io/en/latest/>`_
+#. All user-facing objects and methods are `documented <https://githubpy.readthedocs.io/en/latest/>`_.
 
 
 Installation
