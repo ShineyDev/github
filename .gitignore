@@ -1,18 +1,18 @@
 # visual studio configuration
-.vs/
+/.vs/
 
 # python cache
 __pycache__/
 
 # python documentation
-docs/build/
+/docs/build/
 
 # python package-index
-build/
-dist/
-github.py.egg-info/
+/build/
+/dist/
+/github.py.egg-info/
 
 # project
-github-design/
-github-helpers/
-github-tests/
+/github-design/
+/github-helpers/
+/github-tests/
