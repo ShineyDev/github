@@ -840,3 +840,95 @@ query fetch_user ($login: String!) {
 FETCH_USER_COMMIT_COMMENTS = """
 
 """
+
+FETCH_USER_FOLLOWERS = """
+query fetch_user_followers ($user_id: ID!, $cursor: String=null) {
+  node (id: $user_id) {
+    ... on User {
+      followers (first: 10, after: $cursor) {
+        nodes {
+          __typename
+          anyPinnableItems
+          avatarUrl
+          bio
+          company
+          createdAt
+          databaseId
+          id
+          isBountyHunter
+          isCampusExpert
+          isDeveloperProgramMember
+          isEmployee
+          isHireable
+          isSiteAdmin
+          isViewer
+          location
+          login
+          name
+          pinnedItemsRemaining
+          projectsResourcePath
+          projectsUrl
+          resourcePath
+          updatedAt
+          url
+          viewerCanChangePinnedItems
+          viewerCanCreateProjects
+          viewerCanFollow
+          viewerIsFollowing
+          websiteUrl
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  }
+}
+"""
+
+FETCH_USER_FOLLOWING = """
+query fetch_user_following ($user_id: ID!, $cursor: String=null) {
+  node (id: $user_id) {
+    ... on User {
+      following (first: 10, after: $cursor) {
+        nodes {
+          __typename
+          anyPinnableItems
+          avatarUrl
+          bio
+          company
+          createdAt
+          databaseId
+          id
+          isBountyHunter
+          isCampusExpert
+          isDeveloperProgramMember
+          isEmployee
+          isHireable
+          isSiteAdmin
+          isViewer
+          location
+          login
+          name
+          pinnedItemsRemaining
+          projectsResourcePath
+          projectsUrl
+          resourcePath
+          updatedAt
+          url
+          viewerCanChangePinnedItems
+          viewerCanCreateProjects
+          viewerCanFollow
+          viewerIsFollowing
+          websiteUrl
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  }
+}
+"""

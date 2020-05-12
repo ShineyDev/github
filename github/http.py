@@ -308,6 +308,12 @@ class HTTPClient():
     async def fetch_user_commit_comments(self, user_id):
         return await self._fetch_collection("node", "commitComments", query=query.FETCH_USER_COMMIT_COMMENTS, user_id=user_id)
 
+    async def fetch_user_followers(self, user_id):
+        return await self._fetch_collection("node", "followers", query=query.FETCH_USER_FOLLOWERS, user_id=user_id)
+
+    async def fetch_user_following(self, user_id):
+        return await self._fetch_collection("node", "following", query=query.FETCH_USER_FOLLOWING, user_id=user_id)
+
     # mutations
 
     async def add_assignees(self, assignable_id, assignee_ids):

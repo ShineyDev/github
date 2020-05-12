@@ -204,6 +204,58 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
         data = await self.http.fetch_user_commit_comments(self.id)
         return CommitComment.from_data(data, self.http)
 
+    async def fetch_followers(self) -> typing.List["User"]:
+        """
+        Fetches the user's followers.
+
+        Raises
+        ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.NotFound
+            The user does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+
+        Returns
+        -------
+        List[:class:`~github.User`]
+            A list of users following the user.
+        """
+
+        data = await self.http.fetch_user_followers(self.id)
+        return User.from_data(data, self.http)
+
+    async def fetch_following(self) -> typing.List["User"]:
+        """
+        Fetches users followed by the user.
+
+        Raises
+        ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.NotFound
+            The user does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+
+        Returns
+        -------
+        List[:class:`~github.User`]
+            A list of users followed by the user.
+        """
+
+        data = await self.http.fetch_user_following(self.id)
+        return User.from_data(data, self.http)
+
 class AuthenticatedUser(User):
     """
     Represents the authenticated GitHub user account, "viewer".
