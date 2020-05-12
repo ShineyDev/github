@@ -193,7 +193,7 @@ class HTTPClient():
     async def _fetch_collection(self, *path, query, **kwargs):
         nodes = list()
 
-        cursor = "Y3Vyc29yOnYyOjA="
+        cursor = None
         has_next_page = True
 
         while has_next_page:

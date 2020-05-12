@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-from github.query import Builder
-
-
 FETCH_ACTOR_AVATAR_URL = """
 query fetch_actor_avatar_url ($actor_id: ID!, $size: Int=null) {
   node (id: $actor_id) {
@@ -676,7 +673,7 @@ query fetch_repository ($owner: String!, $name: String!) {
 """
 
 FETCH_REPOSITORY_ASSIGNABLE_USERS = """
-query fetch_repository_assignable_users ($repository_id: ID!, $cursor: String!) {
+query fetch_repository_assignable_users ($repository_id: ID!, $cursor: String=null) {
   node (id: $repository_id) {
     ... on Repository {
       assignableUsers (first: 10, after: $cursor) {
@@ -716,7 +713,7 @@ query fetch_repository_assignable_users ($repository_id: ID!, $cursor: String!) 
 """
 
 FETCH_REPOSITORY_COLLABORATORS = """
-query fetch_repository_collaborators ($repository_id: ID!, $cursor: String!) {
+query fetch_repository_collaborators ($repository_id: ID!, $cursor: String=null) {
   node (id: $repository_id) {
     ... on Repository {
       collaborators (first: 10, after: $cursor) {
