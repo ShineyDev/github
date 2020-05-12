@@ -17,6 +17,7 @@
 """
 
 import functools
+import operator
 import uuid
 
 import aiohttp
@@ -202,7 +203,7 @@ class HTTPClient():
             }
 
             data = await self.request(json=json)
-            data = functools.reduce(dict.get, path, data)
+            data = functools.reduce(operator.getitem, path, data)
 
             nodes.extend(data["nodes"])
 
@@ -218,7 +219,7 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-        return functools.reduce(dict.get, path, data)
+        return functools.reduce(operator.getitem, path, data)
 
     async def fetch_actor_avatar_url(self, actor_id, size):
         return await self._fetch_field("node", "avatarUrl", query=query.FETCH_ACTOR_AVATAR_URL, actor_id=actor_id, size=size)
