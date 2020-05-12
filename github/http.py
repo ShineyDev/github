@@ -16,6 +16,7 @@
     limitations under the License.
 """
 
+import functools
 import uuid
 
 import aiohttp
@@ -201,9 +202,7 @@ class HTTPClient():
             }
 
             data = await self.request(json=json)
-
-            for (key) in path:
-                data = data[key]
+            data = functools.reduce(dict.get, path, data)
 
             nodes.extend(data["nodes"])
 
@@ -219,11 +218,7 @@ class HTTPClient():
         }
 
         data = await self.request(json=json)
-
-        for (key) in path:
-            data = data[key]
-
-        return data
+        return functools.reduce(dict.get, path, data)
 
     async def fetch_actor_avatar_url(self, actor_id, size):
         return await self._fetch_field("node", "avatarUrl", query=query.FETCH_ACTOR_AVATAR_URL, actor_id=actor_id, size=size)
