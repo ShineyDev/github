@@ -16,6 +16,10 @@
     limitations under the License.
 """
 
+# i have tried plenty-too-many times to create a logical function
+# factory here, in place of hardcoded strings - mostly for ease of
+# modification. feel free to do better. it's wasting my time.
+
 FETCH_ACTOR_AVATAR_URL = """
 query fetch_actor_avatar_url ($actor_id: ID!, $size: Int=null) {
   node (id: $actor_id) {
