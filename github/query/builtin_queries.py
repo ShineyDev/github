@@ -48,9 +48,15 @@ query fetch_authenticated_user {
     login
     name
     pinnedItemsRemaining
+    projectsResourcePath
+    projectsUrl
     resourcePath
     updatedAt
     url
+    viewerCanChangePinnedItems
+    viewerCanCreateProjects
+    viewerCanFollow
+    viewerIsFollowing
     websiteUrl
   }
 }
@@ -366,9 +372,15 @@ query fetch_repository ($owner: String!, $name: String!) {
         login
         name
         pinnedItemsRemaining
+        projectsResourcePath
+        projectsUrl
         resourcePath
         updatedAt
         url
+        viewerCanChangePinnedItems
+        viewerCanCreateProjects
+        viewerCanFollow
+        viewerIsFollowing
         websiteUrl
       }
     }
@@ -486,9 +498,15 @@ query fetch_repository ($owner: String!, $name: String!) {
           login
           name
           pinnedItemsRemaining
+          projectsResourcePath
+          projectsUrl
           resourcePath
           updatedAt
           url
+          viewerCanChangePinnedItems
+          viewerCanCreateProjects
+          viewerCanFollow
+          viewerIsFollowing
           websiteUrl
         }
       }
@@ -635,9 +653,15 @@ query fetch_repository ($owner: String!, $name: String!) {
           login
           name
           pinnedItemsRemaining
+          projectsResourcePath
+          projectsUrl
           resourcePath
           updatedAt
           url
+          viewerCanChangePinnedItems
+          viewerCanCreateProjects
+          viewerCanFollow
+          viewerIsFollowing
           websiteUrl
         }
       }
@@ -697,9 +721,15 @@ query fetch_repository_assignable_users ($repository_id: ID!, $cursor: String=nu
           login
           name
           pinnedItemsRemaining
+          projectsResourcePath
+          projectsUrl
           resourcePath
           updatedAt
           url
+          viewerCanChangePinnedItems
+          viewerCanCreateProjects
+          viewerCanFollow
+          viewerIsFollowing
           websiteUrl
         }
         pageInfo {
@@ -789,9 +819,15 @@ query fetch_user ($login: String!) {
     login
     name
     pinnedItemsRemaining
+    projectsResourcePath
+    projectsUrl
     resourcePath
     updatedAt
     url
+    viewerCanChangePinnedItems
+    viewerCanCreateProjects
+    viewerCanFollow
+    viewerIsFollowing
     websiteUrl
   }
 }

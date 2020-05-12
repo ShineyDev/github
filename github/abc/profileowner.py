@@ -72,7 +72,7 @@ class ProfileOwner():
         Whether or not the authenticated user can change the pinned items on the profile.
         """
 
-        return self.data["viewerCanCreateProjects"]
+        return self.data["viewerCanChangePinnedItems"]
 
     @property
     def website(self) -> typing.Optional[str]:

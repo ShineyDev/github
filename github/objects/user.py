@@ -162,6 +162,22 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
         if updated_at:
             return utils.iso_to_datetime(updated_at)
 
+    @property
+    def viewer_can_follow(self) -> bool:
+        """
+        Whether the viewer can follow the user.
+        """
+
+        return self.data["viewerCanFollow"]
+
+    @property
+    def viewer_is_following(self) -> bool:
+        """
+        Whether the viewer is following the user.
+        """
+
+        return self.data["viewerIsFollowing"]
+
     async def fetch_commit_comments(self) -> typing.List[CommitComment]:
         """
         Fetches the user's commit comments.
