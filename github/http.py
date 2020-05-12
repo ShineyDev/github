@@ -186,186 +186,62 @@ class HTTPClient():
 
         return data["data"]
 
-    # primary queries,
-    # these methods are invoked from the github.GitHub class
+    # queries
 
-    async def fetch_all_codes_of_conduct(self):
+    async def _fetch_collection(self, *path, query, **kwargs):
+        nodes = list()
+
+        cursor = "Y3Vyc29yOnYyOjA="
+        has_next_page = True
+
+        while has_next_page:
+            json = {
+                "query": query,
+                "variables": kwargs.update(cursor=cursor) or kwargs,
+            }
+
+            data = await self.request(json=json)
+
+            for (key) in path:
+                data = data[key]
+
+            nodes.extend(data["nodes"])
+
+            cursor = data["pageInfo"]["endCursor"]
+            has_next_page = data["pageInfo"]["hasNextPage"]
+
+        return nodes
+
+    async def _fetch_field(self, *path, query, **kwargs):
         json = {
-            "query": query.FETCH_ALL_CODES_OF_CONDUCT,
+            "query": query,
+            "variables": kwargs,
         }
 
         data = await self.request(json=json)
-        return data["codesOfConduct"]
 
-    async def fetch_all_licenses(self):
-        json = {
-            "query": query.FETCH_ALL_LICENSES,
-        }
+        for (key) in path:
+            data = data[key]
 
-        data = await self.request(json=json)
-        return data["licenses"]
-
-    async def fetch_authenticated_user(self):
-        json = {
-            "query": query.FETCH_AUTHENTICATED_USER,
-        }
-
-        data = await self.request(json=json)
-        return data["viewer"]
-
-    async def fetch_code_of_conduct(self, key):
-        variables = {
-            "key": key,
-        }
-
-        json = {
-            "query": query.FETCH_CODE_OF_CONDUCT,
-            "variables": variables,
-        }
-
-        data = await self.request(json=json)
-        return data["codeOfConduct"]
-
-    async def fetch_license(self, key):
-        variables = {
-            "key": key,
-        }
-
-        json = {
-            "query": query.FETCH_LICENSE,
-            "variables": variables,
-        }
-
-        data = await self.request(json=json)
-        return data["license"]
-
-    async def fetch_metadata(self):
-        json = {
-            "query": query.FETCH_METADATA,
-        }
-
-        data = await self.request(json=json)
-        return data["meta"]
-
-    async def fetch_node(self, id):
-        variables = {
-            "id": id,
-        }
-
-        json = {
-            "query": query.FETCH_NODE,
-            "variables": variables,
-        }
-
-        data = await self.request(json=json)
-        return data["node"]
-
-    async def fetch_nodes(self, ids):
-        variables = {
-            "ids": ids,
-        }
-
-        json = {
-            "query": query.FETCH_NODES,
-            "variables": variables,
-        }
-
-        data = await self.request(json=json)
-        return data["nodes"]
-
-    async def fetch_organization(self, login):
-        variables = {
-            "login": login,
-        }
-
-        json = {
-            "query": query.FETCH_ORGANIZATION,
-            "variables": variables,
-        }
-
-        data = await self.request(json=json)
-        return data["organization"]
-    
-    async def fetch_rate_limit(self):
-        json = {
-            "query": query.FETCH_RATE_LIMIT,
-        }
-
-        data = await self.request(json=json)
-        return data["rateLimit"]
-
-    async def fetch_repository(self, owner, name):
-        variables = {
-            "owner": owner,
-            "name": name,
-        }
-
-        json = {
-            "query": query.FETCH_REPOSITORY,
-            "variables": variables,
-        }
-
-        data = await self.request(json=json)
-        return data["repository"]
-
-    async def fetch_scopes(self):
-        headers = dict()
-        headers.update({"Authorization": "bearer {0}".format(self._token)})
-        headers.update({"User-Agent": self._user_agent})
-
-        session = self._session
-        async with context.SessionContext(session) as session:
-            response = await self._request(method="GET", json=None, headers=headers, session=session)
-
-        scopes = response.headers.get("X-OAuth-Scopes")
-        return [s for s in scopes.split(", ") if s]
-
-    async def fetch_topic(self, name):
-        variables = {
-            "name": name,
-        }
-
-        json = {
-            "query": query.FETCH_TOPIC,
-            "variables": variables,
-        }
-
-        data = await self.request(json=json)
-        return data["topic"]
-
-    async def fetch_user(self, login):
-        variables = {
-            "login": login,
-        }
-
-        json = {
-            "query": query.FETCH_USER,
-            "variables": variables,
-        }
-
-        data = await self.request(json=json)
-        return data["user"]
-
-    # secondary queries,
-    # these methods are invoked from classes in the github.abc or
-    # github.objects namespaces
+        return data
 
     async def fetch_actor_avatar_url(self, actor_id, size):
-        variables = {
-            "actor_id": actor_id,
-            "size": size,
-        }
+        return await self._fetch_field("node", "avatarUrl", query=query.FETCH_ACTOR_AVATAR_URL, actor_id=actor_id, size=size)
 
-        json = {
-            "query": query.FETCH_ACTOR_AVATAR_URL,
-            "variables": variables,
-        }
+    async def fetch_all_codes_of_conduct(self):
+        return await self._fetch_field("codesOfConduct", query=query.FETCH_ALL_CODES_OF_CONDUCT)
 
-        data = await self.request(json=json)
-        return data["node"]["avatarUrl"]
+    async def fetch_all_licenses(self):
+        return await self._fetch_field("licenses", query=query.FETCH_ALL_LICENSES)
 
     async def fetch_assignable_assignees(self, assignable_id):
         raise NotImplementedError("this method is not yet implemented")
+
+    async def fetch_authenticated_user(self):
+        return await self._fetch_field("viewer", query=query.FETCH_AUTHENTICATED_USER)
+
+    async def fetch_code_of_conduct(self, key):
+        return await self._fetch_field("codeOfConduct", query=query.FETCH_CODE_OF_CONDUCT, key=key)
 
     async def fetch_commentable_comments(self, commentable_id):
         raise NotImplementedError("this method is not yet implemented")
@@ -382,96 +258,59 @@ class HTTPClient():
     async def fetch_labelable_labels(self, labelable_id):
         raise NotImplementedError("this method is not yet implemented")
 
+    async def fetch_license(self, key):
+        return await self._fetch_field("license", query=query.FETCH_LICENSE, key=key)
+
+    async def fetch_metadata(self):
+        return await self._fetch_field("meta", query=query.FETCH_METADATA)
+
+    async def fetch_node(self, id):
+        return await self._fetch_field("node", query=query.FETCH_NODE, id=id)
+
+    async def fetch_nodes(self, ids):
+        return await self._fetch_field("nodes", query=query.FETCH_NODES, ids=ids)
+
+    async def fetch_organization(self, login):
+        return await self._fetch_field("organization", query=query.FETCH_ORGANIZATION, login=login)
+
     async def fetch_profileowner_email(self, profileowner_id):
-        variables = {
-            "profileowner_id": profileowner_id,
-        }
-
-        json = {
-            "query": query.FETCH_PROFILEOWNER_EMAIL,
-            "variables": variables,
-        }
-
-        data = await self.request(json=json)
-        return data["node"]["email"]
+        return await self._fetch_field("node", "email", query=query.FETCH_PROFILEOWNER_EMAIL, profileowner_id=profileowner_id)
 
     async def fetch_pull_request_participants(self, pull_request_id):
         raise NotImplementedError("this method is not yet implemented")
+    
+    async def fetch_rate_limit(self):
+        return await self._fetch_field("rateLimit", query=query.FETCH_RATE_LIMIT)
+
+    async def fetch_repository(self, owner, name):
+        return await self._fetch_field("repository", query=query.FETCH_REPOSITORY, owner=owner, name=name)
 
     async def fetch_repository_assignable_users(self, repository_id):
-        nodes = list()
-        
-        cursor = "Y3Vyc29yOnYyOjA="
-        has_next_page = True
-
-        while has_next_page:
-            variables = {
-                "repository_id": repository_id,
-                "cursor": cursor,
-            }
-
-            json = {
-                "query": query.FETCH_REPOSITORY_ASSIGNABLE_USERS,
-                "variables": variables,
-            }
-
-            data = await self.request(json=json)
-            nodes.extend(data["node"]["assignableUsers"]["nodes"])
-
-            cursor = data["node"]["assignableUsers"]["pageInfo"]["endCursor"]
-            has_next_page = data["node"]["assignableUsers"]["pageInfo"]["hasNextPage"]
-
-        return nodes
+        return await self._fetch_collection("node", "assignableUsers", query=query.FETCH_REPOSITORY_ASSIGNABLE_USERS, repository_id=repository_id)
 
     async def fetch_repository_collaborators(self, repository_id):
-        nodes = list()
-        
-        cursor = "Y3Vyc29yOnYyOjA="
-        has_next_page = True
+        return await self._fetch_collection("node", "collaborators", query=query.FETCH_REPOSITORY_COLLABORATORS, repository_id=repository_id)
 
-        while has_next_page:
-            variables = {
-                "repository_id": repository_id,
-                "cursor": cursor,
-            }
+    async def fetch_scopes(self):
+        headers = dict()
+        headers.update({"Authorization": "bearer {0}".format(self._token)})
+        headers.update({"User-Agent": self._user_agent})
 
-            json = {
-                "query": query.FETCH_REPOSITORY_COLLABORATORS,
-                "variables": variables,
-            }
+        session = self._session
+        async with context.SessionContext(session) as session:
+            response = await self._request(method="GET", json=None, headers=headers, session=session)
 
-            data = await self.request(json=json)
-            nodes.extend(data["node"]["collaborators"]["nodes"])
+        scopes = response.headers.get("X-OAuth-Scopes")
+        return [s for s in scopes.split(", ") if s]
 
-            cursor = data["node"]["collaborators"]["pageInfo"]["endCursor"]
-            has_next_page = data["node"]["collaborators"]["pageInfo"]["hasNextPage"]
+    async def fetch_topic(self, name):
+        return await self._fetch_field("topic", query=query.FETCH_TOPIC, name=name)
 
-        return nodes
+    async def fetch_user(self, login):
+        return await self._fetch_field("user", query=query.FETCH_USER, login=login)
 
     async def fetch_user_commit_comments(self, user_id):
-        nodes = list()
-        
-        cursor = "Y3Vyc29yOnYyOjA="
-        has_next_page = True
-
-        while has_next_page:
-            variables = {
-                "user_id": user_id,
-                "cursor": cursor,
-            }
-
-            json = {
-                "query": query.FETCH_USER_COMMIT_COMMENTS,
-                "variables": variables,
-            }
-
-            data = await self.request(json=json)
-            nodes.extend(data["node"]["commitComments"]["nodes"])
-
-            cursor = data["node"]["commitComments"]["pageInfo"]["endCursor"]
-            has_next_page = data["node"]["commitComments"]["pageInfo"]["hasNextPage"]
-
-        return nodes
+        return await self._fetch_collection("node", "commitComments", query=query.FETCH_USER_COMMIT_COMMENTS, user_id=user_id)
 
     # mutations
 
