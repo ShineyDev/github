@@ -66,13 +66,6 @@ class Issue(Assignable, Closable, Comment, Commentable, Labelable, Lockable, Nod
         self.data = data
         self.http = http
 
-    @classmethod
-    def from_data(cls, data, http):
-        if isinstance(data, dict):
-            return cls(data, http)
-        elif isinstance(data, list):
-            return [cls(issue, http) for issue in data]
-
     @property
     def database_id(self) -> int:
         """

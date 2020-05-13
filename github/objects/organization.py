@@ -54,13 +54,6 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} login='{0.login}'>".format(self)
 
-    @classmethod
-    def from_data(cls, data, http):
-        if isinstance(data, dict):
-            return cls(data, http)
-        elif isinstance(data, list):
-            return [cls(organization, http) for organization in data]
-
     @property
     def database_id(self) -> int:
         """

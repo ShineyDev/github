@@ -44,6 +44,19 @@ class Type():
 
     __slots__ = ()
 
+    @classmethod
+    def from_data(cls, data, http=None):
+        if http:
+            if isinstance(data, dict):
+                return cls(data, http)
+            elif isinstance(data, list):
+                return [cls(d, http) for (d) in data]
+
+        if isinstance(data, dict):
+            return cls(data)
+        elif isinstance(data, list):
+            return [cls(d) for (d) in data]
+
     @property
     def type(self) -> str:
         """

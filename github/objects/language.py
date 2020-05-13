@@ -41,13 +41,6 @@ class Language(Node, Type):
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} name='{0.name}'>".format(self)
 
-    @classmethod
-    def from_data(cls, data):
-        if isinstance(data, dict):
-            return cls(data)
-        elif isinstance(data, list):
-            return [cls(language) for language in data]
-
     @property
     def color(self) -> str:
         """

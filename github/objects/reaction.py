@@ -45,10 +45,6 @@ class Reaction(Type):
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} content='{0.content}'>".format(self)
 
-    @classmethod
-    def from_data(data, http):
-        return [cls(reaction, http) for reaction in data]
-
     @property
     def created_at(self) -> datetime.datetime:
         """

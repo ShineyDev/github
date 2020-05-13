@@ -65,13 +65,6 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
         self.data = data
         self.http = http
 
-    @classmethod
-    def from_data(cls, data, http):
-        if isinstance(data, dict):
-            return cls(data, http)
-        elif isinstance(data, list):
-            return [cls(pull, http) for pull in data]
-
     @property
     def additions(self) -> int:
         """

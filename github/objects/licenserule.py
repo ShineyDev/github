@@ -39,10 +39,6 @@ class LicenseRule(Type):
 
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} key='{0.key}'>".format(self)
-
-    @classmethod
-    def from_data(cls, data):
-        return [cls(rule) for rule in data]
     
     @property
     def description(self) -> str:

@@ -58,13 +58,6 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} owner='{0.owner.login}' name='{0.name}'>".format(self)
 
-    @classmethod
-    def from_data(cls, data, http):
-        if isinstance(data, dict):
-            return cls(data, http)
-        elif isinstance(data, list):
-            return [cls(repository, http) for repository in data]
-
     @property
     def allows_merge_commit(self) -> bool:
         """

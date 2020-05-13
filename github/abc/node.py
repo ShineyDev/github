@@ -16,7 +16,10 @@
     limitations under the License.
 """
 
-class Node():
+from .type import Type
+
+
+class Node(Type):
     """
     Represents an object with an ID.
 
@@ -57,18 +60,6 @@ class Node():
 
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} id='{0.id}'>".format(self)
-
-    @classmethod
-    def from_data(cls, data):
-        if isinstance(data, dict):
-            return cls(data)
-        elif isinstance(data, list):
-            nodes = list()
-
-            for (node) in data:
-                nodes.append(cls(node))
-
-            return nodes
         
     @property
     def id(self) -> str:

@@ -47,10 +47,3 @@ class CommitComment(Comment, Deletable, Node, Reactable, RepositoryNode, Type, U
     def __init__(self, data, http):
         self.data = data
         self.http = http
-
-    @classmethod
-    def from_data(cls, data, http):
-        if isinstance(data, dict):
-            return cls(data, http)
-        elif isinstance(data, list):
-            return [cls(comment, http) for comment in data]

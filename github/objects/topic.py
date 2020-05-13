@@ -42,13 +42,6 @@ class Topic(Node, Type):
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} name='{0.name}'>".format(self)
 
-    @classmethod
-    def from_data(cls, data):
-        if isinstance(data, dict):
-            return cls(data)
-        elif isinstance(data, list):
-            return [cls(topic) for topic in data]
-
     @property
     def name(self) -> str:
         """

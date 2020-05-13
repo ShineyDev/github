@@ -43,13 +43,6 @@ class License(Node, Type):
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} key='{0.key}'>".format(self)
 
-    @classmethod
-    def from_data(cls, data):
-        if isinstance(data, dict):
-            return cls(data)
-        elif isinstance(data, list):
-            return [cls(license) for license in data]
-
     @property
     def body(self) -> str:
         """

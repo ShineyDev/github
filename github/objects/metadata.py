@@ -37,10 +37,6 @@ class Metadata(Type):
     def __init__(self, data):
         self.data = data
 
-    @classmethod
-    def from_data(cls, data):
-        return cls(data)
-
     @property
     def git_ip_addresses(self) -> typing.List[str]:
         """
