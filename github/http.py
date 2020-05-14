@@ -287,6 +287,22 @@ class HTTPClient():
     async def fetch_repository_collaborators(self, repository_id):
         return await self._fetch_collection("node", "collaborators", query=query.FETCH_REPOSITORY_COLLABORATORS, repository_id=repository_id)
 
+    async def fetch_repository_parent(self, repository_id):
+        try:
+            parent = await self._fetch_field("node", "parent", query=query.FETCH_REPOSITORY_PARENT, repository_id=repository_id)
+        except (KeyError) as e:
+            parent = None
+
+        return parent
+
+    async def fetch_repository_template(self, repository_id):
+        try:
+            template = await self._fetch_field("node", "template", query=query.FETCH_REPOSITORY_TEMPLATE, repository_id=repository_id)
+        except (KeyError) as e:
+            template = None
+
+        return template
+
     async def fetch_scopes(self):
         headers = dict()
         headers.update({"Authorization": "bearer {0}".format(self._token)})
@@ -304,6 +320,9 @@ class HTTPClient():
 
     async def fetch_user(self, login):
         return await self._fetch_field("user", query=query.FETCH_USER, login=login)
+
+    async def fetch_topic_related_topics(self, topic_id):
+        return await self._fetch_field("node", "relatedTopics", query=query.FETCH_TOPIC_RELATED_TOPICS, topic_id=topic_id)
 
     async def fetch_user_commit_comments(self, user_id):
         return await self._fetch_collection("node", "commitComments", query=query.FETCH_USER_COMMIT_COMMENTS, user_id=user_id)

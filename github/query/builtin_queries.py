@@ -388,151 +388,6 @@ query fetch_repository ($owner: String!, $name: String!) {
         websiteUrl
       }
     }
-    parent {
-      __typename
-      codeOfConduct {
-        __typename
-        body
-        id
-        key
-        name
-        url
-      }
-      createdAt
-      databaseId
-      defaultBranchRef {
-        name
-      }
-      description
-      diskUsage
-      forkCount
-      hasIssuesEnabled
-      hasWikiEnabled
-      id
-      isArchived
-      isDisabled
-      isFork
-      isLocked
-      isMirror
-      isPrivate
-      isTemplate
-      licenseInfo {
-        __typename
-        body
-        conditions {
-          __typename
-          description
-          key
-          label
-        }
-        description
-        featured
-        hidden
-        id
-        implementation
-        key
-        limitations {
-          __typename
-          description
-          key
-          label
-        }
-        name
-        nickname
-        permissions {
-          __typename
-          description
-          key
-          label
-        }
-        pseudoLicense
-        spdxId
-        url
-      }
-      lockReason
-      mergeCommitAllowed
-      name
-      owner {
-        ... on Organization {
-          __typename
-          anyPinnableItems
-          avatarUrl
-          databaseId
-          description
-          email
-          id
-          isVerified
-          location
-          login
-          name
-          newTeamResourcePath
-          newTeamUrl
-          pinnedItemsRemaining
-          projectsResourcePath
-          projectsUrl
-          resourcePath
-          teamsResourcePath
-          teamsUrl
-          url
-          viewerCanAdminister
-          viewerCanChangePinnedItems
-          viewerCanCreateProjects
-          viewerCanCreateRepositories
-          viewerCanCreateTeams
-          viewerIsAMember
-          websiteUrl
-        }
-        ... on User {
-          __typename
-          anyPinnableItems
-          avatarUrl
-          bio
-          company
-          createdAt
-          databaseId
-          id
-          isBountyHunter
-          isCampusExpert
-          isDeveloperProgramMember
-          isEmployee
-          isHireable
-          isSiteAdmin
-          isViewer
-          location
-          login
-          name
-          pinnedItemsRemaining
-          projectsResourcePath
-          projectsUrl
-          resourcePath
-          updatedAt
-          url
-          viewerCanChangePinnedItems
-          viewerCanCreateProjects
-          viewerCanFollow
-          viewerIsFollowing
-          websiteUrl
-        }
-      }
-      primaryLanguage {
-        __typename
-        color
-        id
-        name
-      }
-      pushedAt
-      rebaseMergeAllowed
-      resourcePath
-      squashMergeAllowed
-      updatedAt
-      url
-      viewerCanAdminister
-      viewerCanCreateProjects
-      viewerCanSubscribe
-      viewerCanUpdateTopics
-      viewerPermission
-      viewerSubscription
-    }
     primaryLanguage {
       __typename
       color
@@ -543,151 +398,6 @@ query fetch_repository ($owner: String!, $name: String!) {
     rebaseMergeAllowed
     resourcePath
     squashMergeAllowed
-    templateRepository {
-      __typename
-      codeOfConduct {
-        __typename
-        body
-        id
-        key
-        name
-        url
-      }
-      createdAt
-      databaseId
-      defaultBranchRef {
-        name
-      }
-      description
-      diskUsage
-      forkCount
-      hasIssuesEnabled
-      hasWikiEnabled
-      id
-      isArchived
-      isDisabled
-      isFork
-      isLocked
-      isMirror
-      isPrivate
-      isTemplate
-      licenseInfo {
-        __typename
-        body
-        conditions {
-          __typename
-          description
-          key
-          label
-        }
-        description
-        featured
-        hidden
-        id
-        implementation
-        key
-        limitations {
-          __typename
-          description
-          key
-          label
-        }
-        name
-        nickname
-        permissions {
-          __typename
-          description
-          key
-          label
-        }
-        pseudoLicense
-        spdxId
-        url
-      }
-      lockReason
-      mergeCommitAllowed
-      name
-      owner {
-        ... on Organization {
-          __typename
-          anyPinnableItems
-          avatarUrl
-          databaseId
-          description
-          email
-          id
-          isVerified
-          location
-          login
-          name
-          newTeamResourcePath
-          newTeamUrl
-          pinnedItemsRemaining
-          projectsResourcePath
-          projectsUrl
-          resourcePath
-          teamsResourcePath
-          teamsUrl
-          url
-          viewerCanAdminister
-          viewerCanChangePinnedItems
-          viewerCanCreateProjects
-          viewerCanCreateRepositories
-          viewerCanCreateTeams
-          viewerIsAMember
-          websiteUrl
-        }
-        ... on User {
-          __typename
-          anyPinnableItems
-          avatarUrl
-          bio
-          company
-          createdAt
-          databaseId
-          id
-          isBountyHunter
-          isCampusExpert
-          isDeveloperProgramMember
-          isEmployee
-          isHireable
-          isSiteAdmin
-          isViewer
-          location
-          login
-          name
-          pinnedItemsRemaining
-          projectsResourcePath
-          projectsUrl
-          resourcePath
-          updatedAt
-          url
-          viewerCanChangePinnedItems
-          viewerCanCreateProjects
-          viewerCanFollow
-          viewerIsFollowing
-          websiteUrl
-        }
-      }
-      primaryLanguage {
-        __typename
-        color
-        id
-        name
-      }
-      pushedAt
-      rebaseMergeAllowed
-      resourcePath
-      squashMergeAllowed
-      updatedAt
-      url
-      viewerCanAdminister
-      viewerCanCreateProjects
-      viewerCanSubscribe
-      viewerCanUpdateTopics
-      viewerPermission
-      viewerSubscription
-    }
     updatedAt
     url
     viewerCanAdminister
@@ -786,16 +496,333 @@ query fetch_repository_collaborators ($repository_id: ID!, $cursor: String=null)
 }
 """
 
+FETCH_REPOSITORY_PARENT = """
+query fetch_repository_parent($repository_id: ID!) {
+  node(id: $repository_id) {
+    ... on Repository {
+      parent {
+        __typename
+        codeOfConduct {
+          __typename
+          body
+          id
+          key
+          name
+          url
+        }
+        createdAt
+        databaseId
+        defaultBranchRef {
+          name
+        }
+        description
+        diskUsage
+        forkCount
+        hasIssuesEnabled
+        hasWikiEnabled
+        id
+        isArchived
+        isDisabled
+        isFork
+        isLocked
+        isMirror
+        isPrivate
+        isTemplate
+        licenseInfo {
+          __typename
+          body
+          conditions {
+            __typename
+            description
+            key
+            label
+          }
+          description
+          featured
+          hidden
+          id
+          implementation
+          key
+          limitations {
+            __typename
+            description
+            key
+            label
+          }
+          name
+          nickname
+          permissions {
+            __typename
+            description
+            key
+            label
+          }
+          pseudoLicense
+          spdxId
+          url
+        }
+        lockReason
+        mergeCommitAllowed
+        name
+        owner {
+          ... on Organization {
+            __typename
+            anyPinnableItems
+            avatarUrl
+            databaseId
+            description
+            email
+            id
+            isVerified
+            location
+            login
+            name
+            newTeamResourcePath
+            newTeamUrl
+            pinnedItemsRemaining
+            projectsResourcePath
+            projectsUrl
+            resourcePath
+            teamsResourcePath
+            teamsUrl
+            url
+            viewerCanAdminister
+            viewerCanChangePinnedItems
+            viewerCanCreateProjects
+            viewerCanCreateRepositories
+            viewerCanCreateTeams
+            viewerIsAMember
+            websiteUrl
+          }
+          ... on User {
+            __typename
+            anyPinnableItems
+            avatarUrl
+            bio
+            company
+            createdAt
+            databaseId
+            id
+            isBountyHunter
+            isCampusExpert
+            isDeveloperProgramMember
+            isEmployee
+            isHireable
+            isSiteAdmin
+            isViewer
+            location
+            login
+            name
+            pinnedItemsRemaining
+            projectsResourcePath
+            projectsUrl
+            resourcePath
+            updatedAt
+            url
+            viewerCanChangePinnedItems
+            viewerCanCreateProjects
+            viewerCanFollow
+            viewerIsFollowing
+            websiteUrl
+          }
+        }
+        primaryLanguage {
+          __typename
+          color
+          id
+          name
+        }
+        pushedAt
+        rebaseMergeAllowed
+        resourcePath
+        squashMergeAllowed
+        updatedAt
+        url
+        viewerCanAdminister
+        viewerCanCreateProjects
+        viewerCanSubscribe
+        viewerCanUpdateTopics
+        viewerPermission
+        viewerSubscription
+      }
+    }
+  }
+}
+"""
+
+FETCH_REPOSITORY_TEMPLATE = """
+query fetch_repository_template ($repository_id: ID!) {
+  node (id: $repository_id) {
+    ... on Repository {
+      templateRepository {
+        __typename
+        codeOfConduct {
+          __typename
+          body
+          id
+          key
+          name
+          url
+        }
+        createdAt
+        databaseId
+        defaultBranchRef {
+          name
+        }
+        description
+        diskUsage
+        forkCount
+        hasIssuesEnabled
+        hasWikiEnabled
+        id
+        isArchived
+        isDisabled
+        isFork
+        isLocked
+        isMirror
+        isPrivate
+        isTemplate
+        licenseInfo {
+          __typename
+          body
+          conditions {
+            __typename
+            description
+            key
+            label
+          }
+          description
+          featured
+          hidden
+          id
+          implementation
+          key
+          limitations {
+            __typename
+            description
+            key
+            label
+          }
+          name
+          nickname
+          permissions {
+            __typename
+            description
+            key
+            label
+          }
+          pseudoLicense
+          spdxId
+          url
+        }
+        lockReason
+        mergeCommitAllowed
+        name
+        owner {
+          ... on Organization {
+            __typename
+            anyPinnableItems
+            avatarUrl
+            databaseId
+            description
+            email
+            id
+            isVerified
+            location
+            login
+            name
+            newTeamResourcePath
+            newTeamUrl
+            pinnedItemsRemaining
+            projectsResourcePath
+            projectsUrl
+            resourcePath
+            teamsResourcePath
+            teamsUrl
+            url
+            viewerCanAdminister
+            viewerCanChangePinnedItems
+            viewerCanCreateProjects
+            viewerCanCreateRepositories
+            viewerCanCreateTeams
+            viewerIsAMember
+            websiteUrl
+          }
+          ... on User {
+            __typename
+            anyPinnableItems
+            avatarUrl
+            bio
+            company
+            createdAt
+            databaseId
+            id
+            isBountyHunter
+            isCampusExpert
+            isDeveloperProgramMember
+            isEmployee
+            isHireable
+            isSiteAdmin
+            isViewer
+            location
+            login
+            name
+            pinnedItemsRemaining
+            projectsResourcePath
+            projectsUrl
+            resourcePath
+            updatedAt
+            url
+            viewerCanChangePinnedItems
+            viewerCanCreateProjects
+            viewerCanFollow
+            viewerIsFollowing
+            websiteUrl
+          }
+        }
+        primaryLanguage {
+          __typename
+          color
+          id
+          name
+        }
+        pushedAt
+        rebaseMergeAllowed
+        resourcePath
+        squashMergeAllowed
+        updatedAt
+        url
+        viewerCanAdminister
+        viewerCanCreateProjects
+        viewerCanSubscribe
+        viewerCanUpdateTopics
+        viewerPermission
+        viewerSubscription
+      }
+    }
+  }
+}
+"""
+
 FETCH_TOPIC = """
 query fetch_topic ($name: String!) {
   topic (name: $name) {
     __typename
     id
     name
-    relatedTopics (first: 10) {
-      __typename
-      id
-      name
+  }
+}
+"""
+
+FETCH_TOPIC_RELATED_TOPICS = """
+query fetch_topic_related_topics ($topic_id: ID!) {
+  node (id: $topic_id) {
+    ... on Topic {
+      relatedTopics (first: 10) {
+        __typename
+        id
+        name
+      }
     }
   }
 }

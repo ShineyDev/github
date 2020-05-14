@@ -30,6 +30,6 @@ from github.objects.organization import Organization
 from github.objects.pullrequest import PullRequest
 from github.objects.ratelimit import RateLimit
 from github.objects.reaction import Reaction
-from github.objects.repository import Repository, PartialRepository
-from github.objects.topic import Topic, PartialTopic
+from github.objects.repository import Repository
+from github.objects.topic import Topic
 from github.objects.user import User, AuthenticatedUser

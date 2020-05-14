@@ -255,21 +255,6 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
             return User.from_data(owner, self.http)
 
     @property
-    def parent(self) -> typing.Optional["PartialRepository"]:
-        """
-        The repository's parent repository.
-        """
-
-        parent = self.data["parent"]
-        if not parent:
-            return None
-
-        parent["parent"] = None
-        parent["templateRepository"] = None
-
-        return PartialRepository.from_data(parent, self.http)
-
-    @property
     def primary_language(self) -> Language:
         """
         The primary language of the repository.
@@ -288,21 +273,6 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
         pushed_at = self.data["pushedAt"]
         if pushed_at:
             return utils.iso_to_datetime(pushed_at)
-
-    @property
-    def template(self) -> typing.Optional["PartialRepository"]:
-        """
-        The repository's template repository.
-        """
-
-        template = self.data["templateRepository"]
-        if not template:
-            return None
-
-        template["parent"] = None
-        template["templateRepository"] = None
-
-        return PartialRepository.from_data(template, self.http)
 
     @property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
@@ -391,24 +361,58 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
         data = await self.http.fetch_repository_collaborators(self.id)
         return User.from_data(data, self.http)
 
-class PartialRepository(Repository):
-    """
-    Represents a GitHub repository.
+    async def fetch_parent(self):
+        """
+        |coro|
 
-    https://developer.github.com/v4/object/repository/
+        Fetches the repository's parent, if it is a fork.
 
-    Implements:
+        Raises
+        ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.NotFound
+            The repository does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
 
-    * :class:`~github.abc.Node`
-    * :class:`~github.abc.ProjectOwner`
-    * :class:`~github.abc.Subscribable`
-    * :class:`~github.abc.Type`
-    * :class:`~github.abc.UniformResourceLocatable`
+        Returns
+        -------
+        Optional[:class:`~github.Repository`]
+            The repository parent.
+        """
 
-    Using this partial-class will result in the following attributes being ``None`` at all times:
+        data = await self.http.fetch_repository_parent(self.id)
+        return Repository.from_data(data, self.http)
 
-    * :attr:`~github.Repository.parent`
-    * :attr:`~github.Repository.template`
-    """
+    async def fetch_template(self):
+        """
+        |coro|
 
-    __slots__ = ("data", "http")
+        Fetches the repository's template, if it has one.
+
+        Raises
+        ------
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.NotFound
+            The repository does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+
+        Returns
+        -------
+        Optional[:class:`~github.Repository`]
+            The repository template.
+        """
+
+        data = await self.http.fetch_repository_template(self.id)
+        return Repository.from_data(data, self.http)

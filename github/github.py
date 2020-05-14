@@ -495,7 +495,7 @@ class GitHub():
         """
 
         data = await self.http.fetch_topic(name)
-        return Topic.from_data(data)
+        return Topic.from_data(data, self.http)
 
     async def fetch_user(self, login: str) -> User:
         """

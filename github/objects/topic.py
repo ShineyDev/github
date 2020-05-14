@@ -34,10 +34,11 @@ class Topic(Node, Type):
     * :class:`~github.abc.Type`
     """
 
-    __slots__ = ("data",)
+    __slots__ = ("data", "http")
 
-    def __init__(self, data):
+    def __init__(self, data, http):
         self.data = data
+        self.http = http
 
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} name='{0.name}'>".format(self)
@@ -50,29 +51,28 @@ class Topic(Node, Type):
 
         return self.data["name"]
 
-    @property
-    def related_topics(self) -> typing.Optional[typing.List["PartialTopic"]]:
+    async def fetch_related_topics(self) -> typing.List["Topic"]:
         """
-        A list of related topics.
+        Fetches a list of up to 10 related topics.
+
+        Raises
+        ------
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.NotFound
+            The topic does not exist.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+
+        Returns
+        -------
+        List[:class:`~github.Topic`]
+            The list of topics.
         """
 
-        related = self.data.get("relatedTopics", None)
-        return PartialTopic.from_data(related)
-
-class PartialTopic(Topic):
-    """
-    Represents a GitHub topic.
-
-    https://developer.github.com/v4/object/topic/
-
-    Implements:
-
-    * :class:`~github.abc.Node`
-    * :class:`~github.abc.Type`
-
-    Using this partial-class will result in the following attributes being ``None`` at all times:
-
-    * :attr:`~github.Topic.related_topics`
-    """
-
-    __slots__ = ("data",)
+        data = await self.http.fetch_topic_related_topics(self.id)
+        return Topic.from_data(data, self.http)
