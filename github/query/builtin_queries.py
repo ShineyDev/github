@@ -804,6 +804,160 @@ query fetch_repository_template ($repository_id: ID!) {
 }
 """
 
+FETCH_REPOSITORYNODE_REPOSITORY = """
+query fetch_repositorynode_repository ($repositorynode_id: ID!) {
+  node (id: $repositorynode_id) {
+    ... on RepositoryNode {
+      repository {
+        __typename
+        codeOfConduct {
+          __typename
+          body
+          id
+          key
+          name
+          url
+        }
+        createdAt
+        databaseId
+        defaultBranchRef {
+          name
+        }
+        description
+        diskUsage
+        forkCount
+        hasIssuesEnabled
+        hasWikiEnabled
+        id
+        isArchived
+        isDisabled
+        isFork
+        isLocked
+        isMirror
+        isPrivate
+        isTemplate
+        licenseInfo {
+          __typename
+          body
+          conditions {
+            __typename
+            description
+            key
+            label
+          }
+          description
+          featured
+          hidden
+          id
+          implementation
+          key
+          limitations {
+            __typename
+            description
+            key
+            label
+          }
+          name
+          nickname
+          permissions {
+            __typename
+            description
+            key
+            label
+          }
+          pseudoLicense
+          spdxId
+          url
+        }
+        lockReason
+        mergeCommitAllowed
+        name
+        owner {
+          ... on Organization {
+            __typename
+            anyPinnableItems
+            avatarUrl
+            databaseId
+            description
+            email
+            id
+            isVerified
+            location
+            login
+            name
+            newTeamResourcePath
+            newTeamUrl
+            pinnedItemsRemaining
+            projectsResourcePath
+            projectsUrl
+            resourcePath
+            teamsResourcePath
+            teamsUrl
+            url
+            viewerCanAdminister
+            viewerCanChangePinnedItems
+            viewerCanCreateProjects
+            viewerCanCreateRepositories
+            viewerCanCreateTeams
+            viewerIsAMember
+            websiteUrl
+          }
+          ... on User {
+            __typename
+            anyPinnableItems
+            avatarUrl
+            bio
+            company
+            createdAt
+            databaseId
+            id
+            isBountyHunter
+            isCampusExpert
+            isDeveloperProgramMember
+            isEmployee
+            isHireable
+            isSiteAdmin
+            isViewer
+            location
+            login
+            name
+            pinnedItemsRemaining
+            projectsResourcePath
+            projectsUrl
+            resourcePath
+            updatedAt
+            url
+            viewerCanChangePinnedItems
+            viewerCanCreateProjects
+            viewerCanFollow
+            viewerIsFollowing
+            websiteUrl
+          }
+        }
+        primaryLanguage {
+          __typename
+          color
+          id
+          name
+        }
+        pushedAt
+        rebaseMergeAllowed
+        resourcePath
+        squashMergeAllowed
+        updatedAt
+        url
+        viewerCanAdminister
+        viewerCanCreateProjects
+        viewerCanSubscribe
+        viewerCanUpdateTopics
+        viewerPermission
+        viewerSubscription
+      }
+    }
+  }
+}
+"""
+
 FETCH_TOPIC = """
 query fetch_topic ($name: String!) {
   topic (name: $name) {

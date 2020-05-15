@@ -303,6 +303,9 @@ class HTTPClient():
 
         return template
 
+    async def fetch_repositorynode_repository(self, repositorynode_id):
+        return await self._fetch_field("node", "repository", query=query.FETCH_REPOSITORYNODE_REPOSITORY, repositorynode_id=repositorynode_id)
+
     async def fetch_scopes(self):
         headers = dict()
         headers.update({"Authorization": "bearer {0}".format(self._token)})

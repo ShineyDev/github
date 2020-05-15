@@ -32,10 +32,34 @@ class RepositoryNode():
 
     __slots__ = ()
 
-    @property
-    def repository(self) -> "Repository":
+    async def fetch_repository(self) -> "Repository":
         """
-        The repository the node belongs to.
+        Fetches the repository the repository node belongs to.
+
+        Raises
+        ------
+        Raises
+        ------
+        ~github.errors.Forbidden
+            You do not have permission to add reactions to the
+            reactable.
+        ~github.errors.GitHubError
+            An arbitrary GitHub-related error occurred.
+        ~github.errors.HTTPException
+            An arbitrary HTTP-related error occurred.
+        ~github.errors.Internal
+            A ``"INTERNAL"`` status-message was returned.
+        ~github.errors.Unauthorized
+            Bad credentials were given.
+
+        Returns
+        -------
+        :class:`~github.Repository`
+            The repository.
         """
 
-        return self.data["repository"]
+        # prevent cyclic imports
+        from github.objects import Repository
+
+        data = await self.http.fetch_repositorynode_repository(self.id)
+        return Repository.from_data(data, self.http)
