@@ -18,11 +18,12 @@
 
 import collections
 
+from github.client import Client
+
 from github import abc
 from github import enums
 from github import query
 from github.objects import *
-from github.github import GitHub
 
 
 __version__ = "0.5.0"

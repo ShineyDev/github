@@ -1,5 +1,5 @@
 """
-/github/github.py
+/github/client.py
 
     Copyright (c) 2019-2020 ShineyDev
     
@@ -33,9 +33,9 @@ from github.objects import Topic
 from github.objects import User
 
 
-class GitHub():
+class Client():
     """
-    Represents a GitHub 'connection' or token.
+    Represents a GitHub connection (client).
 
     This is the base class of the wrapper and is used to interact with
     the GitHub API.
