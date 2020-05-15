@@ -229,9 +229,8 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
         The reason for the repository to be in a locked state.
         """
 
-        lock_reason = self.data["lockReason"]
-        if lock_reason:
-            return RepositoryLockReason.from_data(lock_reason)
+        reason = self.data["lockReason"]
+        return RepositoryLockReason.try_value(reason)
 
     @property
     def name(self) -> str:
@@ -307,7 +306,7 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
         """
 
         permissions = self.data["viewerPermission"]
-        return RepositoryPermissions.from_data(permissions)
+        return RepositoryPermissions.try_value(permissions)
 
     async def fetch_assignable_users(self):
         """

@@ -68,7 +68,7 @@ class Comment():
         """
 
         association = self.data["authorAssociation"]
-        return CommentAuthorAssociation.from_data(association)
+        return CommentAuthorAssociation.try_value(association)
 
     @property
     def body(self) -> str:

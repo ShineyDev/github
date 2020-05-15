@@ -1,5 +1,5 @@
 """
-/github/enums/lockreason.py
+/github/enums/repositorysubscription.py
 
     Copyright (c) 2019-2020 ShineyDev
     
@@ -19,14 +19,13 @@
 from github.enums import Enum
 
 
-class LockReason(Enum):
+class SubscriptionState(Enum):
     """
-    Represents the reason for a lockable to be in a locked state.
+    Represents a user's subscription state to a Repository.
 
-    https://developer.github.com/v4/enum/lockreason/
+    https://developer.github.com/v4/enum/subscriptionstate/
     """
 
-    off_topic  = "OFF_TOPIC"
-    resolved   = "RESOLVED"
-    spam       = "SPAM"
-    too_heated = "TOO_HEATED"
+    ignored = "IGNORED"
+    subscribed = "SUBSCRIBED"
+    unsubscribed = "UNSUBSCRIBED"

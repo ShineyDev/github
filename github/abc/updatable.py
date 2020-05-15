@@ -51,7 +51,7 @@ class Updatable():
         """
 
         reasons = self.data["viewerCannotUpdateReasons"]
-        return CannotUpdateReason.from_data(reasons)
+        return [CannotUpdateReason.try_value(r) for (r) in reasons]
 
     async def update(self, **kwargs):
         """

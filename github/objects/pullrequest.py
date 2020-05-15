@@ -104,7 +104,7 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
         """
 
         state = self.data["state"]
-        return PullRequestState.from_data(state)
+        return PullRequestState.try_value(state)
 
     @property
     def title(self) -> int:

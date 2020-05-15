@@ -50,10 +50,9 @@ class Lockable():
         """
 
         reason = self.data["activeLockReason"]
-        if reason:
-            return LockReason.from_data(reason)
+        return LockReason.try_value(reason)
 
-    async def lock(self, *, reason: str=None):
+    async def lock(self, *, reason: LockReason=None):
         """
         |coro|
 
@@ -61,10 +60,8 @@ class Lockable():
 
         Parameters
         ----------
-        reason: Optional[:class:`str`]
-            The reason for locking the lockable. Can be one of
-            ``"OFF_TOPIC"``, ``"RESOLVED"``, ``"SPAM"``,
-            ``"TOO_HEATED"``.
+        reason: Optional[:class:`~github.enums.Lockreason`]
+            The reason for locking the lockable.
 
         Raises
         ------
@@ -81,6 +78,9 @@ class Lockable():
         ~github.errors.Unauthorized
             Bad credentials were given.
         """
+
+        if reason is not None:
+            reason = reason.value
 
         await self.http.lock(self.id, reason)
 

@@ -89,7 +89,7 @@ class Issue(Assignable, Closable, Comment, Commentable, Labelable, Lockable, Nod
         """
 
         state = self.data["state"]
-        return IssueState.from_data(state)
+        return IssueState.try_value(state)
 
     @property
     def title(self) -> int:

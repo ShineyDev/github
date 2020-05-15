@@ -18,7 +18,7 @@
 
 import typing
 
-from github.enums import Reaction as reaction_enum
+from github.enums import Reaction as enums_Reaction
 
 
 class Reactable():
@@ -57,7 +57,7 @@ class Reactable():
 
         return self.data["viewerCanReact"]
 
-    async def add_reaction(self, reaction: str):
+    async def add_reaction(self, reaction: enums_Reaction):
         """
         |coro|
 
@@ -69,11 +69,11 @@ class Reactable():
         .. code:: py
 
             comment = g.fetch_node("MDU6SXNzdWU0Nzg1MzgwMzA=")
-            await comment.add_reaction(github.enums.Reaction.EYES)
+            await comment.add_reaction(enums.Reaction.eyes)
 
         Parameters
         ----------
-        reaction: :class:`str`
+        reaction: :class:`~github.enums.Reaction`
             The reaction to add.
 
         Raises
@@ -93,13 +93,9 @@ class Reactable():
             Bad credentials were given.
         """
 
-        if reaction not in reaction_enum._dict.keys():
-            reaction = reaction_enum._dict_flipped[reaction]
-            
-        # TODO: implement HTTPClient.add_reaction
         ...
 
-    async def remove_reaction(self, reaction: str):
+    async def remove_reaction(self, reaction: enums_Reaction):
         """
         |coro|
 
@@ -111,11 +107,11 @@ class Reactable():
         .. code:: py
 
             comment = g.fetch_node("MDU6SXNzdWU0Nzg1MzgwMzA=")
-            await comment.remove_reaction(github.enums.Reaction.EYES)
+            await comment.remove_reaction(enums.Reaction.eyes)
 
         Parameters
         ----------
-        reaction: :class:`str`
+        reaction: :class:`~github.enums.Reaction`
             The reaction to remove.
 
         Raises
@@ -135,8 +131,4 @@ class Reactable():
             Bad credentials were given.
         """
 
-        if reaction not in reaction_enum._dict.keys():
-            reaction = reaction_enum._dict_flipped[reaction]
-            
-        # TODO: implement HTTPClient.remove_reaction
         ...

@@ -16,37 +16,15 @@
     limitations under the License.
 """
 
-class IssueState():
+from github.enums import Enum
+
+
+class IssueState(Enum):
     """
     Represents the state of an issue.
 
     https://developer.github.com/v4/enum/issuestate/
     """
 
-    __slots__ = ("_state",)
-
-    def __init__(self, state):
-        self._state = state
-
-    def __repr__(self) -> str:
-        return "<{0.__class__.__name__} '{0._state}'>".format(self)
-
-    @classmethod
-    def from_data(cls, state):
-        return cls(state)
-
-    @property
-    def closed(self) -> bool:
-        """
-        The issue is closed.
-        """
-
-        return self._state == "CLOSED"
-
-    @property
-    def open(self) -> bool:
-        """
-        The issue is open.
-        """
-
-        return self._state == "OPEN"
+    closed = "CLOSED"
+    open   = "OPEN"

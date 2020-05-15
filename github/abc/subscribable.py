@@ -16,7 +16,7 @@
     limitations under the License.
 """
 
-from github.enums import RepositorySubscription as SubscriptionState
+from github.enums import SubscriptionState
 
 
 class Subscribable():
@@ -49,13 +49,18 @@ class Subscribable():
         """
 
         subscription = self.data["viewerSubscription"]
-        return SubscriptionState.from_data(subscription)
+        return SubscriptionState.try_value(subscription)
 
-    async def ignore(self):
+    async def update_subscription(self, state: SubscriptionState):
         """
         |coro|
 
-        Updates the authenticated user's subscription state to "IGNORED".
+        Updates the authenticated user's subscription state to the subscribable.
+
+        Paramaters
+        ----------
+        :class:`~github.enums.SubscriptionState`
+            The new subscription state.
 
         Raises
         ------
@@ -71,48 +76,4 @@ class Subscribable():
             Bad credentials were given.
         """
 
-        await self.http.update_subscription(self.id, "IGNORED")
-        
-    async def subscribe(self):
-        """
-        |coro|
-
-        Updates the authenticated user's subscription state to "SUBSCRIBED".
-
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The subscribable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-        """
-
-        await self.http.update_subscription(self.id, "SUBSCRIBED")
-
-    async def unsubscribe(self):
-        """
-        |coro|
-
-        Updates the authenticated user's subscription state to "UNSUBSCRIBED".
-
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The subscribable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-        """
-
-        await self.http.update_subscription(self.id, "UNSUBSCRIBED")
+        await self.http.update_subscription(self.id, state.value)

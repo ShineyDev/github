@@ -98,3 +98,9 @@ You can find more examples in the |examples_directory|.
 .. |examples_directory| replace:: |examples_directory_link|_
 .. |examples_directory_link| replace:: examples directory
 .. _examples_directory_link: https://github.com/ShineyDev/github.py/tree/master/examples
+
+
+Attribution
+-----------
+
+`Rapptz <https://github.com/Rapptz/>`_ for EnumMeta - Copyright (c) 2015-2019 Rapptz
