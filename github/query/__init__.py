@@ -20,3 +20,8 @@ from github.query.builder import Builder, Query, Mutation, Collection, Collectio
 
 from github.query.builtin_mutations import *
 from github.query.builtin_queries import *
+
+__all__ = [
+    "Builder", "Query", "Mutation", "Collection", "CollectionArgument",
+    "Field", "Fragment", "QueryArgument",
+]

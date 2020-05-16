@@ -33,3 +33,10 @@ from github.objects.reaction import Reaction
 from github.objects.repository import Repository
 from github.objects.topic import Topic
 from github.objects.user import User, AuthenticatedUser
+
+__all__ = [
+    "Bot", "CodeOfConduct", "CommitComment", "Issue", "Label", "Language",
+    "License", "LicenseRule", "Mannequin", "Metadata", "Organization",
+    "PullRequest", "RateLimit", "Reaction", "Repository", "Topic", "User",
+    "AuthenticatedUser",
+]

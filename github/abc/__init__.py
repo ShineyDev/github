@@ -35,3 +35,10 @@ from github.abc.subscribable import Subscribable
 from github.abc.type import Type
 from github.abc.updatable import Updatable
 from github.abc.uniformresourcelocatable import UniformResourceLocatable
+
+__all__ = [
+    "Actor", "Assignable", "Closable", "Comment", "Commentable", "Deletable",
+    "Labelable", "Lockable", "Node", "Participable", "ProfileOwner",
+    "ProjectOwner", "Reactable", "RepositoryNode", "RepositoryOwner",
+    "Subscribable", "Type", "Updatable", "UniformResourceLocatable",
+]

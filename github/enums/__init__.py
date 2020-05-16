@@ -136,3 +136,9 @@ from github.enums.reaction import Reaction
 from github.enums.repositorylockreason import RepositoryLockReason
 from github.enums.repositorypermissions import RepositoryPermissions
 from github.enums.subscriptionstate import SubscriptionState
+
+__all__ = [
+    "CannotUpdateReason", "CommentAuthorAssociation", "IssueState",
+    "LockReason", "PullRequestState", "Reaction", "RepositoryLockReason",
+    "RepositoryPermissions", "SubscriptionState",
+]

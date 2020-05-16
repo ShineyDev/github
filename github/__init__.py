@@ -18,12 +18,14 @@
 
 import collections
 
+import github
 from github.client import Client
-
-from github import abc
-from github import enums
-from github import query
 from github.objects import *
+
+__all__ = [
+    "Client", "abc", "enums", "errors", "objects", "query", "utils",
+    *github.objects.__all__,
+]
 
 
 __version__ = "1.0.0a"
