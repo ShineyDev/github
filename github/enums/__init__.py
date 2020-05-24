@@ -97,9 +97,6 @@ class EnumMeta(type):
     def __repr__(cls):
         return "<enum {0}>".format(cls.__name__)
 
-    def __getattr__(cls, key):
-        return cls._member_map_[key]
-
     def __setattr__(cls, key, value):
         raise TypeError("Enums are immutable.")
 
