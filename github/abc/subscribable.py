@@ -16,6 +16,7 @@
     limitations under the License.
 """
 
+from github import utils
 from github.enums import SubscriptionState
 
 
@@ -42,7 +43,7 @@ class Subscribable():
 
         return self.data["viewerCanSubscribe"]
 
-    @property
+    @utils._cached_property
     def viewer_subscription(self) -> SubscriptionState:
         """
         The authenticated user's subscription state to the subscribable.

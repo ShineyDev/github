@@ -73,7 +73,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
 
         return self.data["company"]
     
-    @property
+    @utils._cached_property
     def created_at(self) -> datetime.datetime:
         """
         The date and time the user was created.
@@ -145,7 +145,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
 
         return self.data["isViewer"]
     
-    @property
+    @utils._cached_property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
         """
         The date and time the user was last updated.

@@ -36,7 +36,7 @@ class Closable():
 
     __slots__ = ()
 
-    @property
+    @utils._cached_property
     def closed_at(self) -> typing.Optional[datetime.datetime]:
         """
         The date and time at which the closable was closed.

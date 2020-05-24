@@ -49,7 +49,7 @@ class Mannequin(Actor, Node, Type, UniformResourceLocatable):
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} login='{0.login}'>".format(self)
     
-    @property
+    @utils._cached_property
     def created_at(self) -> datetime.datetime:
         """
         The date and time the mannequin was created.
@@ -65,7 +65,7 @@ class Mannequin(Actor, Node, Type, UniformResourceLocatable):
 
         return self.data["databaseId"]
     
-    @property
+    @utils._cached_property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
         """
         The date and time the mannequin was last updated.

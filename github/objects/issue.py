@@ -18,6 +18,7 @@
 
 import typing
 
+from github import utils
 from github.abc import Assignable
 from github.abc import Closable
 from github.abc import Comment
@@ -82,7 +83,7 @@ class Issue(Assignable, Closable, Comment, Commentable, Labelable, Lockable, Nod
 
         return self.data["number"]
 
-    @property
+    @utils._cached_property
     def state(self) -> IssueState:
         """
         The issue state.

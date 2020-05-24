@@ -18,6 +18,7 @@
 
 import typing
 
+from github import utils
 from github.enums import CannotUpdateReason
 
 
@@ -44,7 +45,7 @@ class Updatable():
 
         return self.data["viewerCanUpdate"]
 
-    @property
+    @utils._cached_property
     def viewer_cannot_update_reasons(self) -> typing.List[CannotUpdateReason]:
         """
         A list of reasons why the authenticated user cannot update this updatable.

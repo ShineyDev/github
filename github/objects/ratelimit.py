@@ -57,7 +57,7 @@ class RateLimit(Type):
 
         return self.data["remaining"]
 
-    @property
+    @utils._cached_property
     def reset_at(self) -> datetime.datetime:
         """
         The date and time at which the current rate limit window resets in UTC.

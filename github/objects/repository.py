@@ -82,7 +82,7 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
 
         return self.data["squashMergeAllowed"]
 
-    @property
+    @utils._cached_property
     def code_of_conduct(self) -> typing.Optional[CodeOfConduct]:
         """
         The repository's code of conduct.
@@ -92,7 +92,7 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
         if codeofconduct:
             return CodeOfConduct.from_data(codeofconduct_)
 
-    @property
+    @utils._cached_property
     def created_at(self) -> datetime.datetime:
         """
         The date and time when the repository was created.
@@ -213,7 +213,7 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
 
         return self.data["isTemplate"]
 
-    @property
+    @utils._cached_property
     def license(self) -> typing.Optional[License]:
         """
         The repository's license.
@@ -223,7 +223,7 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
         if license:
             return License.from_data(license)
 
-    @property
+    @utils._cached_property
     def lock_reason(self) -> typing.Optional[RepositoryLockReason]:
         """
         The reason for the repository to be in a locked state.
@@ -240,7 +240,7 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
 
         return self.data["name"]
 
-    @property
+    @utils._cached_property
     def owner(self) -> typing.Union[Organization, User]:
         """
         The owner of the repository.
@@ -253,7 +253,7 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
         elif owner["__typename"] == "User":
             return User.from_data(owner, self.http)
 
-    @property
+    @utils._cached_property
     def primary_language(self) -> Language:
         """
         The primary language of the repository.
@@ -263,7 +263,7 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
         if primary_language:
             return Language.from_data(primary_language)
 
-    @property
+    @utils._cached_property
     def pushed_at(self) -> typing.Optional[datetime.datetime]:
         """
         The date and time when the repository was last pushed to.
@@ -273,7 +273,7 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
         if pushed_at:
             return utils.iso_to_datetime(pushed_at)
 
-    @property
+    @utils._cached_property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
         """
         The date and time when the repository was last updated.
@@ -299,7 +299,7 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
 
         return self.data["viewerCanUpdateTopics"]
 
-    @property
+    @utils._cached_property
     def viewer_permissions(self) -> RepositoryPermissions:
         """
         The authenticated user's permissions in the repository.

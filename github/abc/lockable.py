@@ -18,6 +18,7 @@
 
 import typing
 
+from github import utils
 from github.enums import LockReason
 
 
@@ -43,7 +44,7 @@ class Lockable():
 
         return self.data["locked"]
 
-    @property
+    @utils._cached_property
     def lock_reason(self) -> typing.Optional[LockReason]:
         """
         The reason for the lockable being locked.

@@ -18,6 +18,7 @@
 
 import typing
 
+from github import utils
 from github.abc import Node
 from github.abc import Type
 from .licenserule import LicenseRule
@@ -51,7 +52,7 @@ class License(Node, Type):
 
         return self.data["body"]
 
-    @property
+    @utils._cached_property
     def conditions(self) -> typing.List[LicenseRule]:
         """
         The conditions set by the license.
@@ -108,7 +109,7 @@ class License(Node, Type):
 
         return self.data["key"]
 
-    @property
+    @utils._cached_property
     def limitations(self) -> typing.List[LicenseRule]:
         """
         The limitations set by the license.
@@ -133,7 +134,7 @@ class License(Node, Type):
 
         return self.data["nickname"]
 
-    @property
+    @utils._cached_property
     def permissions(self) -> typing.List[LicenseRule]:
         """
         The permissions set by the license.

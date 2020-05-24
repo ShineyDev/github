@@ -45,7 +45,7 @@ class Reaction(Type):
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} content='{0.content}'>".format(self)
 
-    @property
+    @utils._cached_property
     def created_at(self) -> datetime.datetime:
         """
         The date and time at which the reaction was added.
@@ -54,7 +54,7 @@ class Reaction(Type):
         created_at = self.data["createdAt"]
         return utils.iso_to_datetime(created_at)
 
-    @property
+    @utils._cached_property
     def emoji(self) -> str:
         """
         The reaction's emoji.
@@ -71,7 +71,7 @@ class Reaction(Type):
 
         return self.data["content"]
 
-    @property
+    @utils._cached_property
     def users(self) -> typing.List[User]:
         """
         A list of :class:`github.User` who reacted.

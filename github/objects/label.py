@@ -64,7 +64,7 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
 
         return self.data["color"]
 
-    @property
+    @utils._cached_property
     def created_at(self) -> datetime.datetime:
         """
         The date and time at which the label was created.
@@ -97,7 +97,7 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
 
         return self.data["name"]
 
-    @property
+    @utils._cached_property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
         """
         The date and time at which the label was updated.

@@ -38,7 +38,7 @@ class Comment():
 
     __slots__ = ()
 
-    @property
+    @utils._cached_property
     def author(self) -> typing.Union["Organization", "User"]:
         """
         The actor who authored the comment.
@@ -61,7 +61,7 @@ class Comment():
         elif author["__typename"] == "User":
             return User.from_data(author, self.http)
 
-    @property
+    @utils._cached_property
     def author_association(self) -> CommentAuthorAssociation:
         """
         The :attr:`.author`'s association with the subject of the comment.
@@ -94,7 +94,7 @@ class Comment():
 
         return self.data["bodyText"]
 
-    @property
+    @utils._cached_property
     def created_at(self) -> datetime.datetime:
         """
         The date and time at which the comment was created.
@@ -111,7 +111,7 @@ class Comment():
 
         return self.data["createdViaEmail"]
 
-    @property
+    @utils._cached_property
     def editor(self) -> typing.Optional[typing.Union["User"]]:
         """
         The actor who edited the comment.
@@ -134,7 +134,7 @@ class Comment():
         elif editor["__typename"] == "User":
             return User.from_data(editor, self.http)
 
-    @property
+    @utils._cached_property
     def edited_at(self) -> typing.Optional[datetime.datetime]:
         """
         The date and time at which the comment was edited.
@@ -143,7 +143,7 @@ class Comment():
         edited_at = self.data["lastEditedAt"]
         return utils.iso_to_datetime(edited_at)
 
-    @property
+    @utils._cached_property
     def published_at(self) -> datetime.datetime:
         """
         The date and time at which the comment was published.
@@ -152,7 +152,7 @@ class Comment():
         published_at = self.data["publishedAt"]
         return utils.iso_to_datetime(published_at)
 
-    @property
+    @utils._cached_property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
         """
         The date and time at which the comment was updated.

@@ -18,6 +18,7 @@
 
 import typing
 
+from github import utils
 from github.enums import Reaction as enums_Reaction
 
 
@@ -36,7 +37,7 @@ class Reactable():
 
     __slots__ = ()
 
-    @property
+    @utils._cached_property
     def reactions(self) -> typing.List["Reaction"]:
         """
         A list of :class:`~github.Reaction`.
