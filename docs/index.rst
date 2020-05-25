@@ -22,7 +22,7 @@ Classes
 .. toctree::
     :maxdepth: 1
 
-    github
+    client
     http
 
 .. toctree::

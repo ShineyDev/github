@@ -25,12 +25,12 @@ class Metadata(Type):
     """
     Represents information about the GitHub instance.
 
-    https://developer.github.com/v4/object/githubmetadata/
-
     Implements:
 
     * :class:`~github.abc.Type`
     """
+
+    # https://developer.github.com/v4/object/githubmetadata/
 
     __slots__ = ("data",)
 
@@ -41,6 +41,8 @@ class Metadata(Type):
     def git_ip_addresses(self) -> typing.List[str]:
         """
         IP addresses that users connect to for git operations.
+
+        :type: List[:class:`str`]
         """
 
         return self.data["gitIpAddresses"]
@@ -49,6 +51,8 @@ class Metadata(Type):
     def github_services_sha(self) -> str:
         """
         SHA of github-services.
+
+        :type: :class:`str`
         """
 
         return self.data["gitHubServicesSha"]
@@ -57,6 +61,8 @@ class Metadata(Type):
     def hook_ip_addresses(self) -> typing.List[str]:
         """
         IP addresses that service hooks are sent from.
+
+        :type: List[:class:`str`]
         """
 
         return self.data["hookIpAddresses"]
@@ -65,6 +71,8 @@ class Metadata(Type):
     def importer_ip_addresses(self) -> typing.List[str]:
         """
         IP addresses that the importer connects from.
+
+        :type: List[:class:`str`]
         """
 
         return self.data["importerIpAddresses"]
@@ -73,6 +81,8 @@ class Metadata(Type):
     def is_authentication_verifiable(self) -> bool:
         """
         Whether or not users are verified.
+
+        :type: :class:`bool`
         """
 
         return self.data["isPasswordAuthenticationVerifiable"]
@@ -81,6 +91,8 @@ class Metadata(Type):
     def pages_ip_addresses(self) -> typing.List[str]:
         """
         IP addresses for GitHub Pages' A records.
+
+        :type: List[:class:`str`]
         """
 
         return self.data["pagesIpAddresses"]

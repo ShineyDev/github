@@ -22,9 +22,9 @@ from github.enums import Enum
 class Reaction(Enum):
     """
     Represents a GitHub reaction.
-
-    https://developer.github.com/v4/enum/reactioncontent/
     """
+
+    # https://developer.github.com/v4/enum/reactioncontent/
 
     confused    = "CONFUSED"
     eyes        = "EYES"

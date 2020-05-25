@@ -40,8 +40,6 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
     """
     Represents a pull request on a :class:`~github.Repository`.
 
-    https://developer.github.com/v4/object/pullrequest/
-
     Implements:
 
     * :class:`~github.abc.Assignable`
@@ -60,6 +58,8 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
     * :class:`~github.abc.Updatable`
     """
 
+    # https://developer.github.com/v4/object/pullrequest/
+
     __slots__ = ("data", "http")
 
     def __init__(self, data, http):
@@ -70,6 +70,8 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
     def additions(self) -> int:
         """
         The number of additions in the pull request.
+
+        :type: :class:`int`
         """
 
         return self.data["additions"]
@@ -78,6 +80,8 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
     def database_id(self) -> int:
         """
         The primary key for the pull request from the database.
+
+        :type: :class:`int`
         """
 
         return self.data["databaseId"]
@@ -86,6 +90,8 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
     def deletions(self) -> int:
         """
         The number of deletions in the pull request.
+
+        :type: :class:`int`
         """
 
         return self.data["deletions"]
@@ -94,6 +100,8 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
     def number(self) -> int:
         """
         The pull request number.
+
+        :type: :class:`int`
         """
 
         return self.data["number"]
@@ -102,15 +110,19 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
     def state(self) -> PullRequestState:
         """
         The pull request state.
+
+        :type: :class:`~github.enums.PullRequestState`
         """
 
         state = self.data["state"]
         return PullRequestState.try_value(state)
 
     @property
-    def title(self) -> int:
+    def title(self) -> str:
         """
         The pull request title.
+
+        :type: :class:`str`
         """
 
         return self.data["title"]

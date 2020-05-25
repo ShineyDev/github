@@ -22,9 +22,9 @@ from github.enums import Enum
 class PullRequestState(Enum):
     """
     Represents the state of a pull request.
-
-    https://developer.github.com/v4/enum/pullrequeststate/
     """
+
+    # https://developer.github.com/v4/enum/pullrequeststate/
 
     closed = "CLOSED"
     merged = "MERGED"

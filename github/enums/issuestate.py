@@ -22,9 +22,9 @@ from github.enums import Enum
 class IssueState(Enum):
     """
     Represents the state of an issue.
-
-    https://developer.github.com/v4/enum/issuestate/
     """
+
+    # https://developer.github.com/v4/enum/issuestate/
 
     closed = "CLOSED"
     open   = "OPEN"

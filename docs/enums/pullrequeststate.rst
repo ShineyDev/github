@@ -5,5 +5,9 @@ Pull Request State
 ==================
 
 .. autoclass:: PullRequestState()
-    :member-order: bysource
-    :members:
+
+    .. attribute:: closed
+
+    .. attribute:: merged
+
+    .. attribute:: open

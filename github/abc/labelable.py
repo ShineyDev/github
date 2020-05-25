@@ -23,13 +23,13 @@ class Labelable():
     """
     Represents an object which can be labeled.
 
-    https://developer.github.com/v4/interface/labelable/
-
     Implemented by:
 
     * :class:`github.Issue`
     * :class:`github.PullRequest`
     """
+
+    # https://developer.github.com/v4/interface/labelable/
 
     __slots__ = ()
 
@@ -39,18 +39,10 @@ class Labelable():
 
         Fetches a list of labels from the labelable.
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The labelable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
+        Returns
+        -------
+        List[:class:`~github.Label`]
+            A list of labels.
         """
 
         # prevent cyclic imports
@@ -74,16 +66,6 @@ class Labelable():
         ------
         ~github.errors.Forbidden
             You do not have permission to add labels to the labelable.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The labelable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
         """
 
         labels = [label.id for label in labels]
@@ -99,16 +81,6 @@ class Labelable():
         ------
         ~github.errors.Forbidden
             You do not have permission to clear labels from the labelable.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The labelable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
         """
 
         await self.http.clear_labels(self.id)
@@ -128,16 +100,6 @@ class Labelable():
         ------
         ~github.errors.Forbidden
             You do not have permission to remove labels from the labelable.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The labelable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
         """
 
         labels = [label.id for label in labels]

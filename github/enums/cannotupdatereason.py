@@ -22,9 +22,9 @@ from github.enums import Enum
 class CannotUpdateReason(Enum):
     """
     Represents a reason the authenticated user cannot update an updatable.
-
-    https://developer.github.com/v4/enum/commentcannotupdatereason/
     """
+
+    # https://developer.github.com/v4/enum/commentcannotupdatereason/
 
     archived                = "ARCHIVED"
     denied                  = "DENIED"

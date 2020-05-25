@@ -60,14 +60,17 @@ def iso_to_datetime(iso):
 
     Parameters
     ----------
-    iso: :class:`str`
+    iso: Optional[:class:`str`]
         An ISO-8601 string.
 
     Returns
     -------
-    :class:`datetime.datetime`
+    Optional[:class:`~datetime.datetime`]
         A datetime object.
     """
+
+    if iso is None:
+        return None
 
     match = re.fullmatch(ISO_8601_DATETIME_REGEX, iso)
     if match:

@@ -21,7 +21,7 @@ import typing
 
 from github import utils
 from github.abc import Type
-from github.enums import Reaction as reaction_enum
+from github.enums import Reaction as enums_Reaction
 from .user import User
 
 
@@ -29,12 +29,12 @@ class Reaction(Type):
     """
     Represents a GitHub reaction.
 
-    https://developer.github.com/v4/object/reactiongroup/
-
     Implements:
 
     * :class:`~github.abc.Type`
     """
+
+    # https://developer.github.com/v4/object/reactiongroup/
 
     __slots__ = ("data", "http")
 
@@ -43,7 +43,18 @@ class Reaction(Type):
         self.http = http
 
     def __repr__(self) -> str:
-        return "<{0.__class__.__name__} content='{0.content}'>".format(self)
+        return "<{0.__class__.__name__} content='{0.content.value}'>".format(self)
+
+    @utils._cached_property
+    def content(self) -> enums_Reaction:
+        """
+        The reaction content.
+
+        :type: :class:`~github.enums.Reaction`
+        """
+
+        content = self.data["content"]
+        return enums_Reaction.try_value(content)
 
     @utils._cached_property
     def created_at(self) -> datetime.datetime:
@@ -53,32 +64,6 @@ class Reaction(Type):
 
         created_at = self.data["createdAt"]
         return utils.iso_to_datetime(created_at)
-
-    @utils._cached_property
-    def emoji(self) -> str:
-        """
-        The reaction's emoji.
-        """
-
-        content = self.data["content"]
-        return reaction_enum._dict[content]
-
-    @property
-    def name(self) -> str:
-        """
-        The reaction's :attr:`.emoji` as a string.
-        """
-
-        return self.data["content"]
-
-    @utils._cached_property
-    def users(self) -> typing.List[User]:
-        """
-        A list of :class:`github.User` who reacted.
-        """
-
-        users = self.data["users"]
-        return User.from_data(users, self.http)
 
     @property
     def viewer_has_reacted(self) -> bool:

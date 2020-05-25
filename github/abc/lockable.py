@@ -26,20 +26,22 @@ class Lockable():
     """
     Represents an object which can be locked.
 
-    https://developer.github.com/v4/interface/lockable/
-
     Implemented by:
 
     * :class:`~github.Issue`
     * :class:`~github.PullRequest`
     """
 
+    # https://developer.github.com/v4/interface/lockable/
+
     __slots__ = ()
 
     @property
     def is_locked(self) -> bool:
         """
-        Whether or not the lockable is locked.
+        Whether the lockable is locked.
+
+        :type: :class:`bool`
         """
 
         return self.data["locked"]
@@ -48,6 +50,8 @@ class Lockable():
     def lock_reason(self) -> typing.Optional[LockReason]:
         """
         The reason for the lockable being locked.
+
+        :type: Optional[:class:`~github.enums.LockReason`]
         """
 
         reason = self.data["activeLockReason"]
@@ -68,16 +72,6 @@ class Lockable():
         ------
         ~github.errors.Forbidden
             You do not have permission to lock the lockable.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The lockable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
         """
 
         if reason is not None:
@@ -95,16 +89,6 @@ class Lockable():
         ------
         ~github.errors.Forbidden
             You do not have permission to unlock the lockable.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The lockable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
         """
 
         await self.http.unlock(self.id)

@@ -22,9 +22,9 @@ from github.enums import Enum
 class CommentAuthorAssociation(Enum):
     """
     Represents an actor's association with a repository.
-
-    https://developer.github.com/v4/enum/commentauthorassociation/
     """
+
+    # https://developer.github.com/v4/enum/commentauthorassociation/
 
     collaborator           = "COLLABORATOR"
     contributor            = "CONTRIBUTOR"

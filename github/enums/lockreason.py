@@ -22,9 +22,9 @@ from github.enums import Enum
 class LockReason(Enum):
     """
     Represents the reason for a lockable to be in a locked state.
-
-    https://developer.github.com/v4/enum/lockreason/
     """
+
+    # https://developer.github.com/v4/enum/lockreason/
 
     off_topic  = "OFF_TOPIC"
     resolved   = "RESOLVED"

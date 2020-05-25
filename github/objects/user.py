@@ -35,8 +35,6 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     """
     Represents a GitHub user account.
 
-    https://developer.github.com/v4/object/user/
-
     Implements:
 
     * :class:`~github.abc.Actor`
@@ -47,6 +45,8 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     * :class:`~github.abc.Type`
     * :class:`~github.abc.UniformResourceLocatable`
     """
+
+    # https://developer.github.com/v4/object/user/
 
     __slots__ = ("data", "http")
 
@@ -61,6 +61,8 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     def bio(self) -> str:
         """
         The user's public profile bio.
+
+        :type: :class:`str`
         """
 
         return self.data["bio"] or ""
@@ -69,6 +71,8 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     def company(self) -> typing.Optional[str]:
         """
         The user's public profile company.
+
+        :type: Optional[:class:`str`]
         """
 
         return self.data["company"]
@@ -77,14 +81,19 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     def created_at(self) -> datetime.datetime:
         """
         The date and time the user was created.
+
+        :type: :class:`~datetime.datetime`
         """
 
-        return utils.iso_to_datetime(self.data["createdAt"])
+        created_at = self.data["createdAt"]
+        return utils.iso_to_datetime(created_at)
 
     @property
     def database_id(self) -> int:
         """
         The user's primary key from the database.
+
+        :type: :class:`int`
         """
 
         return self.data["databaseId"]
@@ -93,6 +102,8 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     def is_bounty_hunter(self) -> bool:
         """
         Whether the user is a participant in the GitHub Security Bug Bounty.
+
+        :type: :class:`bool`
         """
 
         return self.data["isBountyHunter"]
@@ -101,6 +112,8 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     def is_campus_expert(self) -> bool:
         """
         Whether the user is a participant in the GitHub Campus Experts Program.
+
+        :type: :class:`bool`
         """
 
         return self.data["isCampusExpert"]
@@ -109,6 +122,8 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     def is_developer_program_member(self) -> bool:
         """
         Whether the user is a GitHub Developer Program member.
+
+        :type: :class:`bool`
         """
 
         return self.data["isDeveloperProgramMember"]
@@ -117,6 +132,8 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     def is_employee(self) -> bool:
         """
         Whether the user is a GitHub employee.
+
+        :type: :class:`bool`
         """
 
         return self.data["isEmployee"]
@@ -125,6 +142,8 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     def is_hireable(self) -> bool:
         """
         Whether the user has marked themselves as for hire.
+
+        :type: :class:`bool`
         """
 
         return self.data["isHireable"]
@@ -133,6 +152,8 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     def is_site_administrator(self) -> bool:
         """
         Whether the user is a site administrator.
+
+        :type: :class:`bool`
         """
 
         return self.data["isSiteAdmin"]
@@ -140,7 +161,9 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     @property
     def is_viewer(self) -> bool:
         """
-        Whether or not the user is the viewing user.
+        Whether or not the user is the authenticated user.
+
+        :type: :class:`bool`
         """
 
         return self.data["isViewer"]
@@ -148,17 +171,20 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     @utils._cached_property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
         """
-        The date and time the user was last updated.
+        When the user was last updated.
+
+        :type: :class:`~datetime.datetime`
         """
 
         updated_at = self.data["updatedAt"]
-        if updated_at:
-            return utils.iso_to_datetime(updated_at)
+        return utils.iso_to_datetime(updated_at)
 
     @property
     def viewer_can_follow(self) -> bool:
         """
         Whether the viewer can follow the user.
+
+        :type: :class:`bool`
         """
 
         return self.data["viewerCanFollow"]
@@ -167,31 +193,22 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     def viewer_is_following(self) -> bool:
         """
         Whether the viewer is following the user.
+
+        :type: :class:`bool`
         """
 
         return self.data["viewerIsFollowing"]
 
     async def fetch_commit_comments(self) -> typing.List[CommitComment]:
         """
-        Fetches the user's commit comments.
+        |coro|
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The user does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
+        Fetches the user's commit comments.
 
         Returns
         -------
         List[:class:`~github.CommitComment`]
-            A list of commit comments created by the user.
+            A list of commit comments.
         """
 
         data = await self.http.fetch_user_commit_comments(self.id)
@@ -199,25 +216,14 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
 
     async def fetch_followers(self) -> typing.List["User"]:
         """
-        Fetches the user's followers.
+        |coro|
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The user does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
+        Fetches the user's followers.
 
         Returns
         -------
         List[:class:`~github.User`]
-            A list of users following the user.
+            A list of users.
         """
 
         data = await self.http.fetch_user_followers(self.id)
@@ -225,25 +231,14 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
 
     async def fetch_following(self) -> typing.List["User"]:
         """
-        Fetches users followed by the user.
+        |coro|
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The user does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
+        Fetches users followed by the user.
 
         Returns
         -------
         List[:class:`~github.User`]
-            A list of users followed by the user.
+            A list of users.
         """
 
         data = await self.http.fetch_user_following(self.id)
@@ -251,9 +246,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
 
 class AuthenticatedUser(User):
     """
-    Represents the authenticated GitHub user account, "viewer".
-
-    https://developer.github.com/v4/object/user/
+    Represents the authenticated GitHub user account or "viewer".
 
     Implements:
 
@@ -265,5 +258,7 @@ class AuthenticatedUser(User):
     * :class:`~github.abc.Type`
     * :class:`~github.abc.UniformResourceLocatable`
     """
+
+    # https://developer.github.com/v4/object/user/
 
     pass

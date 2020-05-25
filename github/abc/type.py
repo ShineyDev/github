@@ -42,6 +42,8 @@ class Type():
     * :class:`~github.User`
     """
 
+    # this interface does not have an api equivalent
+
     __slots__ = ()
 
     @classmethod
@@ -61,6 +63,8 @@ class Type():
     def type(self) -> str:
         """
         The object's type.
+
+        :type: :class:`str`
         """
 
         return self.data["__typename"]

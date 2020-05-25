@@ -20,8 +20,6 @@ class UniformResourceLocatable():
     """
     Represents an object that can be retrieved by a URL.
 
-    https://developer.github.com/v4/interface/uniformresourcelocatable/
-
     Implemented by:
     
     * :class:`~github.AuthenticatedUser`
@@ -36,12 +34,16 @@ class UniformResourceLocatable():
     * :class:`~github.User`
     """
 
+    # https://developer.github.com/v4/interface/uniformresourcelocatable/
+
     __slots__ = ()
 
     @property
     def resource_path(self) -> str:
         """
         The resource path pointing to the resource.
+
+        :type: :class:`str`
         """
 
         return self.data["resourcePath"]
@@ -50,6 +52,8 @@ class UniformResourceLocatable():
     def url(self) -> str:
         """
         The url pointing to the resource.
+
+        :type: :class:`str`
         """
 
         return self.data["url"]

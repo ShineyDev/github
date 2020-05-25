@@ -4,12 +4,6 @@
 Utilities
 =========
 
-.. autofunction:: find
-
-.. autofunction:: find_all
-
-.. autofunction:: get
-
-.. autofunction:: get_all
+.. autofunction:: _cached_property
 
 .. autofunction:: iso_to_datetime

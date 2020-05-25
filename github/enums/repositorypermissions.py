@@ -22,12 +22,12 @@ from github.enums import Enum
 class RepositoryPermissions(Enum):
     """
     Represents a user's access level to a repository.
-
-    https://developer.github.com/v4/enum/repositorypermission/
     """
+
+    # https://developer.github.com/v4/enum/repositorypermission/
 
     admin = "ADMIN"
     maintain = "MAINTAIN"
-    write = "WRITE"
-    triage = "TRIAGE"
     read = "READ"
+    triage = "TRIAGE"
+    write = "WRITE"

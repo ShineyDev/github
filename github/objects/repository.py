@@ -38,8 +38,6 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     """
     Represents a GitHub repository.
 
-    https://developer.github.com/v4/object/repository/
-
     Implements:
 
     * :class:`~github.abc.Node`
@@ -48,6 +46,8 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     * :class:`~github.abc.Type`
     * :class:`~github.abc.UniformResourceLocatable`
     """
+
+    # https://developer.github.com/v4/object/repository/
 
     __slots__ = ("data", "http")
 
@@ -61,7 +61,9 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     @property
     def allows_merge_commit(self) -> bool:
         """
-        Whether or not pull requests can be merged with a merge commit on the repository.
+        Whether pull requests can be merged with a merge commit on the repository.
+
+        :type: :class:`bool`
         """
 
         return self.data["mergeCommitAllowed"]
@@ -69,7 +71,9 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     @property
     def allows_rebase_merge(self) -> bool:
         """
-        Whether or not rebase-merging is enabled on the repository.
+        Whether rebase-merging is enabled on the repository.
+
+        :type: :class:`bool`
         """
 
         return self.data["rebaseMergeAllowed"]
@@ -77,7 +81,9 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     @property
     def allows_squash_merge(self) -> bool:
         """
-        Whether or not squash-merging is enabled on the repository.
+        Whether squash-merging is enabled on the repository.
+
+        :type: :class:`bool`
         """
 
         return self.data["squashMergeAllowed"]
@@ -86,16 +92,19 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     def code_of_conduct(self) -> typing.Optional[CodeOfConduct]:
         """
         The repository's code of conduct.
+
+        :type: :class:`~github.CodeOfConduct`
         """
 
         codeofconduct = self.data["codeOfConduct"]
-        if codeofconduct:
-            return CodeOfConduct.from_data(codeofconduct_)
+        return CodeOfConduct.from_data(codeofconduct_)
 
     @utils._cached_property
     def created_at(self) -> datetime.datetime:
         """
-        The date and time when the repository was created.
+        When the repository was created.
+
+        :type: :class:`~datetime.datetime`
         """
 
         created_at = self.data["createdAt"]
@@ -105,6 +114,8 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     def database_id(self) -> int:
         """
         The primary key for the repository from the database.
+
+        :type: :class:`int`
         """
 
         return self.data["databaseId"]
@@ -113,6 +124,8 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     def default_branch(self) -> str:
         """
         The name of the default branch.
+
+        :type: :class:`str`
         """
 
         return self.data["defaultBranchRef"]["name"]
@@ -121,6 +134,8 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     def description(self) -> str:
         """
         The description of the repository.
+
+        :type: :class:`str`
         """
 
         return self.data["description"] or ""
@@ -129,6 +144,8 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     def disk_usage(self) -> int:
         """
         The number of kilobytes the repository occupies on disk.
+
+        :type: :class:`int`
         """
 
         return self.data["diskUsage"]
@@ -137,6 +154,8 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     def fork_count(self) -> int:
         """
         The number of forks created from the repository.
+
+        :type: :class:`int`
         """
 
         return self.data["forkCount"]
@@ -144,7 +163,9 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     @property
     def has_issues(self) -> bool:
         """
-        Whether or not the repository has issues enabled.
+        Whether the repository has issues enabled.
+
+        :type: :class:`bool`
         """
 
         return self.data["hasIssuesEnabled"]
@@ -152,7 +173,9 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     @property
     def has_wiki(self) -> bool:
         """
-        Whether or not the repository has wiki enabled.
+        Whether the repository has wiki enabled.
+
+        :type: :class:`bool`
         """
 
         return self.data["hasWikiEnabled"]
@@ -160,7 +183,9 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     @property
     def is_archived(self) -> bool:
         """
-        Whether or not the repository is archived.
+        Whether the repository is archived.
+
+        :type: :class:`bool`
         """
 
         return self.data["isArchived"]
@@ -168,7 +193,9 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     @property
     def is_disabled(self) -> bool:
         """
-        Whether or not the repository is disabled.
+        Whether the repository is disabled.
+
+        :type: :class:`bool`
         """
 
         return self.data["isDisabled"]
@@ -176,7 +203,9 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     @property
     def is_fork(self) -> bool:
         """
-        Whether or not the repository is a fork of another repository.
+        Whether the repository is a fork of another repository.
+
+        :type: :class:`bool`
         """
 
         return self.data["isFork"]
@@ -184,7 +213,9 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     @property
     def is_locked(self) -> bool:
         """
-        Whether or not the repository is locked.
+        Whether the repository is locked.
+
+        :type: :class:`bool`
         """
 
         return self.data["isLocked"]
@@ -192,7 +223,9 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     @property
     def is_mirror(self) -> bool:
         """
-        Whether or not the repository is a mirror of another repository.
+        Whether the repository is a mirror of another repository.
+
+        :type: :class:`bool`
         """
 
         return self.data["isMirror"]
@@ -200,7 +233,9 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     @property
     def is_private(self) -> bool:
         """
-        Whether or not the repository is private.
+        Whether the repository is private.
+
+        :type: :class:`bool`
         """
 
         return self.data["isPrivate"]
@@ -208,7 +243,9 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     @property
     def is_template(self) -> bool:
         """
-        Whether or not the repository is a template repository.
+        Whether the repository is a template repository.
+
+        :type: :class:`bool`
         """
 
         return self.data["isTemplate"]
@@ -217,6 +254,8 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     def license(self) -> typing.Optional[License]:
         """
         The repository's license.
+
+        :type: :class:`~github.License`
         """
 
         license = self.data["licenseInfo"]
@@ -227,6 +266,8 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     def lock_reason(self) -> typing.Optional[RepositoryLockReason]:
         """
         The reason for the repository to be in a locked state.
+
+        :type: :class:`~github.enums.RepositoryLockReason`
         """
 
         reason = self.data["lockReason"]
@@ -236,6 +277,8 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     def name(self) -> str:
         """
         The name of the repository.
+
+        :type: :class:`str`
         """
 
         return self.data["name"]
@@ -244,6 +287,9 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     def owner(self) -> typing.Union[Organization, User]:
         """
         The owner of the repository.
+
+        :type: Union[:class:`~github.Organization`, \
+                     :class:`~github.User`]
         """
 
         owner = self.data["owner"]
@@ -257,6 +303,8 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     def primary_language(self) -> Language:
         """
         The primary language of the repository.
+
+        :type: :class:`~github.Language`
         """
 
         primary_language = self.data["primaryLanguage"]
@@ -266,27 +314,31 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     @utils._cached_property
     def pushed_at(self) -> typing.Optional[datetime.datetime]:
         """
-        The date and time when the repository was last pushed to.
+        When the repository was last pushed to.
+
+        :type: :class:`~datetime.datetime`
         """
 
         pushed_at = self.data["pushedAt"]
-        if pushed_at:
-            return utils.iso_to_datetime(pushed_at)
+        return utils.iso_to_datetime(pushed_at)
 
     @utils._cached_property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
         """
         The date and time when the repository was last updated.
+
+        :type: :class:`~datetime.datetime`
         """
 
         updated_at = self.data["updatedAt"]
-        if updated_at:
-            return utils.iso_to_datetime(updated_at)
+        return utils.iso_to_datetime(updated_at)
 
     @property
     def viewer_can_administer(self) -> bool:
         """
-        Whether or not the authenticated user can administer the repository.
+        Whether the authenticated user can administer the repository.
+
+        :type: :class:`bool`
         """
 
         return self.data["viewerCanAdminister"]
@@ -294,7 +346,9 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     @property
     def viewer_can_update_topics(self) -> bool:
         """
-        Whether or not the authenticated user can update topics in the repository.
+        Whether the authenticated user can update topics in the repository.
+
+        :type: :class:`bool`
         """
 
         return self.data["viewerCanUpdateTopics"]
@@ -303,6 +357,8 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
     def viewer_permissions(self) -> RepositoryPermissions:
         """
         The authenticated user's permissions in the repository.
+
+        :type: :class:`~github.enums.RepositoryPermissions`
         """
 
         permissions = self.data["viewerPermission"]
@@ -310,25 +366,14 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
 
     async def fetch_assignable_users(self):
         """
-        Fetches a list of users that can be assigned to issues in the repository.
+        |coro|
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The repository does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
+        Fetches a list of users that can be assigned to issues in the repository.
 
         Returns
         -------
         List[:class:`~github.User`]
-            A list of users that can be assigned to issues in the repository.
+            A list of users.
         """
 
         data = await self.http.fetch_repository_assignable_users(self.id)
@@ -336,25 +381,14 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
 
     async def fetch_collaborators(self):
         """
-        Fetches a list of collaborators associated with the repository.
+        |coro|
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The repository does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
+        Fetches a list of collaborators associated with the repository.
 
         Returns
         -------
         List[:class:`~github.User`]
-            A list of collaborators associated with the repository.
+            A list of users.
         """
 
         data = await self.http.fetch_repository_collaborators(self.id)
@@ -366,23 +400,10 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
 
         Fetches the repository's parent, if it is a fork.
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The repository does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-
         Returns
         -------
         Optional[:class:`~github.Repository`]
-            The repository parent.
+            The repository's parent.
         """
 
         data = await self.http.fetch_repository_parent(self.id)
@@ -394,23 +415,10 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
 
         Fetches the repository's template, if it has one.
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The repository does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-
         Returns
         -------
         Optional[:class:`~github.Repository`]
-            The repository template.
+            The repository's template.
         """
 
         data = await self.http.fetch_repository_template(self.id)

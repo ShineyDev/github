@@ -20,8 +20,6 @@ class Actor():
     """
     Represents an object which can take actions on GitHub.
 
-    https://developer.github.com/v4/interface/actor/
-
     Implemented by:
     
     * :class:`~github.AuthenticatedUser`
@@ -31,12 +29,16 @@ class Actor():
     * :class:`~github.User`
     """
 
+    # https://developer.github.com/v4/interface/actor/
+
     __slots__ = ()
 
     @property
     def avatar_url(self) -> str:
         """
-        A url pointing to the actor's public avatar.
+        A url pointing to the actor's avatar.
+
+        :type: :class:`str`
         """
 
         return self.data["avatarUrl"]
@@ -44,7 +46,9 @@ class Actor():
     @property
     def identicon_url(self) -> str:
         """
-        A url pointing to the actor's identicon.
+        A url pointing to the actor's identicon avatar.
+
+        :type: :class:`str`
         """
 
         return "https://identicons.github.com/{0}.png".format(self.data["login"])
@@ -53,6 +57,8 @@ class Actor():
     def login(self) -> str:
         """
         The actor's username.
+
+        :type: :class:`str`
         """
 
         return self.data["login"]
@@ -65,26 +71,13 @@ class Actor():
 
         Parameters
         ----------
-        size: Optional[:class:`int`]
+        size: :class:`int`
             The size of the avatar.
-
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The actor does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
 
         Returns
         -------
         :class:`str`
-            The url pointing to the actor's avatar.
+            A url.
         """
         
         avatar_url = await self.http.fetch_actor_avatar_url(self.id, size)

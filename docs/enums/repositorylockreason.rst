@@ -5,5 +5,11 @@ Repository Lock Reason
 ======================
 
 .. autoclass:: RepositoryLockReason()
-    :member-order: bysource
-    :members:
+
+	.. attribute:: billing
+
+	.. attribute:: migrating
+
+	.. attribute:: moving
+
+	.. attribute:: rename

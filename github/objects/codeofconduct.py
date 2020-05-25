@@ -27,14 +27,14 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
     """
     Represents a Code of Conduct.
 
-    https://developer.github.com/v4/object/codeofconduct
-
     Implements:
 
     * :class:`~github.abc.Node`
     * :class:`~github.abc.Type`
     * :class:`~github.abc.UniformResourceLocatable`
     """
+
+    # https://developer.github.com/v4/object/codeofconduct
 
     __slots__ = ("data",)
 
@@ -47,7 +47,9 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
     @property
     def body(self) -> str:
         """
-        The body of the Code of Conduct.
+        The body of the code of conduct.
+
+        :type: :class:`str`
         """
 
         return self.data["body"]
@@ -55,7 +57,9 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
     @property
     def key(self) -> str:
         """
-        The key of the Code of Conduct.
+        The key of the code of conduct.
+
+        :type: :class:`str`
         """
 
         return self.data["key"]
@@ -63,7 +67,9 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
     @property
     def name(self) -> str:
         """
-        The name of the Code of Conduct.
+        The name of the code of conduct.
+
+        :type: :class:`str`
         """
 
         return self.data["name"]

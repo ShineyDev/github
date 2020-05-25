@@ -23,13 +23,13 @@ class Assignable():
     """
     Represents an object which can be assigned to.
 
-    https://developer.github.com/v4/interface/assignable/
-
     Implemented by:
 
-    * :class:`github.Issue`
-    * :class:`github.PullRequest`
+    * :class:`~github.Issue`
+    * :class:`~github.PullRequest`
     """
+
+    # https://developer.github.com/v4/interface/assignable/
 
     __slots__ = ()
 
@@ -39,23 +39,10 @@ class Assignable():
 
         Fetches a list of users assigned to the assignable.
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The assignable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-
         Returns
         -------
-        List[:class:`github.User`]
-            A list of assigned users.
+        List[:class:`~github.User`]
+            A list of users.
         """
 
         # prevent cyclic imports
@@ -68,27 +55,17 @@ class Assignable():
         """
         |coro|
 
-        Assigns an iterable of users to the assignable.
+        Assigns users to the assignable.
 
         Parameters
         ----------
-        \\*users: Iterable[:class:`github.User`]
+        \\*users: Iterable[:class:`~github.User`]
             An iterable of users.
 
         Raises
         ------
         ~github.errors.Forbidden
             You do not have permission to add assignees to the assignable.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The assignable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
         """
 
         users = [user.id for user in users]
@@ -98,27 +75,17 @@ class Assignable():
         """
         |coro|
 
-        Unassigns an iterable of users from the assignable.
+        Unassigns users from the assignable.
 
         Parameters
         ----------
-        \\*users: Iterable[:class:`github.User`]
+        \\*users: Iterable[:class:`~github.User`]
             An iterable of users.
 
         Raises
         ------
         ~github.errors.Forbidden
             You do not have permission to remove assignees from the assignable.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The assignable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
         """
 
         users = [user.id for user in users]

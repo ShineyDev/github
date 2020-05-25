@@ -26,31 +26,33 @@ class Closable():
     """
     Represents an object which can be closed.
 
-    https://developer.github.com/v4/interface/closable/
-
     Implemented by:
 
-    * :class:`github.Issue`
-    * :class:`github.PullRequest`
+    * :class:`~github.Issue`
+    * :class:`~github.PullRequest`
     """
+
+    # https://developer.github.com/v4/interface/closable/
 
     __slots__ = ()
 
     @utils._cached_property
     def closed_at(self) -> typing.Optional[datetime.datetime]:
         """
-        The date and time at which the closable was closed.
+        When closable was last closed.
+
+        :type: :class:`~datetime.datetime`
         """
 
         closed_at = self.data["closedAt"]
-
-        if closed_at:
-            return utils.iso_to_datetime(closed_at)
+        return utils.iso_to_datetime(closed_at)
 
     @property
     def is_closed(self) -> bool:
         """
-        Whether or not the closable is closed.
+        Whether the closable is closed.
+
+        :type: :class:`bool`
         """
 
         return self.data["closed"]
@@ -65,22 +67,15 @@ class Closable():
         ------
         ~github.errors.Forbidden
             You do not have permission to close the closable.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The closable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
         """
 
-        if self.data["__typename"] == "Issue":
-            await self.http.close_issue(self.id)
-        elif self.data["__typename"] == "PullRequest":
-            await self.http.close_pull_request(self.id)
+        map = {
+            "Issue": self.http.close_issue,
+            "PullRequest": self.http.close_pull_request,
+        }
+
+        meth = map[self.data["__typename"]]
+        await meth(self.id)
 
     async def reopen(self):
         """
@@ -92,19 +87,12 @@ class Closable():
         ------
         ~github.errors.Forbidden
             You do not have permission to reopen the closable.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The closable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
         """
 
-        if self.data["__typename"] == "Issue":
-            await self.http.reopen_issue(self.id)
-        elif self.data["__typename"] == "PullRequest":
-            await self.http.reopen_pull_request(self.id)
+        map = {
+            "Issue": self.http.reopen_issue,
+            "PullRequest": self.http.reopen_pull_request,
+        }
+
+        meth = map[self.data["__typename"]]
+        await meth(self.id)

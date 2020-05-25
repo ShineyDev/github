@@ -32,8 +32,6 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
     """
     Represents a GitHub organization.
 
-    https://developer.github.com/v4/object/organization/
-
     Implements:
 
     * :class:`~github.abc.Actor`
@@ -44,6 +42,8 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
     * :class:`~github.abc.Type`
     * :class:`~github.abc.UniformResourceLocatable`
     """
+
+    # https://developer.github.com/v4/object/organization/
 
     __slots__ = ("data", "http")
 
@@ -58,6 +58,8 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
     def database_id(self) -> int:
         """
         The organization's primary key from the database.
+
+        :type: :class:`int`
         """
 
         return self.data["databaseId"]
@@ -66,6 +68,8 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
     def description(self) -> str:
         """
         The organization's description.
+
+        :type: :class:`str`
         """
 
         return self.data["description"] or ""
@@ -73,7 +77,9 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
     @property
     def is_verified(self) -> bool:
         """
-        Whether or not the organization's public email is verified.
+        Whether the organization's public email is verified.
+
+        :type: :class:`bool`
         """
 
         return self.data["isVerified"]
@@ -82,6 +88,8 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
     def new_team_resource_path(self) -> str:
         """
         The organization's new team resource path.
+
+        :type: :class:`str`
         """
 
         return self.data["newTeamResourcePath"]
@@ -90,6 +98,8 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
     def new_team_url(self) -> str:
         """
         The organization's new team url.
+
+        :type: :class:`str`
         """
 
         return self.data["newTeamUrl"]
@@ -98,6 +108,8 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
     def teams_resource_path(self) -> str:
         """
         The organization's teams resource path.
+
+        :type: :class:`str`
         """
 
         return self.data["teamsResourcePath"]
@@ -106,6 +118,8 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
     def teams_url(self) -> str:
         """
         The organization's teams url.
+
+        :type: :class:`str`
         """
 
         return self.data["teamsUrl"]
@@ -113,7 +127,9 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
     @property
     def viewer_can_administer(self) -> bool:
         """
-        Whether or not the authenticated user can administer the organization.
+        Whether the authenticated user can administer the organization.
+
+        :type: :class:`bool`
         """
 
         return self.data["viewerCanAdminister"]
@@ -121,7 +137,9 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
     @property
     def viewer_can_create_repositories(self) -> bool:
         """
-        Whether or not the authenticated user can create repositories in the organization.
+        Whether the authenticated user can create repositories in the organization.
+
+        :type: :class:`bool`
         """
 
         return self.data["viewerCanCreateRepositories"]
@@ -129,7 +147,9 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
     @property
     def viewer_can_create_teams(self) -> bool:
         """
-        Whether or not the authenticated user can create teams in the organization.
+        Whether the authenticated user can create teams in the organization.
+
+        :type: :class:`bool`
         """
 
         return self.data["viewerCanCreateTeams"]
@@ -137,7 +157,9 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
     @property
     def viewer_is_member(self) -> bool:
         """
-        Whether or not the authenticated user is a member of the organization.
+        Whether the authenticated user is a member of the organization.
+
+        :type: :class:`bool`
         """
 
         return self.data["viewerIsAMember"]

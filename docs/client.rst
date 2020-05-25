@@ -1,9 +1,9 @@
 .. currentmodule:: github
 
 
-GitHub
+Client
 ======
 
-.. autoclass:: GitHub
+.. autoclass:: Client
     :member-order: bysource
     :members:

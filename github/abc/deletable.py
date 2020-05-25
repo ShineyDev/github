@@ -20,19 +20,21 @@ class Deletable():
     """
     Represents an object which can be deleted.
 
-    https://developer.github.com/v4/interface/deletable/
-
     Implemented by:
 
     * :class:`~github.CommitComment`
     """
+
+    # https://developer.github.com/v4/interface/deletable/
 
     __slots__ = ()
 
     @property
     def viewer_can_delete(self) -> bool:
         """
-        Whether or not the authenticated user can delete the deletable.
+        Whether the authenticated user can delete the deletable.
+
+        :type: :class:`bool`
         """
 
         return self.data["viewerCanDelete"]
@@ -47,36 +49,6 @@ class Deletable():
         ------
         ~github.errors.Forbidden
             You do not have permission to delete the deletable.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The deletable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
         """
 
-        if self.data["__typename"] == "CommitComment":
-            # TODO: implement HTTPClient.delete_commit_comment
-            ...
-        elif self.data["__typename"] == "GistComment":
-            # TODO: implement HTTPClient.delete_gist_comment
-            ...
-        elif self.data["__typename"] == "IssueComment":
-            # TODO: implement HTTPClient.delete_issue_comment
-            ...
-        elif self.data["__typename"] == "PullRequestReview":
-            # TODO: implement HTTPClient.delete_pull_request_review
-            ...
-        elif self.data["__typename"] == "PullRequestReviewComment":
-            # TODO: implement HTTPClient.delete_pull_request_review_comment
-            ...
-        elif self.data["__typename"] == "TeamDiscussion":
-            # TODO: implement HTTPClient.delete_team_discussion
-            ...
-        elif self.data["__typename"] == "TeamDiscussionComment":
-            # TODO: implement HTTPClient.delete_team_discussion_comment
-            ...
+        ... # TODO

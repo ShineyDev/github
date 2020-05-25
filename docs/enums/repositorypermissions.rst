@@ -5,5 +5,13 @@ Repository Permissions
 ======================
 
 .. autoclass:: RepositoryPermissions()
-    :member-order: bysource
-    :members:
+
+	.. attribute:: admin
+
+	.. attribute:: maintain
+
+	.. attribute:: read
+
+	.. attribute:: triage
+
+	.. attribute:: write

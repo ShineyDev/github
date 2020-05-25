@@ -15,4 +15,4 @@ Enumerables
     reaction
     repositorylockreason
     repositorypermissions
-    repositorysubscription
+    subscriptionstate

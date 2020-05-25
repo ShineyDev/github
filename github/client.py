@@ -84,6 +84,8 @@ class Client():
         """
         The base url used by this wrapper. This can be changed to allow
         support for GitHub Enterprise.
+
+        :type: :class:`str`
         """
 
         return self.http.base_url
@@ -96,7 +98,9 @@ class Client():
     def user_agent(self) -> str:
         """
         The user-agent sent by this wrapper. This can be changed to
-        allow GitHub to contact you in case of issues.
+        allow GitHub to contact you.
+
+        :type: :class:`str`
         """
 
         return self.http.user_agent
@@ -109,23 +113,12 @@ class Client():
         """
         |coro|
 
-        Fetches the authenticated GitHub user.
-
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
+        Fetches the authenticated user.
 
         Returns
         -------
         :class:`~github.AuthenticatedUser`
-            The authenticated GitHub user.
+            The authenticated user.
         """
 
         data = await self.http.fetch_authenticated_user()
@@ -135,7 +128,7 @@ class Client():
         """
         |coro|
 
-        Fetches a GitHub code of conduct.
+        Fetches a code of conduct.
 
         Parameters
         ----------
@@ -144,21 +137,13 @@ class Client():
 
         Raises
         ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             A code of conduct with the given key does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
 
         Returns
         -------
         :class:`~github.CodeOfConduct`
-            A GitHub code of conduct.
+            A code of conduct.
         """
 
         data = await self.http.fetch_code_of_conduct(key)
@@ -168,23 +153,12 @@ class Client():
         """
         |coro|
 
-        Fetches a list of GitHub codes of conduct.
-
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
+        Fetches a list of codes of conduct.
 
         Returns
         -------
         List[:class:`~github.CodeOfConduct`]
-            A list of GitHub codes of conduct.
+            A list of codes of conduct.
         """
 
         data = await self.http.fetch_all_codes_of_conduct()
@@ -203,16 +177,8 @@ class Client():
 
         Raises
         ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             A license with the given key does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
 
         Returns
         -------
@@ -229,17 +195,6 @@ class Client():
 
         Fetches a list of GitHub licenses.
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-
         Returns
         -------
         List[:class:`~github.License`]
@@ -254,17 +209,6 @@ class Client():
         |coro|
 
         Fetches GitHub metadata.
-
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
 
         Returns
         -------
@@ -288,16 +232,8 @@ class Client():
 
         Raises
         ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             A node with the given id does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
 
         Returns
         -------
@@ -324,16 +260,8 @@ class Client():
 
         Raises
         ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             A node with the given id does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
 
         Returns
         -------
@@ -357,16 +285,8 @@ class Client():
 
         Raises
         ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             An organization with the given login does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
 
         Returns
         -------
@@ -381,23 +301,16 @@ class Client():
         """
         |coro|
 
-        Fetches the current GitHub rate limit.
+        Fetches the current rate limit.
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
+        .. note::
+
+            This API call does not cost you a rate limit point.
 
         Returns
         -------
         :class:`~github.RateLimit`
-            The current GitHub rate limit.
+            The current rate limit.
         """
 
         data = await self.http.fetch_rate_limit()
@@ -407,7 +320,7 @@ class Client():
         """
         |coro|
 
-        Fetches a GitHub repository.
+        Fetches a repository.
 
         Parameters
         ----------
@@ -418,21 +331,13 @@ class Client():
 
         Raises
         ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             A repository with the given owner and name does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
 
         Returns
         -------
         :class:`~github.Repository`
-            A GitHub repository.
+            A repository.
         """
 
         data = await self.http.fetch_repository(owner, name)
@@ -444,21 +349,10 @@ class Client():
 
         Fetches a list of scopes associated with the token.
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-
         Returns
         -------
         List[:class:`str`]
-            A list of scopes associated with the token
+            A list of scopes.
         """
 
         data = await self.http.fetch_scopes()
@@ -468,7 +362,7 @@ class Client():
         """
         |coro|
 
-        Fetches a GitHub topic.
+        Fetches a topic.
 
         Parameters
         ----------
@@ -477,21 +371,13 @@ class Client():
 
         Raises
         ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             A topic with the given name does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
 
         Returns
         -------
         :class:`~github.Topic`
-            A GitHub topic.
+            A topic.
         """
 
         data = await self.http.fetch_topic(name)
@@ -501,7 +387,7 @@ class Client():
         """
         |coro|
 
-        Fetches a GitHub user.
+        Fetches a user.
 
         Parameters
         ----------
@@ -510,21 +396,13 @@ class Client():
 
         Raises
         ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
         ~github.errors.NotFound
             A user with the given login does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
 
         Returns
         -------
         :class:`~github.User`
-            A GitHub user.
+            A user.
         """
 
         data = await self.http.fetch_user(login)

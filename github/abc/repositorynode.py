@@ -20,8 +20,6 @@ class RepositoryNode():
     """
     Represents a node which belongs to a repository.
 
-    https://developer.github.com/v4/interface/repositorynode/
-
     Implemented by:
 
     * :class:`~github.CommitComment`
@@ -30,27 +28,15 @@ class RepositoryNode():
     * :class:`~github.PullRequest`
     """
 
+    # https://developer.github.com/v4/interface/repositorynode/
+
     __slots__ = ()
 
     async def fetch_repository(self) -> "Repository":
         """
-        Fetches the repository the repository node belongs to.
+        |coro|
 
-        Raises
-        ------
-        Raises
-        ------
-        ~github.errors.Forbidden
-            You do not have permission to add reactions to the
-            reactable.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
+        Fetches the repository the repository node belongs to.
 
         Returns
         -------

@@ -27,8 +27,6 @@ class Comment():
     """
     Represents a GitHub comment.
 
-    https://developer.github.com/v4/interface/comment/
-
     Implemented by:
 
     * :class:`~github.CommitComment`
@@ -36,35 +34,35 @@ class Comment():
     * :class:`~github.PullRequest`
     """
 
+    # https://developer.github.com/v4/interface/comment/
+
     __slots__ = ()
 
     @utils._cached_property
-    def author(self) -> typing.Union["Organization", "User"]:
+    def author(self) -> typing.Union["Bot", "Mannequin", "Organization", "User"]:
         """
         The actor who authored the comment.
+
+        :type: Union[:class:`~github.Bot`, \
+                     :class:`~github.Mannequin`, \
+                     :class:`~github.Organization`, \
+                     :class:`~github.User`]
         """
         
         # prevent cyclic imports
-        from github.objects import Bot
-        from github.objects import Mannequin
-        from github.objects import Organization
-        from github.objects import User
+        from github import objects
 
-        author = self.data["author"]
+        data = self.data["author"]
 
-        if author["__typename"] == "Bot":
-            return Bot.from_data(author, self.http)
-        elif author["__typename"] == "Mannequin":
-            return Mannequin.from_data(author, self.http)
-        elif author["__typename"] == "Organization":
-            return Organization.from_data(author, self.http)
-        elif author["__typename"] == "User":
-            return User.from_data(author, self.http)
+        cls = objects._TYPE_MAP[data["__typename"]]
+        return cls.from_data(data, self.http)
 
     @utils._cached_property
     def author_association(self) -> CommentAuthorAssociation:
         """
         The :attr:`.author`'s association with the subject of the comment.
+
+        :type: :class:`~github.enums.CommentAuthorAssociation`
         """
 
         association = self.data["authorAssociation"]
@@ -74,6 +72,8 @@ class Comment():
     def body(self) -> str:
         """
         The body of the comment.
+
+        :type: :class:`str`
         """
 
         return self.data["body"]
@@ -82,6 +82,8 @@ class Comment():
     def body_html(self) -> str:
         """
         The :attr:`.body` of the comment as HTML.
+
+        :type: :class:`str`
         """
 
         return self.data["bodyHTML"]
@@ -90,6 +92,8 @@ class Comment():
     def body_text(self) -> str:
         """
         The :attr:`.body` of the comment with markdown removed.
+
+        :type: :class:`str`
         """
 
         return self.data["bodyText"]
@@ -97,7 +101,9 @@ class Comment():
     @utils._cached_property
     def created_at(self) -> datetime.datetime:
         """
-        The date and time at which the comment was created.
+        When the comment was created.
+
+        :type: :class:`~datetime.datetime`
         """
 
         created_at = self.data["createdAt"]
@@ -107,6 +113,8 @@ class Comment():
     def created_via_email(self) -> bool:
         """
         Whether or not the comment was created via email.
+
+        :type: :class:`bool`
         """
 
         return self.data["createdViaEmail"]
@@ -114,30 +122,29 @@ class Comment():
     @utils._cached_property
     def editor(self) -> typing.Optional[typing.Union["User"]]:
         """
-        The actor who edited the comment.
+        The actor who last edited the comment.
+
+        :type: Union[:class:`~github.Bot`, \
+                     :class:`~github.Mannequin`, \
+                     :class:`~github.Organization`, \
+                     :class:`~github.User`]
         """
 
         # prevent cyclic imports
-        from github.objects import Bot
-        from github.objects import Mannequin
-        from github.objects import Organization
-        from github.objects import User
+        from github import objects
 
-        editor = self.data["author"]
+        data = self.data["editor"]
 
-        if editor["__typename"] == "Bot":
-            return Bot.from_data(editor, self.http)
-        elif editor["__typename"] == "Mannequin":
-            return Mannequin.from_data(editor, self.http)
-        elif editor["__typename"] == "Organization":
-            return Organization.from_data(editor, self.http)
-        elif editor["__typename"] == "User":
-            return User.from_data(editor, self.http)
+        if data:
+            cls = objects._TYPE_MAP[data["__typename"]]
+            return cls.from_data(data, self.http)
 
     @utils._cached_property
     def edited_at(self) -> typing.Optional[datetime.datetime]:
         """
-        The date and time at which the comment was edited.
+        When the comment was last edited.
+
+        :type: :class:`~datetime.datetime`
         """
 
         edited_at = self.data["lastEditedAt"]
@@ -146,7 +153,9 @@ class Comment():
     @utils._cached_property
     def published_at(self) -> datetime.datetime:
         """
-        The date and time at which the comment was published.
+        When the comment was published.
+
+        :type: :class:`~datetime.datetime`
         """
 
         published_at = self.data["publishedAt"]
@@ -155,17 +164,20 @@ class Comment():
     @utils._cached_property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
         """
-        The date and time at which the comment was updated.
+        When the comment was last updated.
+
+        :type: :class:`~datetime.datetime`
         """
 
         updated_at = self.data["updatedAt"]
-        if updated_at:
-            return utils.iso_to_datetime(updated_at)
+        return utils.iso_to_datetime(updated_at)
 
     @property
     def viewer_is_author(self) -> bool:
         """
-        Whether or not the viewer authored this comment.
+        Whether the viewer authored this comment.
+
+        :type: :class:`bool`
         """
 
         return self.data["viewerDidAuthor"]

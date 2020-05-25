@@ -23,8 +23,6 @@ class Node(Type):
     """
     Represents an object with an ID.
 
-    https://developer.github.com/v4/interface/node/
-
     Implemented by:
     
     * :class:`~github.AuthenticatedUser`
@@ -42,6 +40,8 @@ class Node(Type):
     * :class:`~github.Topic`
     * :class:`~github.User`
     """
+
+    # https://developer.github.com/v4/interface/node/
 
     __slots__ = ("data",)
 
@@ -65,6 +65,8 @@ class Node(Type):
     def id(self) -> str:
         """
         The node's ID.
+
+        :type: :class:`str`
         """
 
         return self.data["id"]

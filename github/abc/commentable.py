@@ -25,9 +25,11 @@ class Commentable():
 
     Implemented by:
 
-    * :class:`github.Issue`
-    * :class:`github.PullRequest`
+    * :class:`~github.Issue`
+    * :class:`~github.PullRequest`
     """
+
+    # this interface does not have an api equivalent
 
     __slots__ = ()
 
@@ -39,50 +41,39 @@ class Commentable():
 
         Fetches a list of comments on the commentable.
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The commentable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-
         Returns
         -------
         List[Union[:class:`~github.CommitComment`, \
                    :class:`~github.GistComment`, \
                    :class:`~github.IssueComment`, \
                    :class:`~github.PullRequestComment`, \
-                   :class:`~github.PullRequestReviewComment`]]
-            A list of issues with the label
+                   :class:`~github.PullRequestReview`, \
+                   :class:`~github.PullRequestReviewComment`, \
+                   :class:`~github.TeamDiscussionComment`]]
+            A list of comments.
         """
 
         # prevent cyclic imports
-        from github.objects import CommitComment
-        #from github.objects import GistComment
-        #from github.objects import IssueComment
-        #from github.objects import PullRequestComment
-        #from github.objects import PullRequestReview
-        #from github.objects import PullRequestReviewComment
+        from github import objects
 
-        data = await self.http.fetch_commentable_comments(self.id)
+        data_ = await self.http.fetch_commentable_comments(self.id)
 
-        if data[0]["__typename"] == "CommitComment":
-            return CommitComment.from_data(data, self.http)
-        elif data[0]["__typename"] == "GistComment":
-            return GistComment.from_data(data, self.http)
-        elif data[0]["__typename"] == "IssueComment":
-            if self.data["__typename"] == "Issue":
-                return IssueComment.from_data(data, self.http)
-            elif self.data["__typename"] == "PullRequest":
-                return PullRequestComment.from_data(data, self.http)
-        elif data[0]["__typename"] == "PullRequestReviewComment":
-            return PullRequestReviewComment.from_data(data, self.http)
+        comments = list()
+
+        for (data) in data_:
+            if data["__typename"] == "IssueComment":
+                # special case IssueComment for lack of API PullRequestComment
+
+                if self.data["__typename"] == "Issue":
+                    cls = objects.IssueComment
+                elif self.data["__typename"] == "PullRequest":
+                    cls = objects.PullRequestComment
+            else:
+                cls = objects._TYPE_MAP[data["__typename"]]
+
+            comments.append(cls.from_data(data, self.http))
+
+        return comments
 
     async def add_comment(self, body: str) -> typing.Union["CommitComment", "GistComment",
                                                            "IssueComment", "PullRequestComment",
@@ -101,16 +92,6 @@ class Commentable():
         ------
         ~github.errors.Forbidden
             You do not have permission to comment on the commentable.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The commentable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
 
         Returns
         -------
@@ -118,28 +99,25 @@ class Commentable():
               :class:`~github.GistComment`, \
               :class:`~github.IssueComment`, \
               :class:`~github.PullRequestComment`, \
-              :class:`~github.PullRequestReviewComment`]
-            The added comment.
+              :class:`~github.PullRequestReview`, \
+              :class:`~github.PullRequestReviewComment`, \
+              :class:`~github.TeamDiscussionComment`]
+            The comment.
         """
-        
+
         # prevent cyclic imports
-        from github.objects import CommitComment
-        #from github.objects import GistComment
-        #from github.objects import IssueComment
-        #from github.objects import PullRequestComment
-        #from github.objects import PullRequestReview
-        #from github.objects import PullRequestReviewComment
+        from github import objects
 
         data = await self.http.add_comment(self.id, body)
 
-        if data["__typename"] == "CommitComment":
-            return CommitComment.from_data(data, self.http)
-        elif data["__typename"] == "GistComment":
-            return GistComment.from_data(data, self.http)
-        elif data["__typename"] == "IssueComment":
+        if data["__typename"] == "IssueComment":
+            # special case IssueComment for lack of API PullRequestComment
+
             if self.data["__typename"] == "Issue":
-                return IssueComment.from_data(data, self.http)
+                cls = objects.IssueComment
             elif self.data["__typename"] == "PullRequest":
-                return PullRequestComment.from_data(data, self.http)
-        elif data["__typename"] == "PullRequestReviewComment":
-            return PullRequestReviewComment.from_data(data, self.http)
+                cls = objects.PullRequestComment
+        else:
+            cls = objects._TYPE_MAP[data["__typename"]]
+
+        return cls.from_data(data, self.http)

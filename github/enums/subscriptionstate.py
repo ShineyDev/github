@@ -22,9 +22,9 @@ from github.enums import Enum
 class SubscriptionState(Enum):
     """
     Represents a user's subscription state to a Repository.
-
-    https://developer.github.com/v4/enum/subscriptionstate/
     """
+
+    # https://developer.github.com/v4/enum/subscriptionstate/
 
     ignored = "IGNORED"
     subscribed = "SUBSCRIBED"

@@ -29,8 +29,6 @@ class CommitComment(Comment, Deletable, Node, Reactable, RepositoryNode, Type, U
     """
     Represents a comment on a :class:`~github.Commit`.
 
-    https://developer.github.com/v4/object/commitcomment/
-
     Implements:
 
     * :class:`~github.abc.Comment`
@@ -41,6 +39,8 @@ class CommitComment(Comment, Deletable, Node, Reactable, RepositoryNode, Type, U
     * :class:`~github.abc.Type`
     * :class:`~github.abc.Updatable`
     """
+
+    # https://developer.github.com/v4/object/commitcomment/
 
     __slots__ = ("data", "http")
 

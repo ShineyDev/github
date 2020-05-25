@@ -25,13 +25,13 @@ class Language(Node, Type):
     """
     Represents a programming language found in repositories.
 
-    https://developer.github.com/v4/object/language/
-
     Implements:
 
     * :class:`~github.abc.Node`
     * :class:`~github.abc.Type`
     """
+
+    # https://developer.github.com/v4/object/language/
 
     __slots__ = ("data",)
 
@@ -45,22 +45,20 @@ class Language(Node, Type):
     def color(self) -> str:
         """
         The color of the language in the GitHub UI.
+
+        :type: :class:`str`
         """
 
         return self.data["color"]
 
-    @property
-    def colour(self) -> str:
-        """
-        An alias for :attr:`~Language.color`.
-        """
-
-        return self.color
+    colour = color
 
     @property
     def name(self) -> str:
         """
         The name of the language.
+
+        :type: :class:`str`
         """
 
         return self.data["name"]

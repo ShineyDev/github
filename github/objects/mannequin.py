@@ -30,8 +30,6 @@ class Mannequin(Actor, Node, Type, UniformResourceLocatable):
     """
     Represents a GitHub placeholder account.
 
-    https://developer.github.com/v4/object/mannequin/
-
     Implements:
 
     * :class:`~github.abc.Actor`
@@ -39,6 +37,8 @@ class Mannequin(Actor, Node, Type, UniformResourceLocatable):
     * :class:`~github.abc.Type`
     * :class:`~github.abc.UniformResourceLocatable`
     """
+
+    # https://developer.github.com/v4/object/mannequin/
 
     __slots__ = ("data", "http")
 
@@ -52,15 +52,20 @@ class Mannequin(Actor, Node, Type, UniformResourceLocatable):
     @utils._cached_property
     def created_at(self) -> datetime.datetime:
         """
-        The date and time the mannequin was created.
+        When the mannequin was created.
+
+        :type: :class:`~datetime.datetime`
         """
 
-        return utils.iso_to_datetime(self.data["createdAt"])
+        created_at = self.data["createdAt"]
+        return utils.iso_to_datetime(created_at)
 
     @property
     def database_id(self) -> int:
         """
         The mannequin's primary key from the database.
+
+        :type: :class:`int`
         """
 
         return self.data["databaseId"]
@@ -68,12 +73,13 @@ class Mannequin(Actor, Node, Type, UniformResourceLocatable):
     @utils._cached_property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
         """
-        The date and time the mannequin was last updated.
+        When the mannequin was last updated.
+
+        :type: :class:`~datetime.datetime`
         """
 
         updated_at = self.data["updatedAt"]
-        if updated_at:
-            return utils.iso_to_datetime(updated_at)
+        return utils.iso_to_datetime(updated_at)
     
     async def fetch_email(self) -> typing.Optional[str]:
         """
@@ -83,24 +89,10 @@ class Mannequin(Actor, Node, Type, UniformResourceLocatable):
 
         Requires the ``user:email`` scope.
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The mannequin does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-
         Returns
         -------
         Optional[:class:`str`]
-            The url pointing to the mannequin's email.
+            The email.
         """
 
-        email = await self.http.fetch_profileowner_email(self.id)
-        return email
+        ... # TODO

@@ -30,8 +30,6 @@ class Bot(Actor, Node, Type, UniformResourceLocatable):
     """
     Represents a GitHub bot account.
 
-    https://developer.github.com/v4/object/bot/
-
     Implements:
 
     * :class:`~github.abc.Actor`
@@ -39,6 +37,8 @@ class Bot(Actor, Node, Type, UniformResourceLocatable):
     * :class:`~github.abc.Type`
     * :class:`~github.abc.UniformResourceLocatable`
     """
+
+    # https://developer.github.com/v4/object/bot/
 
     __slots__ = ("data", "http")
 
@@ -52,15 +52,20 @@ class Bot(Actor, Node, Type, UniformResourceLocatable):
     @utils._cached_property
     def created_at(self) -> datetime.datetime:
         """
-        The date and time the bot was created.
+        When the bot was created.
+
+        :type: :class:`~datetime.datetime`
         """
 
-        return utils.iso_to_datetime(self.data["createdAt"])
+        created_at = self.data["createdAt"]
+        return utils.iso_to_datetime(created_at)
 
     @property
     def database_id(self) -> int:
         """
         The bot's primary key from the database.
+
+        :type: :class:`int`
         """
 
         return self.data["databaseId"]
@@ -68,9 +73,10 @@ class Bot(Actor, Node, Type, UniformResourceLocatable):
     @utils._cached_property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
         """
-        The date and time the bot was last updated.
+        When the bot was last updated.
+
+        :type: Optional[:class:`~datetime.datetime`]
         """
 
         updated_at = self.data["updatedAt"]
-        if updated_at:
-            return utils.iso_to_datetime(updated_at)
+        return utils.iso_to_datetime(updated_at)

@@ -26,8 +26,6 @@ class Reactable():
     """
     Represents an object which can be reacted to.
 
-    https://developer.github.com/v4/interface/reactable/
-
     Implemented by:
 
     * :class:`~github.CommitComment`
@@ -35,25 +33,16 @@ class Reactable():
     * :class:`~github.PullRequest`
     """
 
+    # https://developer.github.com/v4/interface/reactable/
+
     __slots__ = ()
-
-    @utils._cached_property
-    def reactions(self) -> typing.List["Reaction"]:
-        """
-        A list of :class:`~github.Reaction`.
-        """
-
-        # prevent cyclic imports
-        from github.objects import Reaction
-
-        reactions = self.data["reactionGroups"]
-        return Reaction.from_data(reactions, self.http)
 
     @property
     def viewer_can_react(self) -> bool:
         """
-        Whether or not the authenticated user can react to this
-        reactable.
+        Whether the authenticated user can react to this reactable.
+
+        :type: :class:`bool`
         """
 
         return self.data["viewerCanReact"]
@@ -82,19 +71,9 @@ class Reactable():
         ~github.errors.Forbidden
             You do not have permission to add reactions to the
             reactable.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The reactable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
         """
 
-        ...
+        ... # TODO
 
     async def remove_reaction(self, reaction: enums_Reaction):
         """
@@ -120,16 +99,6 @@ class Reactable():
         ~github.errors.Forbidden
             You do not have permission to remove reactions from the
             reactable.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The reactable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
         """
 
-        ...
+        ... # TODO

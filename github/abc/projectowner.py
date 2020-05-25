@@ -20,8 +20,6 @@ class ProjectOwner():
     """
     Represents the owner of a GitHub project.
 
-    https://developer.github.com/v4/interface/projectowner/
-
     Implemented by:
 
     * :class:`~github.AuthenticatedUser`
@@ -30,12 +28,16 @@ class ProjectOwner():
     * :class:`~github.User`
     """
 
+    # https://developer.github.com/v4/interface/projectowner/
+
     __slots__ = ()
 
     @property
     def projects_resource_path(self) -> str:
         """
         The project owner's projects resource path.
+
+        :type: :class:`str`
         """
 
         return self.data["projectsResourcePath"]
@@ -44,6 +46,8 @@ class ProjectOwner():
     def projects_url(self) -> str:
         """
         The project owner's projects url.
+
+        :type: :class:`str`
         """
 
         return self.data["projectsUrl"]
@@ -51,7 +55,9 @@ class ProjectOwner():
     @property
     def viewer_can_create_projects(self) -> bool:
         """
-        Whether or not the authenticated user can create projects in the project owner.
+        Whether the authenticated user can create projects in the project owner.
+
+        :type: :class:`bool`
         """
 
         return self.data["viewerCanCreateProjects"]

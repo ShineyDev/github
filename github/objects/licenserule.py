@@ -25,12 +25,12 @@ class LicenseRule(Type):
     """
     Represents a license's conditions, permissions, or limitations.
 
-    https://developer.github.com/v4/object/licenserule/
-
     Implements:
 
     * :class:`~github.abc.Type`
     """
+
+    # https://developer.github.com/v4/object/licenserule/
 
     __slots__ = ("data",)
 
@@ -44,6 +44,8 @@ class LicenseRule(Type):
     def description(self) -> str:
         """
         A description of the rule.
+
+        :type: :class:`str`
         """
 
         return self.data["description"]
@@ -52,6 +54,8 @@ class LicenseRule(Type):
     def key(self) -> str:
         """
         The machine-readable rule key.
+
+        :type: :class:`str`
         """
 
         return self.data["key"]
@@ -60,6 +64,8 @@ class LicenseRule(Type):
     def label(self) -> str:
         """
         The human-readable rule label.
+
+        :type: :class:`str`
         """
 
         return self.data["label"]

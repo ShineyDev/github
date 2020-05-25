@@ -6,19 +6,19 @@ Reaction
 
 .. autoclass:: Reaction
 
-    .. attribute:: CONFUSED
+    .. attribute:: confused
 
-    .. attribute:: EYES
+    .. attribute:: eyes
 
-    .. attribute:: HEART
+    .. attribute:: heart
 
-    .. attribute:: HOORAY
+    .. attribute:: hooray
 
-    .. attribute:: LAUGH
+    .. attribute:: laugh
 
-    .. attribute:: ROCKET
+    .. attribute:: rocket
 
-    .. attribute:: THUMBS_DOWN
+    .. attribute:: thumbs_down
 
-    .. attribute:: THUMBS_UP
+    .. attribute:: thumbs_up
         

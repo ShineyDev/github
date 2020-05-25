@@ -32,8 +32,6 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
     """
     Represents a label on a :class:`~github.abc.Labelable`.
 
-    https://developer.github.com/v4/object/label/
-
     Implements:
 
     * :class:`~github.abc.Node`
@@ -41,6 +39,8 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
     * :class:`~github.abc.Type`
     * :class:`~github.abc.UniformResourceLocatable`
     """
+
+    # https://developer.github.com/v4/object/label/
 
     __slots__ = ("data", "http")
 
@@ -52,22 +52,20 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
     def color(self) -> str:
         """
         The color of the label in the GitHub UI.
+
+        :type: :class:`str`
         """
 
         return self.data["color"]
 
-    @property
-    def colour(self) -> str:
-        """
-        An alias for :attr:`~github.Label.color`.
-        """
-
-        return self.data["color"]
+    colour = color
 
     @utils._cached_property
     def created_at(self) -> datetime.datetime:
         """
-        The date and time at which the label was created.
+        When the label was created.
+
+        :type: :class:`~datetime.datetime`
         """
 
         created_at = self.data["createdAt"]
@@ -77,6 +75,8 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
     def description(self) -> str:
         """
         The description of the label.
+
+        :type: :class:`str`
         """
 
         return self.data["description"] or ""
@@ -84,7 +84,9 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
     @property
     def is_default(self) -> bool:
         """
-        Whether or not the label is a default label.
+        Whether the label is a default label.
+
+        :type: :class:`bool`
         """
 
         return self.data["isDefault"]
@@ -93,6 +95,8 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
     def name(self) -> str:
         """
         The name of the label.
+
+        :type: :class:`str`
         """
 
         return self.data["name"]
@@ -100,34 +104,22 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
     @utils._cached_property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
         """
-        The date and time at which the label was updated.
+        When the label was last updated.
+
+        :type: :class:`~datetime.datetime`
         """
 
         updated_at = self.data["updatedAt"]
-        if updated_at:
-            return utils.iso_to_datetime(updated_at)
+        return utils.iso_to_datetime(updated_at)
 
     async def fetch_issues(self) -> typing.List[Issue]:
         """
         Fetches a list of issues with the label.
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The label does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-
         Returns
         -------
         List[:class:`~github.Issue`]
-            A list of issues with the label.
+            A list of issues.
         """
 
         data = await self.http.fetch_label_issues(self.id)
@@ -137,23 +129,10 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
         """
         Fetches a list of pull requests with the label.
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The label does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-
         Returns
         -------
         List[:class:`~github.PullRequest`]
-            A list of pull requests with the label.
+            A list of pull requests.
         """
 
         data = await self.http.fetch_label_pull_requests(self.id)

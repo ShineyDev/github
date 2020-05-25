@@ -26,12 +26,12 @@ class RateLimit(Type):
     """
     Represents the viewer's rate limit.
 
-    https://developer.github.com/v4/object/ratelimit/
-
     Implements:
 
     * :class:`~github.abc.Type`
     """
+
+    # https://developer.github.com/v4/object/ratelimit/
 
     __slots__ = ("data",)
 
@@ -45,6 +45,8 @@ class RateLimit(Type):
     def limit(self) -> int:
         """
         The maximum number of points the viewer is permitted to consume in a rate limit window.
+
+        :type: :class:`int`
         """
 
         return self.data["limit"]
@@ -53,6 +55,8 @@ class RateLimit(Type):
     def remaining(self) -> int:
         """
         The number of points remaining in the current rate limit window.
+
+        :type: :class:`int`
         """
 
         return self.data["remaining"]
@@ -60,7 +64,9 @@ class RateLimit(Type):
     @utils._cached_property
     def reset_at(self) -> datetime.datetime:
         """
-        The date and time at which the current rate limit window resets in UTC.
+        When the current rate limit window resets.
+
+        :type: :class:`~datetime.datetime`
         """
 
         reset_at = self.data["resetAt"]

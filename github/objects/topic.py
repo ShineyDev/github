@@ -26,13 +26,13 @@ class Topic(Node, Type):
     """
     Represents a GitHub topic.
 
-    https://developer.github.com/v4/object/topic/
-
     Implements:
 
     * :class:`~github.abc.Node`
     * :class:`~github.abc.Type`
     """
+
+    # https://developer.github.com/v4/object/topic/
 
     __slots__ = ("data", "http")
 
@@ -47,6 +47,8 @@ class Topic(Node, Type):
     def name(self) -> str:
         """
         The topic's name.
+
+        :type: :class:`str`
         """
 
         return self.data["name"]
@@ -55,23 +57,10 @@ class Topic(Node, Type):
         """
         Fetches a list of up to 10 related topics.
 
-        Raises
-        ------
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The topic does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-
         Returns
         -------
         List[:class:`~github.Topic`]
-            The list of topics.
+            A list of topics.
         """
 
         data = await self.http.fetch_topic_related_topics(self.id)

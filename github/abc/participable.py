@@ -29,6 +29,8 @@ class Participable():
     * :class:`~github.PullRequest`
     """
 
+    # this interface does not have an api equivalent
+
     __slots__ = ()
 
     async def fetch_participants(self) -> typing.List["User"]:
@@ -37,30 +39,20 @@ class Participable():
 
         Fetches a list of users participating on the participable.
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The participable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-
         Returns
         -------
         List[:class:`~github.User`]
-            A list of users participating on the participable.
+            A list of users.
         """
 
         from github.objects import User
 
-        if self.data["__typename"] == "Issue":
-            data = await self.http.fetch_issue_participants(self.id)
-        elif self.data["__typename"] == "PullRequest":
-            data = await self.http.fetch_pull_request_participants(self.id)
+        map = {
+            "Issue": self.http.fetch_issue_participants,
+            "PullRequest": self.http.fetch_pull_request_participants,
+        }
+
+        meth = map[self.data["__typename"]]
+        data = await meth(self.id)
 
         return User.from_data(data, self.http)

@@ -26,8 +26,6 @@ class Updatable():
     """
     Represents an object which can be updated.
 
-    https://developer.github.com/v4/interface/updatable/
-
     Implemented by:
 
     * :class:`~github.CommitComment`
@@ -35,12 +33,16 @@ class Updatable():
     * :class:`~github.PullRequest`
     """
 
+    # https://developer.github.com/v4/interface/updatable/
+
     __slots__ = ()
 
     @property
     def viewer_can_update(self) -> bool:
         """
-        Whether or not the authenticated user can update the updatable.
+        Whether the authenticated user can update the updatable.
+
+        :type: :class:`bool`
         """
 
         return self.data["viewerCanUpdate"]
@@ -49,6 +51,8 @@ class Updatable():
     def viewer_cannot_update_reasons(self) -> typing.List[CannotUpdateReason]:
         """
         A list of reasons why the authenticated user cannot update this updatable.
+
+        :type: List[:class:`~github.enums.CannotUpdateReason`]
         """
 
         reasons = self.data["viewerCannotUpdateReasons"]
@@ -64,16 +68,6 @@ class Updatable():
         ------
         ~github.errors.Forbidden
             You do not have permission to update the updatable.
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The updatable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
         """
 
-        ...
+        ... # TODO

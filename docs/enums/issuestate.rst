@@ -5,5 +5,7 @@ Issue State
 ===========
 
 .. autoclass:: IssueState()
-    :member-order: bysource
-    :members:
+
+    .. attribute:: closed
+
+    .. attribute:: open

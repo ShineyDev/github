@@ -41,8 +41,6 @@ class Issue(Assignable, Closable, Comment, Commentable, Labelable, Lockable, Nod
     """
     Represents an issue on a :class:`~github.Repository`.
 
-    https://developer.github.com/v4/object/issue/
-
     Implements:
 
     * :class:`~github.abc.Assignable`
@@ -61,6 +59,8 @@ class Issue(Assignable, Closable, Comment, Commentable, Labelable, Lockable, Nod
     * :class:`~github.abc.Updatable`
     """
 
+    # https://developer.github.com/v4/object/issue/
+
     __slots__ = ("data", "http")
 
     def __init__(self, data, http):
@@ -71,6 +71,8 @@ class Issue(Assignable, Closable, Comment, Commentable, Labelable, Lockable, Nod
     def database_id(self) -> int:
         """
         The primary key for the issue from the database.
+
+        :type: :class:`int`
         """
 
         return self.data["databaseId"]
@@ -79,6 +81,8 @@ class Issue(Assignable, Closable, Comment, Commentable, Labelable, Lockable, Nod
     def number(self) -> int:
         """
         The issue number.
+
+        :type: :class:`int`
         """
 
         return self.data["number"]
@@ -87,15 +91,19 @@ class Issue(Assignable, Closable, Comment, Commentable, Labelable, Lockable, Nod
     def state(self) -> IssueState:
         """
         The issue state.
+
+        :type: :class:`~github.enums.IssueState`
         """
 
         state = self.data["state"]
         return IssueState.try_value(state)
 
     @property
-    def title(self) -> int:
+    def title(self) -> str:
         """
         The issue title.
+
+        :type: :class:`str`
         """
 
         return self.data["title"]

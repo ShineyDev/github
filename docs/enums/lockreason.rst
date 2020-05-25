@@ -5,5 +5,11 @@ Lock Reason
 ===========
 
 .. autoclass:: LockReason()
-    :member-order: bysource
-    :members:
+    
+    .. attribute:: off_topic
+    
+    .. attribute:: resolved
+    
+    .. attribute:: spam
+    
+    .. attribute:: too_heated

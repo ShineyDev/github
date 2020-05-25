@@ -23,8 +23,6 @@ class ProfileOwner():
     """
     Represents the owner of a GitHub profile.
 
-    https://developer.github.com/v4/interface/profileowner/
-
     Implemented by:
     
     * :class:`~github.AuthenticatedUser`
@@ -32,12 +30,16 @@ class ProfileOwner():
     * :class:`~github.User`
     """
 
+    # https://developer.github.com/v4/interface/profileowner/
+
     __slots__ = ()
 
     @property
     def has_pinnable_items(self) -> bool:
         """
-        Whether or not the profile owner has any items that can be pinned to the profile.
+        Whether the profile owner has any items that can be pinned to their profile.
+
+        :type: :class:`bool`
         """
 
         return self.data["anyPinnableItems"]
@@ -46,6 +48,8 @@ class ProfileOwner():
     def location(self) -> typing.Optional[str]:
         """
         The profile owner's location.
+
+        :type: Optional[:class:`str`]
         """
 
         return self.data["location"]
@@ -54,6 +58,8 @@ class ProfileOwner():
     def name(self) -> typing.Optional[str]:
         """
         The profile owner's name.
+
+        :type: Optional[:class:`str`]
         """
 
         return self.data["name"]
@@ -61,7 +67,9 @@ class ProfileOwner():
     @property
     def pinned_items_remaining(self) -> int:
         """
-        The number of items the profile owner can pin to the profile.
+        The number of items the profile owner can pin to their profile.
+
+        :type: :class:`int`
         """
 
         return self.data["pinnedItemsRemaining"]
@@ -69,7 +77,9 @@ class ProfileOwner():
     @property
     def viewer_can_change_pinned_items(self) -> bool:
         """
-        Whether or not the authenticated user can change the pinned items on the profile.
+        Whether the authenticated user can change the pinned items on the profile.
+
+        :type: :class:`bool`
         """
 
         return self.data["viewerCanChangePinnedItems"]
@@ -78,6 +88,8 @@ class ProfileOwner():
     def website(self) -> typing.Optional[str]:
         """
         The profile owner's website.
+
+        :type: Optional[:class:`str`]
         """
 
         return self.data["websiteUrl"]
@@ -90,23 +102,10 @@ class ProfileOwner():
 
         Requires the ``user:email`` scope.
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The profile owner does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-
         Returns
         -------
         Optional[:class:`str`]
-            The profile owner's email.
+            The email.
         """
 
         email = await self.http.fetch_profileowner_email(self.id)

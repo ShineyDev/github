@@ -24,8 +24,6 @@ class Subscribable():
     """
     Represents an object which can be subscribed to.
 
-    https://developer.github.com/v4/interface/subscribable/
-
     Implemented by:
     
     * :class:`~github.Issue`
@@ -33,12 +31,16 @@ class Subscribable():
     * :class:`~github.Repository`
     """
 
+    # https://developer.github.com/v4/interface/subscribable/
+
     __slots__ = ()
 
     @property
     def viewer_can_subscribe(self) -> bool:
         """
-        Whether or not the authenticated user can subscribe to the subscribable.
+        Whether the authenticated user can subscribe to the subscribable.
+
+        :type: :class:`bool`
         """
 
         return self.data["viewerCanSubscribe"]
@@ -47,6 +49,8 @@ class Subscribable():
     def viewer_subscription(self) -> SubscriptionState:
         """
         The authenticated user's subscription state to the subscribable.
+
+        :type: :class:`~github.enums.SubscriptionState`
         """
 
         subscription = self.data["viewerSubscription"]
@@ -62,19 +66,6 @@ class Subscribable():
         ----------
         :class:`~github.enums.SubscriptionState`
             The new subscription state.
-
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The subscribable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
         """
 
         await self.http.update_subscription(self.id, state.value)

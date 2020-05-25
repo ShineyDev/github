@@ -28,13 +28,13 @@ class License(Node, Type):
     """
     A repository's source license.
 
-    https://developer.github.com/v4/object/license/
-
     Implements:
 
     * :class:`~github.abc.Node`
     * :class:`~github.abc.Type`
     """
+
+    # https://developer.github.com/v4/object/license/
 
     __slots__ = ("data",)
 
@@ -48,6 +48,8 @@ class License(Node, Type):
     def body(self) -> str:
         """
         The full text of the license.
+
+        :type: :class:`str`
         """
 
         return self.data["body"]
@@ -56,6 +58,8 @@ class License(Node, Type):
     def conditions(self) -> typing.List[LicenseRule]:
         """
         The conditions set by the license.
+
+        :type: List[:class:`~github.LicenseRule`]
         """
 
         conditions = self.data["conditions"]
@@ -65,6 +69,8 @@ class License(Node, Type):
     def description(self) -> str:
         """
         A human-readable description of the license.
+
+        :type: :class:`str`
         """
 
         return self.data["description"]
@@ -73,6 +79,8 @@ class License(Node, Type):
     def implementation(self) -> str:
         """
         Instructions on how to implement the license.
+
+        :type: :class:`str`
         """
 
         return self.data["implementation"]
@@ -81,6 +89,8 @@ class License(Node, Type):
     def is_featured(self) -> bool:
         """
         Whether the license is featured.
+
+        :type: :class:`bool`
         """
 
         return self.data["featured"]
@@ -88,7 +98,9 @@ class License(Node, Type):
     @property
     def is_hidden(self) -> bool:
         """
-        Whether the license is not displayed in license pickers.
+        Whether the license is hidden from license pickers.
+
+        :type: :class:`bool`
         """
 
         return self.data["hidden"]
@@ -97,6 +109,8 @@ class License(Node, Type):
     def is_pseudo(self) -> bool:
         """
         Whether the license is a pseudo-license placeholder.
+
+        :type: :class:`bool`
         """
 
         return self.data["pseudoLicense"]
@@ -104,7 +118,9 @@ class License(Node, Type):
     @property
     def key(self) -> str:
         """
-        The lowercased SPDX ID of the license.
+        The lowercase |spdx| ID of the license.
+
+        :type: :class:`str`
         """
 
         return self.data["key"]
@@ -113,6 +129,8 @@ class License(Node, Type):
     def limitations(self) -> typing.List[LicenseRule]:
         """
         The limitations set by the license.
+
+        :type: List[:class:`~github.LicenseRule`]
         """
 
         limitations = self.data["limitations"]
@@ -122,6 +140,8 @@ class License(Node, Type):
     def name(self) -> str:
         """
         The full name of the license specified by |spdx|.
+
+        :type: :class:`str`
         """
 
         return self.data["name"]
@@ -130,6 +150,8 @@ class License(Node, Type):
     def nickname(self) -> typing.Optional[str]:
         """
         The customary short name of the license.
+
+        :type: Optional[:class:`str`]
         """
 
         return self.data["nickname"]
@@ -138,6 +160,8 @@ class License(Node, Type):
     def permissions(self) -> typing.List[LicenseRule]:
         """
         The permissions set by the license.
+
+        :type: List[:class:`~github.LicenseRule`]
         """
 
         permissions = self.data["permissions"]
@@ -147,6 +171,8 @@ class License(Node, Type):
     def spdx_id(self) -> str:
         """
         The short identifier of the license specified by |spdx|.
+
+        :type: :class:`str`
         """
 
         return self.data["spdxId"]
@@ -155,6 +181,8 @@ class License(Node, Type):
     def url(self) -> str:
         """
         The url to the license on |choosealicense|.
+
+        :type: :class:`str`
         """
 
         return self.data["url"]

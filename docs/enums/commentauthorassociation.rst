@@ -5,5 +5,17 @@ Comment Author Association
 ==========================
 
 .. autoclass:: CommentAuthorAssociation()
-    :member-order: bysource
-    :members:
+    
+    .. attribute:: collaborator
+    
+    .. attribute:: contributor
+    
+    .. attribute:: first_time_contributor
+    
+    .. attribute:: first_timer
+    
+    .. attribute:: member
+    
+    .. attribute:: none
+    
+    .. attribute:: owner
