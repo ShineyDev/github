@@ -40,3 +40,25 @@ __all__ = [
     "PullRequest", "RateLimit", "Reaction", "Repository", "Topic", "User",
     "AuthenticatedUser",
 ]
+
+
+_TYPE_MAP = {
+    "Bot": Bot,
+    "CodeOfConduct": CodeOfConduct,
+    "CommitComment": CommitComment,
+    "Issue": Issue,
+    "Label": Label,
+    "Language": Language,
+    "License": License,
+    "LicenseRule": LicenseRule,
+    "Mannequin": Mannequin,
+    "GitHubMetadata": Metadata,
+    "Organization": Organization,
+    "PullRequest": PullRequest,
+    "RateLimit": RateLimit,
+    "ReactionGroup": Reaction,
+    "Repository": Repository,
+    "Topic": Topic,
+    "User": User,
+    "CodeOfConduct": CodeOfConduct,
+}
