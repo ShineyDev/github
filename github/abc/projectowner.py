@@ -16,6 +16,9 @@
     limitations under the License.
 """
 
+import typing
+
+
 class ProjectOwner():
     """
     Represents the owner of a GitHub project.
@@ -61,4 +64,49 @@ class ProjectOwner():
         """
 
         return self.data["viewerCanCreateProjects"]
+
+    async def fetch_project(self, number: int) -> "Project":
+        """
+        |coro|
+
+        Fetches a project from this project owner.
+
+        This requires the ``public_repo`` scope.
+
+        Parameters
+        ----------
+        number: :class:`int`
+            The project number.
+
+        Returns
+        -------
+        :class:`~github.Project`
+            A project.
+        """
+
+        # prevent cyclic imports
+        from github.objects import Project
+
+        data = await self.http.fetch_projectowner_project(self.id, number)
+        return Project.from_data(data, self.http)
+
+    async def fetch_projects(self) -> typing.List["Project"]:
+        """
+        |coro|
+
+        Fetches a list of projects from this project owner.
+
+        This requires the ``public_repo`` scope.
+
+        Returns
+        -------
+        List[:class:`~github.Project`]
+            A list of projects.
+        """
+
+        # prevent cyclic imports
+        from github.objects import Project
+
+        data = await self.http.fetch_projectowner_projects(self.id)
+        return Project.from_data(data, self.http)
     

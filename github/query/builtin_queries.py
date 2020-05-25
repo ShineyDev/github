@@ -249,6 +249,117 @@ query fetch_profileowner_email ($profileowner_id: ID!) {
 }
 """
 
+FETCH_PROJECT_COLUMNS = """
+query fetch_project_columns ($project_id: ID!, $cursor: String) {
+  node (id: $project_id) {
+    ... on Project {
+      columns (first: 10, after: $cursor) {
+        nodes {
+          __typename
+          createdAt
+          databaseId
+          id
+          name
+          purpose
+          resourcePath
+          updatedAt
+          url
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  }
+}
+"""
+
+FETCH_PROJECTCOLUMN_CARDS = """
+query fetch_projectcolumn_cards ($projectcolumn_id: ID!, $cursor: String) {
+  node (id: $projectcolumn_id) {
+    ... on ProjectColumn {
+      cards (first: 10, after: $cursor) {
+        nodes {
+          __typename
+          createdAt
+          databaseId
+          id
+          isArchived
+          note
+          resourcePath
+          state
+          updatedAt
+          url
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  }
+}
+"""
+
+FETCH_PROJECTOWNER_PROJECT = """
+query fetch_projectowner_project ($projectowner_id: ID!, $project_number: Int!) {
+  node (id: $projectowner_id) {
+    ... on ProjectOwner {
+      project (number: $project_number) {
+        __typename
+        body
+        bodyHTML
+        closed
+        closedAt
+        createdAt
+        databaseId
+        id
+        name
+        number
+        resourcePath
+        state
+        updatedAt
+        url
+        viewerCanUpdate
+      }
+    }
+  }
+}
+"""
+
+FETCH_PROJECTOWNER_PROJECTS = """
+query fetch_projectowner_projects ($projectowner_id: ID!, $cursor: String) {
+  node (id: $projectowner_id) {
+    ... on ProjectOwner {
+      projects (first: 10, after: $cursor) {
+        nodes {
+          __typename
+          body
+          bodyHTML
+          closed
+          closedAt
+          createdAt
+          databaseId
+          id
+          name
+          number
+          resourcePath
+          state
+          updatedAt
+          url
+          viewerCanUpdate
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  }
+}
+"""
+
 FETCH_RATE_LIMIT = """
 query fetch_rate_limit {
   rateLimit {

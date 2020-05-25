@@ -128,6 +128,9 @@ from github.enums.cannotupdatereason import CannotUpdateReason
 from github.enums.commentauthorassociation import CommentAuthorAssociation
 from github.enums.issuestate import IssueState
 from github.enums.lockreason import LockReason
+from github.enums.projectcardstate import ProjectCardState
+from github.enums.projectcolumnpurpose import ProjectColumnPurpose
+from github.enums.projectstate import ProjectState
 from github.enums.pullrequeststate import PullRequestState
 from github.enums.reaction import Reaction
 from github.enums.repositorylockreason import RepositoryLockReason
@@ -136,6 +139,7 @@ from github.enums.subscriptionstate import SubscriptionState
 
 __all__ = [
     "CannotUpdateReason", "CommentAuthorAssociation", "IssueState",
-    "LockReason", "PullRequestState", "Reaction", "RepositoryLockReason",
+    "LockReason", "ProjectCardState", "ProjectColumnPurpose", "ProjectState",
+    "PullRequestState", "Reaction", "RepositoryLockReason",
     "RepositoryPermissions", "SubscriptionState",
 ]

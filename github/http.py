@@ -272,6 +272,18 @@ class HTTPClient():
     async def fetch_profileowner_email(self, profileowner_id):
         return await self._fetch_field("node", "email", query=query.FETCH_PROFILEOWNER_EMAIL, profileowner_id=profileowner_id)
 
+    async def fetch_project_columns(self, project_id):
+        return await self._fetch_collection("node", "columns", query=query.FETCH_PROJECT_COLUMNS, project_id=project_id)
+
+    async def fetch_projectcolumn_cards(self, projectcolumn_id):
+        return await self._fetch_collection("node", "cards", query=query.FETCH_PROJECTCOLUMN_CARDS, projectcolumn_id=projectcolumn_id)
+
+    async def fetch_projectowner_project(self, projectowner_id, project_number):
+        return await self._fetch_field("node", "project", query=query.FETCH_PROJECTOWNER_PROJECT, projectowner_id=projectowner_id, project_number=project_number)
+
+    async def fetch_projectowner_projects(self, projectowner_id):
+        return await self._fetch_collection("node", "projects", query=query.FETCH_PROJECTOWNER_PROJECTS, projectowner_id=projectowner_id)
+
     async def fetch_pull_request_participants(self, pull_request_id):
         raise NotImplementedError("this method is not yet implemented")
     

@@ -27,6 +27,9 @@ from github.objects.licenserule import LicenseRule
 from github.objects.mannequin import Mannequin
 from github.objects.metadata import Metadata
 from github.objects.organization import Organization
+from github.objects.project import Project
+from github.objects.projectcard import ProjectCard
+from github.objects.projectcolumn import ProjectColumn
 from github.objects.pullrequest import PullRequest
 from github.objects.ratelimit import RateLimit
 from github.objects.reaction import Reaction
@@ -37,8 +40,8 @@ from github.objects.user import User, AuthenticatedUser
 __all__ = [
     "Bot", "CodeOfConduct", "CommitComment", "Issue", "Label", "Language",
     "License", "LicenseRule", "Mannequin", "Metadata", "Organization",
-    "PullRequest", "RateLimit", "Reaction", "Repository", "Topic", "User",
-    "AuthenticatedUser",
+    "Project", "ProjectCard", "ProjectColumn", "PullRequest", "RateLimit",
+    "Reaction", "Repository", "Topic", "User", "AuthenticatedUser",
 ]
 
 
@@ -54,6 +57,9 @@ _TYPE_MAP = {
     "Mannequin": Mannequin,
     "GitHubMetadata": Metadata,
     "Organization": Organization,
+    "Project": Project,
+    "ProjectCard": ProjectCard,
+    "ProjectColumn": ProjectColumn,
     "PullRequest": PullRequest,
     "RateLimit": RateLimit,
     "ReactionGroup": Reaction,
