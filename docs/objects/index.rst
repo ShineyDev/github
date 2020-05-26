@@ -18,6 +18,9 @@ Objects
     mannequin
     metadata
     organization
+    project
+    projectcard
+    projectcolumn
     pullrequest
     ratelimit
     reaction

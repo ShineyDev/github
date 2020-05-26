@@ -11,6 +11,9 @@ Enumerables
     commentauthorassociation
     issuestate
     lockreason
+    projectcardstate
+    projectcolumnpurpose
+    projectstate
     pullrequeststate
     reaction
     repositorylockreason
