@@ -350,6 +350,17 @@ class HTTPClient():
 
     # mutations
 
+    async def _mutate(self, *path, query, **kwargs):
+        json = {
+            "query": query,
+            "variables": {
+                "input": kwargs.update({"clientMutationId": self._uuid}) or kwargs,
+            },
+        }
+
+        data = await self.request(json=json)
+        return functools.reduce(operator.getitem, path, data)
+
     async def add_assignees(self, assignable_id, assignee_ids):
         raise NotImplementedError("this method is not yet implemented")
 
