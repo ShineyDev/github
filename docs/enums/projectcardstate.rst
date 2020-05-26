@@ -1,10 +1,10 @@
 .. currentmodule:: github.enums
 
 
-Project State
-=============
+Project Card State
+==================
 
-.. autoclass:: ProjectState()
+.. autoclass:: ProjectCardState()
 
     .. attribute:: body_only
 
