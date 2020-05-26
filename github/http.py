@@ -440,6 +440,11 @@ class HTTPClient():
                                   query=query.MUTATE_PROJECT_CREATE_COLUMN,
                                   name=name, projectId=project_id)
 
+    async def mutate_projectcolumn_create_card(self, projectcolumn_id, body, content):
+        return await self._mutate("addProjectCard", "cardEdge", "node",
+                                  query=query.MUTATE_PROJECTCOLUMN_CREATE_CARD,
+                                  contentId=content, note=body, projectColumnId=projectcolumn_id)
+
     async def mutate_projectowner_create_project(self, projectowner_id, name, body, template):
         return await self._mutate("createProject", "project",
                                   query=query.MUTATE_PROJECTOWNER_CREATE_PROJECT,

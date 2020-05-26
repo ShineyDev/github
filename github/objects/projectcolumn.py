@@ -113,3 +113,46 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
 
         data = await self.http.fetch_projectcolumn_cards(self.id)
         return ProjectCard.from_data(data, self.http)
+
+    async def create_card(self, *, body=None, content=None) -> ProjectCard:
+        """
+        |coro|
+
+        Creates a new card in the column.
+
+        .. note::
+
+            Either ``body`` or ``content`` must be provided but not
+            both.
+
+        Parameters
+        ----------
+        body: :class:`str`
+            The body of the new card.
+        content: Union[:class:`~github.Issue`, \
+                       :class:`~github.PullRequest`]
+            The content of the new card.
+
+        Raises
+        ------
+        TypeError
+            Both or neither of ``body`` and ``content`` we provided.
+        ~github.errors.Forbidden
+            You do not have permission to create cards in the project.
+
+        Returns
+        -------
+        :class:`~github.ProjectCard`
+            The created card.
+        """
+        
+        if body is None and content is None:
+            raise TypeError("at least one of body and content must be provided")
+        elif body is not None and content is not None:
+            raise TypeError("only one of body and content should be provided")
+
+        if content is not None:
+            content = content.id
+
+        data = await self.http.mutate_projectcolumn_create_card(self.id, body, content)
+        return ProjectCard.from_data(data, self.http)

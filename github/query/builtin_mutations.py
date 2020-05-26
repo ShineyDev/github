@@ -36,6 +36,27 @@ mutation mutate_project_create_column ($input: AddProjectColumnInput!) {
 }
 """
 
+MUTATE_PROJECTCOLUMN_CREATE_CARD = """
+mutation mutate_projectcolumn_create_card ($input: AddProjectCardInput!) {
+  addProjectCard (input: $input) {
+    cardEdge {
+      node {
+        __typename
+        createdAt
+        databaseId
+        id
+        isArchived
+        note
+        resourcePath
+        state
+        updatedAt
+        url
+      }
+    }
+  }
+}
+"""
+
 MUTATE_PROJECTOWNER_CREATE_PROJECT = """
 mutation mutate_projectowner_create_project ($input: CreateProjectInput!) {
   createProject (input: $input) {
