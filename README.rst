@@ -37,7 +37,7 @@ Features
 
 #. Easy to use, modern Pythonic API using ``async``/``await`` syntax.
 #. 100% coverage of the supported GitHub API.
-#. All user-facing objects and methods are `documented <https://githubpy.readthedocs.io/en/latest/>`_.
+#. All user-facing objects and methods are documented `here <https://githubpy.readthedocs.io/en/latest/>`_.
 
 
 Installation
@@ -59,20 +59,10 @@ To install the development version of the wrapper do one of the following:
 
 .. code:: sh
 
-    # Windows (Git)
-    git clone https://github.com/ShineyDev/github.py
-    cd github.py
-    py -3 -m pip install --upgrade .
-
-    # Windows (Git, shorthand)
+    # Windows
     py -3 -m pip install --upgrade git+https://github.com/ShineyDev/github.py
-    
-    # Linux / OS X (Git)
-    git clone https://github.com/ShineyDev/github.py
-    cd github.py
-    python3 -m pip install --upgrade .
 
-    # Linux / OS X (Git, shorthand)
+    # Linux / OS X
     python3 -m pip install --upgrade git+https://github.com/ShineyDev/github.py
 
 
@@ -84,10 +74,9 @@ Fetch a repository's license:
 .. code:: py
 
     import github
-    g = github.GitHub("token")
+    g = github.Client("token")
     # you'll need a personal access token to use this library - you can get
-    # one from https://github.com/settings/tokens. for this example, your
-    # token will need the `public_repo` scope.
+    # one from https://github.com/settings/tokens.
 
     repo = await g.fetch_repository("ShineyDev", "github.py")
     print(repo.license.name)
