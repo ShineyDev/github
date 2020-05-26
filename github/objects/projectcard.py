@@ -118,8 +118,9 @@ class ProjectCard(Node, Type, UniformResourceLocatable):
         ----------
         column: :class:`~github.ProjectColumn`
             The column to move the card to.
-        after: :class:`~github.ProjectCard`
-            The card to place the card after.
+        after: Optional[:class:`~github.ProjectCard`]
+            The card to place the card after. Pass ``None`` to place it
+            at the top. Defaults to ``None``.
 
         Raises
         ------
