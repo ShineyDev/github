@@ -147,3 +147,29 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
 
         data = await self.http.fetch_project_columns(self.id)
         return ProjectColumn.from_data(data, self.http)
+
+    async def create_column(self, *, name: str) -> ProjectColumn:
+        """
+        |coro|
+
+        Creates a new column in the project.
+
+        Parameters
+        ----------
+        name: :class:`str`
+            The name of the new column.
+
+        Raises
+        ------
+        ~github.errors.Forbidden
+            You do not have permission to create columns in the
+            project.
+
+        Returns
+        -------
+        :class:`~github.ProjectColumn`
+            The created column.
+        """
+
+        data = await self.http.mutate_project_create_column(self.id, name)
+        return ProjectColumn.from_data(data, self.http)

@@ -16,6 +16,26 @@
     limitations under the License.
 """
 
+MUTATE_PROJECT_CREATE_COLUMN = """
+mutation mutate_project_create_column ($input: AddProjectColumnInput!) {
+  addProjectColumn (input: $input) {
+    columnEdge {
+      node {
+        __typename
+        createdAt
+        databaseId
+        id
+        name
+        purpose
+        resourcePath
+        updatedAt
+        url
+      }
+    }
+  }
+}
+"""
+
 MUTATE_PROJECTOWNER_CREATE_PROJECT = """
 mutation mutate_projectowner_create_project ($input: CreateProjectInput!) {
   createProject (input: $input) {

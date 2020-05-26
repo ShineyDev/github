@@ -435,6 +435,11 @@ class HTTPClient():
     async def mutate_lockable_unlock(self, lockable_id):
         raise NotImplementedError
 
+    async def mutate_project_create_column(self, project_id, name):
+        return await self._mutate("addProjectColumn", "columnEdge", "node",
+                                  query=query.MUTATE_PROJECT_CREATE_COLUMN,
+                                  name=name, projectId=project_id)
+
     async def mutate_projectowner_create_project(self, projectowner_id, name, body, template):
         return await self._mutate("createProject", "project",
                                   query=query.MUTATE_PROJECTOWNER_CREATE_PROJECT,
