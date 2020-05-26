@@ -222,22 +222,28 @@ class HTTPClient():
         return functools.reduce(operator.getitem, path, data)
 
     async def fetch_actor_avatar_url(self, actor_id, size):
-        return await self._fetch_field("node", "avatarUrl", query=query.FETCH_ACTOR_AVATAR_URL, actor_id=actor_id, size=size)
+        return await self._fetch_field("node", "avatarUrl",
+                                       query=query.FETCH_ACTOR_AVATAR_URL,
+                                       actor_id=actor_id, size=size)
 
     async def fetch_all_codes_of_conduct(self):
-        return await self._fetch_field("codesOfConduct", query=query.FETCH_ALL_CODES_OF_CONDUCT)
+        return await self._fetch_field("codesOfConduct",
+                                       query=query.FETCH_ALL_CODES_OF_CONDUCT)
 
     async def fetch_all_licenses(self):
-        return await self._fetch_field("licenses", query=query.FETCH_ALL_LICENSES)
+        return await self._fetch_field("licenses",
+                                       query=query.FETCH_ALL_LICENSES)
 
     async def fetch_assignable_assignees(self, assignable_id):
         raise NotImplementedError("this method is not yet implemented")
 
     async def fetch_authenticated_user(self):
-        return await self._fetch_field("viewer", query=query.FETCH_AUTHENTICATED_USER)
+        return await self._fetch_field("viewer",
+                                       query=query.FETCH_AUTHENTICATED_USER)
 
     async def fetch_code_of_conduct(self, key):
-        return await self._fetch_field("codeOfConduct", query=query.FETCH_CODE_OF_CONDUCT, key=key)
+        return await self._fetch_field("codeOfConduct",
+                                       query=query.FETCH_CODE_OF_CONDUCT, key=key)
 
     async def fetch_commentable_comments(self, commentable_id):
         raise NotImplementedError("this method is not yet implemented")
@@ -255,7 +261,8 @@ class HTTPClient():
         raise NotImplementedError("this method is not yet implemented")
 
     async def fetch_license(self, key):
-        return await self._fetch_field("license", query=query.FETCH_LICENSE, key=key)
+        return await self._fetch_field("license",
+                                       query=query.FETCH_LICENSE, key=key)
 
     async def fetch_metadata(self):
         return await self._fetch_field("meta", query=query.FETCH_METADATA)
@@ -267,41 +274,62 @@ class HTTPClient():
         return await self._fetch_field("nodes", query=query.FETCH_NODES, ids=ids)
 
     async def fetch_organization(self, login):
-        return await self._fetch_field("organization", query=query.FETCH_ORGANIZATION, login=login)
+        return await self._fetch_field("organization",
+                                       query=query.FETCH_ORGANIZATION,
+                                       login=login)
 
     async def fetch_profileowner_email(self, profileowner_id):
-        return await self._fetch_field("node", "email", query=query.FETCH_PROFILEOWNER_EMAIL, profileowner_id=profileowner_id)
+        return await self._fetch_field("node", "email",
+                                       query=query.FETCH_PROFILEOWNER_EMAIL,
+                                       profileowner_id=profileowner_id)
 
     async def fetch_project_columns(self, project_id):
-        return await self._fetch_collection("node", "columns", query=query.FETCH_PROJECT_COLUMNS, project_id=project_id)
+        return await self._fetch_collection("node", "columns",
+                                            query=query.FETCH_PROJECT_COLUMNS,
+                                            project_id=project_id)
 
     async def fetch_projectcolumn_cards(self, projectcolumn_id):
-        return await self._fetch_collection("node", "cards", query=query.FETCH_PROJECTCOLUMN_CARDS, projectcolumn_id=projectcolumn_id)
+        return await self._fetch_collection("node", "cards",
+                                            query=query.FETCH_PROJECTCOLUMN_CARDS,
+                                            projectcolumn_id=projectcolumn_id)
 
     async def fetch_projectowner_project(self, projectowner_id, project_number):
-        return await self._fetch_field("node", "project", query=query.FETCH_PROJECTOWNER_PROJECT, projectowner_id=projectowner_id, project_number=project_number)
+        return await self._fetch_field("node", "project",
+                                       query=query.FETCH_PROJECTOWNER_PROJECT,
+                                       projectowner_id=projectowner_id, project_number=project_number)
 
     async def fetch_projectowner_projects(self, projectowner_id):
-        return await self._fetch_collection("node", "projects", query=query.FETCH_PROJECTOWNER_PROJECTS, projectowner_id=projectowner_id)
+        return await self._fetch_collection("node", "projects",
+                                            query=query.FETCH_PROJECTOWNER_PROJECTS,
+                                            projectowner_id=projectowner_id)
 
     async def fetch_pull_request_participants(self, pull_request_id):
         raise NotImplementedError("this method is not yet implemented")
     
     async def fetch_rate_limit(self):
-        return await self._fetch_field("rateLimit", query=query.FETCH_RATE_LIMIT)
+        return await self._fetch_field("rateLimit",
+                                       query=query.FETCH_RATE_LIMIT)
 
     async def fetch_repository(self, owner, name):
-        return await self._fetch_field("repository", query=query.FETCH_REPOSITORY, owner=owner, name=name)
+        return await self._fetch_field("repository",
+                                       query=query.FETCH_REPOSITORY,
+                                       owner=owner, name=name)
 
     async def fetch_repository_assignable_users(self, repository_id):
-        return await self._fetch_collection("node", "assignableUsers", query=query.FETCH_REPOSITORY_ASSIGNABLE_USERS, repository_id=repository_id)
+        return await self._fetch_collection("node", "assignableUsers",
+                                            query=query.FETCH_REPOSITORY_ASSIGNABLE_USERS,
+                                            repository_id=repository_id)
 
     async def fetch_repository_collaborators(self, repository_id):
-        return await self._fetch_collection("node", "collaborators", query=query.FETCH_REPOSITORY_COLLABORATORS, repository_id=repository_id)
+        return await self._fetch_collection("node", "collaborators",
+                                            query=query.FETCH_REPOSITORY_COLLABORATORS,
+                                            repository_id=repository_id)
 
     async def fetch_repository_parent(self, repository_id):
         try:
-            parent = await self._fetch_field("node", "parent", query=query.FETCH_REPOSITORY_PARENT, repository_id=repository_id)
+            parent = await self._fetch_field("node", "parent",
+                                             query=query.FETCH_REPOSITORY_PARENT,
+                                             repository_id=repository_id)
         except (KeyError) as e:
             parent = None
 
@@ -309,14 +337,18 @@ class HTTPClient():
 
     async def fetch_repository_template(self, repository_id):
         try:
-            template = await self._fetch_field("node", "template", query=query.FETCH_REPOSITORY_TEMPLATE, repository_id=repository_id)
+            template = await self._fetch_field("node", "template",
+                                               query=query.FETCH_REPOSITORY_TEMPLATE,
+                                               repository_id=repository_id)
         except (KeyError) as e:
             template = None
 
         return template
 
     async def fetch_repositorynode_repository(self, repositorynode_id):
-        return await self._fetch_field("node", "repository", query=query.FETCH_REPOSITORYNODE_REPOSITORY, repositorynode_id=repositorynode_id)
+        return await self._fetch_field("node", "repository",
+                                       query=query.FETCH_REPOSITORYNODE_REPOSITORY,
+                                       repositorynode_id=repositorynode_id)
 
     async def fetch_scopes(self):
         headers = dict()
@@ -331,22 +363,34 @@ class HTTPClient():
         return [s for s in scopes.split(", ") if s]
 
     async def fetch_topic(self, name):
-        return await self._fetch_field("topic", query=query.FETCH_TOPIC, name=name)
-
-    async def fetch_user(self, login):
-        return await self._fetch_field("user", query=query.FETCH_USER, login=login)
+        return await self._fetch_field("topic",
+                                       query=query.FETCH_TOPIC,
+                                       name=name)
 
     async def fetch_topic_related_topics(self, topic_id):
-        return await self._fetch_field("node", "relatedTopics", query=query.FETCH_TOPIC_RELATED_TOPICS, topic_id=topic_id)
+        return await self._fetch_field("node", "relatedTopics",
+                                       query=query.FETCH_TOPIC_RELATED_TOPICS,
+                                       topic_id=topic_id)
+
+    async def fetch_user(self, login):
+        return await self._fetch_field("user",
+                                       query=query.FETCH_USER,
+                                       login=login)
 
     async def fetch_user_commit_comments(self, user_id):
-        return await self._fetch_collection("node", "commitComments", query=query.FETCH_USER_COMMIT_COMMENTS, user_id=user_id)
+        return await self._fetch_collection("node", "commitComments",
+                                            query=query.FETCH_USER_COMMIT_COMMENTS,
+                                            user_id=user_id)
 
     async def fetch_user_followers(self, user_id):
-        return await self._fetch_collection("node", "followers", query=query.FETCH_USER_FOLLOWERS, user_id=user_id)
+        return await self._fetch_collection("node", "followers",
+                                            query=query.FETCH_USER_FOLLOWERS,
+                                            user_id=user_id)
 
     async def fetch_user_following(self, user_id):
-        return await self._fetch_collection("node", "following", query=query.FETCH_USER_FOLLOWING, user_id=user_id)
+        return await self._fetch_collection("node", "following",
+                                            query=query.FETCH_USER_FOLLOWING,
+                                            user_id=user_id)
 
     # mutations
 
