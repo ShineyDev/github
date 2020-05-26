@@ -107,3 +107,27 @@ class ProjectCard(Node, Type, UniformResourceLocatable):
 
         updated_at = self.data["updatedAt"]
         return utils.iso_to_datetime(updated_at)
+
+    async def move_to(self, column, *, after=None):
+        """
+        |coro|
+
+        Moves the card to a column.
+
+        Parameters
+        ----------
+        column: :class:`~github.ProjectColumn`
+            The column to move the card to.
+        after: :class:`~github.ProjectCard`
+            The card to place the card after.
+
+        Raises
+        ------
+        ~github.errors.Forbidden
+            You do not have permission to move the card.
+        """
+
+        if after is not None:
+            after = after.id
+
+        await self.http.mutate_projectcard_move_to(self.id, column.id, after)

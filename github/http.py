@@ -440,6 +440,11 @@ class HTTPClient():
                                   query=query.MUTATE_PROJECT_CREATE_COLUMN,
                                   name=name, projectId=project_id)
 
+    async def mutate_projectcard_move_to(self, projectcard_id, projectcolumn_id, projectcard_after_id):
+        return await self._mutate("moveProjectCard", "cardEdge", "node",
+                                  query=query.MUTATE_PROJECTCARD_MOVE_TO,
+                                  afterCardId=projectcard_after_id, cardId=projectcard_id, columnId=projectcolumn_id)
+
     async def mutate_projectcolumn_create_card(self, projectcolumn_id, body, content):
         return await self._mutate("addProjectCard", "cardEdge", "node",
                                   query=query.MUTATE_PROJECTCOLUMN_CREATE_CARD,
