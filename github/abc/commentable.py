@@ -108,7 +108,7 @@ class Commentable():
         # prevent cyclic imports
         from github import objects
 
-        data = await self.http.add_comment(self.id, body)
+        data = await self.http.mutate_commentable_add_comment(self.id, body)
 
         if data["__typename"] == "IssueComment":
             # special case IssueComment for lack of API PullRequestComment

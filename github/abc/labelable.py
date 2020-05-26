@@ -69,7 +69,7 @@ class Labelable():
         """
 
         labels = [label.id for label in labels]
-        await self.http.add_labels(self.id, labels)
+        await self.http.mutate_labelable_add_labels(self.id, labels)
 
     async def clear_labels(self):
         """
@@ -83,7 +83,7 @@ class Labelable():
             You do not have permission to clear labels from the labelable.
         """
 
-        await self.http.clear_labels(self.id)
+        await self.http.mutate_labelable_clear_labels(self.id)
 
     async def remove_labels(self, *labels: "Label"):
         """
@@ -103,4 +103,4 @@ class Labelable():
         """
 
         labels = [label.id for label in labels]
-        await self.http.remove_labels(self.id, labels)
+        await self.http.mutate_labelable_remove_labels(self.id, labels)

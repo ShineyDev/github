@@ -69,7 +69,7 @@ class Assignable():
         """
 
         users = [user.id for user in users]
-        await self.http.add_assignees(self.id, users)
+        await self.http.mutate_assignable_add_assignees(self.id, users)
 
     async def remove_assignees(self, *users: "User"):
         """
@@ -89,4 +89,4 @@ class Assignable():
         """
 
         users = [user.id for user in users]
-        await self.http.remove_assignees(self.id, users)
+        await self.http.mutate_assignable_remove_assignees(self.id, users)

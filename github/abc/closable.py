@@ -70,8 +70,8 @@ class Closable():
         """
 
         map = {
-            "Issue": self.http.close_issue,
-            "PullRequest": self.http.close_pull_request,
+            "Issue": self.http.mutate_issue_close,
+            "PullRequest": self.http.mutate_pullrequest_close,
         }
 
         meth = map[self.data["__typename"]]
@@ -90,8 +90,8 @@ class Closable():
         """
 
         map = {
-            "Issue": self.http.reopen_issue,
-            "PullRequest": self.http.reopen_pull_request,
+            "Issue": self.http.mutate_issue_reopen,
+            "PullRequest": self.http.mutate_pullrequest_reopen,
         }
 
         meth = map[self.data["__typename"]]

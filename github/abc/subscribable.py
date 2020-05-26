@@ -68,4 +68,4 @@ class Subscribable():
             The new subscription state.
         """
 
-        await self.http.update_subscription(self.id, state.value)
+        await self.http.mutate_subscribable_update_subscription(self.id, state.value)

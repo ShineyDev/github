@@ -77,7 +77,7 @@ class Lockable():
         if reason is not None:
             reason = reason.value
 
-        await self.http.lock(self.id, reason)
+        await self.http.mutate_lockable_lock(self.id, reason)
 
     async def unlock(self):
         """
@@ -91,5 +91,5 @@ class Lockable():
             You do not have permission to unlock the lockable.
         """
 
-        await self.http.unlock(self.id)
+        await self.http.mutate_lockable_unlock(self.id)
 

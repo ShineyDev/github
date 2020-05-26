@@ -246,19 +246,19 @@ class HTTPClient():
                                        query=query.FETCH_CODE_OF_CONDUCT, key=key)
 
     async def fetch_commentable_comments(self, commentable_id):
-        raise NotImplementedError("this method is not yet implemented")
+        raise NotImplementedError
 
     async def fetch_issue_participants(self, issue_id):
-        raise NotImplementedError("this method is not yet implemented")
+        raise NotImplementedError
 
     async def fetch_label_issues(self, label_id):
-        raise NotImplementedError("this method is not yet implemented")
+        raise NotImplementedError
 
     async def fetch_label_pull_requests(self, label_id):
-        raise NotImplementedError("this method is not yet implemented")
+        raise NotImplementedError
 
     async def fetch_labelable_labels(self, labelable_id):
-        raise NotImplementedError("this method is not yet implemented")
+        raise NotImplementedError
 
     async def fetch_license(self, key):
         return await self._fetch_field("license",
@@ -304,7 +304,7 @@ class HTTPClient():
                                             projectowner_id=projectowner_id)
 
     async def fetch_pull_request_participants(self, pull_request_id):
-        raise NotImplementedError("this method is not yet implemented")
+        raise NotImplementedError
     
     async def fetch_rate_limit(self):
         return await self._fetch_field("rateLimit",
@@ -405,41 +405,41 @@ class HTTPClient():
         data = await self.request(json=json)
         return functools.reduce(operator.getitem, path, data)
 
-    async def add_assignees(self, assignable_id, assignee_ids):
-        raise NotImplementedError("this method is not yet implemented")
+    async def mutate_assignable_add_assignees(self, assignable_id, assignee_ids):
+        raise NotImplementedError
 
-    async def add_comment(self, commentable_id, body):
-        raise NotImplementedError("this method is not yet implemented")
+    async def mutate_assignable_remove_assignees(self, assignable_id, assignee_ids):
+        raise NotImplementedError
 
-    async def add_labels(self, labelable_id, label_ids):
-        raise NotImplementedError("this method is not yet implemented")
+    async def mutate_commentable_add_comment(self, commentable_id, body):
+        raise NotImplementedError
 
-    async def clear_labels(self, labelable_id):
-        raise NotImplementedError("this method is not yet implemented")
+    async def mutate_issue_close(self, issue_id):
+        raise NotImplementedError
 
-    async def close_issue(self, issue_id):
-        raise NotImplementedError("this method is not yet implemented")
+    async def mutate_issue_reopen(self, issue_id):
+        raise NotImplementedError
 
-    async def close_pull_request(self, pull_request_id):
-        raise NotImplementedError("this method is not yet implemented")
+    async def mutate_labelable_add_labels(self, labelable_id, label_ids):
+        raise NotImplementedError
 
-    async def lock(self, lockable_id, reason):
-        raise NotImplementedError("this method is not yet implemented")
+    async def mutate_labelable_clear_labels(self, labelable_id):
+        raise NotImplementedError
 
-    async def remove_assignees(self, assignable_id, assignee_ids):
-        raise NotImplementedError("this method is not yet implemented")
+    async def mutate_labelable_remove_labels(self, labelable_id, label_ids):
+        raise NotImplementedError
 
-    async def remove_labels(self, labelable_id, label_ids):
-        raise NotImplementedError("this method is not yet implemented")
+    async def mutate_lockable_lock(self, lockable_id, reason):
+        raise NotImplementedError
 
-    async def reopen_issue(self, issue_id):
-        raise NotImplementedError("this method is not yet implemented")
+    async def mutate_lockable_unlock(self, lockable_id):
+        raise NotImplementedError
 
-    async def reopen_pull_request(self, pull_request_id):
-        raise NotImplementedError("this method is not yet implemented")
+    async def mutate_pullrequest_close(self, pullrequest_id):
+        raise NotImplementedError
 
-    async def unlock(self, lockable_id):
-        raise NotImplementedError("this method is not yet implemented")
+    async def mutate_pullrequest_reopen(self, pullrequest_id):
+        raise NotImplementedError
 
-    async def update_subscription(self, id, state):
-        raise NotImplementedError("this method is not yet implemented")
+    async def mutate_subscribable_update_subscription(self, subscribable_id, state):
+        raise NotImplementedError
