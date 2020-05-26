@@ -55,7 +55,7 @@ class HTTPClient():
             "NOT_FOUND": errors.NotFound,
         }
         
-        self._uuid = uuid.uuid4()
+        self._uuid = str(uuid.uuid4())
 
         self._token = token
         self._base_url = base_url or _DEFAULT_BASE_URL
