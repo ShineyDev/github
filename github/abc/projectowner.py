@@ -109,4 +109,40 @@ class ProjectOwner():
 
         data = await self.http.fetch_projectowner_projects(self.id)
         return Project.from_data(data, self.http)
+
+    async def create_project(self, *, name, body=None, template=None):
+        """
+        |coro|
+
+        Creates a new project on this project owner.
+
+        Parameters
+        ----------
+        name: :class:`str`
+            The name of the new project.
+        body: Optional[:class:`str`]
+            The body of the new project.
+        template: Optional[:class:`~github.enums.ProjectTemplate`]
+            The template to use when creating the project.
+
+        Raises
+        ------
+        ~github.errors.Forbidden
+            You do not have permission to create projects on the
+            project owner.
+
+        Returns
+        -------
+        :class:`~github.Project`
+            The created project.
+        """
+
+        # prevent cyclic imports
+        from github.objects import Project
+
+        if template is not None:
+            template = template.value
+
+        data = await self.http.mutate_projectowner_create_project(self.id, name, body, template)
+        return Project.from_data(data, self.http)
     

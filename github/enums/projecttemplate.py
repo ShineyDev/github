@@ -1,5 +1,5 @@
 """
-/github/query/builtin_mutations.py
+/github/enums/projecttemplate.py
 
     Copyright (c) 2019-2020 ShineyDev
     
@@ -16,27 +16,17 @@
     limitations under the License.
 """
 
-MUTATE_PROJECTOWNER_CREATE_PROJECT = """
-mutation mutate_projectowner_create_project ($input: CreateProjectInput!) {
-  createProject (input: $input) {
-    project {
-      __typename
-      body
-      bodyHTML
-      closed
-      closedAt
-      createdAt
-      databaseId
-      id
-      name
-      number
-      resourcePath
-      state
-      updatedAt
-      url
-      viewerCanUpdate
-    }
-  }
-}
+from github.enums import Enum
 
-"""
+
+class ProjectTemplate(Enum):
+    """
+    Represents a GitHub-provided project template.
+    """
+
+    # https://developer.github.com/v4/enum/projecttemplate/
+
+    automated_kanban_v2      = "AUTOMATED_KANBAN_V2"
+    automated_reviews_kanban = "AUTOMATED_REVIEWS_KANBAN"
+    basic_kanban             = "BASIC_KANBAN"
+    bug_triage               = "BUG_TRIAGE"

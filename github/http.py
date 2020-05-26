@@ -435,6 +435,11 @@ class HTTPClient():
     async def mutate_lockable_unlock(self, lockable_id):
         raise NotImplementedError
 
+    async def mutate_projectowner_create_project(self, projectowner_id, name, body, template):
+        return await self._mutate("createProject", "project",
+                                  query=query.MUTATE_PROJECTOWNER_CREATE_PROJECT,
+                                  body=body, name=name, ownerId=projectowner_id, template=template)
+
     async def mutate_pullrequest_close(self, pullrequest_id):
         raise NotImplementedError
 
