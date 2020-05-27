@@ -156,3 +156,26 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
 
         data = await self.http.mutate_projectcolumn_create_card(self.id, body, content)
         return ProjectCard.from_data(data, self.http)
+
+    async def move_to(self, *, after):
+        """
+        |coro|
+
+        Moves the column after another column.
+
+        Parameters
+        ----------
+        after: Optional[:class:`~github.ProjectColumn`]
+            The column to place the column after. Pass ``None`` to
+            place it at the front.
+
+        Raises
+        ------
+        ~github.errors.Forbidden
+            You do not have permission to move the column.
+        """
+
+        if after is not None:
+            after = after.id
+
+        await self.http.mutate_projectcolumn_move_to(self.id, after)
