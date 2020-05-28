@@ -26,9 +26,9 @@ import re
 ISO_8601_DATETIME_REGEX = r"([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(?:\.([0-9]{3}))?Z"
 
 
-class _cached_property:
+class _cached_property(property):
     """
-    Similar to the :class:`property` decorator, with the addition of
+    A subclass of the :class:`property` decorator, with the addition of
     computing its value only once.
 
     Essentially :func:`functools.cached_property` without the
@@ -38,20 +38,23 @@ class _cached_property:
 
     class _sentinel: pass
 
-    def __init__(self, func):
-        functools.update_wrapper(self, func)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-        self.func = func
-        self.value = self._sentinel
+        self.cached_value = self._sentinel
 
     def __get__(self, instance, owner=None):
         if instance is None:
             return self
 
-        if self.value is self._sentinel:
-            self.value = self.func(instance)
+        if self.cached_value is self._sentinel:
+            self.cached_value = super().__get__(instance, owner)
 
-        return self.value
+        return self.cached_value
+
+    def __set__(self, instance, value):
+        self.cached_value = value
+        return super().__set__(instance, value)
 
 
 def iso_to_datetime(iso):
