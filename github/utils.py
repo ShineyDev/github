@@ -53,8 +53,8 @@ class _cached_property(property):
         return self.cached_value
 
     def __set__(self, instance, value):
+        super().__set__(instance, value)
         self.cached_value = value
-        return super().__set__(instance, value)
 
 
 def iso_to_datetime(iso):
