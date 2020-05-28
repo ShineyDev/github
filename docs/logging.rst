@@ -4,8 +4,7 @@
 Setting Up Logging
 ==================
 
-github.py logs all errors and debug information via the built-in
-:mod:`logging` module.
+github.py logs all errors and debug information via the built-in :mod:`logging` module.
 
 Configuration can be as simple as:
 
@@ -33,5 +32,4 @@ My personal configuration of the logging module for most libraries is:
     handler.setFormatter(formatter)
     logger.addHandler(handler)
 
-For more information, check the documentation and tutorial of the
-:mod:`logging` module.
+For more information, see the :mod:`logging` module.

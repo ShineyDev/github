@@ -16,6 +16,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
     "sphinxcontrib_trio",
+    "sphinx_rtd_theme",
 ]
 
 autodoc_typehints = "none"
@@ -33,8 +34,12 @@ intersphinx_mapping = {
 
 highlight_language = "python3"
 html_experimental_html5_writer = True
-html_static_path = ["_static"]
-html_theme = "basic"
+html_theme = "sphinx_rtd_theme"
+html_theme_options = {
+    "collapse_navigation": False,
+    "includehidden": False,
+    "prev_next_buttons_location": "top",
+}
 master_doc = "index"
 pygments_style = "friendly"
 source_suffix = ".rst"
@@ -68,8 +73,3 @@ rst_prolog = """
 .. |spdx_link| replace:: spdx.org
 .. _spdx_link: https://spdx.org/licenses/
 """
-
-# dumb setup
-
-def setup(app):
-    app.add_stylesheet("css/style.css")

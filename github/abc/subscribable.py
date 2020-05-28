@@ -62,7 +62,7 @@ class Subscribable():
 
         Updates the authenticated user's subscription state to the subscribable.
 
-        Paramaters
+        Parameters
         ----------
         :class:`~github.enums.SubscriptionState`
             The new subscription state.

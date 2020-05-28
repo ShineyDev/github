@@ -14,6 +14,7 @@ Enumerables
     projectcardstate
     projectcolumnpurpose
     projectstate
+    projecttemplate
     pullrequeststate
     reaction
     repositorylockreason
