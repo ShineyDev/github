@@ -607,6 +607,336 @@ query fetch_repository_collaborators ($repository_id: ID!, $cursor: String=null)
 }
 """
 
+FETCH_REPOSITORY_ISSUE = """
+query fetch_repository_issue ($repository_id: ID!, $issue_number: Int!) {
+  node (id: $repository_id) {
+    ... on Repository {
+      issue (number: $issue_number) {
+        activeLockReason
+        author {
+          ... on Organization {
+            __typename
+            anyPinnableItems
+            avatarUrl
+            databaseId
+            description
+            email
+            id
+            isVerified
+            location
+            login
+            name
+            newTeamResourcePath
+            newTeamUrl
+            pinnedItemsRemaining
+            projectsResourcePath
+            projectsUrl
+            resourcePath
+            teamsResourcePath
+            teamsUrl
+            url
+            viewerCanAdminister
+            viewerCanChangePinnedItems
+            viewerCanCreateProjects
+            viewerCanCreateRepositories
+            viewerCanCreateTeams
+            viewerIsAMember
+            websiteUrl
+          }
+          ... on User {
+            __typename
+            anyPinnableItems
+            avatarUrl
+            bio
+            company
+            createdAt
+            databaseId
+            id
+            isBountyHunter
+            isCampusExpert
+            isDeveloperProgramMember
+            isEmployee
+            isHireable
+            isSiteAdmin
+            isViewer
+            location
+            login
+            name
+            pinnedItemsRemaining
+            projectsResourcePath
+            projectsUrl
+            resourcePath
+            updatedAt
+            url
+            viewerCanChangePinnedItems
+            viewerCanCreateProjects
+            viewerCanFollow
+            viewerIsFollowing
+            websiteUrl
+          }
+        }
+        authorAssociation
+        body
+        bodyHTML
+        bodyText
+        closed
+        closedAt
+        createdAt
+        createdViaEmail
+        databaseId
+        editor {
+          ... on Organization {
+            __typename
+            anyPinnableItems
+            avatarUrl
+            databaseId
+            description
+            email
+            id
+            isVerified
+            location
+            login
+            name
+            newTeamResourcePath
+            newTeamUrl
+            pinnedItemsRemaining
+            projectsResourcePath
+            projectsUrl
+            resourcePath
+            teamsResourcePath
+            teamsUrl
+            url
+            viewerCanAdminister
+            viewerCanChangePinnedItems
+            viewerCanCreateProjects
+            viewerCanCreateRepositories
+            viewerCanCreateTeams
+            viewerIsAMember
+            websiteUrl
+          }
+          ... on User {
+            __typename
+            anyPinnableItems
+            avatarUrl
+            bio
+            company
+            createdAt
+            databaseId
+            id
+            isBountyHunter
+            isCampusExpert
+            isDeveloperProgramMember
+            isEmployee
+            isHireable
+            isSiteAdmin
+            isViewer
+            location
+            login
+            name
+            pinnedItemsRemaining
+            projectsResourcePath
+            projectsUrl
+            resourcePath
+            updatedAt
+            url
+            viewerCanChangePinnedItems
+            viewerCanCreateProjects
+            viewerCanFollow
+            viewerIsFollowing
+            websiteUrl
+          }
+        }
+        id
+        includesCreatedEdit
+        lastEditedAt
+        locked
+        number
+        publishedAt
+        resourcePath
+        state
+        title
+        updatedAt
+        url
+        viewerCanReact
+        viewerCanSubscribe
+        viewerCanUpdate
+        viewerCannotUpdateReasons
+        viewerDidAuthor
+        viewerSubscription
+      }
+    }
+  }
+}
+"""
+
+FETCH_REPOSITORY_ISSUES = """
+query fetch_repository_issues ($repository_id: ID!, $cursor: String=null) {
+  node (id: $repository_id) {
+    ... on Repository {
+      issues (first: 10, after: $cursor) {
+        nodes {
+          activeLockReason
+          author {
+            ... on Organization {
+              __typename
+              anyPinnableItems
+              avatarUrl
+              databaseId
+              description
+              email
+              id
+              isVerified
+              location
+              login
+              name
+              newTeamResourcePath
+              newTeamUrl
+              pinnedItemsRemaining
+              projectsResourcePath
+              projectsUrl
+              resourcePath
+              teamsResourcePath
+              teamsUrl
+              url
+              viewerCanAdminister
+              viewerCanChangePinnedItems
+              viewerCanCreateProjects
+              viewerCanCreateRepositories
+              viewerCanCreateTeams
+              viewerIsAMember
+              websiteUrl
+            }
+            ... on User {
+              __typename
+              anyPinnableItems
+              avatarUrl
+              bio
+              company
+              createdAt
+              databaseId
+              id
+              isBountyHunter
+              isCampusExpert
+              isDeveloperProgramMember
+              isEmployee
+              isHireable
+              isSiteAdmin
+              isViewer
+              location
+              login
+              name
+              pinnedItemsRemaining
+              projectsResourcePath
+              projectsUrl
+              resourcePath
+              updatedAt
+              url
+              viewerCanChangePinnedItems
+              viewerCanCreateProjects
+              viewerCanFollow
+              viewerIsFollowing
+              websiteUrl
+            }
+          }
+          authorAssociation
+          body
+          bodyHTML
+          bodyText
+          closed
+          closedAt
+          createdAt
+          createdViaEmail
+          databaseId
+          editor {
+            ... on Organization {
+              __typename
+              anyPinnableItems
+              avatarUrl
+              databaseId
+              description
+              email
+              id
+              isVerified
+              location
+              login
+              name
+              newTeamResourcePath
+              newTeamUrl
+              pinnedItemsRemaining
+              projectsResourcePath
+              projectsUrl
+              resourcePath
+              teamsResourcePath
+              teamsUrl
+              url
+              viewerCanAdminister
+              viewerCanChangePinnedItems
+              viewerCanCreateProjects
+              viewerCanCreateRepositories
+              viewerCanCreateTeams
+              viewerIsAMember
+              websiteUrl
+            }
+            ... on User {
+              __typename
+              anyPinnableItems
+              avatarUrl
+              bio
+              company
+              createdAt
+              databaseId
+              id
+              isBountyHunter
+              isCampusExpert
+              isDeveloperProgramMember
+              isEmployee
+              isHireable
+              isSiteAdmin
+              isViewer
+              location
+              login
+              name
+              pinnedItemsRemaining
+              projectsResourcePath
+              projectsUrl
+              resourcePath
+              updatedAt
+              url
+              viewerCanChangePinnedItems
+              viewerCanCreateProjects
+              viewerCanFollow
+              viewerIsFollowing
+              websiteUrl
+            }
+          }
+          id
+          includesCreatedEdit
+          lastEditedAt
+          locked
+          number
+          publishedAt
+          resourcePath
+          state
+          title
+          updatedAt
+          url
+          viewerCanReact
+          viewerCanSubscribe
+          viewerCanUpdate
+          viewerCannotUpdateReasons
+          viewerDidAuthor
+          viewerSubscription
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  }
+}
+"""
+
 FETCH_REPOSITORY_PARENT = """
 query fetch_repository_parent($repository_id: ID!) {
   node(id: $repository_id) {

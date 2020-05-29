@@ -28,6 +28,7 @@ from github.abc import UniformResourceLocatable
 from github.enums import RepositoryLockReason
 from github.enums import RepositoryPermissions
 from .codeofconduct import CodeOfConduct
+from .issue import Issue
 from .language import Language
 from .license import License
 from .organization import Organization
@@ -393,6 +394,46 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
 
         data = await self.http.fetch_repository_collaborators(self.id)
         return User.from_data(data, self.http)
+
+    async def fetch_issue(self, number: int):
+        """
+        |coro|
+
+        Fetches an issue from the repository.
+
+        Parameters
+        ----------
+        number: :class:`int`
+            The issue number.
+
+        Raises
+        ------
+        ~github.errors.NotFound
+            An issue with the given number does not exist.
+
+        Returns
+        -------
+        :class:`~github.Issue`
+            The issue.
+        """
+
+        data = await self.http.fetch_repository_issue(self.id, number)
+        return Issue.from_data(data, self.http)
+
+    async def fetch_issues(self):
+        """
+        |coro|
+
+        Fetches a list of issues from the repository.
+
+        Returns
+        -------
+        List[:class:`~github.Issue`]
+            A list of issues.
+        """
+
+        data = await self.http.fetch_repository_issues(self.id)
+        return Issue.from_data(data, self.http)
 
     async def fetch_parent(self):
         """

@@ -325,6 +325,16 @@ class HTTPClient():
                                             query=query.FETCH_REPOSITORY_COLLABORATORS,
                                             repository_id=repository_id)
 
+    async def fetch_repository_issue(self, repository_id, issue_number):
+        return await self._fetch_field("node", "issue",
+                                       query=query.FETCH_REPOSITORY_ISSUE,
+                                       repository_id=repository_id, issue_number=issue_number)
+
+    async def fetch_repository_issues(self, repository_id):
+        return await self._fetch_collection("node", "issues",
+                                            query=query.FETCH_REPOSITORY_ISSUES,
+                                            repository_id=repository_id)
+
     async def fetch_repository_parent(self, repository_id):
         try:
             parent = await self._fetch_field("node", "parent",
