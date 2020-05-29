@@ -17,7 +17,7 @@
 """
 
 MUTATE_ASSIGNABLE_ADD_ASSIGNEES = """
-mutation ($input: AddAssigneesToAssignableInput!) {
+mutation mutate_assignable_add_assignees ($input: AddAssigneesToAssignableInput!) {
   addAssigneesToAssignable (input: $input) {
     clientMutationId
   }
@@ -25,7 +25,7 @@ mutation ($input: AddAssigneesToAssignableInput!) {
 """
 
 MUTATE_ASSIGNABLE_REMOVE_ASSIGNEES = """
-mutation ($input: RemoveAssigneesFromAssignableInput!) {
+mutation mutate_assignable_remove_assignees ($input: RemoveAssigneesFromAssignableInput!) {
   removeAssigneesFromAssignable (input: $input) {
     clientMutationId
   }
