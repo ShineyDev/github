@@ -20,6 +20,7 @@ import typing
 
 from github import utils
 from github.enums import LockReason
+from github.enums import RepositoryLockReason
 
 
 class Lockable():
@@ -30,6 +31,7 @@ class Lockable():
 
     * :class:`~github.Issue`
     * :class:`~github.PullRequest`
+    * :class:`~github.Repository`
     """
 
     # https://developer.github.com/v4/interface/lockable/
@@ -47,15 +49,22 @@ class Lockable():
         return self.data["locked"]
 
     @utils._cached_property
-    def lock_reason(self) -> typing.Optional[LockReason]:
+    def lock_reason(self):
         """
         The reason for the lockable being locked.
 
-        :type: Optional[:class:`~github.enums.LockReason`]
+        :type: Union[:class:`~github.enums.LockReason`,
+                     :class:`~github.enums.RepositoryLockReason`]
         """
 
-        reason = self.data["activeLockReason"]
-        return LockReason.try_value(reason)
+        map = {
+            "Issue": ("activeLockReason", LockReason),
+            "PullRequest": ("activeLockReason", LockReason),
+            "Repository": ("lockReason", RepositoryLockReason),
+        }
+
+        key, type = map[self.data["__typename"]]
+        return type.try_value(self.data[key])
 
     async def lock(self, *, reason: LockReason=None):
         """

@@ -20,6 +20,7 @@ import datetime
 import typing
 
 from github import utils
+from github.abc import Lockable
 from github.abc import Node
 from github.abc import ProjectOwner
 from github.abc import Subscribable
@@ -35,12 +36,13 @@ from .organization import Organization
 from .user import User
 
 
-class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatable):
+class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResourceLocatable):
     """
     Represents a GitHub repository.
 
     Implements:
-
+    
+    * :class:`~github.abc.Lockable`
     * :class:`~github.abc.Node`
     * :class:`~github.abc.ProjectOwner`
     * :class:`~github.abc.Subscribable`
@@ -262,17 +264,6 @@ class Repository(Node, ProjectOwner, Subscribable, Type, UniformResourceLocatabl
         license = self.data["licenseInfo"]
         if license:
             return License.from_data(license)
-
-    @utils._cached_property
-    def lock_reason(self) -> typing.Optional[RepositoryLockReason]:
-        """
-        The reason for the repository to be in a locked state.
-
-        :type: :class:`~github.enums.RepositoryLockReason`
-        """
-
-        reason = self.data["lockReason"]
-        return RepositoryLockReason.try_value(reason)
 
     @property
     def name(self) -> str:
