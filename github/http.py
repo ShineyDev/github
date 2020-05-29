@@ -406,10 +406,12 @@ class HTTPClient():
         return functools.reduce(operator.getitem, path, data)
 
     async def mutate_assignable_add_assignees(self, assignable_id, assignee_ids):
-        raise NotImplementedError
+        await self._mutate(query=query.MUTATE_ASSIGNABLE_ADD_ASSIGNEES,
+                           assignableId=assignable_id, assigneeIds=assignee_ids)
 
     async def mutate_assignable_remove_assignees(self, assignable_id, assignee_ids):
-        raise NotImplementedError
+        await self._mutate(query=query.MUTATE_ASSIGNABLE_REMOVE_ASSIGNEES,
+                           assignableId=assignable_id, assigneeIds=assignee_ids)
 
     async def mutate_commentable_add_comment(self, commentable_id, body):
         raise NotImplementedError

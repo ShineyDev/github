@@ -16,6 +16,22 @@
     limitations under the License.
 """
 
+MUTATE_ASSIGNABLE_ADD_ASSIGNEES = """
+mutation ($input: AddAssigneesToAssignableInput!) {
+  addAssigneesToAssignable (input: $input) {
+    clientMutationId
+  }
+}
+"""
+
+MUTATE_ASSIGNABLE_REMOVE_ASSIGNEES = """
+mutation ($input: RemoveAssigneesFromAssignableInput!) {
+  removeAssigneesFromAssignable (input: $input) {
+    clientMutationId
+  }
+}
+"""
+
 MUTATE_PROJECT_CREATE_COLUMN = """
 mutation mutate_project_create_column ($input: AddProjectColumnInput!) {
   addProjectColumn (input: $input) {
