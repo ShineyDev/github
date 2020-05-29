@@ -32,6 +32,31 @@ mutation mutate_assignable_remove_assignees ($input: RemoveAssigneesFromAssignab
 }
 """
 
+MUTATE_PROJECTOWNER_CREATE_PROJECT = """
+mutation mutate_projectowner_create_project ($input: CreateProjectInput!) {
+  createProject (input: $input) {
+    project {
+      __typename
+      body
+      bodyHTML
+      closed
+      closedAt
+      createdAt
+      databaseId
+      id
+      name
+      number
+      resourcePath
+      state
+      updatedAt
+      url
+      viewerCanUpdate
+    }
+  }
+}
+
+"""
+
 MUTATE_ISSUE_CLOSE = """
 mutation mutate_issue_close ($input: CloseIssueInput!) {
   closeIssue (input: $input) {
@@ -128,31 +153,6 @@ mutation mutate_projectcolumn_move_to ($input: MoveProjectColumnInput!) {
     }
   }
 }
-"""
-
-MUTATE_PROJECTOWNER_CREATE_PROJECT = """
-mutation mutate_projectowner_create_project ($input: CreateProjectInput!) {
-  createProject (input: $input) {
-    project {
-      __typename
-      body
-      bodyHTML
-      closed
-      closedAt
-      createdAt
-      databaseId
-      id
-      name
-      number
-      resourcePath
-      state
-      updatedAt
-      url
-      viewerCanUpdate
-    }
-  }
-}
-
 """
 
 MUTATE_PULLREQUEST_CLOSE = """
