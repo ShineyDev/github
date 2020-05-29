@@ -32,6 +32,22 @@ mutation ($input: RemoveAssigneesFromAssignableInput!) {
 }
 """
 
+MUTATE_ISSUE_CLOSE = """
+mutation mutate_issue_close ($input: CloseIssueInput!) {
+  closeIssue (input: $input) {
+    clientMutationId
+  }
+}
+"""
+
+MUTATE_ISSUE_REOPEN = """
+mutation mutate_issue_reopen ($input: ReopenIssueInput!) {
+  reopenIssue (input: $input) {
+    clientMutationId
+  }
+}
+"""
+
 MUTATE_PROJECT_CREATE_COLUMN = """
 mutation mutate_project_create_column ($input: AddProjectColumnInput!) {
   addProjectColumn (input: $input) {
@@ -137,4 +153,20 @@ mutation mutate_projectowner_create_project ($input: CreateProjectInput!) {
   }
 }
 
+"""
+
+MUTATE_PULLREQUEST_CLOSE = """
+mutation mutate_pullrequest_close ($input: ClosePullRequestInput!) {
+  closePullRequest (input: $input) {
+    clientMutationId
+  }
+}
+"""
+
+MUTATE_PULLREQUEST_REOPEN = """
+mutation mutate_pullrequest_reopen ($input: ReopenPullRequestInput!) {
+  reopenPullRequest (input: $input) {
+    clientMutationId
+  }
+}
 """

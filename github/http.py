@@ -427,10 +427,12 @@ class HTTPClient():
         raise NotImplementedError
 
     async def mutate_issue_close(self, issue_id):
-        raise NotImplementedError
+        await self._mutate(query=query.MUTATE_ISSUE_CLOSE,
+                           issueId=issue_id)
 
     async def mutate_issue_reopen(self, issue_id):
-        raise NotImplementedError
+        await self._mutate(query=query.MUTATE_ISSUE_REOPEN,
+                           issueId=issue_id)
 
     async def mutate_labelable_add_labels(self, labelable_id, label_ids):
         raise NotImplementedError
@@ -473,10 +475,12 @@ class HTTPClient():
                                   body=body, name=name, ownerId=projectowner_id, template=template)
 
     async def mutate_pullrequest_close(self, pullrequest_id):
-        raise NotImplementedError
+        await self._mutate(query=query.MUTATE_PULLREQUEST_CLOSE,
+                           pullRequestId=pullrequest_id)
 
     async def mutate_pullrequest_reopen(self, pullrequest_id):
-        raise NotImplementedError
+        await self._mutate(query=query.MUTATE_PULLREQUEST_REOPEN,
+                           pullRequestId=pullrequest_id)
 
     async def mutate_subscribable_update_subscription(self, subscribable_id, state):
         raise NotImplementedError
