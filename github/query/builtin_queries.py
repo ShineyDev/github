@@ -612,6 +612,7 @@ query fetch_repository_issue ($repository_id: ID!, $issue_number: Int!) {
   node (id: $repository_id) {
     ... on Repository {
       issue (number: $issue_number) {
+        __typename
         activeLockReason
         author {
           ... on Organization {
@@ -775,6 +776,7 @@ query fetch_repository_issues ($repository_id: ID!, $cursor: String=null) {
     ... on Repository {
       issues (first: 10, after: $cursor) {
         nodes {
+          __typename
           activeLockReason
           author {
             ... on Organization {
