@@ -69,6 +69,9 @@ class Closable():
             You do not have permission to close the closable.
         """
 
+        # https://developer.github.com/v4/mutation/closeissue/
+        # https://developer.github.com/v4/mutation/closepullrequest/
+
         map = {
             "Issue": self.http.mutate_issue_close,
             "PullRequest": self.http.mutate_pullrequest_close,
@@ -88,6 +91,9 @@ class Closable():
         ~github.errors.Forbidden
             You do not have permission to reopen the closable.
         """
+
+        # https://developer.github.com/v4/mutation/reopenissue/
+        # https://developer.github.com/v4/mutation/reopenpullrequest/
 
         map = {
             "Issue": self.http.mutate_issue_reopen,

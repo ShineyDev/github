@@ -68,6 +68,8 @@ class Assignable():
             You do not have permission to add assignees to the assignable.
         """
 
+        # https://developer.github.com/v4/mutation/addassigneestoassignable/
+
         users = [user.id for user in users]
         await self.http.mutate_assignable_add_assignees(self.id, users)
 
@@ -87,6 +89,8 @@ class Assignable():
         ~github.errors.Forbidden
             You do not have permission to remove assignees from the assignable.
         """
+
+        # https://developer.github.com/v4/mutation/removeassigneesfromassignable/
 
         users = [user.id for user in users]
         await self.http.mutate_assignable_remove_assignees(self.id, users)

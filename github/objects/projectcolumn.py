@@ -145,6 +145,8 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
         :class:`~github.ProjectCard`
             The created card.
         """
+
+        # https://developer.github.com/v4/mutation/addprojectcard/
         
         if body is None and content is None:
             raise TypeError("at least one of body and content must be provided")
@@ -174,6 +176,8 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
         ~github.errors.Forbidden
             You do not have permission to move the column.
         """
+
+        # https://developer.github.com/v4/mutation/moveprojectcolumn/
 
         if after is not None:
             after = after.id
