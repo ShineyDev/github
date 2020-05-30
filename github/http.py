@@ -437,13 +437,16 @@ class HTTPClient():
                            issueId=issue_id)
 
     async def mutate_labelable_add_labels(self, labelable_id, label_ids):
-        raise NotImplementedError
+        await self._mutate(query=query.MUTATE_LABELABLE_ADD_LABELS,
+                           labelableId=labelable_id, labelIds=label_ids)
 
     async def mutate_labelable_clear_labels(self, labelable_id):
-        raise NotImplementedError
+        await self._mutate(query=query.MUTATE_LABELABLE_CLEAR_LABELS,
+                           labelableId=labelable_id)
 
     async def mutate_labelable_remove_labels(self, labelable_id, label_ids):
-        raise NotImplementedError
+        await self._mutate(query=query.MUTATE_LABELABLE_REMOVE_LABELS,
+                           labelableId=labelable_id, labelIds=label_ids)
 
     async def mutate_lockable_lock(self, lockable_id, reason):
         raise NotImplementedError

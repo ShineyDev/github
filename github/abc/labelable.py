@@ -68,6 +68,8 @@ class Labelable():
             You do not have permission to add labels to the labelable.
         """
 
+        # https://developer.github.com/v4/mutation/addlabelstolabelable/
+
         labels = [label.id for label in labels]
         await self.http.mutate_labelable_add_labels(self.id, labels)
 
@@ -82,6 +84,8 @@ class Labelable():
         ~github.errors.Forbidden
             You do not have permission to clear labels from the labelable.
         """
+
+        # https://developer.github.com/v4/mutation/clearlabelsfromlabelable/
 
         await self.http.mutate_labelable_clear_labels(self.id)
 
@@ -101,6 +105,8 @@ class Labelable():
         ~github.errors.Forbidden
             You do not have permission to remove labels from the labelable.
         """
+
+        # https://developer.github.com/v4/mutation/removelabelsfromlabelable/
 
         labels = [label.id for label in labels]
         await self.http.mutate_labelable_remove_labels(self.id, labels)

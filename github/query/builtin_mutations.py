@@ -32,6 +32,30 @@ mutation mutate_assignable_remove_assignees ($input: RemoveAssigneesFromAssignab
 }
 """
 
+MUTATE_LABELABLE_ADD_LABELS = """
+mutation mutate_labelable_add_labels ($input: AddLabelsToLabelableInput!) {
+  addLabelsToLabelable (input: $input) {
+    clientMutationId
+  }
+}
+"""
+
+MUTATE_LABELABLE_CLEAR_LABELS = """
+mutation mutate_labelable_clear_labels ($input: ClearLabelsFromLabelableInput!) {
+  clearLabelsFromLabelable (input: $input) {
+    clientMutationId
+  }
+}
+"""
+
+MUTATE_LABELABLE_REMOVE_LABELS = """
+mutation mutate_labelable_remove_labels ($input: RemoveLabelsFromLabelableInput!) {
+  removeLabelsFromLabelable (input: $input) {
+    clientMutationId
+  }
+}
+"""
+
 MUTATE_PROJECTOWNER_CREATE_PROJECT = """
 mutation mutate_projectowner_create_project ($input: CreateProjectInput!) {
   createProject (input: $input) {
