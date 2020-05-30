@@ -258,7 +258,9 @@ class HTTPClient():
         raise NotImplementedError
 
     async def fetch_labelable_labels(self, labelable_id):
-        raise NotImplementedError
+        return await self._fetch_collection("node", "labels",
+                                            query=query.FETCH_LABELABLE_LABELS,
+                                            labelable_id=labelable_id)
 
     async def fetch_license(self, key):
         return await self._fetch_field("license",

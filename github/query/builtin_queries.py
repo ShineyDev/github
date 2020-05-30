@@ -30,6 +30,33 @@ query fetch_actor_avatar_url ($actor_id: ID!, $size: Int=null) {
 }
 """
 
+FETCH_LABELABLE_LABELS = """
+query fetch_labelable_labels ($labelable_id: ID!, $cursor: String=null) {
+  node (id: $labelable_id) {
+    ... on Labelable {
+      labels (first: 10, after: $cursor) {
+        nodes {
+          __typename
+          color
+          createdAt
+          description
+          id
+          isDefault
+          name
+          resourcePath
+          updatedAt
+          url
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  }
+}
+"""
+
 FETCH_AUTHENTICATED_USER = """
 query fetch_authenticated_user {
   viewer {
