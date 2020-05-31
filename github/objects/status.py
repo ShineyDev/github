@@ -42,16 +42,6 @@ class Status(Node, Type):
         self.data = data
         self.http = http
 
-    @property
-    def busy(self) -> str:
-        """
-        Whether the status marks the user as busy.
-
-        :type: :class:`bool`
-        """
-
-        return self.data["indicatesLimitedAvailability"]
-
     @utils._cached_property
     def created_at(self) -> datetime.datetime:
         """
@@ -93,6 +83,16 @@ class Status(Node, Type):
 
         expires_at = self.data["expiresAt"]
         return utils.iso_to_datetime(expires_at)
+
+    @property
+    def is_busy(self) -> bool:
+        """
+        Whether the status marks the user as busy.
+
+        :type: :class:`bool`
+        """
+
+        return self.data["indicatesLimitedAvailability"]
 
     @property
     def message(self) -> typing.Optional[str]:
