@@ -46,6 +46,8 @@ class Sponsorship(Node, Type):
     def created_at(self) -> datetime.datetime:
         """
         The date and time the sponsor listing was created.
+
+        :type: :class:`~datetime.datetime`
         """
 
         return utils.iso_to_datetime(self.data["createdAt"])
@@ -54,6 +56,8 @@ class Sponsorship(Node, Type):
     def privacy(self) -> SponsorshipPrivacy:
         """
         The privacy level for the sponsorship.
+
+        :type: :class:`~github.enums.SponsorshipPrivacy`
         """
 
         return SponsorshipPrivacy.from_data(self.data["privacyLevel"])

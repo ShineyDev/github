@@ -47,6 +47,8 @@ class SponsorTier(Node, Type):
     def created_at(self) -> datetime.datetime:
         """
         The date and time the sponsor tier was created.
+
+        :type: :class:`~datetime.datetime`
         """
 
         return utils.iso_to_datetime(self.data["createdAt"])
@@ -55,6 +57,8 @@ class SponsorTier(Node, Type):
     def description(self) -> str:
         """
         The description of the sponsor tier.
+
+        :type: :class:`str`
         """
 
         return self.data["description"]
@@ -63,6 +67,8 @@ class SponsorTier(Node, Type):
     def description_html(self) -> str:
         """
         The description of the sponsor tier in HTML.
+
+        :type: :class:`str`
         """
 
         return self.data["descriptionHTML"]
@@ -71,14 +77,18 @@ class SponsorTier(Node, Type):
     def name(self) -> str:
         """
         The name of the sponsor tier.
+
+        :type: :class:`str`
         """
 
         return self.data["name"]
     
     @property
-    def price(self) -> str:
+    def price(self) -> int:
         """
         How much this tier costs per month in dollars.
+
+        :type: :class:`int`
         """
 
         return self.data["monthlyPriceInDollars"]
@@ -87,6 +97,8 @@ class SponsorTier(Node, Type):
     def updated_at(self) -> datetime.datetime:
         """
         The date and time the sponsor tier was last updated.
+
+        :type: :class:`~datetime.datetime`
         """
 
         return utils.iso_to_datetime(self.data["updatedAt"])

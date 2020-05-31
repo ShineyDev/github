@@ -47,6 +47,8 @@ class SponsorListing(Node, Type):
     def created_at(self) -> datetime.datetime:
         """
         The date and time the sponsor listing was created.
+
+        :type: :class:`~datetime.datetime`
         """
 
         return utils.iso_to_datetime(self.data["createdAt"])
@@ -55,6 +57,8 @@ class SponsorListing(Node, Type):
     def long_description(self) -> str:
         """
         The long description of the sponsor listing.
+
+        :type: :class:`str`
         """
 
         return self.data["fullDescription"]
@@ -63,6 +67,8 @@ class SponsorListing(Node, Type):
     def long_description_html(self) -> str:
         """
         The long description of the sponsor listing as HTML.
+
+        :type: :class:`str`
         """
 
         return self.data["fullDescriptionHTML"]
@@ -71,6 +77,8 @@ class SponsorListing(Node, Type):
     def name(self) -> str:
         """
         The name of the sponsor listing.
+
+        :type: :class:`str`
         """
 
         return self.data["name"]
@@ -79,6 +87,8 @@ class SponsorListing(Node, Type):
     def short_description(self) -> str:
         """
         The short description of the sponsor listing.
+
+        :type: :class:`str`
         """
 
         return self.data["shortDescription"]
@@ -87,6 +97,8 @@ class SponsorListing(Node, Type):
     def slug(self) -> str:
         """
         The slug of the sponsor listing.
+
+        :type: :class:`str`
         """
 
         return self.data["slug"]
