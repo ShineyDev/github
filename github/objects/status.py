@@ -74,11 +74,11 @@ class Status(Node, Type):
         return self.data["emojiHTML"]
 
     @utils._cached_property
-    def expires_at(self) -> datetime.datetime:
+    def expires_at(self) -> typing.Optional[datetime.datetime]:
         """
         When the status will expire.
 
-        :type: :class:`~datetime.datetime`
+        :type: Optional[:class:`~datetime.datetime`]
         """
 
         expires_at = self.data["expiresAt"]
