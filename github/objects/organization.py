@@ -23,12 +23,13 @@ from github.abc import Node
 from github.abc import ProfileOwner
 from github.abc import ProjectOwner
 from github.abc import RepositoryOwner
+from github.abc import Sponsorable
 from github.abc import Type
 from github.abc import UniformResourceLocatable
 
 
-class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
-                   UniformResourceLocatable):
+class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
+                   Sponsorable, Type, UniformResourceLocatable):
     """
     Represents a GitHub organization.
 
@@ -39,6 +40,7 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Typ
     * :class:`~github.abc.ProfileOwner`
     * :class:`~github.abc.ProjectOwner`
     * :class:`~github.abc.RepositoryOwner`
+    * :class:`~github.abc.Sponsorable`
     * :class:`~github.abc.Type`
     * :class:`~github.abc.UniformResourceLocatable`
     """

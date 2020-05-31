@@ -282,8 +282,23 @@ query fetch_repositorynode_repository ($repositorynode_id: ID!) {
 }
 """
 
-
-
+FETCH_SPONSORABLE_SPONSOR_LISTING = """
+query fetch_sponsorable_sponsor_listing ($sponsorable_id: ID!) {
+  node (id: $sponsorable_id) {
+    ... on Sponsorable {
+      sponsorsListing {
+        __typename
+        createdAt
+        fullDescription
+        id
+        name
+        shortDescription
+        slug
+      }
+    }
+  }
+}
+"""
 
 FETCH_ALL_CODES_OF_CONDUCT = """
 query fetch_all_codes_of_conduct {
@@ -1425,6 +1440,62 @@ query fetch_repository_template ($repository_id: ID!) {
         viewerCanUpdateTopics
         viewerPermission
         viewerSubscription
+      }
+    }
+  }
+}
+"""
+
+FETCH_SPONSORLISTING_TIERS = """
+query fetch_sponsorlisting_tiers ($sponsorlisting_id: ID!) {
+  node (id: $sponsorlisting_id) {
+    ... on SponsorsListing {
+      tiers (first: 10) {
+        nodes {
+          __typename
+          createdAt
+          description
+          id
+          monthlyPriceInDollars
+          name
+          sponsorsListing {
+            __typename
+            createdAt
+            fullDescription
+            id
+            name
+            shortDescription
+            slug
+          }
+          updatedAt
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  }
+}
+"""
+
+FETCH_SPONSORTIER_SPONSORSHIPS = """
+query fetch_sponsortier_sponsorships ($sponsortier_id: ID!) {
+  node (id: $sponsortier_id) {
+    ... on SponsorsTier {
+      adminInfo {
+        sponsorships {
+          nodes {
+            __typename
+            createdAt
+            id
+            privacyLevel
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
+        }
       }
     }
   }

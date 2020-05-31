@@ -31,6 +31,7 @@ from github.abc.projectowner import ProjectOwner
 from github.abc.reactable import Reactable
 from github.abc.repositorynode import RepositoryNode
 from github.abc.repositoryowner import RepositoryOwner
+from github.abc.sponsorable import Sponsorable
 from github.abc.subscribable import Subscribable
 from github.abc.type import Type
 from github.abc.updatable import Updatable
@@ -40,5 +41,6 @@ __all__ = [
     "Actor", "Assignable", "Closable", "Comment", "Commentable", "Deletable",
     "Labelable", "Lockable", "Node", "Participable", "ProfileOwner",
     "ProjectOwner", "Reactable", "RepositoryNode", "RepositoryOwner",
-    "Subscribable", "Type", "Updatable", "UniformResourceLocatable",
+    "Sponsorable", "Subscribable", "Type", "Updatable",
+    "UniformResourceLocatable",
 ]

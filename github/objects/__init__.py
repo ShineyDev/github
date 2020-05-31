@@ -34,6 +34,9 @@ from github.objects.pullrequest import PullRequest
 from github.objects.ratelimit import RateLimit
 from github.objects.reaction import Reaction
 from github.objects.repository import Repository
+from github.objects.sponsorlisting import SponsorListing
+from github.objects.sponsorship import Sponsorship
+from github.objects.sponsortier import SponsorTier
 from github.objects.status import Status
 from github.objects.topic import Topic
 from github.objects.user import User, AuthenticatedUser
@@ -42,7 +45,8 @@ __all__ = [
     "Bot", "CodeOfConduct", "CommitComment", "Issue", "Label", "Language",
     "License", "LicenseRule", "Mannequin", "Metadata", "Organization",
     "Project", "ProjectCard", "ProjectColumn", "PullRequest", "RateLimit",
-    "Reaction", "Repository", "Status", "Topic", "User", "AuthenticatedUser",
+    "Reaction", "Repository", "SponsorListing", "Sponsorship", "SponsorTier",
+    "Status", "Topic", "User", "AuthenticatedUser",
 ]
 
 

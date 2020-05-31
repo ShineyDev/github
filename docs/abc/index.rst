@@ -22,6 +22,7 @@ Abstract Base Classes
     reactable
     repositorynode
     repositoryowner
+    sponsorable
     subscribable
     type
     uniformresourcelocatable

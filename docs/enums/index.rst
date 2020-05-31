@@ -19,4 +19,5 @@ Enumerables
     reaction
     repositorylockreason
     repositorypermissions
+    sponsorshipprivacy
     subscriptionstate

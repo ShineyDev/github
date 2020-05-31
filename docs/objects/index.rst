@@ -25,5 +25,8 @@ Objects
     ratelimit
     reaction
     repository
+    sponsorlisting
+    sponsorship
+    sponsortier
     topic
     user

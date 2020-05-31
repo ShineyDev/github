@@ -25,14 +25,15 @@ from github.abc import Node
 from github.abc import ProfileOwner
 from github.abc import ProjectOwner
 from github.abc import RepositoryOwner
+from github.abc import Sponsorable
 from github.abc import Type
 from github.abc import UniformResourceLocatable
 from .commitcomment import CommitComment
 from .status import Status
 
 
-class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
-           UniformResourceLocatable):
+class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
+           Sponsorable, Type, UniformResourceLocatable):
     """
     Represents a GitHub user account.
 
@@ -43,6 +44,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
     * :class:`~github.abc.ProfileOwner`
     * :class:`~github.abc.ProjectOwner`
     * :class:`~github.abc.RepositoryOwner`
+    * :class:`~github.abc.Sponsorable`
     * :class:`~github.abc.Type`
     * :class:`~github.abc.UniformResourceLocatable`
     """

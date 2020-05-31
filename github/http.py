@@ -257,6 +257,11 @@ class HTTPClient():
                                        query=query.FETCH_REPOSITORYNODE_REPOSITORY,
                                        repositorynode_id=repositorynode_id)
 
+    async def fetch_sponsorable_sponsor_listing(self, sponsorable_id):
+        return await self._fetch_field("node", "sponsorsListing",
+                                       query=query.FETCH_SPONSORABLE_SPONSOR_LISTING,
+                                       sponsorable_id=sponsorable_id)
+
     async def fetch_all_codes_of_conduct(self):
         return await self._fetch_field("codesOfConduct",
                                        query=query.FETCH_ALL_CODES_OF_CONDUCT)
@@ -373,6 +378,16 @@ class HTTPClient():
 
         scopes = response.headers.get("X-OAuth-Scopes")
         return [s for s in scopes.split(", ") if s]
+
+    async def fetch_sponsorlisting_tiers(self, sponsorlisting_id):
+        return await self._fetch_collection("node", "tiers",
+                                            query=query.FETCH_SPONSORLISTING_TIERS,
+                                            sponsorlisting_id=sponsorlisting_id)
+
+    async def fetch_sponsortier_sponsorships(self, sponsortier_id):
+        return await self._fetch_collection("node", "adminInfo", "sponsorships",
+                                            query=query.FETCH_SPONSORTIER_SPONSORSHIPS,
+                                            sponsortier_id=sponsortier_id)
 
     async def fetch_topic(self, name):
         return await self._fetch_field("topic",
