@@ -57,6 +57,286 @@ query fetch_labelable_labels ($labelable_id: ID!, $cursor: String=null) {
 }
 """
 
+FETCH_PROFILEOWNER_EMAIL = """
+query fetch_profileowner_email ($profileowner_id: ID!) {
+  node (id: $profileowner_id) {
+    ... on ProfileOwner {
+      email
+    }
+    ... on Mannequin {
+      email
+    }
+  }
+}
+"""
+
+FETCH_PROJECTOWNER_PROJECT = """
+query fetch_projectowner_project ($projectowner_id: ID!, $project_number: Int!) {
+  node (id: $projectowner_id) {
+    ... on ProjectOwner {
+      project (number: $project_number) {
+        __typename
+        body
+        bodyHTML
+        closed
+        closedAt
+        createdAt
+        databaseId
+        id
+        name
+        number
+        resourcePath
+        state
+        updatedAt
+        url
+        viewerCanUpdate
+      }
+    }
+  }
+}
+"""
+
+FETCH_PROJECTOWNER_PROJECTS = """
+query fetch_projectowner_projects ($projectowner_id: ID!, $cursor: String) {
+  node (id: $projectowner_id) {
+    ... on ProjectOwner {
+      projects (first: 10, after: $cursor) {
+        nodes {
+          __typename
+          body
+          bodyHTML
+          closed
+          closedAt
+          createdAt
+          databaseId
+          id
+          name
+          number
+          resourcePath
+          state
+          updatedAt
+          url
+          viewerCanUpdate
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
+    }
+  }
+}
+"""
+
+FETCH_REPOSITORYNODE_REPOSITORY = """
+query fetch_repositorynode_repository ($repositorynode_id: ID!) {
+  node (id: $repositorynode_id) {
+    ... on RepositoryNode {
+      repository {
+        __typename
+        codeOfConduct {
+          __typename
+          body
+          id
+          key
+          name
+          url
+        }
+        createdAt
+        databaseId
+        defaultBranchRef {
+          name
+        }
+        description
+        diskUsage
+        forkCount
+        hasIssuesEnabled
+        hasWikiEnabled
+        id
+        isArchived
+        isDisabled
+        isFork
+        isLocked
+        isMirror
+        isPrivate
+        isTemplate
+        licenseInfo {
+          __typename
+          body
+          conditions {
+            __typename
+            description
+            key
+            label
+          }
+          description
+          featured
+          hidden
+          id
+          implementation
+          key
+          limitations {
+            __typename
+            description
+            key
+            label
+          }
+          name
+          nickname
+          permissions {
+            __typename
+            description
+            key
+            label
+          }
+          pseudoLicense
+          spdxId
+          url
+        }
+        lockReason
+        mergeCommitAllowed
+        name
+        owner {
+          ... on Organization {
+            __typename
+            anyPinnableItems
+            avatarUrl
+            databaseId
+            description
+            email
+            id
+            isVerified
+            location
+            login
+            name
+            newTeamResourcePath
+            newTeamUrl
+            pinnedItemsRemaining
+            projectsResourcePath
+            projectsUrl
+            resourcePath
+            teamsResourcePath
+            teamsUrl
+            url
+            viewerCanAdminister
+            viewerCanChangePinnedItems
+            viewerCanCreateProjects
+            viewerCanCreateRepositories
+            viewerCanCreateTeams
+            viewerIsAMember
+            websiteUrl
+          }
+          ... on User {
+            __typename
+            anyPinnableItems
+            avatarUrl
+            bio
+            company
+            createdAt
+            databaseId
+            id
+            isBountyHunter
+            isCampusExpert
+            isDeveloperProgramMember
+            isEmployee
+            isHireable
+            isSiteAdmin
+            isViewer
+            location
+            login
+            name
+            pinnedItemsRemaining
+            projectsResourcePath
+            projectsUrl
+            resourcePath
+            updatedAt
+            url
+            viewerCanChangePinnedItems
+            viewerCanCreateProjects
+            viewerCanFollow
+            viewerIsFollowing
+            websiteUrl
+          }
+        }
+        primaryLanguage {
+          __typename
+          color
+          id
+          name
+        }
+        pushedAt
+        rebaseMergeAllowed
+        resourcePath
+        squashMergeAllowed
+        updatedAt
+        url
+        viewerCanAdminister
+        viewerCanCreateProjects
+        viewerCanSubscribe
+        viewerCanUpdateTopics
+        viewerPermission
+        viewerSubscription
+      }
+    }
+  }
+}
+"""
+
+
+
+
+FETCH_ALL_CODES_OF_CONDUCT = """
+query fetch_all_codes_of_conduct {
+  codesOfConduct {
+    __typename
+    body
+    id
+    key
+    name
+    resourcePath
+    url
+  }
+}
+"""
+
+FETCH_ALL_LICENSES = """
+query fetch_all_licenses {
+  licenses {
+    __typename
+    body
+    conditions {
+      __typename
+      description
+      key
+      label
+    }
+    description
+    featured
+    hidden
+    id
+    implementation
+    key
+    limitations {
+      __typename
+      description
+      key
+      label
+    }
+    name
+    nickname
+    permissions {
+      __typename
+      description
+      key
+      label
+    }
+    pseudoLicense
+    spdxId
+    url
+  }
+}
+"""
+
 FETCH_AUTHENTICATED_USER = """
 query fetch_authenticated_user {
   viewer {
@@ -107,61 +387,9 @@ query fetch_code_of_conduct ($key: String!) {
 }
 """
 
-FETCH_ALL_CODES_OF_CONDUCT = """
-query fetch_all_codes_of_conduct {
-  codesOfConduct {
-    __typename
-    body
-    id
-    key
-    name
-    resourcePath
-    url
-  }
-}
-"""
-
 FETCH_LICENSE = """
 query fetch_license ($key: String!) {
   license (key: $key) {
-    __typename
-    body
-    conditions {
-      __typename
-      description
-      key
-      label
-    }
-    description
-    featured
-    hidden
-    id
-    implementation
-    key
-    limitations {
-      __typename
-      description
-      key
-      label
-    }
-    name
-    nickname
-    permissions {
-      __typename
-      description
-      key
-      label
-    }
-    pseudoLicense
-    spdxId
-    url
-  }
-}
-"""
-
-FETCH_ALL_LICENSES = """
-query fetch_all_licenses {
-  licenses {
     __typename
     body
     conditions {
@@ -263,19 +491,6 @@ query fetch_organization ($login: String!) {
 }
 """
 
-FETCH_PROFILEOWNER_EMAIL = """
-query fetch_profileowner_email ($profileowner_id: ID!) {
-  node (id: $profileowner_id) {
-    ... on ProfileOwner {
-      email
-    }
-    ... on Mannequin {
-      email
-    }
-  }
-}
-"""
-
 FETCH_PROJECT_COLUMNS = """
 query fetch_project_columns ($project_id: ID!, $cursor: String) {
   node (id: $project_id) {
@@ -318,64 +533,6 @@ query fetch_projectcolumn_cards ($projectcolumn_id: ID!, $cursor: String) {
           state
           updatedAt
           url
-        }
-        pageInfo {
-          endCursor
-          hasNextPage
-        }
-      }
-    }
-  }
-}
-"""
-
-FETCH_PROJECTOWNER_PROJECT = """
-query fetch_projectowner_project ($projectowner_id: ID!, $project_number: Int!) {
-  node (id: $projectowner_id) {
-    ... on ProjectOwner {
-      project (number: $project_number) {
-        __typename
-        body
-        bodyHTML
-        closed
-        closedAt
-        createdAt
-        databaseId
-        id
-        name
-        number
-        resourcePath
-        state
-        updatedAt
-        url
-        viewerCanUpdate
-      }
-    }
-  }
-}
-"""
-
-FETCH_PROJECTOWNER_PROJECTS = """
-query fetch_projectowner_projects ($projectowner_id: ID!, $cursor: String) {
-  node (id: $projectowner_id) {
-    ... on ProjectOwner {
-      projects (first: 10, after: $cursor) {
-        nodes {
-          __typename
-          body
-          bodyHTML
-          closed
-          closedAt
-          createdAt
-          databaseId
-          id
-          name
-          number
-          resourcePath
-          state
-          updatedAt
-          url
-          viewerCanUpdate
         }
         pageInfo {
           endCursor
@@ -1125,160 +1282,6 @@ query fetch_repository_template ($repository_id: ID!) {
   node (id: $repository_id) {
     ... on Repository {
       templateRepository {
-        __typename
-        codeOfConduct {
-          __typename
-          body
-          id
-          key
-          name
-          url
-        }
-        createdAt
-        databaseId
-        defaultBranchRef {
-          name
-        }
-        description
-        diskUsage
-        forkCount
-        hasIssuesEnabled
-        hasWikiEnabled
-        id
-        isArchived
-        isDisabled
-        isFork
-        isLocked
-        isMirror
-        isPrivate
-        isTemplate
-        licenseInfo {
-          __typename
-          body
-          conditions {
-            __typename
-            description
-            key
-            label
-          }
-          description
-          featured
-          hidden
-          id
-          implementation
-          key
-          limitations {
-            __typename
-            description
-            key
-            label
-          }
-          name
-          nickname
-          permissions {
-            __typename
-            description
-            key
-            label
-          }
-          pseudoLicense
-          spdxId
-          url
-        }
-        lockReason
-        mergeCommitAllowed
-        name
-        owner {
-          ... on Organization {
-            __typename
-            anyPinnableItems
-            avatarUrl
-            databaseId
-            description
-            email
-            id
-            isVerified
-            location
-            login
-            name
-            newTeamResourcePath
-            newTeamUrl
-            pinnedItemsRemaining
-            projectsResourcePath
-            projectsUrl
-            resourcePath
-            teamsResourcePath
-            teamsUrl
-            url
-            viewerCanAdminister
-            viewerCanChangePinnedItems
-            viewerCanCreateProjects
-            viewerCanCreateRepositories
-            viewerCanCreateTeams
-            viewerIsAMember
-            websiteUrl
-          }
-          ... on User {
-            __typename
-            anyPinnableItems
-            avatarUrl
-            bio
-            company
-            createdAt
-            databaseId
-            id
-            isBountyHunter
-            isCampusExpert
-            isDeveloperProgramMember
-            isEmployee
-            isHireable
-            isSiteAdmin
-            isViewer
-            location
-            login
-            name
-            pinnedItemsRemaining
-            projectsResourcePath
-            projectsUrl
-            resourcePath
-            updatedAt
-            url
-            viewerCanChangePinnedItems
-            viewerCanCreateProjects
-            viewerCanFollow
-            viewerIsFollowing
-            websiteUrl
-          }
-        }
-        primaryLanguage {
-          __typename
-          color
-          id
-          name
-        }
-        pushedAt
-        rebaseMergeAllowed
-        resourcePath
-        squashMergeAllowed
-        updatedAt
-        url
-        viewerCanAdminister
-        viewerCanCreateProjects
-        viewerCanSubscribe
-        viewerCanUpdateTopics
-        viewerPermission
-        viewerSubscription
-      }
-    }
-  }
-}
-"""
-
-FETCH_REPOSITORYNODE_REPOSITORY = """
-query fetch_repositorynode_repository ($repositorynode_id: ID!) {
-  node (id: $repositorynode_id) {
-    ... on RepositoryNode {
-      repository {
         __typename
         codeOfConduct {
           __typename

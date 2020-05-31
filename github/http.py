@@ -226,6 +226,37 @@ class HTTPClient():
                                        query=query.FETCH_ACTOR_AVATAR_URL,
                                        actor_id=actor_id, size=size)
 
+    async def fetch_assignable_assignees(self, assignable_id):
+        raise NotImplementedError
+
+    async def fetch_commentable_comments(self, commentable_id):
+        raise NotImplementedError
+
+    async def fetch_labelable_labels(self, labelable_id):
+        return await self._fetch_collection("node", "labels",
+                                            query=query.FETCH_LABELABLE_LABELS,
+                                            labelable_id=labelable_id)
+
+    async def fetch_profileowner_email(self, profileowner_id):
+        return await self._fetch_field("node", "email",
+                                       query=query.FETCH_PROFILEOWNER_EMAIL,
+                                       profileowner_id=profileowner_id)
+
+    async def fetch_projectowner_project(self, projectowner_id, project_number):
+        return await self._fetch_field("node", "project",
+                                       query=query.FETCH_PROJECTOWNER_PROJECT,
+                                       projectowner_id=projectowner_id, project_number=project_number)
+
+    async def fetch_projectowner_projects(self, projectowner_id):
+        return await self._fetch_collection("node", "projects",
+                                            query=query.FETCH_PROJECTOWNER_PROJECTS,
+                                            projectowner_id=projectowner_id)
+
+    async def fetch_repositorynode_repository(self, repositorynode_id):
+        return await self._fetch_field("node", "repository",
+                                       query=query.FETCH_REPOSITORYNODE_REPOSITORY,
+                                       repositorynode_id=repositorynode_id)
+
     async def fetch_all_codes_of_conduct(self):
         return await self._fetch_field("codesOfConduct",
                                        query=query.FETCH_ALL_CODES_OF_CONDUCT)
@@ -233,9 +264,6 @@ class HTTPClient():
     async def fetch_all_licenses(self):
         return await self._fetch_field("licenses",
                                        query=query.FETCH_ALL_LICENSES)
-
-    async def fetch_assignable_assignees(self, assignable_id):
-        raise NotImplementedError("this method is not yet implemented")
 
     async def fetch_authenticated_user(self):
         return await self._fetch_field("viewer",
@@ -245,9 +273,6 @@ class HTTPClient():
         return await self._fetch_field("codeOfConduct",
                                        query=query.FETCH_CODE_OF_CONDUCT, key=key)
 
-    async def fetch_commentable_comments(self, commentable_id):
-        raise NotImplementedError
-
     async def fetch_issue_participants(self, issue_id):
         raise NotImplementedError
 
@@ -256,11 +281,6 @@ class HTTPClient():
 
     async def fetch_label_pull_requests(self, label_id):
         raise NotImplementedError
-
-    async def fetch_labelable_labels(self, labelable_id):
-        return await self._fetch_collection("node", "labels",
-                                            query=query.FETCH_LABELABLE_LABELS,
-                                            labelable_id=labelable_id)
 
     async def fetch_license(self, key):
         return await self._fetch_field("license",
@@ -280,11 +300,6 @@ class HTTPClient():
                                        query=query.FETCH_ORGANIZATION,
                                        login=login)
 
-    async def fetch_profileowner_email(self, profileowner_id):
-        return await self._fetch_field("node", "email",
-                                       query=query.FETCH_PROFILEOWNER_EMAIL,
-                                       profileowner_id=profileowner_id)
-
     async def fetch_project_columns(self, project_id):
         return await self._fetch_collection("node", "columns",
                                             query=query.FETCH_PROJECT_COLUMNS,
@@ -294,16 +309,6 @@ class HTTPClient():
         return await self._fetch_collection("node", "cards",
                                             query=query.FETCH_PROJECTCOLUMN_CARDS,
                                             projectcolumn_id=projectcolumn_id)
-
-    async def fetch_projectowner_project(self, projectowner_id, project_number):
-        return await self._fetch_field("node", "project",
-                                       query=query.FETCH_PROJECTOWNER_PROJECT,
-                                       projectowner_id=projectowner_id, project_number=project_number)
-
-    async def fetch_projectowner_projects(self, projectowner_id):
-        return await self._fetch_collection("node", "projects",
-                                            query=query.FETCH_PROJECTOWNER_PROJECTS,
-                                            projectowner_id=projectowner_id)
 
     async def fetch_pull_request_participants(self, pull_request_id):
         raise NotImplementedError
@@ -356,11 +361,6 @@ class HTTPClient():
             template = None
 
         return template
-
-    async def fetch_repositorynode_repository(self, repositorynode_id):
-        return await self._fetch_field("node", "repository",
-                                       query=query.FETCH_REPOSITORYNODE_REPOSITORY,
-                                       repositorynode_id=repositorynode_id)
 
     async def fetch_scopes(self):
         headers = dict()
