@@ -16,37 +16,15 @@
     limitations under the License.
 """
 
-class SponsorshipPrivacy():
+from github.enums import Enum
+
+
+class SponsorshipPrivacy(Enum):
     """
-    Represents the state of an issue.
-
-    https://developer.github.com/v4/enum/issuestate/
+    Represents the privacy of a sponsorship.
     """
 
-    __slots__ = ("_state",)
+    # https://developer.github.com/v4/enum/sponsorshipprivacy/
 
-    def __init__(self, state):
-        self._state = state
-
-    def __repr__(self) -> str:
-        return "<{0.__class__.__name__} '{0._state}'>".format(self)
-
-    @classmethod
-    def from_data(cls, state):
-        return cls(state)
-
-    @property
-    def private(self) -> bool:
-        """
-        The sponsorship is private.
-        """
-
-        return self._state == "PRIVATE"
-
-    @property
-    def public(self) -> bool:
-        """
-        The sponsorship is public.
-        """
-
-        return self._state == "PUBLIC"
+    private = "PRIVATE"
+    public = "PUBLIC"
