@@ -210,3 +210,21 @@ mutation mutate_pullrequest_reopen ($input: ReopenPullRequestInput!) {
   }
 }
 """
+
+MUTATE_USER_UPDATE_STATUS = """
+mutation mutate_user_update_status ($input: ChangeUserStatusInput!) {
+  changeUserStatus (input: $input) {
+    status {
+      __typename
+      createdAt
+      emoji
+      emojiHTML
+      expiresAt
+      id
+      indicatesLimitedAvailability
+      message
+      updatedAt
+    }
+  }
+}
+"""

@@ -28,6 +28,7 @@ from github.abc import RepositoryOwner
 from github.abc import Type
 from github.abc import UniformResourceLocatable
 from .commitcomment import CommitComment
+from .status import Status
 
 
 class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner, Type,
@@ -258,7 +259,50 @@ class AuthenticatedUser(User):
     * :class:`~github.abc.Type`
     * :class:`~github.abc.UniformResourceLocatable`
     """
+    
+    # this object does not have an api equivalent
 
-    # https://developer.github.com/v4/object/user/
+    async def clear_status(self):
+        """
+        |coro|
 
-    pass
+        Clears the authenticated user's status.
+        """
+
+        await self.http.mutate_user_update_status(self.id, None, None, False, None, None)
+
+    async def update_status(self, *, message, emoji, busy=False, expires=None, organization=None):
+        """
+        |coro|
+
+        Updates the authenticated user's status.
+
+        Parameters
+        ----------
+        message: Optional[:class:`str`]
+            The message to display on the status.
+        emoji: Optional[:class:`str`]
+            The emoji to display on the status. This can either be a
+            unicode emoji or its name with colons.
+        busy: :class:`bool`
+            Whether to mark the user as busy.
+        expires: :class:`~datetime.datetime`
+            When to expire the status in UTC.
+        organization: :class:`~github.Organization`
+            The organization whose members will be allowed to see the
+            status.
+
+        Returns
+        -------
+        :class:`~github.Status`
+            The new status.
+        """
+
+        if expires:
+            expires = utils.datetime_to_iso(expires)
+
+        if organization:
+            organization = organization.id
+
+        data = await self.http.mutate_user_update_status(self.id, message, emoji, busy, expires, organization)
+        return Status.from_data(data, self.http)

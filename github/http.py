@@ -491,3 +491,9 @@ class HTTPClient():
 
     async def mutate_subscribable_update_subscription(self, subscribable_id, state):
         raise NotImplementedError
+
+    async def mutate_user_update_status(self, message, emoji, limited_availability, expires_at, organization_id):
+        return await self._mutate("changeUserStatus", "status",
+                                  query=query.MUTATE_USER_UPDATE_STATUS,
+                                  emoji=emoji, expiresAt=expires_at, limitedAvailability=limited_availability,
+                                  message=message, organizationId=organization_id)
