@@ -56,6 +56,22 @@ mutation mutate_labelable_remove_labels ($input: RemoveLabelsFromLabelableInput!
 }
 """
 
+MUTATE_LOCKABLE_LOCK = """
+mutation mutate_lockable_lock ($input: LockLockableInput!) {
+  lockLockable (input: $input) {
+    clientMutationId
+  }
+}
+"""
+
+MUTATE_LOCKABLE_UNLOCK = """
+mutation mutate_lockable_unlock ($input: UnlockLockableInput!) {
+  unlockLockable (input: $input) {
+    clientMutationId
+  }
+}
+"""
+
 MUTATE_PROJECTOWNER_CREATE_PROJECT = """
 mutation mutate_projectowner_create_project ($input: CreateProjectInput!) {
   createProject (input: $input) {

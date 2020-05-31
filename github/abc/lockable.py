@@ -83,6 +83,8 @@ class Lockable():
             You do not have permission to lock the lockable.
         """
 
+        # https://developer.github.com/v4/mutation/locklockable/
+
         if reason is not None:
             reason = reason.value
 
@@ -99,6 +101,8 @@ class Lockable():
         ~github.errors.Forbidden
             You do not have permission to unlock the lockable.
         """
+
+        # https://developer.github.com/v4/mutation/unlocklockable/
 
         await self.http.mutate_lockable_unlock(self.id)
 

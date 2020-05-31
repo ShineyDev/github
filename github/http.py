@@ -449,10 +449,12 @@ class HTTPClient():
                            labelableId=labelable_id, labelIds=label_ids)
 
     async def mutate_lockable_lock(self, lockable_id, reason):
-        raise NotImplementedError
+        await self._mutate(query=query.MUTATE_LOCKABLE_LOCK,
+                           lockableId=lockable_id, lockReason=reason)
 
     async def mutate_lockable_unlock(self, lockable_id):
-        raise NotImplementedError
+        await self._mutate(query=query.MUTATE_LOCKABLE_UNLOCK,
+                           lockableId=lockable_id)
 
     async def mutate_project_create_column(self, project_id, name):
         return await self._mutate("addProjectColumn", "columnEdge", "node",
