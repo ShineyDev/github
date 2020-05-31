@@ -269,7 +269,7 @@ class AuthenticatedUser(User):
         Clears the authenticated user's status.
         """
 
-        await self.http.mutate_user_update_status(self.id, None, None, False, None, None)
+        await self.http.mutate_user_update_status(None, None, False, None, None)
 
     async def update_status(self, *, message, emoji, busy=False, expires=None, organization=None):
         """
@@ -304,5 +304,5 @@ class AuthenticatedUser(User):
         if organization:
             organization = organization.id
 
-        data = await self.http.mutate_user_update_status(self.id, message, emoji, busy, expires, organization)
+        data = await self.http.mutate_user_update_status(message, emoji, busy, expires, organization)
         return Status.from_data(data, self.http)
