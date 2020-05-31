@@ -24,6 +24,7 @@ import re
 # https://developer.github.com/v4/scalar/datetime/
 # https://developer.github.com/v4/scalar/precisedatetime/
 ISO_8601_DATETIME_REGEX = r"([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(?:\.([0-9]{3}))?Z"
+ISO_8601_DATETIME_FMT = "{0:>04}-{1:>02}-{2:>02}T{3:>02}:{4:>02}:{5:>02}.{6:>03}Z"
 
 
 class _cached_property(property):
@@ -56,6 +57,25 @@ class _cached_property(property):
         super().__set__(instance, value)
         self.cached_value = value
 
+
+def datetime_to_iso(dt):
+    """
+    Converts a datetime object to ISO-8601.
+
+    Parameters
+    ----------
+    dt: :class:`~datetime.datetime`
+        A datetime. object.
+
+    Returns
+    -------
+    :class:`str`
+        An ISO-8601 string.
+    """
+
+    return ISO_8601_DATETIME_FMT.format(dt.year, dt.month, dt.day,
+                                        dt.hour, dt.minute, dt.second,
+                                        dt.microsecond // 1000)
 
 def iso_to_datetime(iso):
     """
