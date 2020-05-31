@@ -60,4 +60,5 @@ class Sponsorship(Node, Type):
         :type: :class:`~github.enums.SponsorshipPrivacy`
         """
 
-        return SponsorshipPrivacy.from_data(self.data["privacyLevel"])
+        privacy = self.data["privacyLevel"]
+        return SponsorshipPrivacy.try_value(privacy)
