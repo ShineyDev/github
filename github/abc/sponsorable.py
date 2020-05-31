@@ -40,19 +40,6 @@ class Sponsorable():
 
         Fetches the sponsorable's sponsor listing.
 
-        Raises
-        ------
-        ~github.errors.GitHubError
-            An arbitrary GitHub-related error occurred.
-        ~github.errors.HTTPException
-            An arbitrary HTTP-related error occurred.
-        ~github.errors.Internal
-            A ``"INTERNAL"`` status-message was returned.
-        ~github.errors.NotFound
-            The sponsorable does not exist.
-        ~github.errors.Unauthorized
-            Bad credentials were given.
-
         Returns
         -------
         Optional[:class:`~github.objects.SponsorListing`]
