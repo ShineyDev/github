@@ -34,6 +34,7 @@ from github.objects.pullrequest import PullRequest
 from github.objects.ratelimit import RateLimit
 from github.objects.reaction import Reaction
 from github.objects.repository import Repository
+from github.objects.status import Status
 from github.objects.topic import Topic
 from github.objects.user import User, AuthenticatedUser
 
@@ -41,7 +42,7 @@ __all__ = [
     "Bot", "CodeOfConduct", "CommitComment", "Issue", "Label", "Language",
     "License", "LicenseRule", "Mannequin", "Metadata", "Organization",
     "Project", "ProjectCard", "ProjectColumn", "PullRequest", "RateLimit",
-    "Reaction", "Repository", "Topic", "User", "AuthenticatedUser",
+    "Reaction", "Repository", "Status", "Topic", "User", "AuthenticatedUser",
 ]
 
 
@@ -64,6 +65,7 @@ _TYPE_MAP = {
     "RateLimit": RateLimit,
     "ReactionGroup": Reaction,
     "Repository": Repository,
+    "UserStatus": Status,
     "Topic": Topic,
     "User": User,
     "CodeOfConduct": CodeOfConduct,
