@@ -2,7 +2,7 @@
 /github/objects/ratelimit.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -61,7 +61,7 @@ class RateLimit(Type):
 
         return self.data["remaining"]
 
-    @utils._cached_property
+    @property
     def reset_at(self) -> datetime.datetime:
         """
         When the current rate limit window resets.

@@ -2,7 +2,7 @@
 /github/objects/pullrequest.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -106,7 +106,7 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
 
         return self.data["number"]
 
-    @utils._cached_property
+    @property
     def state(self) -> PullRequestState:
         """
         The pull request state.

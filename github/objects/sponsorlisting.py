@@ -2,7 +2,7 @@
 /github/objects/sponsorlisting.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -42,7 +42,7 @@ class SponsorListing(Node, Type):
     def __init__(self, data, http):
         self.data = data
         self.http = http
-    
+
     @property
     def created_at(self) -> datetime.datetime:
         """
@@ -52,7 +52,7 @@ class SponsorListing(Node, Type):
         """
 
         return utils.iso_to_datetime(self.data["createdAt"])
-    
+
     @property
     def long_description(self) -> str:
         """
@@ -62,7 +62,7 @@ class SponsorListing(Node, Type):
         """
 
         return self.data["fullDescription"]
-    
+
     @property
     def long_description_html(self) -> str:
         """
@@ -72,7 +72,7 @@ class SponsorListing(Node, Type):
         """
 
         return self.data["fullDescriptionHTML"]
-    
+
     @property
     def name(self) -> str:
         """
@@ -82,7 +82,7 @@ class SponsorListing(Node, Type):
         """
 
         return self.data["name"]
-    
+
     @property
     def short_description(self) -> str:
         """
@@ -92,7 +92,7 @@ class SponsorListing(Node, Type):
         """
 
         return self.data["shortDescription"]
-    
+
     @property
     def slug(self) -> str:
         """

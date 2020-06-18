@@ -2,7 +2,7 @@
 /github/abc/subscribable.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -25,7 +25,7 @@ class Subscribable():
     Represents an object which can be subscribed to.
 
     Implemented by:
-    
+
     * :class:`~github.Issue`
     * :class:`~github.PullRequest`
     * :class:`~github.Repository`
@@ -45,7 +45,7 @@ class Subscribable():
 
         return self.data["viewerCanSubscribe"]
 
-    @utils._cached_property
+    @property
     def viewer_subscription(self) -> SubscriptionState:
         """
         The authenticated user's subscription state to the subscribable.

@@ -2,7 +2,7 @@
 /github/abc/updatable.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -47,7 +47,7 @@ class Updatable():
 
         return self.data["viewerCanUpdate"]
 
-    @utils._cached_property
+    @property
     def viewer_cannot_update_reasons(self) -> typing.List[CannotUpdateReason]:
         """
         A list of reasons why the authenticated user cannot update this updatable.

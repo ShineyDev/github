@@ -2,7 +2,7 @@
 /github/abc/lockable.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -48,7 +48,7 @@ class Lockable():
 
         return self.data["locked"]
 
-    @utils._cached_property
+    @property
     def lock_reason(self):
         """
         The reason for the lockable being locked.

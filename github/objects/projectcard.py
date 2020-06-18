@@ -2,7 +2,7 @@
 /github/objects/projectcard.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -55,7 +55,7 @@ class ProjectCard(Node, Type, UniformResourceLocatable):
 
         return self.data["note"]
 
-    @utils._cached_property
+    @property
     def created_at(self) -> datetime.datetime:
         """
         When the card was created.
@@ -86,7 +86,7 @@ class ProjectCard(Node, Type, UniformResourceLocatable):
 
         return self.data["isArchived"]
 
-    @utils._cached_property
+    @property
     def state(self) -> ProjectCardState:
         """
         The card's state.
@@ -97,7 +97,7 @@ class ProjectCard(Node, Type, UniformResourceLocatable):
         state = self.data["state"]
         return ProjectCardState.try_value(state)
 
-    @utils._cached_property
+    @property
     def updated_at(self) -> datetime.datetime:
         """
         When the card was last updated.

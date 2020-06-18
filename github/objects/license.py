@@ -2,7 +2,7 @@
 /github/objects/license.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -54,7 +54,7 @@ class License(Node, Type):
 
         return self.data["body"]
 
-    @utils._cached_property
+    @property
     def conditions(self) -> typing.List[LicenseRule]:
         """
         The conditions set by the license.
@@ -125,7 +125,7 @@ class License(Node, Type):
 
         return self.data["key"]
 
-    @utils._cached_property
+    @property
     def limitations(self) -> typing.List[LicenseRule]:
         """
         The limitations set by the license.
@@ -156,7 +156,7 @@ class License(Node, Type):
 
         return self.data["nickname"]
 
-    @utils._cached_property
+    @property
     def permissions(self) -> typing.List[LicenseRule]:
         """
         The permissions set by the license.

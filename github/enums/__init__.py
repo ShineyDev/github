@@ -2,7 +2,7 @@
 /github/enums/__init__.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -48,11 +48,11 @@ class EnumMeta(type):
     def __new__(cls, name, bases, attrs):
         value_map = {}
         member_map = {}
-        
+
         value_cls = collections.namedtuple("_EnumValue_" + name, "name value")
         value_cls.__repr__ = lambda self: "<{0} {2!r}>".format(name, self.name, self.value)
         value_cls.__str__ = lambda self: str(self.value)
-        
+
         def _is_descriptor(obj):
             gsd = ("__get__", "__set__", "__delete__")
             return any([hasattr(obj, m) for m in gsd])
@@ -105,7 +105,7 @@ class EnumMeta(type):
 
     def __instancecheck__(self, instance):
         # isinstance(x, y) -> __instancecheck__(y, x)
-        
+
         try:
             return instance._actual_cls_ is self
         except (AttributeError) as e:

@@ -2,7 +2,7 @@
 /github/abc/profileowner.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -24,7 +24,7 @@ class ProfileOwner():
     Represents the owner of a GitHub profile.
 
     Implemented by:
-    
+
     * :class:`~github.AuthenticatedUser`
     * :class:`~github.Organization`
     * :class:`~github.User`
@@ -93,7 +93,7 @@ class ProfileOwner():
         """
 
         return self.data["websiteUrl"]
-    
+
     async def fetch_email(self) -> typing.Optional[str]:
         """
         |coro|

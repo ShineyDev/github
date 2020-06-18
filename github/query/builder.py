@@ -2,7 +2,7 @@
 /github/query/builder.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -70,22 +70,22 @@ class Builder():
         type = data["type"]
 
         builder = cls(name=name, type=type)
-        
+
         arguments = data.get("arguments", list())
         for (argument) in arguments:
             argument = QueryArgument.from_dict(argument)
             builder.add_argument(argument)
-        
+
         collections = data.get("collections", list())
         for (collection) in collections:
             collection = Collection.from_dict(collection)
             builder.add_collection(collection)
-        
+
         fields = data.get("fields", list())
         for (field) in fields:
             field = Field.from_dict(field)
             builder.add_field(field)
-        
+
         fragments = data.get("fragments", list())
         for (fragment) in fragments:
             fragment = Fragment.from_dict(fragment)
@@ -439,7 +439,7 @@ class Collection():
     alias: Optional[:class:`str`]
         An alias for the collection.
     """
-    
+
     __slots__ = ("name", "alias", "_arguments", "_collections", "_fields", "_fragments")
 
     def __init__(self, *, name: str, alias: str=None):
@@ -472,17 +472,17 @@ class Collection():
         alias = data.get("alias", None)
 
         collection = cls(name=name, alias=alias)
-        
+
         arguments = data.get("arguments", list())
         for (argument) in arguments:
             argument = CollectionArgument.from_dict(argument)
             collection.add_argument(argument)
-        
+
         collections = data.get("collections", list())
         for (collection) in collections:
             collection = Collection.from_dict(collection)
             collection.add_collection(collection)
-        
+
         fields = data.get("fields", list())
         for (field) in fields:
             field = Field.from_dict(field)
@@ -578,7 +578,7 @@ class Collection():
         Adds a collection to the collection.
 
         .. warning::
-            
+
             When passing ``self`` into this method a copy is made to
             prevent recursion in :meth:`.build`.
 
@@ -1031,17 +1031,17 @@ class Fragment():
         inline = data["inline"]
 
         fragment = cls(name=name, type=type, inline=inline)
-        
+
         collections = data.get("collections", list())
         for (collection) in collections:
             collection = Collection.from_dict(collection)
             fragment.add_collection(collection)
-        
+
         fields = data.get("fields", list())
         for (field) in fields:
             field = Field.from_dict(field)
             fragment.add_field(field)
-        
+
         fragments = data.get("fragments", list())
         for (fragment_) in fragments:
             fragment_ = Fragment.from_dict(fragment_)
@@ -1145,7 +1145,7 @@ class Fragment():
         Adds a fragment to the fragment.
 
         .. warning::
-            
+
             When passing ``self`` into this method a copy is made to
             prevent recursion in :meth:`.build`.
 

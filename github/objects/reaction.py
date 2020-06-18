@@ -2,7 +2,7 @@
 /github/objects/reaction.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -45,7 +45,7 @@ class Reaction(Type):
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} content='{0.content.value}'>".format(self)
 
-    @utils._cached_property
+    @property
     def content(self) -> enums_Reaction:
         """
         The reaction content.
@@ -56,7 +56,7 @@ class Reaction(Type):
         content = self.data["content"]
         return enums_Reaction.try_value(content)
 
-    @utils._cached_property
+    @property
     def created_at(self) -> datetime.datetime:
         """
         The date and time at which the reaction was added.

@@ -27,7 +27,7 @@ Classes
 
 .. toctree::
     :maxdepth: 2
-    
+
     abc/index
     enums/index
     objects/index
@@ -38,7 +38,7 @@ Other
 
 .. toctree::
     :maxdepth: 1
-    
+
     query
 
     errors
@@ -46,7 +46,7 @@ Other
 
 .. toctree::
     :maxdepth: 1
-    
+
     changelog
 
 

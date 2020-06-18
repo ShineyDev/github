@@ -2,7 +2,7 @@
 /github/abc/node.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -24,7 +24,7 @@ class Node(Type):
     Represents an object with an ID.
 
     Implemented by:
-    
+
     * :class:`~github.AuthenticatedUser`
     * :class:`~github.Bot`
     * :class:`~github.CodeOfConduct`
@@ -60,7 +60,7 @@ class Node(Type):
 
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} id='{0.id}'>".format(self)
-        
+
     @property
     def id(self) -> str:
         """

@@ -2,7 +2,7 @@
 /github/objects/status.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -29,7 +29,7 @@ class Status(Node, Type):
     Represents a GitHub user status.
 
     Implements:
-    
+
     * :class:`~github.abc.Node`
     * :class:`~github.abc.Type`
     """
@@ -42,7 +42,7 @@ class Status(Node, Type):
         self.data = data
         self.http = http
 
-    @utils._cached_property
+    @property
     def created_at(self) -> datetime.datetime:
         """
         When the status was created.
@@ -73,7 +73,7 @@ class Status(Node, Type):
 
         return self.data["emojiHTML"]
 
-    @utils._cached_property
+    @property
     def expires_at(self) -> typing.Optional[datetime.datetime]:
         """
         When the status will expire.
@@ -104,7 +104,7 @@ class Status(Node, Type):
 
         return self.data["message"]
 
-    @utils._cached_property
+    @property
     def updated_at(self) -> datetime.datetime:
         """
         When the status was last updated.

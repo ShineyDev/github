@@ -2,7 +2,7 @@
 /github/objects/sponsorship.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -41,7 +41,7 @@ class Sponsorship(Node, Type):
     def __init__(self, data, http):
         self.data = data
         self.http = http
-    
+
     @property
     def created_at(self) -> datetime.datetime:
         """

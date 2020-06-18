@@ -24,7 +24,7 @@ My personal configuration of the logging module for most libraries is:
 
     import logging
     import logging.handlers
-    
+
     logger = logging.getLogger("github.http")
     logger.setLevel(logging.DEBUG)
     handler = logging.handlers.RotatingFileHandler("github.log", maxBytes=10**7, backupCount=5)

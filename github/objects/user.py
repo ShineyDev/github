@@ -2,7 +2,7 @@
 /github/objects/user.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -79,8 +79,8 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         """
 
         return self.data["company"]
-    
-    @utils._cached_property
+
+    @property
     def created_at(self) -> datetime.datetime:
         """
         The date and time the user was created.
@@ -170,8 +170,8 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         """
 
         return self.data["isViewer"]
-    
-    @utils._cached_property
+
+    @property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
         """
         When the user was last updated.
@@ -261,7 +261,7 @@ class AuthenticatedUser(User):
     * :class:`~github.abc.Type`
     * :class:`~github.abc.UniformResourceLocatable`
     """
-    
+
     # this object does not have an api equivalent
 
     async def clear_status(self):

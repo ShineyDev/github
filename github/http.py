@@ -2,7 +2,7 @@
 /github/http.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -54,7 +54,7 @@ class HTTPClient():
             "INTERNAL": errors.Internal,
             "NOT_FOUND": errors.NotFound,
         }
-        
+
         self._uuid = str(uuid.uuid4())
 
         self._token = token
@@ -112,7 +112,7 @@ class HTTPClient():
 
             if "errors" in data.keys():
                 message = data["errors"][0]["message"]
-                
+
                 try:
                     # "we only return the type key for errors returned
                     # from the resolvers during execution, the
@@ -122,7 +122,7 @@ class HTTPClient():
                     # then checking that the fields, connections and
                     # parameters are valid"
                     type = data["errors"][0]["type"]
-                    
+
                     # handled GitHub status-message
                     exception = self._exception_map[type]
                 except (KeyError) as e:
@@ -181,7 +181,7 @@ class HTTPClient():
         headers = headers or dict()
         headers.update({"Authorization": "bearer {0}".format(self._token)})
         headers.update({"User-Agent": self._user_agent})
-        
+
         session = session or self._session
         async with context.SessionContext(session) as session:
             data = await self._request(method="POST", json=json, headers=headers, session=session)
@@ -317,7 +317,7 @@ class HTTPClient():
 
     async def fetch_pull_request_participants(self, pull_request_id):
         raise NotImplementedError
-    
+
     async def fetch_rate_limit(self):
         return await self._fetch_field("rateLimit",
                                        query=query.FETCH_RATE_LIMIT)

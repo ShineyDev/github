@@ -2,7 +2,7 @@
 /github/abc/closable.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -36,7 +36,7 @@ class Closable():
 
     __slots__ = ()
 
-    @utils._cached_property
+    @property
     def closed_at(self) -> typing.Optional[datetime.datetime]:
         """
         When closable was last closed.

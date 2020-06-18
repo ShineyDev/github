@@ -2,7 +2,7 @@
 /github/objects/project.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -34,7 +34,7 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
     Represents a GitHub project.
 
     Implements:
-    
+
     * :class:`~github.abc.Closable`
     * :class:`~github.abc.Node`
     * :class:`~github.abc.Type`
@@ -70,7 +70,7 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
 
         return self.data["bodyHTML"]
 
-    @utils._cached_property
+    @property
     def created_at(self) -> datetime.datetime:
         """
         When the project was created.
@@ -111,7 +111,7 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
 
         return self.data["number"]
 
-    @utils._cached_property
+    @property
     def state(self) -> typing.List[ProjectState]:
         """
         The project's state.
@@ -122,7 +122,7 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
         state = self.data["state"]
         return ProjectState.try_value(state)
 
-    @utils._cached_property
+    @property
     def updated_at(self) -> datetime.datetime:
         """
         When the project was last updated.

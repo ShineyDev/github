@@ -2,7 +2,7 @@
 /github/objects/bot.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -48,8 +48,8 @@ class Bot(Actor, Node, Type, UniformResourceLocatable):
 
     def __repr__(self) -> str:
         return "<{0.__class__.__name__} login='{0.login}'>".format(self)
-    
-    @utils._cached_property
+
+    @property
     def created_at(self) -> datetime.datetime:
         """
         When the bot was created.
@@ -69,8 +69,8 @@ class Bot(Actor, Node, Type, UniformResourceLocatable):
         """
 
         return self.data["databaseId"]
-    
-    @utils._cached_property
+
+    @property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
         """
         When the bot was last updated.

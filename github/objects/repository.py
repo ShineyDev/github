@@ -2,7 +2,7 @@
 /github/objects/repository.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -41,7 +41,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
     Represents a GitHub repository.
 
     Implements:
-    
+
     * :class:`~github.abc.Lockable`
     * :class:`~github.abc.Node`
     * :class:`~github.abc.ProjectOwner`
@@ -91,7 +91,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
 
         return self.data["squashMergeAllowed"]
 
-    @utils._cached_property
+    @property
     def code_of_conduct(self) -> typing.Optional[CodeOfConduct]:
         """
         The repository's code of conduct.
@@ -102,7 +102,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         codeofconduct = self.data["codeOfConduct"]
         return CodeOfConduct.from_data(codeofconduct_)
 
-    @utils._cached_property
+    @property
     def created_at(self) -> datetime.datetime:
         """
         When the repository was created.
@@ -253,7 +253,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
 
         return self.data["isTemplate"]
 
-    @utils._cached_property
+    @property
     def license(self) -> typing.Optional[License]:
         """
         The repository's license.
@@ -275,7 +275,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
 
         return self.data["name"]
 
-    @utils._cached_property
+    @property
     def owner(self) -> typing.Union[Organization, User]:
         """
         The owner of the repository.
@@ -285,13 +285,13 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         """
 
         owner = self.data["owner"]
-        
+
         if owner["__typename"] == "Organization":
             return Organization.from_data(owner, self.http)
         elif owner["__typename"] == "User":
             return User.from_data(owner, self.http)
 
-    @utils._cached_property
+    @property
     def primary_language(self) -> Language:
         """
         The primary language of the repository.
@@ -303,7 +303,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         if primary_language:
             return Language.from_data(primary_language)
 
-    @utils._cached_property
+    @property
     def pushed_at(self) -> typing.Optional[datetime.datetime]:
         """
         When the repository was last pushed to.
@@ -314,7 +314,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         pushed_at = self.data["pushedAt"]
         return utils.iso_to_datetime(pushed_at)
 
-    @utils._cached_property
+    @property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
         """
         The date and time when the repository was last updated.
@@ -345,7 +345,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
 
         return self.data["viewerCanUpdateTopics"]
 
-    @utils._cached_property
+    @property
     def viewer_permissions(self) -> RepositoryPermissions:
         """
         The authenticated user's permissions in the repository.

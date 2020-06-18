@@ -2,7 +2,7 @@
 /github/objects/projectcolumn.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -46,7 +46,7 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
         self.data = data
         self.http = http
 
-    @utils._cached_property
+    @property
     def created_at(self) -> datetime.datetime:
         """
         When the column was created.
@@ -77,7 +77,7 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
 
         return self.data["name"]
 
-    @utils._cached_property
+    @property
     def purpose(self) -> ProjectColumnPurpose:
         """
         The column's purpose.
@@ -88,7 +88,7 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
         purpose = self.data["purpose"]
         return ProjectColumnPurpose.try_value(purpose)
 
-    @utils._cached_property
+    @property
     def updated_at(self) -> datetime.datetime:
         """
         When the column was last updated.
@@ -147,7 +147,7 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
         """
 
         # https://developer.github.com/v4/mutation/addprojectcard/
-        
+
         if body is None and content is None:
             raise TypeError("at least one of body and content must be provided")
         elif body is not None and content is not None:

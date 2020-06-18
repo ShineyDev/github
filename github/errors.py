@@ -2,7 +2,7 @@
 /github/errors.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -63,7 +63,7 @@ class HTTPException(GitHubError):
         The response of the failed HTTP request.
 
         .. note::
-            
+
             If :attr:`.response` is ``None``, the exception will have a
             ``__cause__`` attribute containing the actual exception.
     """

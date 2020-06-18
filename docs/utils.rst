@@ -4,6 +4,6 @@
 Utilities
 =========
 
-.. autofunction:: _cached_property
+.. autofunction:: datetime_to_iso
 
 .. autofunction:: iso_to_datetime

@@ -2,7 +2,7 @@
 /github/abc/comment.py
 
     Copyright (c) 2019-2020 ShineyDev
-    
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -38,7 +38,7 @@ class Comment():
 
     __slots__ = ()
 
-    @utils._cached_property
+    @property
     def author(self) -> typing.Union["Bot", "Mannequin", "Organization", "User"]:
         """
         The actor who authored the comment.
@@ -48,7 +48,7 @@ class Comment():
                      :class:`~github.Organization`, \
                      :class:`~github.User`]
         """
-        
+
         # prevent cyclic imports
         from github import objects
 
@@ -57,7 +57,7 @@ class Comment():
         cls = objects._TYPE_MAP[data["__typename"]]
         return cls.from_data(data, self.http)
 
-    @utils._cached_property
+    @property
     def author_association(self) -> CommentAuthorAssociation:
         """
         The :attr:`.author`'s association with the subject of the comment.
@@ -98,7 +98,7 @@ class Comment():
 
         return self.data["bodyText"]
 
-    @utils._cached_property
+    @property
     def created_at(self) -> datetime.datetime:
         """
         When the comment was created.
@@ -119,7 +119,7 @@ class Comment():
 
         return self.data["createdViaEmail"]
 
-    @utils._cached_property
+    @property
     def editor(self) -> typing.Optional[typing.Union["User"]]:
         """
         The actor who last edited the comment.
@@ -139,7 +139,7 @@ class Comment():
             cls = objects._TYPE_MAP[data["__typename"]]
             return cls.from_data(data, self.http)
 
-    @utils._cached_property
+    @property
     def edited_at(self) -> typing.Optional[datetime.datetime]:
         """
         When the comment was last edited.
@@ -150,7 +150,7 @@ class Comment():
         edited_at = self.data["lastEditedAt"]
         return utils.iso_to_datetime(edited_at)
 
-    @utils._cached_property
+    @property
     def published_at(self) -> datetime.datetime:
         """
         When the comment was published.
@@ -161,7 +161,7 @@ class Comment():
         published_at = self.data["publishedAt"]
         return utils.iso_to_datetime(published_at)
 
-    @utils._cached_property
+    @property
     def updated_at(self) -> typing.Optional[datetime.datetime]:
         """
         When the comment was last updated.
