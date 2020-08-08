@@ -35,16 +35,15 @@ def show_version():
         entries.append("- python: v{0.major}.{0.minor}.{0.micro}".format(sys.version_info))
 
     if github.version_info.releaselevel != "final":
-        entries.append("- github.py: v{0.major}.{0.minor}.{0.micro}{0.releaselevel[0]}{0.serial}".format(github.version_info))
-
         pkg = pkg_resources.get_distribution("github.py")
         if pkg:
-            entries.append("    - package: v{0}".format(pkg.version))
+            entries.append("- github.py: v{0}".format(pkg.version))
+        else:
+            entries.append("- github.py: v{0.major}.{0.minor}.{0.micro}{0.releaselevel[0]}{0.serial}".format(github.version_info))
     else:
         entries.append("- github.py: v{0.major}.{0.minor}.{0.micro}".format(github.version_info))
 
     entries.append("- aiohttp: v{0.__version__}".format(aiohttp))
-    entries.append("")
     entries.append("- system: {0.system} {0.version}".format(platform.uname()))
 
     print("\n".join(entries))
