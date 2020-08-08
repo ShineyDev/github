@@ -48,15 +48,14 @@ class Node(Type):
     def __init__(self, data):
         self.data = data
 
-    def __eq__(self, other) -> bool:
-        if type(self) != type(other):
-            if not issubclass(type(self), type(other)):
-                return False
+    def __eq__(self, other):
+        if not issubclass(type(self), type(other)):
+            return NotImplemented
 
-        if self.id != other.id:
-            return False
+        if self.id == other.id:
+            return True
 
-        return True
+        return False
 
     def __repr__(self):
         return "<{0.__class__.__name__} id='{0.id}'>".format(self)
