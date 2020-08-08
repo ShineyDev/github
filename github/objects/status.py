@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import datetime
-import typing
-
 from github import utils
 from github.abc import Node
 from github.abc import Type
@@ -43,7 +40,7 @@ class Status(Node, Type):
         self.http = http
 
     @property
-    def created_at(self) -> datetime.datetime:
+    def created_at(self):
         """
         When the status was created.
 
@@ -54,7 +51,7 @@ class Status(Node, Type):
         return utils.iso_to_datetime(created_at)
 
     @property
-    def emoji(self) -> typing.Optional[str]:
+    def emoji(self):
         """
         The status emoji.
 
@@ -64,7 +61,7 @@ class Status(Node, Type):
         return self.data["emoji"]
 
     @property
-    def emoji_html(self) -> typing.Optional[str]:
+    def emoji_html(self):
         """
         The status emoji as HTML.
 
@@ -74,7 +71,7 @@ class Status(Node, Type):
         return self.data["emojiHTML"]
 
     @property
-    def expires_at(self) -> typing.Optional[datetime.datetime]:
+    def expires_at(self):
         """
         When the status will expire.
 
@@ -85,7 +82,7 @@ class Status(Node, Type):
         return utils.iso_to_datetime(expires_at)
 
     @property
-    def is_busy(self) -> bool:
+    def is_busy(self):
         """
         Whether the status marks the user as busy.
 
@@ -95,7 +92,7 @@ class Status(Node, Type):
         return self.data["indicatesLimitedAvailability"]
 
     @property
-    def message(self) -> typing.Optional[str]:
+    def message(self):
         """
         The status message.
 
@@ -105,7 +102,7 @@ class Status(Node, Type):
         return self.data["message"]
 
     @property
-    def updated_at(self) -> datetime.datetime:
+    def updated_at(self):
         """
         When the status was last updated.
 

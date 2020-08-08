@@ -1,0 +1,9 @@
+from typing import List
+
+from github.objects import User
+
+
+class Assignable():
+    async def fetch_assignees(self) -> List[User]: ...
+    async def add_assignees(self, *users: User) -> None: ...
+    async def remove_assignees(self, *users: User) -> None: ...

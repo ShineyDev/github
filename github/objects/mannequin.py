@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import datetime
-import typing
-
 from github import utils
 from github.abc import Actor
 from github.abc import Node
@@ -46,11 +43,11 @@ class Mannequin(Actor, Node, Type, UniformResourceLocatable):
         self.data = data
         self.http = http
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<{0.__class__.__name__} login='{0.login}'>".format(self)
 
     @property
-    def created_at(self) -> datetime.datetime:
+    def created_at(self):
         """
         When the mannequin was created.
 
@@ -61,7 +58,7 @@ class Mannequin(Actor, Node, Type, UniformResourceLocatable):
         return utils.iso_to_datetime(created_at)
 
     @property
-    def database_id(self) -> int:
+    def database_id(self):
         """
         The mannequin's primary key from the database.
 
@@ -71,7 +68,7 @@ class Mannequin(Actor, Node, Type, UniformResourceLocatable):
         return self.data["databaseId"]
 
     @property
-    def updated_at(self) -> typing.Optional[datetime.datetime]:
+    def updated_at(self):
         """
         When the mannequin was last updated.
 
@@ -81,7 +78,7 @@ class Mannequin(Actor, Node, Type, UniformResourceLocatable):
         updated_at = self.data["updatedAt"]
         return utils.iso_to_datetime(updated_at)
 
-    async def fetch_email(self) -> typing.Optional[str]:
+    async def fetch_email(self):
         """
         |coro|
 

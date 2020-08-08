@@ -16,8 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
 from github import utils
 from github.abc import Node
 from github.abc import Type
@@ -41,11 +39,11 @@ class License(Node, Type):
     def __init__(self, data):
         self.data = data
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<{0.__class__.__name__} key='{0.key}'>".format(self)
 
     @property
-    def body(self) -> str:
+    def body(self):
         """
         The full text of the license.
 
@@ -55,7 +53,7 @@ class License(Node, Type):
         return self.data["body"]
 
     @property
-    def conditions(self) -> typing.List[LicenseRule]:
+    def conditions(self):
         """
         The conditions set by the license.
 
@@ -66,7 +64,7 @@ class License(Node, Type):
         return LicenseRule.from_data(conditions)
 
     @property
-    def description(self) -> str:
+    def description(self):
         """
         A human-readable description of the license.
 
@@ -76,7 +74,7 @@ class License(Node, Type):
         return self.data["description"]
 
     @property
-    def implementation(self) -> str:
+    def implementation(self):
         """
         Instructions on how to implement the license.
 
@@ -86,7 +84,7 @@ class License(Node, Type):
         return self.data["implementation"]
 
     @property
-    def is_featured(self) -> bool:
+    def is_featured(self):
         """
         Whether the license is featured.
 
@@ -96,7 +94,7 @@ class License(Node, Type):
         return self.data["featured"]
 
     @property
-    def is_hidden(self) -> bool:
+    def is_hidden(self):
         """
         Whether the license is hidden from license pickers.
 
@@ -106,7 +104,7 @@ class License(Node, Type):
         return self.data["hidden"]
 
     @property
-    def is_pseudo(self) -> bool:
+    def is_pseudo(self):
         """
         Whether the license is a pseudo-license placeholder.
 
@@ -116,7 +114,7 @@ class License(Node, Type):
         return self.data["pseudoLicense"]
 
     @property
-    def key(self) -> str:
+    def key(self):
         """
         The lowercase |spdx| ID of the license.
 
@@ -126,7 +124,7 @@ class License(Node, Type):
         return self.data["key"]
 
     @property
-    def limitations(self) -> typing.List[LicenseRule]:
+    def limitations(self):
         """
         The limitations set by the license.
 
@@ -137,7 +135,7 @@ class License(Node, Type):
         return LicenseRule.from_data(limitations)
 
     @property
-    def name(self) -> str:
+    def name(self):
         """
         The full name of the license specified by |spdx|.
 
@@ -147,7 +145,7 @@ class License(Node, Type):
         return self.data["name"]
 
     @property
-    def nickname(self) -> typing.Optional[str]:
+    def nickname(self):
         """
         The customary short name of the license.
 
@@ -157,7 +155,7 @@ class License(Node, Type):
         return self.data["nickname"]
 
     @property
-    def permissions(self) -> typing.List[LicenseRule]:
+    def permissions(self):
         """
         The permissions set by the license.
 
@@ -168,7 +166,7 @@ class License(Node, Type):
         return LicenseRule.from_data(permissions)
 
     @property
-    def spdx_id(self) -> str:
+    def spdx_id(self):
         """
         The short identifier of the license specified by |spdx|.
 
@@ -178,7 +176,7 @@ class License(Node, Type):
         return self.data["spdxId"]
 
     @property
-    def url(self) -> str:
+    def url(self):
         """
         The url to the license on |choosealicense|.
 

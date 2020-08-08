@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
-
 class Participable():
     """
     Represents an object which can be participated in.
@@ -33,7 +30,7 @@ class Participable():
 
     __slots__ = ()
 
-    async def fetch_participants(self) -> typing.List["User"]:
+    async def fetch_participants(self):
         """
         |coro|
 

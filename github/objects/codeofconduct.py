@@ -16,8 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
 from github.abc import Node
 from github.abc import Type
 from github.abc import UniformResourceLocatable
@@ -41,11 +39,11 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
     def __init__(self, data):
         self.data = data
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<{0.__class__.__name__} key='{0.key}'>".format(self)
 
     @property
-    def body(self) -> str:
+    def body(self):
         """
         The body of the code of conduct.
 
@@ -55,7 +53,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         return self.data["body"]
 
     @property
-    def key(self) -> str:
+    def key(self):
         """
         The key of the code of conduct.
 
@@ -65,7 +63,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         return self.data["key"]
 
     @property
-    def name(self) -> str:
+    def name(self):
         """
         The name of the code of conduct.
 

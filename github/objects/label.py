@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import datetime
-import typing
-
 from github import utils
 from github.abc import Node
 from github.abc import RepositoryNode
@@ -49,7 +46,7 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
         self.http = http
 
     @property
-    def color(self) -> str:
+    def color(self):
         """
         The color of the label in the GitHub UI.
 
@@ -61,7 +58,7 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
     colour = color
 
     @property
-    def created_at(self) -> datetime.datetime:
+    def created_at(self):
         """
         When the label was created.
 
@@ -72,7 +69,7 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
         return utils.iso_to_datetime(created_at)
 
     @property
-    def description(self) -> str:
+    def description(self):
         """
         The description of the label.
 
@@ -82,7 +79,7 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
         return self.data["description"] or ""
 
     @property
-    def is_default(self) -> bool:
+    def is_default(self):
         """
         Whether the label is a default label.
 
@@ -92,7 +89,7 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
         return self.data["isDefault"]
 
     @property
-    def name(self) -> str:
+    def name(self):
         """
         The name of the label.
 
@@ -102,7 +99,7 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
         return self.data["name"]
 
     @property
-    def updated_at(self) -> typing.Optional[datetime.datetime]:
+    def updated_at(self):
         """
         When the label was last updated.
 
@@ -112,7 +109,7 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
         updated_at = self.data["updatedAt"]
         return utils.iso_to_datetime(updated_at)
 
-    async def fetch_issues(self) -> typing.List[Issue]:
+    async def fetch_issues(self):
         """
         Fetches a list of issues with the label.
 
@@ -125,7 +122,7 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
         data = await self.http.fetch_label_issues(self.id)
         return Issue.from_data(data, self.http)
 
-    async def fetch_pull_requests(self) -> typing.List[PullRequest]:
+    async def fetch_pull_requests(self):
         """
         Fetches a list of pull requests with the label.
 

@@ -60,7 +60,7 @@ class Type():
             return [cls(d) for (d) in data]
 
     @property
-    def type(self) -> str:
+    def type(self):
         """
         The object's type.
 

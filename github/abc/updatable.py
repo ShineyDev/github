@@ -16,8 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
 from github import utils
 from github.enums import CannotUpdateReason
 
@@ -38,7 +36,7 @@ class Updatable():
     __slots__ = ()
 
     @property
-    def viewer_can_update(self) -> bool:
+    def viewer_can_update(self):
         """
         Whether the authenticated user can update the updatable.
 
@@ -48,7 +46,7 @@ class Updatable():
         return self.data["viewerCanUpdate"]
 
     @property
-    def viewer_cannot_update_reasons(self) -> typing.List[CannotUpdateReason]:
+    def viewer_cannot_update_reasons(self):
         """
         A list of reasons why the authenticated user cannot update this updatable.
 

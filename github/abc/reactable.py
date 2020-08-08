@@ -16,10 +16,7 @@
     limitations under the License.
 """
 
-import typing
-
 from github import utils
-from github.enums import Reaction as enums_Reaction
 
 
 class Reactable():
@@ -38,7 +35,7 @@ class Reactable():
     __slots__ = ()
 
     @property
-    def viewer_can_react(self) -> bool:
+    def viewer_can_react(self):
         """
         Whether the authenticated user can react to this reactable.
 
@@ -47,7 +44,7 @@ class Reactable():
 
         return self.data["viewerCanReact"]
 
-    async def add_reaction(self, reaction: enums_Reaction):
+    async def add_reaction(self, reaction):
         """
         |coro|
 
@@ -75,7 +72,7 @@ class Reactable():
 
         ... # TODO
 
-    async def remove_reaction(self, reaction: enums_Reaction):
+    async def remove_reaction(self, reaction):
         """
         |coro|
 

@@ -38,11 +38,11 @@ class Language(Node, Type):
     def __init__(self, data):
         self.data = data
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<{0.__class__.__name__} name='{0.name}'>".format(self)
 
     @property
-    def color(self) -> str:
+    def color(self):
         """
         The color of the language in the GitHub UI.
 
@@ -54,7 +54,7 @@ class Language(Node, Type):
     colour = color
 
     @property
-    def name(self) -> str:
+    def name(self):
         """
         The name of the language.
 

@@ -58,11 +58,11 @@ class Node(Type):
 
         return True
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<{0.__class__.__name__} id='{0.id}'>".format(self)
 
     @property
-    def id(self) -> str:
+    def id(self):
         """
         The node's ID.
 

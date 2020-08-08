@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
-
 class Commentable():
     """
     Represents an object which can be commented on.
@@ -33,9 +30,7 @@ class Commentable():
 
     __slots__ = ()
 
-    async def fetch_comments(self) -> typing.List[typing.Union["CommitComment", "GistComment",
-                                                               "IssueComment", "PullRequestComment",
-                                                               "PullRequestReviewComment"]]:
+    async def fetch_comments(self):
         """
         |coro|
 
@@ -43,13 +38,7 @@ class Commentable():
 
         Returns
         -------
-        List[Union[:class:`~github.CommitComment`, \
-                   :class:`~github.GistComment`, \
-                   :class:`~github.IssueComment`, \
-                   :class:`~github.PullRequestComment`, \
-                   :class:`~github.PullRequestReview`, \
-                   :class:`~github.PullRequestReviewComment`, \
-                   :class:`~github.TeamDiscussionComment`]]
+        List[Union[:class:`~github.CommitComment`]]
             A list of comments.
         """
 
@@ -75,9 +64,7 @@ class Commentable():
 
         return comments
 
-    async def add_comment(self, body: str) -> typing.Union["CommitComment", "GistComment",
-                                                           "IssueComment", "PullRequestComment",
-                                                           "PullRequestReviewComment"]:
+    async def add_comment(self, body):
         """
         |coro|
 
@@ -95,13 +82,7 @@ class Commentable():
 
         Returns
         -------
-        Union[:class:`~github.CommitComment`, \
-              :class:`~github.GistComment`, \
-              :class:`~github.IssueComment`, \
-              :class:`~github.PullRequestComment`, \
-              :class:`~github.PullRequestReview`, \
-              :class:`~github.PullRequestReviewComment`, \
-              :class:`~github.TeamDiscussionComment`]
+        Union[:class:`~github.CommitComment`]
             The comment.
         """
 

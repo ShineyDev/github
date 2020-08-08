@@ -51,12 +51,12 @@ def iso_to_datetime(iso):
 
     Parameters
     ----------
-    iso: Optional[:class:`str`]
+    iso: :class:`str`
         An ISO-8601 string.
 
     Returns
     -------
-    Optional[:class:`~datetime.datetime`]
+    :class:`~datetime.datetime`
         A datetime object.
     """
 

@@ -63,19 +63,19 @@ class HTTPClient():
         self._session = session
 
     @property
-    def base_url(self) -> str:
+    def base_url(self):
         return self._base_url
 
     @base_url.setter
-    def base_url(self, value: str=None):
+    def base_url(self, value):
         self._base_url = value or _DEFAULT_BASE_URL
 
     @property
-    def user_agent(self) -> str:
+    def user_agent(self):
         return self._user_agent
 
     @user_agent.setter
-    def user_agent(self, value: str=None):
+    def user_agent(self, value):
         self._user_agent = value or _DEFAULT_USER_AGENT.format(self._uuid)
 
     async def _request(self, *, method, json, headers, session):
@@ -133,7 +133,7 @@ class HTTPClient():
 
             return data
 
-    async def request(self, *, json: dict, headers: dict=None, session: aiohttp.ClientSession=None) -> dict:
+    async def request(self, *, json, headers=None, session=None):
         """
         Performs a request to the GitHub API.
 
@@ -143,7 +143,7 @@ class HTTPClient():
             The JSON object to be posted to the API. This object must
             contain a ``"query"`` key and can optionally contain a
             ``"variables"`` key.
-        headers: Optional[:class:`dict`]
+        headers: :class:`dict`
             The headers to be passed to the API.
 
             .. warning::
@@ -151,7 +151,7 @@ class HTTPClient():
                 You cannot update the user-agent via this method and
                 must use the :attr:`~github.GitHub.user_agent` property
                 instead.
-        session: Optional[:class:`aiohttp.ClientSession`]
+        session: :class:`aiohttp.ClientSession`
             The session to request the API with.
 
         Raises

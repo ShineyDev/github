@@ -57,11 +57,11 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         self.data = data
         self.http = http
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<{0.__class__.__name__} login='{0.login}'>".format(self)
 
     @property
-    def bio(self) -> str:
+    def bio(self):
         """
         The user's public profile bio.
 
@@ -71,7 +71,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["bio"] or ""
 
     @property
-    def company(self) -> typing.Optional[str]:
+    def company(self):
         """
         The user's public profile company.
 
@@ -81,7 +81,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["company"]
 
     @property
-    def created_at(self) -> datetime.datetime:
+    def created_at(self):
         """
         The date and time the user was created.
 
@@ -92,7 +92,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return utils.iso_to_datetime(created_at)
 
     @property
-    def database_id(self) -> int:
+    def database_id(self):
         """
         The user's primary key from the database.
 
@@ -102,7 +102,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["databaseId"]
 
     @property
-    def is_bounty_hunter(self) -> bool:
+    def is_bounty_hunter(self):
         """
         Whether the user is a participant in the GitHub Security Bug Bounty.
 
@@ -112,7 +112,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["isBountyHunter"]
 
     @property
-    def is_campus_expert(self) -> bool:
+    def is_campus_expert(self):
         """
         Whether the user is a participant in the GitHub Campus Experts Program.
 
@@ -122,7 +122,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["isCampusExpert"]
 
     @property
-    def is_developer_program_member(self) -> bool:
+    def is_developer_program_member(self):
         """
         Whether the user is a GitHub Developer Program member.
 
@@ -132,7 +132,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["isDeveloperProgramMember"]
 
     @property
-    def is_employee(self) -> bool:
+    def is_employee(self):
         """
         Whether the user is a GitHub employee.
 
@@ -142,7 +142,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["isEmployee"]
 
     @property
-    def is_hireable(self) -> bool:
+    def is_hireable(self):
         """
         Whether the user has marked themselves as for hire.
 
@@ -152,7 +152,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["isHireable"]
 
     @property
-    def is_site_administrator(self) -> bool:
+    def is_site_administrator(self):
         """
         Whether the user is a site administrator.
 
@@ -162,7 +162,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["isSiteAdmin"]
 
     @property
-    def is_viewer(self) -> bool:
+    def is_viewer(self):
         """
         Whether or not the user is the authenticated user.
 
@@ -172,7 +172,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["isViewer"]
 
     @property
-    def updated_at(self) -> typing.Optional[datetime.datetime]:
+    def updated_at(self):
         """
         When the user was last updated.
 
@@ -183,7 +183,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return utils.iso_to_datetime(updated_at)
 
     @property
-    def viewer_can_follow(self) -> bool:
+    def viewer_can_follow(self):
         """
         Whether the viewer can follow the user.
 
@@ -193,7 +193,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["viewerCanFollow"]
 
     @property
-    def viewer_is_following(self) -> bool:
+    def viewer_is_following(self):
         """
         Whether the viewer is following the user.
 
@@ -202,7 +202,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
 
         return self.data["viewerIsFollowing"]
 
-    async def fetch_commit_comments(self) -> typing.List[CommitComment]:
+    async def fetch_commit_comments(self):
         """
         |coro|
 
@@ -217,7 +217,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         data = await self.http.fetch_user_commit_comments(self.id)
         return CommitComment.from_data(data, self.http)
 
-    async def fetch_followers(self) -> typing.List["User"]:
+    async def fetch_followers(self):
         """
         |coro|
 
@@ -232,7 +232,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         data = await self.http.fetch_user_followers(self.id)
         return User.from_data(data, self.http)
 
-    async def fetch_following(self) -> typing.List["User"]:
+    async def fetch_following(self):
         """
         |coro|
 

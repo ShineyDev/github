@@ -16,11 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
-import aiohttp
-
-
 class GitHubError(Exception):
     """
     The base exception class for the wrapper. This can be used to catch
@@ -39,7 +34,7 @@ class GitHubError(Exception):
         The response of the failed HTTP request.
     """
 
-    def __init__(self, message: str, *, data: typing.Optional[dict]=None, response: typing.Optional[aiohttp.ClientResponse]=None):
+    def __init__(self, message, *, data=None, response=None):
         self.message = message
         self.data = data
         self.response = response
@@ -79,7 +74,7 @@ class Forbidden(HTTPException):
     ----------
     message: :class:`str`
         The error message.
-    data: :class:`dict`
+    data: Optional[:class:`dict`]
         The data returned by the API.
     response: :class:`aiohttp.ClientResponse`
         The response of the failed HTTP request.
@@ -96,7 +91,7 @@ class Internal(HTTPException):
     ----------
     message: :class:`str`
         The error message.
-    data: :class:`dict`
+    data: Optional[:class:`dict`]
         The data returned by the API.
     response: :class:`aiohttp.ClientResponse`
         The response of the failed HTTP request.
@@ -113,7 +108,7 @@ class NotFound(HTTPException):
     ----------
     message: :class:`str`
         The error message.
-    data: :class:`dict`
+    data: Optional[:class:`dict`]
         The data returned by the API.
     response: :class:`aiohttp.ClientResponse`
         The response of the failed HTTP request.

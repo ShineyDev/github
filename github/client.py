@@ -16,10 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
-import aiohttp
-
 from github import http
 from github.abc import Node
 from github.objects import AuthenticatedUser
@@ -51,13 +47,13 @@ class Client():
             You can get a personal access token, needed for this
             wrapper, from https://github.com/settings/tokens.
 
-    base_url: Optional[:class:`str`]
+    base_url: :class:`str`
         The base url used by this wrapper. This can be changed to allow
         support for GitHub Enterprise.
-    user_agent: Optional[:class:`str`]
+    user_agent: :class:`str`
         The user-agent sent by this wrapper. This can be changed to
         allow GitHub to contact you in case of issues.
-    session: Optional[:class:`aiohttp.ClientSession`]
+    session: :class:`aiohttp.ClientSession`
         The session to be passed to the
         :class:`~github.http.HTTPClient`.
 
@@ -76,11 +72,11 @@ class Client():
 
     __slots__ = ("http",)
 
-    def __init__(self, token: str, *, base_url: str=None, user_agent: str=None, session: aiohttp.ClientSession=None):
+    def __init__(self, token, *, base_url=None, user_agent=None, session=None):
         self.http = http.HTTPClient(token, base_url=base_url, user_agent=user_agent, session=session)
 
     @property
-    def base_url(self) -> str:
+    def base_url(self):
         """
         The base url used by this wrapper. This can be changed to allow
         support for GitHub Enterprise.
@@ -91,11 +87,11 @@ class Client():
         return self.http.base_url
 
     @base_url.setter
-    def base_url(self, value: str=None):
+    def base_url(self, value):
         self.http.base_url = value
 
     @property
-    def user_agent(self) -> str:
+    def user_agent(self):
         """
         The user-agent sent by this wrapper. This can be changed to
         allow GitHub to contact you.
@@ -106,10 +102,10 @@ class Client():
         return self.http.user_agent
 
     @user_agent.setter
-    def user_agent(self, value: str=None):
+    def user_agent(self, value):
         self.http.user_agent = value
 
-    async def fetch_authenticated_user(self) -> AuthenticatedUser:
+    async def fetch_authenticated_user(self):
         """
         |coro|
 
@@ -124,7 +120,7 @@ class Client():
         data = await self.http.fetch_authenticated_user()
         return AuthenticatedUser.from_data(data, self.http)
 
-    async def fetch_code_of_conduct(self, key: str) -> CodeOfConduct:
+    async def fetch_code_of_conduct(self, key):
         """
         |coro|
 
@@ -149,7 +145,7 @@ class Client():
         data = await self.http.fetch_code_of_conduct(key)
         return CodeOfConduct.from_data(data)
 
-    async def fetch_all_codes_of_conduct(self) -> typing.List[CodeOfConduct]:
+    async def fetch_all_codes_of_conduct(self):
         """
         |coro|
 
@@ -164,7 +160,7 @@ class Client():
         data = await self.http.fetch_all_codes_of_conduct()
         return CodeOfConduct.from_data(data)
 
-    async def fetch_license(self, key: str) -> License:
+    async def fetch_license(self, key):
         """
         |coro|
 
@@ -189,7 +185,7 @@ class Client():
         data = await self.http.fetch_license(key)
         return License.from_data(data)
 
-    async def fetch_all_licenses(self) -> typing.List[License]:
+    async def fetch_all_licenses(self):
         """
         |coro|
 
@@ -204,7 +200,7 @@ class Client():
         data = await self.http.fetch_all_licenses()
         return License.from_data(data)
 
-    async def fetch_metadata(self) -> Metadata:
+    async def fetch_metadata(self):
         """
         |coro|
 
@@ -219,7 +215,7 @@ class Client():
         data = await self.http.fetch_metadata()
         return Metadata.from_data(data)
 
-    async def fetch_node(self, id: str) -> Node:
+    async def fetch_node(self, id):
         """
         |coro|
 
@@ -247,7 +243,7 @@ class Client():
         data = await self.http.fetch_node(id)
         return Node.from_data(data)
 
-    async def fetch_nodes(self, *ids: str) -> typing.List[Node]:
+    async def fetch_nodes(self, *ids):
         """
         |coro|
 
@@ -275,7 +271,7 @@ class Client():
         data = await self.http.fetch_nodes(ids)
         return Node.from_data(data)
 
-    async def fetch_organization(self, login: str) -> Organization:
+    async def fetch_organization(self, login):
         """
         |coro|
 
@@ -297,7 +293,7 @@ class Client():
         data = await self.http.fetch_organization(login)
         return Organization.from_data(data, self.http)
 
-    async def fetch_rate_limit(self) -> RateLimit:
+    async def fetch_rate_limit(self):
         """
         |coro|
 
@@ -316,7 +312,7 @@ class Client():
         data = await self.http.fetch_rate_limit()
         return RateLimit.from_data(data)
 
-    async def fetch_repository(self, owner: str, name: str) -> Repository:
+    async def fetch_repository(self, owner, name):
         """
         |coro|
 
@@ -343,7 +339,7 @@ class Client():
         data = await self.http.fetch_repository(owner, name)
         return Repository.from_data(data, self.http)
 
-    async def fetch_scopes(self) -> typing.List[str]:
+    async def fetch_scopes(self):
         """
         |coro|
 
@@ -358,7 +354,7 @@ class Client():
         data = await self.http.fetch_scopes()
         return data
 
-    async def fetch_topic(self, name: str) -> Topic:
+    async def fetch_topic(self, name):
         """
         |coro|
 
@@ -383,7 +379,7 @@ class Client():
         data = await self.http.fetch_topic(name)
         return Topic.from_data(data, self.http)
 
-    async def fetch_user(self, login: str) -> User:
+    async def fetch_user(self, login):
         """
         |coro|
 

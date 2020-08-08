@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import datetime
-import typing
-
 from github import utils
 from github.abc import Node
 from github.abc import Type
@@ -44,7 +41,7 @@ class SponsorListing(Node, Type):
         self.http = http
 
     @property
-    def created_at(self) -> datetime.datetime:
+    def created_at(self):
         """
         The date and time the sponsor listing was created.
 
@@ -54,7 +51,7 @@ class SponsorListing(Node, Type):
         return utils.iso_to_datetime(self.data["createdAt"])
 
     @property
-    def long_description(self) -> str:
+    def long_description(self):
         """
         The long description of the sponsor listing.
 
@@ -64,7 +61,7 @@ class SponsorListing(Node, Type):
         return self.data["fullDescription"]
 
     @property
-    def long_description_html(self) -> str:
+    def long_description_html(self):
         """
         The long description of the sponsor listing as HTML.
 
@@ -74,7 +71,7 @@ class SponsorListing(Node, Type):
         return self.data["fullDescriptionHTML"]
 
     @property
-    def name(self) -> str:
+    def name(self):
         """
         The name of the sponsor listing.
 
@@ -84,7 +81,7 @@ class SponsorListing(Node, Type):
         return self.data["name"]
 
     @property
-    def short_description(self) -> str:
+    def short_description(self):
         """
         The short description of the sponsor listing.
 
@@ -94,7 +91,7 @@ class SponsorListing(Node, Type):
         return self.data["shortDescription"]
 
     @property
-    def slug(self) -> str:
+    def slug(self):
         """
         The slug of the sponsor listing.
 
@@ -103,7 +100,7 @@ class SponsorListing(Node, Type):
 
         return self.data["slug"]
 
-    async def fetch_tiers(self) -> typing.List[SponsorTier]:
+    async def fetch_tiers(self):
         """
         |coro|
 

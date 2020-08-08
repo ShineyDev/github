@@ -32,7 +32,7 @@ class RepositoryNode():
 
     __slots__ = ()
 
-    async def fetch_repository(self) -> "Repository":
+    async def fetch_repository(self):
         """
         |coro|
 

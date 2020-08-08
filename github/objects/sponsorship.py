@@ -16,8 +16,6 @@
     limitations under the License.
 """
 
-import datetime
-
 from github import utils
 from github.abc import Node
 from github.abc import Type
@@ -43,7 +41,7 @@ class Sponsorship(Node, Type):
         self.http = http
 
     @property
-    def created_at(self) -> datetime.datetime:
+    def created_at(self):
         """
         The date and time the sponsor listing was created.
 
@@ -53,7 +51,7 @@ class Sponsorship(Node, Type):
         return utils.iso_to_datetime(self.data["createdAt"])
 
     @property
-    def privacy(self) -> SponsorshipPrivacy:
+    def privacy(self):
         """
         The privacy level for the sponsorship.
 

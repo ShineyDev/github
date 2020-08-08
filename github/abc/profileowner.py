@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
-
 class ProfileOwner():
     """
     Represents the owner of a GitHub profile.
@@ -35,7 +32,7 @@ class ProfileOwner():
     __slots__ = ()
 
     @property
-    def has_pinnable_items(self) -> bool:
+    def has_pinnable_items(self):
         """
         Whether the profile owner has any items that can be pinned to their profile.
 
@@ -45,7 +42,7 @@ class ProfileOwner():
         return self.data["anyPinnableItems"]
 
     @property
-    def location(self) -> typing.Optional[str]:
+    def location(self):
         """
         The profile owner's location.
 
@@ -55,7 +52,7 @@ class ProfileOwner():
         return self.data["location"]
 
     @property
-    def name(self) -> typing.Optional[str]:
+    def name(self):
         """
         The profile owner's name.
 
@@ -65,7 +62,7 @@ class ProfileOwner():
         return self.data["name"]
 
     @property
-    def pinned_items_remaining(self) -> int:
+    def pinned_items_remaining(self):
         """
         The number of items the profile owner can pin to their profile.
 
@@ -75,7 +72,7 @@ class ProfileOwner():
         return self.data["pinnedItemsRemaining"]
 
     @property
-    def viewer_can_change_pinned_items(self) -> bool:
+    def viewer_can_change_pinned_items(self):
         """
         Whether the authenticated user can change the pinned items on the profile.
 
@@ -85,7 +82,7 @@ class ProfileOwner():
         return self.data["viewerCanChangePinnedItems"]
 
     @property
-    def website(self) -> typing.Optional[str]:
+    def website(self):
         """
         The profile owner's website.
 
@@ -94,7 +91,7 @@ class ProfileOwner():
 
         return self.data["websiteUrl"]
 
-    async def fetch_email(self) -> typing.Optional[str]:
+    async def fetch_email(self):
         """
         |coro|
 

@@ -36,7 +36,7 @@ class Subscribable():
     __slots__ = ()
 
     @property
-    def viewer_can_subscribe(self) -> bool:
+    def viewer_can_subscribe(self):
         """
         Whether the authenticated user can subscribe to the subscribable.
 
@@ -46,7 +46,7 @@ class Subscribable():
         return self.data["viewerCanSubscribe"]
 
     @property
-    def viewer_subscription(self) -> SubscriptionState:
+    def viewer_subscription(self):
         """
         The authenticated user's subscription state to the subscribable.
 
@@ -56,7 +56,7 @@ class Subscribable():
         subscription = self.data["viewerSubscription"]
         return SubscriptionState.try_value(subscription)
 
-    async def update_subscription(self, state: SubscriptionState):
+    async def update_subscription(self, state):
         """
         |coro|
 

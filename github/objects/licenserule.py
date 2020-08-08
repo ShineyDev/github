@@ -16,8 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
 from github.abc import Type
 
 
@@ -37,11 +35,11 @@ class LicenseRule(Type):
     def __init__(self, data):
         self.data = data
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<{0.__class__.__name__} key='{0.key}'>".format(self)
 
     @property
-    def description(self) -> str:
+    def description(self):
         """
         A description of the rule.
 
@@ -51,7 +49,7 @@ class LicenseRule(Type):
         return self.data["description"]
 
     @property
-    def key(self) -> str:
+    def key(self):
         """
         The machine-readable rule key.
 
@@ -61,7 +59,7 @@ class LicenseRule(Type):
         return self.data["key"]
 
     @property
-    def label(self) -> str:
+    def label(self):
         """
         The human-readable rule label.
 

@@ -1,0 +1,9 @@
+from github.enums import Reaction
+
+
+class Reactable():
+    @property
+    def viewer_can_react(self) -> bool: ...
+
+    async def add_reaction(self, reaction: Reaction) -> None: ...
+    async def remove_reaction(self, reaction: Reaction) -> None: ...

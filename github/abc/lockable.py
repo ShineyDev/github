@@ -16,8 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
 from github import utils
 from github.enums import LockReason
 from github.enums import RepositoryLockReason
@@ -39,7 +37,7 @@ class Lockable():
     __slots__ = ()
 
     @property
-    def is_locked(self) -> bool:
+    def is_locked(self):
         """
         Whether the lockable is locked.
 
@@ -53,8 +51,8 @@ class Lockable():
         """
         The reason for the lockable being locked.
 
-        :type: Union[:class:`~github.enums.LockReason`,
-                     :class:`~github.enums.RepositoryLockReason`]
+        :type: Optional[Union[:class:`~github.enums.LockReason`,
+                              :class:`~github.enums.RepositoryLockReason`]]
         """
 
         map = {
@@ -66,7 +64,7 @@ class Lockable():
         key, type = map[self.data["__typename"]]
         return type.try_value(self.data[key])
 
-    async def lock(self, *, reason: LockReason=None):
+    async def lock(self, *, reason=None):
         """
         |coro|
 
@@ -74,7 +72,7 @@ class Lockable():
 
         Parameters
         ----------
-        reason: Optional[:class:`~github.enums.Lockreason`]
+        reason: :class:`~github.enums.Lockreason`
             The reason for locking the lockable.
 
         Raises

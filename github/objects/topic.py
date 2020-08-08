@@ -16,8 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
 from github.abc import Node
 from github.abc import Type
 
@@ -40,11 +38,11 @@ class Topic(Node, Type):
         self.data = data
         self.http = http
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<{0.__class__.__name__} name='{0.name}'>".format(self)
 
     @property
-    def name(self) -> str:
+    def name(self):
         """
         The topic's name.
 
@@ -53,7 +51,7 @@ class Topic(Node, Type):
 
         return self.data["name"]
 
-    async def fetch_related_topics(self) -> typing.List["Topic"]:
+    async def fetch_related_topics(self):
         """
         Fetches a list of up to 10 related topics.
 

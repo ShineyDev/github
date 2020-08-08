@@ -1,0 +1,3 @@
+class Type():
+    @property
+    def type(self) -> str: ...

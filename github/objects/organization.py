@@ -16,8 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
 from github.abc import Actor
 from github.abc import Node
 from github.abc import ProfileOwner
@@ -53,11 +51,11 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         self.data = data
         self.http = http
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<{0.__class__.__name__} login='{0.login}'>".format(self)
 
     @property
-    def database_id(self) -> int:
+    def database_id(self):
         """
         The organization's primary key from the database.
 
@@ -67,7 +65,7 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["databaseId"]
 
     @property
-    def description(self) -> str:
+    def description(self):
         """
         The organization's description.
 
@@ -77,7 +75,7 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["description"] or ""
 
     @property
-    def is_verified(self) -> bool:
+    def is_verified(self):
         """
         Whether the organization's public email is verified.
 
@@ -87,7 +85,7 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["isVerified"]
 
     @property
-    def new_team_resource_path(self) -> str:
+    def new_team_resource_path(self):
         """
         The organization's new team resource path.
 
@@ -97,7 +95,7 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["newTeamResourcePath"]
 
     @property
-    def new_team_url(self) -> str:
+    def new_team_url(self):
         """
         The organization's new team url.
 
@@ -107,7 +105,7 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["newTeamUrl"]
 
     @property
-    def teams_resource_path(self) -> str:
+    def teams_resource_path(self):
         """
         The organization's teams resource path.
 
@@ -117,7 +115,7 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["teamsResourcePath"]
 
     @property
-    def teams_url(self) -> str:
+    def teams_url(self):
         """
         The organization's teams url.
 
@@ -127,7 +125,7 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["teamsUrl"]
 
     @property
-    def viewer_can_administer(self) -> bool:
+    def viewer_can_administer(self):
         """
         Whether the authenticated user can administer the organization.
 
@@ -137,7 +135,7 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["viewerCanAdminister"]
 
     @property
-    def viewer_can_create_repositories(self) -> bool:
+    def viewer_can_create_repositories(self):
         """
         Whether the authenticated user can create repositories in the organization.
 
@@ -147,7 +145,7 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["viewerCanCreateRepositories"]
 
     @property
-    def viewer_can_create_teams(self) -> bool:
+    def viewer_can_create_teams(self):
         """
         Whether the authenticated user can create teams in the organization.
 
@@ -157,7 +155,7 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
         return self.data["viewerCanCreateTeams"]
 
     @property
-    def viewer_is_member(self) -> bool:
+    def viewer_is_member(self):
         """
         Whether the authenticated user is a member of the organization.
 

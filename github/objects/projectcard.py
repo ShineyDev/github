@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import datetime
-import typing
-
 from github import utils
 from github.abc import Node
 from github.abc import Type
@@ -46,7 +43,7 @@ class ProjectCard(Node, Type, UniformResourceLocatable):
         self.http = http
 
     @property
-    def body(self) -> typing.Optional[str]:
+    def body(self):
         """
         The body of the card.
 
@@ -56,7 +53,7 @@ class ProjectCard(Node, Type, UniformResourceLocatable):
         return self.data["note"]
 
     @property
-    def created_at(self) -> datetime.datetime:
+    def created_at(self):
         """
         When the card was created.
 
@@ -67,7 +64,7 @@ class ProjectCard(Node, Type, UniformResourceLocatable):
         return utils.iso_to_datetime(created_at)
 
     @property
-    def database_id(self) -> int:
+    def database_id(self):
         """
         The card's primary key from the database.
 
@@ -77,7 +74,7 @@ class ProjectCard(Node, Type, UniformResourceLocatable):
         return self.data["databaseId"]
 
     @property
-    def is_archived(self) -> bool:
+    def is_archived(self):
         """
         Whether the card is archived.
 
@@ -87,7 +84,7 @@ class ProjectCard(Node, Type, UniformResourceLocatable):
         return self.data["isArchived"]
 
     @property
-    def state(self) -> ProjectCardState:
+    def state(self):
         """
         The card's state.
 
@@ -98,7 +95,7 @@ class ProjectCard(Node, Type, UniformResourceLocatable):
         return ProjectCardState.try_value(state)
 
     @property
-    def updated_at(self) -> datetime.datetime:
+    def updated_at(self):
         """
         When the card was last updated.
 
@@ -118,7 +115,7 @@ class ProjectCard(Node, Type, UniformResourceLocatable):
         ----------
         column: :class:`~github.ProjectColumn`
             The column to move the card to.
-        after: Optional[:class:`~github.ProjectCard`]
+        after: :class:`~github.ProjectCard`
             The card to place the card after. Pass ``None`` to place it
             at the top. Defaults to ``None``.
 

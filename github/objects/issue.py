@@ -16,8 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
 from github import utils
 from github.abc import Assignable
 from github.abc import Closable
@@ -68,7 +66,7 @@ class Issue(Assignable, Closable, Comment, Commentable, Labelable, Lockable, Nod
         self.http = http
 
     @property
-    def database_id(self) -> int:
+    def database_id(self):
         """
         The primary key for the issue from the database.
 
@@ -78,7 +76,7 @@ class Issue(Assignable, Closable, Comment, Commentable, Labelable, Lockable, Nod
         return self.data["databaseId"]
 
     @property
-    def number(self) -> int:
+    def number(self):
         """
         The issue number.
 
@@ -88,7 +86,7 @@ class Issue(Assignable, Closable, Comment, Commentable, Labelable, Lockable, Nod
         return self.data["number"]
 
     @property
-    def state(self) -> IssueState:
+    def state(self):
         """
         The issue state.
 
@@ -99,7 +97,7 @@ class Issue(Assignable, Closable, Comment, Commentable, Labelable, Lockable, Nod
         return IssueState.try_value(state)
 
     @property
-    def title(self) -> str:
+    def title(self):
         """
         The issue title.
 

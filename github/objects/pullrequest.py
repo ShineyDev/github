@@ -67,7 +67,7 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
         self.http = http
 
     @property
-    def additions(self) -> int:
+    def additions(self):
         """
         The number of additions in the pull request.
 
@@ -77,7 +77,7 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
         return self.data["additions"]
 
     @property
-    def database_id(self) -> int:
+    def database_id(self):
         """
         The primary key for the pull request from the database.
 
@@ -87,7 +87,7 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
         return self.data["databaseId"]
 
     @property
-    def deletions(self) -> int:
+    def deletions(self):
         """
         The number of deletions in the pull request.
 
@@ -97,7 +97,7 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
         return self.data["deletions"]
 
     @property
-    def number(self) -> int:
+    def number(self):
         """
         The pull request number.
 
@@ -107,7 +107,7 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
         return self.data["number"]
 
     @property
-    def state(self) -> PullRequestState:
+    def state(self):
         """
         The pull request state.
 
@@ -118,7 +118,7 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
         return PullRequestState.try_value(state)
 
     @property
-    def title(self) -> str:
+    def title(self):
         """
         The pull request title.
 

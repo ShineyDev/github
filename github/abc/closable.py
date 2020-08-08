@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import datetime
-import typing
-
 from github import utils
 
 
@@ -37,7 +34,7 @@ class Closable():
     __slots__ = ()
 
     @property
-    def closed_at(self) -> typing.Optional[datetime.datetime]:
+    def closed_at(self):
         """
         When closable was last closed.
 
@@ -48,7 +45,7 @@ class Closable():
         return utils.iso_to_datetime(closed_at)
 
     @property
-    def is_closed(self) -> bool:
+    def is_closed(self):
         """
         Whether the closable is closed.
 

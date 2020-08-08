@@ -16,8 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
 from github.abc import Type
 
 
@@ -38,7 +36,7 @@ class Metadata(Type):
         self.data = data
 
     @property
-    def git_ip_addresses(self) -> typing.List[str]:
+    def git_ip_addresses(self):
         """
         IP addresses that users connect to for git operations.
 
@@ -48,7 +46,7 @@ class Metadata(Type):
         return self.data["gitIpAddresses"]
 
     @property
-    def github_services_sha(self) -> str:
+    def github_services_sha(self):
         """
         SHA of github-services.
 
@@ -58,7 +56,7 @@ class Metadata(Type):
         return self.data["gitHubServicesSha"]
 
     @property
-    def hook_ip_addresses(self) -> typing.List[str]:
+    def hook_ip_addresses(self):
         """
         IP addresses that service hooks are sent from.
 
@@ -68,7 +66,7 @@ class Metadata(Type):
         return self.data["hookIpAddresses"]
 
     @property
-    def importer_ip_addresses(self) -> typing.List[str]:
+    def importer_ip_addresses(self):
         """
         IP addresses that the importer connects from.
 
@@ -78,9 +76,9 @@ class Metadata(Type):
         return self.data["importerIpAddresses"]
 
     @property
-    def is_authentication_verifiable(self) -> bool:
+    def is_authentication_verifiable(self):
         """
-        Whether or not users are verified.
+        Whether users are verified.
 
         :type: :class:`bool`
         """
@@ -88,7 +86,7 @@ class Metadata(Type):
         return self.data["isPasswordAuthenticationVerifiable"]
 
     @property
-    def pages_ip_addresses(self) -> typing.List[str]:
+    def pages_ip_addresses(self):
         """
         IP addresses for GitHub Pages' A records.
 

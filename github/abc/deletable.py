@@ -30,7 +30,7 @@ class Deletable():
     __slots__ = ()
 
     @property
-    def viewer_can_delete(self) -> bool:
+    def viewer_can_delete(self):
         """
         Whether the authenticated user can delete the deletable.
 

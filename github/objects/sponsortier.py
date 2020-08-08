@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import datetime
-import typing
-
 from github import utils
 from github.abc import Node
 from github.abc import Type
@@ -44,7 +41,7 @@ class SponsorTier(Node, Type):
         self.http = http
 
     @property
-    def created_at(self) -> datetime.datetime:
+    def created_at(self):
         """
         The date and time the sponsor tier was created.
 
@@ -54,7 +51,7 @@ class SponsorTier(Node, Type):
         return utils.iso_to_datetime(self.data["createdAt"])
 
     @property
-    def description(self) -> str:
+    def description(self):
         """
         The description of the sponsor tier.
 
@@ -64,7 +61,7 @@ class SponsorTier(Node, Type):
         return self.data["description"]
 
     @property
-    def description_html(self) -> str:
+    def description_html(self):
         """
         The description of the sponsor tier in HTML.
 
@@ -74,7 +71,7 @@ class SponsorTier(Node, Type):
         return self.data["descriptionHTML"]
 
     @property
-    def name(self) -> str:
+    def name(self):
         """
         The name of the sponsor tier.
 
@@ -84,7 +81,7 @@ class SponsorTier(Node, Type):
         return self.data["name"]
 
     @property
-    def price(self) -> int:
+    def price(self):
         """
         How much this tier costs per month in dollars.
 
@@ -94,7 +91,7 @@ class SponsorTier(Node, Type):
         return self.data["monthlyPriceInDollars"]
 
     @property
-    def updated_at(self) -> datetime.datetime:
+    def updated_at(self):
         """
         The date and time the sponsor tier was last updated.
 
@@ -103,7 +100,7 @@ class SponsorTier(Node, Type):
 
         return utils.iso_to_datetime(self.data["updatedAt"])
 
-    async def fetch_sponsorships(self) -> typing.List[Sponsorship]:
+    async def fetch_sponsorships(self):
         """
         |coro|
 

@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
-
 class Sponsorable():
     """
     Represents an object which can be sponsored.
@@ -34,7 +31,7 @@ class Sponsorable():
 
     __slots__ = ()
 
-    async def fetch_sponsor_listing(self) -> typing.Optional["SponsorListing"]:
+    async def fetch_sponsor_listing(self):
         """
         |coro|
 

@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import datetime
-import typing
-
 from github import utils
 from github.abc import Node
 from github.abc import Type
@@ -47,7 +44,7 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
         self.http = http
 
     @property
-    def created_at(self) -> datetime.datetime:
+    def created_at(self):
         """
         When the column was created.
 
@@ -58,7 +55,7 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
         return utils.iso_to_datetime(created_at)
 
     @property
-    def database_id(self) -> int:
+    def database_id(self):
         """
         The column's primary key from the database.
 
@@ -68,7 +65,7 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
         return self.data["databaseId"]
 
     @property
-    def name(self) -> str:
+    def name(self):
         """
         The name of the column.
 
@@ -78,7 +75,7 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
         return self.data["name"]
 
     @property
-    def purpose(self) -> ProjectColumnPurpose:
+    def purpose(self):
         """
         The column's purpose.
 
@@ -89,7 +86,7 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
         return ProjectColumnPurpose.try_value(purpose)
 
     @property
-    def updated_at(self) -> datetime.datetime:
+    def updated_at(self):
         """
         When the column was last updated.
 
@@ -99,7 +96,7 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
         updated_at = self.data["updatedAt"]
         return utils.iso_to_datetime(updated_at)
 
-    async def fetch_cards(self) -> typing.List[ProjectCard]:
+    async def fetch_cards(self):
         """
         |coro|
 
@@ -114,7 +111,7 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
         data = await self.http.fetch_projectcolumn_cards(self.id)
         return ProjectCard.from_data(data, self.http)
 
-    async def create_card(self, *, body=None, content=None) -> ProjectCard:
+    async def create_card(self, *, body=None, content=None):
         """
         |coro|
 

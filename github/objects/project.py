@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import datetime
-import typing
-
 from github import utils
 from github.abc import Closable
 from github.abc import Node
@@ -51,7 +48,7 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
         self.http = http
 
     @property
-    def body(self) -> str:
+    def body(self):
         """
         The project's description.
 
@@ -61,7 +58,7 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
         return self.data["body"]
 
     @property
-    def body_html(self) -> str:
+    def body_html(self):
         """
         The project's description as HTML.
 
@@ -71,7 +68,7 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
         return self.data["bodyHTML"]
 
     @property
-    def created_at(self) -> datetime.datetime:
+    def created_at(self):
         """
         When the project was created.
 
@@ -82,7 +79,7 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
         return utils.iso_to_datetime(created_at)
 
     @property
-    def database_id(self) -> int:
+    def database_id(self):
         """
         The project's primary key from the database.
 
@@ -92,7 +89,7 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
         return self.data["databaseId"]
 
     @property
-    def name(self) -> str:
+    def name(self):
         """
         The name of the project.
 
@@ -102,7 +99,7 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
         return self.data["name"]
 
     @property
-    def number(self) -> int:
+    def number(self):
         """
         The project's number.
 
@@ -112,7 +109,7 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
         return self.data["number"]
 
     @property
-    def state(self) -> typing.List[ProjectState]:
+    def state(self):
         """
         The project's state.
 
@@ -123,7 +120,7 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
         return ProjectState.try_value(state)
 
     @property
-    def updated_at(self) -> datetime.datetime:
+    def updated_at(self):
         """
         When the project was last updated.
 
@@ -133,7 +130,7 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
         updated_at = self.data["updatedAt"]
         return utils.iso_to_datetime(updated_at)
 
-    async def fetch_columns(self) -> typing.List[ProjectColumn]:
+    async def fetch_columns(self):
         """
         |coro|
 
@@ -148,7 +145,7 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
         data = await self.http.fetch_project_columns(self.id)
         return ProjectColumn.from_data(data, self.http)
 
-    async def create_column(self, *, name: str) -> ProjectColumn:
+    async def create_column(self, *, name):
         """
         |coro|
 

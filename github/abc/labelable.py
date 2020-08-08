@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
-
 class Labelable():
     """
     Represents an object which can be labeled.
@@ -33,7 +30,7 @@ class Labelable():
 
     __slots__ = ()
 
-    async def fetch_labels(self) -> typing.List["Label"]:
+    async def fetch_labels(self):
         """
         |coro|
 
@@ -51,7 +48,7 @@ class Labelable():
         data = await self.http.fetch_labelable_labels(self.id)
         return Label.from_data(data, self.http)
 
-    async def add_labels(self, *labels: "Label"):
+    async def add_labels(self, *labels):
         """
         |coro|
 
@@ -59,7 +56,7 @@ class Labelable():
 
         Parameters
         ----------
-        \\*labels: Iterable[:class:`github.Label`]
+        \\*labels: :class:`github.Label`
             An iterable of labels.
 
         Raises
@@ -89,7 +86,7 @@ class Labelable():
 
         await self.http.mutate_labelable_clear_labels(self.id)
 
-    async def remove_labels(self, *labels: "Label"):
+    async def remove_labels(self, *labels):
         """
         |coro|
 
@@ -97,7 +94,7 @@ class Labelable():
 
         Parameters
         ----------
-        \\*labels: Iterable[:class:`github.Label`]
+        \\*labels: :class:`github.Label`
             An iterable of labels.
 
         Raises

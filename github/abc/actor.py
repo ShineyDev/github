@@ -34,7 +34,7 @@ class Actor():
     __slots__ = ()
 
     @property
-    def avatar_url(self) -> str:
+    def avatar_url(self):
         """
         A url pointing to the actor's avatar.
 
@@ -44,7 +44,7 @@ class Actor():
         return self.data["avatarUrl"]
 
     @property
-    def identicon_url(self) -> str:
+    def identicon_url(self):
         """
         A url pointing to the actor's identicon avatar.
 
@@ -54,7 +54,7 @@ class Actor():
         return "https://identicons.github.com/{0}.png".format(self.data["login"])
 
     @property
-    def login(self) -> str:
+    def login(self):
         """
         The actor's username.
 
@@ -63,7 +63,7 @@ class Actor():
 
         return self.data["login"]
 
-    async def fetch_avatar_url(self, *, size: int=None) -> str:
+    async def fetch_avatar_url(self, *, size=None):
         """
         |coro|
 

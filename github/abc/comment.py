@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import datetime
-import typing
-
 from github import utils
 from github.enums import CommentAuthorAssociation
 
@@ -39,7 +36,7 @@ class Comment():
     __slots__ = ()
 
     @property
-    def author(self) -> typing.Union["Bot", "Mannequin", "Organization", "User"]:
+    def author(self):
         """
         The actor who authored the comment.
 
@@ -58,7 +55,7 @@ class Comment():
         return cls.from_data(data, self.http)
 
     @property
-    def author_association(self) -> CommentAuthorAssociation:
+    def author_association(self):
         """
         The :attr:`.author`'s association with the subject of the comment.
 
@@ -69,7 +66,7 @@ class Comment():
         return CommentAuthorAssociation.try_value(association)
 
     @property
-    def body(self) -> str:
+    def body(self):
         """
         The body of the comment.
 
@@ -79,7 +76,7 @@ class Comment():
         return self.data["body"]
 
     @property
-    def body_html(self) -> str:
+    def body_html(self):
         """
         The :attr:`.body` of the comment as HTML.
 
@@ -89,7 +86,7 @@ class Comment():
         return self.data["bodyHTML"]
 
     @property
-    def body_text(self) -> str:
+    def body_text(self):
         """
         The :attr:`.body` of the comment with markdown removed.
 
@@ -99,7 +96,7 @@ class Comment():
         return self.data["bodyText"]
 
     @property
-    def created_at(self) -> datetime.datetime:
+    def created_at(self):
         """
         When the comment was created.
 
@@ -110,7 +107,7 @@ class Comment():
         return utils.iso_to_datetime(created_at)
 
     @property
-    def created_via_email(self) -> bool:
+    def created_via_email(self):
         """
         Whether or not the comment was created via email.
 
@@ -120,7 +117,7 @@ class Comment():
         return self.data["createdViaEmail"]
 
     @property
-    def editor(self) -> typing.Optional[typing.Union["User"]]:
+    def editor(self):
         """
         The actor who last edited the comment.
 
@@ -130,7 +127,6 @@ class Comment():
                      :class:`~github.User`]
         """
 
-        # prevent cyclic imports
         from github import objects
 
         data = self.data["editor"]
@@ -140,7 +136,7 @@ class Comment():
             return cls.from_data(data, self.http)
 
     @property
-    def edited_at(self) -> typing.Optional[datetime.datetime]:
+    def edited_at(self):
         """
         When the comment was last edited.
 
@@ -151,7 +147,7 @@ class Comment():
         return utils.iso_to_datetime(edited_at)
 
     @property
-    def published_at(self) -> datetime.datetime:
+    def published_at(self):
         """
         When the comment was published.
 
@@ -162,7 +158,7 @@ class Comment():
         return utils.iso_to_datetime(published_at)
 
     @property
-    def updated_at(self) -> typing.Optional[datetime.datetime]:
+    def updated_at(self):
         """
         When the comment was last updated.
 
@@ -173,7 +169,7 @@ class Comment():
         return utils.iso_to_datetime(updated_at)
 
     @property
-    def viewer_is_author(self) -> bool:
+    def viewer_is_author(self):
         """
         Whether the viewer authored this comment.
 

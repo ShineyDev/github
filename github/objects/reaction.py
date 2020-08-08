@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import datetime
-import typing
-
 from github import utils
 from github.abc import Type
 from github.enums import Reaction as enums_Reaction
@@ -42,11 +39,11 @@ class Reaction(Type):
         self.data = data
         self.http = http
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<{0.__class__.__name__} content='{0.content.value}'>".format(self)
 
     @property
-    def content(self) -> enums_Reaction:
+    def content(self):
         """
         The reaction content.
 
@@ -57,7 +54,7 @@ class Reaction(Type):
         return enums_Reaction.try_value(content)
 
     @property
-    def created_at(self) -> datetime.datetime:
+    def created_at(self):
         """
         The date and time at which the reaction was added.
         """
@@ -66,7 +63,7 @@ class Reaction(Type):
         return utils.iso_to_datetime(created_at)
 
     @property
-    def viewer_has_reacted(self) -> bool:
+    def viewer_has_reacted(self):
         """
         Whether or not the authenticated user has reacted.
         """

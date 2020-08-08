@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
-
 class ProjectOwner():
     """
     Represents the owner of a GitHub project.
@@ -36,7 +33,7 @@ class ProjectOwner():
     __slots__ = ()
 
     @property
-    def projects_resource_path(self) -> str:
+    def projects_resource_path(self):
         """
         The project owner's projects resource path.
 
@@ -46,7 +43,7 @@ class ProjectOwner():
         return self.data["projectsResourcePath"]
 
     @property
-    def projects_url(self) -> str:
+    def projects_url(self):
         """
         The project owner's projects url.
 
@@ -56,7 +53,7 @@ class ProjectOwner():
         return self.data["projectsUrl"]
 
     @property
-    def viewer_can_create_projects(self) -> bool:
+    def viewer_can_create_projects(self):
         """
         Whether the authenticated user can create projects in the project owner.
 
@@ -65,7 +62,7 @@ class ProjectOwner():
 
         return self.data["viewerCanCreateProjects"]
 
-    async def fetch_project(self, number: int) -> "Project":
+    async def fetch_project(self, number):
         """
         |coro|
 
@@ -90,7 +87,7 @@ class ProjectOwner():
         data = await self.http.fetch_projectowner_project(self.id, number)
         return Project.from_data(data, self.http)
 
-    async def fetch_projects(self) -> typing.List["Project"]:
+    async def fetch_projects(self):
         """
         |coro|
 

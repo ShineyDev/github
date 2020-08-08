@@ -12,6 +12,9 @@ __pycache__/
 /dist/
 /github.py.egg-info/
 
+# mypy cache
+/.mypy_cache
+
 # project
 /github-design/
 /github-helpers/

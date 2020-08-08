@@ -16,8 +16,6 @@
     limitations under the License.
 """
 
-import datetime
-
 from github import utils
 from github.abc import Type
 
@@ -38,11 +36,11 @@ class RateLimit(Type):
     def __init__(self, data):
         self.data = data
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<{0.__class__.__name__} limit={0.limit} remaining={0.remaining}>".format(self)
 
     @property
-    def limit(self) -> int:
+    def limit(self):
         """
         The maximum number of points the viewer is permitted to consume in a rate limit window.
 
@@ -52,7 +50,7 @@ class RateLimit(Type):
         return self.data["limit"]
 
     @property
-    def remaining(self) -> int:
+    def remaining(self):
         """
         The number of points remaining in the current rate limit window.
 
@@ -62,7 +60,7 @@ class RateLimit(Type):
         return self.data["remaining"]
 
     @property
-    def reset_at(self) -> datetime.datetime:
+    def reset_at(self):
         """
         When the current rate limit window resets.
 

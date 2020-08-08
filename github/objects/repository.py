@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import datetime
-import typing
-
 from github import utils
 from github.abc import Lockable
 from github.abc import Node
@@ -58,11 +55,11 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         self.data = data
         self.http = http
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<{0.__class__.__name__} owner='{0.owner.login}' name='{0.name}'>".format(self)
 
     @property
-    def allows_merge_commit(self) -> bool:
+    def allows_merge_commit(self):
         """
         Whether pull requests can be merged with a merge commit on the repository.
 
@@ -72,7 +69,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["mergeCommitAllowed"]
 
     @property
-    def allows_rebase_merge(self) -> bool:
+    def allows_rebase_merge(self):
         """
         Whether rebase-merging is enabled on the repository.
 
@@ -82,7 +79,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["rebaseMergeAllowed"]
 
     @property
-    def allows_squash_merge(self) -> bool:
+    def allows_squash_merge(self):
         """
         Whether squash-merging is enabled on the repository.
 
@@ -92,7 +89,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["squashMergeAllowed"]
 
     @property
-    def code_of_conduct(self) -> typing.Optional[CodeOfConduct]:
+    def code_of_conduct(self):
         """
         The repository's code of conduct.
 
@@ -103,7 +100,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return CodeOfConduct.from_data(codeofconduct_)
 
     @property
-    def created_at(self) -> datetime.datetime:
+    def created_at(self):
         """
         When the repository was created.
 
@@ -114,7 +111,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return utils.iso_to_datetime(created_at)
 
     @property
-    def database_id(self) -> int:
+    def database_id(self):
         """
         The primary key for the repository from the database.
 
@@ -124,7 +121,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["databaseId"]
 
     @property
-    def default_branch(self) -> str:
+    def default_branch(self):
         """
         The name of the default branch.
 
@@ -134,7 +131,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["defaultBranchRef"]["name"]
 
     @property
-    def description(self) -> str:
+    def description(self):
         """
         The description of the repository.
 
@@ -144,7 +141,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["description"] or ""
 
     @property
-    def disk_usage(self) -> int:
+    def disk_usage(self):
         """
         The number of kilobytes the repository occupies on disk.
 
@@ -154,7 +151,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["diskUsage"]
 
     @property
-    def fork_count(self) -> int:
+    def fork_count(self):
         """
         The number of forks created from the repository.
 
@@ -164,7 +161,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["forkCount"]
 
     @property
-    def has_issues(self) -> bool:
+    def has_issues(self):
         """
         Whether the repository has issues enabled.
 
@@ -174,7 +171,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["hasIssuesEnabled"]
 
     @property
-    def has_wiki(self) -> bool:
+    def has_wiki(self):
         """
         Whether the repository has wiki enabled.
 
@@ -184,7 +181,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["hasWikiEnabled"]
 
     @property
-    def is_archived(self) -> bool:
+    def is_archived(self):
         """
         Whether the repository is archived.
 
@@ -194,7 +191,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["isArchived"]
 
     @property
-    def is_disabled(self) -> bool:
+    def is_disabled(self):
         """
         Whether the repository is disabled.
 
@@ -204,7 +201,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["isDisabled"]
 
     @property
-    def is_fork(self) -> bool:
+    def is_fork(self):
         """
         Whether the repository is a fork of another repository.
 
@@ -214,7 +211,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["isFork"]
 
     @property
-    def is_locked(self) -> bool:
+    def is_locked(self):
         """
         Whether the repository is locked.
 
@@ -224,7 +221,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["isLocked"]
 
     @property
-    def is_mirror(self) -> bool:
+    def is_mirror(self):
         """
         Whether the repository is a mirror of another repository.
 
@@ -234,7 +231,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["isMirror"]
 
     @property
-    def is_private(self) -> bool:
+    def is_private(self):
         """
         Whether the repository is private.
 
@@ -244,7 +241,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["isPrivate"]
 
     @property
-    def is_template(self) -> bool:
+    def is_template(self):
         """
         Whether the repository is a template repository.
 
@@ -254,7 +251,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["isTemplate"]
 
     @property
-    def license(self) -> typing.Optional[License]:
+    def license(self):
         """
         The repository's license.
 
@@ -266,7 +263,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
             return License.from_data(license)
 
     @property
-    def name(self) -> str:
+    def name(self):
         """
         The name of the repository.
 
@@ -276,7 +273,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["name"]
 
     @property
-    def owner(self) -> typing.Union[Organization, User]:
+    def owner(self):
         """
         The owner of the repository.
 
@@ -292,7 +289,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
             return User.from_data(owner, self.http)
 
     @property
-    def primary_language(self) -> Language:
+    def primary_language(self):
         """
         The primary language of the repository.
 
@@ -304,7 +301,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
             return Language.from_data(primary_language)
 
     @property
-    def pushed_at(self) -> typing.Optional[datetime.datetime]:
+    def pushed_at(self):
         """
         When the repository was last pushed to.
 
@@ -315,7 +312,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return utils.iso_to_datetime(pushed_at)
 
     @property
-    def updated_at(self) -> typing.Optional[datetime.datetime]:
+    def updated_at(self):
         """
         The date and time when the repository was last updated.
 
@@ -326,7 +323,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return utils.iso_to_datetime(updated_at)
 
     @property
-    def viewer_can_administer(self) -> bool:
+    def viewer_can_administer(self):
         """
         Whether the authenticated user can administer the repository.
 
@@ -336,7 +333,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["viewerCanAdminister"]
 
     @property
-    def viewer_can_update_topics(self) -> bool:
+    def viewer_can_update_topics(self):
         """
         Whether the authenticated user can update topics in the repository.
 
@@ -346,7 +343,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return self.data["viewerCanUpdateTopics"]
 
     @property
-    def viewer_permissions(self) -> RepositoryPermissions:
+    def viewer_permissions(self):
         """
         The authenticated user's permissions in the repository.
 
@@ -386,7 +383,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         data = await self.http.fetch_repository_collaborators(self.id)
         return User.from_data(data, self.http)
 
-    async def fetch_issue(self, number: int):
+    async def fetch_issue(self, number):
         """
         |coro|
 

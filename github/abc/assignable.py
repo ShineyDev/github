@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-import typing
-
-
 class Assignable():
     """
     Represents an object which can be assigned to.
@@ -33,7 +30,7 @@ class Assignable():
 
     __slots__ = ()
 
-    async def fetch_assignees(self) -> typing.List["User"]:
+    async def fetch_assignees(self):
         """
         |coro|
 
@@ -51,7 +48,7 @@ class Assignable():
         data = await self.http.fetch_assignable_assignees(self.id)
         return User.from_data(data, self.http)
 
-    async def add_assignees(self, *users: "User"):
+    async def add_assignees(self, *users):
         """
         |coro|
 
@@ -59,7 +56,7 @@ class Assignable():
 
         Parameters
         ----------
-        \\*users: Iterable[:class:`~github.User`]
+        \\*users: :class:`~github.User`
             An iterable of users.
 
         Raises
@@ -73,7 +70,7 @@ class Assignable():
         users = [user.id for user in users]
         await self.http.mutate_assignable_add_assignees(self.id, users)
 
-    async def remove_assignees(self, *users: "User"):
+    async def remove_assignees(self, *users):
         """
         |coro|
 
@@ -81,7 +78,7 @@ class Assignable():
 
         Parameters
         ----------
-        \\*users: Iterable[:class:`~github.User`]
+        \\*users: :class:`~github.User`
             An iterable of users.
 
         Raises

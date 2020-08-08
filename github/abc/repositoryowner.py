@@ -31,7 +31,7 @@ class RepositoryOwner():
 
     __slots__ = ()
 
-    async def fetch_repository(self, name: str) -> "Repository":
+    async def fetch_repository(self, name):
         """
         |coro|
 
