@@ -35,7 +35,7 @@ class Bot(Actor, Node, Type, UniformResourceLocatable):
     * :class:`~github.abc.UniformResourceLocatable`
     """
 
-    # https://developer.github.com/v4/object/bot/
+    # https://docs.github.com/en/graphql/reference/objects#bot
 
     __slots__ = ("data", "http")
 
@@ -60,7 +60,7 @@ class Bot(Actor, Node, Type, UniformResourceLocatable):
     @property
     def database_id(self):
         """
-        The bot's primary key from the database.
+        The bot's database ID.
 
         :type: :class:`int`
         """

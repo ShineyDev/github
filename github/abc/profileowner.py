@@ -27,14 +27,15 @@ class ProfileOwner():
     * :class:`~github.User`
     """
 
-    # https://developer.github.com/v4/interface/profileowner/
+    # https://docs.github.com/en/graphql/reference/interfaces#profileowner
 
     __slots__ = ()
 
     @property
     def has_pinnable_items(self):
         """
-        Whether the profile owner has any items that can be pinned to their profile.
+        Whether the profile owner has any items that can be pinned to
+        their profile.
 
         :type: :class:`bool`
         """
@@ -64,7 +65,8 @@ class ProfileOwner():
     @property
     def pinned_items_remaining(self):
         """
-        The number of items the profile owner can pin to their profile.
+        The number of additional items the profile owner can pin to
+        their profile.
 
         :type: :class:`int`
         """
@@ -74,7 +76,8 @@ class ProfileOwner():
     @property
     def viewer_can_change_pinned_items(self):
         """
-        Whether the authenticated user can change the pinned items on the profile.
+        Whether the authenticated user can change the pinned items on
+        the profile.
 
         :type: :class:`bool`
         """
@@ -105,5 +108,4 @@ class ProfileOwner():
             The email.
         """
 
-        email = await self.http.fetch_profileowner_email(self.id)
-        return email
+        return await self.http.fetch_profileowner_email(self.id)

@@ -18,7 +18,7 @@
 
 class ProjectOwner():
     """
-    Represents the owner of a GitHub project.
+    Represents the owner of one or more GitHub projects.
 
     Implemented by:
 
@@ -28,7 +28,7 @@ class ProjectOwner():
     * :class:`~github.User`
     """
 
-    # https://developer.github.com/v4/interface/projectowner/
+    # https://docs.github.com/en/graphql/reference/interfaces#projectowner
 
     __slots__ = ()
 
@@ -81,7 +81,6 @@ class ProjectOwner():
             A project.
         """
 
-        # prevent cyclic imports
         from github.objects import Project
 
         data = await self.http.fetch_projectowner_project(self.id, number)
@@ -101,7 +100,6 @@ class ProjectOwner():
             A list of projects.
         """
 
-        # prevent cyclic imports
         from github.objects import Project
 
         data = await self.http.fetch_projectowner_projects(self.id)
@@ -117,9 +115,9 @@ class ProjectOwner():
         ----------
         name: :class:`str`
             The name of the new project.
-        body: Optional[:class:`str`]
+        body: :class:`str`
             The body of the new project.
-        template: Optional[:class:`~github.enums.ProjectTemplate`]
+        template: :class:`~github.enums.ProjectTemplate`
             The template to use when creating the project.
 
         Raises
@@ -134,9 +132,8 @@ class ProjectOwner():
             The created project.
         """
 
-        # https://developer.github.com/v4/mutation/createproject/
+        # https://docs.github.com/en/graphql/reference/mutations#createproject
 
-        # prevent cyclic imports
         from github.objects import Project
 
         if template is not None:

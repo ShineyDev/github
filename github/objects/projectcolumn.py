@@ -35,7 +35,7 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
     * :class:`~github.abc.UniformResourceLocatable`
     """
 
-    # https://developer.github.com/v4/object/projectcolumn/
+    # https://docs.github.com/en/graphql/reference/objects#projectcolumn
 
     __slots__ = ("data", "http")
 
@@ -57,7 +57,7 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
     @property
     def database_id(self):
         """
-        The column's primary key from the database.
+        The column's database ID.
 
         :type: :class:`int`
         """
@@ -143,7 +143,7 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
             The created card.
         """
 
-        # https://developer.github.com/v4/mutation/addprojectcard/
+        # https://docs.github.com/en/graphql/reference/mutations#addprojectcard
 
         if body is None and content is None:
             raise TypeError("at least one of body and content must be provided")
@@ -174,7 +174,7 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
             You do not have permission to move the column.
         """
 
-        # https://developer.github.com/v4/mutation/moveprojectcolumn/
+        # https://docs.github.com/en/graphql/reference/mutations#moveprojectcolumn
 
         if after is not None:
             after = after.id

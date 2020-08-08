@@ -16,9 +16,6 @@
     limitations under the License.
 """
 
-from github import utils
-
-
 class Reactable():
     """
     Represents an object which can be reacted to.
@@ -30,7 +27,7 @@ class Reactable():
     * :class:`~github.PullRequest`
     """
 
-    # https://developer.github.com/v4/interface/reactable/
+    # https://docs.github.com/en/graphql/reference/interfaces#reactable
 
     __slots__ = ()
 
@@ -70,7 +67,9 @@ class Reactable():
             reactable.
         """
 
-        ... # TODO
+        # https://docs.github.com/en/graphql/reference/mutations#addreaction
+
+        ...
 
     async def remove_reaction(self, reaction):
         """
@@ -98,4 +97,6 @@ class Reactable():
             reactable.
         """
 
-        ... # TODO
+        # https://docs.github.com/en/graphql/reference/mutations#removereaction
+
+        ...

@@ -22,7 +22,7 @@ from github.enums import CommentAuthorAssociation
 
 class Comment():
     """
-    Represents a GitHub comment.
+    Represents a comment on a GitHub subject.
 
     Implemented by:
 
@@ -31,7 +31,7 @@ class Comment():
     * :class:`~github.PullRequest`
     """
 
-    # https://developer.github.com/v4/interface/comment/
+    # https://docs.github.com/en/graphql/reference/interfaces#comment
 
     __slots__ = ()
 
@@ -46,7 +46,6 @@ class Comment():
                      :class:`~github.User`]
         """
 
-        # prevent cyclic imports
         from github import objects
 
         data = self.data["author"]
@@ -109,7 +108,7 @@ class Comment():
     @property
     def created_via_email(self):
         """
-        Whether or not the comment was created via email.
+        Whether the comment was created via email.
 
         :type: :class:`bool`
         """

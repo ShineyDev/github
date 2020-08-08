@@ -19,7 +19,6 @@
 from github import utils
 from github.abc import Type
 from github.enums import Reaction as enums_Reaction
-from .user import User
 
 
 class Reaction(Type):
@@ -31,7 +30,7 @@ class Reaction(Type):
     * :class:`~github.abc.Type`
     """
 
-    # https://developer.github.com/v4/object/reactiongroup/
+    # https://docs.github.com/en/graphql/reference/objects#reactiongroup
 
     __slots__ = ("data", "http")
 
@@ -65,7 +64,7 @@ class Reaction(Type):
     @property
     def viewer_has_reacted(self):
         """
-        Whether or not the authenticated user has reacted.
+        Whether the authenticated user has reacted.
         """
 
         return self.data["viewerHasReacted"]

@@ -26,13 +26,13 @@ class SponsorTier(Node, Type):
     """
     Represents a GitHub Sponsors tier.
 
-    https://developer.github.com/v4/object/sponsorstier/
-
     Implements:
 
     * :class:`~github.abc.Node`
     * :class:`~github.abc.Type`
     """
+
+    # https://docs.github.com/en/graphql/reference/objects#sponsorstier
 
     __slots__ = ("data", "http")
 
@@ -48,7 +48,8 @@ class SponsorTier(Node, Type):
         :type: :class:`~datetime.datetime`
         """
 
-        return utils.iso_to_datetime(self.data["createdAt"])
+        created_at = self.data["createdAt"]
+        return utils.iso_to_datetime(created_at)
 
     @property
     def description(self):
@@ -98,7 +99,8 @@ class SponsorTier(Node, Type):
         :type: :class:`~datetime.datetime`
         """
 
-        return utils.iso_to_datetime(self.data["updatedAt"])
+        updated_at = self.data["updatedAt"]
+        return utils.iso_to_datetime(updated_at)
 
     async def fetch_sponsorships(self):
         """

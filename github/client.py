@@ -16,7 +16,7 @@
     limitations under the License.
 """
 
-from github import http
+from github.http import HTTPClient
 from github.abc import Node
 from github.objects import AuthenticatedUser
 from github.objects import CodeOfConduct
@@ -44,15 +44,18 @@ class Client():
 
         .. note::
 
-            You can get a personal access token, needed for this
-            wrapper, from https://github.com/settings/tokens.
+            You'll need a personal access token to use this wrapper,
+            you can get one from https://github.com/settings/tokens.
 
     base_url: :class:`str`
         The base url used by this wrapper. This can be changed to allow
-        support for GitHub Enterprise.
+        support for GitHub Enterprise Server.
     user_agent: :class:`str`
-        The user-agent sent by this wrapper. This can be changed to
-        allow GitHub to contact you in case of issues.
+        The user-agent sent by this wrapper.
+
+        "We request that you use your GitHub username, or the name of
+        your application, for the User-Agent header value. This allows
+        us to contact you if there are problems."
     session: :class:`aiohttp.ClientSession`
         The session to be passed to the
         :class:`~github.http.HTTPClient`.
@@ -66,20 +69,18 @@ class Client():
     Attributes
     ----------
     http: :class:`~github.http.HTTPClient`
-        The HTTPClient for the passed token. This is only exposed for
+        The HTTPClient for the passed token. This is exposed for
         :meth:`~github.http.HTTPClient.request`.
     """
 
-    __slots__ = ("http",)
-
     def __init__(self, token, *, base_url=None, user_agent=None, session=None):
-        self.http = http.HTTPClient(token, base_url=base_url, user_agent=user_agent, session=session)
+        self.http = HTTPClient(token, base_url=base_url, user_agent=user_agent, session=session)
 
     @property
     def base_url(self):
         """
         The base url used by this wrapper. This can be changed to allow
-        support for GitHub Enterprise.
+        support for GitHub Enterprise Server.
 
         :type: :class:`str`
         """
@@ -93,8 +94,11 @@ class Client():
     @property
     def user_agent(self):
         """
-        The user-agent sent by this wrapper. This can be changed to
-        allow GitHub to contact you.
+        The user-agent sent by this wrapper.
+
+        "We request that you use your GitHub username, or the name of
+        your application, for the User-Agent header value. This allows
+        us to contact you if there are problems."
 
         :type: :class:`str`
         """
@@ -105,11 +109,41 @@ class Client():
     def user_agent(self, value):
         self.http.user_agent = value
 
+    async def fetch_all_codes_of_conduct(self):
+        """
+        |coro|
+
+        Fetches a list of all GitHub code of conduct.
+
+        Returns
+        -------
+        List[:class:`~github.CodeOfConduct`]
+            A list of GitHub code of conduct.
+        """
+
+        data = await self.http.fetch_all_codes_of_conduct()
+        return CodeOfConduct.from_data(data)
+
+    async def fetch_all_licenses(self):
+        """
+        |coro|
+
+        Fetches a list of all GitHub licenses.
+
+        Returns
+        -------
+        List[:class:`~github.License`]
+            A list of GitHub licenses.
+        """
+
+        data = await self.http.fetch_all_licenses()
+        return License.from_data(data)
+
     async def fetch_authenticated_user(self):
         """
         |coro|
 
-        Fetches the authenticated user.
+        Fetches the authenticated GitHub user, "viewer".
 
         Returns
         -------
@@ -124,12 +158,12 @@ class Client():
         """
         |coro|
 
-        Fetches a code of conduct.
+        Fetches a GitHub code of conduct by its key.
 
         Parameters
         ----------
         key: :class:`str`
-            The code of conduct key.
+            The code of conduct's key.
 
         Raises
         ------
@@ -139,37 +173,22 @@ class Client():
         Returns
         -------
         :class:`~github.CodeOfConduct`
-            A code of conduct.
+            A GitHub code of conduct.
         """
 
         data = await self.http.fetch_code_of_conduct(key)
-        return CodeOfConduct.from_data(data)
-
-    async def fetch_all_codes_of_conduct(self):
-        """
-        |coro|
-
-        Fetches a list of codes of conduct.
-
-        Returns
-        -------
-        List[:class:`~github.CodeOfConduct`]
-            A list of codes of conduct.
-        """
-
-        data = await self.http.fetch_all_codes_of_conduct()
         return CodeOfConduct.from_data(data)
 
     async def fetch_license(self, key):
         """
         |coro|
 
-        Fetches a GitHub license.
+        Fetches a GitHub license by its key.
 
         Parameters
         ----------
         key: :class:`str`
-            The license key.
+            The license's key.
 
         Raises
         ------
@@ -183,21 +202,6 @@ class Client():
         """
 
         data = await self.http.fetch_license(key)
-        return License.from_data(data)
-
-    async def fetch_all_licenses(self):
-        """
-        |coro|
-
-        Fetches a list of GitHub licenses.
-
-        Returns
-        -------
-        List[:class:`~github.License`]
-            A list of GitHub licenses.
-        """
-
-        data = await self.http.fetch_all_licenses()
         return License.from_data(data)
 
     async def fetch_metadata(self):
@@ -219,25 +223,25 @@ class Client():
         """
         |coro|
 
-        Fetches a GitHub node.
+        Fetches a node by its ID.
 
         Parameters
         ----------
         id: :class:`str`
-            The node ID.
+            The node's ID.
 
         Raises
         ------
         ~github.errors.NotFound
-            A node with the given id does not exist.
+            A node with the given ID does not exist.
 
         Returns
         -------
         :class:`~github.abc.Node`
-            A GitHub node.
+            A node.
         """
 
-        # https://developer.github.com/v4/guides/using-global-node-ids/
+        # https://docs.github.com/en/graphql/guides/using-global-node-ids
         # TODO: implement features as described above
 
         data = await self.http.fetch_node(id)
@@ -247,25 +251,25 @@ class Client():
         """
         |coro|
 
-        Fetches a list of GitHub nodes.
+        Fetches a list of nodes from their IDs.
 
         Parameters
         ----------
         *ids: :class:`str`
-            The node IDs.
+            The nodes' IDs.
 
         Raises
         ------
         ~github.errors.NotFound
-            A node with the given id does not exist.
+            A node with one or more of the given IDs does not exist.
 
         Returns
         -------
         List[:class:`~github.abc.Node`]
-            A list of GitHub nodes.
+            A list of nodes.
         """
 
-        # https://developer.github.com/v4/guides/using-global-node-ids/
+        # https://docs.github.com/en/graphql/guides/using-global-node-ids
         # TODO: implement features as described above
 
         data = await self.http.fetch_nodes(ids)
@@ -275,7 +279,7 @@ class Client():
         """
         |coro|
 
-        Fetches a GitHub organization.
+        Fetches a GitHub organization by its login.
 
         Requires the ``read:org`` scope.
 
@@ -316,14 +320,14 @@ class Client():
         """
         |coro|
 
-        Fetches a repository.
+        Fetches a GitHub repository by its owner and name.
 
         Parameters
         ----------
         owner: :class:`str`
             The owner's login.
         name: :class:`str`
-            The repository name.
+            The repository's name.
 
         Raises
         ------
@@ -333,7 +337,7 @@ class Client():
         Returns
         -------
         :class:`~github.Repository`
-            A repository.
+            A GitHub repository.
         """
 
         data = await self.http.fetch_repository(owner, name)
@@ -343,7 +347,7 @@ class Client():
         """
         |coro|
 
-        Fetches a list of scopes associated with the token.
+        Fetches a list of scopes given to the authenticated token.
 
         Returns
         -------
@@ -358,12 +362,12 @@ class Client():
         """
         |coro|
 
-        Fetches a topic.
+        Fetches a GitHub topic from its name.
 
         Parameters
         ----------
         name: :class:`str`
-            The topic name.
+            The topic's name.
 
         Raises
         ------
@@ -373,7 +377,7 @@ class Client():
         Returns
         -------
         :class:`~github.Topic`
-            A topic.
+            A GitHub topic.
         """
 
         data = await self.http.fetch_topic(name)
@@ -383,7 +387,7 @@ class Client():
         """
         |coro|
 
-        Fetches a user.
+        Fetches a GitHub user from its login.
 
         Parameters
         ----------
@@ -398,7 +402,7 @@ class Client():
         Returns
         -------
         :class:`~github.User`
-            A user.
+            A GitHub user.
         """
 
         data = await self.http.fetch_user(login)

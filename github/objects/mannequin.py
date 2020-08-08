@@ -35,7 +35,7 @@ class Mannequin(Actor, Node, Type, UniformResourceLocatable):
     * :class:`~github.abc.UniformResourceLocatable`
     """
 
-    # https://developer.github.com/v4/object/mannequin/
+    # https://docs.github.com/en/graphql/reference/objects#mannequin
 
     __slots__ = ("data", "http")
 
@@ -60,7 +60,7 @@ class Mannequin(Actor, Node, Type, UniformResourceLocatable):
     @property
     def database_id(self):
         """
-        The mannequin's primary key from the database.
+        The mannequin's database ID.
 
         :type: :class:`int`
         """
@@ -92,4 +92,4 @@ class Mannequin(Actor, Node, Type, UniformResourceLocatable):
             The email.
         """
 
-        ... # TODO
+        ...

@@ -31,7 +31,7 @@ class Status(Node, Type):
     * :class:`~github.abc.Type`
     """
 
-    # https://developer.github.com/v4/object/userstatus/
+    # https://docs.github.com/en/graphql/reference/objects#userstatus
 
     __slots__ = ("data", "http")
 

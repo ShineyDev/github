@@ -24,7 +24,7 @@ class RepositoryPermissions(Enum):
     Represents a user's access level to a repository.
     """
 
-    # https://developer.github.com/v4/enum/repositorypermission/
+    # https://docs.github.com/en/graphql/reference/enums#repositorypermission
 
     admin = "ADMIN"
     maintain = "MAINTAIN"

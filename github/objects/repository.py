@@ -47,7 +47,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
     * :class:`~github.abc.UniformResourceLocatable`
     """
 
-    # https://developer.github.com/v4/object/repository/
+    # https://docs.github.com/en/graphql/reference/objects#repository
 
     __slots__ = ("data", "http")
 
@@ -97,7 +97,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         """
 
         codeofconduct = self.data["codeOfConduct"]
-        return CodeOfConduct.from_data(codeofconduct_)
+        return CodeOfConduct.from_data(codeofconduct)
 
     @property
     def created_at(self):
@@ -113,7 +113,7 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
     @property
     def database_id(self):
         """
-        The primary key for the repository from the database.
+        The repository's database ID.
 
         :type: :class:`int`
         """

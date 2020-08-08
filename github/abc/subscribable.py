@@ -16,7 +16,6 @@
     limitations under the License.
 """
 
-from github import utils
 from github.enums import SubscriptionState
 
 
@@ -31,14 +30,15 @@ class Subscribable():
     * :class:`~github.Repository`
     """
 
-    # https://developer.github.com/v4/interface/subscribable/
+    # https://docs.github.com/en/graphql/reference/interfaces#subscribable
 
     __slots__ = ()
 
     @property
     def viewer_can_subscribe(self):
         """
-        Whether the authenticated user can subscribe to the subscribable.
+        Whether the authenticated user can subscribe to the
+        subscribable.
 
         :type: :class:`bool`
         """
@@ -48,7 +48,8 @@ class Subscribable():
     @property
     def viewer_subscription(self):
         """
-        The authenticated user's subscription state to the subscribable.
+        The authenticated user's subscription state to the
+        subscribable.
 
         :type: :class:`~github.enums.SubscriptionState`
         """
@@ -60,7 +61,8 @@ class Subscribable():
         """
         |coro|
 
-        Updates the authenticated user's subscription state to the subscribable.
+        Updates the authenticated user's subscription state to the
+        subscribable.
 
         Parameters
         ----------

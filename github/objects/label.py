@@ -37,7 +37,7 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
     * :class:`~github.abc.UniformResourceLocatable`
     """
 
-    # https://developer.github.com/v4/object/label/
+    # https://docs.github.com/en/graphql/reference/objects#label
 
     __slots__ = ("data", "http")
 
@@ -111,6 +111,8 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
 
     async def fetch_issues(self):
         """
+        |coro|
+
         Fetches a list of issues with the label.
 
         Returns
@@ -124,6 +126,8 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
 
     async def fetch_pull_requests(self):
         """
+        |coro|
+
         Fetches a list of pull requests with the label.
 
         Returns

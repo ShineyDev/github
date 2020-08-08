@@ -18,7 +18,7 @@
 
 class RepositoryOwner():
     """
-    Represents the owner of a GitHub repository.
+    Represents the owner of one or more GitHub repositories.
 
     Implemented by:
 
@@ -27,7 +27,7 @@ class RepositoryOwner():
     * :class:`~github.User`
     """
 
-    # https://developer.github.com/v4/interface/repositoryowner/
+    # https://docs.github.com/en/graphql/reference/interfaces#repositoryowner
 
     __slots__ = ()
 
@@ -48,7 +48,6 @@ class RepositoryOwner():
             The repository.
         """
 
-        # prevent cyclic imports
         from github.objects import Repository
 
         data = await self.http.fetch_repository(self.login, name)

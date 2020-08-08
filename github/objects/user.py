@@ -49,7 +49,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
     * :class:`~github.abc.UniformResourceLocatable`
     """
 
-    # https://developer.github.com/v4/object/user/
+    # https://docs.github.com/en/graphql/reference/objects#user
 
     __slots__ = ("data", "http")
 
@@ -94,7 +94,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
     @property
     def database_id(self):
         """
-        The user's primary key from the database.
+        The user's database ID.
 
         :type: :class:`int`
         """
@@ -164,7 +164,7 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
     @property
     def is_viewer(self):
         """
-        Whether or not the user is the authenticated user.
+        Whether the user is the authenticated user.
 
         :type: :class:`bool`
         """
@@ -261,8 +261,6 @@ class AuthenticatedUser(User):
     * :class:`~github.abc.Type`
     * :class:`~github.abc.UniformResourceLocatable`
     """
-
-    # this object does not have an api equivalent
 
     async def clear_status(self):
         """

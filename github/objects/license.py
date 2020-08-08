@@ -16,7 +16,6 @@
     limitations under the License.
 """
 
-from github import utils
 from github.abc import Node
 from github.abc import Type
 from .licenserule import LicenseRule
@@ -32,7 +31,7 @@ class License(Node, Type):
     * :class:`~github.abc.Type`
     """
 
-    # https://developer.github.com/v4/object/license/
+    # https://docs.github.com/en/graphql/reference/objects#license
 
     __slots__ = ("data",)
 

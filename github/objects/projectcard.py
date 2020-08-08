@@ -34,7 +34,7 @@ class ProjectCard(Node, Type, UniformResourceLocatable):
     * :class:`~github.abc.UniformResourceLocatable`
     """
 
-    # https://developer.github.com/v4/object/projectcard/
+    # https://docs.github.com/en/graphql/reference/objects#projectcard
 
     __slots__ = ("data", "http")
 
@@ -66,7 +66,7 @@ class ProjectCard(Node, Type, UniformResourceLocatable):
     @property
     def database_id(self):
         """
-        The card's primary key from the database.
+        The card's database ID.
 
         :type: :class:`int`
         """
@@ -125,7 +125,7 @@ class ProjectCard(Node, Type, UniformResourceLocatable):
             You do not have permission to move the card.
         """
 
-        # https://developer.github.com/v4/mutation/moveprojectcard/
+        # https://docs.github.com/en/graphql/reference/mutations#moveprojectcard
 
         if after is not None:
             after = after.id

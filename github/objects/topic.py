@@ -30,7 +30,7 @@ class Topic(Node, Type):
     * :class:`~github.abc.Type`
     """
 
-    # https://developer.github.com/v4/object/topic/
+    # https://docs.github.com/en/graphql/reference/objects#topic
 
     __slots__ = ("data", "http")
 

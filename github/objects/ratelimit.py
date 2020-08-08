@@ -29,7 +29,7 @@ class RateLimit(Type):
     * :class:`~github.abc.Type`
     """
 
-    # https://developer.github.com/v4/object/ratelimit/
+    # https://docs.github.com/en/graphql/reference/objects#ratelimit
 
     __slots__ = ("data",)
 

@@ -24,7 +24,7 @@ class CannotUpdateReason(Enum):
     Represents a reason the authenticated user cannot update an updatable.
     """
 
-    # https://developer.github.com/v4/enum/commentcannotupdatereason/
+    # https://docs.github.com/en/graphql/reference/enums#commentcannotupdatereason
 
     archived                = "ARCHIVED"
     denied                  = "DENIED"

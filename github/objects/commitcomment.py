@@ -40,7 +40,7 @@ class CommitComment(Comment, Deletable, Node, Reactable, RepositoryNode, Type, U
     * :class:`~github.abc.Updatable`
     """
 
-    # https://developer.github.com/v4/object/commitcomment/
+    # https://docs.github.com/en/graphql/reference/objects#commitcomment
 
     __slots__ = ("data", "http")
 

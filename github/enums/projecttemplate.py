@@ -24,7 +24,7 @@ class ProjectTemplate(Enum):
     Represents a GitHub-provided project template.
     """
 
-    # https://developer.github.com/v4/enum/projecttemplate/
+    # https://docs.github.com/en/graphql/reference/enums#projecttemplate
 
     automated_kanban_v2      = "AUTOMATED_KANBAN_V2"
     automated_reviews_kanban = "AUTOMATED_REVIEWS_KANBAN"

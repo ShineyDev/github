@@ -18,7 +18,7 @@
 
 class UniformResourceLocatable():
     """
-    Represents an object that can be retrieved by a URL.
+    Represents an object retrievable by its URL.
 
     Implemented by:
 
@@ -34,7 +34,7 @@ class UniformResourceLocatable():
     * :class:`~github.User`
     """
 
-    # https://developer.github.com/v4/interface/uniformresourcelocatable/
+    # https://docs.github.com/en/graphql/reference/interfaces#uniformresourcelocatable
 
     __slots__ = ()
 

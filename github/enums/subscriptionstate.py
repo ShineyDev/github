@@ -21,10 +21,10 @@ from github.enums import Enum
 
 class SubscriptionState(Enum):
     """
-    Represents a user's subscription state to a Repository.
+    Represents a user's subscription to a subject.
     """
 
-    # https://developer.github.com/v4/enum/subscriptionstate/
+    # https://docs.github.com/en/graphql/reference/enums#subscriptionstate
 
     ignored = "IGNORED"
     subscribed = "SUBSCRIBED"

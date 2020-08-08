@@ -26,7 +26,7 @@ class Labelable():
     * :class:`github.PullRequest`
     """
 
-    # https://developer.github.com/v4/interface/labelable/
+    # https://docs.github.com/en/graphql/reference/interfaces#labelable
 
     __slots__ = ()
 
@@ -42,7 +42,6 @@ class Labelable():
             A list of labels.
         """
 
-        # prevent cyclic imports
         from github.objects import Label
 
         data = await self.http.fetch_labelable_labels(self.id)
@@ -56,7 +55,7 @@ class Labelable():
 
         Parameters
         ----------
-        \\*labels: :class:`github.Label`
+        *labels: :class:`github.Label`
             An iterable of labels.
 
         Raises
@@ -65,7 +64,7 @@ class Labelable():
             You do not have permission to add labels to the labelable.
         """
 
-        # https://developer.github.com/v4/mutation/addlabelstolabelable/
+        # https://docs.github.com/en/graphql/reference/mutations#addlabelstolabelable
 
         labels = [label.id for label in labels]
         await self.http.mutate_labelable_add_labels(self.id, labels)
@@ -74,7 +73,7 @@ class Labelable():
         """
         |coro|
 
-        Clears all labels from the labelable.
+        Removes all labels from the labelable.
 
         Raises
         ------
@@ -82,7 +81,7 @@ class Labelable():
             You do not have permission to clear labels from the labelable.
         """
 
-        # https://developer.github.com/v4/mutation/clearlabelsfromlabelable/
+        # https://docs.github.com/en/graphql/reference/mutations#clearlabelsfromlabelable
 
         await self.http.mutate_labelable_clear_labels(self.id)
 
@@ -94,7 +93,7 @@ class Labelable():
 
         Parameters
         ----------
-        \\*labels: :class:`github.Label`
+        *labels: :class:`github.Label`
             An iterable of labels.
 
         Raises
@@ -103,7 +102,7 @@ class Labelable():
             You do not have permission to remove labels from the labelable.
         """
 
-        # https://developer.github.com/v4/mutation/removelabelsfromlabelable/
+        # https://docs.github.com/en/graphql/reference/mutations#removelabelsfromlabelable
 
         labels = [label.id for label in labels]
         await self.http.mutate_labelable_remove_labels(self.id, labels)

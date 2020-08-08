@@ -28,7 +28,7 @@ class Metadata(Type):
     * :class:`~github.abc.Type`
     """
 
-    # https://developer.github.com/v4/object/githubmetadata/
+    # https://docs.github.com/en/graphql/reference/objects#githubmetadata
 
     __slots__ = ("data",)
 

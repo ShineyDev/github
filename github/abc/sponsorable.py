@@ -20,14 +20,14 @@ class Sponsorable():
     """
     Represents an object which can be sponsored.
 
-    https://developer.github.com/v4/interface/sponsorable/
-
     Implemented by:
 
     * :class:`~github.AuthenticatedUser`
     * :class:`~github.Organization`
     * :class:`~github.User`
     """
+
+    # https://docs.github.com/en/graphql/reference/interfaces#sponsorable
 
     __slots__ = ()
 
@@ -43,7 +43,6 @@ class Sponsorable():
             The sponsorable's sponsor listing.
         """
 
-        # prevent cyclic imports
         from github.objects import SponsorListing
 
         data = await self.http.fetch_sponsorable_sponsor_listing(self.id)

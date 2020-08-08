@@ -41,7 +41,7 @@ class Node(Type):
     * :class:`~github.User`
     """
 
-    # https://developer.github.com/v4/interface/node/
+    # https://docs.github.com/en/graphql/reference/interfaces#node
 
     __slots__ = ("data",)
 

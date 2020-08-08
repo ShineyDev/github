@@ -28,7 +28,7 @@ class LicenseRule(Type):
     * :class:`~github.abc.Type`
     """
 
-    # https://developer.github.com/v4/object/licenserule/
+    # https://docs.github.com/en/graphql/reference/objects#licenserule
 
     __slots__ = ("data",)
 

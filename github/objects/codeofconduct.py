@@ -32,7 +32,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
     * :class:`~github.abc.UniformResourceLocatable`
     """
 
-    # https://developer.github.com/v4/object/codeofconduct
+    # https://docs.github.com/en/graphql/reference/objects#codeofconduct
 
     __slots__ = ("data",)
 
@@ -45,7 +45,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
     @property
     def body(self):
         """
-        The body of the code of conduct.
+        The code of conduct body.
 
         :type: :class:`str`
         """
@@ -55,7 +55,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
     @property
     def key(self):
         """
-        The key of the code of conduct.
+        The code of conduct key.
 
         :type: :class:`str`
         """
@@ -65,7 +65,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
     @property
     def name(self):
         """
-        The name of the code of conduct.
+        The code of conduct name.
 
         :type: :class:`str`
         """

@@ -16,7 +16,6 @@
     limitations under the License.
 """
 
-from github import utils
 from github.abc import Assignable
 from github.abc import Closable
 from github.abc import Comment
@@ -58,7 +57,7 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
     * :class:`~github.abc.Updatable`
     """
 
-    # https://developer.github.com/v4/object/pullrequest/
+    # https://docs.github.com/en/graphql/reference/objects#pullrequest
 
     __slots__ = ("data", "http")
 
@@ -79,7 +78,7 @@ class PullRequest(Assignable, Closable, Comment, Commentable, Labelable, Lockabl
     @property
     def database_id(self):
         """
-        The primary key for the pull request from the database.
+        The pull request's database ID.
 
         :type: :class:`int`
         """

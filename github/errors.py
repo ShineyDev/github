@@ -22,7 +22,7 @@ class GitHubError(Exception):
     all exceptions thrown by the wrapper.
 
     This exception is raised when GitHub returns arbitrary errors in
-    the JSON response. The given error is the first error in the list.
+    its JSON response. The given error is the first error in the list.
 
     Attributes
     ----------
@@ -60,7 +60,7 @@ class HTTPException(GitHubError):
         .. note::
 
             If :attr:`.response` is ``None``, the exception will have a
-            ``__cause__`` attribute containing the actual exception.
+            ``__cause__`` attribute containing the wrapped exception.
     """
 
     pass

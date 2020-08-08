@@ -16,7 +16,6 @@
     limitations under the License.
 """
 
-from github import utils
 from github.enums import LockReason
 from github.enums import RepositoryLockReason
 
@@ -32,7 +31,7 @@ class Lockable():
     * :class:`~github.Repository`
     """
 
-    # https://developer.github.com/v4/interface/lockable/
+    # https://docs.github.com/en/graphql/reference/interfaces#lockable
 
     __slots__ = ()
 
@@ -81,7 +80,7 @@ class Lockable():
             You do not have permission to lock the lockable.
         """
 
-        # https://developer.github.com/v4/mutation/locklockable/
+        # https://docs.github.com/en/graphql/reference/mutations#locklockable
 
         if reason is not None:
             reason = reason.value
@@ -100,7 +99,7 @@ class Lockable():
             You do not have permission to unlock the lockable.
         """
 
-        # https://developer.github.com/v4/mutation/unlocklockable/
+        # https://docs.github.com/en/graphql/reference/mutations#unlocklockable
 
         await self.http.mutate_lockable_unlock(self.id)
 

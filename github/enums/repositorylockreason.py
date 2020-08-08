@@ -24,7 +24,7 @@ class RepositoryLockReason(Enum):
     Represents the reason for a given repository to be in a locked state.
     """
 
-    # https://developer.github.com/v4/enum/repositorylockreason/
+    # https://docs.github.com/en/graphql/reference/enums#repositorylockreason
 
     billing   = "BILLING"
     migrating = "MIGRATING"

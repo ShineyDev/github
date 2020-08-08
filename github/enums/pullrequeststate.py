@@ -24,7 +24,7 @@ class PullRequestState(Enum):
     Represents the state of a pull request.
     """
 
-    # https://developer.github.com/v4/enum/pullrequeststate/
+    # https://docs.github.com/en/graphql/reference/enums#pullrequeststate
 
     closed = "CLOSED"
     merged = "MERGED"

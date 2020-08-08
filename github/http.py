@@ -28,39 +28,38 @@ from github import query
 
 
 _DEFAULT_BASE_URL = "https://api.github.com/graphql"
-_DEFAULT_USER_AGENT = "ShineyDev/github.py:{0}"
+_DEFAULT_USER_AGENT_FMT = "ShineyDev/github.py:{0}"
 
 
 class HTTPClient():
     """
-    Represents a GitHub 'connection' or client.
+    Represents a GitHub connection (token).
 
-    This class contains the behind-the-scenes code for the
-    :class:`~github.GitHub` class and should not be created by
-    the user.
+    This class contains the behind-the-scenes code for classes in this
+    wrapper and should not be created by the user.
 
-    This class is only exposed for :meth:`~HTTPClient.request`.
+    This class is exposed for :meth:`~HTTPClient.request`.
     """
 
-    __slots__ = ("_exception_map", "_token", "_base_url", "_user_agent", "_uuid", "_session")
+    _http_exception_map = {
+        # HTTP status-code
+        401: errors.Unauthorized,
+
+        # GitHub API status-message
+        "FORBIDDEN": errors.Forbidden,
+        "INTERNAL": errors.Internal,
+        "NOT_FOUND": errors.NotFound,
+    }
+
+    __slots__ = ("_token", "_session", "_base_url", "_user_agent", "_uuid")
 
     def __init__(self, token, *, base_url=None, user_agent=None, session=None):
-        self._exception_map = {
-            # HTTP status-code
-            401: errors.Unauthorized,
-
-            # GitHub API status-message
-            "FORBIDDEN": errors.Forbidden,
-            "INTERNAL": errors.Internal,
-            "NOT_FOUND": errors.NotFound,
-        }
-
+        self._token = token
+        self._session = session
         self._uuid = str(uuid.uuid4())
 
-        self._token = token
-        self._base_url = base_url or _DEFAULT_BASE_URL
-        self._user_agent = user_agent or _DEFAULT_USER_AGENT.format(self._uuid)
-        self._session = session
+        self.base_url = base_url
+        self.user_agent = user_agent
 
     @property
     def base_url(self):
@@ -76,7 +75,7 @@ class HTTPClient():
 
     @user_agent.setter
     def user_agent(self, value):
-        self._user_agent = value or _DEFAULT_USER_AGENT.format(self._uuid)
+        self._user_agent = value or _DEFAULT_USER_AGENT_FMT.format(self._uuid)
 
     async def _request(self, *, method, json, headers, session):
         async with session.request(method, self._base_url, json=json, headers=headers) as response:
@@ -93,19 +92,19 @@ class HTTPClient():
 
                 try:
                     # handled HTTP status-code
-                    exception = self._exception_map[response.status]
+                    exc_type = self._http_exception_map[response.status]
                 except (KeyError) as e:
                     # arbitrary HTTP status-code
-                    exception = errors.HTTPException
+                    exc_type = errors.HTTPException
 
-                raise exception(message, response=response, data=data)
+                raise exc_type(message, response=response, data=data)
 
             if method.upper() == "GET":
                 # we should only get here if the request came from
                 # HTTPClient.fetch_scopes
                 return response
 
-            # this should, theoretically, never error since gql only
+            # this should, theoretically, never raise since gql only
             # responds with json data unless it raises a HTTP
             # status-code outside of the [200, 300) range
             data = await response.json()
@@ -124,33 +123,33 @@ class HTTPClient():
                     type = data["errors"][0]["type"]
 
                     # handled GitHub status-message
-                    exception = self._exception_map[type]
+                    exc_type = self._http_exception_map[type]
                 except (KeyError) as e:
                     # arbitrary GitHub status-message
-                    exception = errors.GitHubError
+                    exc_type = errors.GitHubError
 
-                raise exception(message, response=response, data=data)
+                raise exc_type(message, response=response, data=data)
 
             return data
 
     async def request(self, *, json, headers=None, session=None):
         """
-        Performs a request to the GitHub API.
+        Sends a HTTP request to the GitHub API.
 
         Parameters
         ----------
         json: :class:`dict`
-            The JSON object to be posted to the API. This object must
+            The JSON object to post to the API. This object must
             contain a ``"query"`` key and can optionally contain a
             ``"variables"`` key.
         headers: :class:`dict`
             The headers to be passed to the API.
 
-            .. warning::
+            .. note::
 
-                You cannot update the user-agent via this method and
-                must use the :attr:`~github.GitHub.user_agent` property
-                instead.
+                You cannot update the ``User-Agent`` or
+                ``Authorization`` headers via this method.
+
         session: :class:`aiohttp.ClientSession`
             The session to request the API with.
 
@@ -172,10 +171,7 @@ class HTTPClient():
         Returns
         -------
         :class:`dict`
-            The data returned by the API.
-
-            .. note::
-                This data only includes that within the ``"data"`` object.
+            The ``"data"`` object.
         """
 
         headers = headers or dict()

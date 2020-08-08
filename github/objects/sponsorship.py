@@ -26,13 +26,13 @@ class Sponsorship(Node, Type):
     """
     Represents a GitHub Sponsorship.
 
-    https://developer.github.com/v4/object/sponsorship/
-
     Implements:
 
     * :class:`~github.abc.Node`
     * :class:`~github.abc.Type`
     """
+
+    # https://docs.github.com/en/graphql/reference/objects#sponsorship
 
     __slots__ = ("data", "http")
 
@@ -48,7 +48,8 @@ class Sponsorship(Node, Type):
         :type: :class:`~datetime.datetime`
         """
 
-        return utils.iso_to_datetime(self.data["createdAt"])
+        created_at = self.data["createdAt"]
+        return utils.iso_to_datetime(created_at)
 
     @property
     def privacy(self):

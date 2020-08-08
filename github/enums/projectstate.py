@@ -24,7 +24,7 @@ class ProjectState(Enum):
     Represents the state of a project.
     """
 
-    # https://developer.github.com/v4/enum/projectstate/
+    # https://docs.github.com/en/graphql/reference/enums#projectstate
 
     closed = "CLOSED"
     open   = "OPEN"

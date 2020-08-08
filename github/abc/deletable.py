@@ -25,7 +25,7 @@ class Deletable():
     * :class:`~github.CommitComment`
     """
 
-    # https://developer.github.com/v4/interface/deletable/
+    # https://docs.github.com/en/graphql/reference/interfaces#deletable
 
     __slots__ = ()
 
@@ -51,4 +51,4 @@ class Deletable():
             You do not have permission to delete the deletable.
         """
 
-        ... # TODO
+        ...

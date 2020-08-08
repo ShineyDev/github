@@ -20,10 +20,10 @@ import datetime
 import re
 
 
-# https://developer.github.com/v4/scalar/datetime/
-# https://developer.github.com/v4/scalar/precisedatetime/
-ISO_8601_DATETIME_REGEX = r"([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(?:\.([0-9]{3}))?Z"
+# https://docs.github.com/en/graphql/reference/scalars#datetime
+# https://docs.github.com/en/graphql/reference/scalars#precisedatetime
 ISO_8601_DATETIME_FMT = "{0:>04}-{1:>02}-{2:>02}T{3:>02}:{4:>02}:{5:>02}.{6:>03}Z"
+ISO_8601_DATETIME_REGEX = r"([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(?:\.([0-9]{3}))?Z"
 
 
 def datetime_to_iso(dt):
@@ -61,6 +61,7 @@ def iso_to_datetime(iso):
     """
 
     if iso is None:
+        # internal helper
         return None
 
     match = re.fullmatch(ISO_8601_DATETIME_REGEX, iso)

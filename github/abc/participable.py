@@ -26,8 +26,6 @@ class Participable():
     * :class:`~github.PullRequest`
     """
 
-    # this interface does not have an api equivalent
-
     __slots__ = ()
 
     async def fetch_participants(self):

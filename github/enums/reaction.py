@@ -24,7 +24,7 @@ class Reaction(Enum):
     Represents a GitHub reaction.
     """
 
-    # https://developer.github.com/v4/enum/reactioncontent/
+    # https://docs.github.com/en/graphql/reference/enums#reactioncontent
 
     confused    = "CONFUSED"
     eyes        = "EYES"

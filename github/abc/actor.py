@@ -29,7 +29,7 @@ class Actor():
     * :class:`~github.User`
     """
 
-    # https://developer.github.com/v4/interface/actor/
+    # https://docs.github.com/en/graphql/reference/interfaces#actor
 
     __slots__ = ()
 
@@ -46,7 +46,7 @@ class Actor():
     @property
     def identicon_url(self):
         """
-        A url pointing to the actor's identicon avatar.
+        A url pointing to the actor's identicon.
 
         :type: :class:`str`
         """
@@ -56,7 +56,7 @@ class Actor():
     @property
     def login(self):
         """
-        The actor's username.
+        The actor's login.
 
         :type: :class:`str`
         """
@@ -80,5 +80,4 @@ class Actor():
             A url.
         """
 
-        avatar_url = await self.http.fetch_actor_avatar_url(self.id, size)
-        return avatar_url
+        return await self.http.fetch_actor_avatar_url(self.id, size)

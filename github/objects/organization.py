@@ -43,7 +43,7 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
     * :class:`~github.abc.UniformResourceLocatable`
     """
 
-    # https://developer.github.com/v4/object/organization/
+    # https://docs.github.com/en/graphql/reference/objects#organization
 
     __slots__ = ("data", "http")
 
@@ -57,7 +57,7 @@ class Organization(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
     @property
     def database_id(self):
         """
-        The organization's primary key from the database.
+        The organization's database ID.
 
         :type: :class:`int`
         """

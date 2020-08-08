@@ -16,7 +16,6 @@
     limitations under the License.
 """
 
-from github import utils
 from github.enums import CannotUpdateReason
 
 
@@ -31,7 +30,7 @@ class Updatable():
     * :class:`~github.PullRequest`
     """
 
-    # https://developer.github.com/v4/interface/updatable/
+    # https://docs.github.com/en/graphql/reference/interfaces#updatable
 
     __slots__ = ()
 
@@ -48,7 +47,8 @@ class Updatable():
     @property
     def viewer_cannot_update_reasons(self):
         """
-        A list of reasons why the authenticated user cannot update this updatable.
+        A list of reasons why the authenticated user cannot update this
+        updatable.
 
         :type: List[:class:`~github.enums.CannotUpdateReason`]
         """
@@ -68,4 +68,4 @@ class Updatable():
             You do not have permission to update the updatable.
         """
 
-        ... # TODO
+        ...

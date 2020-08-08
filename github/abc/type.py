@@ -42,8 +42,6 @@ class Type():
     * :class:`~github.User`
     """
 
-    # this interface does not have an api equivalent
-
     __slots__ = ()
 
     @classmethod

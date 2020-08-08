@@ -24,7 +24,7 @@ class ProjectColumnPurpose(Enum):
     Represents the purpose of a project column.
     """
 
-    # https://developer.github.com/v4/enum/projectcolumnpurpose/
+    # https://docs.github.com/en/graphql/reference/enums#projectcolumnpurpose
 
     done        = "DONE"
     in_progress = "IN_PROGRESS"

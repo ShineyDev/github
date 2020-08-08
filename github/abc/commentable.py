@@ -26,8 +26,6 @@ class Commentable():
     * :class:`~github.PullRequest`
     """
 
-    # this interface does not have an api equivalent
-
     __slots__ = ()
 
     async def fetch_comments(self):
@@ -42,7 +40,6 @@ class Commentable():
             A list of comments.
         """
 
-        # prevent cyclic imports
         from github import objects
 
         data_ = await self.http.fetch_commentable_comments(self.id)
@@ -50,13 +47,9 @@ class Commentable():
         comments = list()
 
         for (data) in data_:
-            if data["__typename"] == "IssueComment":
-                # special case IssueComment for lack of API PullRequestComment
-
-                if self.data["__typename"] == "Issue":
-                    cls = objects.IssueComment
-                elif self.data["__typename"] == "PullRequest":
-                    cls = objects.PullRequestComment
+            if data["__typename"] == "IssueComment" and self.data["__typename"] == "PullRequest":
+                # special case for lack of API PullRequestComment
+                cls = objects.PullRequestComment
             else:
                 cls = objects._TYPE_MAP[data["__typename"]]
 
@@ -86,18 +79,13 @@ class Commentable():
             The comment.
         """
 
-        # prevent cyclic imports
         from github import objects
 
         data = await self.http.mutate_commentable_add_comment(self.id, body)
 
-        if data["__typename"] == "IssueComment":
-            # special case IssueComment for lack of API PullRequestComment
-
-            if self.data["__typename"] == "Issue":
-                cls = objects.IssueComment
-            elif self.data["__typename"] == "PullRequest":
-                cls = objects.PullRequestComment
+        if data["__typename"] == "IssueComment" and self.data["__typename"] == "PullRequest":
+            # special case for lack of API PullRequestComment
+            cls = objects.PullRequestComment
         else:
             cls = objects._TYPE_MAP[data["__typename"]]
 

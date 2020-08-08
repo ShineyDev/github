@@ -24,7 +24,7 @@ class LockReason(Enum):
     Represents the reason for a lockable to be in a locked state.
     """
 
-    # https://developer.github.com/v4/enum/lockreason/
+    # https://docs.github.com/en/graphql/reference/enums#lockreason
 
     off_topic  = "OFF_TOPIC"
     resolved   = "RESOLVED"

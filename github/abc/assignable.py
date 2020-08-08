@@ -26,7 +26,7 @@ class Assignable():
     * :class:`~github.PullRequest`
     """
 
-    # https://developer.github.com/v4/interface/assignable/
+    # https://docs.github.com/en/graphql/reference/interfaces#assignable
 
     __slots__ = ()
 
@@ -42,7 +42,6 @@ class Assignable():
             A list of users.
         """
 
-        # prevent cyclic imports
         from github.objects import User
 
         data = await self.http.fetch_assignable_assignees(self.id)
@@ -56,16 +55,17 @@ class Assignable():
 
         Parameters
         ----------
-        \\*users: :class:`~github.User`
+        *users: :class:`~github.User`
             An iterable of users.
 
         Raises
         ------
         ~github.errors.Forbidden
-            You do not have permission to add assignees to the assignable.
+            You do not have permission to add assignees to the
+            assignable.
         """
 
-        # https://developer.github.com/v4/mutation/addassigneestoassignable/
+        # https://docs.github.com/en/graphql/reference/mutations#addassigneestoassignable
 
         users = [user.id for user in users]
         await self.http.mutate_assignable_add_assignees(self.id, users)
@@ -78,16 +78,17 @@ class Assignable():
 
         Parameters
         ----------
-        \\*users: :class:`~github.User`
+        *users: :class:`~github.User`
             An iterable of users.
 
         Raises
         ------
         ~github.errors.Forbidden
-            You do not have permission to remove assignees from the assignable.
+            You do not have permission to remove assignees from the
+            assignable.
         """
 
-        # https://developer.github.com/v4/mutation/removeassigneesfromassignable/
+        # https://docs.github.com/en/graphql/reference/mutations#removeassigneesfromassignable
 
         users = [user.id for user in users]
         await self.http.mutate_assignable_remove_assignees(self.id, users)

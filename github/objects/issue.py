@@ -16,7 +16,6 @@
     limitations under the License.
 """
 
-from github import utils
 from github.abc import Assignable
 from github.abc import Closable
 from github.abc import Comment
@@ -57,7 +56,7 @@ class Issue(Assignable, Closable, Comment, Commentable, Labelable, Lockable, Nod
     * :class:`~github.abc.Updatable`
     """
 
-    # https://developer.github.com/v4/object/issue/
+    # https://docs.github.com/en/graphql/reference/objects#issue
 
     __slots__ = ("data", "http")
 
@@ -68,7 +67,7 @@ class Issue(Assignable, Closable, Comment, Commentable, Labelable, Lockable, Nod
     @property
     def database_id(self):
         """
-        The primary key for the issue from the database.
+        The issue's database ID.
 
         :type: :class:`int`
         """

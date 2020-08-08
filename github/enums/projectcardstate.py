@@ -24,7 +24,7 @@ class ProjectCardState(Enum):
     Represents the state of a project card.
     """
 
-    # https://developer.github.com/v4/enum/projectcardstate/
+    # https://docs.github.com/en/graphql/reference/enums#projectcardstate
 
     body_only    = "NOTE_ONLY"
     content_only = "CONTENT_ONLY"

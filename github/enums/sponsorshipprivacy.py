@@ -24,7 +24,7 @@ class SponsorshipPrivacy(Enum):
     Represents the privacy of a sponsorship.
     """
 
-    # https://developer.github.com/v4/enum/sponsorshipprivacy/
+    # https://docs.github.com/en/graphql/reference/enums#sponsorshipprivacy
 
     private = "PRIVATE"
     public = "PUBLIC"

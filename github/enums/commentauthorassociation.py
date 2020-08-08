@@ -21,10 +21,10 @@ from github.enums import Enum
 
 class CommentAuthorAssociation(Enum):
     """
-    Represents an actor's association with a repository.
+    Represents an author's association to the subject of a comment.
     """
 
-    # https://developer.github.com/v4/enum/commentauthorassociation/
+    # https://docs.github.com/en/graphql/reference/enums#commentauthorassociation
 
     collaborator           = "COLLABORATOR"
     contributor            = "CONTRIBUTOR"

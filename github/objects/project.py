@@ -39,7 +39,7 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
     * :class:`~github.abc.Updatable`
     """
 
-    # https://developer.github.com/v4/object/project/
+    # https://docs.github.com/en/graphql/reference/objects#project
 
     __slots__ = ("data", "http")
 
@@ -81,7 +81,7 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
     @property
     def database_id(self):
         """
-        The project's primary key from the database.
+        The project's database ID.
 
         :type: :class:`int`
         """
@@ -168,7 +168,7 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
             The created column.
         """
 
-        # https://developer.github.com/v4/mutation/addprojectcolumn/
+        # https://docs.github.com/en/graphql/reference/mutations#addprojectcolumn
 
         data = await self.http.mutate_project_create_column(self.id, name)
         return ProjectColumn.from_data(data, self.http)

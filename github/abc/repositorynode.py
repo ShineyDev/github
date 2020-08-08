@@ -28,7 +28,7 @@ class RepositoryNode():
     * :class:`~github.PullRequest`
     """
 
-    # https://developer.github.com/v4/interface/repositorynode/
+    # https://docs.github.com/en/graphql/reference/interfaces#repositorynode
 
     __slots__ = ()
 
@@ -44,7 +44,6 @@ class RepositoryNode():
             The repository.
         """
 
-        # prevent cyclic imports
         from github.objects import Repository
 
         data = await self.http.fetch_repositorynode_repository(self.id)

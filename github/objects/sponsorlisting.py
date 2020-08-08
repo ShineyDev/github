@@ -26,13 +26,13 @@ class SponsorListing(Node, Type):
     """
     Represents a GitHub Sponsors listing.
 
-    https://developer.github.com/v4/object/sponsorslisting/
-
     Implements:
 
     * :class:`~github.abc.Node`
     * :class:`~github.abc.Type`
     """
+
+    # https://docs.github.com/en/graphql/reference/objects#sponsorslisting
 
     __slots__ = ("data", "http")
 
