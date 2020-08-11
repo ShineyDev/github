@@ -81,12 +81,12 @@ Fetch a repository's license:
     repo = await g.fetch_repository("ShineyDev", "github.py")
     print(repo.license.name)
 
-You can find more examples in the |examples_directory|.
+You can find more examples in the |examples|.
 
 
-.. |examples_directory| replace:: |examples_directory_link|_
-.. |examples_directory_link| replace:: examples directory
-.. _examples_directory_link: https://github.com/ShineyDev/github.py/tree/master/examples
+.. |examples| replace:: |examples_link|_
+.. |examples_link| replace:: examples directory
+.. _examples_link: https://github.com/ShineyDev/github.py/tree/master/examples
 
 
 Attribution

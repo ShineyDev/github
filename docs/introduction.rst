@@ -48,4 +48,9 @@ Fetch a repository's license:
     repo = await g.fetch_repository("ShineyDev", "github.py")
     license = repo.license
 
-You can find more examples in the |examples_directory|.
+You can find more examples in the |examples|.
+
+
+.. |examples| replace:: |examples_link|_
+.. |examples_link| replace:: examples directory
+.. _examples_link: https://github.com/ShineyDev/github.py/tree/master/examples

@@ -8,7 +8,7 @@ import sys
 
 sys.path.insert(0, os.path.abspath(".."))
 
-# extensions
+# extensions configuration
 
 extensions = [
     "sphinx.ext.autodoc",
@@ -30,7 +30,7 @@ intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
 }
 
-# main config
+# sphinx configuration
 
 highlight_language = "python3"
 html_experimental_html5_writer = True
@@ -44,7 +44,7 @@ master_doc = "index"
 pygments_style = "friendly"
 source_suffix = ".rst"
 
-# project information
+# project configuration
 
 copyright = "2019-2020, ShineyDev"
 project = "github.py"
@@ -54,22 +54,11 @@ with open("../github/__init__.py", "r") as file_stream:
 
 release = version
 
-# reST config
+# reST configuration
 
 rst_prolog = """
-.. |choosealicense| replace:: |choosealicense_link|_
-.. |choosealicense_link| replace:: choosealicense.com
-.. _choosealicense_link: https://choosealicense.com/
 
-.. |coro| replace:: This function is a |coroutine_link|_.
-.. |coroutine_link| replace:: *coroutine*
-.. _coroutine_link: https://docs.python.org/3/library/asyncio-task.html#coroutine
-
-.. |examples_directory| replace:: |examples_directory_link|_
-.. |examples_directory_link| replace:: examples directory
-.. _examples_directory_link: https://github.com/ShineyDev/github.py/tree/master/examples
-
-.. |spdx| replace:: |spdx_link|_
-.. |spdx_link| replace:: spdx.org
-.. _spdx_link: https://spdx.org/licenses/
+.. |coro| replace:: This function is a |coro_link|_.
+.. |coro_link| replace:: *coroutine*
+.. _coro_link: https://docs.python.org/3/library/asyncio-task.html#coroutine
 """
