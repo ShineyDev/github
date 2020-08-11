@@ -28,5 +28,6 @@ Objects
     sponsorlisting
     sponsorship
     sponsortier
+    status
     topic
     user
