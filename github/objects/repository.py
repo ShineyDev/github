@@ -354,6 +354,61 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         permissions = self.data["viewerPermission"]
         return RepositoryPermissions.try_value(permissions)
 
+    async def fetch_issue(self, number):
+        """
+        |coro|
+
+        Fetches an issue from the repository.
+
+        Parameters
+        ----------
+        number: :class:`int`
+            The issue number.
+
+        Raises
+        ------
+        ~github.errors.NotFound
+            An issue with the given number does not exist.
+
+        Returns
+        -------
+        :class:`~github.Issue`
+            The issue.
+        """
+
+        data = await self.http.fetch_repository_issue(self.id, number)
+        return Issue.from_data(data, self.http)
+
+    async def fetch_parent(self):
+        """
+        |coro|
+
+        Fetches the repository's parent, if it is a fork.
+
+        Returns
+        -------
+        Optional[:class:`~github.Repository`]
+            The repository's parent.
+        """
+
+        data = await self.http.fetch_repository_parent(self.id)
+        return Repository.from_data(data, self.http)
+
+    async def fetch_template(self):
+        """
+        |coro|
+
+        Fetches the repository's template, if it has one.
+
+        Returns
+        -------
+        Optional[:class:`~github.Repository`]
+            The repository's template.
+        """
+
+        data = await self.http.fetch_repository_template(self.id)
+        return Repository.from_data(data, self.http)
+
     def fetch_assignable_users(self, **kwargs):
         """
         |aiter|
@@ -390,31 +445,6 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         return CollectionIterator(self.http.fetch_repository_collaborators,
                                   self.id, map_func=map_func, **kwargs)
 
-    async def fetch_issue(self, number):
-        """
-        |coro|
-
-        Fetches an issue from the repository.
-
-        Parameters
-        ----------
-        number: :class:`int`
-            The issue number.
-
-        Raises
-        ------
-        ~github.errors.NotFound
-            An issue with the given number does not exist.
-
-        Returns
-        -------
-        :class:`~github.Issue`
-            The issue.
-        """
-
-        data = await self.http.fetch_repository_issue(self.id, number)
-        return Issue.from_data(data, self.http)
-
     def fetch_issues(self, **kwargs):
         """
         |aiter|
@@ -432,33 +462,3 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
 
         return CollectionIterator(self.http.fetch_repository_issues, self.id,
                                   map_func=map_func, **kwargs)
-
-    async def fetch_parent(self):
-        """
-        |coro|
-
-        Fetches the repository's parent, if it is a fork.
-
-        Returns
-        -------
-        Optional[:class:`~github.Repository`]
-            The repository's parent.
-        """
-
-        data = await self.http.fetch_repository_parent(self.id)
-        return Repository.from_data(data, self.http)
-
-    async def fetch_template(self):
-        """
-        |coro|
-
-        Fetches the repository's template, if it has one.
-
-        Returns
-        -------
-        Optional[:class:`~github.Repository`]
-            The repository's template.
-        """
-
-        data = await self.http.fetch_repository_template(self.id)
-        return Repository.from_data(data, self.http)
