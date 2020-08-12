@@ -208,6 +208,20 @@ class HTTPClient():
 
         return nodes
 
+    async def _fetch_collection_page(self, *path, query, **kwargs):
+        kwargs.setdefault("cursor", None)
+        kwargs.setdefault("first", 10)
+
+        json = {
+            "query": query,
+            "variables": kwargs,
+        }
+
+        data = await self.request(json=json)
+        data = functools.reduce(operator.getitem, path, data)
+
+        return data["nodes"], data["pageInfo"]["endCursor"], data["pageInfo"]["hasNextPage"]
+
     async def _fetch_field(self, *path, query, **kwargs):
         json = {
             "query": query,
@@ -222,16 +236,17 @@ class HTTPClient():
                                        query=query.FETCH_ACTOR_AVATAR_URL,
                                        actor_id=actor_id, size=size)
 
-    async def fetch_assignable_assignees(self, assignable_id):
+    async def fetch_assignable_assignees(self, assignable_id, **kwargs):
         raise NotImplementedError
 
-    async def fetch_commentable_comments(self, commentable_id):
+    async def fetch_commentable_comments(self, commentable_id, **kwargs):
         raise NotImplementedError
 
-    async def fetch_labelable_labels(self, labelable_id):
-        return await self._fetch_collection("node", "labels",
-                                            query=query.FETCH_LABELABLE_LABELS,
-                                            labelable_id=labelable_id)
+    async def fetch_labelable_labels(self, labelable_id, **kwargs):
+        return await self._fetch_collection_page("node", "labels",
+                                                 query=query.FETCH_LABELABLE_LABELS,
+                                                 labelable_id=labelable_id,
+                                                 **kwargs)
 
     async def fetch_profileowner_email(self, profileowner_id):
         return await self._fetch_field("node", "email",
@@ -243,10 +258,11 @@ class HTTPClient():
                                        query=query.FETCH_PROJECTOWNER_PROJECT,
                                        projectowner_id=projectowner_id, project_number=project_number)
 
-    async def fetch_projectowner_projects(self, projectowner_id):
-        return await self._fetch_collection("node", "projects",
-                                            query=query.FETCH_PROJECTOWNER_PROJECTS,
-                                            projectowner_id=projectowner_id)
+    async def fetch_projectowner_projects(self, projectowner_id, **kwargs):
+        return await self._fetch_collection_page("node", "projects",
+                                                 query=query.FETCH_PROJECTOWNER_PROJECTS,
+                                                 projectowner_id=projectowner_id,
+                                                 **kwargs)
 
     async def fetch_repositorynode_repository(self, repositorynode_id):
         return await self._fetch_field("node", "repository",
@@ -274,13 +290,13 @@ class HTTPClient():
         return await self._fetch_field("codeOfConduct",
                                        query=query.FETCH_CODE_OF_CONDUCT, key=key)
 
-    async def fetch_issue_participants(self, issue_id):
+    async def fetch_issue_participants(self, issue_id, **kwargs):
         raise NotImplementedError
 
-    async def fetch_label_issues(self, label_id):
+    async def fetch_label_issues(self, label_id, **kwargs):
         raise NotImplementedError
 
-    async def fetch_label_pull_requests(self, label_id):
+    async def fetch_label_pull_requests(self, label_id, **kwargs):
         raise NotImplementedError
 
     async def fetch_license(self, key):
@@ -301,17 +317,19 @@ class HTTPClient():
                                        query=query.FETCH_ORGANIZATION,
                                        login=login)
 
-    async def fetch_project_columns(self, project_id):
-        return await self._fetch_collection("node", "columns",
-                                            query=query.FETCH_PROJECT_COLUMNS,
-                                            project_id=project_id)
+    async def fetch_project_columns(self, project_id, **kwargs):
+        return await self._fetch_collection_page("node", "columns",
+                                                 query=query.FETCH_PROJECT_COLUMNS,
+                                                 project_id=project_id,
+                                                 **kwargs)
 
-    async def fetch_projectcolumn_cards(self, projectcolumn_id):
-        return await self._fetch_collection("node", "cards",
-                                            query=query.FETCH_PROJECTCOLUMN_CARDS,
-                                            projectcolumn_id=projectcolumn_id)
+    async def fetch_projectcolumn_cards(self, projectcolumn_id, **kwargs):
+        return await self._fetch_collection_page("node", "cards",
+                                                 query=query.FETCH_PROJECTCOLUMN_CARDS,
+                                                 projectcolumn_id=projectcolumn_id,
+                                                 **kwargs)
 
-    async def fetch_pull_request_participants(self, pull_request_id):
+    async def fetch_pull_request_participants(self, pull_request_id, **kwargs):
         raise NotImplementedError
 
     async def fetch_rate_limit(self):
@@ -323,25 +341,28 @@ class HTTPClient():
                                        query=query.FETCH_REPOSITORY,
                                        owner=owner, name=name)
 
-    async def fetch_repository_assignable_users(self, repository_id):
-        return await self._fetch_collection("node", "assignableUsers",
-                                            query=query.FETCH_REPOSITORY_ASSIGNABLE_USERS,
-                                            repository_id=repository_id)
+    async def fetch_repository_assignable_users(self, repository_id, **kwargs):
+        return await self._fetch_collection_page("node", "assignableUsers",
+                                                 query=query.FETCH_REPOSITORY_ASSIGNABLE_USERS,
+                                                 repository_id=repository_id,
+                                                 **kwargs)
 
-    async def fetch_repository_collaborators(self, repository_id):
-        return await self._fetch_collection("node", "collaborators",
-                                            query=query.FETCH_REPOSITORY_COLLABORATORS,
-                                            repository_id=repository_id)
+    async def fetch_repository_collaborators(self, repository_id, **kwargs):
+        return await self._fetch_collection_page("node", "collaborators",
+                                                 query=query.FETCH_REPOSITORY_COLLABORATORS,
+                                                 repository_id=repository_id,
+                                                 **kwargs)
 
     async def fetch_repository_issue(self, repository_id, issue_number):
         return await self._fetch_field("node", "issue",
                                        query=query.FETCH_REPOSITORY_ISSUE,
                                        repository_id=repository_id, issue_number=issue_number)
 
-    async def fetch_repository_issues(self, repository_id):
-        return await self._fetch_collection("node", "issues",
-                                            query=query.FETCH_REPOSITORY_ISSUES,
-                                            repository_id=repository_id)
+    async def fetch_repository_issues(self, repository_id, **kwargs):
+        return await self._fetch_collection_page("node", "issues",
+                                                 query=query.FETCH_REPOSITORY_ISSUES,
+                                                 repository_id=repository_id,
+                                                 **kwargs)
 
     async def fetch_repository_parent(self, repository_id):
         try:
@@ -375,15 +396,17 @@ class HTTPClient():
         scopes = response.headers.get("X-OAuth-Scopes")
         return [s for s in scopes.split(", ") if s]
 
-    async def fetch_sponsorlisting_tiers(self, sponsorlisting_id):
-        return await self._fetch_collection("node", "tiers",
-                                            query=query.FETCH_SPONSORLISTING_TIERS,
-                                            sponsorlisting_id=sponsorlisting_id)
+    async def fetch_sponsorlisting_tiers(self, sponsorlisting_id, **kwargs):
+        return await self._fetch_collection_page("node", "tiers",
+                                                 query=query.FETCH_SPONSORLISTING_TIERS,
+                                                 sponsorlisting_id=sponsorlisting_id,
+                                                 **kwargs)
 
-    async def fetch_sponsortier_sponsorships(self, sponsortier_id):
-        return await self._fetch_collection("node", "adminInfo", "sponsorships",
-                                            query=query.FETCH_SPONSORTIER_SPONSORSHIPS,
-                                            sponsortier_id=sponsortier_id)
+    async def fetch_sponsortier_sponsorships(self, sponsortier_id, **kwargs):
+        return await self._fetch_collection_page("node", "adminInfo", "sponsorships",
+                                                 query=query.FETCH_SPONSORTIER_SPONSORSHIPS,
+                                                 sponsortier_id=sponsortier_id,
+                                                 **kwargs)
 
     async def fetch_topic(self, name):
         return await self._fetch_field("topic",
@@ -400,20 +423,23 @@ class HTTPClient():
                                        query=query.FETCH_USER,
                                        login=login)
 
-    async def fetch_user_commit_comments(self, user_id):
-        return await self._fetch_collection("node", "commitComments",
-                                            query=query.FETCH_USER_COMMIT_COMMENTS,
-                                            user_id=user_id)
+    async def fetch_user_commit_comments(self, user_id, **kwargs):
+        return await self._fetch_collection_page("node", "commitComments",
+                                                 query=query.FETCH_USER_COMMIT_COMMENTS,
+                                                 user_id=user_id,
+                                                 **kwargs)
 
-    async def fetch_user_followers(self, user_id):
-        return await self._fetch_collection("node", "followers",
-                                            query=query.FETCH_USER_FOLLOWERS,
-                                            user_id=user_id)
+    async def fetch_user_followers(self, user_id, **kwargs):
+        return await self._fetch_collection_page("node", "followers",
+                                                 query=query.FETCH_USER_FOLLOWERS,
+                                                 user_id=user_id,
+                                                 **kwargs)
 
-    async def fetch_user_following(self, user_id):
-        return await self._fetch_collection("node", "following",
-                                            query=query.FETCH_USER_FOLLOWING,
-                                            user_id=user_id)
+    async def fetch_user_following(self, user_id, **kwargs):
+        return await self._fetch_collection_page("node", "following",
+                                                 query=query.FETCH_USER_FOLLOWING,
+                                                 user_id=user_id,
+                                                 **kwargs)
 
     # mutations
 

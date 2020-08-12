@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import List, Union, overload
 
+from github.iterator import CollectionIterator
 from github.abc import Node
 from github.abc import Type
 from github.abc import UniformResourceLocatable
@@ -22,7 +23,7 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
     @property
     def updated_at(self) -> datetime: ...
 
-    async def fetch_cards(self) -> List[ProjectCard]: ...
+    def fetch_cards(self, **kwargs) -> CollectionIterator: ...
     @overload
     async def create_card(self, *, body: str) -> ProjectCard: ...
     @overload

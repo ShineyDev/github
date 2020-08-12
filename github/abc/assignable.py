@@ -16,6 +16,9 @@
     limitations under the License.
 """
 
+from github.iterator import CollectionIterator
+
+
 class Assignable():
     """
     Represents an object which can be assigned to.
@@ -30,22 +33,25 @@ class Assignable():
 
     __slots__ = ()
 
-    async def fetch_assignees(self):
+    def fetch_assignees(self, **kwargs):
         """
-        |coro|
+        |aiter|
 
-        Fetches a list of users assigned to the assignable.
+        Fetches users assigned to the assignable.
 
         Returns
         -------
-        List[:class:`~github.User`]
-            A list of users.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.User`.
         """
 
         from github.objects import User
 
-        data = await self.http.fetch_assignable_assignees(self.id)
-        return User.from_data(data, self.http)
+        def map_func(data):
+            return User.from_data(data, self.http)
+
+        return CollectionIterator(self.http.fetch_assignable_assignees,
+                                  self.id, map_func=map_func, **kwargs)
 
     async def add_assignees(self, *users):
         """

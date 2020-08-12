@@ -17,6 +17,7 @@
 """
 
 from github import utils
+from github.iterator import CollectionIterator
 from github.abc import Node
 from github.abc import Type
 from github.abc import UniformResourceLocatable
@@ -96,20 +97,23 @@ class ProjectColumn(Node, Type, UniformResourceLocatable):
         updated_at = self.data["updatedAt"]
         return utils.iso_to_datetime(updated_at)
 
-    async def fetch_cards(self):
+    def fetch_cards(self, **kwargs):
         """
-        |coro|
+        |aiter|
 
-        Fetches a list of cards in the column.
+        Fetches cards in the column.
 
         Returns
         -------
-        List[:class:`~github.ProjectCard`]
-            A list of cards.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.ProjectCard`.
         """
 
-        data = await self.http.fetch_projectcolumn_cards(self.id)
-        return ProjectCard.from_data(data, self.http)
+        def map_func(data):
+            return ProjectCard.from_data(data, self.http)
+
+        return CollectionIterator(self.http.fetch_projectcolumn_cards,
+                                  self.id, map_func=map_func, **kwargs)
 
     async def create_card(self, *, body=None, content=None):
         """

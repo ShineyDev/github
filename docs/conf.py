@@ -58,6 +58,10 @@ release = version
 
 rst_prolog = """
 
+.. |aiter| replace:: This function returns an |aiter_link|_.
+.. |aiter_link| replace:: *asynchronous iterator*
+.. _aiter_link: https://docs.python.org/3/glossary.html#term-asynchronous-iterator
+
 .. |coro| replace:: This function is a |coro_link|_.
 .. |coro_link| replace:: *coroutine*
 .. _coro_link: https://docs.python.org/3/library/asyncio-task.html#coroutine

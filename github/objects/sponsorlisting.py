@@ -17,6 +17,7 @@
 """
 
 from github import utils
+from github.iterator import CollectionIterator
 from github.abc import Node
 from github.abc import Type
 from .sponsortier import SponsorTier
@@ -100,17 +101,20 @@ class SponsorListing(Node, Type):
 
         return self.data["slug"]
 
-    async def fetch_tiers(self):
+    def fetch_tiers(self, **kwargs):
         """
-        |coro|
+        |aiter|
 
-        Fetches a list of tiers for the sponsor listing.
+        Fetches tiers for the sponsor listing.
 
         Returns
         -------
-        List[:class:`~github.objects.SponsorTier`]
-            The list of tiers.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.SponsorTier`.
         """
 
-        data = await self.http.fetch_sponsorlisting_tiers(self.id)
-        return SponsorTier.from_data(data, self.http)
+        def map_func(data):
+            return SponsorTier.from_data(data, self.http)
+
+        return CollectionIterator(self.http.fetch_sponsorlisting_tiers,
+                                  self.id, map_func=map_func, **kwargs)

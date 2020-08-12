@@ -16,6 +16,9 @@
     limitations under the License.
 """
 
+from github.iterator import CollectionIterator
+
+
 class Commentable():
     """
     Represents an object which can be commented on.
@@ -28,34 +31,31 @@ class Commentable():
 
     __slots__ = ()
 
-    async def fetch_comments(self):
+    def fetch_comments(self, **kwargs):
         """
-        |coro|
+        |aiter|
 
-        Fetches a list of comments on the commentable.
+        Fetches comments on the commentable.
 
         Returns
         -------
-        List[Union[:class:`~github.CommitComment`]]
-            A list of comments.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.abc.Comment`.
         """
 
         from github import objects
 
-        data_ = await self.http.fetch_commentable_comments(self.id)
-
-        comments = list()
-
-        for (data) in data_:
+        def map_func(data):
             if data["__typename"] == "IssueComment" and self.data["__typename"] == "PullRequest":
                 # special case for lack of API PullRequestComment
                 cls = objects.PullRequestComment
             else:
                 cls = objects._TYPE_MAP[data["__typename"]]
 
-            comments.append(cls.from_data(data, self.http))
+            return cls.from_data(data, self.http)
 
-        return comments
+        return CollectionIterator(self.http.fetch_commentable_comments,
+                                  self.id, map_func=map_func, **kwargs)
 
     async def add_comment(self, body):
         """

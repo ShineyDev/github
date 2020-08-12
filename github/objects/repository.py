@@ -17,6 +17,7 @@
 """
 
 from github import utils
+from github.iterator import CollectionIterator
 from github.abc import Lockable
 from github.abc import Node
 from github.abc import ProjectOwner
@@ -353,35 +354,41 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         permissions = self.data["viewerPermission"]
         return RepositoryPermissions.try_value(permissions)
 
-    async def fetch_assignable_users(self):
+    def fetch_assignable_users(self, **kwargs):
         """
-        |coro|
+        |aiter|
 
-        Fetches a list of users that can be assigned to issues in the repository.
+        Fetches users that can be assigned to issues in the repository.
 
         Returns
         -------
-        List[:class:`~github.User`]
-            A list of users.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.User`.
         """
 
-        data = await self.http.fetch_repository_assignable_users(self.id)
-        return User.from_data(data, self.http)
+        def map_func(data):
+            return User.from_data(data, self.http)
 
-    async def fetch_collaborators(self):
+        return CollectionIterator(self.http.fetch_repository_assignable_users,
+                                  self.id, map_func=map_func, **kwargs)
+
+    def fetch_collaborators(self, **kwargs):
         """
-        |coro|
+        |aiter|
 
-        Fetches a list of collaborators associated with the repository.
+        Fetches collaborators on the repository.
 
         Returns
         -------
-        List[:class:`~github.User`]
-            A list of users.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.User`.
         """
 
-        data = await self.http.fetch_repository_collaborators(self.id)
-        return User.from_data(data, self.http)
+        def map_func(data):
+            return User.from_data(data, self.http)
+
+        return CollectionIterator(self.http.fetch_repository_collaborators,
+                                  self.id, map_func=map_func, **kwargs)
 
     async def fetch_issue(self, number):
         """
@@ -408,20 +415,23 @@ class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResour
         data = await self.http.fetch_repository_issue(self.id, number)
         return Issue.from_data(data, self.http)
 
-    async def fetch_issues(self):
+    def fetch_issues(self, **kwargs):
         """
-        |coro|
+        |aiter|
 
-        Fetches a list of issues from the repository.
+        Fetches issues in the repository.
 
         Returns
         -------
-        List[:class:`~github.Issue`]
-            A list of issues.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.Issue`.
         """
 
-        data = await self.http.fetch_repository_issues(self.id)
-        return Issue.from_data(data, self.http)
+        def map_func(data):
+            return Issue.from_data(data, self.http)
+
+        return CollectionIterator(self.http.fetch_repository_issues, self.id,
+                                  map_func=map_func, **kwargs)
 
     async def fetch_parent(self):
         """

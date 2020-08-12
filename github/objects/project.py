@@ -17,6 +17,7 @@
 """
 
 from github import utils
+from github.iterator import CollectionIterator
 from github.abc import Closable
 from github.abc import Node
 from github.abc import Type
@@ -130,20 +131,23 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
         updated_at = self.data["updatedAt"]
         return utils.iso_to_datetime(updated_at)
 
-    async def fetch_columns(self):
+    def fetch_columns(self, **kwargs):
         """
-        |coro|
+        |aiter|
 
-        Fetches a list of columns in the project.
+        Fetches columns in the project.
 
         Returns
         -------
-        List[:class:`~github.ProjectColumn`]
-            A list of columns.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.ProjectColumn`.
         """
 
-        data = await self.http.fetch_project_columns(self.id)
-        return ProjectColumn.from_data(data, self.http)
+        def map_func(data):
+            return ProjectColumn.from_data(data, self.http)
+
+        return CollectionIterator(self.http.fetch_project_columns, self.id,
+                                  map_func=map_func, **kwargs)
 
     async def create_column(self, *, name):
         """

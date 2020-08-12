@@ -16,6 +16,9 @@
     limitations under the License.
 """
 
+from github.iterator import CollectionIterator
+
+
 class Labelable():
     """
     Represents an object which can be labeled.
@@ -30,22 +33,25 @@ class Labelable():
 
     __slots__ = ()
 
-    async def fetch_labels(self):
+    def fetch_labels(self, **kwargs):
         """
-        |coro|
+        |aiter|
 
-        Fetches a list of labels from the labelable.
+        Fetches labels from the labelable.
 
         Returns
         -------
-        List[:class:`~github.Label`]
-            A list of labels.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.Label`.
         """
 
         from github.objects import Label
 
-        data = await self.http.fetch_labelable_labels(self.id)
-        return Label.from_data(data, self.http)
+        def map_func(data):
+            return Label.from_data(data, self.http)
+
+        return CollectionIterator(self.http.fetch_labelable_labels, self.id,
+                                  map_func=map_func, **kwargs)
 
     async def add_labels(self, *labels):
         """

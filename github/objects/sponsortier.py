@@ -17,6 +17,7 @@
 """
 
 from github import utils
+from github.iterator import CollectionIterator
 from github.abc import Node
 from github.abc import Type
 from .sponsorship import Sponsorship
@@ -102,17 +103,20 @@ class SponsorTier(Node, Type):
         updated_at = self.data["updatedAt"]
         return utils.iso_to_datetime(updated_at)
 
-    async def fetch_sponsorships(self):
+    def fetch_sponsorships(self, **kwargs):
         """
-        |coro|
+        |aiter|
 
-        Fetches a list of sponsorships on the sponsor tier.
+        Fetches sponsorships on the sponsor tier.
 
         Returns
         -------
-        List[:class:`~github.objects.Sponsorship`]
-            The list of sponsorships.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.Sponsorship`.
         """
 
-        data = await self.http.fetch_sponsortier_sponsorships(self.id)
-        return Sponsorship.from_data(data, self.http)
+        def map_func(data):
+            return Sponsorship.from_data(data, self.http)
+
+        return CollectionIterator(self.http.fetch_sponsortier_sponsorships,
+                                  self.id, map_func=map_func, **kwargs)

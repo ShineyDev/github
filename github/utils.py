@@ -17,6 +17,7 @@
 """
 
 import datetime
+import inspect
 import re
 
 
@@ -77,3 +78,11 @@ def iso_to_datetime(iso):
         return datetime.datetime(year, month, day,
                                  hour, minute, second,
                                  microsecond)
+
+async def maybe_coro(callable, *args, **kwargs):
+    coro = callable(*args, **kwargs)
+
+    if inspect.iscoroutine(coro):
+        return await coro
+
+    return coro

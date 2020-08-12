@@ -1,0 +1,9 @@
+from typing import Any, Callable, List, TypeVar
+
+
+_AIT = TypeVar("_AIT", bound=CollectionIterator)
+
+class CollectionIterator():
+    def map(self: _AIT, func: Callable[[Any], Any]) -> _AIT: ...
+    def filter(self: _AIT, func: Callable[[Any], Any]) -> _AIT: ...
+    async def flatten(self) -> List[Any]: ...

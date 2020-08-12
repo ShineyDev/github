@@ -16,6 +16,9 @@
     limitations under the License.
 """
 
+from github.iterator import CollectionIterator
+
+
 class ProjectOwner():
     """
     Represents the owner of one or more GitHub projects.
@@ -86,24 +89,27 @@ class ProjectOwner():
         data = await self.http.fetch_projectowner_project(self.id, number)
         return Project.from_data(data, self.http)
 
-    async def fetch_projects(self):
+    def fetch_projects(self, **kwargs):
         """
-        |coro|
+        |aiter|
 
-        Fetches a list of projects from this project owner.
+        Fetches projects from this project owner.
 
         This requires the ``public_repo`` scope.
 
         Returns
         -------
-        List[:class:`~github.Project`]
-            A list of projects.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.Project`.
         """
 
         from github.objects import Project
 
-        data = await self.http.fetch_projectowner_projects(self.id)
-        return Project.from_data(data, self.http)
+        def map_func(data):
+            return Project.from_data(data, self.http)
+
+        return CollectionIterator(self.http.fetch_projectowner_projects,
+                                  self.id, map_func=map_func, **kwargs)
 
     async def create_project(self, *, name, body=None, template=None):
         """

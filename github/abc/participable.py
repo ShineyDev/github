@@ -16,6 +16,9 @@
     limitations under the License.
 """
 
+from github.iterator import CollectionIterator
+
+
 class Participable():
     """
     Represents an object which can be participated in.
@@ -28,19 +31,22 @@ class Participable():
 
     __slots__ = ()
 
-    async def fetch_participants(self):
+    def fetch_participants(self, **kwargs):
         """
-        |coro|
+        |aiter|
 
-        Fetches a list of users participating on the participable.
+        Fetches users participating on the participable.
 
         Returns
         -------
-        List[:class:`~github.User`]
-            A list of users.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.User`.
         """
-
+        
         from github.objects import User
+
+        def map_func(data):
+            return User.from_data(data, self.http)
 
         map = {
             "Issue": self.http.fetch_issue_participants,
@@ -48,6 +54,5 @@ class Participable():
         }
 
         meth = map[self.data["__typename"]]
-        data = await meth(self.id)
 
-        return User.from_data(data, self.http)
+        return CollectionIterator(meth, self.id, map_func=map_func, **kwargs)

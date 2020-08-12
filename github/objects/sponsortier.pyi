@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import List
 
+from github.iterator import CollectionIterator
 from github.abc import Node
 from github.abc import Type
 from .sponsorship import Sponsorship
@@ -20,4 +21,4 @@ class SponsorTier(Node, Type):
     @property
     def updated_at(self) -> datetime: ...
 
-    async def fetch_sponsorships(self) -> List[Sponsorship]: ...
+    def fetch_sponsorships(self, **kwargs) -> CollectionIterator: ...

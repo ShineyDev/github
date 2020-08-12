@@ -17,6 +17,7 @@
 """
 
 from github import utils
+from github.iterator import CollectionIterator
 from github.abc import Node
 from github.abc import RepositoryNode
 from github.abc import Type
@@ -109,32 +110,38 @@ class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
         updated_at = self.data["updatedAt"]
         return utils.iso_to_datetime(updated_at)
 
-    async def fetch_issues(self):
+    def fetch_issues(self, **kwargs):
         """
-        |coro|
+        |aiter|
 
-        Fetches a list of issues with the label.
+        Fetches issues with the label.
 
         Returns
         -------
-        List[:class:`~github.Issue`]
-            A list of issues.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.Issue`.
         """
 
-        data = await self.http.fetch_label_issues(self.id)
-        return Issue.from_data(data, self.http)
+        def map_func(data):
+            return Issue.from_data(data, self.http)
 
-    async def fetch_pull_requests(self):
+        return CollectionIterator(self.http.fetch_label_issues, self.id,
+                                  map_func=map_func, **kwargs)
+
+    def fetch_pull_requests(self, **kwargs):
         """
-        |coro|
+        |aiter|
 
-        Fetches a list of pull requests with the label.
+        Fetches pull requests with the label.
 
         Returns
         -------
-        List[:class:`~github.PullRequest`]
-            A list of pull requests.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.PullRequest`.
         """
 
-        data = await self.http.fetch_label_pull_requests(self.id)
-        return PullRequest.from_data(data, self.http)
+        def map_func(data):
+            return PullRequest.from_data(data, self.http)
+
+        return CollectionIterator(self.http.fetch_label_pull_requests,
+                                  self.id, map_func=map_func, **kwargs)

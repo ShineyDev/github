@@ -20,6 +20,7 @@ import datetime
 import typing
 
 from github import utils
+from github.iterator import CollectionIterator
 from github.abc import Actor
 from github.abc import Node
 from github.abc import ProfileOwner
@@ -202,50 +203,59 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
 
         return self.data["viewerIsFollowing"]
 
-    async def fetch_commit_comments(self):
+    def fetch_commit_comments(self, **kwargs):
         """
-        |coro|
+        |aiter|
 
         Fetches the user's commit comments.
 
         Returns
         -------
-        List[:class:`~github.CommitComment`]
-            A list of commit comments.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.CommitComment`.
         """
 
-        data = await self.http.fetch_user_commit_comments(self.id)
-        return CommitComment.from_data(data, self.http)
+        def map_func(data):
+            return CommitComment.from_data(data, self.http)
 
-    async def fetch_followers(self):
+        return CollectionIterator(self.http.fetch_user_commit_comments,
+                                  self.id, map_func=map_func, **kwargs)
+
+    def fetch_followers(self, **kwargs):
         """
-        |coro|
+        |aiter|
 
         Fetches the user's followers.
 
         Returns
         -------
-        List[:class:`~github.User`]
-            A list of users.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.User`.
         """
 
-        data = await self.http.fetch_user_followers(self.id)
-        return User.from_data(data, self.http)
+        def map_func(data):
+            return User.from_data(data, self.http)
 
-    async def fetch_following(self):
+        return CollectionIterator(self.http.fetch_user_followers, self.id,
+                                  map_func=map_func, **kwargs)
+
+    def fetch_following(self, **kwargs):
         """
-        |coro|
+        |aiter|
 
         Fetches users followed by the user.
 
         Returns
         -------
-        List[:class:`~github.User`]
-            A list of users.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.User`.
         """
 
-        data = await self.http.fetch_user_following(self.id)
-        return User.from_data(data, self.http)
+        def map_func(data):
+            return User.from_data(data, self.http)
+
+        return CollectionIterator(self.http.fetch_user_following, self.id,
+                                  map_func=map_func, **kwargs)
 
 class AuthenticatedUser(User):
     """

@@ -42,6 +42,7 @@ Other
     query
 
     errors
+    iterator
     utils
 
 .. toctree::

@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import List
 
+from github.iterator import CollectionIterator
 from github.abc import Node
 from github.abc import Type
 from .sponsortier import SponsorTier
@@ -20,4 +21,4 @@ class SponsorListing(Node, Type):
     @property
     def slug(self) -> str: ...
 
-    async def fetch_tiers(self) -> List[SponsorTier]: ...
+    def fetch_tiers(self, **kwargs) -> CollectionIterator: ...

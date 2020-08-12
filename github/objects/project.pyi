@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import List
 
+from github.iterator import CollectionIterator
 from github.abc import Closable
 from github.abc import Node
 from github.abc import Type
@@ -28,5 +29,5 @@ class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):
     @property
     def updated_at(self) -> datetime: ...
 
-    async def fetch_columns(self) -> List[ProjectColumn]: ...
+    def fetch_columns(self, **kwargs) -> CollectionIterator: ...
     async def create_column(self, *, name: str) -> ProjectColumn: ...
