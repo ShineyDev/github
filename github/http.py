@@ -29,6 +29,7 @@ from github import query
 
 _DEFAULT_BASE_URL = "https://api.github.com/graphql"
 _DEFAULT_USER_AGENT_FMT = "ShineyDev/github.py:{0}"
+_DEFAULT_PAGE_LENGTH = 10
 
 
 class HTTPClient():
@@ -210,7 +211,7 @@ class HTTPClient():
 
     async def _fetch_collection_page(self, *path, query, **kwargs):
         kwargs.setdefault("cursor", None)
-        kwargs.setdefault("first", 10)
+        kwargs.setdefault("first", _DEFAULT_PAGE_LENGTH)
 
         json = {
             "query": query,

@@ -16,6 +16,7 @@
     limitations under the License.
 """
 
+from github import http
 from github import utils
 
 
@@ -95,6 +96,9 @@ class CollectionIterator():
 
         self._current_page = new_nodes
         return self._current_page.pop(0)
+
+    def __length_hint__(self):
+        return self._kwargs.get("first", http._DEFAULT_PAGE_LENGTH)
 
     def map(self, func):
         """
