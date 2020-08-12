@@ -98,7 +98,7 @@ class CollectionIterator():
         return self._current_page.pop(0)
 
     def __length_hint__(self):
-        return self._kwargs.get("first", http._DEFAULT_PAGE_LENGTH)
+        return self._kwargs.get("first", NotImplemented)
 
     def map(self, func):
         """
