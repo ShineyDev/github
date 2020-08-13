@@ -211,7 +211,7 @@ class HTTPClient():
 
     async def _fetch_collection_page(self, *path, query, **kwargs):
         kwargs.setdefault("cursor", None)
-        kwargs.setdefault("first", _DEFAULT_PAGE_LENGTH)
+        kwargs.setdefault("per_page", _DEFAULT_PAGE_LENGTH)
 
         json = {
             "query": query,

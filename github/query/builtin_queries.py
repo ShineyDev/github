@@ -31,10 +31,10 @@ query fetch_actor_avatar_url ($actor_id: ID!, $size: Int=null) {
 """
 
 FETCH_LABELABLE_LABELS = """
-query fetch_labelable_labels ($labelable_id: ID!, $first: Int, $cursor: String) {
+query fetch_labelable_labels ($labelable_id: ID!, $per_page: Int, $cursor: String) {
   node (id: $labelable_id) {
     ... on Labelable {
-      labels (first: $first, after: $cursor) {
+      labels (first: $per_page, after: $cursor) {
         nodes {
           __typename
           color
@@ -97,10 +97,10 @@ query fetch_projectowner_project ($projectowner_id: ID!, $project_number: Int!) 
 """
 
 FETCH_PROJECTOWNER_PROJECTS = """
-query fetch_projectowner_projects ($projectowner_id: ID!, $first: Int, $cursor: String) {
+query fetch_projectowner_projects ($projectowner_id: ID!, $per_page: Int, $cursor: String) {
   node (id: $projectowner_id) {
     ... on ProjectOwner {
-      projects (first: $first, after: $cursor) {
+      projects (first: $per_page, after: $cursor) {
         nodes {
           __typename
           body
@@ -507,10 +507,10 @@ query fetch_organization ($login: String!) {
 """
 
 FETCH_PROJECT_COLUMNS = """
-query fetch_project_columns ($project_id: ID!, $first: Int, $cursor: String) {
+query fetch_project_columns ($project_id: ID!, $per_page: Int, $cursor: String) {
   node (id: $project_id) {
     ... on Project {
-      columns (first: $first, after: $cursor) {
+      columns (first: $per_page, after: $cursor) {
         nodes {
           __typename
           createdAt
@@ -533,10 +533,10 @@ query fetch_project_columns ($project_id: ID!, $first: Int, $cursor: String) {
 """
 
 FETCH_PROJECTCOLUMN_CARDS = """
-query fetch_projectcolumn_cards ($projectcolumn_id: ID!, $first: Int, $cursor: String) {
+query fetch_projectcolumn_cards ($projectcolumn_id: ID!, $per_page: Int, $cursor: String) {
   node (id: $projectcolumn_id) {
     ... on ProjectColumn {
-      cards (first: $first, after: $cursor) {
+      cards (first: $per_page, after: $cursor) {
         nodes {
           __typename
           createdAt
@@ -721,10 +721,10 @@ query fetch_repository ($owner: String!, $name: String!) {
 """
 
 FETCH_REPOSITORY_ASSIGNABLE_USERS = """
-query fetch_repository_assignable_users ($repository_id: ID!, $first: Int, $cursor: String) {
+query fetch_repository_assignable_users ($repository_id: ID!, $per_page: Int, $cursor: String) {
   node (id: $repository_id) {
     ... on Repository {
-      assignableUsers (first: $first, after: $cursor) {
+      assignableUsers (first: $per_page, after: $cursor) {
         nodes {
           __typename
           anyPinnableItems
@@ -767,10 +767,10 @@ query fetch_repository_assignable_users ($repository_id: ID!, $first: Int, $curs
 """
 
 FETCH_REPOSITORY_COLLABORATORS = """
-query fetch_repository_collaborators ($repository_id: ID!, $first: Int, $cursor: String) {
+query fetch_repository_collaborators ($repository_id: ID!, $per_page: Int, $cursor: String) {
   node (id: $repository_id) {
     ... on Repository {
-      collaborators (first: $first, after: $cursor) {
+      collaborators (first: $per_page, after: $cursor) {
         nodes {
           __typename
           anyPinnableItems
@@ -970,10 +970,10 @@ query fetch_repository_issue ($repository_id: ID!, $issue_number: Int!) {
 """
 
 FETCH_REPOSITORY_ISSUES = """
-query fetch_repository_issues ($repository_id: ID!, $first: Int, $cursor: String) {
+query fetch_repository_issues ($repository_id: ID!, $per_page: Int, $cursor: String) {
   node (id: $repository_id) {
     ... on Repository {
-      issues (first: $first, after: $cursor) {
+      issues (first: $per_page, after: $cursor) {
         nodes {
           __typename
           activeLockReason
@@ -1447,10 +1447,10 @@ query fetch_repository_template ($repository_id: ID!) {
 """
 
 FETCH_SPONSORLISTING_TIERS = """
-query fetch_sponsorlisting_tiers ($sponsorlisting_id: ID!, $first: Int, $cursor: String) {
+query fetch_sponsorlisting_tiers ($sponsorlisting_id: ID!, $per_page: Int, $cursor: String) {
   node (id: $sponsorlisting_id) {
     ... on SponsorsListing {
-      tiers (first: $first, after: $cursor) {
+      tiers (first: $per_page, after: $cursor) {
         nodes {
           __typename
           createdAt
@@ -1480,11 +1480,11 @@ query fetch_sponsorlisting_tiers ($sponsorlisting_id: ID!, $first: Int, $cursor:
 """
 
 FETCH_SPONSORTIER_SPONSORSHIPS = """
-query fetch_sponsortier_sponsorships ($sponsortier_id: ID!, $first: Int, $cursor: String) {
+query fetch_sponsortier_sponsorships ($sponsortier_id: ID!, $per_page: Int, $cursor: String) {
   node (id: $sponsortier_id) {
     ... on SponsorsTier {
       adminInfo {
-        sponsorships (first: $first, after: $cursor) {
+        sponsorships (first: $per_page, after: $cursor) {
           nodes {
             __typename
             createdAt
@@ -1567,10 +1567,10 @@ FETCH_USER_COMMIT_COMMENTS = """
 """
 
 FETCH_USER_FOLLOWERS = """
-query fetch_user_followers ($user_id: ID!, $first: Int, $cursor: String) {
+query fetch_user_followers ($user_id: ID!, $per_page: Int, $cursor: String) {
   node (id: $user_id) {
     ... on User {
-      followers (first: $first, after: $cursor) {
+      followers (first: $per_page, after: $cursor) {
         nodes {
           __typename
           anyPinnableItems
@@ -1613,10 +1613,10 @@ query fetch_user_followers ($user_id: ID!, $first: Int, $cursor: String) {
 """
 
 FETCH_USER_FOLLOWING = """
-query fetch_user_following ($user_id: ID!, $first: Int, $cursor: String) {
+query fetch_user_following ($user_id: ID!, $per_page: Int, $cursor: String) {
   node (id: $user_id) {
     ... on User {
-      following (first: $first, after: $cursor) {
+      following (first: $per_page, after: $cursor) {
         nodes {
           __typename
           anyPinnableItems

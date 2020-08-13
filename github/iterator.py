@@ -34,11 +34,18 @@ class CollectionIterator():
         repo = await client.fetch_repository("ShineyDev", "github.py")
         async for (issue) in repo.fetch_issues():
             ...
+
+    .. code-block::
+
+        # fetch 24 issues over 4 fetches, iterate over them.
+
+        async for (issue) in repo.fetch_issues(first=24, per_page=6):
+            ...
     """
 
     __slots__ = ("_collector", "_filter_func", "_map_func", "filter_func",
                  "map_func", "_current_page", "_has_next_page", "_paginate",
-                 "_args", "_kwargs")
+                 "_limit", "_n", "_args", "_kwargs")
 
     def __init__(self, collector, *args, filter_func=None, map_func=None, **kwargs):
         self._collector = collector
@@ -54,6 +61,8 @@ class CollectionIterator():
         self._current_page = None
         self._has_next_page = True
         self._paginate = kwargs.pop("_paginate", False)
+        self._limit = kwargs.pop("first", None)
+        self._n = 0
 
         self._args = args
         self._kwargs = kwargs
@@ -70,8 +79,14 @@ class CollectionIterator():
             # we already have a page, pop from it
             return self._current_page.pop(0)
 
-        # this is the first page or the previous one was popped
-        # let's collect the next one
+        if self._limit is not None:
+            to_go = self._limit - self._n
+            if to_go == 0:
+                raise StopAsyncIteration
+
+            self._kwargs["per_page"] = min(to_go, self._kwargs.get("per_page", http._DEFAULT_PAGE_LENGTH))
+
+        # let's collect the next page
         nodes, self._kwargs["cursor"], self._has_next_page = \
             await self._collector(*self._args, **self._kwargs)
 
@@ -81,6 +96,8 @@ class CollectionIterator():
             pred = pred and await utils.maybe_coro(self.filter_func, node)
             if not pred:
                 continue
+
+            self._n += 1
 
             node = await utils.maybe_coro(self._map_func, node)
             node = await utils.maybe_coro(self.map_func, node)
