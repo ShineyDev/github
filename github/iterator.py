@@ -117,6 +117,10 @@ class CollectionIterator():
     def __length_hint__(self):
         return self._limit or NotImplemented
 
+    def __reversed__(self):
+        self._kwargs["reverse"] = not self._kwargs.get("reverse", False)
+        return self
+
     def map(self, func):
         """
         This is similar to the built-in :func:`map <py:map>` function.
