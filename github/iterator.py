@@ -39,7 +39,7 @@ class CollectionIterator():
 
         # fetch 24 issues over 4 fetches, iterate over them.
 
-        async for (issue) in repo.fetch_issues(first=24, per_page=6):
+        async for (issue) in repo.fetch_issues(limit=24, per_page=6):
             ...
     """
 
@@ -61,7 +61,7 @@ class CollectionIterator():
         self._current_page = None
         self._has_next_page = True
         self._paginate = kwargs.pop("_paginate", False)
-        self._limit = kwargs.pop("first", None)
+        self._limit = kwargs.pop("limit", None)
         self._n = 0
 
         self._args = args
@@ -115,7 +115,7 @@ class CollectionIterator():
         return self._current_page.pop(0)
 
     def __length_hint__(self):
-        return self._kwargs.get("first", NotImplemented)
+        return self._limit or NotImplemented
 
     def map(self, func):
         """
