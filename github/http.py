@@ -210,8 +210,14 @@ class HTTPClient():
         return nodes
 
     async def _fetch_collection_page(self, *path, query, **kwargs):
-        kwargs.setdefault("cursor", None)
-        kwargs.setdefault("per_page", _DEFAULT_PAGE_LENGTH)
+        reverse = kwargs.pop("reverse", False)
+        direction = reverse and "last" or "first"
+        cursor = reverse and "before" or "after"
+        next_cursor = reverse and "startCursor" or "endCursor"
+        next_page = reverse and "hasPreviousPage" or "hasNextPage"
+
+        kwargs[cursor] = kwargs.pop("cursor", None)
+        kwargs[direction] = kwargs.pop("per_page", _DEFAULT_PAGE_LENGTH)
 
         json = {
             "query": query,
@@ -221,7 +227,10 @@ class HTTPClient():
         data = await self.request(json=json)
         data = functools.reduce(operator.getitem, path, data)
 
-        return data["nodes"], data["pageInfo"]["endCursor"], data["pageInfo"]["hasNextPage"]
+        if reverse:
+            data["nodes"] = list(reversed(data["nodes"]))
+
+        return data["nodes"], data["pageInfo"][next_cursor], data["pageInfo"][next_page]
 
     async def _fetch_field(self, *path, query, **kwargs):
         json = {

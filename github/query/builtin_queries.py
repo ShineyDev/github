@@ -31,10 +31,10 @@ query fetch_actor_avatar_url ($actor_id: ID!, $size: Int=null) {
 """
 
 FETCH_LABELABLE_LABELS = """
-query fetch_labelable_labels ($labelable_id: ID!, $per_page: Int, $cursor: String) {
+query fetch_labelable_labels ($labelable_id: ID!, $first: Int, $last: Int, $after: String, $before: String) {
   node (id: $labelable_id) {
     ... on Labelable {
-      labels (first: $per_page, after: $cursor) {
+      labels (first: $first, last: $last, after: $after, before: $before) {
         nodes {
           __typename
           color
@@ -50,6 +50,8 @@ query fetch_labelable_labels ($labelable_id: ID!, $per_page: Int, $cursor: Strin
         pageInfo {
           endCursor
           hasNextPage
+          hasPreviousPage
+          startCursor
         }
       }
     }
@@ -97,10 +99,10 @@ query fetch_projectowner_project ($projectowner_id: ID!, $project_number: Int!) 
 """
 
 FETCH_PROJECTOWNER_PROJECTS = """
-query fetch_projectowner_projects ($projectowner_id: ID!, $per_page: Int, $cursor: String) {
+query fetch_projectowner_projects ($projectowner_id: ID!, $first: Int, $last: Int, $after: String, $before: String) {
   node (id: $projectowner_id) {
     ... on ProjectOwner {
-      projects (first: $per_page, after: $cursor) {
+      projects (first: $first, last: $last, after: $after, before: $before) {
         nodes {
           __typename
           body
@@ -121,6 +123,8 @@ query fetch_projectowner_projects ($projectowner_id: ID!, $per_page: Int, $curso
         pageInfo {
           endCursor
           hasNextPage
+          hasPreviousPage
+          startCursor
         }
       }
     }
@@ -507,10 +511,10 @@ query fetch_organization ($login: String!) {
 """
 
 FETCH_PROJECT_COLUMNS = """
-query fetch_project_columns ($project_id: ID!, $per_page: Int, $cursor: String) {
+query fetch_project_columns ($project_id: ID!, $first: Int, $last: Int, $after: String, $before: String) {
   node (id: $project_id) {
     ... on Project {
-      columns (first: $per_page, after: $cursor) {
+      columns (first: $first, last: $last, after: $after, before: $before) {
         nodes {
           __typename
           createdAt
@@ -525,6 +529,8 @@ query fetch_project_columns ($project_id: ID!, $per_page: Int, $cursor: String) 
         pageInfo {
           endCursor
           hasNextPage
+          hasPreviousPage
+          startCursor
         }
       }
     }
@@ -533,10 +539,10 @@ query fetch_project_columns ($project_id: ID!, $per_page: Int, $cursor: String) 
 """
 
 FETCH_PROJECTCOLUMN_CARDS = """
-query fetch_projectcolumn_cards ($projectcolumn_id: ID!, $per_page: Int, $cursor: String) {
+query fetch_projectcolumn_cards ($projectcolumn_id: ID!, $first: Int, $last: Int, $after: String, $before: String) {
   node (id: $projectcolumn_id) {
     ... on ProjectColumn {
-      cards (first: $per_page, after: $cursor) {
+      cards (first: $first, last: $last, after: $after, before: $before) {
         nodes {
           __typename
           createdAt
@@ -552,6 +558,8 @@ query fetch_projectcolumn_cards ($projectcolumn_id: ID!, $per_page: Int, $cursor
         pageInfo {
           endCursor
           hasNextPage
+          hasPreviousPage
+          startCursor
         }
       }
     }
@@ -721,10 +729,10 @@ query fetch_repository ($owner: String!, $name: String!) {
 """
 
 FETCH_REPOSITORY_ASSIGNABLE_USERS = """
-query fetch_repository_assignable_users ($repository_id: ID!, $per_page: Int, $cursor: String) {
+query fetch_repository_assignable_users ($repository_id: ID!, $first: Int, $last: Int, $after: String, $before: String) {
   node (id: $repository_id) {
     ... on Repository {
-      assignableUsers (first: $per_page, after: $cursor) {
+      assignableUsers (first: $first, last: $last, after: $after, before: $before) {
         nodes {
           __typename
           anyPinnableItems
@@ -759,6 +767,8 @@ query fetch_repository_assignable_users ($repository_id: ID!, $per_page: Int, $c
         pageInfo {
           endCursor
           hasNextPage
+          hasPreviousPage
+          startCursor
         }
       }
     }
@@ -767,10 +777,10 @@ query fetch_repository_assignable_users ($repository_id: ID!, $per_page: Int, $c
 """
 
 FETCH_REPOSITORY_COLLABORATORS = """
-query fetch_repository_collaborators ($repository_id: ID!, $per_page: Int, $cursor: String) {
+query fetch_repository_collaborators ($repository_id: ID!, $first: Int, $last: Int, $after: String, $before: String) {
   node (id: $repository_id) {
     ... on Repository {
-      collaborators (first: $per_page, after: $cursor) {
+      collaborators (first: $first, last: $last, after: $after, before: $before) {
         nodes {
           __typename
           anyPinnableItems
@@ -799,6 +809,8 @@ query fetch_repository_collaborators ($repository_id: ID!, $per_page: Int, $curs
         pageInfo {
           endCursor
           hasNextPage
+          hasPreviousPage
+          startCursor
         }
       }
     }
@@ -970,10 +982,10 @@ query fetch_repository_issue ($repository_id: ID!, $issue_number: Int!) {
 """
 
 FETCH_REPOSITORY_ISSUES = """
-query fetch_repository_issues ($repository_id: ID!, $per_page: Int, $cursor: String) {
+query fetch_repository_issues ($repository_id: ID!, $first: Int, $last: Int, $after: String, $before: String) {
   node (id: $repository_id) {
     ... on Repository {
-      issues (first: $per_page, after: $cursor) {
+      issues (first: $first, last: $last, after: $after, before: $before) {
         nodes {
           __typename
           activeLockReason
@@ -1131,6 +1143,8 @@ query fetch_repository_issues ($repository_id: ID!, $per_page: Int, $cursor: Str
         pageInfo {
           endCursor
           hasNextPage
+          hasPreviousPage
+          startCursor
         }
       }
     }
@@ -1447,10 +1461,10 @@ query fetch_repository_template ($repository_id: ID!) {
 """
 
 FETCH_SPONSORLISTING_TIERS = """
-query fetch_sponsorlisting_tiers ($sponsorlisting_id: ID!, $per_page: Int, $cursor: String) {
+query fetch_sponsorlisting_tiers ($sponsorlisting_id: ID!, $first: Int, $last: Int, $after: String, $before: String) {
   node (id: $sponsorlisting_id) {
     ... on SponsorsListing {
-      tiers (first: $per_page, after: $cursor) {
+      tiers (first: $first, last: $last, after: $after, before: $before) {
         nodes {
           __typename
           createdAt
@@ -1472,6 +1486,8 @@ query fetch_sponsorlisting_tiers ($sponsorlisting_id: ID!, $per_page: Int, $curs
         pageInfo {
           endCursor
           hasNextPage
+          hasPreviousPage
+          startCursor
         }
       }
     }
@@ -1480,11 +1496,11 @@ query fetch_sponsorlisting_tiers ($sponsorlisting_id: ID!, $per_page: Int, $curs
 """
 
 FETCH_SPONSORTIER_SPONSORSHIPS = """
-query fetch_sponsortier_sponsorships ($sponsortier_id: ID!, $per_page: Int, $cursor: String) {
+query fetch_sponsortier_sponsorships ($sponsortier_id: ID!, $first: Int, $last: Int, $after: String, $before: String) {
   node (id: $sponsortier_id) {
     ... on SponsorsTier {
       adminInfo {
-        sponsorships (first: $per_page, after: $cursor) {
+        sponsorships (first: $first, last: $last, after: $after, before: $before) {
           nodes {
             __typename
             createdAt
@@ -1494,6 +1510,8 @@ query fetch_sponsortier_sponsorships ($sponsortier_id: ID!, $per_page: Int, $cur
           pageInfo {
             endCursor
             hasNextPage
+            hasPreviousPage
+            startCursor
           }
         }
       }
@@ -1567,10 +1585,10 @@ FETCH_USER_COMMIT_COMMENTS = """
 """
 
 FETCH_USER_FOLLOWERS = """
-query fetch_user_followers ($user_id: ID!, $per_page: Int, $cursor: String) {
+query fetch_user_followers ($user_id: ID!, $first: Int, $last: Int, $after: String, $before: String) {
   node (id: $user_id) {
     ... on User {
-      followers (first: $per_page, after: $cursor) {
+      followers (first: $first, last: $last, after: $after, before: $before) {
         nodes {
           __typename
           anyPinnableItems
@@ -1605,6 +1623,8 @@ query fetch_user_followers ($user_id: ID!, $per_page: Int, $cursor: String) {
         pageInfo {
           endCursor
           hasNextPage
+          hasPreviousPage
+          startCursor
         }
       }
     }
@@ -1613,10 +1633,10 @@ query fetch_user_followers ($user_id: ID!, $per_page: Int, $cursor: String) {
 """
 
 FETCH_USER_FOLLOWING = """
-query fetch_user_following ($user_id: ID!, $per_page: Int, $cursor: String) {
+query fetch_user_following ($user_id: ID!, $first: Int, $last: Int, $after: String, $before: String) {
   node (id: $user_id) {
     ... on User {
-      following (first: $per_page, after: $cursor) {
+      following (first: $first, last: $last, after: $after, before: $before) {
         nodes {
           __typename
           anyPinnableItems
@@ -1651,6 +1671,8 @@ query fetch_user_following ($user_id: ID!, $per_page: Int, $cursor: String) {
         pageInfo {
           endCursor
           hasNextPage
+          hasPreviousPage
+          startCursor
         }
       }
     }
