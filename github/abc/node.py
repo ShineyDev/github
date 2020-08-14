@@ -23,6 +23,13 @@ class Node(Type):
     """
     Represents an object with an ID.
 
+    .. container:: operations
+
+        .. describe:: x == y
+        .. describe:: x != y
+
+            Compares the ID of ``x`` and ``y``.
+
     Implemented by:
 
     * :class:`~github.AuthenticatedUser`

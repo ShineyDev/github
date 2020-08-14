@@ -24,6 +24,21 @@ class CollectionIterator():
     """
     An |aiter_link|_ implementation used for collections.
 
+    .. container:: operations
+
+        .. describe:: async for _ in x
+
+            Iterates over the contents of the iterator.
+
+        .. describe:: operator.length_hint(x)
+
+            Estimates the length of the iterator. See :pep:`424`.
+
+        .. describe:: reversed(x)
+
+            Reverses the iterator. Passing ``reverse=True`` to the
+            iterator has the same effect.
+
     Example
     -------
 
