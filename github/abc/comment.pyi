@@ -3,7 +3,10 @@ from typing import Optional, Union
 from datetime import datetime
 
 from github.enums import CommentAuthorAssociation
-from github.objects import Bot, Mannequin, Organization, User
+from github.objects import Bot
+from github.objects import Mannequin
+from github.objects import Organization
+from github.objects import User
 
 
 class Comment():

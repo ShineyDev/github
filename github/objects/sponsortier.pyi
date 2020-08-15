@@ -1,10 +1,11 @@
-from datetime import datetime
 from typing import List
+
+from datetime import datetime
 
 from github.iterator import CollectionIterator
 from github.abc import Node
 from github.abc import Type
-from .sponsorship import Sponsorship
+from github.objects import Sponsorship
 
 
 class SponsorTier(Node, Type):

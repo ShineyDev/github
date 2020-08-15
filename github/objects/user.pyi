@@ -1,5 +1,6 @@
-from datetime import datetime
 from typing import List, Optional, overload
+
+from datetime import datetime
 
 from github.iterator import CollectionIterator
 from github.abc import Actor
@@ -10,9 +11,9 @@ from github.abc import RepositoryOwner
 from github.abc import Sponsorable
 from github.abc import Type
 from github.abc import UniformResourceLocatable
-from .commitcomment import CommitComment
-from .organization import Organization
-from .status import Status
+from github.objects import CommitComment
+from github.objects import Organization
+from github.objects import Status
 
 
 class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
@@ -53,8 +54,8 @@ class User(Actor, Node, ProfileOwner, ProjectOwner, RepositoryOwner,
 class AuthenticatedUser(User):
     async def clear_status(self) -> None: ...
     @overload
-    async def update_status(self, *, message: Optional[str], busy: bool=..., expires: datetime=..., organization: Organization=...) -> Status: ...
+    async def update_status(self, *, message: str, busy: bool=..., expires: datetime=..., organization: Organization=...) -> Status: ...
     @overload
-    async def update_status(self, *, emoji: Optional[str], busy: bool=..., expires: datetime=..., organization: Organization=...) -> Status: ...
+    async def update_status(self, *, emoji: str, busy: bool=..., expires: datetime=..., organization: Organization=...) -> Status: ...
     @overload
-    async def update_status(self, *, message: Optional[str], emoji: Optional[str], busy: bool=..., expires: datetime=..., organization: Organization=...) -> Status: ...
+    async def update_status(self, *, message: str, emoji: str, busy: bool=..., expires: datetime=..., organization: Organization=...) -> Status: ...

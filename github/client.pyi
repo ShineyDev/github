@@ -4,7 +4,15 @@ from aiohttp import ClientSession
 
 from github.http import HTTPClient
 from github.abc import Node
-from github.objects import AuthenticatedUser, CodeOfConduct, License, Metadata, Organization, RateLimit, Repository, Topic, User
+from github.objects import AuthenticatedUser
+from github.objects import CodeOfConduct
+from github.objects import License
+from github.objects import Metadata
+from github.objects import Organization
+from github.objects import RateLimit
+from github.objects import Repository
+from github.objects import Topic
+from github.objects import User
 
 
 class Client():

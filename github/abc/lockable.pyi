@@ -1,6 +1,7 @@
 from typing import Optional, Union
 
-from github.enums import LockReason, RepositoryLockReason
+from github.enums import LockReason
+from github.enums import RepositoryLockReason
 
 
 class Lockable():

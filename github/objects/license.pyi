@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from github.abc import Node
 from github.abc import Type
-from .licenserule import LicenseRule
+from github.objects import LicenseRule
 
 
 class License(Node, Type):

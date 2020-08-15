@@ -1,5 +1,6 @@
-from datetime import datetime
 from typing import List, Optional, Union
+
+from datetime import datetime
 
 from github.iterator import CollectionIterator
 from github.abc import Lockable
@@ -10,12 +11,12 @@ from github.abc import Type
 from github.abc import UniformResourceLocatable
 from github.enums import RepositoryLockReason
 from github.enums import RepositoryPermissions
-from .codeofconduct import CodeOfConduct
-from .issue import Issue
-from .language import Language
-from .license import License
-from .organization import Organization
-from .user import User
+from github.objects import CodeOfConduct
+from github.objects import Issue
+from github.objects import Language
+from github.objects import License
+from github.objects import Organization
+from github.objects import User
 
 
 class Repository(Lockable, Node, ProjectOwner, Subscribable, Type, UniformResourceLocatable):

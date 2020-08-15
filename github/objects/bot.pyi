@@ -1,5 +1,6 @@
-from datetime import datetime
 from typing import Optional
+
+from datetime import datetime
 
 from github.abc import Actor
 from github.abc import Node

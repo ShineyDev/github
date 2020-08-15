@@ -1,5 +1,6 @@
-from datetime import datetime
 from typing import List
+
+from datetime import datetime
 
 from github.iterator import CollectionIterator
 from github.abc import Closable
@@ -8,7 +9,7 @@ from github.abc import Type
 from github.abc import UniformResourceLocatable
 from github.abc import Updatable
 from github.enums import ProjectState
-from .projectcolumn import ProjectColumn
+from github.objects import ProjectColumn
 
 
 class Project(Closable, Node, Type, UniformResourceLocatable, Updatable):

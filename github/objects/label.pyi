@@ -7,8 +7,8 @@ from github.abc import Node
 from github.abc import RepositoryNode
 from github.abc import Type
 from github.abc import UniformResourceLocatable
-from .issue import Issue
-from .pullrequest import PullRequest
+from github.objects import Issue
+from github.objects import PullRequest
 
 
 class Label(Node, RepositoryNode, Type, UniformResourceLocatable):
