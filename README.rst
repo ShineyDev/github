@@ -1,95 +1,53 @@
-.. github.py readme
-
-
 github.py
 =========
 
-.. image:: https://img.shields.io/github/contributors/ShineyDev/github.py.svg
-   :target: https://github.com/ShineyDev/github.py/graphs/contributors
-   :alt: GitHub contributors
+.. image:: https://github.com/ShineyDev/github.py/workflows/Analyze/badge.svg?event=push
+   :target: https://github.com/ShineyDev/github.py/actions?query=workflow%3AAnalyze+event%3Apush
+   :alt: Analyze Status
 
-.. image:: https://readthedocs.org/projects/githubpy/badge/?version=latest
-   :target: https://githubpy.readthedocs.io/en/latest/
-   :alt: Documentation Status
+.. image:: https://github.com/ShineyDev/github.py/workflows/Build/badge.svg?event=push
+   :target: https://github.com/ShineyDev/github.py/actions?query=workflow%3ABuild+event%3Apush
+   :alt: Build Status
 
-.. image:: https://img.shields.io/pypi/status/github.py.svg
-   :target: https://pypi.python.org/pypi/github.py
-   :alt: PyPI status information
+.. image:: https://github.com/ShineyDev/github.py/workflows/Check/badge.svg?event=push
+   :target: https://github.com/ShineyDev/github.py/actions?query=workflow%3ACheck+event%3Apush
+   :alt: Check Status
 
-.. image:: https://img.shields.io/pypi/v/github.py.svg?color=blue
-   :target: https://pypi.python.org/pypi/github.py
-   :alt: PyPI version information
+.. image:: https://github.com/ShineyDev/github.py/workflows/Deploy/badge.svg?event=push
+   :target: https://github.com/ShineyDev/github.py/actions?query=workflow%3ADeploy+event%3Apush
+   :alt: Deploy Status
 
-.. image:: https://img.shields.io/pypi/pyversions/github.py.svg
-   :target: https://pypi.python.org/pypi/github.py
-   :alt: PyPI supported Python versions
+.. image:: https://github.com/ShineyDev/github.py/workflows/Lint/badge.svg?event=push
+   :target: https://github.com/ShineyDev/github.py/actions?query=workflow%3ALint+event%3Apush
+   :alt: Lint Status
 
-.. image:: https://img.shields.io/pypi/l/github.py.svg
-   :target: https://pypi.python.org/pypi/github.py
-   :alt: PyPI license information
+.. image:: https://github.com/ShineyDev/github.py/workflows/Test/badge.svg?event=push
+   :target: https://github.com/ShineyDev/github.py/actions?query=workflow%3ATest+event%3Apush
+   :alt: Test Status
 
 
-An asynchronous Python wrapper for GitHub API, v4.
+An asynchronous Python wrapper for the GitHub API, v4.
 
 
 Features
 --------
 
-#. Easy to use, modern Pythonic API using ``async``/``await`` syntax.
-#. 100% coverage of the supported GitHub API.
-#. All user-facing objects and methods are documented `here <https://githubpy.readthedocs.io/en/latest/>`_.
+#. Modern Pythonic API using ``async``/``await`` syntax.
+#. 100% coverage of the GitHub API.
+#. `Easy-to-use documentation <https://githubpy.readthedocs.io/en/latest/>`_.
 
 
 Installation
 ------------
 
-**Python 3.5.2 or higher is required.**
+**Python 3.6 or higher is required.**
 
-To install a ``final`` version of the wrapper do one of the following:
+To install ``github.py`` do one of the following:
 
-.. code:: sh
+.. code-block:: sh
 
     # Windows
     py -3 -m pip install --upgrade github.py
 
-    # Linux / OS X
+    # Linux
     python3 -m pip install --upgrade github.py
-
-To install the development version of the wrapper do one of the following:
-
-.. code:: sh
-
-    # Windows
-    py -3 -m pip install --upgrade git+https://github.com/ShineyDev/github.py
-
-    # Linux / OS X
-    python3 -m pip install --upgrade git+https://github.com/ShineyDev/github.py
-
-
-Examples
---------
-
-Fetch a repository's license:
-
-.. code:: py
-
-    import github
-    g = github.Client("token")
-    # you'll need a personal access token to use this library - you can get
-    # one from https://github.com/settings/tokens.
-
-    repo = await g.fetch_repository("ShineyDev", "github.py")
-    print(repo.license.name)
-
-You can find more examples in the |examples|.
-
-
-.. |examples| replace:: |examples_link|_
-.. |examples_link| replace:: examples directory
-.. _examples_link: https://github.com/ShineyDev/github.py/tree/master/examples
-
-
-Attribution
------------
-
-`Rapptz <https://github.com/Rapptz/>`_ for EnumMeta - Copyright (c) 2015-2019 Rapptz
