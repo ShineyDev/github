@@ -1,25 +1,31 @@
 ---
 name: Feature Request
-about: Suggest a feature for this API wrapper.
-title: ''
-labels: enhancement
-assignees: ''
-
+about: Suggest a feature.
 ---
 
-<!-- check the contributing guidelines before sending this issue. -->
+<!-- Please read the contributing guidelines before opening this issue. -->
 <!-- https://github.com/ShineyDev/github.py/blob/master/.github/CONTRIBUTING.md -->
 
 
-### Problem
-<!-- a clear description of what the problem is. -->
+### Description
+<!-- What made you want to open this feature request? -->
 
-### Ideal Solution
-<!-- a clear description of what you want to happen. -->
 
 ### Current Solution
-<!-- a clear description of any alternative solutions or features you've considered. -->
-<!-- if there is no current solution - you may fill this section with "n/a". -->
+<!-- Is there an alternative? -->
+
+
+### Ideal Solution
+<!-- This part separates an issue from a pull request, you write this in English, not Python. -->
+
 
 ### Additional Context
-<!-- add any other context about the feature request here. -->
+<!-- Do you have anything to add to this? -->
+
+
+### Checklist
+<!-- All of the boxes should be checked before you open the issue. -->
+<!-- Put an x inside [ ] to check it, like so: [x] -->
+
+- [ ] I have searched open issues for duplicates.
+

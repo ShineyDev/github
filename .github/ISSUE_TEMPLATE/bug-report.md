@@ -1,38 +1,42 @@
 ---
 name: Bug Report
 about: Report broken or incorrect behavior.
-title: ''
-labels: bug
-assignees: ''
-
 ---
 
-<!-- check the contributing guidelines before sending this issue. -->
+<!-- Please read the contributing guidelines before opening this issue. -->
 <!-- https://github.com/ShineyDev/github.py/blob/master/.github/CONTRIBUTING.md -->
 
 
 ### Description
-<!-- a clear description of what the bug is. -->
+<!-- What exactly is wrong and why? -->
 
-### Reproduction Steps
-<!-- steps to reproduce this bug, try to make this as detailed as possible. -->
-
-### Expected Behavior
-<!-- a clear description of what you expected to happen. -->
 
 ### Actual Behavior
-<!-- a clear description of what actually happened. -->
-<!-- if there is a traceback, please paste the entire thing. -->
+<!-- What really happened here? If you have a traceback, this is where you'd put it. -->
+
+
+### Expected Behavior
+<!-- What did you expect to happen here? What is different? -->
+
+
+### Reproduction Steps
+<!-- Why did this happen? -->
+
 
 ### Additional Context
-<!-- add any other context about the feature request here. -->
+<!-- Do you have anything to add to this? -->
+
 
 ### Checklist
-<!-- put an x inside [ ] to check it, like so: [x] -->
+<!-- All of the boxes should be checked before you open the issue. -->
+<!-- Put an x inside [ ] to check it, like so: [x] -->
 
 - [ ] I have searched open issues for duplicates.
 - [ ] I have shown the entire traceback, if applicable.
-- [ ] I have removed my token from display, if visible.
+- [ ] I have removed any access tokens from display, if applicable.
+
 
 ### System Information
-<!-- run `py -m github --version` and paste the response here -->
+<!-- I may need to know your Python version and/or system information to reproduce this issue. -->
+<!-- py -3 -m github --version -->
+

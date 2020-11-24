@@ -1,22 +1,21 @@
-<!-- check the contributing guidelines before sending this pull request. -->
+<!-- Please read the contributing guidelines before opening this pull request. -->
 <!-- https://github.com/ShineyDev/github.py/blob/master/.github/CONTRIBUTING.md -->
 
 
 ### Description
-<!-- a clear description of what this PR does. -->
+<!-- What does this PR do? -->
+
 
 ### Checklist
-<!-- put an x inside [ ] to check it, like so: [x] -->
-<!-- only one of the top-level boxes should be checked. -->
+<!-- One - and only one - of the two top-level boxes should be checked. -->
+<!-- Put an x inside [ ] to check it, like so: [x] -->
 
 - [ ] This PR makes changes to the code.
-    - [ ] The changes are breaking.
-    - [ ] The changes implement a new feature.
-    - [ ] The changes fix an issue.
+    - [ ] These changes are [breaking](https://github.com/ShineyDev/github.py/blob/master/docs/version_guarantees.rst).
     - [ ] I updated the documentation to reflect these changes.
-- [ ] This PR makes changes to the documentation.
-    - [ ] The changes require a different version of sphinx.
-    - [ ] I updated the configuration file to reflect these changes.
 
-<!-- all pull requests should be tested. -->
-- [ ] This PR has been tested (code, documentation, etc.)
+- [ ] This PR makes changes to the documentation.
+    - [ ] These changes require a different version of Sphinx.
+
+<!-- Please remember to test your PR before you open it. -->
+- [ ] This PR has been tested.
