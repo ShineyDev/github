@@ -1,6 +1,3 @@
-# visual studio configuration
-/.vs/
-
 # python cache
 __pycache__/
 
@@ -13,9 +10,4 @@ __pycache__/
 /github.py.egg-info/
 
 # mypy cache
-/.mypy_cache
-
-# project
-/github-design/
-/github-helpers/
-/github-tests/
+.mypy_cache/
