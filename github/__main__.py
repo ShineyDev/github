@@ -26,7 +26,7 @@ import aiohttp
 import github
 
 
-def show_version():
+def version():
     entries = list()
 
     if sys.version_info.releaselevel != "final":
@@ -48,12 +48,10 @@ def show_version():
 
     print("\n".join(entries))
 
-def main():
-    parser = argparse.ArgumentParser(prog="github")
-    parser.add_argument("-v", "--version", action="store_true", help="display version information")
-    args = parser.parse_args()
 
-    if args.version:
-        show_version()
+parser = argparse.ArgumentParser(prog="github")
+parser.add_argument("-v", "--version", action="store_true", help="display version information")
+args = parser.parse_args()
 
-main()
+if args.version:
+    version()
