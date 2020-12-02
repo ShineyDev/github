@@ -18,17 +18,17 @@
 
 import collections
 
-import github
 from github.client import Client
 from github.objects import *
+from github.objects import __all__ as _objects__all__
 
 __all__ = [
     "Client", "abc", "enums", "errors", "objects", "query", "utils",
-    *github.objects.__all__,
+    *_objects__all__,
 ]
 
 
-__version__ = "1.0.0a"
+_VersionInfo = collections.namedtuple("_VersionInfo", "major minor micro releaselevel serial")
 
-VersionInfo = collections.namedtuple("VersionInfo", "major minor micro releaselevel serial")
-version_info = VersionInfo(major=1, minor=0, micro=0, releaselevel="alpha", serial=0)
+version_info = _VersionInfo(1, 0, 0, "alpha", 0)
+version = "1.0.0a"

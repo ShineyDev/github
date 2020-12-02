@@ -9,7 +9,7 @@ with open("requirements.txt", "r") as file_stream:
     install_requires = file_stream.read().splitlines()
 
 with open("github/__init__.py", "r") as file_stream:
-    version = re.search(r"^__version__ = [\"]([^\"]*)[\"]", file_stream.read(), re.MULTILINE).group(1)
+    version = re.search(r"^version = [\"]([^\"]*)[\"]", file_stream.read(), re.MULTILINE).group(1)
 
 if version.endswith(("a", "b", "rc")):
     try:
