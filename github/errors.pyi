@@ -5,22 +5,27 @@ from aiohttp import ClientResponse
 
 class GitHubError(Exception):
     message: str
+
+class HTTPError(GitHubError):
+    message: str
     data: Optional[dict]
-    response: Optional[ClientResponse]
+    response: ClientResponse
 
-    def __init__(self, message: str, *, data: dict=..., response: Optional[ClientResponse]=...) -> None: ...
-
-class HTTPException(GitHubError):
+class HTTPUnauthorized(HTTPError):
     pass
 
-class Forbidden(HTTPException):
+HTTPUnauthorised = HTTPUnauthorized
+
+class GraphQLError(HTTPError):
+    message: str
+    data: dict
+    response: ClientResponse
+
+class GraphQLForbidden(GraphQLError):
     pass
 
-class Internal(HTTPException):
+class GraphQLInternal(GraphQLError):
     pass
 
-class NotFound(HTTPException):
-    pass
-
-class Unauthorized(HTTPException):
+class GraphQLNotFound(GraphQLError):
     pass

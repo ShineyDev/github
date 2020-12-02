@@ -18,119 +18,107 @@
 
 class GitHubError(Exception):
     """
-    The base exception class for the wrapper. This can be used to catch
-    all exceptions thrown by the wrapper.
-
-    This exception is raised when GitHub returns arbitrary errors in
-    its JSON response. The given error is the first error in the list.
+    The base exception class for github.py.
 
     Attributes
     ----------
     message: :class:`str`
         The error message.
-    data: Optional[:class:`dict`]
-        The data returned by the API.
-    response: :class:`aiohttp.ClientResponse`
-        The response of the failed HTTP request.
     """
 
-    def __init__(self, message, *, data=None, response=None):
+    def __init__(self, message):
         self.message = message
-        self.data = data
+        super().__init__(message)
+
+class HTTPError(GitHubError):
+    """
+    Represents an error in a HTTP response.
+
+    Attributes
+    ----------
+    message: :class:`str`
+        The error message.
+    data: Optional[:class:`dict`]
+        The JSON data from the API.
+    response: :class:`~aiohttp.ClientResponse`
+        The response.
+    """
+
+    def __init__(self, message, *, response, data):
+        self.message = message
         self.response = response
+        self.data = data
 
-        if response is not None:
-            super().__init__("{0.status}: {1}".format(response, message))
-        else:
-            super().__init__(message)
+        super().__init__(f"{response.status}: {message}")
 
-class HTTPException(GitHubError):
+class HTTPUnauthorized(HTTPError):
     """
-    This exception is raised when a HTTP request operation fails.
+    Represents a HTTP 401 response.
 
     Attributes
     ----------
     message: :class:`str`
         The error message.
     data: Optional[:class:`dict`]
-        The data returned by the API.
-    response: Optional[:class:`aiohttp.ClientResponse`]
-        The response of the failed HTTP request.
-
-        .. note::
-
-            If :attr:`.response` is ``None``, the exception will have a
-            ``__cause__`` attribute containing the wrapped exception.
+        The JSON data from the API.
+    response: :class:`~aiohttp.ClientResponse`
+        The response.
     """
 
-    pass
+HTTPUnauthorised = HTTPUnauthorized
 
-class Forbidden(HTTPException):
+class GraphQLError(HTTPError):
     """
-    This exception is raised when a ``"FORBIDDEN"`` status-message is
-    returned.
+    Represents an error in a GraphQL response.
 
     Attributes
     ----------
     message: :class:`str`
         The error message.
-    data: Optional[:class:`dict`]
-        The data returned by the API.
-    response: :class:`aiohttp.ClientResponse`
-        The response of the failed HTTP request.
+    data: :class:`dict`
+        The JSON data from the API.
+    response: :class:`~aiohttp.ClientResponse`
+        The response.
     """
 
-    pass
-
-class Internal(HTTPException):
+class GraphQLForbidden(GraphQLError):
     """
-    This exception is raised when an ``"INTERNAL"`` status-message is
-    returned.
+    Represents a GitHub ``FORBIDDEN`` response.
 
     Attributes
     ----------
     message: :class:`str`
         The error message.
-    data: Optional[:class:`dict`]
-        The data returned by the API.
-    response: :class:`aiohttp.ClientResponse`
-        The response of the failed HTTP request.
+    data: :class:`dict`
+        The JSON data from the API.
+    response: :class:`~aiohttp.ClientResponse`
+        The response.
     """
 
-    pass
-
-class NotFound(HTTPException):
+class GraphQLInternal(GraphQLError):
     """
-    This exception is raised when a ``"NOT_FOUND"`` status-message is
-    returned.
+    Represents a GitHub ``INTERNAL`` response.
 
     Attributes
     ----------
     message: :class:`str`
         The error message.
-    data: Optional[:class:`dict`]
-        The data returned by the API.
-    response: :class:`aiohttp.ClientResponse`
-        The response of the failed HTTP request.
+    data: :class:`dict`
+        The JSON data from the API.
+    response: :class:`~aiohttp.ClientResponse`
+        The response.
     """
 
-    pass
-
-class Unauthorized(HTTPException):
+class GraphQLNotFound(GraphQLError):
     """
-    This exception is raised when a ``401`` status-code is returned.
-
-    This exception is typically raised when invalid credentials are
-    passed.
+    Represents a GitHub ``NOT_FOUND`` response.
 
     Attributes
     ----------
     message: :class:`str`
         The error message.
-    data: Optional[:class:`dict`]
-        The data returned by the API.
-    response: :class:`aiohttp.ClientResponse`
-        The response of the failed HTTP request.
+    data: :class:`dict`
+        The JSON data from the API.
+    response: :class:`~aiohttp.ClientResponse`
+        The response.
     """
-
-    pass
