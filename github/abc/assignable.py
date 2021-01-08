@@ -49,5 +49,9 @@ class Assignable():
         def map_func(data):
             return User.from_data(data, self.http)
 
-        return CollectionIterator(self.http.fetch_assignable_assignees,
-                                  self.id, map_func=map_func, **kwargs)
+        return CollectionIterator(
+            self.http.fetch_assignable_assignees,
+            self.id,
+            map_func=map_func,
+            **kwargs
+        )
