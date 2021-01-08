@@ -17,52 +17,27 @@
 """
 
 from github import utils
+from github.iterator import CollectionIterator
 from github.enums import CommentAuthorAssociation
 
 
 class Comment():
     """
-    Represents a comment on a GitHub subject.
-
-    Implemented by:
-
-    * :class:`~github.CommitComment`
-    * :class:`~github.Issue`
-    * :class:`~github.PullRequest`
+    Represents a GitHub comment.
     """
-
-    # https://docs.github.com/en/graphql/reference/interfaces#comment
 
     __slots__ = ()
 
     @property
-    def author(self):
-        """
-        The actor who authored the comment.
-
-        :type: Union[:class:`~github.Bot`, \
-                     :class:`~github.Mannequin`, \
-                     :class:`~github.Organization`, \
-                     :class:`~github.User`]
-        """
-
-        from github import objects
-
-        data = self.data["author"]
-
-        cls = objects._TYPE_MAP[data["__typename"]]
-        return cls.from_data(data, self.http)
-
-    @property
     def author_association(self):
         """
-        The :attr:`.author`'s association with the subject of the comment.
+        The author's association with a subject of the comment.
 
         :type: :class:`~github.enums.CommentAuthorAssociation`
         """
 
-        association = self.data["authorAssociation"]
-        return CommentAuthorAssociation.try_value(association)
+        author_association = self.data["authorAssociation"]
+        return CommentAuthorAssociation.try_value(author_association)
 
     @property
     def body(self):
@@ -87,7 +62,7 @@ class Comment():
     @property
     def body_text(self):
         """
-        The :attr:`.body` of the comment with markdown removed.
+        The :attr:`.body` of the comment with Markdown removed.
 
         :type: :class:`str`
         """
@@ -106,40 +81,11 @@ class Comment():
         return utils.iso_to_datetime(created_at)
 
     @property
-    def created_via_email(self):
-        """
-        Whether the comment was created via email.
-
-        :type: :class:`bool`
-        """
-
-        return self.data["createdViaEmail"]
-
-    @property
-    def editor(self):
-        """
-        The actor who last edited the comment.
-
-        :type: Union[:class:`~github.Bot`, \
-                     :class:`~github.Mannequin`, \
-                     :class:`~github.Organization`, \
-                     :class:`~github.User`]
-        """
-
-        from github import objects
-
-        data = self.data["editor"]
-
-        if data:
-            cls = objects._TYPE_MAP[data["__typename"]]
-            return cls.from_data(data, self.http)
-
-    @property
     def edited_at(self):
         """
         When the comment was last edited.
 
-        :type: :class:`~datetime.datetime`
+        :type: Optional[:class:`~datetime.datetime`]
         """
 
         edited_at = self.data["lastEditedAt"]
@@ -170,9 +116,71 @@ class Comment():
     @property
     def viewer_is_author(self):
         """
-        Whether the viewer authored this comment.
+        Whether the authenticated user authored this comment.
 
         :type: :class:`bool`
         """
 
         return self.data["viewerDidAuthor"]
+
+    async def fetch_author(self):
+        """
+        |coro|
+
+        Fetches the author of the comment.
+
+        Returns
+        -------
+        Union[:class:`~github.Bot`, \
+              :class:`~github.User`]
+            The author of the comment.
+        """
+
+        from github.objects import _TYPE_MAP
+
+        data = await self.http.fetch_comment_author(self.id)
+        return _TYPE_MAP[data["__typename"]].from_data(data, self.http)
+
+    async def fetch_editor(self):
+        """
+        |coro|
+
+        Fetches the most recent editor of the comment.
+
+        Returns
+        -------
+        Union[:class:`~github.Bot`, \
+              :class:`~github.User`]
+            The editor of the comment.
+        """
+
+        from github.objects import _TYPE_MAP
+
+        data = await self.http.fetch_comment_editor(self.id)
+        return _TYPE_MAP[data["__typename"]].from_data(data, self.http)
+
+    def fetch_edits(self, **kwargs):
+        """
+        |aiter|
+
+        Fetches edits made to this comment's :attr:`.body`.
+
+        Parameters
+        ----------
+        **kwargs
+            Keyword arguments are passed to
+            :class:`~github.iterator.CollectionIterator`.
+
+        Returns
+        -------
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.CommentContentEdit`.
+        """
+
+        from github.objects import CommentContentEdit
+
+        def map_func(data):
+            return CommentContentEdit.from_data(data, self.http)
+
+        return CollectionIterator(self.http.fetch_comment_edits, self.id,
+                                  map_func=map_func, **kwargs)
