@@ -21,15 +21,8 @@ from github import utils
 
 class Closable():
     """
-    Represents an object which can be closed.
-
-    Implemented by:
-
-    * :class:`~github.Issue`
-    * :class:`~github.PullRequest`
+    Represents an object that can be closed.
     """
-
-    # https://docs.github.com/en/graphql/reference/interfaces#closable
 
     __slots__ = ()
 
@@ -38,7 +31,7 @@ class Closable():
         """
         When the closable was last closed.
 
-        :type: :class:`~datetime.datetime`
+        :type: Optional[:class:`~datetime.datetime`]
         """
 
         closed_at = self.data["closedAt"]
@@ -53,47 +46,3 @@ class Closable():
         """
 
         return self.data["closed"]
-
-    async def close(self):
-        """
-        |coro|
-
-        Closes the closable.
-
-        Raises
-        ------
-        ~github.errors.Forbidden
-            You do not have permission to close the closable.
-        """
-
-        # https://docs.github.com/en/graphql/reference/mutations#closeissue
-        # https://docs.github.com/en/graphql/reference/mutations#closepullrequest
-
-        map = {
-            "Issue": self.http.mutate_issue_close,
-            "PullRequest": self.http.mutate_pullrequest_close,
-        }
-
-        await map[self.data["__typename"]](self.id)
-
-    async def reopen(self):
-        """
-        |coro|
-
-        Reopens the closable.
-
-        Raises
-        ------
-        ~github.errors.Forbidden
-            You do not have permission to reopen the closable.
-        """
-
-        # https://docs.github.com/en/graphql/reference/mutations#reopenissue
-        # https://docs.github.com/en/graphql/reference/mutations#reopenpullrequest
-
-        map = {
-            "Issue": self.http.mutate_issue_reopen,
-            "PullRequest": self.http.mutate_pullrequest_reopen,
-        }
-
-        await map[self.data["__typename"]](self.id)
