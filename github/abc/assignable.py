@@ -21,15 +21,8 @@ from github.iterator import CollectionIterator
 
 class Assignable():
     """
-    Represents an object which can be assigned to.
-
-    Implemented by:
-
-    * :class:`~github.Issue`
-    * :class:`~github.PullRequest`
+    Represents an object that can be assigned to.
     """
-
-    # https://docs.github.com/en/graphql/reference/interfaces#assignable
 
     __slots__ = ()
 
@@ -38,6 +31,12 @@ class Assignable():
         |aiter|
 
         Fetches users assigned to the assignable.
+
+        Parameters
+        ----------
+        **kwargs
+            Keyword arguments are passed to
+            :class:`~github.iterator.CollectionIterator`.
 
         Returns
         -------
@@ -52,49 +51,3 @@ class Assignable():
 
         return CollectionIterator(self.http.fetch_assignable_assignees,
                                   self.id, map_func=map_func, **kwargs)
-
-    async def add_assignees(self, *users):
-        """
-        |coro|
-
-        Assigns users to the assignable.
-
-        Parameters
-        ----------
-        *users: :class:`~github.User`
-            An iterable of users.
-
-        Raises
-        ------
-        ~github.errors.Forbidden
-            You do not have permission to add assignees to the
-            assignable.
-        """
-
-        # https://docs.github.com/en/graphql/reference/mutations#addassigneestoassignable
-
-        users = [user.id for user in users]
-        await self.http.mutate_assignable_add_assignees(self.id, users)
-
-    async def remove_assignees(self, *users):
-        """
-        |coro|
-
-        Unassigns users from the assignable.
-
-        Parameters
-        ----------
-        *users: :class:`~github.User`
-            An iterable of users.
-
-        Raises
-        ------
-        ~github.errors.Forbidden
-            You do not have permission to remove assignees from the
-            assignable.
-        """
-
-        # https://docs.github.com/en/graphql/reference/mutations#removeassigneesfromassignable
-
-        users = [user.id for user in users]
-        await self.http.mutate_assignable_remove_assignees(self.id, users)
