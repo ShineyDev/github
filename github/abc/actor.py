@@ -18,40 +18,20 @@
 
 class Actor():
     """
-    Represents an object which can take actions on GitHub.
-
-    Implemented by:
-
-    * :class:`~github.AuthenticatedUser`
-    * :class:`~github.Bot`
-    * :class:`~github.Mannequin`
-    * :class:`~github.Organization`
-    * :class:`~github.User`
+    Represents an object that can take action on GitHub.
     """
-
-    # https://docs.github.com/en/graphql/reference/interfaces#actor
 
     __slots__ = ()
 
     @property
     def avatar_url(self):
         """
-        A url pointing to the actor's avatar.
+        A URL pointing to the actor's avatar.
 
         :type: :class:`str`
         """
 
         return self.data["avatarUrl"]
-
-    @property
-    def identicon_url(self):
-        """
-        A url pointing to the actor's identicon.
-
-        :type: :class:`str`
-        """
-
-        return "https://identicons.github.com/{0}.png".format(self.data["login"])
 
     @property
     def login(self):
@@ -67,17 +47,17 @@ class Actor():
         """
         |coro|
 
-        Fetches a url pointing to the actor's avatar.
+        Fetches a URL pointing to the actor's avatar.
 
         Parameters
         ----------
         size: :class:`int`
-            The size of the avatar.
+            The uniform size of the image, in pixels.
 
         Returns
         -------
         :class:`str`
-            A url.
+            A URL pointing to the actor's avatar.
         """
 
         return await self.http.fetch_actor_avatar_url(self.id, size)
