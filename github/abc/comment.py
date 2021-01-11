@@ -182,5 +182,9 @@ class Comment():
         def map_func(data):
             return CommentContentEdit.from_data(data, self.http)
 
-        return CollectionIterator(self.http.fetch_comment_edits, self.id,
-                                  map_func=map_func, **kwargs)
+        return CollectionIterator(
+            self.http.fetch_comment_edits,
+            self.id,
+            map_func=map_func,
+            **kwargs
+        )
