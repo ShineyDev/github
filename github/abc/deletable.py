@@ -18,14 +18,8 @@
 
 class Deletable():
     """
-    Represents an object which can be deleted.
-
-    Implemented by:
-
-    * :class:`~github.CommitComment`
+    Represents an object that can be deleted.
     """
-
-    # https://docs.github.com/en/graphql/reference/interfaces#deletable
 
     __slots__ = ()
 
@@ -38,17 +32,3 @@ class Deletable():
         """
 
         return self.data["viewerCanDelete"]
-
-    async def delete(self):
-        """
-        |coro|
-
-        Deletes the deletable.
-
-        Raises
-        ------
-        ~github.errors.Forbidden
-            You do not have permission to delete the deletable.
-        """
-
-        ...
