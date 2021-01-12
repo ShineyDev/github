@@ -21,23 +21,24 @@ from github.iterator import CollectionIterator
 
 class Labelable():
     """
-    Represents an object which can be labeled.
-
-    Implemented by:
-
-    * :class:`github.Issue`
-    * :class:`github.PullRequest`
+    Represents an object that can be labeled.
     """
-
-    # https://docs.github.com/en/graphql/reference/interfaces#labelable
 
     __slots__ = ()
 
-    def fetch_labels(self, **kwargs):
+    def fetch_labels(self, *, order_by=None, **kwargs):
         """
         |aiter|
 
         Fetches labels from the labelable.
+
+        Parameters
+        ----------
+        order_by: :class:`~github.enums.LabelOrderField`
+            The field to order by.
+        **kwargs
+            Additional keyword arguments are passed to
+            :class:`~github.iterator.CollectionIterator`.
 
         Returns
         -------
@@ -47,68 +48,15 @@ class Labelable():
 
         from github.objects import Label
 
+        if order_by:
+            order_by = order_by.value
+
         def map_func(data):
             return Label.from_data(data, self.http)
 
-        return CollectionIterator(self.http.fetch_labelable_labels, self.id,
-                                  map_func=map_func, **kwargs)
-
-    async def add_labels(self, *labels):
-        """
-        |coro|
-
-        Adds labels to the labelable.
-
-        Parameters
-        ----------
-        *labels: :class:`github.Label`
-            An iterable of labels.
-
-        Raises
-        ------
-        ~github.errors.Forbidden
-            You do not have permission to add labels to the labelable.
-        """
-
-        # https://docs.github.com/en/graphql/reference/mutations#addlabelstolabelable
-
-        labels = [label.id for label in labels]
-        await self.http.mutate_labelable_add_labels(self.id, labels)
-
-    async def clear_labels(self):
-        """
-        |coro|
-
-        Removes all labels from the labelable.
-
-        Raises
-        ------
-        ~github.errors.Forbidden
-            You do not have permission to clear labels from the labelable.
-        """
-
-        # https://docs.github.com/en/graphql/reference/mutations#clearlabelsfromlabelable
-
-        await self.http.mutate_labelable_clear_labels(self.id)
-
-    async def remove_labels(self, *labels):
-        """
-        |coro|
-
-        Removes labels from the labelable.
-
-        Parameters
-        ----------
-        *labels: :class:`github.Label`
-            An iterable of labels.
-
-        Raises
-        ------
-        ~github.errors.Forbidden
-            You do not have permission to remove labels from the labelable.
-        """
-
-        # https://docs.github.com/en/graphql/reference/mutations#removelabelsfromlabelable
-
-        labels = [label.id for label in labels]
-        await self.http.mutate_labelable_remove_labels(self.id, labels)
+        return CollectionIterator(
+            self.http.fetch_labelable_labels, self.id,
+            order_by,
+            map_func=map_func,
+            **kwargs
+        )
