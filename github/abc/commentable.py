@@ -21,12 +21,7 @@ from github.iterator import CollectionIterator
 
 class Commentable():
     """
-    Represents an object which can be commented on.
-
-    Implemented by:
-
-    * :class:`~github.Issue`
-    * :class:`~github.PullRequest`
+    Represents an object that can be commented on.
     """
 
     __slots__ = ()
@@ -37,10 +32,21 @@ class Commentable():
 
         Fetches comments on the commentable.
 
+        Parameters
+        ----------
+        **kwargs
+            Keyword arguments are passed to
+            :class:`~github.iterator.CollectionIterator`.
+
         Returns
         -------
         :class:`~github.iterator.CollectionIterator`
-            An iterator of :class:`~github.abc.Comment`.
+            An iterator of Union[:class:`~github.CommitComment`, \
+                                 :class:`~github.GistComment`, \
+                                 :class:`~github.IssueComment`, \
+                                 :class:`~github.PullRequestComment`, \
+                                 :class:`~github.PullRequestReviewComment`, \
+                                 :class:`~github.TeamDiscussionComment`].
         """
 
         from github import objects
@@ -54,39 +60,9 @@ class Commentable():
 
             return cls.from_data(data, self.http)
 
-        return CollectionIterator(self.http.fetch_commentable_comments,
-                                  self.id, map_func=map_func, **kwargs)
-
-    async def add_comment(self, body):
-        """
-        |coro|
-
-        Adds a comment to the commentable.
-
-        Parameters
-        ----------
-        body: :class:`str`
-            The body of the comment.
-
-        Raises
-        ------
-        ~github.errors.Forbidden
-            You do not have permission to comment on the commentable.
-
-        Returns
-        -------
-        Union[:class:`~github.CommitComment`]
-            The comment.
-        """
-
-        from github import objects
-
-        data = await self.http.mutate_commentable_add_comment(self.id, body)
-
-        if data["__typename"] == "IssueComment" and self.data["__typename"] == "PullRequest":
-            # special case for lack of API PullRequestComment
-            cls = objects.PullRequestComment
-        else:
-            cls = objects._TYPE_MAP[data["__typename"]]
-
-        return cls.from_data(data, self.http)
+        return CollectionIterator(
+            self.http.fetch_commentable_comments,
+            self.id,
+            map_func=map_func,
+            **kwargs
+        )
