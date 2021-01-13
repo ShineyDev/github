@@ -17,21 +17,12 @@
 """
 
 from github.enums import LockReason
-from github.enums import RepositoryLockReason
 
 
 class Lockable():
     """
-    Represents an object which can be locked.
-
-    Implemented by:
-
-    * :class:`~github.Issue`
-    * :class:`~github.PullRequest`
-    * :class:`~github.Repository`
+    Represents an object that can be locked.
     """
-
-    # https://docs.github.com/en/graphql/reference/interfaces#lockable
 
     __slots__ = ()
 
@@ -50,56 +41,8 @@ class Lockable():
         """
         The reason for the lockable being locked.
 
-        :type: Optional[Union[:class:`~github.enums.LockReason`,
-                              :class:`~github.enums.RepositoryLockReason`]]
+        :type: Optional[:class:`~github.enums.LockReason`]
         """
 
-        map = {
-            "Issue": ("activeLockReason", LockReason),
-            "PullRequest": ("activeLockReason", LockReason),
-            "Repository": ("lockReason", RepositoryLockReason),
-        }
-
-        key, type = map[self.data["__typename"]]
-        return type.try_value(self.data[key])
-
-    async def lock(self, *, reason=None):
-        """
-        |coro|
-
-        Locks the lockable.
-
-        Parameters
-        ----------
-        reason: :class:`~github.enums.Lockreason`
-            The reason for locking the lockable.
-
-        Raises
-        ------
-        ~github.errors.Forbidden
-            You do not have permission to lock the lockable.
-        """
-
-        # https://docs.github.com/en/graphql/reference/mutations#locklockable
-
-        if reason is not None:
-            reason = reason.value
-
-        await self.http.mutate_lockable_lock(self.id, reason)
-
-    async def unlock(self):
-        """
-        |coro|
-
-        Unlocks the lockable.
-
-        Raises
-        ------
-        ~github.errors.Forbidden
-            You do not have permission to unlock the lockable.
-        """
-
-        # https://docs.github.com/en/graphql/reference/mutations#unlocklockable
-
-        await self.http.mutate_lockable_unlock(self.id)
-
+        lock_reason = self.data["activeLockReason"]
+        return LockReason.try_value(lock_reason)
