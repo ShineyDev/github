@@ -21,12 +21,7 @@ from github.iterator import CollectionIterator
 
 class Participable():
     """
-    Represents an object which can be participated in.
-
-    Implemented by:
-
-    * :class:`~github.Issue`
-    * :class:`~github.PullRequest`
+    Represents an object that can be participated on.
     """
 
     __slots__ = ()
@@ -37,12 +32,18 @@ class Participable():
 
         Fetches users participating on the participable.
 
+        Parameters
+        ----------
+        **kwargs
+            Keyword arguments are passed to
+            :class:`~github.iterator.CollectionIterator`.
+
         Returns
         -------
         :class:`~github.iterator.CollectionIterator`
             An iterator of :class:`~github.User`.
         """
-        
+
         from github.objects import User
 
         def map_func(data):
@@ -53,6 +54,9 @@ class Participable():
             "PullRequest": self.http.fetch_pull_request_participants,
         }
 
-        meth = map[self.data["__typename"]]
-
-        return CollectionIterator(meth, self.id, map_func=map_func, **kwargs)
+        return CollectionIterator(
+            map[self.data["__typename"]],
+            self.id,
+            map_func=map_func,
+            **kwargs
+        )
