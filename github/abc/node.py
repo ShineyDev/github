@@ -16,10 +16,7 @@
     limitations under the License.
 """
 
-from .type import Type
-
-
-class Node(Type):
+class Node():
     """
     Represents an object with an ID.
 
@@ -28,41 +25,16 @@ class Node(Type):
         .. describe:: x == y
         .. describe:: x != y
 
-            Compares the ID of ``x`` and ``y``.
-
-    Implemented by:
-
-    * :class:`~github.AuthenticatedUser`
-    * :class:`~github.Bot`
-    * :class:`~github.CodeOfConduct`
-    * :class:`~github.CommitComment`
-    * :class:`~github.Issue`
-    * :class:`~github.Label`
-    * :class:`~github.Language`
-    * :class:`~github.License`
-    * :class:`~github.Mannequin`
-    * :class:`~github.Organization`
-    * :class:`~github.PullRequest`
-    * :class:`~github.Repository`
-    * :class:`~github.Topic`
-    * :class:`~github.User`
+            Compares the :attr:`ID <.id>` of ``x`` and ``y``.
     """
 
-    # https://docs.github.com/en/graphql/reference/interfaces#node
-
-    __slots__ = ("data",)
-
-    def __init__(self, data):
-        self.data = data
+    __slots__ = ()
 
     def __eq__(self, other):
-        if not issubclass(type(self), type(other)):
-            return NotImplemented
+        if issubclass(type(self), type(other)):
+            return self.id == other.id
 
-        if self.id == other.id:
-            return True
-
-        return False
+        return NotImplemented
 
     def __repr__(self):
         return "<{0.__class__.__name__} id='{0.id}'>".format(self)

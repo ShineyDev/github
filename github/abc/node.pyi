@@ -1,6 +1,3 @@
-from github.abc import Type
-
-
-class Node(Type):
+class Node():
     @property
     def id(self) -> str: ...
