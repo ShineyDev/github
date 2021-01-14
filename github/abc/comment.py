@@ -92,6 +92,16 @@ class Comment():
         return utils.iso_to_datetime(edited_at)
 
     @property
+    def is_email_response(self):
+        """
+        Whether the comment was created from an e-mail response.
+
+        :type: :class:`bool`
+        """
+
+        return self.data["createdViaEmail"]
+
+    @property
     def published_at(self):
         """
         When the comment was published.
