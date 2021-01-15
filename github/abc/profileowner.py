@@ -16,18 +16,13 @@
     limitations under the License.
 """
 
+from github.iterator import CollectionIterator
+
+
 class ProfileOwner():
     """
-    Represents the owner of a GitHub profile.
-
-    Implemented by:
-
-    * :class:`~github.AuthenticatedUser`
-    * :class:`~github.Organization`
-    * :class:`~github.User`
+    Represents an owner of a GitHub profile.
     """
-
-    # https://docs.github.com/en/graphql/reference/interfaces#profileowner
 
     __slots__ = ()
 
@@ -41,6 +36,26 @@ class ProfileOwner():
         """
 
         return self.data["anyPinnableItems"]
+
+    @property
+    def has_pinned_items(self):
+        """
+        Whether the profile owner has any items pinned to their profile
+        manually.
+
+        :type: :class:`bool`
+        """
+
+        return self.data["itemShowcase"]["hasPinnedItems"]
+
+    @property
+    def has_showcase_items(self):
+        """
+        Whether the profile owner has any items pinned to their profile
+        manually or due to popularity.
+        """
+
+        return self.data["itemShowcase"]["items"]["totalCount"] > 0
 
     @property
     def location(self):
@@ -63,7 +78,7 @@ class ProfileOwner():
         return self.data["name"]
 
     @property
-    def pinned_items_remaining(self):
+    def pinned_items_remaining_count(self):
         """
         The number of additional items the profile owner can pin to
         their profile.
@@ -72,6 +87,16 @@ class ProfileOwner():
         """
 
         return self.data["pinnedItemsRemaining"]
+
+    @property
+    def twitter_username(self):
+        """
+        The profile owner's twitter username.
+
+        :type: Optional[:class:`str`]
+        """
+
+        return self.data["twitterUsername"]
 
     @property
     def viewer_can_change_pinned_items(self):
@@ -98,14 +123,113 @@ class ProfileOwner():
         """
         |coro|
 
-        Fetches the profile owner's email.
+        Fetches the profile owner's e-mail.
 
         Requires the ``user:email`` scope.
 
         Returns
         -------
         Optional[:class:`str`]
-            The email.
+            The profile owner's e-mail.
         """
 
         return await self.http.fetch_profileowner_email(self.id)
+
+    def fetch_pinnable_items(self, *, types=None, **kwargs):
+        """
+        Fetches the profile owner's pinnable items.
+
+        Parameters
+        ----------
+        types: List[:class:`~github.enums.PinnableItemType`]
+            An iterable of pinnable item types to filter to.
+        **kwargs
+            Additional keyword arguments are passed to
+            :class:`~github.iterator.CollectionIterator`.
+
+        Returns
+        -------
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of Union[:class:`~github.Gist`, \
+                                 :class:`~github.Repository`]
+        """
+
+        if types:
+            types = [t.value for t in types]
+
+        from github import objects
+
+        def map_func(data):
+            return objects._TYPE_MAP[data["__typename"]].from_data(data, self.http)
+
+        return CollectionIterator(
+            self.http.fetch_profileowner_pinnable_items,
+            self.id,
+            types,
+            map_func=map_func,
+            **kwargs
+        )
+
+    def fetch_pinned_items(self, *, types=None, **kwargs):
+        """
+        Fetches the profile owner's pinned items.
+
+        Parameters
+        ----------
+        types: List[:class:`~github.enums.PinnableItemType`]
+            An iterable of pinnable item types to filter to.
+        **kwargs
+            Additional keyword arguments are passed to
+            :class:`~github.iterator.CollectionIterator`.
+
+        Returns
+        -------
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of Union[:class:`~github.Gist`, \
+                                 :class:`~github.Repository`]
+        """
+
+        if types:
+            types = [t.value for t in types]
+
+        from github import objects
+
+        def map_func(data):
+            return objects._TYPE_MAP[data["__typename"]].from_data(data, self.http)
+
+        return CollectionIterator(
+            self.http.fetch_profileowner_pinned_items,
+            self.id,
+            types,
+            map_func=map_func,
+            **kwargs
+        )
+
+    def fetch_showcase_items(self, **kwargs):
+        """
+        Fetches the profile owner's showcase items.
+
+        Parameters
+        ----------
+        **kwargs
+            Keyword arguments are passed to
+            :class:`~github.iterator.CollectionIterator`.
+
+        Returns
+        -------
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of Union[:class:`~github.Gist`, \
+                                 :class:`~github.Repository`]
+        """
+
+        from github import objects
+
+        def map_func(data):
+            return objects._TYPE_MAP[data["__typename"]].from_data(data, self.http)
+
+        return CollectionIterator(
+            self.http.fetch_profileowner_showcase_items,
+            self.id,
+            map_func=map_func,
+            **kwargs
+        )
