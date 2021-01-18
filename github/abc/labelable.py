@@ -46,10 +46,9 @@ class Labelable():
             An iterator of :class:`~github.Label`.
         """
 
-        from github.objects import Label
+        order_by = order_by and order_by.value
 
-        if order_by:
-            order_by = order_by.value
+        from github.objects import Label
 
         def map_func(data):
             return Label.from_data(data, self.http)
