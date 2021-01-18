@@ -1,6 +1,8 @@
 from typing import List
 
 from github.iterator import CollectionIterator
+from github.enums import ProjectOrderField
+from github.enums import ProjectState
 from github.enums import ProjectTemplate
 from github.objects import Project
 
@@ -14,7 +16,5 @@ class ProjectOwner():
     def viewer_can_create_projects(self) -> bool: ...
 
     async def fetch_project(self, number: int) -> Project: ...
-    
-    def fetch_projects(self, **kwargs) -> CollectionIterator: ...
 
-    async def create_project(self, *, name: str, body: str=..., template: ProjectTemplate=...) -> Project: ...
+    def fetch_projects(self, *, order_by: ProjectOrderField=..., query: str=..., states: List[ProjectState]=..., **kwargs) -> CollectionIterator[Project]: ...

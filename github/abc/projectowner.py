@@ -21,24 +21,15 @@ from github.iterator import CollectionIterator
 
 class ProjectOwner():
     """
-    Represents the owner of one or more GitHub projects.
-
-    Implemented by:
-
-    * :class:`~github.AuthenticatedUser`
-    * :class:`~github.Organization`
-    * :class:`~github.Repository`
-    * :class:`~github.User`
+    Represents the owner of one or more :term:`GitHub Project`s.
     """
-
-    # https://docs.github.com/en/graphql/reference/interfaces#projectowner
 
     __slots__ = ()
 
     @property
     def projects_resource_path(self):
         """
-        The project owner's projects resource path.
+        A resource path pointing to the owner's projects.
 
         :type: :class:`str`
         """
@@ -48,7 +39,7 @@ class ProjectOwner():
     @property
     def projects_url(self):
         """
-        The project owner's projects url.
+        A URL pointing to the owner's projects.
 
         :type: :class:`str`
         """
@@ -58,7 +49,8 @@ class ProjectOwner():
     @property
     def viewer_can_create_projects(self):
         """
-        Whether the authenticated user can create projects in the project owner.
+        Whether the authenticated user can create projects on the
+        owner.
 
         :type: :class:`bool`
         """
@@ -69,9 +61,7 @@ class ProjectOwner():
         """
         |coro|
 
-        Fetches a project from this project owner.
-
-        This requires the ``public_repo`` scope.
+        Fetches a project from the owner.
 
         Parameters
         ----------
@@ -89,13 +79,23 @@ class ProjectOwner():
         data = await self.http.fetch_projectowner_project(self.id, number)
         return Project.from_data(data, self.http)
 
-    def fetch_projects(self, **kwargs):
+    def fetch_projects(self, *, order_by=None, query=None, states=None, **kwargs):
         """
         |aiter|
 
-        Fetches projects from this project owner.
+        Fetches projects from the owner.
 
-        This requires the ``public_repo`` scope.
+        Parameters
+        ----------
+        order_by: :class:`~github.enums.ProjectOrderField`
+            The field to order projects by.
+        query: :class:`str`
+            The query to filter to.
+        states: List[:class:`~github.enums.ProjectState`]
+            The project states to filter to.
+        **kwargs
+            Additional keyword arguments are passed to
+            :class:`~github.iterator.CollectionIterator`.
 
         Returns
         -------
@@ -103,48 +103,21 @@ class ProjectOwner():
             An iterator of :class:`~github.Project`.
         """
 
+        order_by = order_by and order_by.value
+        states = [state.value for state in states]
+
         from github.objects import Project
 
         def map_func(data):
             return Project.from_data(data, self.http)
 
-        return CollectionIterator(self.http.fetch_projectowner_projects,
-                                  self.id, map_func=map_func, **kwargs)
-
-    async def create_project(self, *, name, body=None, template=None):
-        """
-        |coro|
-
-        Creates a new project on this project owner.
-
-        Parameters
-        ----------
-        name: :class:`str`
-            The name of the new project.
-        body: :class:`str`
-            The body of the new project.
-        template: :class:`~github.enums.ProjectTemplate`
-            The template to use when creating the project.
-
-        Raises
-        ------
-        ~github.errors.Forbidden
-            You do not have permission to create projects on the
-            project owner.
-
-        Returns
-        -------
-        :class:`~github.Project`
-            The created project.
-        """
-
-        # https://docs.github.com/en/graphql/reference/mutations#createproject
-
-        from github.objects import Project
-
-        if template is not None:
-            template = template.value
-
-        data = await self.http.mutate_projectowner_create_project(self.id, name, body, template)
-        return Project.from_data(data, self.http)
+        return CollectionIterator(
+            self.http.fetch_projectowner_projects,
+            self.id,
+            order_by,
+            query,
+            states,
+            map_func=map_func,
+            **kwargs
+        )
     
