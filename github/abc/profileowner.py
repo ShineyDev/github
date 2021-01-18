@@ -21,7 +21,7 @@ from github.iterator import CollectionIterator
 
 class ProfileOwner():
     """
-    Represents an owner of a GitHub profile.
+    Represents the owner of a GitHub profile.
     """
 
     __slots__ = ()
@@ -135,12 +135,14 @@ class ProfileOwner():
 
     def fetch_pinnable_items(self, *, types=None, **kwargs):
         """
+        |aiter|
+
         Fetches the profile owner's pinnable items.
 
         Parameters
         ----------
         types: List[:class:`~github.enums.PinnableItemType`]
-            An iterable of pinnable item types to filter to.
+            The pinnable item types to filter to.
         **kwargs
             Additional keyword arguments are passed to
             :class:`~github.iterator.CollectionIterator`.
@@ -152,8 +154,7 @@ class ProfileOwner():
                                  :class:`~github.Repository`]
         """
 
-        if types:
-            types = [t.value for t in types]
+        types = types and [t.value for t in types]
 
         from github import objects
 
@@ -170,12 +171,14 @@ class ProfileOwner():
 
     def fetch_pinned_items(self, *, types=None, **kwargs):
         """
+        |aiter|
+
         Fetches the profile owner's pinned items.
 
         Parameters
         ----------
         types: List[:class:`~github.enums.PinnableItemType`]
-            An iterable of pinnable item types to filter to.
+            The pinnable item types to filter to.
         **kwargs
             Additional keyword arguments are passed to
             :class:`~github.iterator.CollectionIterator`.
@@ -187,8 +190,7 @@ class ProfileOwner():
                                  :class:`~github.Repository`]
         """
 
-        if types:
-            types = [t.value for t in types]
+        types = types and [t.value for t in types]
 
         from github import objects
 
@@ -205,6 +207,8 @@ class ProfileOwner():
 
     def fetch_showcase_items(self, **kwargs):
         """
+        |aiter|
+
         Fetches the profile owner's showcase items.
 
         Parameters
