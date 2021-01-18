@@ -18,7 +18,7 @@
 
 class Actor():
     """
-    Represents an object that can take action on GitHub.
+    Represents a GitHub actor.
     """
 
     __slots__ = ()
