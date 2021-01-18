@@ -104,7 +104,7 @@ class ProjectOwner():
         """
 
         order_by = order_by and order_by.value
-        states = [state.value for state in states]
+        states = states and [state.value for state in states]
 
         from github.objects import Project
 
