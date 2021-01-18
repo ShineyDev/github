@@ -125,8 +125,6 @@ class ProfileOwner():
 
         Fetches the profile owner's e-mail.
 
-        Requires the ``user:email`` scope.
-
         Returns
         -------
         Optional[:class:`str`]
