@@ -21,7 +21,7 @@ from github.iterator import CollectionIterator
 
 class Commentable():
     """
-    Represents an object that can be commented on.
+    Represents an entity that can be commented on.
     """
 
     __slots__ = ()

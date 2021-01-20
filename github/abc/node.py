@@ -18,7 +18,7 @@
 
 class Node():
     """
-    Represents an object with an ID.
+    Represents an entity with an ID.
 
     .. container:: operations
 

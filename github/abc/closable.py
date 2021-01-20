@@ -21,7 +21,7 @@ from github import utils
 
 class Closable():
     """
-    Represents an object that can be closed.
+    Represents an entity that can be closed.
     """
 
     __slots__ = ()

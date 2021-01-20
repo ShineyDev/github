@@ -18,7 +18,7 @@
 
 class Deletable():
     """
-    Represents an object that can be deleted.
+    Represents an entity that can be deleted.
     """
 
     __slots__ = ()

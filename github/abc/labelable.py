@@ -21,7 +21,7 @@ from github.iterator import CollectionIterator
 
 class Labelable():
     """
-    Represents an object that can be labeled.
+    Represents an entity that can be labeled.
     """
 
     __slots__ = ()

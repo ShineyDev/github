@@ -21,7 +21,7 @@ from github.enums import LockReason
 
 class Lockable():
     """
-    Represents an object that can be locked.
+    Represents an entity that can be locked.
     """
 
     __slots__ = ()

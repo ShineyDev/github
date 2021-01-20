@@ -21,7 +21,7 @@ from github.iterator import CollectionIterator
 
 class Assignable():
     """
-    Represents an object that can be assigned to.
+    Represents an entity that can be assigned to.
     """
 
     __slots__ = ()

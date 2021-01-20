@@ -21,7 +21,7 @@ from github.iterator import CollectionIterator
 
 class Participable():
     """
-    Represents an object that can be participated on.
+    Represents an entity that can be participated on.
     """
 
     __slots__ = ()
