@@ -18,16 +18,8 @@
 
 class Reactable():
     """
-    Represents an object which can be reacted to.
-
-    Implemented by:
-
-    * :class:`~github.CommitComment`
-    * :class:`~github.Issue`
-    * :class:`~github.PullRequest`
+    Represents an entity that can be reacted to.
     """
-
-    # https://docs.github.com/en/graphql/reference/interfaces#reactable
 
     __slots__ = ()
 
@@ -41,62 +33,48 @@ class Reactable():
 
         return self.data["viewerCanReact"]
 
-    async def add_reaction(self, reaction):
+    async def fetch_reaction_groups(self):
         """
-        |coro|
+        Fetches groups of reactions from the reactable.
 
-        Adds a reaction to the reactable.
-
-        Example
+        Returns
         -------
+        List[:class:`~github.ReactionGroup`]
+            The groups of reactions on the reactable.
+        """
 
-        .. code:: py
+        from github.objects import ReactionGroup
 
-            comment = g.fetch_node("MDU6SXNzdWU0Nzg1MzgwMzA=")
-            await comment.add_reaction(enums.Reaction.eyes)
+        data = await self.http.fetch_reactable_reaction_groups(self.id)
+        return ReactionGroup.from_data(data, self.http)
+
+    def fetch_reactions(self, *, content=None, **kwargs):
+        """
+        Fetches reactions from the reactable.
 
         Parameters
         ----------
-        reaction: :class:`~github.enums.Reaction`
-            The reaction to add.
+        content: :class:`~github.enums.Reaction`
+            The reaction to filter results to.
+        **kwargs
+            Additional keyword arguments are passed to
+            :class:`~github.iterator.CollectionIterator`.
 
-        Raises
-        ------
-        ~github.errors.Forbidden
-            You do not have permission to add reactions to the
-            reactable.
-        """
-
-        # https://docs.github.com/en/graphql/reference/mutations#addreaction
-
-        ...
-
-    async def remove_reaction(self, reaction):
-        """
-        |coro|
-
-        Removes a reaction from the reactable.
-
-        Example
+        Returns
         -------
-
-        .. code:: py
-
-            comment = g.fetch_node("MDU6SXNzdWU0Nzg1MzgwMzA=")
-            await comment.remove_reaction(enums.Reaction.eyes)
-
-        Parameters
-        ----------
-        reaction: :class:`~github.enums.Reaction`
-            The reaction to remove.
-
-        Raises
-        ------
-        ~github.errors.Forbidden
-            You do not have permission to remove reactions from the
-            reactable.
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.Reaction`.
         """
 
-        # https://docs.github.com/en/graphql/reference/mutations#removereaction
+        from github.objects import Reaction
 
-        ...
+        def map_func(data):
+            return Reaction.from_data(data, self.http)
+
+        return CollectionIterator(
+            self.http.fetch_reactable_reactions,
+            self.id,
+            content,
+            map_func=map_func,
+            **kwargs
+        )
