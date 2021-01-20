@@ -16,18 +16,13 @@
     limitations under the License.
 """
 
+from github.iterator import CollectionIterator
+
+
 class RepositoryOwner():
     """
     Represents the owner of one or more GitHub repositories.
-
-    Implemented by:
-
-    * :class:`~github.AuthenticatedUser`
-    * :class:`~github.Organization`
-    * :class:`~github.User`
     """
-
-    # https://docs.github.com/en/graphql/reference/interfaces#repositoryowner
 
     __slots__ = ()
 
@@ -50,5 +45,58 @@ class RepositoryOwner():
 
         from github.objects import Repository
 
-        data = await self.http.fetch_repository(self.login, name)
+        data = await self.http.fetch_repositoryowner_repository(self.id, name)
         return Repository.from_data(data, self.http)
+
+    def fetch_repositories(self, *, is_fork=None, is_locked=None, order_by=None, owner_affiliations=None, privacy=None, viewer_affiliations=None, **kwargs):
+        """
+        |aiter|
+
+        Fetches repositories from the repository owner.
+
+        Parameters
+        ----------
+        is_fork: Optional[:class:`bool`]
+            The fork state to filter by.
+        is_locked: Optional[:class:`bool`]
+            The locked state to filter by.
+        order_by: Optional[:class:`~github.enums.RepositoryOrderField`]
+            The field to order repositories by.
+        owner_affiliations: Optional[List[:class:`~github.enums.RepositoryAffiliation`]]
+            The owner affiliations to filter by.
+        privacy: Optional[:class:`~github.enums.RepositoryPrivacy`]
+            The privacy to filter by.
+        viewer_affiliations: Optional[List[:class:`~github.enums.RepositoryAffiliation`]]
+            The viewer affiliations to filter by.
+        **kwargs
+            Additional keyword arguments are passed to
+            :class:`~github.iterator.CollectionIterator`.
+
+        Returns
+        -------
+        :class:`~github.iterator.CollectionIterator`
+            An iterator of :class:`~github.Repository`.
+        """
+
+        order_by = order_by and order_by.value
+        owner_affiliations = owner_affiliations and [a.value for a in owner_affiliations]
+        privacy = privacy and privacy.value
+        viewer_affiliations = viewer_affiliations and [a.value for a in viewer_affiliations]
+
+        from github.objects import Repository
+
+        def map_func(data):
+            return Repository.from_data(data, self.http)
+
+        return CollectionIterator(
+            self.http.fetch_repositoryowner_repositories,
+            self.id,
+            is_fork,
+            is_locked,
+            order_by,
+            owner_affiliations,
+            privacy,
+            viewer_affiliations,
+            map_func=map_func,
+            **kwargs
+        )
