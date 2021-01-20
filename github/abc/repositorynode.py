@@ -18,17 +18,8 @@
 
 class RepositoryNode():
     """
-    Represents a node which belongs to a repository.
-
-    Implemented by:
-
-    * :class:`~github.CommitComment`
-    * :class:`~github.Issue`
-    * :class:`~github.Label`
-    * :class:`~github.PullRequest`
+    Represents a node that belongs to a repository.
     """
-
-    # https://docs.github.com/en/graphql/reference/interfaces#repositorynode
 
     __slots__ = ()
 
@@ -36,12 +27,12 @@ class RepositoryNode():
         """
         |coro|
 
-        Fetches the repository the repository node belongs to.
+        Fetches the repository the node belongs to.
 
         Returns
         -------
         :class:`~github.Repository`
-            The repository.
+            The repository the node belongs to.
         """
 
         from github.objects import Repository
