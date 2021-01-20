@@ -35,6 +35,8 @@ class Reactable():
 
     async def fetch_reaction_groups(self):
         """
+        |coro|
+
         Fetches groups of reactions from the reactable.
 
         Returns
@@ -50,6 +52,8 @@ class Reactable():
 
     def fetch_reactions(self, *, content=None, **kwargs):
         """
+        |aiter|
+
         Fetches reactions from the reactable.
 
         Parameters
