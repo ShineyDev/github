@@ -18,32 +18,64 @@
 
 class Sponsorable():
     """
-    Represents an object which can be sponsored.
-
-    Implemented by:
-
-    * :class:`~github.AuthenticatedUser`
-    * :class:`~github.Organization`
-    * :class:`~github.User`
+    Represents an entity that can be sponsored.
     """
-
-    # https://docs.github.com/en/graphql/reference/interfaces#sponsorable
 
     __slots__ = ()
 
-    async def fetch_sponsor_listing(self):
+    @property
+    def has_sponsorship_listing(self):
+        """
+        Whether the entity has a sponsorship listing.
+
+        :type: :class:`bool`
+        """
+
+        return self.data["hasSponsorsListing"]
+
+    @property
+    def is_sponsoring_viewer(self):
+        """
+        Whether the entity is sponsoring the authenticated user.
+
+        :type: :class:`bool`
+        """
+
+        return self.data["isSponsoringViewer"]
+
+    @property
+    def viewer_can_sponsor(self):
+        """
+        Whether the authenticated user can sponsor the entity.
+
+        :type: :class:`bool`
+        """
+
+        return self.data["viewerCanSponsor"]
+
+    @property
+    def viewer_is_sponsoring(self):
+        """
+        Whether the authenticated user is sponsoring the entity.
+
+        :type: :class:`bool`
+        """
+
+        return self.data["viewerIsSponsoring"]
+
+    async def fetch_sponsorship_listing(self):
         """
         |coro|
 
-        Fetches the sponsorable's sponsor listing.
+        Fetches the sponsorable's sponsorship listing.
 
         Returns
         -------
-        Optional[:class:`~github.objects.SponsorListing`]
-            The sponsorable's sponsor listing.
+        Optional[:class:`~github.objects.SponsorshipListing`]
+            The sponsorable's sponsorship listing.
         """
 
-        from github.objects import SponsorListing
+        from github.objects import SponsorshipListing
 
-        data = await self.http.fetch_sponsorable_sponsor_listing(self.id)
-        return SponsorListing.from_data(data, self.http)
+        data = await self.http.fetch_sponsorable_sponsorship_listing(self.id)
+        return SponsorshipListing.from_data(data, self.http)
