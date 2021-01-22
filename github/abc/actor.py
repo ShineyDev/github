@@ -24,7 +24,7 @@ class Actor():
     __slots__ = ()
 
     def __repr__(self):
-        return "<{0.__class__.__name__} id='{0.id}' login='{0.login}'>".format(self)
+        return f"<{self.__class__.__name__} id='{self.id}' login='{self.login}'>"
 
     @property
     def avatar_url(self):

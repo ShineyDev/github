@@ -37,7 +37,7 @@ class Node():
         return NotImplemented
 
     def __repr__(self):
-        return "<{0.__class__.__name__} id='{0.id}'>".format(self)
+        return f"<{self.__class__.__name__} id='{self.id}'>"
 
     @property
     def id(self):
