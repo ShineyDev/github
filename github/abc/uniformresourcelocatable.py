@@ -18,30 +18,15 @@
 
 class UniformResourceLocatable():
     """
-    Represents an object retrievable by its URL.
-
-    Implemented by:
-
-    * :class:`~github.AuthenticatedUser`
-    * :class:`~github.Bot`
-    * :class:`~github.CodeOfConduct`
-    * :class:`~github.Issue`
-    * :class:`~github.Label`
-    * :class:`~github.Mannequin`
-    * :class:`~github.Organization`
-    * :class:`~github.PullRequest`
-    * :class:`~github.Repository`
-    * :class:`~github.User`
+    Represents an entity retrievable by its URL.
     """
-
-    # https://docs.github.com/en/graphql/reference/interfaces#uniformresourcelocatable
 
     __slots__ = ()
 
     @property
     def resource_path(self):
         """
-        The resource path pointing to the resource.
+        A resource path pointing to the resource.
 
         :type: :class:`str`
         """
@@ -51,7 +36,7 @@ class UniformResourceLocatable():
     @property
     def url(self):
         """
-        The url pointing to the resource.
+        A URL pointing to the resource.
 
         :type: :class:`str`
         """
