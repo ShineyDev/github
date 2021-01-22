@@ -21,16 +21,8 @@ from github.enums import SubscriptionState
 
 class Subscribable():
     """
-    Represents an object which can be subscribed to.
-
-    Implemented by:
-
-    * :class:`~github.Issue`
-    * :class:`~github.PullRequest`
-    * :class:`~github.Repository`
+    Represents an object that can be subscribed to.
     """
-
-    # https://docs.github.com/en/graphql/reference/interfaces#subscribable
 
     __slots__ = ()
 
@@ -56,18 +48,3 @@ class Subscribable():
 
         subscription = self.data["viewerSubscription"]
         return SubscriptionState.try_value(subscription)
-
-    async def update_subscription(self, state):
-        """
-        |coro|
-
-        Updates the authenticated user's subscription state to the
-        subscribable.
-
-        Parameters
-        ----------
-        :class:`~github.enums.SubscriptionState`
-            The new subscription state.
-        """
-
-        await self.http.mutate_subscribable_update_subscription(self.id, state.value)
