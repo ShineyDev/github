@@ -50,7 +50,7 @@ class Reactable():
         data = await self.http.fetch_reactable_reaction_groups(self.id)
         return ReactionGroup.from_data(data, self.http)
 
-    def fetch_reactions(self, *, content=None, **kwargs):
+    def fetch_reactions(self, *, content=None, order_by=None, **kwargs):
         """
         |aiter|
 
@@ -60,6 +60,8 @@ class Reactable():
         ----------
         content: :class:`~github.enums.Reaction`
             The reaction to filter results to.
+        order_by: :class:`~github.enums.ReactionOrderField`
+            The field to order reactions by.
         **kwargs
             Additional keyword arguments are passed to
             :class:`~github.iterator.CollectionIterator`.
@@ -70,6 +72,8 @@ class Reactable():
             An iterator of :class:`~github.Reaction`.
         """
 
+        order_by = order_by and order_by.value
+
         from github.objects import Reaction
 
         def map_func(data):
@@ -79,6 +83,7 @@ class Reactable():
             self.http.fetch_reactable_reactions,
             self.id,
             content,
+            order_by,
             map_func=map_func,
             **kwargs
         )
