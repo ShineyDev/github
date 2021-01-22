@@ -21,16 +21,8 @@ from github.enums import CannotUpdateReason
 
 class Updatable():
     """
-    Represents an object which can be updated.
-
-    Implemented by:
-
-    * :class:`~github.CommitComment`
-    * :class:`~github.Issue`
-    * :class:`~github.PullRequest`
+    Represents an entity that can be updated.
     """
-
-    # https://docs.github.com/en/graphql/reference/interfaces#updatable
 
     __slots__ = ()
 
@@ -53,19 +45,5 @@ class Updatable():
         :type: List[:class:`~github.enums.CannotUpdateReason`]
         """
 
-        reasons = self.data["viewerCannotUpdateReasons"]
+        reasons = self.data.get("viewerCannotUpdateReasons", [])
         return [CannotUpdateReason.try_value(r) for (r) in reasons]
-
-    async def update(self, **kwargs):
-        """
-        |coro|
-
-        Updates the updatable.
-
-        Raises
-        ------
-        ~github.errors.Forbidden
-            You do not have permission to update the updatable.
-        """
-
-        ...
