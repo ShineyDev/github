@@ -30,7 +30,7 @@ class Labelable():
         """
         |aiter|
 
-        Fetches labels from the labelable.
+        Fetches labels on the labelable.
 
         Parameters
         ----------
