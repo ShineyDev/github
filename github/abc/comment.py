@@ -126,7 +126,7 @@ class Comment():
     @property
     def viewer_is_author(self):
         """
-        Whether the authenticated user authored this comment.
+        Whether the authenticated user authored the comment.
 
         :type: :class:`bool`
         """
