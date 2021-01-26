@@ -22,9 +22,14 @@ from github.abc.closable import Closable
 from github.abc.comment import Comment
 from github.abc.commentable import Commentable
 from github.abc.deletable import Deletable
+from github.abc.gitobject import GitObject
+from github.abc.gitsignature import GitSignature
 from github.abc.labelable import Labelable
 from github.abc.lockable import Lockable
+from github.abc.memberstatusable import MemberStatusable
+from github.abc.minimizable import Minimizable
 from github.abc.node import Node
+from github.abc.packageowner import PackageOwner
 from github.abc.participable import Participable
 from github.abc.profileowner import ProfileOwner
 from github.abc.projectowner import ProjectOwner
@@ -32,15 +37,17 @@ from github.abc.reactable import Reactable
 from github.abc.repositorynode import RepositoryNode
 from github.abc.repositoryowner import RepositoryOwner
 from github.abc.sponsorable import Sponsorable
+from github.abc.starrable import Starrable
 from github.abc.subscribable import Subscribable
 from github.abc.type import Type
-from github.abc.updatable import Updatable
 from github.abc.uniformresourcelocatable import UniformResourceLocatable
+from github.abc.updatable import Updatable
 
 __all__ = [
     "Actor", "Assignable", "Closable", "Comment", "Commentable", "Deletable",
-    "Labelable", "Lockable", "Node", "Participable", "ProfileOwner",
+    "GitObject", "GitSignature", "Labelable", "Lockable", "MemberStatusable",
+    "Minimizable", "Node", "PackageOwner", "Participable", "ProfileOwner",
     "ProjectOwner", "Reactable", "RepositoryNode", "RepositoryOwner",
-    "Sponsorable", "Subscribable", "Type", "Updatable",
-    "UniformResourceLocatable",
+    "Sponsorable", "Starrable", "Subscribable", "Type",
+    "UniformResourceLocatable", "Updatable"
 ]
