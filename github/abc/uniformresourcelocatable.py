@@ -18,7 +18,7 @@
 
 class UniformResourceLocatable():
     """
-    Represents an entity retrievable by its URL.
+    Represents an resource retrievable by its URL.
     """
 
     __slots__ = ()
