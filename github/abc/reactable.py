@@ -26,7 +26,7 @@ class Reactable():
     @property
     def viewer_can_react(self):
         """
-        Whether the authenticated user can react to this reactable.
+        Whether the authenticated user can react to the reactable.
 
         :type: :class:`bool`
         """
