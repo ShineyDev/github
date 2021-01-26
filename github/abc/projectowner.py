@@ -21,7 +21,7 @@ from github.iterator import CollectionIterator
 
 class ProjectOwner():
     """
-    Represents the owner of one or more :term:`GitHub Project`s.
+    Represents the owner of one or more GitHub Projects.
     """
 
     __slots__ = ()
