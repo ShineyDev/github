@@ -56,17 +56,17 @@ class RepositoryOwner():
 
         Parameters
         ----------
-        is_fork: Optional[:class:`bool`]
+        is_fork: :class:`bool`
             The fork state to filter by.
-        is_locked: Optional[:class:`bool`]
+        is_locked: :class:`bool`
             The locked state to filter by.
-        order_by: Optional[:class:`~github.enums.RepositoryOrderField`]
+        order_by: :class:`~github.enums.RepositoryOrderField`
             The field to order repositories by.
-        owner_affiliations: Optional[List[:class:`~github.enums.RepositoryAffiliation`]]
+        owner_affiliations: List[:class:`~github.enums.RepositoryAffiliation`]
             The owner affiliations to filter by.
-        privacy: Optional[:class:`~github.enums.RepositoryPrivacy`]
+        privacy: :class:`~github.enums.RepositoryPrivacy`
             The privacy to filter by.
-        viewer_affiliations: Optional[List[:class:`~github.enums.RepositoryAffiliation`]]
+        viewer_affiliations: List[:class:`~github.enums.RepositoryAffiliation`]
             The viewer affiliations to filter by.
         **kwargs
             Additional keyword arguments are passed to
