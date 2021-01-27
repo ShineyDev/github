@@ -1,7 +1,8 @@
 from typing import List
 
 from github.iterator import CollectionIterator
-from github.enums import Reaction as _enums_Reaction
+from github.enums import ReactionContent
+from github.enums import ReactionOrderField
 from github.objects import Reaction
 from github.objects import ReactionGroup
 
@@ -12,4 +13,4 @@ class Reactable():
 
     async def fetch_reaction_groups(self) -> List[ReactionGroup]: ...
 
-    def fetch_reactions(self, *, content: _enums_Reaction=..., **kwargs) -> CollectionIterator[Reaction]: ...
+    def fetch_reactions(self, *, content: ReactionContent=..., order_by: ReactionOrderField=..., **kwargs) -> CollectionIterator[Reaction]: ...
