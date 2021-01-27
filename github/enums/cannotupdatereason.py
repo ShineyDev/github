@@ -16,20 +16,34 @@
     limitations under the License.
 """
 
-from github.enums import Enum
+from enum import Enum
 
 
 class CannotUpdateReason(Enum):
     """
-    Represents a reason the authenticated user cannot update an updatable.
+    Represents a reason for the authenticated user being unable to
+    update an :class:`~github.abc.Updatable`.
     """
 
-    # https://docs.github.com/en/graphql/reference/enums#commentcannotupdatereason
+    #: The subject :class:`~github.Repository` is archived.
+    archived = "ARCHIVED"
 
-    archived                = "ARCHIVED"
-    denied                  = "DENIED"
-    insufficient_access     = "INSUFFICIENT_ACCESS"
-    locked                  = "LOCKED"
-    login_required          = "LOGIN_REQUIRED"
-    maintenance             = "MAINTENANCE"
+    #: The authenticated user cannot update the updatable.
+    denied = "DENIED"
+
+    #: The authenticated user does not have permission to update the
+    #: updatable.
+    insufficient_access = "INSUFFICIENT_ACCESS"
+
+    #: The subject :class:`~github.Issue` or
+    #: :class:`~github.PullRequest` is locked.
+    locked = "LOCKED"
+
+    #: There is no authenticated user.
+    login_required = "LOGIN_REQUIRED"
+
+    #: The subject :class:`~github.Repository` is under maintenance.
+    maintenance = "MAINTENANCE"
+
+    #: The authenticated user does not have a verified email.
     verified_email_required = "VERIFIED_EMAIL_REQUIRED"
