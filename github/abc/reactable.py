@@ -58,7 +58,7 @@ class Reactable():
 
         Parameters
         ----------
-        content: :class:`~github.enums.Reaction`
+        content: :class:`~github.enums.ReactionContent`
             The reaction to filter results to.
         order_by: :class:`~github.enums.ReactionOrderField`
             The field to order reactions by.
