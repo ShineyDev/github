@@ -51,7 +51,7 @@ class Starrable():
 
         Parameters
         ----------
-        order_by: Optional[:class:`~github.enums.StargazerOrderField`]
+        order_by: :class:`~github.enums.StargazerOrderField`
             The field to order stargazers by.
         **kwargs
             Additional keyword arguments are passed to
