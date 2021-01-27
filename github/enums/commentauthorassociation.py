@@ -16,20 +16,41 @@
     limitations under the License.
 """
 
-from github.enums import Enum
+from enum import Enum
 
 
 class CommentAuthorAssociation(Enum):
     """
-    Represents an author's association to the subject of a comment.
+    Represents an author's association with a subject of a
+    :class:`.github.abc.Comment`.
     """
 
-    # https://docs.github.com/en/graphql/reference/enums#commentauthorassociation
+    #: The author is a collaborator on the subject
+    #: :class:`~github.Repository`.
+    collaborator = "COLLABORATOR"
 
-    collaborator           = "COLLABORATOR"
-    contributor            = "CONTRIBUTOR"
+    #: The author has previously contributed to the subject
+    #: :class:`~github.Repository`.
+    contributor = "CONTRIBUTOR"
+
+    #: The author has not previously contributed to the subject
+    #: :class:`~github.Repository`.
     first_time_contributor = "FIRST_TIME_CONTRIBUTOR"
-    first_timer            = "FIRST_TIMER"
-    member                 = "MEMBER"
-    none                   = "NONE"
-    owner                  = "OWNER"
+
+    #: The author has not previously contributed to any GitHub
+    #: repository.
+    first_timer = "FIRST_TIMER"
+
+    #: The author is a :class:`~github.Mannequin`.
+    mannequin = "MANNEQUIN"
+
+    #: The author is a member of the :class:`~github.Organization` that
+    #: owns the subject :class:`~github.Repository`.
+    member = "MEMBER"
+
+    #: The author has no association with the subject
+    #: :class:`~github.Repository`.
+    none = "NONE"
+
+    #: The author owns the subject :class:`~github.Repository`.
+    owner = "OWNER"
