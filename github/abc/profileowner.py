@@ -53,6 +53,8 @@ class ProfileOwner():
         """
         Whether the profile owner has any items pinned to their profile
         manually or due to popularity.
+
+        :type: :class:`~bool`
         """
 
         return self.data["itemShowcase"]["items"]["totalCount"] > 0
