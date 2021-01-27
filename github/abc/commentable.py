@@ -60,8 +60,17 @@ class Commentable():
 
             return cls.from_data(data, self.http)
 
+        map = {
+            "Commit": self.http.fetch_commit_comments,
+            "Gist": self.http.fetch_gist_comments,
+            "Issue": self.http.fetch_issue_comments,
+            "PullRequest": self.http.fetch_pull_request_comments,
+            "PullRequestReview": self.http.fetch_pull_request_review_comments,
+            "TeamDiscussion": self.http.fetch_team_discussion_comments,
+        }
+
         return CollectionIterator(
-            self.http.fetch_commentable_comments,
+            map[self.data["__typename"]],
             self.id,
             map_func=map_func,
             **kwargs
