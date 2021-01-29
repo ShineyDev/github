@@ -16,15 +16,16 @@
     limitations under the License.
 """
 
-from github.enums import Enum
+from enum import Enum
 
 
 class IssueState(Enum):
     """
-    Represents the state of an issue.
+    Represents the state of an :class:`~github.Issue`.
     """
 
-    # https://docs.github.com/en/graphql/reference/enums#issuestate
-
+    #: The issue is closed.
     closed = "CLOSED"
-    open   = "OPEN"
+
+    #: The issue is open.
+    open = "OPEN"
