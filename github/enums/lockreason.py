@@ -16,17 +16,22 @@
     limitations under the License.
 """
 
-from github.enums import Enum
+from enum import Enum
 
 
 class LockReason(Enum):
     """
-    Represents the reason for a lockable to be in a locked state.
+    Represents a reason for locking a :class:`~github.abc.Lockable`.
     """
 
-    # https://docs.github.com/en/graphql/reference/enums#lockreason
+    #: The conversation is off-topic.
+    off_topic = "OFF_TOPIC"
 
-    off_topic  = "OFF_TOPIC"
-    resolved   = "RESOLVED"
-    spam       = "SPAM"
+    #: The conversation is resolved.
+    resolved = "RESOLVED"
+
+    #: The conversation is spam.
+    spam = "SPAM"
+
+    #: The conversation is too heated.
     too_heated = "TOO_HEATED"
