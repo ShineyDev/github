@@ -27,5 +27,5 @@ class GistPrivacy(Enum):
     #: The Gist is public.
     public = "PUBLIC"
 
-    #: The Gist is :term:`secret <private vs. secret>`.
+    #: The Gist is secret.
     secret = "SECRET"
