@@ -16,17 +16,23 @@
     limitations under the License.
 """
 
-from github.enums import Enum
+from enum import Enum
 
 
 class ProjectTemplate(Enum):
     """
-    Represents a GitHub-provided project template.
+    Represents a template used to create a :class:`~github.Project`.
     """
 
-    # https://docs.github.com/en/graphql/reference/enums#projecttemplate
+    #: A project with columns for "to do", "in progress", and "done".
+    kanban = "BASIC_KANBAN"
 
-    automated_kanban_v2      = "AUTOMATED_KANBAN_V2"
-    automated_reviews_kanban = "AUTOMATED_REVIEWS_KANBAN"
-    basic_kanban             = "BASIC_KANBAN"
-    bug_triage               = "BUG_TRIAGE"
+    #: :attr:`.kanban` plus automation.
+    kanban_automation = "AUTOMATED_KANBAN_V2"
+
+    #: :attr:`.kanban_automation` plus pull request review automation.
+    kanban_automation_reviews = "AUTOMATED_REVIEWS_KANBAN"
+
+    #: A project with columns for "to do", "high priority",
+    #: "low priority", and "closed".
+    triage = "BUG_TRIAGE"
