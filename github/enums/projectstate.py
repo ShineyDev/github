@@ -16,15 +16,16 @@
     limitations under the License.
 """
 
-from github.enums import Enum
+from enum import Enum
 
 
 class ProjectState(Enum):
     """
-    Represents the state of a project.
+    Represents the state of a :class:`~github.Project`.
     """
 
-    # https://docs.github.com/en/graphql/reference/enums#projectstate
-
+    #: The project is closed.
     closed = "CLOSED"
-    open   = "OPEN"
+
+    #: The project is open.
+    open = "OPEN"
