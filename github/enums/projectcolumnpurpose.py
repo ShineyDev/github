@@ -16,16 +16,19 @@
     limitations under the License.
 """
 
-from github.enums import Enum
+from enum import Enum
 
 
 class ProjectColumnPurpose(Enum):
     """
-    Represents the purpose of a project column.
+    Represents the purpose of a :class:`~github.ProjectColumn`.
     """
 
-    # https://docs.github.com/en/graphql/reference/enums#projectcolumnpurpose
+    #: The column contains cards that are complete.
+    done = "DONE"
 
-    done        = "DONE"
+    #: The column contains cards that are being worked on.
     in_progress = "IN_PROGRESS"
-    todo        = "TODO"
+
+    #: The column contains cards that are to be worked on.
+    todo = "TODO"
