@@ -16,16 +16,19 @@
     limitations under the License.
 """
 
-from github.enums import Enum
+from enum import Enum
 
 
 class PullRequestState(Enum):
     """
-    Represents the state of a pull request.
+    Represents the state of a :class:`~github.PullRequest`.
     """
 
-    # https://docs.github.com/en/graphql/reference/enums#pullrequeststate
-
+    #: The pull request is closed.
     closed = "CLOSED"
+
+    #: The pull request is merged.
     merged = "MERGED"
-    open   = "OPEN"
+
+    #: The pull request is open.
+    open = "OPEN"
