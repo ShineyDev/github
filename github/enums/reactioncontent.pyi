@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Reaction(Enum):
+class ReactionContent(Enum):
     confused: str
     eyes: str
     heart: str

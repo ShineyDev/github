@@ -1,5 +1,5 @@
 """
-/github/enums/reaction.py
+/github/enums/reactioncontent.py
 
     Copyright (c) 2019-2020 ShineyDev
 
@@ -16,21 +16,34 @@
     limitations under the License.
 """
 
-from github.enums import Enum
+from enum import Enum
 
 
-class Reaction(Enum):
+class ReactionContent(Enum):
     """
-    Represents a GitHub reaction.
+    Represents the content of a :class:`~github.Reaction`.
     """
 
-    # https://docs.github.com/en/graphql/reference/enums#reactioncontent
+    #: The ``:confused:`` emoji.
+    confused = "CONFUSED"
 
-    confused    = "CONFUSED"
-    eyes        = "EYES"
-    heart       = "HEART"
-    hooray      = "HOORAY"
-    laugh       = "LAUGH"
-    rocket      = "ROCKET"
+    #: The ``:eyes:`` emoji.
+    eyes = "EYES"
+
+    #: The ``:heart:`` emoji.
+    heart = "HEART"
+
+    #: The ``:hooray:`` emoji.
+    hooray = "HOORAY"
+
+    #: The ``:laugh:`` emoji.
+    laugh = "LAUGH"
+
+    #: The ``:rocket:`` emoji.
+    rocket = "ROCKET"
+
+    #: The ``:-1:`` emoji.
     thumbs_down = "THUMBS_DOWN"
-    thumbs_up   = "THUMBS_UP"
+
+    #: The ``:+1:`` emoji.
+    thumbs_up = "THUMBS_UP"
