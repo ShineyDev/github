@@ -16,7 +16,7 @@
     limitations under the License.
 """
 
-from github.enums import MinimizedReason
+from github.enums import MinimizeReason
 
 
 class Minimizable():
@@ -37,15 +37,15 @@ class Minimizable():
         return self.data["isMinimized"]
 
     @property
-    def minimized_reason(self):
+    def minimize_reason(self):
         """
         The reason for the minimizable being minimized.
 
-        :type: :class:`~github.enums.MinimizedReason`
+        :type: :class:`~github.enums.MinimizeReason`
         """
 
-        minimized_reason = self.data["minimizedReason"]
-        return MinimizedReason.try_value(minimized_reason)
+        minimize_reason = self.data["minimizedReason"]
+        return MinimizeReason.try_value(minimize_reason)
 
     @property
     def viewer_can_minimize(self):
