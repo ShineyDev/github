@@ -16,17 +16,22 @@
     limitations under the License.
 """
 
-from github.enums import Enum
+from enum import Enum
 
 
 class RepositoryLockReason(Enum):
     """
-    Represents the reason for a given repository to be in a locked state.
+    Represents a reason for locking a :class:`~github.Repository`.
     """
 
-    # https://docs.github.com/en/graphql/reference/enums#repositorylockreason
+    #: The repository is locked due to billing.
+    billing = "BILLING"
 
-    billing   = "BILLING"
-    migrating = "MIGRATING"
-    moving    = "MOVING"
-    rename    = "RENAME"
+    #: The repository is migrating.
+    migration = "MIGRATING"
+
+    #: The repository is moving.
+    move = "MOVING"
+
+    #: The repository is being renamed.
+    rename = "RENAMED"
