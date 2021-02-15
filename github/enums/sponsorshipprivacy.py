@@ -16,15 +16,16 @@
     limitations under the License.
 """
 
-from github.enums import Enum
+from enum import Enum
 
 
 class SponsorshipPrivacy(Enum):
     """
-    Represents the privacy of a sponsorship.
+    Represents the privacy level of a :class:`~github.Sponsorship`.
     """
 
-    # https://docs.github.com/en/graphql/reference/enums#sponsorshipprivacy
-
+    #: The sponsorship is private.
     private = "PRIVATE"
+
+    #: The sponsorship is public.
     public = "PUBLIC"
