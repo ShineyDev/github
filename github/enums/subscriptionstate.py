@@ -1,5 +1,5 @@
 """
-/github/enums/repositorysubscription.py
+/github/enums/subscriptionstate.py
 
     Copyright (c) 2019-2020 ShineyDev
 
@@ -16,16 +16,19 @@
     limitations under the License.
 """
 
-from github.enums import Enum
+from enum import Enum
 
 
 class SubscriptionState(Enum):
     """
-    Represents a user's subscription to a subject.
+    Represents the state of a subscription to a :class:`~github.abc.Subscribable`.
     """
 
-    # https://docs.github.com/en/graphql/reference/enums#subscriptionstate
-
+    #: The user is never notified.
     ignored = "IGNORED"
+
+    #: The user is notified of all conversations.
     subscribed = "SUBSCRIBED"
+
+    #: The user is notified when participating or mentioned.
     unsubscribed = "UNSUBSCRIBED"
