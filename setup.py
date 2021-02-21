@@ -2,9 +2,6 @@ import re
 import setuptools
 
 
-with open("README.rst", "r") as stream:
-    readme = stream.read()
-
 with open("requirements.txt", "r") as stream:
     install_requires = stream.read().splitlines()
 
@@ -69,8 +66,6 @@ setuptools.setup(
     extras_require=extras_require,
     install_requires=install_requires,
     license="Apache Software License",
-    long_description=readme,
-    long_description_content_type="text/x-rst",
     name="github.py",
     packages=["github", "github.enums", "github.interfaces", "github.objects", "github.gql"],
     project_urls=project_urls,
