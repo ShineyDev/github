@@ -21,7 +21,8 @@ from enum import Enum
 
 class SubscriptionState(Enum):
     """
-    Represents the state of a subscription to a :class:`~github.abc.Subscribable`.
+    Represents the state of a subscription to a
+    :class:`~github.interfaces.Subscribable`.
     """
 
     #: The user is never notified.

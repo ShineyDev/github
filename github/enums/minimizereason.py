@@ -21,7 +21,8 @@ from enum import Enum
 
 class MinimizeReason(Enum):
     """
-    Represents a reason for minimizing a :class:`~github.abc.Minimizable`.
+    Represents a reason for minimizing a
+    :class:`~github.interfaces.Minimizable`.
     """
 
     #: The content is abusive or harassive.

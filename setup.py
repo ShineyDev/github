@@ -72,7 +72,7 @@ setuptools.setup(
     long_description=readme,
     long_description_content_type="text/x-rst",
     name="github.py",
-    packages=["github", "github.abc", "github.enums", "github.objects", "github.query"],
+    packages=["github", "github.enums", "github.interfaces", "github.objects", "github.gql"],
     project_urls=project_urls,
     python_requires=">=3.6.0",
     url="https://github.com/ShineyDev/github.py",

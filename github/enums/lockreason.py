@@ -21,7 +21,8 @@ from enum import Enum
 
 class LockReason(Enum):
     """
-    Represents a reason for locking a :class:`~github.abc.Lockable`.
+    Represents a reason for locking a
+    :class:`~github.interfaces.Lockable`.
     """
 
     #: The conversation is off-topic.

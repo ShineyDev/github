@@ -22,7 +22,7 @@ from enum import Enum
 class CannotUpdateReason(Enum):
     """
     Represents a reason for the authenticated user being unable to
-    update an :class:`~github.abc.Updatable`.
+    update an :class:`~github.interfaces.Updatable`.
     """
 
     #: The subject :class:`~github.Repository` is archived.

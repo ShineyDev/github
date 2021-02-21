@@ -21,7 +21,7 @@ from enum import Enum
 
 class GitSignatureState(Enum):
     """
-    Represents the state of a :class:`~github.abc.GitSignature`.
+    Represents the state of a :class:`~github.interfaces.GitSignature`.
     """
 
     #: The signature certificate, or another in its chain, could not be

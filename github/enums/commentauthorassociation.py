@@ -22,7 +22,7 @@ from enum import Enum
 class CommentAuthorAssociation(Enum):
     """
     Represents an author's association with a subject of a
-    :class:`.github.abc.Comment`.
+    :class:`.github.interfaces.Comment`.
     """
 
     #: The author is a collaborator on the subject

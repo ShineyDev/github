@@ -33,18 +33,19 @@ class IssueTimelineItemType(Enum):
     #: :class:`~github.Project`.
     add_to_project_event = "ADDED_TO_PROJECT_EVENT"
 
-    #: An assignee was added to the :class:`~github.abc.Assignable`.
+    #: An assignee was added to the
+    #: :class:`~github.interfaces.Assignable`.
     assignee_add_event = "ASSIGNED_EVENT"
 
     #: An assignee was removed from the
-    #: :class:`~github.abc.Assignable`.
+    #: :class:`~github.interfaces.Assignable`.
     assignee_remove_event = "UNASSIGNED_EVENT"
 
     #: A :class:`~github.User` was blocked from the
     #: :class:`~github.Issue`.
     block_event = "USER_BLOCKED_EVENT"
 
-    #: The :class:`~github.abc.Closable` was closed.
+    #: The :class:`~github.interfaces.Closable` was closed.
     close_event = "CLOSED_EVENT"
 
     #: An :class:`~github.IssueComment` was added to the
@@ -72,20 +73,20 @@ class IssueTimelineItemType(Enum):
     disconnect_event = "DISCONNECTED_EVENT"
 
     #: A :class:`~github.Label` was added to the
-    #: :class:`~github.abc.Labelable`.
+    #: :class:`~github.interfaces.Labelable`.
     label_add_event = "LABELED_EVENT"
 
     #: A :class:`~github.Label` was removed from the
-    #: :class:`~github.abc.Labelable`.
+    #: :class:`~github.interfaces.Labelable`.
     label_remove_event = "UNLABELED_EVENT"
 
-    #: The :class:`~github.abc.Lockable` was locked.
+    #: The :class:`~github.interfaces.Lockable` was locked.
     lock_event = "LOCKED_EVENT"
 
     #: The :class:`~github.Issue` was marked as a duplicate.
     mark_as_duplicate_event = "MARKED_AS_DUPLICATE_EVENT"
 
-    #: An :class:`~github.abc.Actor` was mentioned in the
+    #: An :class:`~github.interfaces.Actor` was mentioned in the
     #: :class:`~github.Issue` body.
     mention_event = "MENTIONED_EVENT"
 
@@ -112,11 +113,11 @@ class IssueTimelineItemType(Enum):
     #: The :class:`~github.Issue` title was updated.
     rename_event = "RENAMED_TITLE_EVENT"
 
-    #: The :class:`~github.abc.Closable` was reopened.
+    #: The :class:`~github.interfaces.Closable` was reopened.
     reopen_event = "REOPENED_EVENT"
 
-    #: An :class:`~github.abc.Actor` subscribed to the
-    #: :class:`~github.abc.Subscribable`.
+    #: An :class:`~github.interfaces.Actor` subscribed to the
+    #: :class:`~github.interfaces.Subscribable`.
     subscribe_event = "SUBSCRIBED_EVENT"
 
     #: The :class:`~github.Issue` was transferred to another
@@ -132,6 +133,6 @@ class IssueTimelineItemType(Enum):
     #: The :class:`~github.Issue` was unpinned.
     unpin_event = "UNPINNED_EVENT"
 
-    #: An :class:`~github.abc.Actor` unsubscribed from the
-    #: :class:`~github.abc.Subscribable`.
+    #: An :class:`~github.interfaces.Actor` unsubscribed from the
+    #: :class:`~github.interfaces.Subscribable`.
     unsubscribe_event = "UNSUBSCRIBED_EVENT"
