@@ -37,7 +37,7 @@
 .. raw:: html
 
     <h1 align="center">github.py</h1>
-    <p align="center">An asynchronous Python wrapper for the GitHub API, v4.</p>
+    <p align="center">An asynchronous Python library for interaction with GitHub's GraphQL API.</p>
 
 
 Features

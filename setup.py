@@ -62,7 +62,7 @@ project_urls = {
 setuptools.setup(
     author="ShineyDev",
     classifiers=classifiers,
-    description="An asynchronous Python wrapper for the GitHub API, v4.",
+    description="An asynchronous Python library for interaction with GitHub's GraphQL API.",
     extras_require=extras_require,
     install_requires=install_requires,
     license="Apache Software License",
