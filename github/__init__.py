@@ -19,16 +19,25 @@
 import collections
 
 from github.client import Client
+from github.enums import *
+from github.enums import __all__ as _enums__all__
 from github.objects import *
 from github.objects import __all__ as _objects__all__
 
 __all__ = [
-    "Client", "abc", "enums", "errors", "objects", "query", "utils",
+    "Client",
+    "enums",
+    "errors",
+    *_enums__all__,
+    "gql",
+    "interfaces",
+    "objects",
     *_objects__all__,
+    "utils",
 ]
 
 
-_VersionInfo = collections.namedtuple("_VersionInfo", "major minor micro releaselevel serial")
+_VersionInfo = collections.namedtuple("_VersionInfo", "prime major minor patch release serial")
 
-version_info = _VersionInfo(1, 0, 0, "alpha", 0)
-version = "1.0.0a"
+version = "1.0.0.0a"
+version_info = _VersionInfo(1, 0, 0, 0, "alpha", 0)
