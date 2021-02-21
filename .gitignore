@@ -1,13 +1,10 @@
-# python cache
+# python
 __pycache__/
 
-# python documentation
-/docs/build/
+# python distribution
+build/
+dist/
+*.egg-info/
 
-# python package-index
-/build/
-/dist/
-/github.py.egg-info/
-
-# mypy cache
+# mypy
 .mypy_cache/
