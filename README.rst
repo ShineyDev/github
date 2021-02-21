@@ -45,7 +45,7 @@ Features
 
 #. Modern Pythonic API using ``async``/``await`` syntax.
 #. 100% coverage of the GitHub API.
-#. `Easy-to-use documentation <https://githubpy.readthedocs.io/en/latest/>`_.
+#. Fully `documented public API <https://githubpy.readthedocs.io/en/latest/>`_.
 
 
 Installation
