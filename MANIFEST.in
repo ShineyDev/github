@@ -1,4 +1,0 @@
-include LICENSE
-include requirements.txt
-include github/py.typed
-recursive-include github *.pyi

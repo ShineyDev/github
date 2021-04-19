@@ -1,3 +1,0 @@
-class Deletable():
-    @property
-    def viewer_can_delete(self) -> bool: ...
