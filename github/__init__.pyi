@@ -1,5 +1,7 @@
 from typing import NamedTuple
 
+from github.errors import GitHubError, HTTPError, HTTPUnauthorizedError, GraphQLError, GraphQLForbiddenError, GraphQLInternalError, GraphQLNotFoundError
+
 
 class _VersionInfo(NamedTuple):
     prime: int
