@@ -39,7 +39,7 @@ class HTTPError(GitHubError):
         The response data.
     """
 
-    __slots__ = ("message", "response", "data")
+    __slots__ = ("response", "data")
 
     def __init__(self, message, response, data):
         self.response = response
@@ -62,7 +62,7 @@ class HTTPUnauthorizedError(HTTPError):
         The response data.
     """
 
-    __slots__ = ("message", "response", "data")
+    __slots__ = ()
 
 
 class GraphQLError(HTTPError):
@@ -79,7 +79,7 @@ class GraphQLError(HTTPError):
         The response data.
     """
 
-    __slots__ = ("message", "response", "data")
+    __slots__ = ()
 
 
 class GraphQLForbiddenError(GraphQLError):
@@ -96,7 +96,7 @@ class GraphQLForbiddenError(GraphQLError):
         The response data.
     """
 
-    __slots__ = ("message", "response", "data")
+    __slots__ = ()
 
 
 class GraphQLInternalError(GraphQLError):
@@ -113,7 +113,7 @@ class GraphQLInternalError(GraphQLError):
         The response data.
     """
 
-    __slots__ = ("message", "response", "data")
+    __slots__ = ()
 
 
 class GraphQLNotFoundError(GraphQLError):
@@ -130,7 +130,7 @@ class GraphQLNotFoundError(GraphQLError):
         The response data.
     """
 
-    __slots__ = ("message", "response", "data")
+    __slots__ = ()
 
 
 error_exception_map = {
