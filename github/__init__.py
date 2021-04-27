@@ -1,10 +1,13 @@
 import collections
 
+from github.client import *
+from github.client import __all__ as _client__all__
 from github.errors import *
 from github.errors import __all__ as _errors__all__
 
 
 __all__ = [
+    *_client__all__,
     *_errors__all__,
 ]
 

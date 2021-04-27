@@ -1,5 +1,6 @@
 from typing import NamedTuple
 
+from github.client import Client
 from github.errors import GitHubError, HTTPError, HTTPUnauthorizedError, GraphQLError, GraphQLForbiddenError, GraphQLInternalError, GraphQLNotFoundError
 
 
