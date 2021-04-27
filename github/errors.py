@@ -134,10 +134,7 @@ class GraphQLNotFoundError(GraphQLError):
 
 
 error_exception_map = {
-    # HTTP error code
     401: HTTPUnauthorizedError,
-
-    # GraphQL error type
     "FORBIDDEN": GraphQLForbiddenError,
     "INTERNAL": GraphQLInternalError,
     "NOT_FOUND": GraphQLNotFoundError,
