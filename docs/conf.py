@@ -76,4 +76,19 @@ rst_prolog = """
 .. |coro| replace:: This function returns a |coro_link|_.
 .. |coro_link| replace:: coroutine
 .. _coro_link: https://docs.python.org/3/library/asyncio-task.html#coroutine
+
+.. |GRAPHQL_EXPLORER_link| replace:: GitHub's GraphQL explorer
+.. _GRAPHQL_EXPLORER_link: https://docs.github.com/en/graphql/overview/explorer
+
+.. |GRAPHQL_GUIDE_link| replace:: GitHub's GraphQL guides
+.. _GRAPHQL_GUIDE_link: https://docs.github.com/en/graphql/guides
+
+.. |GRAPHQL_LEARN_link| replace:: learn GraphQL
+.. _GRAPHQL_LEARN_link: https://graphql.org/learn/
+
+.. |GRAPHQL_REFERENCE_link| replace:: GitHub's GraphQL API reference
+.. _GRAPHQL_REFERENCE_link: https://docs.github.com/en/graphql/reference
+
+.. |PAT_link| replace:: personal access token
+.. _PAT_link: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
 """
