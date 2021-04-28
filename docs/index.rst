@@ -22,6 +22,7 @@ An asynchronous Python library for interaction with GitHub's GraphQL API.
     :caption: Meta
     :maxdepth: 1
 
+    implementation
     versioning
 
 
