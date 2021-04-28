@@ -1,6 +1,3 @@
-.. currentmodule:: github
-
-
 Version Guarantees
 ==================
 
