@@ -1,7 +1,7 @@
 from typing import NamedTuple
 
-from github.client import Client
-from github.errors import GitHubError, HTTPError, HTTPUnauthorizedError, GraphQLError, GraphQLForbiddenError, GraphQLInternalError, GraphQLNotFoundError
+from github.client import Client as Client
+from github.errors import GitHubError as GitHubError, HTTPError as HTTPError, HTTPUnauthorizedError as HTTPUnauthorizedError, GraphQLError as GraphQLError, GraphQLForbiddenError as GraphQLForbiddenError, GraphQLInternalError as GraphQLInternalError, GraphQLNotFoundError as GraphQLNotFoundError
 
 
 class _VersionInfo(NamedTuple):
