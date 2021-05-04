@@ -1,8 +1,4 @@
 Implementation Details
 ======================
 
-This document outlines the differences between this library and the
-GraphQL API.
-
-
-..
+- All "stupidCase" fields were renamed to "snake_case" following Python standards.
