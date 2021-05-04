@@ -2,6 +2,7 @@ from typing import NamedTuple
 
 from github.client import *
 from github.errors import *
+from github.interfaces import *
 
 
 class _VersionInfo(NamedTuple):
