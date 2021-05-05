@@ -15,6 +15,7 @@ with open("requirements.txt", "r") as stream:
 
 packages = [
     "github",
+    "github.interfaces",
 ]
 
 _version_regex = r"^version = ('|\")((?:[0-9]+\.)*[0-9]+(?:\.?([a-z]+)(?:\.?[0-9])?)?)\1$"
