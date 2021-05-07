@@ -29,3 +29,4 @@
     <h1 align="center">github</h1>
     <p align="center">An asynchronous Python library for interaction with GitHub's GraphQL API.</p>
     <h6 align="center">Copyright 2019-present ShineyDev</h6>
+    <h6 align="center">This repository is not sponsored by or affiliated with GitHub Inc. or its affiliates. "GitHub" is a registered trademark of GitHub Inc.</h6>
