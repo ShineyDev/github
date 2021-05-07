@@ -21,10 +21,10 @@ class Client:
             allows us to contact you should there be a problem.
     """
 
-    __slots__ = ("http",)
+    __slots__ = ("_http",)
 
     def __init__(self, token, *, session, user_agent=None):
-        self.http = HTTPClient(token, session, user_agent)
+        self._http = HTTPClient(token, session, user_agent)
 
     async def request(self, query, **kwargs):
         """
@@ -69,7 +69,7 @@ class Client:
         :rtype: :class:`dict`
         """
 
-        return await self.http.request(query, kwargs)
+        return await self._http.request(query, kwargs)
 
 
 __all__ = [
