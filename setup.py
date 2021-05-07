@@ -15,6 +15,7 @@ with open("requirements.txt", "r") as stream:
 
 packages = [
     "github",
+    "github.content",
     "github.interfaces",
 ]
 
