@@ -1,3 +1,5 @@
+import functools
+import operator
 import uuid
 
 import aiohttp
@@ -72,6 +74,10 @@ class HTTPClient:
                     raise exceptions[0]
 
         return data["data"]
+
+    async def fetch_field(self, _query, *path, **kwargs):
+        data = await self.request(_query, kwargs)
+        return functools.reduce(operator.getitem, path, data)
 
 
 __all__ = [
