@@ -58,7 +58,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
     resource_path.__doc__ = re.sub(
         ":type: [^\n]+\n",
         ":type: Optional[:class:`str`]",
-        UniformResourceLocatable.resource_path.__doc__
+        UniformResourceLocatable.resource_path.__doc__,
     )
 
     @property
@@ -68,7 +68,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
     url.__doc__ = re.sub(
         ":type: [^\n]+\n",
         ":type: Optional[:class:`str`]",
-        UniformResourceLocatable.url.__doc__
+        UniformResourceLocatable.url.__doc__,
     )
 
 
