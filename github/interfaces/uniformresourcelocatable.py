@@ -10,7 +10,7 @@ class UniformResourceLocatable:
         """
         An HTTP path to the resource.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str`
         """
 
         return self.data["resourcePath"]
@@ -20,7 +20,7 @@ class UniformResourceLocatable:
         """
         An HTTP URL to the resource.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str`
         """
 
         return self.data["url"]
