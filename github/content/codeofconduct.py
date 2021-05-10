@@ -1,3 +1,5 @@
+import re
+
 from github.interfaces import Node, Type, UniformResourceLocatable
 
 
@@ -48,6 +50,26 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         """
 
         return self._data["name"]
+
+    @property
+    def resource_path(self):
+        return super().resource_path
+
+    resource_path.__doc__ = re.sub(
+        ":type: [^\n]+\n",
+        ":type: Optional[:class:`str`]",
+        UniformResourceLocatable.resource_path.__doc__
+    )
+
+    @property
+    def url(self):
+        return super().url
+
+    url.__doc__ = re.sub(
+        ":type: [^\n]+\n",
+        ":type: Optional[:class:`str`]",
+        UniformResourceLocatable.url.__doc__
+    )
 
 
 __all__ = [
