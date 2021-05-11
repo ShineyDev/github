@@ -79,8 +79,8 @@ class HTTPClient:
 
         return data["data"]
 
-    async def fetch_field(self, _query, *path, **kwargs):
-        data = await self.request(_query, kwargs)
+    async def fetch_field(self, __query, *path, **kwargs):
+        data = await self.request(__query, kwargs)
         return functools.reduce(operator.getitem, path, data)
 
 
