@@ -20,9 +20,9 @@ class HTTPClient:
         self.base_url = "https://api.github.com/graphql"
         self.user_agent = user_agent or f"ShineyDev/github@{github.version}:{self.uuid}"
 
-    async def request(self, query, operation, variables):
+    async def request(self, document, operation, variables):
         json = dict()
-        json["query"] = query
+        json["query"] = document
 
         if operation:
             json["operationName"] = operation

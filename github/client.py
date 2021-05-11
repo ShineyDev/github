@@ -26,7 +26,7 @@ class Client:
     def __init__(self, token, *, session, user_agent=None):
         self._http = HTTPClient(token, session, user_agent)
 
-    async def request(self, query, operation=None, **kwargs):
+    async def request(self, document, operation=None, **kwargs):
         """
         |coro|
 
@@ -35,7 +35,7 @@ class Client:
         Parameters
         ----------
         query: :class:`str`
-            A GraphQL query.
+            A GraphQL document.
 
             .. tip::
 
@@ -45,7 +45,7 @@ class Client:
                 |GRAPHQL_REFERENCE_link|_, and use
                 |GRAPHQL_EXPLORER_link|_.
         operation: :class:`str`
-            The name of the operation from the query to execute.
+            The name of the operation from the document to execute.
         **kwargs
             A mapping of GraphQL variables.
 
@@ -71,7 +71,7 @@ class Client:
         :rtype: :class:`dict`
         """
 
-        return await self._http.request(query, operation, kwargs)
+        return await self._http.request(document, operation, kwargs)
 
 
 __all__ = [
