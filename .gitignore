@@ -2,9 +2,12 @@
 __pycache__/
 
 # python distribution
-build/
-dist/
-*.egg-info/
+/build/
+/dist/
+/*.egg-info/
 
 # mypy
 .mypy_cache/
+
+# sphinx
+/docs/build/
