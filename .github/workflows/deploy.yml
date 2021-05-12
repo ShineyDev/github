@@ -22,4 +22,4 @@ jobs:
         python -m pip install --upgrade .[docs]
 
     - name: Build documentation
-      run: sphinx-build -b html -a -E -n -W --keep-going ./docs ./docs/build
+      run: python -m sphinx -b html -a -E -n -T -W --keep-going ./docs ./docs/build
