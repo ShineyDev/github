@@ -4,5 +4,5 @@
 Uniform Resource Locatable
 ==========================
 
-.. autoclass:: UniformResourceLocatable
+.. autoclass:: UniformResourceLocatable()
     :members:

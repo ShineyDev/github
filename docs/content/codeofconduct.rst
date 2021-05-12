@@ -4,6 +4,6 @@
 Code of Conduct
 ===============
 
-.. autoclass:: CodeOfConduct
+.. autoclass:: CodeOfConduct()
     :inherited-members:
     :members:

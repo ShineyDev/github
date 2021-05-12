@@ -4,5 +4,5 @@
 Node
 ====
 
-.. autoclass:: Node
+.. autoclass:: Node()
     :members:
