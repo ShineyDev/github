@@ -8,21 +8,24 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: Checkout ShineyDev/github
+      uses: actions/checkout@v2
+      with:
+        path: github
+    
     - name: Checkout ShineyDev/docs
       uses: actions/checkout@v2
       with:
         path: docs
         repository: ShineyDev/docs
 
-    - name: Checkout ShineyDev/github
-      uses: actions/checkout@v2
-      with:
-        path: github
-
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
+
+    - name: Move
+      run: cd github
 
     - name: Install dependencies
       run: |-
