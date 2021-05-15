@@ -19,9 +19,6 @@ jobs:
         path: docs
         repository: ShineyDev/docs
 
-    - name: Move
-      run: cd ..
-
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with:
@@ -31,6 +28,9 @@ jobs:
       run: |-
         python -m pip install --upgrade pip
         python -m pip install --upgrade .[docs]
+
+    - name: Move
+      run: cd ..
 
     - name: Build documentation
       if: ${{ github.event_name == 'push' }}
