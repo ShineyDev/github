@@ -46,9 +46,6 @@ jobs:
         if [ -d ${{ env.DOCS_DIRECTORY }}/${{ env.DOCS_DIRECTORY_LATEST_NAME }} ]; then rm -r ${{ env.DOCS_DIRECTORY }}/${{ env.DOCS_DIRECTORY_LATEST_NAME }}; fi
         python -m sphinx -b dirhtml -a -E -n -T -W --keep-going ./${{ github.event.repository.name }}/docs ${{ env.DOCS_DIRECTORY }}/${{ env.DOCS_DIRECTORY_LATEST_NAME }}
         cd ${{ env.DOCS_DIRECTORY }}/${{ env.DOCS_DIRECTORY_LATEST_NAME }}
-        rm -r .doctrees
-        rm -r _sources
-        rm .buildinfo
 
     - name: Build
       if: ${{ github.event_name == 'release' }}
@@ -56,9 +53,6 @@ jobs:
         if [ -d ${{ env.DOCS_DIRECTORY }}/${{ github.event.release.tag_name }} ]; then rm -r ${{ env.DOCS_DIRECTORY }}/${{ github.event.release.tag_name }}; fi
         python -m sphinx -b dirhtml -a -E -n -T -W --keep-going ./${{ github.event.repository.name }}/docs ${{ env.DOCS_DIRECTORY }}/${{ github.event.release.tag_name }}
         cd ${{ env.DOCS_DIRECTORY }}/${{ github.event.release.tag_name }}
-        rm -r .doctrees
-        rm -r _sources
-        rm .buildinfo
         cd ../
         if [ -d ${{ env.DOCS_DIRECTORY }}/stable ]; then rm -r ${{ env.DOCS_DIRECTORY }}/stable; fi
         cp -r ${{ github.event.release.tag_name }} stable
