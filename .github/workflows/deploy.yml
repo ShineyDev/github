@@ -9,16 +9,10 @@ jobs:
 
     steps:
     
-    - name: ARE WE IN github/github?
-      run: pwd
-
     - name: Checkout ShineyDev/github
       uses: actions/checkout@v2
       with:
         path: github
-
-    - name: ARE WE IN github/github/github?
-      run: pwd
 
     - name: Checkout ShineyDev/docs
       uses: actions/checkout@v2
@@ -26,11 +20,8 @@ jobs:
         path: docs
         repository: ShineyDev/docs
 
-    - name: ARE WE IN github/github/docs?
-      run: pwd
-
     - name: Move
-      run: cd ../github
+      run: cd github
 
     - name: ARE WE IN github/github/github?
       run: pwd
