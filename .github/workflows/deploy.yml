@@ -6,16 +6,19 @@ jobs:
   job:
     name: Deploy
     runs-on: ubuntu-latest
-    
-    # CWD: github/github
 
     steps:
+    
+    - name: ARE WE IN github/github?
+      run: pwd
+
     - name: Checkout ShineyDev/github
       uses: actions/checkout@v2
       with:
         path: github
-    
-    # CWD: github/github/github
+
+    - name: ARE WE IN github/github/github?
+      run: pwd
 
     - name: Checkout ShineyDev/docs
       uses: actions/checkout@v2
@@ -23,12 +26,14 @@ jobs:
         path: docs
         repository: ShineyDev/docs
 
-    # CWD: github/github/docs
+    - name: ARE WE IN github/github/docs?
+      run: pwd
 
     - name: Move
       run: cd ../github
 
-    # CWD: github/github/github
+    - name: ARE WE IN github/github/github?
+      run: pwd
 
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
@@ -43,7 +48,8 @@ jobs:
     - name: Move
       run: cd ..
 
-    # CWD: github/github
+    - name: ARE WE IN github/github?
+      run: pwd
 
     - name: Build documentation
       if: ${{ github.event_name == 'push' }}
@@ -56,7 +62,8 @@ jobs:
     - name: Move
       run: cd docs
   
-    # CWD: github/github/docs
+    - name: ARE WE IN github/github/docs?
+      run: pwd
 
     - name: Push
       continue-on-error: true
