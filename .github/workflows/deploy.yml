@@ -45,6 +45,8 @@ jobs:
       continue-on-error: true
       if: ${{ github.event_name == 'push' }}
       run: |
+        git config user.name ShineyDev
+        git config user.email 30989490+ShineyDev@users.noreply.github.com
         git add .
         git commit -m "update docs for ${{ github.repository }}@${{ github.sha }}"
         git push
@@ -54,6 +56,8 @@ jobs:
       continue-on-error: true
       if: ${{ github.event_name =='pull_request' }}
       run: |
+        git config user.name ShineyDev
+        git config user.email 30989490+ShineyDev@users.noreply.github.com
         git add .
         git commit -m "create docs for ${{ github.repository }}#{{ github.event.pull_request.number }}@${{ github.sha }}"
         git push
