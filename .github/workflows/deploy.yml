@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    
     - name: Checkout ShineyDev/github
       uses: actions/checkout@v2
       with:
@@ -57,9 +56,9 @@ jobs:
         rm .buildinfo
 
     - name: Push
-      working-directory: ./docs
-      continue-on-error: true
       if: ${{ github.event_name == 'push' }}
+      continue-on-error: true
+      working-directory: ./docs
       run: |
         git config user.name ShineyDev
         git config user.email 30989490+ShineyDev@users.noreply.github.com
@@ -68,9 +67,9 @@ jobs:
         git push
 
     - name: Push
-      working-directory: ./docs
-      continue-on-error: true
       if: ${{ github.event_name =='pull_request' }}
+      continue-on-error: true
+      working-directory: ./docs
       run: |
         git config user.name ShineyDev
         git config user.email 30989490+ShineyDev@users.noreply.github.com
