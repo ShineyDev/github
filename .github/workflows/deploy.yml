@@ -33,11 +33,11 @@ jobs:
         python -m pip install --upgrade .[docs]
 
     - name: Build documentation
-      if: ${{ github.event_name == "push" }}
+      if: ${{ github.event_name == 'push' }}
       run: python -m sphinx -b html -a -E -n -T -W --keep-going ./${{ github.event.repository.name }}/docs ./docs/${{ github.event.repository.name }}/latest
 
     - name: Build documentation
-      if: ${{ github.event_name == "pull_request" }}
+      if: ${{ github.event_name == 'pull_request' }}
       run: python -m sphinx -h html -a -E -n -T -W --keep-going ./${{ github.event.repository.name }}/docs ./docs/${{ github.event.repository.name }}/pull/${{ github.event.pull_request.number }}
 
     - name: Move
@@ -45,7 +45,7 @@ jobs:
 
     - name: Push
       continue-on-error: true
-      if: ${{ github.event_name == "push" }}
+      if: ${{ github.event_name == 'push' }}
       run: |
         git config user.name github-actions[bot]
         git config user.password ${{ DOCS_TOKEN }}
@@ -56,7 +56,7 @@ jobs:
 
     - name: Push
       continue-on-error: true
-      if: ${{ github.event_name =="pull_request" }}
+      if: ${{ github.event_name =='pull_request' }}
       run: |
         git config user.name github-actions[bot]
         git config user.password ${{ DOCS_TOKEN }}
@@ -66,7 +66,7 @@ jobs:
         git push
 
     - name: Comment
-      if: ${{ github.event_name == "pull_request" }}
+      if: ${{ github.event_name == 'pull_request' }}
       uses: actions/github-script@v4
       with:
         script: |
