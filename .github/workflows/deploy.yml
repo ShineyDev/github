@@ -1,6 +1,6 @@
 name: Deploy
 
-on: [pull_request, push]
+on: [ pull_request, push ]
 
 jobs:
   job:
@@ -8,8 +8,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
+    - name: Checkout ShineyDev/github
       uses: actions/checkout@v2
+      with:
+        path: github
+
+    - name: Checkout ShineyDev/docs
+      uses: actions/checkout@v2
+      with:
+        path: docs
+        repository: ShineyDev/docs
+
+    - name: Move
+      run: cd ..
 
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
@@ -22,4 +33,45 @@ jobs:
         python -m pip install --upgrade .[docs]
 
     - name: Build documentation
-      run: python -m sphinx -b html -a -E -n -T -W --keep-going ./docs ./docs/build
+      if: ${{ github.event_name == "push" }}
+      run: python -m sphinx -b html -a -E -n -T -W --keep-going ./${{ github.event.repository.name }}/docs ./docs/${{ github.event.repository.name }}/latest
+
+    - name: Build documentation
+      if: ${{ github.event_name == "pull_request" }}
+      run: python -m sphinx -h html -a -E -n -T -W --keep-going ./${{ github.event.repository.name }}/docs ./docs/${{ github.event.repository.name }}/pull/${{ github.event.pull_request.number }}
+
+    - name: Move
+      run: cd docs
+
+    - name: Push
+      continue-on-error: true
+      if: ${{ github.event_name == "push" }}
+      run: |
+        git config user.name github-actions[bot]
+        git config user.password ${{ DOCS_TOKEN }}
+        git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+        git add .
+        git commit -m "update docs for ${{ github.repository }}@${{ github.sha }}"
+        git push
+
+    - name: Push
+      continue-on-error: true
+      if: ${{ github.event_name =="pull_request" }}
+      run: |
+        git config user.name github-actions[bot]
+        git config user.password ${{ DOCS_TOKEN }}
+        git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+        git add .
+        git commit -m "create docs for ${{ github.repository }}#{{ github.event.pull_request.number }}@${{ github.sha }}"
+        git push
+
+    - name: Comment
+      if: ${{ github.event_name == "pull_request" }}
+      uses: actions/github-script@v4
+      with:
+        script: |
+          github.issues.createComment({
+            ...context.repo,
+            body: `Hey there! I'm a robot.\nI've built the [documentation for this pull request](https://shineydev.github.io/docs/${context.repo.name}/pull/${context.payload.pull_request.number}) for you.`,
+            issue_number: context.payload.pull_request.number
+          }))
