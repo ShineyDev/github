@@ -8,10 +8,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DOCS_REPOSITORY_NAME: docs
-      DOCS_REPOSITORY: ${{ github.repository_owner }}/${{ env.DOCS_REPOSITORY_NAME }}
-      DOCS_DIRECTORY_NAME: dotcom
-      DOCS_DIRECTORY: ./docs/${{ github.event.repository.name }}/${{ env.DOCS_DIRECTORY_NAME }}
+      DOCS_REPOSITORY: ${{ github.repository_owner }}/docs
+      DOCS_DIRECTORY: ./docs/${{ github.event.repository.name }}/dotcom
       PYTHON_VERSION: 3.9
 
     steps:
@@ -49,7 +47,7 @@ jobs:
 
     - name: Push
       continue-on-error: true
-      working-directory: ./docs
+      working-directory: docs
       run: |
         git config user.name ShineyDev
         git config user.email 30989490+ShineyDev@users.noreply.github.com
