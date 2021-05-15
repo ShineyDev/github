@@ -20,27 +20,16 @@ jobs:
         path: docs
         repository: ShineyDev/docs
 
-    - name: Move
-      run: cd github
-
-    - name: ARE WE IN github/github/github?
-      run: pwd
-
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
 
     - name: Install dependencies
+      working-directory: ./github
       run: |-
         python -m pip install --upgrade pip
         python -m pip install --upgrade .[docs]
-
-    - name: Move
-      run: cd ..
-
-    - name: ARE WE IN github/github?
-      run: pwd
 
     - name: Build documentation
       if: ${{ github.event_name == 'push' }}
@@ -50,13 +39,8 @@ jobs:
       if: ${{ github.event_name == 'pull_request' }}
       run: python -m sphinx -h html -a -E -n -T -W --keep-going ./${{ github.event.repository.name }}/docs ./docs/${{ github.event.repository.name }}/pull/${{ github.event.pull_request.number }}
 
-    - name: Move
-      run: cd docs
-  
-    - name: ARE WE IN github/github/docs?
-      run: pwd
-
     - name: Push
+      working-directory: ./docs
       continue-on-error: true
       if: ${{ github.event_name == 'push' }}
       run: |
@@ -68,6 +52,7 @@ jobs:
         git push
 
     - name: Push
+      working-directory: ./docs
       continue-on-error: true
       if: ${{ github.event_name =='pull_request' }}
       run: |
