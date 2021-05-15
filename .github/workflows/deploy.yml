@@ -7,25 +7,33 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     
+    # CWD: github/github
+
     steps:
     - name: Checkout ShineyDev/github
       uses: actions/checkout@v2
       with:
         path: github
     
+    # CWD: github/github/github
+
     - name: Checkout ShineyDev/docs
       uses: actions/checkout@v2
       with:
         path: docs
         repository: ShineyDev/docs
 
+    # CWD: github/github/docs
+
+    - name: Move
+      run: cd ../github
+
+    # CWD: github/github/github
+
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
-
-    - name: Move
-      run: cd github
 
     - name: Install dependencies
       run: |-
@@ -34,6 +42,8 @@ jobs:
 
     - name: Move
       run: cd ..
+
+    # CWD: github/github
 
     - name: Build documentation
       if: ${{ github.event_name == 'push' }}
@@ -45,6 +55,8 @@ jobs:
 
     - name: Move
       run: cd docs
+  
+    # CWD: github/github/docs
 
     - name: Push
       continue-on-error: true
