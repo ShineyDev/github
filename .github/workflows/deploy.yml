@@ -25,10 +25,10 @@ jobs:
         repository: ${{ env.DOCS_REPOSITORY }}
         token: ${{ secrets.DOCS_TOKEN }}
 
-    - name: Set up Python ${{ PYTHON_VERSION }}
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ PYTHON_VERSION }}
+        python-version: ${{ env.PYTHON_VERSION }}
 
     - name: Install
       working-directory: ./${{ github.event.repository.name }}
