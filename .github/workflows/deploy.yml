@@ -14,6 +14,7 @@ jobs:
       DOCS_LATEST_PATH: dotcom/latest
       DOCS_REPOSITORY: ${{ github.repository_owner }}/docs.shiney.dev
       DOCS_SOURCE_PATH: docs
+      DOCS_STABLE_PATH: dotcom/stable
       PYTHON_VERSION: 3.9
       SPHINX_OPTIONS: -b dirhtml -a -E -n -T -W --keep-going
 
@@ -54,8 +55,8 @@ jobs:
         if [ -d ./docs/${{ github.event.repository.name }}/${{ github.event.release.tag_name }} ]; then rm -r ./docs/${{ github.event.repository.name }}/${{ github.event.release.tag_name }}; fi
         python -m sphinx ${{ env.SPHINX_OPTIONS }} ./${{ github.event.repository.name }}/${{ env.DOCS_SOURCE_PATH }} ./docs/${{ github.event.repository.name }}/${{ github.event.release.tag_name }}
         cd docs/${{ github.event.repository.name }}
-        if [ -d ./docs/${{ github.event.repository.name }}/stable ]; then rm -r ./docs/${{ github.event.repository.name }}/stable; fi
-        cp -r ${{ github.event.release.tag_name }} stable
+        if [ -d ./docs/${{ github.event.repository.name }}/${{ DOCS_STABLE_PATH }} ]; then rm -r ./docs/${{ github.event.repository.name }}/${{ DOCS_STABLE_PATH }}; fi
+        cp -r ${{ github.event.release.tag_name }} ${{ DOCS_STABLE_PATH }}
 
     - name: Push
       continue-on-error: true
