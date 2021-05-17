@@ -48,6 +48,7 @@ jobs:
       run: |
         if [ -d ${{ env.DOCS_DIRECTORY }}/${{ env.DOCS_DIRECTORY_LATEST_NAME }} ]; then rm -r ${{ env.DOCS_DIRECTORY }}/${{ env.DOCS_DIRECTORY_LATEST_NAME }}; fi
         python -m sphinx -b dirhtml -a -E -n -T -W --keep-going ./${{ github.event.repository.name }}/docs ${{ env.DOCS_DIRECTORY }}/${{ env.DOCS_DIRECTORY_LATEST_NAME }}
+        echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=${{ env.DOCS_DIRECTORY_LATEST_NAME }}" /></head></html>' > ${{ env.DOCS_DIRECTORY }}/index.html
 
     - name: Build
       if: ${{ github.event_name == 'release' }}
