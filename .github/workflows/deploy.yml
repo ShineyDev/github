@@ -62,5 +62,5 @@ jobs:
         git config user.name ShineyDev
         git config user.email 30989490+ShineyDev@users.noreply.github.com
         git add .
-        git commit -m "update docs for ${{ github.repository }}@${{ github.sha }}"
+        git commit -m "update docs to ${{ github.repository }}@${{ github.sha }}"
         git push
