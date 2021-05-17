@@ -17,7 +17,7 @@ jobs:
       PYTHON_VERSION: 3.9
 
       # the following should NOT be modified
-      DOCS_DIRECTORY: ./docs/${{ github.event.repository.name }}
+      DOCS_DIRECTORY: docs/${{ github.event.repository.name }}
 
     steps:
     - name: Checkout ${{ github.repository }}
@@ -46,17 +46,17 @@ jobs:
     - name: Build
       if: ${{ github.event_name == 'push' }}
       run: |
-        if [ -d ${{ env.DOCS_DIRECTORY }}/${{ env.DOCS_DIRECTORY_LATEST_NAME }} ]; then rm -r ${{ env.DOCS_DIRECTORY }}/${{ env.DOCS_DIRECTORY_LATEST_NAME }}; fi
-        python -m sphinx -b dirhtml -a -E -n -T -W --keep-going ./${{ github.event.repository.name }}/docs ${{ env.DOCS_DIRECTORY }}/${{ env.DOCS_DIRECTORY_LATEST_NAME }}
-        echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=${{ env.DOCS_DIRECTORY_LATEST_NAME }}" /></head></html>' > ${{ env.DOCS_DIRECTORY }}/index.html
+        if [ -d ./${{ env.DOCS_DIRECTORY }}/${{ env.DOCS_DIRECTORY_LATEST_NAME }} ]; then rm -r ./${{ env.DOCS_DIRECTORY }}/${{ env.DOCS_DIRECTORY_LATEST_NAME }}; fi
+        python -m sphinx -b dirhtml -a -E -n -T -W --keep-going ./${{ github.event.repository.name }}/docs ./${{ env.DOCS_DIRECTORY }}/${{ env.DOCS_DIRECTORY_LATEST_NAME }}
+        echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=${{ env.DOCS_DIRECTORY_LATEST_NAME }}" /></head></html>' > ./${{ env.DOCS_DIRECTORY }}/index.html
 
     - name: Build
       if: ${{ github.event_name == 'release' }}
       run: |
-        if [ -d ${{ env.DOCS_DIRECTORY }}/${{ github.event.release.tag_name }} ]; then rm -r ${{ env.DOCS_DIRECTORY }}/${{ github.event.release.tag_name }}; fi
-        python -m sphinx -b dirhtml -a -E -n -T -W --keep-going ./${{ github.event.repository.name }}/docs ${{ env.DOCS_DIRECTORY }}/${{ github.event.release.tag_name }}
+        if [ -d ./${{ env.DOCS_DIRECTORY }}/${{ github.event.release.tag_name }} ]; then rm -r ./${{ env.DOCS_DIRECTORY }}/${{ github.event.release.tag_name }}; fi
+        python -m sphinx -b dirhtml -a -E -n -T -W --keep-going ./${{ github.event.repository.name }}/docs ./${{ env.DOCS_DIRECTORY }}/${{ github.event.release.tag_name }}
         cd ${{ env.DOCS_DIRECTORY }}
-        if [ -d ${{ env.DOCS_DIRECTORY }}/stable ]; then rm -r ${{ env.DOCS_DIRECTORY }}/stable; fi
+        if [ -d ./${{ env.DOCS_DIRECTORY }}/stable ]; then rm -r ./${{ env.DOCS_DIRECTORY }}/stable; fi
         cp -r ${{ github.event.release.tag_name }} stable
 
     - name: Push
