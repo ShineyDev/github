@@ -11,11 +11,13 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DOCS_LATEST_PATH: dotcom/latest
-      DOCS_REPOSITORY: ${{ github.repository_owner }}/docs.shiney.dev
-      DOCS_SOURCE_PATH: docs
-      DOCS_STABLE_PATH: dotcom/stable
-      PYTHON_INSTALL: .[docs]
+      PULL_INSTALL: .[docs]
+      PULL_PATH: docs
+
+      PUSH_REPOSITORY: ${{ github.repository_owner }}/docs.shiney.dev
+      PUSH_LATEST_PATH: dotcom/latest
+      PUSH_STABLE_PATH: dotcom/stable
+
       PYTHON_VERSION: 3.9
       SPHINX_OPTIONS: -b dirhtml -a -E -n -T -W --keep-going
 
@@ -25,11 +27,11 @@ jobs:
       with:
         path: ${{ github.event.repository.name }}
 
-    - name: Checkout ${{ env.DOCS_REPOSITORY }}
+    - name: Checkout ${{ env.PUSH_REPOSITORY }}
       uses: actions/checkout@v2
       with:
         path: docs
-        repository: ${{ env.DOCS_REPOSITORY }}
+        repository: ${{ env.PUSH_REPOSITORY }}
         token: ${{ secrets.DOCS_TOKEN }}
 
     - name: Set up Python ${{ env.PYTHON_VERSION }}
@@ -41,23 +43,23 @@ jobs:
       working-directory: ./${{ github.event.repository.name }}
       run: |
         python -m pip install --upgrade pip
-        python -m pip install --upgrade ${{ env.PYTHON_INSTALL }}
+        python -m pip install --upgrade ${{ env.PULL_INSTALL }}
 
     - name: Build
       if: ${{ github.event_name == 'push' }}
       run: |
-        if [ -d ./docs/${{ github.event.repository.name }}/${{ env.DOCS_LATEST_PATH }} ]; then rm -r ./docs/${{ github.event.repository.name }}/${{ env.DOCS_LATEST_PATH }}; fi
-        python -m sphinx ${{ env.SPHINX_OPTIONS }} ./${{ github.event.repository.name }}/${{ env.DOCS_SOURCE_PATH }} ./docs/${{ github.event.repository.name }}/${{ env.DOCS_LATEST_PATH }}
-        echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=${{ env.DOCS_LATEST_PATH }}" /></head></html>' > ./docs/${{ github.event.repository.name }}/index.html
+        if [ -d ./docs/${{ github.event.repository.name }}/${{ env.PUSH_LATEST_PATH }} ]; then rm -r ./docs/${{ github.event.repository.name }}/${{ env.PUSH_LATEST_PATH }}; fi
+        python -m sphinx ${{ env.SPHINX_OPTIONS }} ./${{ github.event.repository.name }}/${{ env.PULL_PATH }} ./docs/${{ github.event.repository.name }}/${{ env.PUSH_LATEST_PATH }}
+        echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=${{ env.PUSH_LATEST_PATH }}" /></head></html>' > ./docs/${{ github.event.repository.name }}/index.html
 
     - name: Build
       if: ${{ github.event_name == 'release' }}
       run: |
         if [ -d ./docs/${{ github.event.repository.name }}/${{ github.event.release.tag_name }} ]; then rm -r ./docs/${{ github.event.repository.name }}/${{ github.event.release.tag_name }}; fi
-        python -m sphinx ${{ env.SPHINX_OPTIONS }} ./${{ github.event.repository.name }}/${{ env.DOCS_SOURCE_PATH }} ./docs/${{ github.event.repository.name }}/${{ github.event.release.tag_name }}
+        python -m sphinx ${{ env.SPHINX_OPTIONS }} ./${{ github.event.repository.name }}/${{ env.PULL_PATH }} ./docs/${{ github.event.repository.name }}/${{ github.event.release.tag_name }}
         cd docs/${{ github.event.repository.name }}
-        if [ -d ./docs/${{ github.event.repository.name }}/${{ DOCS_STABLE_PATH }} ]; then rm -r ./docs/${{ github.event.repository.name }}/${{ DOCS_STABLE_PATH }}; fi
-        cp -r ${{ github.event.release.tag_name }} ${{ DOCS_STABLE_PATH }}
+        if [ -d ./docs/${{ github.event.repository.name }}/${{ PUSH_STABLE_PATH }} ]; then rm -r ./docs/${{ github.event.repository.name }}/${{ PUSH_STABLE_PATH }}; fi
+        cp -r ${{ github.event.release.tag_name }} ${{ PUSH_STABLE_PATH }}
 
     - name: Push
       continue-on-error: true
