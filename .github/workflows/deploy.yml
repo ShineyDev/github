@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
   release:
-    types: [ created ]
+    types: [ released ]
 
 jobs:
   job:
