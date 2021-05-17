@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DOCS_LATEST_NAME: dotcom
+      DOCS_LATEST_PATH: dotcom
       DOCS_REPOSITORY: ${{ github.repository_owner }}/docs.shiney.dev
       DOCS_SOURCE_PATH: docs
       PYTHON_VERSION: 3.9
@@ -44,9 +44,9 @@ jobs:
     - name: Build
       if: ${{ github.event_name == 'push' }}
       run: |
-        if [ -d ./docs/${{ github.event.repository.name }}/${{ env.DOCS_LATEST_NAME }} ]; then rm -r ./docs/${{ github.event.repository.name }}/${{ env.DOCS_LATEST_NAME }}; fi
-        python -m sphinx ${{ env.SPHINX_OPTIONS }} ./${{ github.event.repository.name }}/${{ env.DOCS_SOURCE_PATH }} ./docs/${{ github.event.repository.name }}/${{ env.DOCS_LATEST_NAME }}
-        echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=${{ env.DOCS_LATEST_NAME }}" /></head></html>' > ./docs/${{ github.event.repository.name }}/index.html
+        if [ -d ./docs/${{ github.event.repository.name }}/${{ env.DOCS_LATEST_PATH }} ]; then rm -r ./docs/${{ github.event.repository.name }}/${{ env.DOCS_LATEST_PATH }}; fi
+        python -m sphinx ${{ env.SPHINX_OPTIONS }} ./${{ github.event.repository.name }}/${{ env.DOCS_SOURCE_PATH }} ./docs/${{ github.event.repository.name }}/${{ env.DOCS_LATEST_PATH }}
+        echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=${{ env.DOCS_LATEST_PATH }}" /></head></html>' > ./docs/${{ github.event.repository.name }}/index.html
 
     - name: Build
       if: ${{ github.event_name == 'release' }}
