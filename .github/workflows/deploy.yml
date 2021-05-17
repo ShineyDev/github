@@ -12,8 +12,8 @@ jobs:
 
     env:
       DOCS_LATEST_NAME: dotcom
-      DOCS_PATH: docs
       DOCS_REPOSITORY: ${{ github.repository_owner }}/docs.shiney.dev
+      DOCS_SOURCE_PATH: docs
       PYTHON_VERSION: 3.9
       SPHINX_OPTIONS: -b dirhtml -a -E -n -T -W --keep-going
 
@@ -45,14 +45,14 @@ jobs:
       if: ${{ github.event_name == 'push' }}
       run: |
         if [ -d ./docs/${{ github.event.repository.name }}/${{ env.DOCS_LATEST_NAME }} ]; then rm -r ./docs/${{ github.event.repository.name }}/${{ env.DOCS_LATEST_NAME }}; fi
-        python -m sphinx ${{ env.SPHINX_OPTIONS }} ./${{ github.event.repository.name }}/${{ env.DOCS_PATH }} ./docs/${{ github.event.repository.name }}/${{ env.DOCS_LATEST_NAME }}
+        python -m sphinx ${{ env.SPHINX_OPTIONS }} ./${{ github.event.repository.name }}/${{ env.DOCS_SOURCE_PATH }} ./docs/${{ github.event.repository.name }}/${{ env.DOCS_LATEST_NAME }}
         echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=${{ env.DOCS_LATEST_NAME }}" /></head></html>' > ./docs/${{ github.event.repository.name }}/index.html
 
     - name: Build
       if: ${{ github.event_name == 'release' }}
       run: |
         if [ -d ./docs/${{ github.event.repository.name }}/${{ github.event.release.tag_name }} ]; then rm -r ./docs/${{ github.event.repository.name }}/${{ github.event.release.tag_name }}; fi
-        python -m sphinx ${{ env.SPHINX_OPTIONS }} ./${{ github.event.repository.name }}/${{ env.DOCS_PATH }} ./docs/${{ github.event.repository.name }}/${{ github.event.release.tag_name }}
+        python -m sphinx ${{ env.SPHINX_OPTIONS }} ./${{ github.event.repository.name }}/${{ env.DOCS_SOURCE_PATH }} ./docs/${{ github.event.repository.name }}/${{ github.event.release.tag_name }}
         cd docs/${{ github.event.repository.name }}
         if [ -d ./docs/${{ github.event.repository.name }}/stable ]; then rm -r ./docs/${{ github.event.repository.name }}/stable; fi
         cp -r ${{ github.event.release.tag_name }} stable
