@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DOCS_LATEST_PATH: dotcom
+      DOCS_LATEST_PATH: dotcom/latest
       DOCS_REPOSITORY: ${{ github.repository_owner }}/docs.shiney.dev
       DOCS_SOURCE_PATH: docs
       PYTHON_VERSION: 3.9
