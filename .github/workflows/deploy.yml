@@ -11,10 +11,13 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      # the following are configurable
       DOCS_REPOSITORY: ${{ github.repository_owner }}/docs
-      DOCS_DIRECTORY: ./docs/${{ github.event.repository.name }}
       DOCS_DIRECTORY_LATEST_NAME: dotcom
       PYTHON_VERSION: 3.9
+
+      # the following should NOT be modified
+      DOCS_DIRECTORY: ./docs/${{ github.event.repository.name }}
 
     steps:
     - name: Checkout ${{ github.repository }}
