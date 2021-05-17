@@ -45,15 +45,13 @@ jobs:
       run: |
         if [ -d ${{ env.DOCS_DIRECTORY }}/${{ env.DOCS_DIRECTORY_LATEST_NAME }} ]; then rm -r ${{ env.DOCS_DIRECTORY }}/${{ env.DOCS_DIRECTORY_LATEST_NAME }}; fi
         python -m sphinx -b dirhtml -a -E -n -T -W --keep-going ./${{ github.event.repository.name }}/docs ${{ env.DOCS_DIRECTORY }}/${{ env.DOCS_DIRECTORY_LATEST_NAME }}
-        cd ${{ env.DOCS_DIRECTORY }}/${{ env.DOCS_DIRECTORY_LATEST_NAME }}
 
     - name: Build
       if: ${{ github.event_name == 'release' }}
       run: |
         if [ -d ${{ env.DOCS_DIRECTORY }}/${{ github.event.release.tag_name }} ]; then rm -r ${{ env.DOCS_DIRECTORY }}/${{ github.event.release.tag_name }}; fi
         python -m sphinx -b dirhtml -a -E -n -T -W --keep-going ./${{ github.event.repository.name }}/docs ${{ env.DOCS_DIRECTORY }}/${{ github.event.release.tag_name }}
-        cd ${{ env.DOCS_DIRECTORY }}/${{ github.event.release.tag_name }}
-        cd ../
+        cd ${{ env.DOCS_DIRECTORY }}
         if [ -d ${{ env.DOCS_DIRECTORY }}/stable ]; then rm -r ${{ env.DOCS_DIRECTORY }}/stable; fi
         cp -r ${{ github.event.release.tag_name }} stable
 
