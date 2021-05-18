@@ -61,9 +61,8 @@ jobs:
       run: |
         if [ -d ./docs/${{ github.event.repository.name }}/${{ github.event.release.tag_name }} ]; then rm -r ./docs/${{ github.event.repository.name }}/${{ github.event.release.tag_name }}; fi
         python -m sphinx ${{ env.SPHINX_OPTIONS }} ./${{ github.event.repository.name }}/${{ env.PULL_PATH }} ./docs/${{ github.event.repository.name }}/${{ github.event.release.tag_name }}
-        cd docs/${{ github.event.repository.name }}
-        if [ -d ./docs/${{ github.event.repository.name }}/${{ env.PUSH_STABLE_PATH }} ]; then rm -r ./docs/${{ github.event.repository.name }}/${{ env.PUSH_STABLE_PATH }}; fi
-        ln -s ${{ github.event.release.tag_name }} ${{ env.PUSH_STABLE_PATH }}
+        if [ -h ./docs/${{ github.event.repository.name }}/${{ env.PUSH_STABLE_PATH }} ]; then rm ./docs/${{ github.event.repository.name }}/${{ env.PUSH_STABLE_PATH }}; fi
+        ln -s ${{ github.event.release.tag_name }} ./docs/${{ github.event.repository.name }}/${{ env.PUSH_STABLE_PATH }}
 
     - name: Push
       continue-on-error: true
