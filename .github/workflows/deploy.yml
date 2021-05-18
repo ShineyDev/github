@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      AUTH_EMAIL: 30989490+ShineyDev@users.noreply.github.com
+      AUTH_LOGIN: ShineyDev
+      AUTH_TOKEN: ${{ secrets.DOCS_TOKEN }}
+
       PULL_INSTALL: .[docs]
       PULL_PATH: docs
 
@@ -32,7 +36,7 @@ jobs:
       with:
         path: docs
         repository: ${{ env.PUSH_REPOSITORY }}
-        token: ${{ secrets.DOCS_TOKEN }}
+        token: ${{ env.AUTH_TOKEN }}
 
     - name: Set up Python ${{ env.PYTHON_VERSION }}
       uses: actions/setup-python@v2
@@ -59,14 +63,14 @@ jobs:
         python -m sphinx ${{ env.SPHINX_OPTIONS }} ./${{ github.event.repository.name }}/${{ env.PULL_PATH }} ./docs/${{ github.event.repository.name }}/${{ github.event.release.tag_name }}
         cd docs/${{ github.event.repository.name }}
         if [ -d ./docs/${{ github.event.repository.name }}/${{ env.PUSH_STABLE_PATH }} ]; then rm -r ./docs/${{ github.event.repository.name }}/${{ env.PUSH_STABLE_PATH }}; fi
-        cp -r ${{ github.event.release.tag_name }} ${{ env.PUSH_STABLE_PATH }}
+        ln -s ${{ github.event.release.tag_name }} ${{ env.PUSH_STABLE_PATH }}
 
     - name: Push
       continue-on-error: true
       working-directory: docs
       run: |
-        git config user.name ShineyDev
-        git config user.email 30989490+ShineyDev@users.noreply.github.com
+        git config user.name ${{ env.AUTH_LOGIN }}
+        git config user.email ${{ env.AUTH_EMAIL }}
         git add .
         git commit -m "update docs for ${{ github.repository }}"
         git push
