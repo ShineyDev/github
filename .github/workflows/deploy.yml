@@ -50,7 +50,7 @@ jobs:
       run: |
         if [ -d ./docs/${{ github.event.repository.name }}/${{ env.PUSH_LATEST_PATH }} ]; then rm -r ./docs/${{ github.event.repository.name }}/${{ env.PUSH_LATEST_PATH }}; fi
         python -m sphinx ${{ env.SPHINX_OPTIONS }} ./${{ github.event.repository.name }}/${{ env.PULL_PATH }} ./docs/${{ github.event.repository.name }}/${{ env.PUSH_LATEST_PATH }}
-        echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=${{ env.PUSH_LATEST_PATH }}" /></head></html>' > ./docs/${{ github.event.repository.name }}/index.html
+        x=${{ github.event.repository.name }}/${{ env.PUSH_LATEST_PATH }}; y=$x; while [ $y != ${y%/*} ]; do y=${y%/*}; echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url='"${x#$y/}"'" /></head><body></body></html>' > ./docs/$y/index.html; done
 
     - name: Build
       if: ${{ github.event_name == 'release' }}
