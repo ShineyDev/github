@@ -28,4 +28,4 @@ jobs:
         python -m pip install --upgrade .
 
     - name: Run MyPy
-      run: mypy -v github
+      run: python -m mypy -v -p github
