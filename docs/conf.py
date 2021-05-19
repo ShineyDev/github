@@ -23,7 +23,7 @@ extlinks = {
 
 intersphinx_mapping = {
     "aiohttp": ("https://docs.aiohttp.org/en/stable/", None),
-    "graphql": ("https://docs.shiney.dev/graphql/latest", None)
+    "graphql": ("https://docs.shiney.dev/graphql/latest", None),
     "python": ("https://docs.python.org/3", None),
 }
 
