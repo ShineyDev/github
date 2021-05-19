@@ -5,5 +5,4 @@ Client
 ======
 
 .. autoclass:: Client
-    :inherited-members:
     :members:

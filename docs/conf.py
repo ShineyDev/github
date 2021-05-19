@@ -78,6 +78,18 @@ rst_prolog = """
 .. |coro_link| replace:: coroutine
 .. _coro_link: https://docs.python.org/3/library/asyncio-task.html#coroutine
 
+.. |graphql_explorer| replace:: GitHub's GraphiQL Explorer
+.. _graphql_explorer: https://graphql.github.com/explorer
+
+.. |graphql_guides| replace:: GitHub's GraphQL guides
+.. _graphql_guides: https://docs.github.com/en/graphql/guides
+
+.. |graphql_learn| replace:: learn GraphQL
+.. _graphql_learn: https://graphql.org/learn/
+
+.. |graphql_reference| replace:: GitHub's GraphQL API reference
+.. _graphql_reference: https://docs.github.com/en/graphql/reference
+
 .. |PAT_link| replace:: personal access token
 .. _PAT_link: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
 """
