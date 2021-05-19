@@ -23,7 +23,7 @@ class Client(graphql.client.Client):
             allows us to contact you should there be a problem.
     """
 
-    __slots__ = ("_http",)
+    __slots__ = ()
 
     def __init__(self, token, *, session, user_agent=None):
         self._http = HTTPClient(token, session, user_agent)
