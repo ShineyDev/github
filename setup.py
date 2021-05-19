@@ -47,6 +47,7 @@ setuptools.setup(
     author="ShineyDev",
     description="An asynchronous Python library for interaction with GitHub's GraphQL API.",
     extras_require=extras_require,
+    include_package_data=True,
     install_requires=install_requires,
     license="Apache Software License",
     name="github",
