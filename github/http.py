@@ -3,81 +3,46 @@ import operator
 import uuid
 
 import aiohttp
+import graphql
 
 import github
-from github.errors import GraphQLError, HTTPError, error_exception_map
 
 
-class HTTPClient:
-    __slots__ = ("token", "session", "uuid", "base_url", "user_agent")
+class HTTPClient(graphql.client.HTTPClient):
+    __slots__ = ("token", "user_agent", "uuid")
 
     def __init__(self, token, session, user_agent):
-        self.token = token
-        self.session = session
+        super().__init__(session=session, url="https://api.github.com/graphql")
 
         self.uuid = str(uuid.uuid4())
 
-        self.base_url = "https://api.github.com/graphql"
+        self.token = f"bearer {token}"
         self.user_agent = user_agent or f"ShineyDev/github@{github.version}:{self.uuid}"
 
     async def request(self, document, operation, variables):
-        json = dict()
-        json["query"] = document
-
-        if operation:
-            json["operationName"] = operation
-
-        if variables:
-            json["variables"] = variables
-
         headers = {
-            "Authorization": f"bearer {self.token}",
+            "Authorization": self.token,
             "User-Agent": self.user_agent,
         }
 
-        async with self.session.post(self.base_url, json=json, headers=headers) as response:
-            if not 200 <= response.status < 300:
-                try:
-                    data = await response.json()
-                    message = data["message"]
-                except (aiohttp.ContentTypeError, KeyError):
-                    data = None
-                    message = response.reason
-
-                try:
-                    exc_type = error_exception_map[response.status]
-                except KeyError:
-                    exc_type = HTTPError
-
-                raise exc_type(message, response, data)
-
-            data = await response.json()
-
+        try:
+            data = await super().request(document, operation, variables, headers=headers)
+        except graphql.client.errors.ClientResponseHTTPError as e:
             try:
-                errors = data["errors"]
+                exc_type = github.errors._response_error_map[e.response.status]
             except KeyError:
-                errors = None
+                exc_type = github.errors.ClientResponseHTTPError
 
-            if errors:
-                exceptions = list()
+            raise exc_type(e.message, e.response, e.data) from e
+        except graphql.client.errors.ClientResponseGraphQLError as e:
+            try:
+                exc_type = github.errors._response_error_map[e.data["errors"][0]["type"]]
+            except KeyError:
+                exc_type = github.errors.ClientResponseGraphQLError
 
-                for error in errors:
-                    message = error["message"]
-
-                    try:
-                        exc_type = error_exception_map[error["type"]]
-                    except KeyError:
-                        exc_type = GraphQLError
-
-                    exceptions.append(exc_type(message, response, data))
-
-                if False:  # len(exceptions) > 1:
-                    # TODO: I'm not sure I love this interface.
-                    raise GraphQLErrorCollection(exceptions)
-                else:
-                    raise exceptions[0]
-
-        return data["data"]
+            raise exc_type(e.message, e.response, e.data) from e
+        else:
+            return data
 
     async def fetch_field(self, __query, *path, **kwargs):
         data = await self.request(__query, kwargs)

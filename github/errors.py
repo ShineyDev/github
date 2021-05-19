@@ -1,63 +1,31 @@
-class GitHubError(Exception):
+import graphql
+
+
+class GitHubError(graphql.client.errors.ClientError):
+    __doc__ = graphql.client.errors.ClientError.__doc__
+    __slots__ = ()
+
+
+class ClientResponseError(graphql.client.errors.ClientResponseError, GitHubError):
+    __doc__ = graphql.client.errors.ClientResponseError.__doc__
+    __slots__ = ()
+
+
+class ClientResponseHTTPError(graphql.client.errors.ClientResponseHTTPError, ClientResponseError):
+    __doc__ = graphql.client.errors.ClientResponseHTTPError.__doc__
+    __slots__ = ()
+
+
+class ClientResponseHTTPUnauthorizedError(ClientResponseHTTPError):
     """
-    The base exception class for the library.
-
-    Attributes
-    ----------
-    message: :class:`str`
-        The error message.
-    """
-
-    __slots__ = ("message",)
-
-    def __init__(self, message):
-        self.message = message
-
-        super().__init__(message)
-
-    def __repr__(self):
-        r = list()
-        for name in self.__class__.__slots__:
-            value = getattr(self, name)
-            r.append(f"{name}={value}")
-
-        s = " ".join(r)
-        return f"<{self.__class__.__name__} {s}>"
-
-
-class HTTPError(GitHubError):
-    """
-    Represents an error in a HTTP response.
+    Represents an HTTP 401 response.
 
     Attributes
     ----------
     message: :class:`str`
         The error message.
     response: :class:`aiohttp.ClientResponse`
-        The HTTP response.
-    data: Optional[:class:`dict`]
-        The response data.
-    """
-
-    __slots__ = ("response", "data")
-
-    def __init__(self, message, response, data):
-        self.response = response
-        self.data = data
-
-        super().__init__(f"{response.status}: {message}")
-
-
-class HTTPUnauthorizedError(HTTPError):
-    """
-    Represents a HTTP 401 response.
-
-    Attributes
-    ----------
-    message: :class:`str`
-        The error message.
-    response: :class:`aiohttp.ClientResponse`
-        The HTTP response.
+        The client response.
     data: Optional[:class:`dict`]
         The response data.
     """
@@ -65,24 +33,12 @@ class HTTPUnauthorizedError(HTTPError):
     __slots__ = ()
 
 
-class GraphQLError(HTTPError):
-    """
-    Represents an error in a GraphQL response.
-
-    Attributes
-    ----------
-    message: :class:`str`
-        The error message.
-    response: :class:`aiohttp.ClientResponse`
-        The HTTP response.
-    data: :class:`dict`
-        The response data.
-    """
-
+class ClientResponseGraphQLError(graphql.client.errors.ClientResponseGraphQLError, ClientResponseError):
+    __doc__ = graphql.client.errors.ClientResponseGraphQLError.__doc__
     __slots__ = ()
 
 
-class GraphQLForbiddenError(GraphQLError):
+class ClientResponseGraphQLForbiddenError(ClientResponseGraphQLError):
     """
     Represents a GraphQL ``"FORBIDDEN"`` response.
 
@@ -91,7 +47,7 @@ class GraphQLForbiddenError(GraphQLError):
     message: :class:`str`
         The error message.
     response: :class:`aiohttp.ClientResponse`
-        The HTTP response.
+        The client response.
     data: :class:`dict`
         The response data.
     """
@@ -99,7 +55,7 @@ class GraphQLForbiddenError(GraphQLError):
     __slots__ = ()
 
 
-class GraphQLInternalError(GraphQLError):
+class ClientResponseGraphQLInternalError(ClientResponseGraphQLError):
     """
     Represents a GraphQL ``"INTERNAL"`` response.
 
@@ -108,7 +64,7 @@ class GraphQLInternalError(GraphQLError):
     message: :class:`str`
         The error message.
     response: :class:`aiohttp.ClientResponse`
-        The HTTP response.
+        The client response.
     data: :class:`dict`
         The response data.
     """
@@ -116,7 +72,7 @@ class GraphQLInternalError(GraphQLError):
     __slots__ = ()
 
 
-class GraphQLNotFoundError(GraphQLError):
+class ClientResponseGraphQLNotFoundError(ClientResponseGraphQLError):
     """
     Represents a GraphQL ``"NOT_FOUND"`` response.
 
@@ -125,7 +81,7 @@ class GraphQLNotFoundError(GraphQLError):
     message: :class:`str`
         The error message.
     response: :class:`aiohttp.ClientResponse`
-        The HTTP response.
+        The client response.
     data: :class:`dict`
         The response data.
     """
@@ -133,20 +89,21 @@ class GraphQLNotFoundError(GraphQLError):
     __slots__ = ()
 
 
-error_exception_map = {
-    401: HTTPUnauthorizedError,
-    "FORBIDDEN": GraphQLForbiddenError,
-    "INTERNAL": GraphQLInternalError,
-    "NOT_FOUND": GraphQLNotFoundError,
+_response_error_map = {
+    401: ClientResponseHTTPUnauthorizedError,
+    "FORBIDDEN": ClientResponseGraphQLForbiddenError,
+    "INTERNAL": ClientResponseGraphQLInternalError,
+    "NOT_FOUND": ClientResponseGraphQLNotFoundError,
 }
 
 
 __all__ = [
     "GitHubError",
-    "HTTPError",
-    "HTTPUnauthorizedError",
-    "GraphQLError",
-    "GraphQLForbiddenError",
-    "GraphQLInternalError",
-    "GraphQLNotFoundError",
+    "ClientResponseError",
+    "ClientResponseHTTPError",
+    "ClientResponseHTTPUnauthorizedError",
+    "ClientResponseGraphQLError",
+    "ClientResponseGraphQLForbiddenError",
+    "ClientResponseGraphQLInternalError",
+    "ClientResponseGraphQLNotFoundError",
 ]
