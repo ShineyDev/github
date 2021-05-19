@@ -1,7 +1,6 @@
-from aiohttp import ClientSession
+import aiohttp
+import graphql
 
 
-class Client:
-    def __init__(self, token: str, *, session: ClientSession, user_agent: str=...) -> None: ...
-
-    async def request(self, query: str, operation: str=..., variables: dict=...) -> dict: ...
+class Client(graphql.client.Client):
+    def __init__(self, token: str, *, session: aiohttp.ClientSession, user_agent: str=...) -> None: ...

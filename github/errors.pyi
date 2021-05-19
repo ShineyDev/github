@@ -1,43 +1,11 @@
-from typing import Optional
-
-import aiohttp
+import graphql
 
 
-class GitHubError(Exception):
-    message: str
-
-
-class HTTPError(GitHubError):
-    message: str
-    response: aiohttp.ClientResponse
-    data: Optional[dict]
-
-
-class HTTPUnauthorizedError(HTTPError):
-    message: str
-    response: aiohttp.ClientResponse
-    data: Optional[dict]
-
-
-class GraphQLError(HTTPError):
-    message: str
-    response: aiohttp.ClientResponse
-    data: dict
-
-
-class GraphQLForbiddenError(GraphQLError):
-    message: str
-    response: aiohttp.ClientResponse
-    data: dict
-
-
-class GraphQLInternalError(GraphQLError):
-    message: str
-    response: aiohttp.ClientResponse
-    data: dict
-
-
-class GraphQLNotFoundError(GraphQLError):
-    message: str
-    response: aiohttp.ClientResponse
-    data: dict
+class GitHubError(graphql.client.errors.ClientError): pass
+class ClientResponseError(graphql.client.errors.ClientResponseError, GitHubError): pass
+class ClientResponseHTTPError(graphql.client.errors.ClientResponseHTTPError, ClientResponseError): pass
+class ClientResponseHTTPUnauthorizedError(ClientResponseHTTPError): pass
+class ClientResponseGraphQLError(graphql.client.errors.ClientResponseGraphQLError, ClientResponseError): pass
+class ClientResponseGraphQLForbiddenError(ClientResponseGraphQLError): pass
+class ClientResponseGraphQLInternalError(ClientResponseGraphQLError): pass
+class ClientResponseGraphQLNotFoundError(ClientResponseGraphQLError): pass
