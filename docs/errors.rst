@@ -29,6 +29,9 @@ Errors
     :inherited-members:
 
 
+Hierarchy
+---------
+
 .. code-block::
 
     Exception
