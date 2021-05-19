@@ -4,35 +4,39 @@
 Errors
 ======
 
-.. autoclass:: GitHubError
-    :members:
+.. autoclass:: GitHubError()
+    :inherited-members:
 
-.. autoclass:: HTTPError
-    :members:
+.. autoclass:: ClientResponseError()
+    :inherited-members:
 
-.. autoclass:: HTTPUnauthorizedError
-    :members:
+.. autoclass:: ClientResponseHTTPError()
+    :inherited-members:
 
-.. autoclass:: GraphQLError
-    :members:
+.. autoclass:: ClientResponseHTTPUnauthorizedError()
+    :inherited-members:
 
-.. autoclass:: GraphQLForbiddenError
-    :members:
+.. autoclass:: ClientResponseGraphQLError()
+    :inherited-members:
 
-.. autoclass:: GraphQLInternalError
-    :members:
+.. autoclass:: ClientResponseGraphQLForbiddenError()
+    :inherited-members:
 
-.. autoclass:: GraphQLNotFoundError
-    :members:
+.. autoclass:: ClientResponseGraphQLInternalError()
+    :inherited-members:
+
+.. autoclass:: ClientResponseGraphQLNotFoundError()
+    :inherited-members:
 
 
 .. code-block::
 
     Exception
      +-- GitHubError
-          +-- HTTPError
-               +-- HTTPUnauthorizedError
-               +-- GraphQLError
-                    +-- GraphQLForbiddenError
-                    +-- GraphQLInternalError
-                    +-- GraphQLNotFoundError
+          +-- ClientResponseError
+               +-- ClientResponseHTTPError
+               |    +-- ClientResponseHTTPUnauthorizedError
+               +-- ClientResponseGraphQLError
+                    +-- ClientResponseGraphQLForbiddenError
+                    +-- ClientResponseGraphQLInternalError
+                    +-- ClientResponseGraphQLNotFoundError
