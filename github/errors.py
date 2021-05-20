@@ -1,18 +1,18 @@
 import graphql
 
 
-class GitHubError(graphql.client.errors.ClientError):
-    __doc__ = graphql.client.errors.ClientError.__doc__
+class GitHubError(graphql.client.ClientError):
+    __doc__ = graphql.client.ClientError.__doc__
     __slots__ = ()
 
 
-class ClientResponseError(graphql.client.errors.ClientResponseError, GitHubError):
-    __doc__ = graphql.client.errors.ClientResponseError.__doc__
+class ClientResponseError(graphql.client.ClientResponseError, GitHubError):
+    __doc__ = graphql.client.ClientResponseError.__doc__
     __slots__ = ()
 
 
-class ClientResponseHTTPError(graphql.client.errors.ClientResponseHTTPError, ClientResponseError):
-    __doc__ = graphql.client.errors.ClientResponseHTTPError.__doc__
+class ClientResponseHTTPError(graphql.client.ClientResponseHTTPError, ClientResponseError):
+    __doc__ = graphql.client.ClientResponseHTTPError.__doc__
     __slots__ = ()
 
 
@@ -33,8 +33,8 @@ class ClientResponseHTTPUnauthorizedError(ClientResponseHTTPError):
     __slots__ = ()
 
 
-class ClientResponseGraphQLError(graphql.client.errors.ClientResponseGraphQLError, ClientResponseError):
-    __doc__ = graphql.client.errors.ClientResponseGraphQLError.__doc__
+class ClientResponseGraphQLError(graphql.client.ClientResponseGraphQLError, ClientResponseError):
+    __doc__ = graphql.client.ClientResponseGraphQLError.__doc__
     __slots__ = ()
 
 

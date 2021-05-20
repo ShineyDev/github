@@ -27,18 +27,18 @@ class HTTPClient(graphql.client.HTTPClient):
 
         try:
             data = await super().request(document, operation, variables, headers=headers)
-        except graphql.client.errors.ClientResponseHTTPError as e:
+        except graphql.client.ClientResponseHTTPError as e:
             try:
                 exc_type = github.errors._response_error_map[e.response.status]
             except KeyError:
-                exc_type = github.errors.ClientResponseHTTPError
+                exc_type = github.ClientResponseHTTPError
 
             raise exc_type(e.message, e.response, e.data) from e
-        except graphql.client.errors.ClientResponseGraphQLError as e:
+        except graphql.client.ClientResponseGraphQLError as e:
             try:
                 exc_type = github.errors._response_error_map[e.data["errors"][0]["type"]]
             except KeyError:
-                exc_type = github.errors.ClientResponseGraphQLError
+                exc_type = github.ClientResponseGraphQLError
 
             raise exc_type(e.message, e.response, e.data) from e
         else:
