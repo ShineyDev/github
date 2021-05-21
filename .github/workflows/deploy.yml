@@ -66,8 +66,8 @@ jobs:
         python -m sphinx ${{ env.SPHINX_OPTIONS }} ./${{ github.event.repository.name }}/${{ env.PULL_PATH }} ./docs/${{ env.PUSH_ROOT_PATH }}/${{ env.PUSH_LATEST_PATH }}
         x=${{ env.PUSH_ROOT_PATH }}/${{ env.PUSH_LATEST_PATH }}; y=$x; while [ $y != ${y%/*} ]; do y=${y%/*}; echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url='"${x#$y/}"'" /></head><body></body></html>' > ./docs/$y/index.html; done
         if [ ! -f ./docs/index.json ]; then echo {} > ./docs/index.json ; fi
-        x=`jq -r '.'"${{ env.PUSH_ROOT_PATH }}"'.latest' index.json`; if [ $x != ${{ env.PUSH_LATEST_PATH }} ] && [ $x != null ]; then rm -r ./docs/${{ env.PUSH_ROOT_PATH }}/$x; fi
-        x=`jq -r '.'"${{ env.PUSH_ROOT_PATH }}"'.stable' index.json`; if [ $x != ${{ env.PUSH_STABLE_PATH }} ] && [ $x != null ]; then rm -r ./docs/${{ env.PUSH_ROOT_PATH }}/$x; fi
+        x=`jq -r '.'"${{ env.PUSH_ROOT_PATH }}"'.latest' ./docs/index.json`; if [ $x != ${{ env.PUSH_LATEST_PATH }} ] && [ $x != null ]; then rm -r ./docs/${{ env.PUSH_ROOT_PATH }}/$x; fi
+        x=`jq -r '.'"${{ env.PUSH_ROOT_PATH }}"'.stable' ./docs/index.json`; if [ $x != ${{ env.PUSH_STABLE_PATH }} ] && [ $x != null ]; then rm -r ./docs/${{ env.PUSH_ROOT_PATH }}/$x; fi
         jq 'if has("'"${{ env.PUSH_ROOT_PATH }}"'") then (.'"${{ env.PUSH_ROOT_PATH }}"'.latest = "${{ env.PUSH_LATEST_PATH }}" | .'"${{ env.PUSH_ROOT_PATH }}"'.stable = "${{ env.PUSH_STABLE_PATH }}") else (.'"${{ env.PUSH_ROOT_PATH }}"' = {latest: "${{ env.PUSH_LATEST_PATH }}", stable: "${{ env.PUSH_STABLE_PATH }}", tags: []}) end' ./docs/index.json > ./docs/temp.json
         mv ./docs/temp.json ./docs/index.json
 
@@ -79,8 +79,8 @@ jobs:
         if [ -h ./docs/${{ env.PUSH_ROOT_PATH }}/${{ env.PUSH_STABLE_PATH }} ]; then rm ./docs/${{ env.PUSH_ROOT_PATH }}/${{ env.PUSH_STABLE_PATH }}; fi
         ln -s ${{ github.event.release.tag_name }} ./docs/${{ env.PUSH_ROOT_PATH }}/${{ env.PUSH_STABLE_PATH }}
         if [ ! -f ./docs/index.json ]; then echo {} > ./docs/index.json ; fi
-        x=`jq -r '.'"${{ env.PUSH_ROOT_PATH }}"'.latest' index.json`; if [ $x != ${{ env.PUSH_LATEST_PATH }} ] && [ $x != null ]; then rm -r ./docs/${{ env.PUSH_ROOT_PATH }}/$x; fi
-        x=`jq -r '.'"${{ env.PUSH_ROOT_PATH }}"'.stable' index.json`; if [ $x != ${{ env.PUSH_STABLE_PATH }} ] && [ $x != null ]; then rm -r ./docs/${{ env.PUSH_ROOT_PATH }}/$x; fi
+        x=`jq -r '.'"${{ env.PUSH_ROOT_PATH }}"'.latest' ./docs/index.json`; if [ $x != ${{ env.PUSH_LATEST_PATH }} ] && [ $x != null ]; then rm -r ./docs/${{ env.PUSH_ROOT_PATH }}/$x; fi
+        x=`jq -r '.'"${{ env.PUSH_ROOT_PATH }}"'.stable' ./docs/index.json`; if [ $x != ${{ env.PUSH_STABLE_PATH }} ] && [ $x != null ]; then rm -r ./docs/${{ env.PUSH_ROOT_PATH }}/$x; fi
         jq 'if has("'"${{ env.PUSH_ROOT_PATH }}"'") then (.'"${{ env.PUSH_ROOT_PATH }}"'.latest = "${{ env.PUSH_LATEST_PATH }}" | .'"${{ env.PUSH_ROOT_PATH }}"'.stable = "${{ env.PUSH_STABLE_PATH }}" | .'"${{ env.PUSH_ROOT_PATH }}"'.tags |= . + ["${{ github.event.release.tag_name }}"]) else (.'"${{ env.PUSH_ROOT_PATH }}"' = {latest: "${{ env.PUSH_LATEST_PATH }}", stable: "${{ env.PUSH_STABLE_PATH }}", tags: ["${{ github.event.release.tag_name }}"]}) end' ./docs/index.json > ./docs/temp.json
         mv ./docs/temp.json ./docs/index.json
 
