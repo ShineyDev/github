@@ -67,6 +67,7 @@ jobs:
         x=${{ env.PUSH_ROOT_PATH }}/${{ env.PUSH_LATEST_PATH }}; y=$x; while [ $y != ${y%/*} ]; do y=${y%/*}; echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url='"${x#$y/}"'" /></head><body></body></html>' > ./docs/$y/index.html; done
         if [ ! -f ./docs/index.json ]; then echo {} > ./docs/index.json ; fi
         x=`jq -r '.'"${{ env.PUSH_ROOT_PATH }}"'.latest' index.json`; if [ $x != ${{ env.PUSH_LATEST_PATH }} ] && [ $x != null ]; then rm -r ./docs/${{ env.PUSH_ROOT_PATH }}/$x; fi
+        x=`jq -r '.'"${{ env.PUSH_ROOT_PATH }}"'.stable' index.json`; if [ $x != ${{ env.PUSH_STABLE_PATH }} ] && [ $x != null ]; then rm -r ./docs/${{ env.PUSH_ROOT_PATH }}/$x; fi
         jq 'if has("'"${{ env.PUSH_ROOT_PATH }}"'") then (.'"${{ env.PUSH_ROOT_PATH }}"'.latest = "${{ env.PUSH_LATEST_PATH }}" | .'"${{ env.PUSH_ROOT_PATH }}"'.stable = "${{ env.PUSH_STABLE_PATH }}") else (.'"${{ env.PUSH_ROOT_PATH }}"' = {latest: "${{ env.PUSH_LATEST_PATH }}", stable: "${{ env.PUSH_STABLE_PATH }}", tags: []}) end' ./docs/index.json > ./docs/temp.json
         mv ./docs/temp.json ./docs/index.json
 
