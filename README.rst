@@ -30,3 +30,24 @@
     <p align="center">An asynchronous Python library for interaction with GitHub's GraphQL API.</p>
     <h6 align="center">Copyright 2019-present ShineyDev</h6>
     <h6 align="center">This repository is not sponsored by or affiliated with GitHub Inc. or its affiliates. "GitHub" is a registered trademark of GitHub Inc.</h6>
+
+
+Install
+-------
+
+.. code:: shell
+
+    $ pip install --upgrade git+https://github.com/ShineyDev/github.git@main
+
+
+Use
+---
+
+.. code:: python
+
+    >>> import aiohttp
+    >>> import github
+    >>> session = aiohttp.ClientSession()
+    >>> client = github.Client(token="...", session=session)
+    >>> await client.request("{viewer{login}}")
+    {'viewer': {'login': 'nat'}}
