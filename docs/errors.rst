@@ -4,7 +4,7 @@
 Errors
 ======
 
-.. autoclass:: GitHubError()
+.. autoclass:: ClientError()
     :inherited-members:
 
 .. autoclass:: ClientResponseError()
@@ -35,7 +35,7 @@ Hierarchy
 .. code-block::
 
     Exception
-     +-- GitHubError
+     +-- ClientError
           +-- ClientResponseError
                +-- ClientResponseHTTPError
                |    +-- ClientResponseHTTPUnauthorizedError
