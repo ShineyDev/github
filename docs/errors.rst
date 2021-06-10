@@ -5,6 +5,7 @@ Errors
 ======
 
 .. autoclass:: ClientError()
+    :inherited-members:
 
 .. autoclass:: ClientResponseError()
     :inherited-members:
