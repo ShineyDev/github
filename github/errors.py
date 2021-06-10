@@ -1,12 +1,12 @@
 import graphql
 
 
-class GitHubError(graphql.client.ClientError):
+class ClientError(graphql.client.ClientError):
     __doc__ = graphql.client.ClientError.__doc__
     __slots__ = ()
 
 
-class ClientResponseError(graphql.client.ClientResponseError, GitHubError):
+class ClientResponseError(graphql.client.ClientResponseError, ClientError):
     __doc__ = graphql.client.ClientResponseError.__doc__
     __slots__ = ()
 
@@ -116,7 +116,7 @@ _response_error_map = {
 
 
 __all__ = [
-    "GitHubError",
+    "ClientError",
     "ClientResponseError",
     "ClientResponseHTTPError",
     "ClientResponseHTTPUnauthorizedError",

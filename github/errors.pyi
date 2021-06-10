@@ -1,8 +1,8 @@
 import graphql
 
 
-class GitHubError(graphql.client.ClientError): pass
-class ClientResponseError(graphql.client.ClientResponseError, GitHubError): pass
+class ClientError(graphql.client.ClientError): pass
+class ClientResponseError(graphql.client.ClientResponseError, ClientError): pass
 class ClientResponseHTTPError(graphql.client.ClientResponseHTTPError, ClientResponseError): pass
 class ClientResponseHTTPUnauthorizedError(ClientResponseHTTPError): pass
 class ClientResponseGraphQLError(graphql.client.ClientResponseGraphQLError, ClientResponseError): pass

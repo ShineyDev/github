@@ -44,7 +44,7 @@ class HTTPClient(graphql.client.HTTPClient):
         except graphql.client.ClientResponseError as e:
             raise github.ClientResponseError(e) from e
         except graphql.client.ClientError as e:
-            raise github.GitHubError(e) from e
+            raise github.ClientError(e) from e
         else:
             return data
 
