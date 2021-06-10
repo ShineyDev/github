@@ -5,7 +5,6 @@ Errors
 ======
 
 .. autoclass:: ClientError()
-    :inherited-members:
 
 .. autoclass:: ClientResponseError()
     :inherited-members:
@@ -28,6 +27,9 @@ Errors
 .. autoclass:: ClientResponseGraphQLNotFoundError()
     :inherited-members:
 
+.. autoclass:: ClientResponseGraphQLUnprocessableError()
+    :inherited-members:
+
 
 Hierarchy
 ---------
@@ -43,3 +45,4 @@ Hierarchy
                     +-- ClientResponseGraphQLForbiddenError
                     +-- ClientResponseGraphQLInternalError
                     +-- ClientResponseGraphQLNotFoundError
+                    +-- ClientResponseGraphQLUnprocessableError
