@@ -9,3 +9,4 @@ class ClientResponseGraphQLError(graphql.client.ClientResponseGraphQLError, Clie
 class ClientResponseGraphQLForbiddenError(ClientResponseGraphQLError): pass
 class ClientResponseGraphQLInternalError(ClientResponseGraphQLError): pass
 class ClientResponseGraphQLNotFoundError(ClientResponseGraphQLError): pass
+class ClientResponseGraphQLUnprocessableError(ClientResponseGraphQLError): pass

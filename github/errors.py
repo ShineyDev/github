@@ -89,11 +89,29 @@ class ClientResponseGraphQLNotFoundError(ClientResponseGraphQLError):
     __slots__ = ()
 
 
+class ClientResponseGraphQLUnprocessableError(ClientResponseGraphQLError):
+    """
+    Represents a GraphQL ``"UNPROCESSABLE"`` response.
+
+    Attributes
+    ----------
+    message: :class:`str`
+        The error message.
+    response: :class:`aiohttp.ClientResponse`
+        The client response.
+    data: :class:`dict`
+        The response data.
+    """
+
+    __slots__ = ()
+
+
 _response_error_map = {
     401: ClientResponseHTTPUnauthorizedError,
     "FORBIDDEN": ClientResponseGraphQLForbiddenError,
     "INTERNAL": ClientResponseGraphQLInternalError,
     "NOT_FOUND": ClientResponseGraphQLNotFoundError,
+    "UNPROCESSABLE": ClientResponseGraphQLUnprocessableError,
 }
 
 
@@ -106,4 +124,5 @@ __all__ = [
     "ClientResponseGraphQLForbiddenError",
     "ClientResponseGraphQLInternalError",
     "ClientResponseGraphQLNotFoundError",
+    "ClientResponseGraphQLUnprocessableError",
 ]
