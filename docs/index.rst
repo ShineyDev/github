@@ -1,5 +1,5 @@
-github
-======
+ShineyDev/github
+================
 
 An asynchronous Python library for interaction with GitHub's GraphQL API.
 
