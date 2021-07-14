@@ -1,8 +1,8 @@
 .. currentmodule:: github
 
 
-Uniform Resource Locatable
-==========================
+URL
+===
 
 .. autoclass:: UniformResourceLocatable()
     :members:
