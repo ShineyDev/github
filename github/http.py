@@ -48,8 +48,8 @@ class HTTPClient(graphql.client.HTTPClient):
         else:
             return data
 
-    async def fetch_field(self, __query, *path, **kwargs):
-        data = await self.request(__query, kwargs)
+    async def fetch_field(self, __document, __operation=None, *path, **kwargs):
+        data = await self.request(__document, __operation, kwargs)
         return functools.reduce(operator.getitem, path, data)
 
 
