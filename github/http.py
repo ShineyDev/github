@@ -19,14 +19,13 @@ class HTTPClient(graphql.client.HTTPClient):
         self.token = f"bearer {token}"
         self.user_agent = user_agent or f"ShineyDev/github@{github.version}:{self.uuid}"
 
-    async def request(self, document, operation, variables):
-        headers = {
-            "Authorization": self.token,
-            "User-Agent": self.user_agent,
-        }
+    async def request(self, document, operation, variables, **kwargs):
+        headers = kwargs.pop("headers", None) or dict()
+        headers["Authorization"] = self.token
+        headers["User-Agent"] = self.user_agent
 
         try:
-            data = await super().request(document, operation, variables, headers=headers)
+            data = await super().request(document, operation, variables, headers=headers, **kwargs)
         except graphql.client.ClientResponseHTTPError as e:
             try:
                 exc_type = github.errors._response_error_map[e.response.status]
