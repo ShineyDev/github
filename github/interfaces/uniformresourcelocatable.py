@@ -13,7 +13,7 @@ class UniformResourceLocatable:
         :type: :class:`str`
         """
 
-        return self._data["resourcePath"]
+        return self._get("resourcePath")
 
     @property
     def url(self):
@@ -23,7 +23,7 @@ class UniformResourceLocatable:
         :type: :class:`str`
         """
 
-        return self._data["url"]
+        return self._get("url")
 
 
 __all__ = [
