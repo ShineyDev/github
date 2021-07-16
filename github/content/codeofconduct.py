@@ -21,6 +21,8 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
 
     __slots__ = ()
 
+    _fields = ("body", "key", "name")
+
     @property
     def body(self):
         """

@@ -28,6 +28,8 @@ class Node:
 
         return self.id == other.id
 
+    _fields = ("id",)
+
     @property
     def id(self):
         """
