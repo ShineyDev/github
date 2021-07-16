@@ -26,7 +26,7 @@ class Type:
         try:
             return self._get(name)
         except KeyError as e:
-            raise ClientError(f"missing field '{name}'") from e
+            raise ClientError(f"missing field '{name}'") from None
 
     _fields = ("__typename",)
 
