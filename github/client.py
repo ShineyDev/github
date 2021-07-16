@@ -101,7 +101,7 @@ class Client(graphql.client.Client):
 
         Raises
         ------
-        ~github.errors.GraphQLNotFoundError
+        ~github.errors.ClientResponseGraphQLNotFoundError
             A code of conduct with the provided key does not exist.
 
         Returns
