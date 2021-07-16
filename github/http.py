@@ -51,6 +51,11 @@ class HTTPClient(graphql.client.HTTPClient):
         data = await self.request(__document, None, kwargs)
         return functools.reduce(operator.getitem, path, data)
 
+    async def fetch_query_all_codes_of_conduct(self, *, fields=None):
+        fields = fields or github.utils._get_fields(github.CodeOfConduct)
+        q = "query{codesOfConduct{%s}}" % ",".join(fields)
+        return await self.fetch_field(q, "codesOfConduct")
+
     async def fetch_query_code_of_conduct(self, key, *, fields=None):
         fields = fields or github.utils._get_fields(github.CodeOfConduct)
         q = "query($key:String!){codeOfConduct(key:$key){%s}}" % ",".join(fields)

@@ -73,6 +73,21 @@ class Client(graphql.client.Client):
         :rtype: :class:`dict`
     """
 
+    async def fetch_all_codes_of_conduct(self, **kwargs):
+        """
+        |coro|
+
+        Fetches all codes of conduct from the GitHub instance.
+
+        Returns
+        -------
+        List[:class:`~CodeOfConduct`]
+            A list of codes of conduct.
+        """
+
+        data = await self._http.fetch_query_all_codes_of_conduct(**kwargs)
+        return CodeOfConduct(data)
+
     async def fetch_code_of_conduct(self, key, **kwargs):
         """
         |coro|
