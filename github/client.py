@@ -1,6 +1,7 @@
 import graphql
 
 from github.http import HTTPClient
+from github.content import CodeOfConduct
 
 
 class Client(graphql.client.Client):
@@ -71,6 +72,31 @@ class Client(graphql.client.Client):
 
         :rtype: :class:`dict`
     """
+
+    async def fetch_code_of_conduct(self, key, **kwargs):
+        """
+        |coro|
+
+        Fetches a code of conduct by its key.
+
+        Parameters
+        ----------
+        key: :class:`str`
+            See :attr:`CodeOfConduct.key`.
+
+        Raises
+        ------
+        ~github.errors.GraphQLNotFoundError
+            A code of conduct with the provided key does not exist.
+
+        Returns
+        -------
+        :class:`~CodeOfConduct`
+            A code of conduct with the provided key.
+        """
+
+        data = await self._http.fetch_query_code_of_conduct(key, **kwargs)
+        return CodeOfConduct(data)
 
 
 __all__ = [
