@@ -1,5 +1,6 @@
 _empty_list = list()
 
+
 def _get_fields(type):
     try:
         fields = list(type._fields)
