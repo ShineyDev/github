@@ -1,3 +1,6 @@
+from github.errors import ClientError
+
+
 class Type:
     __slots__ = ()
 
@@ -15,6 +18,15 @@ class Type:
 
     def __repr__(self):
         return f"<{self.__class__.__name__}>"
+
+    def _get(self, name):
+        return self._data[name]
+
+    def _try_get(self, name):
+        try:
+            return self._get(name)
+        except KeyError as e:
+            raise ClientError(f"missing field '{name}'") from e
 
 
 __all__ = [
