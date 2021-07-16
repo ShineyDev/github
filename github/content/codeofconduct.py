@@ -19,7 +19,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
             Returns the hash of the object's :attr:`ID <.id>`.
     """
 
-    __slots__ = ("_data",)
+    __slots__ = ()
 
     @property
     def body(self):

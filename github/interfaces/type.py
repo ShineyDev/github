@@ -2,7 +2,7 @@ from github.errors import ClientError
 
 
 class Type:
-    __slots__ = ()
+    __slots__ = ("_data", "_http")
 
     def __new__(cls, data, http=None):
         if isinstance(data, list):
