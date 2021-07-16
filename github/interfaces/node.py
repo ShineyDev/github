@@ -38,7 +38,7 @@ class Node:
         :type: :class:`str`
         """
 
-        return self._get("id")
+        return self._try_get("id")
 
 
 __all__ = [
