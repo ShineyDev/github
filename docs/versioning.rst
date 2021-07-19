@@ -23,7 +23,7 @@ Given a version number PRIME.MAJOR.MINOR.MICRO, increment the:
     GitHub's GraphQL API follows a |calver_link|_ principle.
 
     An incompatible changeset is enacted on the first day of each quarter, starting 01-01. The
-    changeset is publicized at least three months in advance.
+    changeset is (usually) publicized at least three months in advance.
 
     When GitHub creates an entry, the respective APIs in this library are marked as deprecated in a
     PATCH version. When the changeset is enacted, the respective APIs in this library are modified
