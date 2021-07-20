@@ -28,4 +28,23 @@ def _database_to_cursor(id):
     return base64.b64encode(cursor).decode("utf-8")
 
 
+def _database_to_node(id, type):
+    return base64.b64encode(f"0{len(type)}:{type}{id}".encode("utf-8")).decode("utf-8")
+
+
+_bad_types = frozenset({"CodeOfConduct", "Gist"})
+
+
+def _node_to_database(id):
+    id = base64.b64decode(id).decode("utf-8")[1:]
+    length, id = id.split(":")
+    length = int(length)
+    type, id = id[:length], id[length:]
+
+    if type in _bad_types:
+        raise ValueError(f"node id of type '{type}' does not contain database id, got {id}")
+
+    return int(id)
+
+
 __all__ = []
