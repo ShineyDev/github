@@ -1,6 +1,42 @@
 import base64
+import datetime
 import struct
 import warnings
+
+import github
+
+
+def datetime_to_iso(dt):
+    offset = dt.utcoffset()
+
+    if offset is None:
+        _warn_once(
+            "using timezone-unaware datetime is not recommended, use aware datetime instead. "
+            "for example, use datetime.now(timezone.utc) instead of datetime.utcnow(). "
+            "assuming UTC.",
+            github.errors.ClientDeprecationWarning,
+            2,
+        )
+
+    if not offset:
+        offset = "Z"
+    else:
+        if offset < datetime.timedelta(0):
+            sign = "-"
+            offset = -offset
+        else:
+            sign = "+"
+
+        hours, rest = divmod(offset, datetime.timedelta(hours=1))
+        minutes, _ = divmod(rest, datetime.timedelta(minutes=1))
+
+        offset = f"{sign}{hours:>02}:{minutes:>02}"
+
+    return dt.strftime(f"%Y-%m-%dT%H:%M:%S{offset}")
+
+
+def iso_to_datetime(iso):
+    return datetime.datetime.fromisoformat(iso.replace("Z", "+00:00"))
 
 
 _empty_list = list()
