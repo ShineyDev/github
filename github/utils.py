@@ -1,5 +1,6 @@
 import base64
 import struct
+import warnings
 
 
 _empty_list = list()
@@ -53,6 +54,21 @@ def _node_to_database(id):
         raise ValueError(f"node id of type '{type}' does not contain database id, got {id}")
 
     return int(id)
+
+
+def _warn(message, cls, level=1):
+    warnings.warn(message, cls, level + 1)
+
+
+_warning_hashes = set()
+
+
+def _warn_once(message, cls, level=1):
+    h = hash((cls, message))
+
+    if h not in _warning_hashes:
+        _warn(message, cls, level + 1)
+        _warning_hashes.add(h)
 
 
 __all__ = []
