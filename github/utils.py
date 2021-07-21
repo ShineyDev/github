@@ -6,6 +6,10 @@ import warnings
 import github
 
 
+def date_to_iso(d):
+    return d.strftime(f"%Y-%m-%d")
+
+
 def datetime_to_iso(dt):
     offset = dt.utcoffset()
 
@@ -37,6 +41,10 @@ def datetime_to_iso(dt):
 
 def iso_to_datetime(iso):
     return datetime.datetime.fromisoformat(iso.replace("Z", "+00:00"))
+
+
+def iso_to_date(iso):
+    return datetime.date.fromisoformat(iso)
 
 
 _empty_list = list()
