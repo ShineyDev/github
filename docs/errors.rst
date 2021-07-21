@@ -40,6 +40,14 @@ Errors
     :inherited-members:
     :exclude-members: with_traceback
 
+.. autoclass:: ClientDeprecationWarning()
+    :inherited-members:
+    :exclude-members: with_traceback
+
+.. autoclass:: ServerDeprecationWarning()
+    :inherited-members:
+    :exclude-members: with_traceback
+
 
 Hierarchy
 ---------
@@ -56,3 +64,7 @@ Hierarchy
                     +-- ClientResponseGraphQLInternalError
                     +-- ClientResponseGraphQLNotFoundError
                     +-- ClientResponseGraphQLUnprocessableError
+
+    DeprecationWarning
+     +-- ClientDeprecationWarning
+     +-- ServerDeprecationWarning

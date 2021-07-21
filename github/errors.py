@@ -115,6 +115,22 @@ _response_error_map = {
 }
 
 
+class ClientDeprecationWarning(DeprecationWarning):
+    """
+    Represents a :exc:`DeprecationWarning` from the GraphQL client.
+    """
+
+    __slots__ = ()
+
+
+class ServerDeprecationWarning(DeprecationWarning):
+    """
+    Represents a :exc:`DeprecationWarning` from the GraphQL server.
+    """
+
+    __slots__ = ()
+
+
 __all__ = [
     "ClientError",
     "ClientResponseError",
@@ -125,4 +141,6 @@ __all__ = [
     "ClientResponseGraphQLInternalError",
     "ClientResponseGraphQLNotFoundError",
     "ClientResponseGraphQLUnprocessableError",
+    "ClientDeprecationWarning",
+    "ServerDeprecationWarning",
 ]
