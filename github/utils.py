@@ -115,4 +115,15 @@ def _warn_once(message, cls, level=1):
         _warning_hashes.add(h)
 
 
+def _wrap(wrapped):
+    def decorator(wrapper):
+        wrapper.__doc__ = wrapped.__doc__
+        wrapper.__name__ = wrapped.__name__
+        wrapper.__qualname__ = wrapped.__qualname__
+
+        return wrapper
+
+    return decorator
+
+
 __all__ = []
