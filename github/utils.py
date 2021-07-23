@@ -100,6 +100,74 @@ def _node_to_database(id):
     return int(id)
 
 
+def _changing(callable=None, *, what=None, when=None, where=None, who=None, why=None):
+    if when:
+        who = who or github.errors.ServerDeprecationWarning
+        when = f"on {when}"
+    else:
+        who = who or github.errors.ClientDeprecationWarning
+        when = "in the next prime version"
+
+    def decorator(callable):
+        what_ = what or callable.__qualname__
+
+        message = f"{what_} will change {when}"
+
+        if where:
+            message += f", use {where} instead."
+        else:
+            message += "."
+
+        if why:
+            message += f" {why}."
+
+        @_wrap(callable)
+        def wrapper(*args, **kwargs):
+            _warn_once(message, who, 2)  # TODO: figure out level
+            return callable(*args, **kwargs)
+
+        return wrapper
+
+    if callable:
+        return decorator(callable)
+    else:
+        return decorator
+
+
+def _deprecated(callable=None, *, what=None, when=None, where=None, who=None, why=None):
+    if when:
+        who = who or ServerDeprecationWarning
+        when = f"on {when}"
+    else:
+        who = who or ClientDeprecationWarning
+        when = "in the next prime version"
+
+    def decorator(callable):
+        what_ = what or callable.__qualname__
+
+        message = f"{what_} will be removed {when}"
+
+        if where:
+            message += f", use {where} instead."
+        else:
+            message += "."
+
+        if why:
+            message += f" {why}."
+
+        @_wrap(callable)
+        def wrapper(*args, **kwargs):
+            _warn_once(message, who, 2)
+            return callable(*args, **kwargs)
+
+        return wrapper
+
+    if callable:
+        return decorator(callable)
+    else:
+        return decorator
+
+
 def _warn(message, cls, level=1):
     warnings.warn(message, cls, level + 1)
 
