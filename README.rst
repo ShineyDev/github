@@ -53,4 +53,4 @@ Use
 
 .. raw:: html
 
-    <h6 align="center">Copyright 2019-present ShineyDev<br>This repository is not sponsored by or affiliated with GitHub Inc. or its affiliates. "GitHub" is a registered trademark of GitHub Inc.</h6>
+    <h6 align="center">Copyright 2019-present ShineyDev<br>This repository is not endorsed by or affiliated with GitHub Inc. or its affiliates. "GitHub" is a registered trademark of GitHub Inc.</h6>
