@@ -47,19 +47,37 @@ def iso_to_date(iso):
     return datetime.date.fromisoformat(iso)
 
 
-_empty_list = list()
+_empty_dict = dict()
 
 
-def _get_fields(type):
+def _get_defined_fields(type):
     try:
-        fields = list(type._fields.values())
+        d_fields = type._fields.copy()
     except AttributeError:
-        return _empty_list
+        d_fields = _empty_dict
 
     for type in type.__bases__:
-        fields.extend(_get_fields(type))
+        d_fields.update(_get_defined_fields(type))
 
-    return fields
+    return d_fields
+
+
+def _get_fields(type, r_fields=None):
+    d_fields = _get_defined_fields(type)
+
+    if not r_fields:
+        return list(d_fields.values())
+
+    r_fields = list(r_fields)
+    for (i, r_field) in enumerate(r_fields):
+        try:
+            r_field = d_fields[r_field]
+        except KeyError:
+            pass
+        else:
+            r_fields[i] = r_field
+
+    return r_fields
 
 
 def _cursor_to_database(cursor):
