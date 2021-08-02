@@ -141,7 +141,7 @@ def _changing(callable=None, *, what=None, when=None, where=None, who=None, why=
 
         @_wrap(callable)
         def wrapper(*args, **kwargs):
-            _warn_once(message, who, 2)  # TODO: figure out level
+            _warn_once(message, who, 2)
             return callable(*args, **kwargs)
 
         return wrapper
