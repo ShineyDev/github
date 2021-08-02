@@ -52,7 +52,7 @@ _empty_list = list()
 
 def _get_fields(type):
     try:
-        fields = list(type._fields)
+        fields = list(type._fields.values())
     except AttributeError:
         return _empty_list
 

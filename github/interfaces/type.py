@@ -28,7 +28,9 @@ class Type:
         except KeyError as e:
             raise ClientError(f"missing field '{name}'") from None
 
-    _fields = ("__typename",)
+    _fields = {
+        "__typename": "__typename",
+    }
 
 
 __all__ = [

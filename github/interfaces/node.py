@@ -28,7 +28,9 @@ class Node:
 
         return self.id == other.id
 
-    _fields = ("id",)
+    _fields = {
+        "id": "id",
+    }
 
     @property
     def id(self):

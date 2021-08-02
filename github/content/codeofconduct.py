@@ -21,7 +21,11 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
 
     __slots__ = ()
 
-    _fields = ("body", "key", "name")
+    _fields = {
+        "body": "body",
+        "key": "key",
+        "name": "name",
+    }
 
     @property
     def body(self):

@@ -5,7 +5,10 @@ class UniformResourceLocatable:
 
     __slots__ = ()
 
-    _fields = ("resourcePath", "url")
+    _fields = {
+        "resource_path": "resourcePath",
+        "url": "url",
+    }
 
     @property
     def resource_path(self):
