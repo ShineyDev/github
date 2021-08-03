@@ -57,7 +57,9 @@ def _get_defined_fields(type):
         d_fields = _empty_dict
 
     for type in type.__bases__:
-        d_fields.update(_get_defined_fields(type))
+        for (key, value) in _get_defined_fields(type).items():
+            if key not in d_fields.keys():
+                d_fields[key] = value
 
     return d_fields
 
