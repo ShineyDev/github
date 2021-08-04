@@ -1,6 +1,12 @@
 Version Guarantees
 ==================
 
+This document outlines the version guarantees of the library.
+
+
+What?
+-----
+
 This library closely follows a |semver_link|_ principle.
 
 
