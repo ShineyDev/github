@@ -1,6 +1,9 @@
 Implementation Details
 ======================
 
+This document details implementation details of the library.
+
+
 General
 -------
 
