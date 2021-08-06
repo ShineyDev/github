@@ -106,6 +106,23 @@ class ClientResponseGraphQLUnprocessableError(ClientResponseGraphQLError):
     __slots__ = ()
 
 
+class ClientResponseGraphQLValidationError(graphql.client.ClientResponseGraphQLValidationError, ClientResponseGraphQLError):
+    """
+    Represents a GraphQL response that failed internal data validation.
+
+    Attributes
+    ----------
+    message: :class:`str`
+        The error message.
+    response: :class:`aiohttp.ClientResponse`
+        The client response.
+    data: :class:`dict`
+        The response data.
+    """
+
+    __slots__ = ()
+
+
 _response_error_map = {
     401: ClientResponseHTTPUnauthorizedError,
     "FORBIDDEN": ClientResponseGraphQLForbiddenError,
@@ -141,6 +158,7 @@ __all__ = [
     "ClientResponseGraphQLInternalError",
     "ClientResponseGraphQLNotFoundError",
     "ClientResponseGraphQLUnprocessableError",
+    "ClientResponseGraphQLValidationError",
     "ClientDeprecationWarning",
     "ServerDeprecationWarning",
 ]
