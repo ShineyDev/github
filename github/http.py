@@ -19,13 +19,13 @@ class HTTPClient(graphql.client.HTTPClient):
         self.token = f"bearer {token}"
         self.user_agent = user_agent or f"ShineyDev/github@{github.version}:{self.uuid}"
 
-    async def request(self, document, operation, variables, **kwargs):
+    async def request(self, document_, operation_, variables_, **kwargs):
         headers = kwargs.pop("headers", None) or dict()
         headers["Authorization"] = self.token
         headers["User-Agent"] = self.user_agent
 
         try:
-            data = await super().request(document, operation, variables, headers=headers, **kwargs)
+            data = await super().request(document_, operation_, variables_, headers=headers, **kwargs)
         except github.ClientError:
             raise
         except graphql.client.ClientResponseHTTPError as e:
@@ -51,11 +51,13 @@ class HTTPClient(graphql.client.HTTPClient):
         else:
             return data
 
-    async def fetch_field(self, __document, *path, _data_validate=None, **kwargs):
-        data = await self.request(__document, None, kwargs, _data_validate=_data_validate)
+    async def _fetch_field(self, document_, *path, _data_validate=None, **kwargs):
+        data = await self.request(document_, None, kwargs, _data_validate=_data_validate)
         return functools.reduce(operator.getitem, path, data)
 
     async def fetch_query_all_codes_of_conduct(self, *, fields=None):
+        fields = github.utils._get_fields(github.CodeOfConduct, fields)
+        query = "{codesOfConduct{%s}}" % ",".join(fields)
         path = ("codesOfConduct",)
 
         def validate(data):
@@ -70,11 +72,11 @@ class HTTPClient(graphql.client.HTTPClient):
 
             return None, None
 
-        fields = github.utils._get_fields(github.CodeOfConduct, fields)
-        q = "{codesOfConduct{%s}}" % ",".join(fields)
-        return await self.fetch_field(q, *path, _data_validate=validate)
+        return await self._fetch_field(query, *path, _data_validate=validate)
 
     async def fetch_query_code_of_conduct(self, key, *, fields=None):
+        fields = github.utils._get_fields(github.CodeOfConduct, fields)
+        query = "query($key:String!){codeOfConduct(key:$key){%s}}" % ",".join(fields)
         path = ("codeOfConduct",)
 
         def validate(data):
@@ -96,11 +98,12 @@ class HTTPClient(graphql.client.HTTPClient):
 
             return None, None
 
-        fields = github.utils._get_fields(github.CodeOfConduct, fields)
-        q = "query($key:String!){codeOfConduct(key:$key){%s}}" % ",".join(fields)
-        o = await self.fetch_field(q, *path, key=key, _data_validate=validate)
-        o.setdefault("key", key)
-        return o
+        data = await self._fetch_field(query, *path, key=key, _data_validate=validate)
+
+        if "key" not in data.keys():
+            data["key"] = key
+
+        return data
 
 
 __all__ = [
