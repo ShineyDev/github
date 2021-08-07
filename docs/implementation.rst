@@ -13,7 +13,7 @@ General
 - All "stupidCase" fields were renamed to "snake_case" following Python standards.
 
 
-:class:`~CodeOfConduct`
------------------------
+:class:`CodeOfConduct`
+----------------------
 
 - :attr:`CodeOfConduct.body` is not nullable.
