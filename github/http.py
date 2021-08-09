@@ -63,7 +63,7 @@ class HTTPClient(graphql.client.HTTPClient):
         def validate(data):
             data = functools.reduce(operator.getitem, path, data)
 
-            if any([c["body"] is None for c in data]):
+            if any([c.get("body", False) is None for c in data]):
                 # NOTE: 1240368
                 return (
                     github.ClientResponseGraphQLValidationError,
@@ -89,7 +89,7 @@ class HTTPClient(graphql.client.HTTPClient):
                     f"Could not resolve to a CodeOfConduct with the key '{key}'.",
                 )
 
-            if data["body"] is None:
+            if data.get("body", False) is None:
                 # NOTE: 1240368
                 return (
                     github.ClientResponseGraphQLValidationError,
