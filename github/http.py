@@ -56,7 +56,7 @@ class HTTPClient(graphql.client.HTTPClient):
         return functools.reduce(operator.getitem, path, data)
 
     async def fetch_query_all_codes_of_conduct(self, *, fields=None):
-        fields = github.utils._get_fields(github.CodeOfConduct, fields)
+        fields = github.utils._get_merged_graphql_fields(github.CodeOfConduct, fields)
         query = "{codesOfConduct{%s}}" % ",".join(fields)
         path = ("codesOfConduct",)
 
@@ -75,7 +75,7 @@ class HTTPClient(graphql.client.HTTPClient):
         return await self._fetch_field(query, *path, _data_validate=validate)
 
     async def fetch_query_code_of_conduct(self, key, *, fields=None):
-        fields = github.utils._get_fields(github.CodeOfConduct, fields)
+        fields = github.utils._get_merged_graphql_fields(github.CodeOfConduct, fields)
         query = "query($key:String!){codeOfConduct(key:$key){%s}}" % ",".join(fields)
         path = ("codeOfConduct",)
 

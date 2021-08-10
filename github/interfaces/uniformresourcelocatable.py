@@ -5,7 +5,7 @@ class UniformResourceLocatable:
 
     __slots__ = ()
 
-    _fields = {
+    _graphql_fields = {
         "resource_path": "resourcePath",
         "url": "url",
     }

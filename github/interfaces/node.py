@@ -28,7 +28,7 @@ class Node:
 
         return self.id == other.id
 
-    _fields = {
+    _graphql_fields = {
         "id": "id",
     }
 

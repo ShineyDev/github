@@ -21,7 +21,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
 
     __slots__ = ()
 
-    _fields = {
+    _graphql_fields = {
         "body": "body",
         "key": "key",
         "name": "name",

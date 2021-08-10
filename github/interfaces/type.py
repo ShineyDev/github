@@ -28,7 +28,7 @@ class Type:
         except KeyError as e:
             raise ClientError(f"missing field '{name}'") from None
 
-    _fields = {
+    _graphql_fields = {
         "__typename": "__typename",
     }
 

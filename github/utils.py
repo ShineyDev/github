@@ -50,22 +50,22 @@ def iso_to_date(iso):
 _empty_dict = dict()
 
 
-def _get_defined_fields(type):
+def _get_defined_graphql_fields(type):
     try:
-        d_fields = type._fields.copy()
+        d_fields = type._graphql_fields.copy()
     except AttributeError:
         d_fields = _empty_dict
 
     for type in type.__bases__:
-        for (key, value) in _get_defined_fields(type).items():
+        for (key, value) in _get_defined_graphql_fields(type).items():
             if key not in d_fields.keys():
                 d_fields[key] = value
 
     return d_fields
 
 
-def _get_fields(type, r_fields=None):
-    d_fields = _get_defined_fields(type)
+def _get_merged_graphql_fields(type, r_fields=None):
+    d_fields = _get_defined_graphql_fields(type)
 
     if not r_fields:
         return list(d_fields.values())
