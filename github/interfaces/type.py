@@ -1,3 +1,4 @@
+from github import utils
 from github.errors import ClientError
 
 
@@ -17,7 +18,22 @@ class Type:
             self._http = http
 
     def __repr__(self):
-        return f"<{self.__class__.__name__}>"
+        d_fields = utils._get_defined_repr_fields(self.__class__)
+
+        f_fields = dict()
+        for name in d_fields:
+            try:
+                value = getattr(self, name)
+            except ClientError:
+                pass
+            else:
+                f_fields[name] = value
+
+        if f_fields:
+            m_fields = " ".join(f"{name}={value!r}" for (name, value) in f_fields.items())
+            return f"<{self.__class__.__name__} {m_fields}>"
+        else:
+            return f"<{self.__class__.__name__}>"
 
     def _get(self, name):
         return self._data[name]

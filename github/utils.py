@@ -82,6 +82,23 @@ def _get_merged_graphql_fields(type, r_fields=None):
     return r_fields
 
 
+_empty_list = list()
+
+
+def _get_defined_repr_fields(type):
+    try:
+        d_fields = type._repr_fields.copy()
+    except AttributeError:
+        d_fields = _empty_list
+
+    for type in type.__bases__:
+        for element in _get_defined_repr_fields(type):
+            if element not in d_fields:
+                d_fields.append(element)
+
+    return sorted(d_fields)
+
+
 def _cursor_to_database(cursor):
     cursor = base64.b64decode(cursor)
     name, version, msgpack = cursor.split(b":")

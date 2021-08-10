@@ -19,8 +19,9 @@ class Node:
     def __hash__(self):
         return hash(self.id)
 
-    def __repr__(self):
-        return f"<{self.__class__.__name__} id='{self.id}'>"
+    _repr_fields = [
+        "id",
+    ]
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
