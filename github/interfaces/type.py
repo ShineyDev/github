@@ -1,5 +1,5 @@
 from github import utils
-from github.errors import ClientError
+from github.errors import ClientObjectMissingFieldError
 
 
 class Type:
@@ -24,7 +24,7 @@ class Type:
         for name in d_fields:
             try:
                 value = getattr(self, name)
-            except ClientError:
+            except ClientObjectMissingFieldError:
                 pass
             else:
                 f_fields[name] = value
@@ -42,7 +42,7 @@ class Type:
         try:
             return self._get(name)
         except KeyError as e:
-            raise ClientError(f"missing field '{name}'") from None
+            raise ClientObjectMissingFieldError(f"missing field '{name}'") from None
 
     _graphql_fields = {
         "__typename": "__typename",

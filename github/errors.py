@@ -6,6 +6,19 @@ class ClientError(graphql.client.ClientError):
     __slots__ = ()
 
 
+class ClientObjectMissingFieldError(AttributeError, ClientError):
+    """
+    Represents an :exc:`AttributeError` caused by a missing field.
+
+    Attributes
+    ----------
+    message: :class:`str`
+        The error message.
+    """
+
+    __slots__ = ()
+
+
 class ClientResponseError(graphql.client.ClientResponseError, ClientError):
     __doc__ = graphql.client.ClientResponseError.__doc__
     __slots__ = ()
@@ -150,6 +163,7 @@ class ServerDeprecationWarning(DeprecationWarning):
 
 __all__ = [
     "ClientError",
+    "ClientObjectMissingFieldError",
     "ClientResponseError",
     "ClientResponseHTTPError",
     "ClientResponseHTTPUnauthorizedError",

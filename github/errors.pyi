@@ -2,6 +2,7 @@ import graphql
 
 
 class ClientError(graphql.client.ClientError): pass
+class ClientObjectMissingFieldError(AttributeError, ClientError): pass
 class ClientResponseError(graphql.client.ClientResponseError, ClientError): pass
 class ClientResponseHTTPError(graphql.client.ClientResponseHTTPError, ClientResponseError): pass
 class ClientResponseHTTPUnauthorizedError(ClientResponseHTTPError): pass

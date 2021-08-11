@@ -8,6 +8,10 @@ Errors
     :inherited-members:
     :exclude-members: with_traceback
 
+.. autoclass:: ClientObjectMissingFieldError()
+    :inherited-members:
+    :exclude-members: with_traceback
+
 .. autoclass:: ClientResponseError()
     :inherited-members:
     :exclude-members: with_traceback
@@ -60,6 +64,7 @@ Hierarchy
 
     Exception
      +-- ClientError
+          +-- ClientObjectMissingFieldError
           +-- ClientResponseError
                +-- ClientResponseHTTPError
                |    +-- ClientResponseHTTPUnauthorizedError
