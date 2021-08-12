@@ -52,12 +52,12 @@ class Client(graphql.client.Client):
         Examples
         --------
 
-        .. code-block:: python3
+        .. code:: python
 
             >>> await client.request("{viewer{login}}")
             {'viewer': {'login': 'nat'}}
 
-        .. code-block:: python3
+        .. code:: python
 
             >>> await client.request("query($login:String!){user(login:$login){name}}", login="nat")
             {'user': {'name': 'Nat Friedman'}}

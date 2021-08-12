@@ -27,7 +27,6 @@ intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
 }
 
-highlight_language = "python3"
 html_theme = "sphinx_rtd_theme"
 html_theme_options = {
     "collapse_navigation": False,
