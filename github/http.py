@@ -1,5 +1,3 @@
-import functools
-import operator
 import uuid
 
 import aiohttp
@@ -53,7 +51,7 @@ class HTTPClient(graphql.client.HTTPClient):
 
     async def _fetch_field(self, document_, *path, _data_validate=None, **kwargs):
         data = await self.request(document_, None, kwargs, _data_validate=_data_validate)
-        return functools.reduce(operator.getitem, path, data)
+        return github.utils._follow(data, path)
 
     async def fetch_query_all_codes_of_conduct(self, *, fields=None):
         fields = github.utils._get_merged_graphql_fields(github.CodeOfConduct, fields)
@@ -61,7 +59,7 @@ class HTTPClient(graphql.client.HTTPClient):
         path = ("codesOfConduct",)
 
         def validate(data):
-            data = functools.reduce(operator.getitem, path, data)
+            data = github.utils._follow(data, path)
 
             if any([c.get("body", False) is None for c in data]):
                 # NOTE: 1240368
@@ -80,7 +78,7 @@ class HTTPClient(graphql.client.HTTPClient):
         path = ("codeOfConduct",)
 
         def validate(data):
-            data = functools.reduce(operator.getitem, path, data)
+            data = github.utils._follow(data, path)
 
             if data is None:
                 # NOTE: 1143102

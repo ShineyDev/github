@@ -1,5 +1,7 @@
 import base64
 import datetime
+import functools
+import operator
 import struct
 import warnings
 
@@ -229,6 +231,10 @@ def _wrap(wrapped):
         return wrapper
 
     return decorator
+
+
+def _follow(data, path):
+    return functools.reduce(operator.getitem, path, data)
 
 
 __all__ = []
