@@ -92,9 +92,14 @@ _empty_dict = dict()
 
 def _get_defined_graphql_fields(type):
     try:
-        d_fields = type._graphql_fields.copy()
+        d_fields = type._graphql_fields
     except AttributeError:
         d_fields = _empty_dict
+    else:
+        if isinstance(d_fields, dict):
+            d_fields = d_fields.copy()
+        else:
+            d_fields = {f: f for f in d_fields}
 
     for type in type.__bases__:
         for (key, value) in _get_defined_graphql_fields(type).items():

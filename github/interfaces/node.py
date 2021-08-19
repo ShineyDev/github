@@ -29,9 +29,9 @@ class Node:
 
         return self.id == other.id
 
-    _graphql_fields = {
-        "id": "id",
-    }
+    _graphql_fields = (
+        "id",
+    )
 
     @property
     def id(self):
