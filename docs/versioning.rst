@@ -7,7 +7,7 @@ This document outlines the version guarantees of the library.
 What?
 -----
 
-This library follows the following almost-|semver_link|_ principle.
+This library follows the following modified |semver_link|_ principle.
 
 
 .. important::
