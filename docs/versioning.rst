@@ -32,7 +32,7 @@ Given a version number PRIME.MAJOR.MINOR.MICRO, increment the:
     changeset is (usually) publicized at least three months in advance.
 
     When GitHub creates an entry, the respective APIs in this library are marked as deprecated in a
-    MICRO version. When the changeset is enacted, the respective APIs in this library are modified
+    PATCH version. When the changeset is enacted, the respective APIs in this library are modified
     in a MAJOR version.
 
     .. TODO: also GitHubbers are humans too.
