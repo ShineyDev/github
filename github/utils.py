@@ -34,7 +34,15 @@ def datetime_to_iso(dt):
             sign = "+"
 
         hours, rest = divmod(offset, datetime.timedelta(hours=1))
-        minutes, _ = divmod(rest, datetime.timedelta(minutes=1))
+        minutes, rest = divmod(rest, datetime.timedelta(minutes=1))
+
+        if rest:
+            _warn_once(
+                "using timezone with second or millisecond offset is not allowed. "
+                "truncating to hours and minutes.",
+                github.errors.ClientDeprecationWarning,
+                2,
+            )
 
         offset = f"{sign}{hours:>02}:{minutes:>02}"
 
