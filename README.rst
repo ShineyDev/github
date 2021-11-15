@@ -35,7 +35,7 @@ Install
 
 .. code:: shell
 
-    $ pip install --upgrade git+https://github.com/ShineyDev/github.git@main
+    $ pip install --upgrade git+https://github.com/ShineyDev/github.git@dotcom
 
 
 Use
