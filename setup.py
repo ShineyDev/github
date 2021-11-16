@@ -2,12 +2,11 @@ import re
 import setuptools
 
 
+with open("docs/requirements.txt", "r") as stream:
+    extras_require_docs = stream.read().splitlines()
+
 extras_require = {
-    "docs": [
-        "sphinx",
-        "sphinxcontrib_trio",
-        "sphinx-rtd-theme",
-    ],
+    "docs": extras_require_docs,
 }
 
 with open("requirements.txt", "r") as stream:
