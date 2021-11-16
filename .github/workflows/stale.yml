@@ -2,13 +2,18 @@ name: Stale
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+  - cron: 0 0 * * *
   issue_comment:
-    types: [created]
+    types:
+    - created
+  workflow_dispatch:
+
+env:
+  AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   stale:
-    if: github.event_name == 'schedule'
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
 
     name: Mark as stale
     runs-on: ubuntu-latest
@@ -17,7 +22,7 @@ jobs:
     - name: Stale
       uses: actions/stale@v3
       with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        repo-token: ${{ env.AUTH_TOKEN }}
         days-before-stale: 30
         days-before-close: 14
         exempt-issue-labels: A:backlog
@@ -46,7 +51,7 @@ jobs:
     - name: Unstale
       uses: actions/github-script@v3
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ env.AUTH_TOKEN }}
         script: |-
           github.issues.removeLabel({
             issue_number: context.issue.number,
