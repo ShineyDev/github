@@ -1,0 +1,34 @@
+name: Sync
+
+on:
+  push:
+    paths:
+    - .github/data/labels.yml
+    - .github/workflows/sync.yml
+  schedule:
+  - cron: 0 0 * * *
+  workflow_dispatch:
+
+env:
+  AUTH_TOKEN: ${{ secrets.SYNC_TOKEN }}
+  PYTHON_VERSION: 3.9
+
+jobs:
+  labels:
+    name: Sync Labels
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: Sync Labels
+      uses: ShineyDev/sync-labels-action@main
+      with:
+        source: .github/data/labels.yml
+        token: ${{ env.AUTH_TOKEN }}

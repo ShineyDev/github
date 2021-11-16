@@ -1,0 +1,43 @@
+inherit:
+- https://raw.githubusercontent.com/ShineyDev/.github/main/data/labels/_.yml
+- https://raw.githubusercontent.com/ShineyDev/.github/main/data/labels/automation-stale.yml
+- https://raw.githubusercontent.com/ShineyDev/.github/main/data/labels/interacts-api.yml
+- https://raw.githubusercontent.com/ShineyDev/.github/main/data/labels/interacts-dependency.yml
+
+groups:
+- name: Branch
+  labels:
+  - name: bane
+    description: This is related to the label mutation preview.
+  - name: corsair
+    description: This is related to the create content attachment mutation preview.
+  - name: flash
+    description: This is related to the deployments preview.
+  - name: hawkgirl
+    description: This is related to the dependency graph preview.
+  - name: merge-info
+    description: This is related to the merge info preview.
+  - name: package-deletes
+    description: This is related to the delete package version mutation preview.
+  - name: slothette
+    description: This is related to the import project mutation preview.
+  - name: starfox
+    description: This is related to the project event details preview.
+  - name: stone-crop
+    description: This is related to the team review assignments preview.
+  - name: update-refs
+    description: This is related to the update refs mutation preview.
+
+- name: Environment
+  labels:
+  - name: dotcom
+    description: This is related to github.com.
+  - name: ghae
+    description: This is related to GHAE.
+  - name: ghes
+    description: This is related to GHES.
+
+- name: Status
+  labels:
+  - name: tracked
+    description: This is being tracked elsewhere.
