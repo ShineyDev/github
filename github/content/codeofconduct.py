@@ -25,11 +25,11 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         "key",
     ]
 
-    _graphql_fields = (
+    _graphql_fields = [
         "body",
         "key",
         "name",
-    )
+    ]
 
     @property
     def body(self):
