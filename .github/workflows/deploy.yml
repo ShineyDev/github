@@ -18,13 +18,13 @@ env:
   PYTHON_VERSION: 3.9
   SPHINX_OPTIONS: -b dirhtml -a -E -n -T -W --keep-going
 
-  PULL_INSTALL: -r docs/requirements.txt
+  PULL_INSTALL: .[docs]
   PULL_PATH: docs
 
   PUSH_REPOSITORY: ${{ github.repository_owner }}/docs.shiney.dev
   PUSH_ROOT_PATH: ${{ github.event.repository.name }}
-  PUSH_LATEST_PATH: latest
-  PUSH_STABLE_PATH: stable
+  PUSH_LATEST_PATH: dotcom/latest
+  PUSH_STABLE_PATH: dotcom/stable
 
 jobs:
   job:
