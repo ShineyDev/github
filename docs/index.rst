@@ -1,20 +1,14 @@
-ShineyDev/github
-================
+github
+======
 
 An asynchronous Python library for interaction with GitHub's GraphQL API.
-
-
-.. toctree::
-    :maxdepth: 1
-
-    introduction
 
 
 .. toctree::
     :caption: Client
     :maxdepth: 1
 
-    client
+    client/client
 
 
 .. toctree::
@@ -36,15 +30,15 @@ An asynchronous Python library for interaction with GitHub's GraphQL API.
     :caption: Other
     :maxdepth: 1
 
-    errors
+    other/errors
 
 
 .. toctree::
     :caption: Meta
     :maxdepth: 1
 
-    implementation
-    versioning
+    meta/implementation
+    meta/versioning
 
 
 Still can't find what you're looking for?
