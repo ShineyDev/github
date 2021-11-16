@@ -85,6 +85,7 @@ rst_prolog = """
 source_suffix = ".rst"
 
 
+html_favicon = "favicon.svg"
 html_theme = "sphinx_rtd_theme"
 html_theme_options = {
     "collapse_navigation": False,
