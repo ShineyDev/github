@@ -67,18 +67,23 @@ rst_prolog = """
 .. |coro_link| replace:: coroutine
 .. _coro_link: https://docs.python.org/3/library/asyncio-task.html#coroutine
 
-.. |graphql_explorer| replace:: GitHub's GraphiQL Explorer
-.. _graphql_explorer: https://graphql.github.com/explorer
+.. |graphql_explorer| replace:: |graphql_explorer_link|_
+.. |graphql_explorer_link| replace:: GitHub's GraphiQL Explorer
+.. _graphql_explorer_link: https://graphql.github.com/explorer
 
-.. |graphql_guides| replace:: GitHub's GraphQL guides
-.. _graphql_guides: https://docs.github.com/en/graphql/guides
+.. |graphql_guides| replace:: |graphql_guides_link|_
+.. |graphql_guides_link| replace:: GitHub's GraphQL guides
+.. _graphql_guides_link: https://docs.github.com/en/graphql/guides
 
-.. |graphql_learn| replace:: learn GraphQL
-.. _graphql_learn: https://graphql.org/learn/
+.. |graphql_learn| replace:: |graphql_learn_link|_
+.. |graphql_learn_link| replace:: learn GraphQL
+.. _graphql_learn_link: https://graphql.org/learn/
 
-.. |graphql_reference| replace:: GitHub's GraphQL API reference
-.. _graphql_reference: https://docs.github.com/en/graphql/reference
+.. |graphql_reference| replace:: |graphql_reference_link|_
+.. |graphql_reference_link| replace:: GitHub's GraphQL API reference
+.. _graphql_reference_link: https://docs.github.com/en/graphql/reference
 
+.. |PAT| replace:: |PAT_link|_
 .. |PAT_link| replace:: personal access token
 .. _PAT_link: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
 """

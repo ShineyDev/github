@@ -11,7 +11,7 @@ class Client(graphql.client.Client):
     Parameters
     ----------
     token: :class:`str`
-        A |PAT_link|_.
+        A |PAT|.
     session: :class:`aiohttp.ClientSession`
         A client session.
     user_agent: :class:`str`
@@ -41,9 +41,9 @@ class Client(graphql.client.Client):
             A GraphQL document.
 
             .. tip::
-                If you haven't already, you should |graphql_learn|_.
-                You can also read |graphql_guides|_, find documentation
-                in |graphql_reference|_, and use |graphql_explorer|_.
+                If you haven't already, you should |graphql_learn|.
+                You can also read |graphql_guides|, find documentation
+                in |graphql_reference|, and use |graphql_explorer|.
         operation: :class:`str`
             The name of the operation from the document to execute.
         **variables
