@@ -79,6 +79,11 @@ class Client(graphql.client.Client):
 
         Fetches all codes of conduct from the GitHub instance.
 
+        Raises
+        ------
+        ~github.errors.ClientResponseGraphQLValidationError
+            The GraphQL service failed to fetch a code of conduct body.
+
         Returns
         -------
         List[:class:`~CodeOfConduct`]
@@ -103,6 +108,8 @@ class Client(graphql.client.Client):
         ------
         ~github.errors.ClientResponseGraphQLNotFoundError
             A code of conduct with the provided key does not exist.
+        ~github.errors.ClientResponseGraphQLValidationError
+            The GraphQL service failed to fetch the code of conduct body.
 
         Returns
         -------
