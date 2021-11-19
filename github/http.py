@@ -83,7 +83,7 @@ class HTTPClient(graphql.client.HTTPClient):
             if data is None:
                 # NOTE: 1143102
                 return (
-                    github.ClientResponseGraphQLValidationError,
+                    github.ClientResponseGraphQLNotFoundError,
                     f"Could not resolve to a code of conduct with the key '{key}'.",
                 )
 
