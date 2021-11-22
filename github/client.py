@@ -91,7 +91,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_all_codes_of_conduct(**kwargs)
-        return CodeOfConduct(data)
+        return CodeOfConduct(data, self._http)
 
     async def fetch_code_of_conduct(self, key, **kwargs):
         """
@@ -118,7 +118,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_code_of_conduct(key, **kwargs)
-        return CodeOfConduct(data)
+        return CodeOfConduct(data, self._http)
 
 
 __all__ = [
