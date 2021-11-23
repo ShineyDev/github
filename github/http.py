@@ -91,7 +91,7 @@ class HTTPClient(graphql.client.HTTPClient):
                 # NOTE: 1240368
                 return (
                     github.ClientResponseGraphQLValidationError,
-                    "The GraphQL service failed to fetch the CodeOfConduct body.",
+                    "The GraphQL service failed to fetch the code of conduct body.",
                 )
 
             return None, None
