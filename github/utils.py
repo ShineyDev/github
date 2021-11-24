@@ -17,10 +17,8 @@ def datetime_to_iso(dt):
 
     if offset is None:
         _warn_once(
-            "using timezone-unaware datetime is not recommended, use "
-            "aware datetime instead. for example, use "
-            "datetime.now(timezone.utc) instead of datetime.utcnow(). "
-            "assuming UTC for now.",
+            "using timezone-unaware datetime is not recommended, use aware datetime instead. for example, use datetime.now(timezone.utc) instead of "
+            "datetime.utcnow(). assuming UTC for now.",
             github.errors.ClientDeprecationWarning,
             2,
         )
@@ -39,8 +37,7 @@ def datetime_to_iso(dt):
 
         if rest:
             _warn_once(
-                "using timezone with second or millisecond offset is "
-                "not allowed. truncating to hours and minutes.",
+                "using timezone with second or millisecond offset is not allowed. truncating to hours and minutes.",
                 github.errors.ClientDeprecationWarning,
                 2,
             )
