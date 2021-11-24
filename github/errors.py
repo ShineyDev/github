@@ -14,9 +14,18 @@ class ClientObjectMissingFieldError(AttributeError, ClientError):
     ----------
     message: :class:`str`
         The error message.
+    fields: Tuple[:class:`str`]
+        The missing fields.
     """
 
     __slots__ = ()
+
+    def __init__(self, *fields):
+        self.fields = fields
+
+        message = f"missing field{'' if len(fields) == 1 else 's'}{' ' if fields else ''}{', '.join(repr(f) for f in fields)}"
+
+        super().__init__(message)
 
 
 class ClientResponseError(graphql.client.ClientResponseError, ClientError):

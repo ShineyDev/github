@@ -42,7 +42,7 @@ class Type:
         try:
             return self._get(name)
         except KeyError as e:
-            raise ClientObjectMissingFieldError(f"missing field '{name}'") from None
+            raise ClientObjectMissingFieldError(name) from None
 
     _graphql_fields = [
         "__typename",
