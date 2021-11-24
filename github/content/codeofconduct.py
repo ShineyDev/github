@@ -124,7 +124,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         elif url is False:
             raise ClientObjectMissingFieldError(f"missing field 'url'") from None
         else:
-            ...  # TODO: custom code of conduct
+            raise NotImplementedError  # TODO: custom code of conduct
 
 
 __all__ = [
