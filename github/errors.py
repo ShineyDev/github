@@ -154,19 +154,13 @@ _response_error_map = {
 }
 
 
-class ClientDeprecationWarning(DeprecationWarning):
-    """
-    Represents a :exc:`DeprecationWarning` from the GraphQL client.
-    """
-
+class ClientDeprecationWarning(graphql.client.ClientDeprecationWarning):
+    __doc__ = graphql.client.ClientDeprecationWarning.__doc__
     __slots__ = ()
 
 
-class ServerDeprecationWarning(DeprecationWarning):
-    """
-    Represents a :exc:`DeprecationWarning` from the GraphQL server.
-    """
-
+class ServerDeprecationWarning(graphql.client.ServerDeprecationWarning):
+    __doc__ = graphql.client.ServerDeprecationWarning.__doc__
     __slots__ = ()
 
 
