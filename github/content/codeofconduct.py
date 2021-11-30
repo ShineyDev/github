@@ -82,6 +82,31 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         UniformResourceLocatable.url.__doc__,
     )
 
+    async def _fetch_field(self, field):
+        try:
+            key = self._try_get("key")
+        except ClientObjectMissingFieldError:
+            key = False
+
+        try:
+            url = self._try_get("url")
+        except ClientObjectMissingFieldError:
+            url = False
+
+        if key is False and url is False:
+            raise ClientObjectMissingFieldError("key", "url") from None
+
+        if key is not False and (url is None or key != "other"):
+            data = await self._http.fetch_query_code_of_conduct(key, fields=(field,))
+            return data[field]
+        elif key is False:
+            raise ClientObjectMissingFieldError("key") from None
+        elif url is False:
+            raise ClientObjectMissingFieldError("url") from None
+        else:
+            raise NotImplementedError  # TODO: custom code of conduct
+
+
     async def fetch_body(self):
         """
         |coro|
@@ -103,28 +128,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
             The body of the code of conduct.
         """
 
-        try:
-            key = self._try_get("key")
-        except ClientObjectMissingFieldError:
-            key = False
-
-        try:
-            url = self._try_get("url")
-        except ClientObjectMissingFieldError:
-            url = False
-
-        if key is False and url is False:
-            raise ClientObjectMissingFieldError("key", "url") from None
-
-        if key is not False and (url is None or key != "other"):
-            data = await self._http.fetch_query_code_of_conduct(key, fields=("body",))
-            return data["body"]
-        elif key is False:
-            raise ClientObjectMissingFieldError("key") from None
-        elif url is False:
-            raise ClientObjectMissingFieldError("url") from None
-        else:
-            raise NotImplementedError  # TODO: custom code of conduct
+        return await self._fetch_field("body")
 
 
 __all__ = [
