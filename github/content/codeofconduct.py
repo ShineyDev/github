@@ -130,6 +130,97 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
 
         return await self._fetch_field("body")
 
+    async def fetch_key(self):
+        """
+        |coro|
+
+        Fetches the machine-readable key of the code of conduct.
+
+        Raises
+        ------
+        ~github.errors.ClientObjectMissingFieldError
+            The :attr:`key` and :attr:`url` attributes are both
+            missing. OR; (on an instance-level code of conduct) The
+            :attr:`key` attribute is missing. OR; (on a
+            repository-level code of conduct) The :attr:`url` attribute
+            is missing.
+
+        Returns
+        -------
+        :class:`str`
+            The machine-readable key of the code of conduct.
+        """
+
+        return await self._fetch_field("key")
+
+    async def fetch_name(self):
+        """
+        |coro|
+
+        Fetches the human-readable name of the code of conduct.
+
+        Raises
+        ------
+        ~github.errors.ClientObjectMissingFieldError
+            The :attr:`key` and :attr:`url` attributes are both
+            missing. OR; (on an instance-level code of conduct) The
+            :attr:`key` attribute is missing. OR; (on a
+            repository-level code of conduct) The :attr:`url` attribute
+            is missing.
+
+        Returns
+        -------
+        :class:`str`
+            The human-readable name of the code of conduct.
+        """
+
+        return await self._fetch_field("name")
+
+    async def fetch_resource_path(self):
+        """
+        |coro|
+
+        Fetches an HTTP path to the resource.
+
+        Raises
+        ------
+        ~github.errors.ClientObjectMissingFieldError
+            The :attr:`key` and :attr:`url` attributes are both
+            missing. OR; (on an instance-level code of conduct) The
+            :attr:`key` attribute is missing. OR; (on a
+            repository-level code of conduct) The :attr:`url` attribute
+            is missing.
+
+        Returns
+        -------
+        Optional[:class:`str`]
+            An HTTP path to the resource.
+        """
+
+        return await self._fetch_field("resource_path")
+
+    async def fetch_url(self):
+        """
+        |coro|
+
+        Fetches an HTTP URL to the resource.
+
+        Raises
+        ------
+        ~github.errors.ClientObjectMissingFieldError
+            The :attr:`key` and :attr:`url` attributes are both
+            missing. OR; (on an instance-level code of conduct) The
+            :attr:`key` attribute is missing. OR; (on a
+            repository-level code of conduct) The :attr:`url` attribute
+            is missing.
+
+        Returns
+        -------
+        Optional[:class:`str`]
+            An HTTP URL to the resource.
+        """
+
+        return await self._fetch_field("url")
 
 __all__ = [
     "CodeOfConduct",
