@@ -201,7 +201,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
             An HTTP path to the resource.
         """
 
-        return await self._fetch_field("resource_path")
+        return await self._fetch_field("resourcePath")
 
     async def fetch_url(self):
         """
