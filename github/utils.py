@@ -118,8 +118,10 @@ def _get_defined_graphql_fields(type):
 def _get_merged_graphql_fields(type, r_fields=None):
     d_fields = _get_defined_graphql_fields(type)
 
-    if not r_fields:
+    if r_fields is None:
         return list(d_fields.values())
+    elif not r_fields:
+        r_fields = ("__typename",)
 
     r_fields = list(r_fields)
     for (i, r_field) in enumerate(r_fields):
