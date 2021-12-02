@@ -103,6 +103,13 @@ class HTTPClient(graphql.client.HTTPClient):
 
         return data
 
+    async def fetch_query_node(self, type, id, *, fields=None):
+        fields = github.utils._get_merged_graphql_fields(type, fields)
+        query = "query($id:ID!){node(id:$id){...on %s{%s}}}" % (type._graphql_type, ",".join(fields))
+        path = ("node",)
+
+        return await self._fetch_field(query, *path, id=id)
+
 
 __all__ = [
     "HTTPClient",
