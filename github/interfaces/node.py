@@ -45,6 +45,22 @@ class Node:
 
         return self._try_get("id")
 
+    async def _fetch_field(self, field):
+        try:
+            id = self.id
+        except ClientObjectMissingFieldError:
+            id = False
+
+        if id is False:
+            raise ClientObjectMissingFieldError("id") from None
+
+        data = await self._http.fetch_query_node(self.__class__, id, fields=(field,))
+
+        value = data[field]
+
+        self._data[field] = value
+        return value
+
 
 __all__ = [
     "Node",
