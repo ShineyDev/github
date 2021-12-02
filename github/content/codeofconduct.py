@@ -86,32 +86,38 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
 
     async def _fetch_field(self, field):
         try:
-            key = self._try_get("key")
+            id = self.id
+        except ClientObjectMissingFieldError:
+            id = False
+
+        try:
+            key = self.key
         except ClientObjectMissingFieldError:
             key = False
 
         try:
-            url = self._try_get("url")
+            url = self.url
         except ClientObjectMissingFieldError:
             url = False
 
-        if key is False and url is False:
-            raise ClientObjectMissingFieldError("key", "url") from None
+        if id is False and key is False and url is False:
+            raise ClientObjectMissingFieldError("id", "key", "url") from None
 
-        if key is not False and (url is None or key != "other"):
+        if id is not False:
+            data = await self._http.fetch_node(self.__class__, id, fields=(field,))
+        elif key is not False and (url is None or key != "other"):
             data = await self._http.fetch_query_code_of_conduct(key, fields=(field,))
-
-            value = data[field]
-
-            self._data[field] = value
-            return value
         elif key is False:
-            raise ClientObjectMissingFieldError("key") from None
+            raise ClientObjectMissingFieldError("id", "key") from None
         elif url is False:
-            raise ClientObjectMissingFieldError("url") from None
+            raise ClientObjectMissingFieldError("id", "url") from None
         else:
             raise NotImplementedError  # TODO: custom code of conduct
 
+        value = data[field]
+
+        self._data[field] = value
+        return value
 
     async def fetch_body(self):
         """
@@ -122,11 +128,11 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         Raises
         ------
         ~github.errors.ClientObjectMissingFieldError
-            The :attr:`key` and :attr:`url` attributes are both
-            missing. OR; (on an instance-level code of conduct) The
-            :attr:`key` attribute is missing. OR; (on a
-            repository-level code of conduct) The :attr:`url` attribute
-            is missing.
+            The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
+            all missing. OR; (on an instance-level code of conduct) The
+            :attr:`id` and :attr:`key` attributes are missing. OR; (on
+            a repository-level code of conduct) The :attr:`id` and
+            :attr:`url` attributes are missing.
 
         Returns
         -------
@@ -166,11 +172,11 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         Raises
         ------
         ~github.errors.ClientObjectMissingFieldError
-            The :attr:`key` and :attr:`url` attributes are both
-            missing. OR; (on an instance-level code of conduct) The
-            :attr:`key` attribute is missing. OR; (on a
-            repository-level code of conduct) The :attr:`url` attribute
-            is missing.
+            The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
+            all missing. OR; (on an instance-level code of conduct) The
+            :attr:`id` and :attr:`key` attributes are missing. OR; (on
+            a repository-level code of conduct) The :attr:`id` and
+            :attr:`url` attributes are missing.
 
         Returns
         -------
@@ -189,11 +195,11 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         Raises
         ------
         ~github.errors.ClientObjectMissingFieldError
-            The :attr:`key` and :attr:`url` attributes are both
-            missing. OR; (on an instance-level code of conduct) The
-            :attr:`key` attribute is missing. OR; (on a
-            repository-level code of conduct) The :attr:`url` attribute
-            is missing.
+            The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
+            all missing. OR; (on an instance-level code of conduct) The
+            :attr:`id` and :attr:`key` attributes are missing. OR; (on
+            a repository-level code of conduct) The :attr:`id` and
+            :attr:`url` attributes are missing.
 
         Returns
         -------
@@ -212,11 +218,11 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         Raises
         ------
         ~github.errors.ClientObjectMissingFieldError
-            The :attr:`key` and :attr:`url` attributes are both
-            missing. OR; (on an instance-level code of conduct) The
-            :attr:`key` attribute is missing. OR; (on a
-            repository-level code of conduct) The :attr:`url` attribute
-            is missing.
+            The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
+            all missing. OR; (on an instance-level code of conduct) The
+            :attr:`id` and :attr:`key` attributes are missing. OR; (on
+            a repository-level code of conduct) The :attr:`id` and
+            :attr:`url` attributes are missing.
 
         Returns
         -------
@@ -235,11 +241,11 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         Raises
         ------
         ~github.errors.ClientObjectMissingFieldError
-            The :attr:`key` and :attr:`url` attributes are both
-            missing. OR; (on an instance-level code of conduct) The
-            :attr:`key` attribute is missing. OR; (on a
-            repository-level code of conduct) The :attr:`url` attribute
-            is missing.
+            The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
+            all missing. OR; (on an instance-level code of conduct) The
+            :attr:`id` and :attr:`key` attributes are missing. OR; (on
+            a repository-level code of conduct) The :attr:`id` and
+            :attr:`url` attributes are missing.
 
         Returns
         -------
