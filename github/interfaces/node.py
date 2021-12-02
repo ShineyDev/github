@@ -61,6 +61,25 @@ class Node:
         self._data[field] = value
         return value
 
+    async def fetch_id(self):
+        """
+        |coro|
+
+        Fetches the ID of the node.
+
+        Raises
+        ------
+        ~github.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+        Returns
+        -------
+        :class:`str`
+            The ID of the node.
+        """
+
+        return await self._fetch_field("id")
+
 
 __all__ = [
     "Node",

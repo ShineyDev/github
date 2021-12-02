@@ -136,6 +136,27 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
 
         return await self._fetch_field("body")
 
+    fetch_id = Node.fetch_id
+    fetch_id.__doc__ = """
+        |coro|
+
+        Fetches the ID of the node.
+
+        Raises
+        ------
+        ~github.errors.ClientObjectMissingFieldError
+            The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
+            all missing. OR; (on an instance-level code of conduct) The
+            :attr:`id` and :attr:`key` attributes are missing. OR; (on
+            a repository-level code of conduct) The :attr:`id` and
+            :attr:`url` attributes are missing.
+
+        Returns
+        -------
+        :class:`str`
+            The ID of the node.
+    """
+
     async def fetch_key(self):
         """
         |coro|
@@ -227,6 +248,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         """
 
         return await self._fetch_field("url")
+
 
 __all__ = [
     "CodeOfConduct",
