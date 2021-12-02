@@ -26,6 +26,8 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         "key",
     ]
 
+    _graphql_type = "CodeOfConduct"
+
     _graphql_fields = [
         "body",
         "key",

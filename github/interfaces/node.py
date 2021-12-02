@@ -29,6 +29,8 @@ class Node:
 
         return self.id == other.id
 
+    _graphql_type = "Node"
+
     _graphql_fields = [
         "id",
     ]
