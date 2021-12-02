@@ -29,8 +29,8 @@ class Client(graphql.client.Client):
     def __init__(self, token, *, session, user_agent=None):
         self._http = HTTPClient(token, session, user_agent)
 
-    request = graphql.client.Client.request
-    request.__doc__ = """
+    async def request(self, document, operation=None, **variables):
+        """
         |coro|
 
         Sends a request to GitHub's GraphQL API.
@@ -71,7 +71,9 @@ class Client(graphql.client.Client):
 
 
         :rtype: :class:`dict`
-    """
+        """
+
+        return await super().request(document, operation, **variables)
 
     async def fetch_all_codes_of_conduct(self, **kwargs):
         """
