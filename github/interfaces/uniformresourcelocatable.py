@@ -32,6 +32,22 @@ class UniformResourceLocatable:
 
         return self._try_get("url")
 
+    async def _fetch_field(self, field):
+        try:
+            url = self.url
+        except ClientObjectMissingFieldError:
+            url = False
+
+        if url is False:
+            raise ClientObjectMissingFieldError("url") from None
+
+        data = await self._http.fetch_query_resource(self.__class__, url, fields=(field,))
+
+        value = data[field]
+
+        self._data[field] = value
+        return value
+
 
 __all__ = [
     "UniformResourceLocatable",
