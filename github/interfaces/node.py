@@ -1,3 +1,6 @@
+from github.errors import ClientObjectMissingFieldError
+
+
 class Node:
     """
     Represents an object with an ID.

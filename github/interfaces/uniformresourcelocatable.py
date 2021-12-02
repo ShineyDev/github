@@ -1,3 +1,6 @@
+from github.errors import ClientObjectMissingFieldError
+
+
 class UniformResourceLocatable:
     """
     Represents an object with a URL.
