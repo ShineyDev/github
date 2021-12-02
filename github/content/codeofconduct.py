@@ -104,7 +104,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
             raise ClientObjectMissingFieldError("id", "key", "url") from None
 
         if id is not False:
-            data = await self._http.fetch_node(self.__class__, id, fields=(field,))
+            data = await self._http.fetch_query_node(self.__class__, id, fields=(field,))
         elif key is not False and (url is None or key != "other"):
             data = await self._http.fetch_query_code_of_conduct(key, fields=(field,))
         elif key is False:
