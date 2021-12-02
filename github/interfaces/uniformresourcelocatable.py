@@ -48,6 +48,44 @@ class UniformResourceLocatable:
         self._data[field] = value
         return value
 
+    async def fetch_resource_path(self):
+        """
+        |coro|
+
+        Fetches an HTTP path to the resource.
+
+        Raises
+        ------
+        ~github.errors.ClientObjectMissingFieldError
+            The :attr:`url` attribute is missing.
+
+        Returns
+        -------
+        :class:`str`
+            An HTTP path to the resource.
+        """
+
+        return await self._fetch_field("resourcePath")
+
+    async def fetch_url(self):
+        """
+        |coro|
+
+        Fetches an HTTP URL to the resource.
+
+        Raises
+        ------
+        ~github.errors.ClientObjectMissingFieldError
+            The :attr:`url` attribute is missing.
+
+        Returns
+        -------
+        :class:`str`
+            An HTTP URL to the resource.
+        """
+
+        return await self._fetch_field("url")
+
 
 __all__ = [
     "UniformResourceLocatable",

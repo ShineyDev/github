@@ -209,8 +209,8 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
 
         return await self._fetch_field("name")
 
-    async def fetch_resource_path(self):
-        """
+    fetch_resource_path = UniformResourceLocatable.fetch_resource_path
+    fetch_resource_path.__doc__ = """
         |coro|
 
         Fetches an HTTP path to the resource.
@@ -228,12 +228,10 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         -------
         Optional[:class:`str`]
             An HTTP path to the resource.
-        """
+    """
 
-        return await self._fetch_field("resourcePath")
-
-    async def fetch_url(self):
-        """
+    fetch_url = UniformResourceLocatable.fetch_url
+    fetch_url.__doc__ = """
         |coro|
 
         Fetches an HTTP URL to the resource.
@@ -251,9 +249,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         -------
         Optional[:class:`str`]
             An HTTP URL to the resource.
-        """
-
-        return await self._fetch_field("url")
+    """
 
 
 __all__ = [
