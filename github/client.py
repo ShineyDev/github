@@ -83,7 +83,7 @@ class Client(graphql.client.Client):
 
         Raises
         ------
-        ~github.errors.ClientResponseGraphQLValidationError
+        ~github.errors.ClientResponseGraphQLInternalError
             The GraphQL service failed to fetch a code of conduct body.
 
         Returns
@@ -108,10 +108,10 @@ class Client(graphql.client.Client):
 
         Raises
         ------
+        ~github.errors.ClientResponseGraphQLInternalError
+            The GraphQL service failed to fetch the code of conduct body.
         ~github.errors.ClientResponseGraphQLNotFoundError
             A code of conduct with the provided key does not exist.
-        ~github.errors.ClientResponseGraphQLValidationError
-            The GraphQL service failed to fetch the code of conduct body.
 
         Returns
         -------

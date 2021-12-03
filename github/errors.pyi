@@ -16,7 +16,6 @@ class ClientResponseGraphQLForbiddenError(ClientResponseGraphQLError): pass
 class ClientResponseGraphQLInternalError(ClientResponseGraphQLError): pass
 class ClientResponseGraphQLNotFoundError(ClientResponseGraphQLError): pass
 class ClientResponseGraphQLUnprocessableError(ClientResponseGraphQLError): pass
-class ClientResponseGraphQLValidationError(ClientResponseGraphQLError): pass
 
 class ClientDeprecationWarning(graphql.client.ClientDeprecationWarning): pass
 class ServerDeprecationWarning(graphql.client.ServerDeprecationWarning): pass

@@ -58,17 +58,12 @@ class HTTPClient(graphql.client.HTTPClient):
         query = "{codesOfConduct{%s}}" % ",".join(fields)
         path = ("codesOfConduct",)
 
-        def validate(data):
-            data = github.utils._follow(data, path)
+        def validate(response, data):
+            value = github.utils._follow(data["data"], path)
 
-            if any([c.get("body", False) is None for c in data]):
-                # NOTE: 1240368
-                return (
-                    github.ClientResponseGraphQLValidationError,
-                    "The GraphQL service failed to fetch a code of conduct body.",
-                )
-
-            return None, None
+            if any([c.get("body", False) is None for c in value]):
+                # NOTE: (body=null) 1240368
+                raise github.ClientResponseGraphQLInternalError("The GraphQL service failed to fetch a code of conduct body.", response, data)
 
         return await self._fetch_field(query, *path, _data_validate=validate)
 
@@ -77,31 +72,23 @@ class HTTPClient(graphql.client.HTTPClient):
         query = "query($key:String!){codeOfConduct(key:$key){%s}}" % ",".join(fields)
         path = ("codeOfConduct",)
 
-        def validate(data):
-            data = github.utils._follow(data, path)
+        def validate(response, data):
+            value = github.utils._follow(data["data"], path)
 
-            if data is None:
-                # NOTE: 1143102
-                return (
-                    github.ClientResponseGraphQLNotFoundError,
-                    f"Could not resolve to a code of conduct with the key '{key}'.",
-                )
+            if value is None:
+                # NOTE: (value=null) 1143102
+                raise github.ClientResponseGraphQLNotFoundError(f"Could not resolve to a code of conduct with the key '{key}'.", response, data)
 
-            if data.get("body", False) is None:
-                # NOTE: 1240368
-                return (
-                    github.ClientResponseGraphQLValidationError,
-                    "The GraphQL service failed to fetch the code of conduct body.",
-                )
+            if value.get("body", False) is None:
+                # NOTE: (body=null) 1240368
+                raise github.ClientResponseGraphQLInternalError("The GraphQL service failed to fetch the code of conduct body.", response, data)
 
-            return None, None
+        value = await self._fetch_field(query, *path, key=key, _data_validate=validate)
 
-        data = await self._fetch_field(query, *path, key=key, _data_validate=validate)
+        if "key" not in value.keys():
+            value["key"] = key
 
-        if "key" not in data.keys():
-            data["key"] = key
-
-        return data
+        return value
 
     async def fetch_query_node(self, type, id, *, fields=None):
         fields = github.utils._get_merged_graphql_fields(type, fields)
