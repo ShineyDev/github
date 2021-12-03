@@ -75,8 +75,9 @@ class HTTPClient(graphql.client.HTTPClient):
         def validate(response, data):
             value = github.utils._follow(data["data"], path)
 
-            if value is None:
+            if value is None or key == "other":
                 # NOTE: (value=null) 1143102
+                # NOTE: (key="other") body=null
                 raise github.ClientResponseGraphQLNotFoundError(f"Could not resolve to a code of conduct with the key '{key}'.", response, data)
 
             if value.get("body", False) is None:
