@@ -63,6 +63,10 @@ rst_prolog = """
 .. |aiter_link| replace:: asynchronous iterator
 .. _aiter_link: https://docs.python.org/3/glossary.html#term-asynchronous-iterator
 
+.. |choosealicense| replace:: |choosealicense_link|_
+.. |choosealicense_link| replace:: choose a license
+.. _choosealicense_link: https://choosealicense.com/
+
 .. |coro| replace:: This function returns a |coro_link|_.
 .. |coro_link| replace:: coroutine
 .. _coro_link: https://docs.python.org/3/library/asyncio-task.html#coroutine
@@ -86,6 +90,10 @@ rst_prolog = """
 .. |PAT| replace:: |PAT_link|_
 .. |PAT_link| replace:: personal access token
 .. _PAT_link: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
+
+.. |spdx| replace:: |SPDX_link|_
+.. |spdx_link| replace:: SPDX
+.. _spdx_link: https://spdx.dev/
 """
 source_suffix = ".rst"
 
