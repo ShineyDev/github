@@ -35,14 +35,11 @@ class Type:
         else:
             return f"<{self.__class__.__name__}>"
 
-    def _get(self, name):
-        return self._data[name]
-
-    def _try_get(self, name):
+    def _get_field(self, field):
         try:
-            return self._get(name)
+            return self._data[field]
         except KeyError as e:
-            raise ClientObjectMissingFieldError(name) from None
+            raise ClientObjectMissingFieldError(field) from None
 
     _graphql_type = "__Type"  # unrealistic but the error response is sane
 
