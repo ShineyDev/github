@@ -1,7 +1,7 @@
 import graphql
 
 from github.http import HTTPClient
-from github.content import CodeOfConduct
+from github.content import CodeOfConduct, License
 
 
 class Client(graphql.client.Client):
@@ -95,6 +95,26 @@ class Client(graphql.client.Client):
         data = await self._http.fetch_query_all_codes_of_conduct(**kwargs)
         return CodeOfConduct(data, self._http)
 
+    async def fetch_all_licenses(self, **kwargs):
+        """
+        |coro|
+
+        Fetches all licenses.
+
+        Raises
+        ------
+        ~github.errors.ClientResponseGraphQLInternalError
+            The GraphQL service failed to fetch a license body.
+
+        Returns
+        -------
+        List[:class:`~License`]
+            A list of licenses.
+        """
+
+        data = await self._http.fetch_query_all_licenses(**kwargs)
+        return License(data, self._http)
+
     async def fetch_code_of_conduct(self, key, **kwargs):
         """
         |coro|
@@ -121,6 +141,33 @@ class Client(graphql.client.Client):
 
         data = await self._http.fetch_query_code_of_conduct(key, **kwargs)
         return CodeOfConduct(data, self._http)
+
+    async def fetch_license(self, key, **kwargs):
+        """
+        |coro|
+
+        Fetches a license by its key.
+
+        Parameters
+        ----------
+        key: :class:`str`
+            See :attr:`License.key`.
+
+        Raises
+        ------
+        ~github.errors.ClientResponseGraphQLInternalError
+            The GraphQL service failed to fetch the license body.
+        ~github.errors.ClientResponseGraphQLNotFoundError
+            A license with the provided key does not exist.
+
+        Returns
+        -------
+        :class:`~License`
+            A license with the provided key.
+        """
+
+        data = await self._http.fetch_query_license(key, **kwargs)
+        return License(data, self._http)
 
 
 __all__ = [

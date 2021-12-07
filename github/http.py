@@ -65,6 +65,20 @@ class HTTPClient(graphql.client.HTTPClient):
 
         return await self._fetch_field(query, *path, _data_validate=validate)
 
+    async def fetch_query_all_licenses(self, *, fields=None):
+        fields = github.utils._get_merged_graphql_fields(github.License, fields)
+        query = "{licenses{%s}}" % ",".join(fields)
+        path = ("licenses",)
+
+        def validate(response, data):
+            value = github.utils._follow(data["data"], path)
+
+            if any([l.get("body", False) == "" for l in value]):
+                # NOTE: (body="") 1240368
+                raise github.ClientResponseGraphQLInternalError("The GraphQL service failed to fetch a license body.", response, data)
+
+        return await self._fetch_field(query, *path)
+
     async def fetch_query_code_of_conduct(self, key, *, fields=None):
         fields = github.utils._get_merged_graphql_fields(github.CodeOfConduct, fields)
         query = "query($key:String!){codeOfConduct(key:$key){%s}}" % ",".join(fields)
@@ -81,6 +95,30 @@ class HTTPClient(graphql.client.HTTPClient):
             if value.get("body", False) is None:
                 # NOTE: (body=null) 1240368
                 raise github.ClientResponseGraphQLInternalError("The GraphQL service failed to fetch the code of conduct body.", response, data)
+
+        value = await self._fetch_field(query, *path, key=key, _data_validate=validate)
+
+        if "key" not in value.keys():
+            value["key"] = key
+
+        return value
+
+    async def fetch_query_license(self, key, *, fields=None):
+        fields = github.utils._get_merged_graphql_fields(github.License, fields)
+        query = "query($key:String!){license(key:$key){%s}}" % ",".join(fields)
+        path = ("license",)
+
+        def validate(response, data):
+            value = github.utils._follow(data["data"], path)
+
+            if value is None or key == "other":
+                # NOTE: (value=null) 1143102
+                # NOTE: (key="other") body=""
+                raise github.ClientResponseGraphQLNotFoundError(f"Could not resolve to a license with the key '{key}'.", response, data)
+
+            if value.get("body", False) == "":
+                # NOTE: (body="") 1240368
+                raise github.ClientResponseGraphQLInternalError("The GraphQL service failed to fetch the license body.", response, data)
 
         value = await self._fetch_field(query, *path, key=key, _data_validate=validate)
 
