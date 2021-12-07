@@ -33,8 +33,6 @@ class HTTPClient(graphql.client.HTTPClient):
                 exc_type = github.ClientResponseHTTPError
 
             raise exc_type(e.message, e.response, e.data) from e
-        except graphql.client.ClientResponseGraphQLValidationError as e:
-            raise github.ClientResponseGraphQLValidationError(e.message, e.response, e.data)
         except graphql.client.ClientResponseGraphQLError as e:
             try:
                 exc_type = github.errors._response_error_map[e.data["errors"][0]["type"]]
