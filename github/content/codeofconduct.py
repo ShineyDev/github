@@ -105,14 +105,14 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
 
         if id is not False:
             data = await self._http.fetch_query_node(self.__class__, id, fields=(field,))
-        elif key and not url:
+        elif key and key != "other" and not url:
             data = await self._http.fetch_query_code_of_conduct(key, fields=(field,))
         elif url:
             raise NotImplementedError  # TODO: custom code of conduct
-        elif not key:
-            raise ClientObjectMissingFieldError("id", "key") from None
         elif not url:
             raise ClientObjectMissingFieldError("id", "url") from None
+        elif not key:
+            raise ClientObjectMissingFieldError("id", "key") from None
 
         value = data[field]
 
