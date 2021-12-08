@@ -66,14 +66,14 @@ Hierarchy
      +-- ClientError
           +-- ClientObjectMissingFieldError
           +-- ClientResponseError
-               +-- ClientResponseHTTPError
-               |    +-- ClientResponseHTTPUnauthorizedError
                +-- ClientResponseGraphQLError
-                    +-- ClientResponseGraphQLForbiddenError
-                    |    +-- ClientResponseGraphQLInsufficientScopesError
-                    +-- ClientResponseGraphQLInternalError
-                    +-- ClientResponseGraphQLNotFoundError
-                    +-- ClientResponseGraphQLUnprocessableError
+               |    +-- ClientResponseGraphQLForbiddenError
+               |    |    +-- ClientResponseGraphQLInsufficientScopesError
+               |    +-- ClientResponseGraphQLInternalError
+               |    +-- ClientResponseGraphQLNotFoundError
+               |    +-- ClientResponseGraphQLUnprocessableError
+               +-- ClientResponseHTTPError
+                    +-- ClientResponseHTTPUnauthorizedError
 
     DeprecationWarning
      +-- ClientDeprecationWarning
