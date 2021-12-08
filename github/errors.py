@@ -1,3 +1,5 @@
+import re
+
 import graphql
 
 
@@ -53,6 +55,48 @@ class ClientResponseGraphQLForbiddenError(ClientResponseGraphQLError):
     """
 
     __slots__ = ()
+
+
+class ClientResponseGraphQLInsufficientScopesError(ClientResponseGraphQLForbiddenError):
+    """
+    Represents a GraphQL ``"INSUFFICIENT_SCOPES"`` response.
+
+    Attributes
+    ----------
+    message: :class:`str`
+        The error message.
+    response: :class:`aiohttp.ClientResponse`
+        The client response.
+    data: :class:`dict`
+        The response data.
+    granted_scopes: List[:class:`str`]
+        The granted scopes.
+    required_scopes: List[:class:`str`]
+        The required scopes.
+    """
+
+    __slots__ = ()
+
+    def __init__(self, message, response, data):
+        super().__init__(message, response, data)
+
+        oauth_scopes = response.headers.get("X-OAuth-Scopes")
+
+        if oauth_scopes:
+            self.granted_scopes = oauth_scopes.split(",")
+        else:
+            self.granted_scopes = list()
+
+        match = re.search(r"requires.+?: ?\[(.+?)\]", message)
+        if match:
+            required_scopes = match.group(1).replace("'", "").replace(" ", "")
+
+            if required_scopes:
+                self.required_scopes = required_scopes.split(",")
+            else:
+                self.required_scopes = list()
+        else:
+            self.required_scopes = list()
 
 
 class ClientResponseGraphQLInternalError(ClientResponseGraphQLError):
@@ -130,6 +174,7 @@ class ClientResponseHTTPUnauthorizedError(ClientResponseHTTPError):
 
 _response_error_map = {
     "FORBIDDEN": ClientResponseGraphQLForbiddenError,
+    "INSUFFICIENT_SCOPES": ClientResponseGraphQLInsufficientScopesError,
     "INTERNAL": ClientResponseGraphQLInternalError,
     "NOT_FOUND": ClientResponseGraphQLNotFoundError,
     "UNPROCESSABLE": ClientResponseGraphQLUnprocessableError,
@@ -153,6 +198,7 @@ __all__ = [
     "ClientResponseError",
     "ClientResponseGraphQLError",
     "ClientResponseGraphQLForbiddenError",
+    "ClientResponseGraphQLInsufficientScopesError",
     "ClientResponseGraphQLInternalError",
     "ClientResponseGraphQLNotFoundError",
     "ClientResponseGraphQLUnprocessableError",

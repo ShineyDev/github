@@ -32,6 +32,10 @@ Errors
     :inherited-members:
     :exclude-members: with_traceback
 
+.. autoclass:: ClientResponseGraphQLInsufficientScopesError()
+    :inherited-members:
+    :exclude-members: with_traceback
+
 .. autoclass:: ClientResponseGraphQLInternalError()
     :inherited-members:
     :exclude-members: with_traceback
@@ -66,6 +70,7 @@ Hierarchy
                |    +-- ClientResponseHTTPUnauthorizedError
                +-- ClientResponseGraphQLError
                     +-- ClientResponseGraphQLForbiddenError
+                    |    +-- ClientResponseGraphQLInsufficientScopesError
                     +-- ClientResponseGraphQLInternalError
                     +-- ClientResponseGraphQLNotFoundError
                     +-- ClientResponseGraphQLUnprocessableError

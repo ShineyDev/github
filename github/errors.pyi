@@ -13,6 +13,7 @@ class ClientResponseHTTPError(graphql.client.ClientResponseHTTPError, ClientResp
 class ClientResponseHTTPUnauthorizedError(ClientResponseHTTPError): pass
 class ClientResponseGraphQLError(graphql.client.ClientResponseGraphQLError, ClientResponseError): pass
 class ClientResponseGraphQLForbiddenError(ClientResponseGraphQLError): pass
+class ClientResponseGraphQLInsufficientScopesError(ClientResponseGraphQLForbiddenError): pass
 class ClientResponseGraphQLInternalError(ClientResponseGraphQLError): pass
 class ClientResponseGraphQLNotFoundError(ClientResponseGraphQLError): pass
 class ClientResponseGraphQLUnprocessableError(ClientResponseGraphQLError): pass
