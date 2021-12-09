@@ -57,7 +57,7 @@ class ClientResponseGraphQLForbiddenError(ClientResponseGraphQLError):
     __slots__ = ()
 
 
-class ClientResponseGraphQLInsufficientScopesError(ClientResponseGraphQLForbiddenError):
+class ClientResponseGraphQLInsufficientScopesError(ClientResponseGraphQLError):
     """
     Represents a GraphQL ``"INSUFFICIENT_SCOPES"`` response.
 

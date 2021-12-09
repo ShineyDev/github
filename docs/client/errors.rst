@@ -68,7 +68,7 @@ Hierarchy
           +-- ClientResponseError
                +-- ClientResponseGraphQLError
                |    +-- ClientResponseGraphQLForbiddenError
-               |    |    +-- ClientResponseGraphQLInsufficientScopesError
+               |    +-- ClientResponseGraphQLInsufficientScopesError
                |    +-- ClientResponseGraphQLInternalError
                |    +-- ClientResponseGraphQLNotFoundError
                |    +-- ClientResponseGraphQLUnprocessableError
