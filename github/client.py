@@ -2,6 +2,7 @@ import graphql
 
 from github.http import HTTPClient
 from github.content import CodeOfConduct, License
+from github.metadata import Metadata
 
 
 class Client(graphql.client.Client):
@@ -168,6 +169,21 @@ class Client(graphql.client.Client):
 
         data = await self._http.fetch_query_license(key, **kwargs)
         return License(data, self._http)
+
+    async def fetch_metadata(self, **kwargs):
+        """
+        |coro|
+
+        Fetches GitHub instance metadata.
+
+        Returns
+        -------
+        :class:`~github.Metadata`
+            GitHub instance metadata.
+        """
+
+        data = await self._http.fetch_query_metadata(**kwargs)
+        return Metadata(data)
 
 
 __all__ = [

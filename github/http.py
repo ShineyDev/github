@@ -127,6 +127,13 @@ class HTTPClient(graphql.client.HTTPClient):
 
         return value
 
+    async def fetch_query_metadata(self, *, fields=None):
+        fields = github.utils._get_merged_graphql_fields(github.Metadata, fields)
+        query = "{meta{%s}}" % ",".join(fields)
+        path = ("meta",)
+
+        return await self._fetch_field(query, *path)
+
     async def fetch_query_node(self, type, id, *, fields=None):
         fields = github.utils._get_merged_graphql_fields(type, fields)
         query = "query($id:ID!){node(id:$id){...on %s{%s}}}" % (type._graphql_type, ",".join(fields))
