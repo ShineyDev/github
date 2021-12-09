@@ -192,10 +192,10 @@ def _changing(callable=None, *, what=None, when=None, where=None, who=None, why=
 
 def _deprecated(callable=None, *, what=None, when=None, where=None, who=None, why=None):
     if when:
-        who = who or ServerDeprecationWarning
+        who = who or github.errors.ServerDeprecationWarning
         when = f"on {when}"
     else:
-        who = who or ClientDeprecationWarning
+        who = who or github.errors.ClientDeprecationWarning
         when = "in the next prime version"
 
     def decorator(callable):
