@@ -46,7 +46,7 @@ class Node:
         :type: :class:`str`
         """
 
-        return self._try_get("id")
+        return self._get_field("id")
 
     async def _fetch_field(self, field):
         try:

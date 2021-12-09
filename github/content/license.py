@@ -53,7 +53,7 @@ class License(Node, Type):
         :type: :class:`str`
         """
 
-        return self._try_get("body")
+        return self._get_field("body")
 
     @property
     def choosealicense_url(self):
@@ -63,7 +63,7 @@ class License(Node, Type):
         :type: Optional[:class:`str`]
         """
 
-        return self._try_get("url")
+        return self._get_field("url")
 
     @property
     def conditions(self):
@@ -73,7 +73,7 @@ class License(Node, Type):
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule(self._try_get("conditions"))
+        return LicenseRule(self._get_field("conditions"))
 
     @property
     def description(self):
@@ -83,7 +83,7 @@ class License(Node, Type):
         :type: Optional[:class:`str`]
         """
 
-        return self._try_get("description")
+        return self._get_field("description")
 
     @property
     def implementation(self):
@@ -93,7 +93,7 @@ class License(Node, Type):
         :type: Optional[:class:`str`]
         """
 
-        return self._try_get("implementation")
+        return self._get_field("implementation")
 
     @property
     def is_featured(self):
@@ -103,7 +103,7 @@ class License(Node, Type):
         :type: :class:`bool`
         """
 
-        return self._try_get("featured")
+        return self._get_field("featured")
 
     @property
     def is_hidden(self):
@@ -113,7 +113,7 @@ class License(Node, Type):
         :type: :class:`bool`
         """
 
-        return self._try_get("hidden")
+        return self._get_field("hidden")
 
     @property
     def is_pseudo(self):
@@ -123,7 +123,7 @@ class License(Node, Type):
         :type: :class:`bool`
         """
 
-        return self._try_get("pseudoLicense")
+        return self._get_field("pseudoLicense")
 
     @property
     def key(self):
@@ -133,7 +133,7 @@ class License(Node, Type):
         :type: :class:`str`
         """
 
-        return self._try_get("key")
+        return self._get_field("key")
 
     @property
     def limitations(self):
@@ -143,7 +143,7 @@ class License(Node, Type):
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule(self._try_get("limitations"))
+        return LicenseRule(self._get_field("limitations"))
 
     @property
     def name(self):
@@ -153,7 +153,7 @@ class License(Node, Type):
         :type: :class:`str`
         """
 
-        return self._try_get("name")
+        return self._get_field("name")
 
     @property
     def nickname(self):
@@ -163,7 +163,7 @@ class License(Node, Type):
         :type: Optional[:class:`str`]
         """
 
-        return self._try_get("nickname")
+        return self._get_field("nickname")
 
     @property
     def permissions(self):
@@ -173,7 +173,7 @@ class License(Node, Type):
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule(self._try_get("permissions"))
+        return LicenseRule(self._get_field("permissions"))
 
     @property
     def spdx_id(self):
@@ -183,7 +183,7 @@ class License(Node, Type):
         :type: Optional[:class:`str`]
         """
 
-        return self._try_get("spdxId")
+        return self._get_field("spdxId")
 
     async def _fetch_field(self, field):
         try:

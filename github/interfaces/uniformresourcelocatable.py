@@ -23,7 +23,7 @@ class UniformResourceLocatable:
         :type: :class:`str`
         """
 
-        return self._try_get("resourcePath")
+        return self._get_field("resourcePath")
 
     @property
     def url(self):
@@ -33,7 +33,7 @@ class UniformResourceLocatable:
         :type: :class:`str`
         """
 
-        return self._try_get("url")
+        return self._get_field("url")
 
     async def _fetch_field(self, field):
         try:

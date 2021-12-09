@@ -28,7 +28,7 @@ class LicenseRule(Type):
         :type: :class:`str`
         """
 
-        return self._try_get("description")
+        return self._get_field("description")
 
     @property
     def key(self):
@@ -38,7 +38,7 @@ class LicenseRule(Type):
         :type: :class:`str`
         """
 
-        return self._try_get("key")
+        return self._get_field("key")
 
     @property
     def label(self):
@@ -48,7 +48,7 @@ class LicenseRule(Type):
         :type: :class:`str`
         """
 
-        return self._try_get("label")
+        return self._get_field("label")
 
 
 __all__ = [
