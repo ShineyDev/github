@@ -9,6 +9,8 @@ from github.interfaces import *
 from github.interfaces import __all__ as _interfaces__all__
 from github.content import *
 from github.content import __all__ as _content__all__
+from github.metadata import *
+from github.metadata import __all__ as _metadata__all__
 
 
 __all__ = [
@@ -17,6 +19,7 @@ __all__ = [
     *_errors__all__,
     *_interfaces__all__,
     *_content__all__,
+    *_metadata__all__,
 ]
 
 
