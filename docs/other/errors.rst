@@ -16,14 +16,6 @@ Errors
     :inherited-members:
     :exclude-members: with_traceback
 
-.. autoclass:: ClientResponseHTTPError()
-    :inherited-members:
-    :exclude-members: with_traceback
-
-.. autoclass:: ClientResponseHTTPUnauthorizedError()
-    :inherited-members:
-    :exclude-members: with_traceback
-
 .. autoclass:: ClientResponseGraphQLError()
     :inherited-members:
     :exclude-members: with_traceback
@@ -45,6 +37,14 @@ Errors
     :exclude-members: with_traceback
 
 .. autoclass:: ClientResponseGraphQLUnprocessableError()
+    :inherited-members:
+    :exclude-members: with_traceback
+
+.. autoclass:: ClientResponseHTTPError()
+    :inherited-members:
+    :exclude-members: with_traceback
+
+.. autoclass:: ClientResponseHTTPUnauthorizedError()
     :inherited-members:
     :exclude-members: with_traceback
 
