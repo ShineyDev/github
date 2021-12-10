@@ -89,7 +89,7 @@ class Client(graphql.client.Client):
 
         Returns
         -------
-        List[:class:`~CodeOfConduct`]
+        List[:class:`~github.CodeOfConduct`]
             A list of codes of conduct.
         """
 
@@ -109,7 +109,7 @@ class Client(graphql.client.Client):
 
         Returns
         -------
-        List[:class:`~License`]
+        List[:class:`~github.License`]
             A list of licenses.
         """
 
@@ -136,7 +136,7 @@ class Client(graphql.client.Client):
 
         Returns
         -------
-        :class:`~CodeOfConduct`
+        :class:`~github.CodeOfConduct`
             A code of conduct with the provided key.
         """
 
@@ -163,7 +163,7 @@ class Client(graphql.client.Client):
 
         Returns
         -------
-        :class:`~License`
+        :class:`~github.License`
             A license with the provided key.
         """
 
