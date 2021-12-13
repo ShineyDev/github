@@ -2,7 +2,7 @@ import aiohttp
 import graphql
 
 from github.content import CodeOfConduct, License
-from github.metadata import Metadata
+from github.metadata import Metadata, RateLimit
 
 
 class Client(graphql.client.Client):
@@ -13,3 +13,4 @@ class Client(graphql.client.Client):
     async def fetch_code_of_conduct(self, key: str, **kwargs) -> CodeOfConduct: ...
     async def fetch_license(self, key: str, **kwargs) -> License: ...
     async def fetch_metadata(self, **kwargs) -> Metadata: ...
+    async def fetch_rate_limit(self, **kwargs) -> RateLimit: ...

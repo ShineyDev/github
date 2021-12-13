@@ -2,7 +2,7 @@ import graphql
 
 from github.http import HTTPClient
 from github.content import CodeOfConduct, License
-from github.metadata import Metadata
+from github.metadata import Metadata, RateLimit
 
 
 class Client(graphql.client.Client):
@@ -184,6 +184,21 @@ class Client(graphql.client.Client):
 
         data = await self._http.fetch_query_metadata(**kwargs)
         return Metadata(data)
+
+    async def fetch_rate_limit(self, **kwargs):
+        """
+        |coro|
+
+        Fetches GitHub rate limit data.
+
+        Returns
+        -------
+        :class:`~github.RateLimit`
+            GitHub rate limit data.
+        """
+
+        data = await self._http.fetch_query_rate_limit(**kwargs)
+        return RateLimit(data)
 
 
 __all__ = [
