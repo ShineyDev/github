@@ -15,6 +15,7 @@ class ClientResponseGraphQLError(graphql.client.ClientResponseGraphQLError, Clie
 class ClientResponseGraphQLForbiddenError(ClientResponseGraphQLError): pass
 class ClientResponseGraphQLInsufficientScopesError(ClientResponseGraphQLError): pass
 class ClientResponseGraphQLInternalError(ClientResponseGraphQLError): pass
+class ClientResponseGraphQLMaximumNodeLimitExceededError(ClientResponseGraphQLError): pass
 class ClientResponseGraphQLNotFoundError(ClientResponseGraphQLError): pass
 class ClientResponseGraphQLUnprocessableError(ClientResponseGraphQLError): pass
 

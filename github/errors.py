@@ -116,6 +116,23 @@ class ClientResponseGraphQLInternalError(ClientResponseGraphQLError):
     __slots__ = ()
 
 
+class ClientResponseGraphQLMaximumNodeLimitExceededError(ClientResponseGraphQLError):
+    """
+    Represents a GraphQL ``"MAX_NODE_LIMIT_EXCEEDED"`` response.
+
+    Attributes
+    ----------
+    message: :class:`str`
+        The error message.
+    response: :class:`aiohttp.ClientResponse`
+        The client response.
+    data: :class:`dict`
+        The response data.
+    """
+
+    __slots__ = ()
+
+
 class ClientResponseGraphQLNotFoundError(ClientResponseGraphQLError):
     """
     Represents a GraphQL ``"NOT_FOUND"`` response.
@@ -176,6 +193,7 @@ _response_error_map = {
     "FORBIDDEN": ClientResponseGraphQLForbiddenError,
     "INSUFFICIENT_SCOPES": ClientResponseGraphQLInsufficientScopesError,
     "INTERNAL": ClientResponseGraphQLInternalError,
+    "MAX_NODE_LIMIT_EXCEEDED": ClientResponseGraphQLMaximumNodeLimitExceededError,
     "NOT_FOUND": ClientResponseGraphQLNotFoundError,
     "UNPROCESSABLE": ClientResponseGraphQLUnprocessableError,
     401: ClientResponseHTTPUnauthorizedError,
@@ -200,6 +218,7 @@ __all__ = [
     "ClientResponseGraphQLForbiddenError",
     "ClientResponseGraphQLInsufficientScopesError",
     "ClientResponseGraphQLInternalError",
+    "ClientResponseGraphQLMaximumNodeLimitExceededError",
     "ClientResponseGraphQLNotFoundError",
     "ClientResponseGraphQLUnprocessableError",
     "ClientResponseHTTPError",

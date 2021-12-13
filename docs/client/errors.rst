@@ -32,6 +32,10 @@ Errors
     :inherited-members:
     :exclude-members: with_traceback
 
+.. autoclass:: ClientResponseGraphQLMaximumNodeLimitExceededError()
+    :inherited-members:
+    :exclude-members: with_traceback
+
 .. autoclass:: ClientResponseGraphQLNotFoundError()
     :inherited-members:
     :exclude-members: with_traceback
@@ -70,6 +74,7 @@ Hierarchy
                |    +-- ClientResponseGraphQLForbiddenError
                |    +-- ClientResponseGraphQLInsufficientScopesError
                |    +-- ClientResponseGraphQLInternalError
+               |    +-- ClientResponseGraphQLMaximumNodeLimitExceededError
                |    +-- ClientResponseGraphQLNotFoundError
                |    +-- ClientResponseGraphQLUnprocessableError
                +-- ClientResponseHTTPError
