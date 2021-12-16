@@ -47,9 +47,6 @@ class Type:
         "__typename",
     ]
 
-    async def _fetch_field(self, field):
-        raise NotImplementedError
-
 
 __all__ = [
     "Type",
