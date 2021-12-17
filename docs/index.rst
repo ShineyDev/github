@@ -39,6 +39,13 @@ An asynchronous Python library for interaction with GitHub's GraphQL API.
 
 
 .. toctree::
+    :caption: Repository
+    :maxdepth: 1
+
+    repository/topic
+
+
+.. toctree::
     :caption: Meta
     :maxdepth: 1
 

@@ -6,6 +6,7 @@ from github.errors import *
 from github.interfaces import *
 from github.content import *
 from github.metadata import *
+from github.repository import *
 
 
 class _VersionInfo(NamedTuple):
