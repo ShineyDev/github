@@ -155,6 +155,25 @@ class HTTPClient(graphql.client.HTTPClient):
 
         return await self._fetch(query, *path, url=url)
 
+    async def fetch_query_topic(self, name, *, fields=None):
+        fields = github.utils._get_merged_graphql_fields(github.Topic, fields)
+        query = "query($name:String!){topic(name:$name){%s}}" % ",".join(fields)
+        path = ("topic",)
+
+        def validate(response, data):
+            value = github.utils._follow(data["data"], path)
+
+            if value is None:
+                # NOTE: (value=null) 1143102
+                raise github.ClientResponseGraphQLNotFoundError(f"Could not resolve to a topic with the name '{name}'.", response, data)
+
+        value = await self._fetch(query, *path, name=name, _data_validate=validate)
+
+        if "name" not in value.keys():
+            value["name"] = name
+
+        return value
+
 
 __all__ = [
     "HTTPClient",

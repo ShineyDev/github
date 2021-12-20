@@ -3,6 +3,7 @@ import graphql
 from github.http import HTTPClient
 from github.content import CodeOfConduct, License
 from github.metadata import Metadata, RateLimit
+from github.repository import Topic
 
 
 class Client(graphql.client.Client):
@@ -199,6 +200,31 @@ class Client(graphql.client.Client):
 
         data = await self._http.fetch_query_rate_limit(**kwargs)
         return RateLimit(data)
+
+    async def fetch_topic(self, name, **kwargs):
+        """
+        |coro|
+
+        Fetches a topic by its name.
+
+        Parameters
+        ----------
+        name: :class:`str`
+            See :attr:`Topic.name <github.Topic.name>`.
+
+        Raises
+        ------
+        ~github.errors.ClientResponseGraphQLNotFoundError
+            A topic with the provided name does not exist.
+
+        Returns
+        -------
+        :class:`~github.Topic`
+            A topic.
+        """
+
+        data = await self._http.fetch_query_topic(name, **kwargs)
+        return Topic(data)
 
 
 __all__ = [
