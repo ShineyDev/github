@@ -47,7 +47,7 @@ class HTTPClient(graphql.client.HTTPClient):
         else:
             return data
 
-    async def _fetch_field(self, document_, *path, _data_validate=None, **kwargs):
+    async def _fetch(self, document_, *path, _data_validate=None, **kwargs):
         data = await self.request(document_, None, kwargs, _data_validate=_data_validate)
         return github.utils._follow(data, path)
 
@@ -63,7 +63,7 @@ class HTTPClient(graphql.client.HTTPClient):
                 # NOTE: (body=null) 1240368
                 raise github.ClientResponseGraphQLInternalError("The GraphQL service failed to fetch a code of conduct body.", response, data)
 
-        return await self._fetch_field(query, *path, _data_validate=validate)
+        return await self._fetch(query, *path, _data_validate=validate)
 
     async def fetch_query_all_licenses(self, *, fields=None):
         fields = github.utils._get_merged_graphql_fields(github.License, fields)
@@ -77,7 +77,7 @@ class HTTPClient(graphql.client.HTTPClient):
                 # NOTE: (body="") 1240368
                 raise github.ClientResponseGraphQLInternalError("The GraphQL service failed to fetch a license body.", response, data)
 
-        return await self._fetch_field(query, *path)
+        return await self._fetch(query, *path)
 
     async def fetch_query_code_of_conduct(self, key, *, fields=None):
         fields = github.utils._get_merged_graphql_fields(github.CodeOfConduct, fields)
@@ -96,7 +96,7 @@ class HTTPClient(graphql.client.HTTPClient):
                 # NOTE: (body=null) 1240368
                 raise github.ClientResponseGraphQLInternalError("The GraphQL service failed to fetch the code of conduct body.", response, data)
 
-        value = await self._fetch_field(query, *path, key=key, _data_validate=validate)
+        value = await self._fetch(query, *path, key=key, _data_validate=validate)
 
         if "key" not in value.keys():
             value["key"] = key
@@ -120,7 +120,7 @@ class HTTPClient(graphql.client.HTTPClient):
                 # NOTE: (body="") 1240368
                 raise github.ClientResponseGraphQLInternalError("The GraphQL service failed to fetch the license body.", response, data)
 
-        value = await self._fetch_field(query, *path, key=key, _data_validate=validate)
+        value = await self._fetch(query, *path, key=key, _data_validate=validate)
 
         if "key" not in value.keys():
             value["key"] = key
@@ -132,28 +132,28 @@ class HTTPClient(graphql.client.HTTPClient):
         query = "{meta{%s}}" % ",".join(fields)
         path = ("meta",)
 
-        return await self._fetch_field(query, *path)
+        return await self._fetch(query, *path)
 
     async def fetch_query_node(self, type, id, *, fields=None):
         fields = github.utils._get_merged_graphql_fields(type, fields)
         query = "query($id:ID!){node(id:$id){...on %s{%s}}}" % (type._graphql_type, ",".join(fields))
         path = ("node",)
 
-        return await self._fetch_field(query, *path, id=id)
+        return await self._fetch(query, *path, id=id)
 
     async def fetch_query_rate_limit(self, *, fields=None):
         fields = github.utils._get_merged_graphql_fields(github.RateLimit, fields)
         query = "{rateLimit(dryRun:true){%s}}" % ",".join(fields)
         path = ("rateLimit",)
 
-        return await self._fetch_field(query, *path)
+        return await self._fetch(query, *path)
 
     async def fetch_query_resource(self, type, url, *, fields=None):
         fields = github.utils._get_merged_graphql_fields(type, fields)
         query = "query($url:URI!){resource(url:$url){...on %s{%s}}}" % (type._graphql_type, ",".join(fields))
         path = ("resource",)
 
-        return await self._fetch_field(query, *path, url=url)
+        return await self._fetch(query, *path, url=url)
 
 
 __all__ = [
