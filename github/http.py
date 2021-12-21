@@ -157,7 +157,12 @@ class HTTPClient(graphql.client.HTTPClient):
         query = "query($url:URI!){resource(url:$url){...on %s{%s}}}" % (type._graphql_type, ",".join(fields))
         path = ("resource",)
 
-        return await self._fetch(query, *path, url=url)
+        value = await self._fetch(query, *path, url=url)
+
+        if "url" not in value.keys():
+            value["url"] = url
+
+        return value
 
     async def fetch_query_topic(self, name, *, fields=None):
         fields = github.utils._get_merged_graphql_fields(github.Topic, fields)
