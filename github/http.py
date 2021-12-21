@@ -77,7 +77,7 @@ class HTTPClient(graphql.client.HTTPClient):
                 # NOTE: (body="") 1240368
                 raise github.ClientResponseGraphQLInternalError("The GraphQL service failed to fetch a license body.", response, data)
 
-        return await self._fetch(query, *path)
+        return await self._fetch(query, *path, _data_validate=validate)
 
     async def fetch_query_code_of_conduct(self, key, *, fields=None):
         fields = github.utils._get_merged_graphql_fields(github.CodeOfConduct, fields)
