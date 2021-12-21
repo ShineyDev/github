@@ -45,6 +45,8 @@ class License(Node, Type):
         "spdx_id": "spdxId",
     }
 
+    _node_prefix = "L"
+
     @property
     def body(self):
         """

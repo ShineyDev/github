@@ -29,6 +29,8 @@ class Topic(Starrable, Type):
         "name",
     ]
 
+    _node_prefix = "TO"
+
     @property
     def name(self):
         """

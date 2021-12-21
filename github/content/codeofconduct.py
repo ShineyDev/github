@@ -34,6 +34,8 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         "name",
     ]
 
+    _node_prefix = ""  # TODO
+
     @property
     def body(self):
         """
