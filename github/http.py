@@ -138,7 +138,12 @@ class HTTPClient(graphql.client.HTTPClient):
         query = "query($id:ID!){node(id:$id){...on %s{%s}}}" % (type._graphql_type, ",".join(fields))
         path = ("node",)
 
-        return await self._fetch(query, *path, id=id)
+        value = await self._fetch(query, *path, id=id)
+
+        if "id" not in value.keys():
+            value["id"] = id
+
+        return value
 
     async def fetch_query_rate_limit(self, *, fields=None):
         fields = github.utils._get_merged_graphql_fields(github.RateLimit, fields)
