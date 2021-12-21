@@ -1,6 +1,5 @@
 import uuid
 
-import aiohttp
 import graphql
 
 import github
