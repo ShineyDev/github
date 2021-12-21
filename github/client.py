@@ -81,17 +81,15 @@ class Client(graphql.client.Client):
         """
         |coro|
 
-        Fetches all codes of conduct from the GitHub instance.
+        Fetches all codes of conduct.
 
         Raises
         ------
         ~github.errors.ClientResponseGraphQLInternalError
             The GraphQL service failed to fetch a code of conduct body.
 
-        Returns
-        -------
-        List[:class:`~github.CodeOfConduct`]
-            A list of codes of conduct.
+
+        :rtype: List[:class:`~github.CodeOfConduct`]
         """
 
         data = await self._http.fetch_query_all_codes_of_conduct(**kwargs)
@@ -108,10 +106,8 @@ class Client(graphql.client.Client):
         ~github.errors.ClientResponseGraphQLInternalError
             The GraphQL service failed to fetch a license body.
 
-        Returns
-        -------
-        List[:class:`~github.License`]
-            A list of licenses.
+
+        :rtype: List[:class:`~github.License`]
         """
 
         data = await self._http.fetch_query_all_licenses(**kwargs)
@@ -135,10 +131,8 @@ class Client(graphql.client.Client):
         ~github.errors.ClientResponseGraphQLNotFoundError
             A code of conduct with the provided key does not exist.
 
-        Returns
-        -------
-        :class:`~github.CodeOfConduct`
-            A code of conduct with the provided key.
+
+        :rtype: :class:`~github.CodeOfConduct`
         """
 
         data = await self._http.fetch_query_code_of_conduct(key, **kwargs)
@@ -162,10 +156,8 @@ class Client(graphql.client.Client):
         ~github.errors.ClientResponseGraphQLNotFoundError
             A license with the provided key does not exist.
 
-        Returns
-        -------
-        :class:`~github.License`
-            A license with the provided key.
+
+        :rtype: :class:`~github.License`
         """
 
         data = await self._http.fetch_query_license(key, **kwargs)
@@ -175,12 +167,9 @@ class Client(graphql.client.Client):
         """
         |coro|
 
-        Fetches GitHub instance metadata.
+        Fetches instance metadata.
 
-        Returns
-        -------
-        :class:`~github.Metadata`
-            GitHub instance metadata.
+        :rtype: :class:`~github.Metadata`
         """
 
         data = await self._http.fetch_query_metadata(**kwargs)
@@ -190,12 +179,9 @@ class Client(graphql.client.Client):
         """
         |coro|
 
-        Fetches GitHub rate limit data.
+        Fetches instance rate limit data.
 
-        Returns
-        -------
-        :class:`~github.RateLimit`
-            GitHub rate limit data.
+        :rtype: :class:`~github.RateLimit`
         """
 
         data = await self._http.fetch_query_rate_limit(**kwargs)
@@ -217,10 +203,8 @@ class Client(graphql.client.Client):
         ~github.errors.ClientResponseGraphQLNotFoundError
             A topic with the provided name does not exist.
 
-        Returns
-        -------
-        :class:`~github.Topic`
-            A topic.
+
+        :rtype: :class:`~github.Topic`
         """
 
         data = await self._http.fetch_query_topic(name, **kwargs)
