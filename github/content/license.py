@@ -229,6 +229,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
+
         :rtype: :class:`str`
         """
 
@@ -247,6 +248,7 @@ class License(Node, Type):
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
+
 
         :rtype: Optional[:class:`str`]
         """
@@ -267,6 +269,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
+
         :rtype: List[:class:`~github.LicenseRule`]
         """
 
@@ -285,6 +288,7 @@ class License(Node, Type):
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
+
 
         :rtype: Optional[:class:`str`]
         """
@@ -305,6 +309,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
+
         :rtype: :class:`str`
         """
 
@@ -323,6 +328,7 @@ class License(Node, Type):
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
+
 
         :rtype: Optional[:class:`str`]
         """
@@ -343,6 +349,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
+
         :rtype: :class:`bool`
         """
 
@@ -361,6 +368,7 @@ class License(Node, Type):
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
+
 
         :rtype: :class:`bool`
         """
@@ -381,6 +389,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
+
         :rtype: :class:`bool`
         """
 
@@ -399,6 +408,7 @@ class License(Node, Type):
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
+
 
         :rtype: :class:`str`
         """
@@ -419,6 +429,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
+
         :rtype: List[:class:`~github.LicenseRule`]
         """
 
@@ -437,6 +448,7 @@ class License(Node, Type):
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
+
 
         :rtype: :class:`str`
         """
@@ -457,6 +469,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
+
         :rtype: Optional[:class:`str`]
         """
 
@@ -476,6 +489,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
+
         :rtype: List[:class:`~github.LicenseRule`]
         """
 
@@ -494,6 +508,7 @@ class License(Node, Type):
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
+
 
         :rtype: Optional[:class:`str`]
         """

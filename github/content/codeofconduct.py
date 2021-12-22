@@ -136,6 +136,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
             a repository-level code of conduct) The :attr:`id` and
             :attr:`url` attributes are missing.
 
+
         :rtype: :class:`str`
         """
 
@@ -155,6 +156,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
             :attr:`id` and :attr:`key` attributes are missing. OR; (on
             a repository-level code of conduct) The :attr:`id` and
             :attr:`url` attributes are missing.
+
 
         :rtype: :class:`str`
         """
@@ -176,6 +178,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
             a repository-level code of conduct) The :attr:`id` and
             :attr:`url` attributes are missing.
 
+
         :rtype: :class:`str`
         """
 
@@ -195,6 +198,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
             :attr:`id` and :attr:`key` attributes are missing. OR; (on
             a repository-level code of conduct) The :attr:`id` and
             :attr:`url` attributes are missing.
+
 
         :rtype: :class:`str`
         """
@@ -216,6 +220,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
             a repository-level code of conduct) The :attr:`id` and
             :attr:`url` attributes are missing.
 
+
         :rtype: Optional[:class:`str`]
         """
 
@@ -235,6 +240,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
             :attr:`id` and :attr:`key` attributes are missing. OR; (on
             a repository-level code of conduct) The :attr:`id` and
             :attr:`url` attributes are missing.
+
 
         :rtype: Optional[:class:`str`]
         """

@@ -62,6 +62,7 @@ class UniformResourceLocatable:
         ~github.errors.ClientObjectMissingFieldError
             The :attr:`url` attribute is missing.
 
+
         :rtype: :class:`str`
         """
 
@@ -77,6 +78,7 @@ class UniformResourceLocatable:
         ------
         ~github.errors.ClientObjectMissingFieldError
             The :attr:`url` attribute is missing.
+
 
         :rtype: :class:`str`
         """

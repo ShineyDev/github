@@ -57,6 +57,7 @@ class Starrable(Node):
         ~github.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
 
+
         :rtype: :class:`int`
         """
 
@@ -72,6 +73,7 @@ class Starrable(Node):
         ------
         ~github.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
+
 
         :rtype: :class:`bool`
         """
