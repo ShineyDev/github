@@ -208,7 +208,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_topic(name, **kwargs)
-        return Topic(data)
+        return Topic(data, self._http)
 
 
 __all__ = [
