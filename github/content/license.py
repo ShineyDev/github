@@ -229,10 +229,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        :class:`str`
-            The body of the license.
+        :rtype: :class:`str`
         """
 
         return await self._fetch_field("body")
@@ -251,10 +248,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        Optional[:class:`str`]
-            A URL to the license on |choosealicense|.
+        :rtype: Optional[:class:`str`]
         """
 
         return await self._fetch_field("url")
@@ -273,10 +267,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        List[:class:`~github.LicenseRule`]
-            The conditions of the license.
+        :rtype: List[:class:`~github.LicenseRule`]
         """
 
         return LicenseRule(await self._fetch_field("conditions"))
@@ -295,10 +286,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        Optional[:class:`str`]
-            A description of the license.
+        :rtype: Optional[:class:`str`]
         """
 
         return await self._fetch_field("description")
@@ -317,10 +305,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        :class:`str`
-            The ID of the node.
+        :rtype: :class:`str`
         """
 
         return await super().fetch_id()
@@ -339,10 +324,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        Optional[:class:`str`]
-            A guide to implementing the license.
+        :rtype: Optional[:class:`str`]
         """
 
         return await self._fetch_field("implementation")
@@ -361,10 +343,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        :class:`bool`
-            Whether the license is featured.
+        :rtype: :class:`bool`
         """
 
         return await self._fetch_field("featured")
@@ -383,10 +362,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        :class:`bool`
-            Whether the license is hidden.
+        :rtype: :class:`bool`
         """
 
         return await self._fetch_field("hidden")
@@ -405,10 +381,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        :class:`bool`
-            Whether the license is pseudo.
+        :rtype: :class:`bool`
         """
 
         return await self._fetch_field("pseudoLicense")
@@ -427,10 +400,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        :class:`str`
-            The machine-readable key of the license.
+        :rtype: :class:`str`
         """
 
         return await self._fetch_field("key")
@@ -449,10 +419,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        List[:class:`~github.LicenseRule`]
-            The limitations of the license.
+        :rtype: List[:class:`~github.LicenseRule`]
         """
 
         return LicenseRule(await self._fetch_field("limitations"))
@@ -471,10 +438,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        :class:`str`
-            The human-readable name of the license.
+        :rtype: :class:`str`
         """
 
         return await self._fetch_field("name")
@@ -493,10 +457,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        Optional[:class:`str`]
-            The human-readable nickname of the license.
+        :rtype: Optional[:class:`str`]
         """
 
         return await self._fetch_field("nickname")
@@ -515,10 +476,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        List[:class:`~github.LicenseRule`]
-            The permissions of the license.
+        :rtype: List[:class:`~github.LicenseRule`]
         """
 
         return LicenseRule(await self._fetch_field("permissions"))
@@ -537,10 +495,7 @@ class License(Node, Type):
             attribute is missing. OR; (on a repository-level license)
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        Optional[:class:`str`]
-            The ID of the license on |spdx|.
+        :rtype: Optional[:class:`str`]
         """
 
         return await self._fetch_field("spdxId")

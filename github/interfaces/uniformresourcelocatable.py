@@ -62,10 +62,7 @@ class UniformResourceLocatable:
         ~github.errors.ClientObjectMissingFieldError
             The :attr:`url` attribute is missing.
 
-        Returns
-        -------
-        :class:`str`
-            An HTTP path to the resource.
+        :rtype: :class:`str`
         """
 
         return await self._fetch_field("resourcePath")
@@ -81,10 +78,7 @@ class UniformResourceLocatable:
         ~github.errors.ClientObjectMissingFieldError
             The :attr:`url` attribute is missing.
 
-        Returns
-        -------
-        :class:`str`
-            An HTTP URL to the resource.
+        :rtype: :class:`str`
         """
 
         return await self._fetch_field("url")

@@ -52,10 +52,7 @@ class Topic(Starrable, Type):
         ~github.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        :class:`str`
-            The name of the topic.
+        :rtype: :class:`str`
         """
 
         return await self._fetch_field("name")

@@ -136,10 +136,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
             a repository-level code of conduct) The :attr:`id` and
             :attr:`url` attributes are missing.
 
-        Returns
-        -------
-        :class:`str`
-            The body of the code of conduct.
+        :rtype: :class:`str`
         """
 
         return await self._fetch_field("body")
@@ -159,10 +156,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
             a repository-level code of conduct) The :attr:`id` and
             :attr:`url` attributes are missing.
 
-        Returns
-        -------
-        :class:`str`
-            The ID of the node.
+        :rtype: :class:`str`
         """
 
         return await super().fetch_id()
@@ -182,10 +176,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
             a repository-level code of conduct) The :attr:`id` and
             :attr:`url` attributes are missing.
 
-        Returns
-        -------
-        :class:`str`
-            The machine-readable key of the code of conduct.
+        :rtype: :class:`str`
         """
 
         return await self._fetch_field("key")
@@ -205,10 +196,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
             a repository-level code of conduct) The :attr:`id` and
             :attr:`url` attributes are missing.
 
-        Returns
-        -------
-        :class:`str`
-            The human-readable name of the code of conduct.
+        :rtype: :class:`str`
         """
 
         return await self._fetch_field("name")
@@ -228,10 +216,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
             a repository-level code of conduct) The :attr:`id` and
             :attr:`url` attributes are missing.
 
-        Returns
-        -------
-        Optional[:class:`str`]
-            An HTTP path to the resource.
+        :rtype: Optional[:class:`str`]
         """
 
         return await super().fetch_resource_path()
@@ -251,10 +236,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
             a repository-level code of conduct) The :attr:`id` and
             :attr:`url` attributes are missing.
 
-        Returns
-        -------
-        Optional[:class:`str`]
-            An HTTP URL to the resource.
+        :rtype: Optional[:class:`str`]
         """
 
         return await super().fetch_url()

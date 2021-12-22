@@ -57,10 +57,7 @@ class Starrable(Node):
         ~github.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        :class:`int`
-            The number of stars on the starrable.
+        :rtype: :class:`int`
         """
 
         return await self._fetch_field("stargazerCount")
@@ -76,10 +73,7 @@ class Starrable(Node):
         ~github.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        :class:`bool`
-            Whether the viewer has starred the starrable.
+        :rtype: :class:`bool`
         """
 
         return await self._fetch_field("viewerHasStarred")

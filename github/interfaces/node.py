@@ -75,10 +75,7 @@ class Node:
         ~github.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
 
-        Returns
-        -------
-        :class:`str`
-            The ID of the node.
+        :rtype: :class:`str`
         """
 
         return await self._fetch_field("id")
