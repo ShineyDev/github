@@ -183,6 +183,13 @@ class HTTPClient(graphql.client.HTTPClient):
 
         return value
 
+    async def fetch_topic_related_topics(self, topic_id, limit, *, fields=None):
+        fields = github.utils._get_merged_graphql_fields(github.Topic, fields)
+        query = "query($topic_id:ID!,$limit:Int){node(id:$topic_id){...on Topic{relatedTopics(first:$limit){%s}}}}" % ",".join(fields)
+        path = ("node", "relatedTopics")
+
+        return await self._fetch(query, *path, limit=limit, topic_id=topic_id)
+
 
 __all__ = [
     "HTTPClient",

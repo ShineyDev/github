@@ -58,6 +58,29 @@ class Topic(Starrable, Type):
 
         return await self._fetch_field("name")
 
+    async def fetch_related_topics(self, *, limit=None, **kwargs):
+        """
+        |coro|
+
+        Fetches topics related to the topic.
+
+        Parameters
+        ----------
+        limit: :class:`int`
+            The number of related topics to fetch. Defaults to 3.
+
+        Raises
+        ------
+        ~github.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: List[:class:`~github.Topic`]
+        """
+
+        data = await self._http.fetch_topic_related_topics(self.id, limit, **kwargs)
+        return Topic(data)
+
 
 __all__ = [
     "Topic",
