@@ -20,6 +20,10 @@ Errors
     :inherited-members:
     :exclude-members: with_traceback
 
+.. autoclass:: ClientResponseGraphQLArgumentValueRangeExceededError()
+    :inherited-members:
+    :exclude-members: with_traceback
+
 .. autoclass:: ClientResponseGraphQLForbiddenError()
     :inherited-members:
     :exclude-members: with_traceback
@@ -71,6 +75,7 @@ Hierarchy
           +-- ClientObjectMissingFieldError
           +-- ClientResponseError
                +-- ClientResponseGraphQLError
+               |    +-- ClientResponseGraphQLArgumentValueRangeExceededError
                |    +-- ClientResponseGraphQLForbiddenError
                |    +-- ClientResponseGraphQLInsufficientScopesError
                |    +-- ClientResponseGraphQLInternalError

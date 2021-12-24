@@ -40,6 +40,23 @@ class ClientResponseGraphQLError(graphql.client.ClientResponseGraphQLError, Clie
     __slots__ = ()
 
 
+class ClientResponseGraphQLArgumentValueRangeExceededError(ClientResponseGraphQLError):
+    """
+    Represents a GraphQL ``"ARGUMENT_LIMIT"`` response.
+
+    Attributes
+    ----------
+    message: :class:`str`
+        The error message.
+    response: :class:`aiohttp.ClientResponse`
+        The client response.
+    data: :class:`dict`
+        The response data.
+    """
+
+    __slots__ = ()
+
+
 class ClientResponseGraphQLForbiddenError(ClientResponseGraphQLError):
     """
     Represents a GraphQL ``"FORBIDDEN"`` response.
@@ -190,6 +207,8 @@ class ClientResponseHTTPUnauthorizedError(ClientResponseHTTPError):
 
 
 _response_error_map = {
+    "ARGUMENT_LIMIT": ClientResponseGraphQLArgumentValueRangeExceededError,
+    "EXCESSIVE_PAGINATION": ClientResponseGraphQLArgumentValueRangeExceededError,
     "FORBIDDEN": ClientResponseGraphQLForbiddenError,
     "INSUFFICIENT_SCOPES": ClientResponseGraphQLInsufficientScopesError,
     "INTERNAL": ClientResponseGraphQLInternalError,
@@ -215,6 +234,7 @@ __all__ = [
     "ClientObjectMissingFieldError",
     "ClientResponseError",
     "ClientResponseGraphQLError",
+    "ClientResponseGraphQLArgumentValueRangeExceededError",
     "ClientResponseGraphQLForbiddenError",
     "ClientResponseGraphQLInsufficientScopesError",
     "ClientResponseGraphQLInternalError",
