@@ -1,3 +1,5 @@
+from github.interfaces.actor import *
+from github.interfaces.actor import __all__ as _actor__all__
 from github.interfaces.node import *
 from github.interfaces.node import __all__ as _node__all__
 from github.interfaces.starrable import *
@@ -9,6 +11,7 @@ from github.interfaces.uniformresourcelocatable import __all__ as _uniformresour
 
 
 __all__ = [
+    *_actor__all__,
     *_node__all__,
     *_starrable__all__,
     *_type__all__,

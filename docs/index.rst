@@ -16,6 +16,7 @@ An asynchronous Python library for interaction with GitHub's GraphQL API.
     :caption: Interfaces
     :maxdepth: 1
 
+    interfaces/actor
     interfaces/node
     interfaces/starrable
     interfaces/uniformresourcelocatable
