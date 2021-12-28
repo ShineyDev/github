@@ -35,7 +35,7 @@ class UniformResourceLocatable:
 
         return self._get_field("url")
 
-    async def _fetch_field(self, field):
+    async def _fetch_field(self, field, *, save=True):
         try:
             url = self.url
         except ClientObjectMissingFieldError:
@@ -48,7 +48,9 @@ class UniformResourceLocatable:
 
         value = data[field]
 
-        self._data[field] = value
+        if save:
+            self._data[field] = value
+
         return value
 
     async def fetch_resource_path(self):

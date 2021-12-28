@@ -187,7 +187,7 @@ class License(Node, Type):
 
         return self._get_field("spdxId")
 
-    async def _fetch_field(self, field):
+    async def _fetch_field(self, field, *, save=True):
         try:
             id = self.id
         except ClientObjectMissingFieldError:
@@ -212,7 +212,9 @@ class License(Node, Type):
 
         value = data[field]
 
-        self._data[field] = value
+        if save:
+            self._data[field] = value
+
         return value
 
     async def fetch_body(self):

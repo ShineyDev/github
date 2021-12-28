@@ -48,7 +48,7 @@ class Node:
 
         return self._get_field("id")
 
-    async def _fetch_field(self, field):
+    async def _fetch_field(self, field, *, save=True):
         try:
             id = self.id
         except ClientObjectMissingFieldError:
@@ -61,7 +61,9 @@ class Node:
 
         value = data[field]
 
-        self._data[field] = value
+        if save:
+            self._data[field] = value
+
         return value
 
     async def fetch_id(self):
