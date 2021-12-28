@@ -1,20 +1,6 @@
-from .node import Node
-
-
-class Starrable(Node):
+class Starrable:
     """
     Represents an object that can be starred.
-
-    .. container:: operations
-
-        .. describe:: x == y
-        .. describe:: x != y
-
-            Compares two objects by their :attr:`ID <.id>`.
-
-        .. describe:: hash(x)
-
-            Returns the hash of the object's :attr:`ID <.id>`.
     """
 
     __slots__ = ()

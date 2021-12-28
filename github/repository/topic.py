@@ -1,7 +1,7 @@
-from github.interfaces import Starrable, Type
+from github.interfaces import Node, Starrable, Type
 
 
-class Topic(Starrable, Type):
+class Topic(Node, Starrable, Type):
     """
     Represents a repository topic.
 

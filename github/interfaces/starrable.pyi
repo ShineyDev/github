@@ -1,6 +1,4 @@
-from github.interfaces import Node
-
-class Starrable(Node):
+class Starrable:
     @property
     def stargazer_count(self) -> int: ...
     @property
