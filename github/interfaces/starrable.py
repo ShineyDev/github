@@ -38,12 +38,6 @@ class Starrable:
 
         Fetches the number of stars on the starrable.
 
-        Raises
-        ------
-        ~github.errors.ClientObjectMissingFieldError
-            The :attr:`id` attribute is missing.
-
-
         :rtype: :class:`int`
         """
 
@@ -54,12 +48,6 @@ class Starrable:
         |coro|
 
         Fetches whether the viewer has starred the starrable.
-
-        Raises
-        ------
-        ~github.errors.ClientObjectMissingFieldError
-            The :attr:`id` attribute is missing.
-
 
         :rtype: :class:`bool`
         """
