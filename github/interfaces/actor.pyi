@@ -1,6 +1,3 @@
-from github.interfaces import UniformResourceLocatable
-
-
 class Actor:
     @property
     def avatar_url(self) -> str: ...
