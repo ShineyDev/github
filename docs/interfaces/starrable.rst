@@ -6,4 +6,3 @@ Starrable
 
 .. autoclass:: Starrable()
     :members:
-    :inherited-members:
