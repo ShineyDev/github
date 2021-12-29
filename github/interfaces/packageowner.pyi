@@ -1,0 +1,2 @@
+class PackageOwner:
+    pass
