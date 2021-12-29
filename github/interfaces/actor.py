@@ -9,8 +9,6 @@ class Actor:
         "login",
     ]
 
-    _graphql_type = "Actor"
-
     _graphql_fields = [
         "avatarUrl",
         "login",

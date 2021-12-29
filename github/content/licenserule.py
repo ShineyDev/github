@@ -12,8 +12,6 @@ class LicenseRule(Type):
         "key",
     ]
 
-    _graphql_type = "LicenseRule"
-
     _graphql_fields = [
         "description",
         "key",

@@ -96,6 +96,15 @@ def _database_to_cursor(id):
 #     return int(id)
 
 
+def _get_graphql_type(type):
+    try:
+        name = type._graphql_type
+    except AttributeError:
+        name = type.__name__
+
+    return name
+
+
 _empty_dict = dict()
 
 

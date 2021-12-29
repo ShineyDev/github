@@ -26,8 +26,6 @@ class License(Node, Type):
         "key",
     ]
 
-    _graphql_type = "License"
-
     _graphql_fields = {
         "body": "body",
         "choosealicense_url": "url",

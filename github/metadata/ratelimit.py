@@ -10,8 +10,6 @@ class RateLimit(Type):
 
     __slots__ = ()
 
-    _graphql_type = "RateLimit"
-
     _graphql_fields = {
         "limit": "limit",
         "remaining": "remaining",

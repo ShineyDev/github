@@ -23,8 +23,6 @@ class Topic(Node, Starrable, Type):
         "name",
     ]
 
-    _graphql_type = "Topic"
-
     _graphql_fields = [
         "name",
     ]

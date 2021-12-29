@@ -5,8 +5,6 @@ class Starrable:
 
     __slots__ = ()
 
-    _graphql_type = "Starrable"
-
     _graphql_fields = {
         "stargazer_count": "stargazerCount",
         "viewer_has_starred": "viewerHasStarred",

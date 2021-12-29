@@ -135,7 +135,7 @@ class HTTPClient(graphql.client.HTTPClient):
 
     async def fetch_query_node(self, type, id, *, fields=None):
         fields = github.utils._get_merged_graphql_fields(type, fields)
-        query = "query($id:ID!){node(id:$id){...on %s{%s}}}" % (type._graphql_type, ",".join(fields))
+        query = "query($id:ID!){node(id:$id){...on %s{%s}}}" % (github.utils._get_graphql_type(type), ",".join(fields))
         path = ("node",)
 
         value = await self._fetch(query, *path, id=id)
@@ -154,7 +154,7 @@ class HTTPClient(graphql.client.HTTPClient):
 
     async def fetch_query_resource(self, type, url, *, fields=None):
         fields = github.utils._get_merged_graphql_fields(type, fields)
-        query = "query($url:URI!){resource(url:$url){...on %s{%s}}}" % (type._graphql_type, ",".join(fields))
+        query = "query($url:URI!){resource(url:$url){...on %s{%s}}}" % (github.utils._get_graphql_type(type), ",".join(fields))
         path = ("resource",)
 
         value = await self._fetch(query, *path, url=url)
