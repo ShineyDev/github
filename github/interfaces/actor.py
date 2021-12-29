@@ -47,6 +47,7 @@ class Actor:
         size: :class:`int`
             The width of the square image in pixels.
 
+
         :rtype: :class:`str`
         """
 
