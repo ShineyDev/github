@@ -7,8 +7,6 @@ class PackageOwner:
 
     __slots__ = ()
 
-    _graphql_type = "PackageOwner"
-
 
 __all__ = [
     "PackageOwner",
