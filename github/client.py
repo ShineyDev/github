@@ -13,7 +13,7 @@ class Client(graphql.client.Client):
     Parameters
     ----------
     token: :class:`str`
-        A |PAT|.
+        A |pat|.
     session: :class:`aiohttp.ClientSession`
         A client session.
     user_agent: :class:`str`
