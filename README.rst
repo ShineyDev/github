@@ -27,7 +27,7 @@
 .. raw:: html
 
     <h1 align="center">ShineyDev/github</h1>
-    <p align="center">An asynchronous Python library for interaction with GitHub's GraphQL API.<br><a href="https://docs.shiney.dev/github">documentation</a> | <a href="https://github.com/ShineyDev/github/tree/dotcom/examples">examples</a></p>
+    <p align="center">An asynchronous Python library for interaction with GitHub's GraphQL API.<br><a href="https://docs.shiney.dev/github">documentation</a></p>
 
 
 Install
