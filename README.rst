@@ -45,8 +45,10 @@ Use
 
     >>> import aiohttp
     >>> import github
+    >>>
     >>> session = aiohttp.ClientSession()
     >>> client = github.Client(token="...", session=session)
+    >>>
     >>> await client.request("{viewer{login}}")
     {'viewer': {'login': 'nat'}}
 
