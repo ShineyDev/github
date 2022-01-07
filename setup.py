@@ -16,6 +16,8 @@ packages = [
     "github",
     "github.content",
     "github.interfaces",
+    "github.metadata",
+    "github.repository",
 ]
 
 _version_regex = r"^version = ('|\")((?:[0-9]+\.)*[0-9]+(?:\.?([a-z]+)(?:\.?[0-9])?)?)\1$"
