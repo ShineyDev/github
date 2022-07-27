@@ -13,17 +13,6 @@ An asynchronous Python library for interaction with GitHub's GraphQL API.
 
 
 .. toctree::
-    :caption: Interfaces
-    :maxdepth: 1
-
-    interfaces/actor
-    interfaces/node
-    interfaces/packageowner
-    interfaces/starrable
-    interfaces/uniformresourcelocatable
-
-
-.. toctree::
     :caption: Content
     :maxdepth: 1
 
@@ -33,18 +22,29 @@ An asynchronous Python library for interaction with GitHub's GraphQL API.
 
 
 .. toctree::
-    :caption: Metadata
-    :maxdepth: 1
-
-    metadata/metadata
-    metadata/ratelimit
-
-
-.. toctree::
     :caption: Repository
     :maxdepth: 1
 
     repository/topic
+
+
+.. toctree::
+    :caption: Connection
+    :maxdepth: 1
+
+    connection/metadata
+    connection/ratelimit
+
+
+.. toctree::
+    :caption: Interfaces
+    :maxdepth: 1
+
+    interfaces/actor
+    interfaces/node
+    interfaces/packageowner
+    interfaces/starrable
+    interfaces/uniformresourcelocatable
 
 
 .. toctree::
