@@ -49,7 +49,7 @@ autodoc_member_order = "groupwise"
 autodoc_typehints = "none"
 
 extlinks = {
-    "issue": (f"https://github.com/{author}/{project}/issues/%s", "#"),
+    "issue": (f"https://github.com/{author}/{project}/issues/%s", "#%s"),
 }
 
 intersphinx_mapping = {
