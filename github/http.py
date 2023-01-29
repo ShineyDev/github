@@ -5,7 +5,7 @@ import graphql
 import github
 
 
-class HTTPClient(graphql.client.HTTPClient):
+class HTTPClient(graphql.client.http.HTTPClient):
     __slots__ = ("token", "user_agent", "uuid")
 
     def __init__(self, token, session, user_agent):
