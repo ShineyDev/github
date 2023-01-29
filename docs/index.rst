@@ -3,56 +3,31 @@ github
 
 An asynchronous Python library for interaction with GitHub's GraphQL API.
 
-
 .. toctree::
-    :caption: Client
+    :caption: Guide
     :maxdepth: 1
 
-    client/client
-    client/errors
-
-
-.. toctree::
-    :caption: Content
-    :maxdepth: 1
-
-    content/codeofconduct
-    content/license
-    content/licenserule
-
+    guide/installation
+    guide/introduction
+    guide/usage/index
 
 .. toctree::
-    :caption: Repository
-    :maxdepth: 1
+    :caption: Reference
+    :maxdepth: 2
 
-    repository/topic
-
-
-.. toctree::
-    :caption: Connection
-    :maxdepth: 1
-
-    connection/metadata
-    connection/ratelimit
-
+    reference/github/client/index
+    reference/github/connection/index
+    reference/github/content/index
+    reference/github/repository/index
+    reference/github/interfaces/index
+    reference/glossary
 
 .. toctree::
-    :caption: Interfaces
+    :caption: Project
     :maxdepth: 1
 
-    interfaces/actor
-    interfaces/node
-    interfaces/packageowner
-    interfaces/starrable
-    interfaces/uniformresourcelocatable
-
-
-.. toctree::
-    :caption: Meta
-    :maxdepth: 1
-
-    meta/implementation
-    meta/versioning
+    project/implementation
+    project/versioning
 
 
 Still can't find what you're looking for?
