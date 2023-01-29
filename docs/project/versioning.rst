@@ -1,19 +1,13 @@
-Version Guarantees
-==================
+Versioning
+==========
 
 This document outlines the version guarantees of the library.
 
 
-What?
------
+Guaruntees
+----------
 
-This library follows the following modified |semver_link|_ principle.
-
-
-.. important::
-
-    Incompatible changes apply only to non-preview documented APIs in a final release.
-
+This library follows the modified |semver_link|_ principle described below.
 
 Given a version number PRIME.MAJOR.MINOR.MICRO, increment the:
 
@@ -22,33 +16,31 @@ Given a version number PRIME.MAJOR.MINOR.MICRO, increment the:
 - MINOR version when you add functionality in a compatible manner, and;
 - MICRO version when you make compatible bug fixes.
 
+.. important::
 
-..  Why?
-    ----
+    Incompatible changes apply only to non-preview documented APIs in a final release.
 
-    GitHub's GraphQL API follows a |calver_link|_ principle.
 
-    An incompatible changeset is enacted on the first day of each quarter, starting 01-01. The
-    changeset is (usually) publicized at least three months in advance.
+Explanation
+-----------
 
-    When GitHub creates an entry, the respective APIs in this library are marked as deprecated in a
-    MICRO version. When the changeset is enacted, the respective APIs in this library are modified
-    in a MAJOR version.
+GitHub's GraphQL API follows a |calver_link|_ principle.
 
-    .. TODO: also GitHubbers are humans too.
+An incompatible changeset is (supposed to be) enacted on the first day of each quarter. The
+changeset is (usually) publicized at least three months in advance.
 
-    Something I angrily noted when I was drafting this document is that whether I use
-    |calver_link|_ or |semver_link|_ for this library, the outcome is identical. The API will break
-    on the same date, in the same way.
+When a changeset is created, the affected APIs in this library are marked as deprecated in a MICRO
+version. When a changeset is enacted, the affected APIs in this library are updated in a MAJOR
+version.
+
+It's worth noting that whether I use |calver_link|_ or |semver_link|_, the API will break on the
+same date, and in the same way. This changeset process is designed to minimize disruption to users,
+while allowing me to clearly communicate the nature and severity of changes to this library and
+GitHub's GraphQL API.
 
 
 Examples
 --------
-
-.. note::
-
-    The following examples are non-exhaustive.
-
 
 Examples of incompatible changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
