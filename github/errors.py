@@ -8,7 +8,7 @@ class ClientError(graphql.client.ClientError):
     __slots__ = ()
 
 
-class ClientObjectMissingFieldError(AttributeError, ClientError):
+class ClientObjectMissingFieldError(ClientError):
     """
     Represents an :exc:`AttributeError` caused by a missing field.
 
