@@ -27,14 +27,14 @@ class HTTPClient(graphql.client.http.HTTPClient):
             raise
         except graphql.client.ClientResponseHTTPError as e:
             try:
-                exc_type = github.errors._response_error_map[e.response.status]
+                exc_type = github.client.errors._response_error_map[e.response.status]
             except KeyError:
                 exc_type = github.ClientResponseHTTPError
 
             raise exc_type(e.message, e.response, e.data) from e
         except graphql.client.ClientResponseGraphQLError as e:
             try:
-                exc_type = github.errors._response_error_map[e.data["errors"][0]["type"]]
+                exc_type = github.client.errors._response_error_map[e.data["errors"][0]["type"]]
             except KeyError:
                 exc_type = github.ClientResponseGraphQLError
 

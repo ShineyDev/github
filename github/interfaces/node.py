@@ -1,4 +1,4 @@
-from github.errors import ClientObjectMissingFieldError
+from github.client.errors import ClientObjectMissingFieldError
 
 
 class Node:
@@ -72,7 +72,7 @@ class Node:
 
         Raises
         ------
-        ~github.errors.ClientObjectMissingFieldError
+        ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
 
 

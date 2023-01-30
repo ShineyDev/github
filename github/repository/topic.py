@@ -47,7 +47,7 @@ class Topic(Node, Starrable, Type):
 
         Raises
         ------
-        ~github.errors.ClientObjectMissingFieldError
+        ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
 
 
@@ -69,7 +69,7 @@ class Topic(Node, Starrable, Type):
 
         Raises
         ------
-        ~github.errors.ClientObjectMissingFieldError
+        ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
 
 

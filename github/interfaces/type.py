@@ -1,5 +1,5 @@
 from github import utils
-from github.errors import ClientObjectMissingFieldError
+from github.client.errors import ClientObjectMissingFieldError
 
 
 class Type:

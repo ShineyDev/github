@@ -2,7 +2,6 @@ from typing import NamedTuple
 
 from github import utils as utils
 from github.client import *
-from github.errors import *
 from github.interfaces import *
 from github.content import *
 from github.metadata import *

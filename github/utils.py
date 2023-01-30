@@ -19,7 +19,7 @@ def datetime_to_iso(dt):
         _warn_once(
             "using timezone-unaware datetime is not recommended, use aware datetime instead. for example, use datetime.now(timezone.utc) instead of "
             "datetime.utcnow(). assuming UTC for now.",
-            github.errors.ClientDeprecationWarning,
+            github.client.errors.ClientDeprecationWarning,
             2,
         )
 
@@ -38,7 +38,7 @@ def datetime_to_iso(dt):
         if rest:
             _warn_once(
                 "using timezone with second or millisecond offset is not allowed. truncating to hours and minutes.",
-                github.errors.ClientDeprecationWarning,
+                github.client.errors.ClientDeprecationWarning,
                 2,
             )
 
@@ -167,10 +167,10 @@ def _get_defined_repr_fields(type):
 
 def _changing(callable=None, *, what=None, when=None, where=None, who=None, why=None):
     if when:
-        who = who or github.errors.ServerDeprecationWarning
+        who = who or github.client.errors.ServerDeprecationWarning
         when = f"on {when}"
     else:
-        who = who or github.errors.ClientDeprecationWarning
+        who = who or github.client.errors.ClientDeprecationWarning
         when = "in the next prime version"
 
     def decorator(callable):
@@ -201,10 +201,10 @@ def _changing(callable=None, *, what=None, when=None, where=None, who=None, why=
 
 def _deprecated(callable=None, *, what=None, when=None, where=None, who=None, why=None):
     if when:
-        who = who or github.errors.ServerDeprecationWarning
+        who = who or github.client.errors.ServerDeprecationWarning
         when = f"on {when}"
     else:
-        who = who or github.errors.ClientDeprecationWarning
+        who = who or github.client.errors.ClientDeprecationWarning
         when = "in the next prime version"
 
     def decorator(callable):

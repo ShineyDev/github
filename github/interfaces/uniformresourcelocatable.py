@@ -1,4 +1,4 @@
-from github.errors import ClientObjectMissingFieldError
+from github.client.errors import ClientObjectMissingFieldError
 
 
 class UniformResourceLocatable:
@@ -59,7 +59,7 @@ class UniformResourceLocatable:
 
         Raises
         ------
-        ~github.errors.ClientObjectMissingFieldError
+        ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`url` attribute is missing.
 
 
@@ -76,7 +76,7 @@ class UniformResourceLocatable:
 
         Raises
         ------
-        ~github.errors.ClientObjectMissingFieldError
+        ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`url` attribute is missing.
 
 
