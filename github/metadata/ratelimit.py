@@ -1,4 +1,4 @@
-from github import utils
+from github import utilities
 from github.client.errors import ClientObjectMissingFieldError
 from github.interfaces import Type
 
@@ -69,7 +69,7 @@ class RateLimit(Type):
         :type: :class:`~datetime.datetime`
         """
 
-        return utils.iso_to_datetime(self._get_field("resetAt"))
+        return utilities.iso_to_datetime(self._get_field("resetAt"))
 
     @property
     def used(self):

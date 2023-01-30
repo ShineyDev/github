@@ -1,4 +1,4 @@
-from github import utils
+from github import utilities
 from github.client.errors import ClientObjectMissingFieldError
 
 
@@ -18,7 +18,7 @@ class Type:
             self._http = http
 
     def __repr__(self):
-        d_fields = utils._get_defined_repr_fields(self.__class__)
+        d_fields = utilities.get_defined_repr_fields(self.__class__)
 
         f_fields = dict()
         for name in d_fields:

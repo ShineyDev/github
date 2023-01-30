@@ -1,6 +1,6 @@
 import collections
 
-from github import utils
+from github import utilities
 from github.client import *
 from github.client import __all__ as _client__all__
 from github.interfaces import *
@@ -14,7 +14,7 @@ from github.repository import __all__ as _repository__all__
 
 
 __all__ = [
-    "utils",
+    "utilities",
     *_client__all__,
     *_interfaces__all__,
     *_content__all__,

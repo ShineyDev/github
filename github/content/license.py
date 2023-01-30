@@ -1,4 +1,4 @@
-from github import utils
+from github import utilities
 from github.client.errors import ClientObjectMissingFieldError
 from github.interfaces import Node, Type
 from .licenserule import LicenseRule
@@ -29,17 +29,17 @@ class License(Node, Type):
     _graphql_fields = {
         "body": "body",
         "choosealicense_url": "url",
-        "conditions": "conditions{%s}" % ",".join(utils._get_defined_graphql_fields(LicenseRule)),
+        "conditions": "conditions{%s}" % ",".join(utilities.get_defined_graphql_fields(LicenseRule)),
         "description": "description",
         "implementation": "implementation",
         "is_featured": "featured",
         "is_hidden": "hidden",
         "is_pseudo": "pseudoLicense",
         "key": "key",
-        "limitations": "limitations{%s}" % ",".join(utils._get_defined_graphql_fields(LicenseRule)),
+        "limitations": "limitations{%s}" % ",".join(utilities.get_defined_graphql_fields(LicenseRule)),
         "name": "name",
         "nickname": "nickname",
-        "permissions": "permissions{%s}" % ",".join(utils._get_defined_graphql_fields(LicenseRule)),
+        "permissions": "permissions{%s}" % ",".join(utilities.get_defined_graphql_fields(LicenseRule)),
         "spdx_id": "spdxId",
     }
 
