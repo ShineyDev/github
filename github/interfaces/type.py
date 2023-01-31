@@ -5,6 +5,10 @@ from github.client.errors import ClientObjectMissingFieldError
 class Type:
     __slots__ = ("_data", "_http")
 
+    _graphql_fields = [
+        "__typename",
+    ]
+
     def __new__(cls, data, http=None):
         if isinstance(data, list):
             return [cls(o, http) for o in data]
@@ -38,12 +42,8 @@ class Type:
     def _get_field(self, field):
         try:
             return self._data[field]
-        except KeyError as e:
+        except KeyError:
             raise ClientObjectMissingFieldError(field) from None
-
-    _graphql_fields = [
-        "__typename",
-    ]
 
 
 __all__ = [
