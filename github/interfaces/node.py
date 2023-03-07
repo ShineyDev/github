@@ -41,15 +41,19 @@ class Node:
     _data: NodeData
     _http: HTTPClient
 
+    _repr_fields: list[str] = [
+        "id",
+    ]
+
+    _graphql_fields: list[str] = [
+        "id",
+    ]
+
     def __hash__(
         self: Self,
         /,
     ) -> int:
         return hash(self.id)
-
-    _repr_fields: list[str] = [
-        "id",
-    ]
 
     def __eq__(
         self: Self,
@@ -60,10 +64,6 @@ class Node:
             return NotImplemented
 
         return self.id == other.id
-
-    _graphql_fields: list[str] = [
-        "id",
-    ]
 
     @property
     def id(
