@@ -11,7 +11,7 @@ project = "github"
 
 copyright = f"2019-present, {author}"
 
-_version_regex = r"^version = ('|\")((?:[0-9]+\.)*[0-9]+(?:\.?([a-z]+)(?:\.?[0-9])?)?)\1$"
+_version_regex = r"^version(?:\s*:\s*str)?\s*=\s*('|\")((?:[0-9]+\.)*[0-9]+(?:\.?([a-z]+)(?:\.?[0-9])?)?)\1$"
 
 with open("../github/__init__.py") as stream:
     match = re.search(_version_regex, stream.read(), re.MULTILINE)

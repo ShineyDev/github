@@ -1,12 +1,34 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Any, Iterable
+
+    from github import Type
+    from github.utilities.typing import T_json_key, T_json_object, T_json_value
+
 import functools
-import operator
 
 
-def follow(data, path):
-    return functools.reduce(operator.getitem, path, data)
+def follow(
+    data: T_json_object,
+    path: Iterable[T_json_key],
+    /,
+) -> T_json_value:
+    def __getitem__(
+        object: T_json_object,
+        key: T_json_key,
+        /,
+    ) -> T_json_object:
+        return object[key]  # type: ignore
+
+    return functools.reduce(__getitem__, path, data)
 
 
-def get_graphql_type(type):
+def get_graphql_type(
+    type: type[Type],
+    /,
+) -> str:
     try:
         name = type._graphql_type
     except AttributeError:
@@ -15,61 +37,72 @@ def get_graphql_type(type):
     return name
 
 
-def get_defined_graphql_fields(type):
+def get_defined_graphql_fields(
+    type: type[Type],
+    /,
+) -> dict[str, str]:
     try:
-        d_fields = type._graphql_fields
-    except AttributeError:
-        d_fields = dict()
-    else:
-        if isinstance(d_fields, dict):
-            d_fields = d_fields.copy()
+        if isinstance(type._graphql_fields, dict):
+            defined_fields = type._graphql_fields.copy()
         else:
-            d_fields = {f: f for f in d_fields}
+            defined_fields = {f: f for f in type._graphql_fields}
+    except AttributeError:
+        defined_fields = dict()
 
     for type in type.__bases__:
         for (key, value) in get_defined_graphql_fields(type).items():
-            if key not in d_fields.keys():
-                d_fields[key] = value
+            if key not in defined_fields.keys():
+                defined_fields[key] = value
 
-    return d_fields
+    return defined_fields
 
 
-def get_merged_graphql_fields(type, r_fields=None):
-    d_fields = get_defined_graphql_fields(type)
+def get_merged_graphql_fields(
+    type: type[Type],
+    requested_fields: Iterable[str] | None = None,
+    /,
+) -> list[str]:
+    defined_fields = get_defined_graphql_fields(type)
 
-    if r_fields is None:
-        return list(d_fields.values())
+    if requested_fields is None:
+        return list(defined_fields.values())
 
-    if "__typename" not in r_fields:
-        r_fields += ("__typename",)
+    merged_fields = list(requested_fields)
 
-    r_fields = list(r_fields)
-    for (i, r_field) in enumerate(r_fields):
+    for (i, r_field) in enumerate(merged_fields):
         try:
-            r_field = d_fields[r_field]
+            r_field = defined_fields[r_field]
         except KeyError:
             pass
         else:
-            r_fields[i] = r_field
+            merged_fields[i] = r_field
 
-    return r_fields
+    if "__typename" not in merged_fields:
+        merged_fields.append("__typename")
+
+    return merged_fields
 
 
-def get_defined_repr_fields(type):
+def get_defined_repr_fields(
+    type: type[Type],
+    /,
+) -> list[str]:
     try:
-        d_fields = type._repr_fields.copy()
+        repr_fields = type._repr_fields.copy()
     except AttributeError:
-        d_fields = list()
+        repr_fields = list()
 
     for type in type.__bases__:
         for element in get_defined_repr_fields(type):
-            if element not in d_fields:
-                d_fields.append(element)
+            if element not in repr_fields:
+                repr_fields.append(element)
 
-    return sorted(d_fields)
+    return sorted(repr_fields)
 
 
-def wrap(wrapped):
+def wrap(
+    wrapped: Any,  # TODO
+) -> Any:  # TODO
     def decorator(wrapper):
         wrapper.__doc__ = wrapped.__doc__
         wrapper.__name__ = wrapped.__name__
@@ -80,7 +113,7 @@ def wrap(wrapped):
     return decorator
 
 
-__all__ = [
+__all__: list[str] = [
     "follow",
     "get_graphql_type",
     "get_defined_graphql_fields",

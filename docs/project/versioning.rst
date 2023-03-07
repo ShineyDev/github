@@ -20,6 +20,19 @@ Given a version number PRIME.MAJOR.MINOR.MICRO, increment the:
 
     Incompatible changes apply only to non-preview documented APIs in a final release.
 
+.. note::
+
+    Due to the nature of the Python typing ecosystem, there are a few things that are outright
+    detatched from the guarantees that this document provides.
+
+    - The type hints provided by this library are NOT guaranteed to be made compatible within a
+      MAJOR or PRIME version.
+    - The type hints provided by this library are designed to be compatible with the |pyright_link|
+      type checker and are NOT guaranteed to work with other type checkers.
+
+    Additionally, the presence of type hints is NOT necessarily an indication of the publicness of
+    an API.
+
 
 Explanation
 -----------
@@ -58,6 +71,9 @@ Examples of compatible changes
 
 .. |calver_link| replace:: calendar versioning
 .. _calver_link: https://calver.org/
+
+.. |pyright_link| replace:: pyright
+.. _pyright_link: https://github.com/microsoft/pyright
 
 .. |semver_link| replace:: semantic versioning
 .. _semver_link: https://semver.org/

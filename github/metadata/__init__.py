@@ -4,7 +4,7 @@ from github.metadata.ratelimit import *
 from github.metadata.ratelimit import __all__ as _ratelimit__all__
 
 
-__all__ = [
+__all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_metadata__all__,
     *_ratelimit__all__,
 ]

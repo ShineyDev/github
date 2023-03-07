@@ -1,3 +1,19 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing_extensions import Self
+
+
+if TYPE_CHECKING:
+    from typing import TypedDict
+
+
+    class ActorData(TypedDict):
+        avatarUrl: str
+        login: str
+
+
 class Actor:
     """
     Represents an object that can take action.
@@ -5,36 +21,49 @@ class Actor:
 
     __slots__ = ()
 
-    _repr_fields = [
+    _data: ActorData
+
+    _repr_fields: list[str] = [
         "login",
     ]
 
-    _graphql_fields = [
+    _graphql_fields: list[str] = [
         "avatarUrl",
         "login",
     ]
 
     @property
-    def avatar_url(self):
+    def avatar_url(
+        self: Self,
+        /,
+    ) -> str:
         """
         A URL to the avatar of the actor.
 
         :type: :class:`str`
         """
 
-        return self._get_field("avatarUrl")
+        return self._get_field("avatarUrl")  # type: ignore
 
     @property
-    def login(self):
+    def login(
+        self: Self,
+        /,
+    ) -> str:
         """
         The login of the actor.
 
         :type: :class:`str`
         """
 
-        return self._get_field("login")
+        return self._get_field("login")  # type: ignore
 
-    async def fetch_avatar_url(self, *, size=None):
+    async def fetch_avatar_url(
+        self: Self,
+        /,
+        *,
+        size: int | None = None,
+    ) -> str:
         """
         |coro|
 
@@ -56,9 +85,12 @@ class Actor:
             field = "avatarUrl"
             save = True
 
-        return await self._fetch_field(field, save=save)
+        return await self._fetch_field(field, save=save)  # type: ignore
 
-    async def fetch_login(self):
+    async def fetch_login(
+        self: Self,
+        /,
+    ) -> str:
         """
         |coro|
 
@@ -67,9 +99,9 @@ class Actor:
         :rtype: :class:`str`
         """
 
-        return await self._fetch_field("login")
+        return await self._fetch_field("login")  # type: ignore
 
 
-__all__ = [
+__all__: list[str] = [
     "Actor",
 ]

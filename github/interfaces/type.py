@@ -1,27 +1,82 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING, ClassVar, overload
+
+if TYPE_CHECKING:
+    from typing_extensions import Self
+    from github.client.http import HTTPClient
+    from github.utilities.typing import T_json_key, T_json_object, T_json_value
+
 from github import utilities
 from github.client.errors import ClientObjectMissingFieldError
+
+
+if TYPE_CHECKING:
+    from typing import TypedDict
+
+
+    class TypeData(TypedDict):
+        __typename: str
 
 
 class Type:
     __slots__ = ("_data", "_http")
 
-    _graphql_fields = [
+    _repr_fields: ClassVar[list[str]]
+
+    _graphql_fields: ClassVar[dict[str, str] | list[str]] = [
         "__typename",
     ]
 
-    def __new__(cls, data, http=None):
+    _graphql_type: ClassVar[str]
+
+    @overload
+    def __new__(
+        cls: type[Self],
+        /,
+        data: T_json_object,
+        http: HTTPClient | None = None,
+    ) -> Self:
+        ...
+
+    @overload
+    def __new__(
+        cls: type[Self],
+        /,
+        data: list[T_json_object],
+        http: HTTPClient | None = None,
+    ) -> list[Self]:
+        ...
+
+    def __new__(
+        cls: type[Self],
+        /,
+        data: T_json_object | list[T_json_object],
+        http: HTTPClient | None = None,
+    ) -> Self | list[Self]:
         if isinstance(data, list):
             return [cls(o, http) for o in data]
 
         return super().__new__(cls)
 
-    def __init__(self, data, http=None):
-        self._data = data
+    if TYPE_CHECKING:  # NOTE: pyright#4569
+        _data: TypeData
+        _http: HTTPClient
+    else:
+        def __init__(
+            self: Self,
+            /,
+            data: T_json_object,
+            http: HTTPClient | None = None,
+        ) -> None:
+            self._data: T_json_object = data
 
-        if http is not None:
-            self._http = http
+            if http is not None:
+                self._http: HTTPClient = http
 
-    def __repr__(self):
+    def __repr__(
+        self: Self,
+        /,
+    ) -> str:
         d_fields = utilities.get_defined_repr_fields(self.__class__)
 
         f_fields = dict()
@@ -39,13 +94,17 @@ class Type:
         else:
             return f"<{self.__class__.__name__}>"
 
-    def _get_field(self, field):
+    def _get_field(
+        self: Self,
+        field: T_json_key,
+        /,
+    ) -> T_json_value:
         try:
             return self._data[field]
         except KeyError:
             raise ClientObjectMissingFieldError(field) from None
 
 
-__all__ = [
+__all__: list[str] = [
     "Type",
 ]

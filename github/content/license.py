@@ -1,7 +1,38 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing_extensions import Self
+
+    from github.utilities.typing import T_json_key, T_json_value
+
 from github import utilities
 from github.client.errors import ClientObjectMissingFieldError
 from github.interfaces import Node, Type
 from .licenserule import LicenseRule
+
+
+if TYPE_CHECKING:
+    from github.content.licenserule import LicenseRuleData
+    from github.interfaces.node import NodeData
+    from github.interfaces.type import TypeData
+
+
+    class LicenseData(NodeData, TypeData):
+        body: str
+        conditions: list[LicenseRuleData]
+        description: str | None
+        featured: bool
+        hidden: bool
+        implementation: str
+        key: str
+        limitations: list[LicenseRuleData]
+        name: str
+        nickname: str | None
+        permissions: list[LicenseRuleData]
+        pseudoLicense: bool
+        spdxId: str | None
+        url: str | None
 
 
 class License(Node, Type):
@@ -22,11 +53,13 @@ class License(Node, Type):
 
     __slots__ = ()
 
-    _repr_fields = [
+    _data: LicenseData
+
+    _repr_fields: list[str] = [
         "key",
     ]
 
-    _graphql_fields = {
+    _graphql_fields: dict[str, str] = {
         "body": "body",
         "choosealicense_url": "url",
         "conditions": "conditions{%s}" % ",".join(utilities.get_defined_graphql_fields(LicenseRule)),
@@ -43,149 +76,197 @@ class License(Node, Type):
         "spdx_id": "spdxId",
     }
 
-    _node_prefix = "L"
+    _node_prefix: str = "L"
 
     @property
-    def body(self):
+    def body(
+        self: Self,
+        /,
+    ) -> str:
         """
         The body of the license.
 
         :type: :class:`str`
         """
 
-        return self._get_field("body")
+        return self._get_field("body")  # type: ignore
 
     @property
-    def choosealicense_url(self):
+    def choosealicense_url(
+        self: Self,
+        /,
+    ) -> str | None:
         """
         A URL to the license on |choosealicense|.
 
         :type: Optional[:class:`str`]
         """
 
-        return self._get_field("url")
+        return self._get_field("url")  # type: ignore
 
     @property
-    def conditions(self):
+    def conditions(
+        self: Self,
+        /,
+    ) -> list[LicenseRule]:
         """
         The conditions of the license.
 
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule(self._get_field("conditions"))
+        return LicenseRule(self._get_field("conditions"))  # type: ignore
 
     @property
-    def description(self):
+    def description(
+        self: Self,
+        /,
+    ) -> str | None:
         """
         A description of the license.
 
         :type: Optional[:class:`str`]
         """
 
-        return self._get_field("description")
+        return self._get_field("description")  # type: ignore
 
     @property
-    def implementation(self):
+    def implementation(
+        self: Self,
+        /,
+    ) -> str:
         """
         A guide to implementing the license.
 
         :type: Optional[:class:`str`]
         """
 
-        return self._get_field("implementation")
+        return self._get_field("implementation")  # type: ignore
 
     @property
-    def is_featured(self):
+    def is_featured(
+        self: Self,
+        /,
+    ) -> bool:
         """
         Whether the license is featured.
 
         :type: :class:`bool`
         """
 
-        return self._get_field("featured")
+        return self._get_field("featured")  # type: ignore
 
     @property
-    def is_hidden(self):
+    def is_hidden(
+        self: Self,
+        /,
+    ) -> bool:
         """
         Whether the license is hidden.
 
         :type: :class:`bool`
         """
 
-        return self._get_field("hidden")
+        return self._get_field("hidden")  # type: ignore
 
     @property
-    def is_pseudo(self):
+    def is_pseudo(
+        self: Self,
+        /,
+    ) -> bool:
         """
         Whether the license is pseudo.
 
         :type: :class:`bool`
         """
 
-        return self._get_field("pseudoLicense")
+        return self._get_field("pseudoLicense")  # type: ignore
 
     @property
-    def key(self):
+    def key(
+        self: Self,
+        /,
+    ) -> str:
         """
         The machine-readable key of the license.
 
         :type: :class:`str`
         """
 
-        return self._get_field("key")
+        return self._get_field("key")  # type: ignore
 
     @property
-    def limitations(self):
+    def limitations(
+        self: Self,
+        /,
+    ) -> list[LicenseRule]:
         """
         The limitations of the license.
 
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule(self._get_field("limitations"))
+        return LicenseRule(self._get_field("limitations"))  # type: ignore
 
     @property
-    def name(self):
+    def name(
+        self: Self,
+        /,
+    ) -> str:
         """
         The human-readable name of the license.
 
         :type: :class:`str`
         """
 
-        return self._get_field("name")
+        return self._get_field("name")  # type: ignore
 
     @property
-    def nickname(self):
+    def nickname(
+        self: Self,
+        /,
+    ) -> str | None:
         """
         The human-readable nickname of the license.
 
         :type: Optional[:class:`str`]
         """
 
-        return self._get_field("nickname")
+        return self._get_field("nickname")  # type: ignore
 
     @property
-    def permissions(self):
+    def permissions(
+        self: Self,
+        /,
+    ) -> list[LicenseRule]:
         """
         The permissions of the license.
 
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule(self._get_field("permissions"))
+        return LicenseRule(self._get_field("permissions"))  # type: ignore
 
     @property
-    def spdx_id(self):
+    def spdx_id(
+        self: Self,
+        /,
+    ) -> str | None:
         """
         The ID of the license on |spdx|.
 
         :type: Optional[:class:`str`]
         """
 
-        return self._get_field("spdxId")
+        return self._get_field("spdxId")  # type: ignore
 
-    async def _fetch_field(self, field, *, save=True):
+    async def _fetch_field(
+        self: Self,
+        field: T_json_key,
+        /,
+        *,
+        save: bool = True,
+    ) -> T_json_value:
         try:
             id = self.id
         except ClientObjectMissingFieldError:
@@ -215,7 +296,10 @@ class License(Node, Type):
 
         return value
 
-    async def fetch_body(self):
+    async def fetch_body(
+        self: Self,
+        /,
+    ) -> str:
         """
         |coro|
 
@@ -233,9 +317,12 @@ class License(Node, Type):
         :rtype: :class:`str`
         """
 
-        return await self._fetch_field("body")
+        return await self._fetch_field("body")  # type: ignore
 
-    async def fetch_choosealicense_url(self):
+    async def fetch_choosealicense_url(
+        self: Self,
+        /,
+    ) -> str | None:
         """
         |coro|
 
@@ -253,9 +340,12 @@ class License(Node, Type):
         :rtype: Optional[:class:`str`]
         """
 
-        return await self._fetch_field("url")
+        return await self._fetch_field("url")  # type: ignore
 
-    async def fetch_conditions(self):
+    async def fetch_conditions(
+        self: Self,
+        /,
+    ) -> list[LicenseRule]:
         """
         |coro|
 
@@ -273,9 +363,12 @@ class License(Node, Type):
         :rtype: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule(await self._fetch_field("conditions"))
+        return LicenseRule(await self._fetch_field("conditions"))  # type: ignore
 
-    async def fetch_description(self):
+    async def fetch_description(
+        self: Self,
+        /,
+    ) -> str | None:
         """
         |coro|
 
@@ -293,9 +386,12 @@ class License(Node, Type):
         :rtype: Optional[:class:`str`]
         """
 
-        return await self._fetch_field("description")
+        return await self._fetch_field("description")  # type: ignore
 
-    async def fetch_id(self):
+    async def fetch_id(
+        self: Self,
+        /,
+    ) -> str:
         """
         |coro|
 
@@ -313,9 +409,12 @@ class License(Node, Type):
         :rtype: :class:`str`
         """
 
-        return await super().fetch_id()
+        return await super().fetch_id()  # type: ignore
 
-    async def fetch_implementation(self):
+    async def fetch_implementation(
+        self: Self,
+        /,
+    ) -> str | None:
         """
         |coro|
 
@@ -333,9 +432,12 @@ class License(Node, Type):
         :rtype: Optional[:class:`str`]
         """
 
-        return await self._fetch_field("implementation")
+        return await self._fetch_field("implementation")  # type: ignore
 
-    async def fetch_is_featured(self):
+    async def fetch_is_featured(
+        self: Self,
+        /,
+    ) -> bool:
         """
         |coro|
 
@@ -353,9 +455,12 @@ class License(Node, Type):
         :rtype: :class:`bool`
         """
 
-        return await self._fetch_field("featured")
+        return await self._fetch_field("featured")  # type: ignore
 
-    async def fetch_is_hidden(self):
+    async def fetch_is_hidden(
+        self: Self,
+        /,
+    ) -> bool:
         """
         |coro|
 
@@ -373,9 +478,12 @@ class License(Node, Type):
         :rtype: :class:`bool`
         """
 
-        return await self._fetch_field("hidden")
+        return await self._fetch_field("hidden")  # type: ignore
 
-    async def fetch_is_pseudo(self):
+    async def fetch_is_pseudo(
+        self: Self,
+        /,
+    ) -> bool:
         """
         |coro|
 
@@ -393,9 +501,12 @@ class License(Node, Type):
         :rtype: :class:`bool`
         """
 
-        return await self._fetch_field("pseudoLicense")
+        return await self._fetch_field("pseudoLicense")  # type: ignore
 
-    async def fetch_key(self):
+    async def fetch_key(
+        self: Self,
+        /,
+    ) -> str:
         """
         |coro|
 
@@ -413,9 +524,12 @@ class License(Node, Type):
         :rtype: :class:`str`
         """
 
-        return await self._fetch_field("key")
+        return await self._fetch_field("key")  # type: ignore
 
-    async def fetch_limitations(self):
+    async def fetch_limitations(
+        self: Self,
+        /,
+    ) -> list[LicenseRule]:
         """
         |coro|
 
@@ -433,9 +547,12 @@ class License(Node, Type):
         :rtype: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule(await self._fetch_field("limitations"))
+        return LicenseRule(await self._fetch_field("limitations"))  # type: ignore
 
-    async def fetch_name(self):
+    async def fetch_name(
+        self: Self,
+        /,
+    ) -> str:
         """
         |coro|
 
@@ -453,9 +570,12 @@ class License(Node, Type):
         :rtype: :class:`str`
         """
 
-        return await self._fetch_field("name")
+        return await self._fetch_field("name")  # type: ignore
 
-    async def fetch_nickname(self):
+    async def fetch_nickname(
+        self: Self,
+        /,
+    ) -> str | None:
         """
         |coro|
 
@@ -473,9 +593,12 @@ class License(Node, Type):
         :rtype: Optional[:class:`str`]
         """
 
-        return await self._fetch_field("nickname")
+        return await self._fetch_field("nickname")  # type: ignore
 
-    async def fetch_permissions(self):
+    async def fetch_permissions(
+        self: Self,
+        /,
+    ) -> list[LicenseRule]:
         """
         |coro|
 
@@ -493,9 +616,12 @@ class License(Node, Type):
         :rtype: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule(await self._fetch_field("permissions"))
+        return LicenseRule(await self._fetch_field("permissions"))  # type: ignore
 
-    async def fetch_spdx_id(self):
+    async def fetch_spdx_id(
+        self: Self,
+        /,
+    ) -> str | None:
         """
         |coro|
 
@@ -513,9 +639,9 @@ class License(Node, Type):
         :rtype: Optional[:class:`str`]
         """
 
-        return await self._fetch_field("spdxId")
+        return await self._fetch_field("spdxId")  # type: ignore
 
 
-__all__ = [
+__all__: list[str] = [
     "License",
 ]

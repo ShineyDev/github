@@ -1,3 +1,9 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from github.utilities.typing import Date, DateTime
+
 import base64
 import datetime
 import struct
@@ -5,12 +11,18 @@ import struct
 import github
 
 
-def date_to_iso(d):
-    return d.strftime("%Y-%m-%d")
+def date_to_iso(
+    obj: Date,
+    /,
+) -> str:
+    return obj.strftime("%Y-%m-%d")
 
 
-def datetime_to_iso(dt):
-    offset = dt.utcoffset()
+def datetime_to_iso(
+    obj: DateTime,
+    /,
+) -> str:
+    offset = obj.utcoffset()
 
     if offset is None:
         github.utilities.warn_once(
@@ -41,43 +53,69 @@ def datetime_to_iso(dt):
 
         offset = f"{sign}{hours:>02}:{minutes:>02}"
 
-    return dt.strftime(f"%Y-%m-%dT%H:%M:%S{offset}")
+    return obj.strftime(f"%Y-%m-%dT%H:%M:%S{offset}")
 
 
-def iso_to_date(iso):
+def iso_to_date(
+    iso: str,
+    /,
+) -> Date:
     return datetime.date.fromisoformat(iso)
 
 
-def iso_to_datetime(iso):
+def iso_to_datetime(
+    iso: str,
+    /,
+) -> DateTime:
     return datetime.datetime.fromisoformat(iso.replace("Z", "+00:00"))
 
 
-def cursor_to_database(cursor):
-    cursor = base64.b64decode(cursor)
-    _, _, msgpack = cursor.split(b":")
+def cursor_to_database(
+    cursor: str,
+    /,
+) -> int:
+    _, _, msgpack = base64.b64decode(cursor).split(b":")
     return struct.unpack_from(">I", msgpack, 2)[0]
 
 
-def cursor_to_node(cursor, type):
+def cursor_to_node(
+    cursor: str,
+    type: str,
+    /,
+) -> str:
     return database_to_node(cursor_to_database(cursor), type)
 
 
-def database_to_cursor(id):
+def database_to_cursor(
+    id: int,
+    /,
+) -> str:
     cursor = b"cursor:v2:\x91\xCE" + struct.pack(">I", id)
     return base64.b64encode(cursor).decode("utf-8")
 
-def database_to_node(id, type):
+
+def database_to_node(
+    id: int,
+    type: str,
+    /,
+) -> str:
     return base64.b64encode(f"0{len(type)}:{type}{id}".encode("utf-8")).decode("utf-8")
 
 
-def node_to_cursor(id):
+def node_to_cursor(
+    id: str,
+    /,
+) -> str:
     return database_to_cursor(node_to_database(id))
 
 
-_bad_node_types = frozenset({"CodeOfConduct", "Gist"})
+_bad_node_types: frozenset[str] = frozenset({"CodeOfConduct", "Gist"})
 
 
-def node_to_database(id):
+def node_to_database(
+    id: str,
+    /,
+) -> int:
     id = base64.b64decode(id).decode("utf-8")[1:]
     length, id = id.split(":")
     length = int(length)
@@ -89,7 +127,7 @@ def node_to_database(id):
     return int(id)
 
 
-__all__ = [
+__all__: list[str] = [
     "date_to_iso",
     "datetime_to_iso",
     "iso_to_date",

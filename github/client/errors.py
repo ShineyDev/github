@@ -1,3 +1,14 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Iterable
+    from typing_extensions import Self
+
+    from aiohttp import ClientResponse
+
+    from github.utilities.typing import T_json_object
+
 import re
 
 import graphql
@@ -22,8 +33,12 @@ class ClientObjectMissingFieldError(ClientError):
 
     __slots__ = ()
 
-    def __init__(self, *fields):
-        self.fields = fields
+    def __init__(
+        self: Self,
+        /,
+        *fields: str,
+    ) -> None:
+        self.fields: Iterable[str] = fields
 
         message = f"missing field{'' if len(fields) == 1 else 's'}{' ' if fields else ''}{', '.join(repr(f) for f in fields)}"
 
@@ -94,26 +109,34 @@ class ClientResponseGraphQLInsufficientScopesError(ClientResponseGraphQLError):
 
     __slots__ = ()
 
-    def __init__(self, message, response, data):
+    def __init__(
+        self: Self,
+        /,
+        message: str,
+        response: ClientResponse,
+        data: T_json_object,
+    ) -> None:
         super().__init__(message, response, data)
 
         oauth_scopes = response.headers.get("X-OAuth-Scopes")
 
+        granted_scopes = list()
+
         if oauth_scopes:
-            self.granted_scopes = oauth_scopes.split(",")
-        else:
-            self.granted_scopes = list()
+            granted_scopes = oauth_scopes.split(",")
+
+        self.granted_scopes: list[str] = granted_scopes
+
+        required_scopes = list()
 
         match = re.search(r"requires.+?: ?\[(.+?)\]", message)
         if match:
-            required_scopes = match.group(1).replace("'", "").replace(" ", "")
+            matched_scopes = match.group(1).replace("'", "").replace(" ", "")
 
-            if required_scopes:
-                self.required_scopes = required_scopes.split(",")
-            else:
-                self.required_scopes = list()
-        else:
-            self.required_scopes = list()
+            if matched_scopes:
+                required_scopes = matched_scopes.split(",")
+
+        self.required_scopes: list[str] = required_scopes
 
 
 class ClientResponseGraphQLInternalError(ClientResponseGraphQLError):
@@ -206,7 +229,7 @@ class ClientResponseHTTPUnauthorizedError(ClientResponseHTTPError):
     __slots__ = ()
 
 
-_response_error_map = {
+_response_error_map: dict[int | str, type[ClientError]] = {
     "ARGUMENT_LIMIT": ClientResponseGraphQLArgumentValueRangeExceededError,
     "EXCESSIVE_PAGINATION": ClientResponseGraphQLArgumentValueRangeExceededError,
     "FORBIDDEN": ClientResponseGraphQLForbiddenError,
@@ -229,7 +252,7 @@ class ServerDeprecationWarning(graphql.client.ServerDeprecationWarning):
     __slots__ = ()
 
 
-__all__ = [
+__all__: list[str] = [
     "ClientError",
     "ClientObjectMissingFieldError",
     "ClientResponseError",

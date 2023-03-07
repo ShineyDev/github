@@ -1,7 +1,27 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing_extensions import Self
+
+    from github.utilities.typing import T_json_key, T_json_value
+
 import re
 
 from github.client.errors import ClientObjectMissingFieldError
 from github.interfaces import Node, Type, UniformResourceLocatable
+
+
+if TYPE_CHECKING:
+    from github.interfaces.node import NodeData
+    from github.interfaces.type import TypeData
+    from github.interfaces.uniformresourcelocatable import UniformResourceLocatableData
+
+
+    class CodeOfConductData(NodeData, TypeData, UniformResourceLocatableData):
+        body: str
+        key: str
+        name: str
 
 
 class CodeOfConduct(Node, Type, UniformResourceLocatable):
@@ -22,50 +42,64 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
 
     __slots__ = ()
 
-    _repr_fields = [
+    _data: CodeOfConductData
+
+    _repr_fields: list[str] = [
         "key",
     ]
 
-    _graphql_fields = [
+    _graphql_fields: list[str] = [
         "body",
         "key",
         "name",
     ]
 
-    _node_prefix = ""  # TODO
+    _node_prefix: str = ""  # TODO
 
     @property
-    def body(self):
+    def body(
+        self: Self,
+        /,
+    ) -> str:
         """
         The body of the code of conduct.
 
         :type: :class:`str`
         """
 
-        return self._get_field("body")
+        return self._get_field("body")  # type: ignore
 
     @property
-    def key(self):
+    def key(
+        self: Self,
+        /,
+    ) -> str:
         """
         The machine-readable key of the code of conduct.
 
         :type: :class:`str`
         """
 
-        return self._get_field("key")
+        return self._get_field("key")  # type: ignore
 
     @property
-    def name(self):
+    def name(
+        self: Self,
+        /,
+    ) -> str:
         """
         The human-readable name of the code of conduct.
 
         :type: :class:`str`
         """
 
-        return self._get_field("name")
+        return self._get_field("name")  # type: ignore
 
     @property
-    def resource_path(self):
+    def resource_path(
+        self: Self,
+        /,
+    ) -> str | None:
         return super().resource_path
 
     resource_path.__doc__ = re.sub(
@@ -75,7 +109,10 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
     )
 
     @property
-    def url(self):
+    def url(
+        self: Self,
+        /,
+    ) -> str | None:
         return super().url
 
     url.__doc__ = re.sub(
@@ -84,7 +121,13 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         UniformResourceLocatable.url.__doc__,
     )
 
-    async def _fetch_field(self, field, *, save=True):
+    async def _fetch_field(
+        self: Self,
+        field: T_json_key,
+        /,
+        *,
+        save: bool = True,
+    ) -> T_json_value:
         try:
             id = self.id
         except ClientObjectMissingFieldError:
@@ -121,7 +164,10 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
 
         return value
 
-    async def fetch_body(self):
+    async def fetch_body(
+        self: Self,
+        /,
+    ) -> str:
         """
         |coro|
 
@@ -140,9 +186,12 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         :rtype: :class:`str`
         """
 
-        return await self._fetch_field("body")
+        return await self._fetch_field("body")  # type: ignore
 
-    async def fetch_id(self):
+    async def fetch_id(
+        self: Self,
+        /,
+    ) -> str:
         """
         |coro|
 
@@ -161,9 +210,12 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         :rtype: :class:`str`
         """
 
-        return await super().fetch_id()
+        return await super().fetch_id()  # type: ignore
 
-    async def fetch_key(self):
+    async def fetch_key(
+        self: Self,
+        /,
+    ) -> str:
         """
         |coro|
 
@@ -182,9 +234,12 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         :rtype: :class:`str`
         """
 
-        return await self._fetch_field("key")
+        return await self._fetch_field("key")  # type: ignore
 
-    async def fetch_name(self):
+    async def fetch_name(
+        self: Self,
+        /,
+    ) -> str:
         """
         |coro|
 
@@ -203,9 +258,12 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         :rtype: :class:`str`
         """
 
-        return await self._fetch_field("name")
+        return await self._fetch_field("name")  # type: ignore
 
-    async def fetch_resource_path(self):
+    async def fetch_resource_path(
+        self: Self,
+        /,
+    ) -> str | None:
         """
         |coro|
 
@@ -224,9 +282,12 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         :rtype: Optional[:class:`str`]
         """
 
-        return await super().fetch_resource_path()
+        return await super().fetch_resource_path()  # type: ignore
 
-    async def fetch_url(self):
+    async def fetch_url(
+        self: Self,
+        /,
+    ) -> str | None:
         """
         |coro|
 
@@ -245,9 +306,9 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         :rtype: Optional[:class:`str`]
         """
 
-        return await super().fetch_url()
+        return await super().fetch_url()  # type: ignore
 
 
-__all__ = [
+__all__: list[str] = [
     "CodeOfConduct",
 ]

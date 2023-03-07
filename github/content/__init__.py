@@ -6,7 +6,7 @@ from github.content.licenserule import *
 from github.content.licenserule import __all__ as _licenserule__all__
 
 
-__all__ = [
+__all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_codeofconduct__all__,
     *_license__all__,
     *_licenserule__all__,

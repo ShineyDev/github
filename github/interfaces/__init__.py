@@ -12,7 +12,7 @@ from github.interfaces.uniformresourcelocatable import *
 from github.interfaces.uniformresourcelocatable import __all__ as _uniformresourcelocatable__all__
 
 
-__all__ = [
+__all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_actor__all__,
     *_node__all__,
     *_packageowner__all__,

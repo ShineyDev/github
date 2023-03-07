@@ -1,3 +1,13 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing_extensions import Self
+
+    from aiohttp import ClientSession
+
+    from github.utilities.typing import T_json_object
+
 import graphql
 
 from github.client.http import HTTPClient
@@ -28,10 +38,23 @@ class Client(graphql.client.Client):
 
     __slots__ = ()
 
-    def __init__(self, token, *, session, user_agent=None):
+    def __init__(
+        self: Self,
+        /,
+        token: str,
+        *,
+        session: ClientSession,
+        user_agent: str | None = None,
+    ) -> None:
         self._http = HTTPClient(token, session, user_agent)
 
-    async def request(self, document, operation=None, **variables):
+    async def request(
+        self: Self,
+        document: str,
+        operation: str | None = None,
+        /,
+        **variables: T_json_object,
+    ) -> T_json_object:
         """
         |coro|
 
@@ -77,7 +100,11 @@ class Client(graphql.client.Client):
 
         return await super().request(document, operation, **variables)
 
-    async def fetch_all_codes_of_conduct(self, **kwargs):
+    async def fetch_all_codes_of_conduct(
+        self: Self,
+        /,
+        **kwargs,  # TODO
+    ) -> list[CodeOfConduct]:
         """
         |coro|
 
@@ -95,7 +122,11 @@ class Client(graphql.client.Client):
         data = await self._http.fetch_query_all_codes_of_conduct(**kwargs)
         return CodeOfConduct(data, self._http)
 
-    async def fetch_all_licenses(self, **kwargs):
+    async def fetch_all_licenses(
+        self: Self,
+        /,
+        **kwargs,  # TODO
+    ) -> list[License]:
         """
         |coro|
 
@@ -113,7 +144,12 @@ class Client(graphql.client.Client):
         data = await self._http.fetch_query_all_licenses(**kwargs)
         return License(data, self._http)
 
-    async def fetch_code_of_conduct(self, key, **kwargs):
+    async def fetch_code_of_conduct(
+        self: Self,
+        key: str,
+        /,
+        **kwargs,  # TODO
+    ) -> CodeOfConduct:
         """
         |coro|
 
@@ -138,7 +174,12 @@ class Client(graphql.client.Client):
         data = await self._http.fetch_query_code_of_conduct(key, **kwargs)
         return CodeOfConduct(data, self._http)
 
-    async def fetch_license(self, key, **kwargs):
+    async def fetch_license(
+        self: Self,
+        key: str,
+        /,
+        **kwargs,  # TODO
+    ) -> License:
         """
         |coro|
 
@@ -163,7 +204,11 @@ class Client(graphql.client.Client):
         data = await self._http.fetch_query_license(key, **kwargs)
         return License(data, self._http)
 
-    async def fetch_metadata(self, **kwargs):
+    async def fetch_metadata(
+        self: Self,
+        /,
+        **kwargs,  # TODO
+    ) -> Metadata:
         """
         |coro|
 
@@ -175,7 +220,11 @@ class Client(graphql.client.Client):
         data = await self._http.fetch_query_metadata(**kwargs)
         return Metadata(data)
 
-    async def fetch_rate_limit(self, **kwargs):
+    async def fetch_rate_limit(
+        self: Self,
+        /,
+        **kwargs,  # TODO
+    ) -> RateLimit:
         """
         |coro|
 
@@ -187,7 +236,12 @@ class Client(graphql.client.Client):
         data = await self._http.fetch_query_rate_limit(**kwargs)
         return RateLimit(data)
 
-    async def fetch_topic(self, name, **kwargs):
+    async def fetch_topic(
+        self: Self,
+        name: str,
+        /,
+        **kwargs,  # TODO
+    ) -> Topic:
         """
         |coro|
 
@@ -211,6 +265,6 @@ class Client(graphql.client.Client):
         return Topic(data, self._http)
 
 
-__all__ = [
+__all__: list[str] = [
     "Client",
 ]
