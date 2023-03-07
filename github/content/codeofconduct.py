@@ -54,7 +54,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         "name",
     ]
 
-    _node_prefix: str = ""  # TODO
+    _node_prefix: str = "COC"
 
     @property
     def body(
