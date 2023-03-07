@@ -100,26 +100,26 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         self: Self,
         /,
     ) -> str | None:
-        return super().resource_path
+        """
+        An HTTP path to the resource.
 
-    resource_path.__doc__ = re.sub(
-        ":type: [^\n]+\n",
-        ":type: Optional[:class:`str`]",
-        UniformResourceLocatable.resource_path.__doc__,
-    )
+        :type: Optional[:class:`str`]
+        """
+
+        return super().resource_path
 
     @property
     def url(
         self: Self,
         /,
     ) -> str | None:
-        return super().url
+        """
+        An HTTP URL to the resource.
 
-    url.__doc__ = re.sub(
-        ":type: [^\n]+\n",
-        ":type: Optional[:class:`str`]",
-        UniformResourceLocatable.url.__doc__,
-    )
+        :type: Optional[:class:`str`]
+        """
+
+        return super().url
 
     async def _fetch_field(
         self: Self,
