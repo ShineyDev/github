@@ -27,10 +27,10 @@ class Actor:
         "login",
     ]
 
-    _graphql_fields: list[str] = [
-        "avatarUrl",
-        "login",
-    ]
+    _graphql_fields: dict[str, str] = {
+        "avatar_url": "avatarUrl",
+        "login": "login",
+    }
 
     @property
     def avatar_url(
