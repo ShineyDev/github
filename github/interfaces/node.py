@@ -7,7 +7,7 @@ if TYPE_CHECKING:
 
     from github.client.http import HTTPClient
     from github.interfaces.type import Type
-    from github.utilities.typing import T_json_key, T_json_value
+    from github.utilities.types import T_json_key, T_json_value
 
 from github.client.errors import ClientObjectMissingFieldError
 

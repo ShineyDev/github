@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
-    from github.utilities.typing import T_json_key, T_json_value
+    from github.utilities.types import T_json_key, T_json_value
 
 import re
 

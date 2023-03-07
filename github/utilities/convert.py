@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from github.utilities.typing import Date, DateTime
+    from github.utilities.types import Date, DateTime
 
 import base64
 import datetime

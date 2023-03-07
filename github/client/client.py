@@ -6,7 +6,7 @@ if TYPE_CHECKING:
 
     from aiohttp import ClientSession
 
-    from github.utilities.typing import T_json_object
+    from github.utilities.types import T_json_object
 
 import graphql
 

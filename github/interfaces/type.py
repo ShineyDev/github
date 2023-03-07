@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, ClassVar, overload
 if TYPE_CHECKING:
     from typing_extensions import Self
     from github.client.http import HTTPClient
-    from github.utilities.typing import T_json_key, T_json_object, T_json_value
+    from github.utilities.types import T_json_key, T_json_object, T_json_value
 
 from github import utilities
 from github.client.errors import ClientObjectMissingFieldError

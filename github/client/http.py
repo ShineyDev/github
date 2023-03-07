@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from aiohttp import ClientResponse, ClientSession
 
     from github.interfaces import Type
-    from github.utilities.typing import T_json_key, T_json_object, T_json_value
+    from github.utilities.types import T_json_key, T_json_object, T_json_value
 
 import uuid
 

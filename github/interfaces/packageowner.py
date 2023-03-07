@@ -6,7 +6,7 @@ if TYPE_CHECKING:
     from typing import TypedDict
 
     # TODO: from github.???.package import PackageData
-    # TODO: from github.utilities.typing import ConnectionData
+    # TODO: from github.utilities.types import ConnectionData
 
 
     class OptionalPackageOwnerData(TypedDict, total=False):

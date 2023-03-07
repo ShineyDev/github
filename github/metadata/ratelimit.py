@@ -5,7 +5,7 @@ if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
 
-    from github.utilities.typing import DateTime
+    from github.utilities.types import DateTime
 
 from github import utilities
 from github.client.errors import ClientObjectMissingFieldError
