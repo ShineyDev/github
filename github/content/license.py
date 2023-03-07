@@ -8,8 +8,8 @@ if TYPE_CHECKING:
 
 from github import utilities
 from github.client.errors import ClientObjectMissingFieldError
+from github.content.licenserule import LicenseRule
 from github.interfaces import Node, Type
-from .licenserule import LicenseRule
 
 
 if TYPE_CHECKING:
