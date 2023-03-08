@@ -116,7 +116,7 @@ class Topic(Node, Starrable, Type):
         """
 
         data = await self._http.fetch_topic_related_topics(self.id, limit, **kwargs)
-        return Topic(data)
+        return Topic._from_data(data)
 
 
 __all__: list[str] = [

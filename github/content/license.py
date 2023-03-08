@@ -115,7 +115,7 @@ class License(Node, Type):
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule(self._get_field("conditions"))  # type: ignore
+        return LicenseRule._from_data(self._get_field("conditions"))  # type: ignore
 
     @property
     def description(
@@ -206,7 +206,7 @@ class License(Node, Type):
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule(self._get_field("limitations"))  # type: ignore
+        return LicenseRule._from_data(self._get_field("limitations"))  # type: ignore
 
     @property
     def name(
@@ -245,7 +245,7 @@ class License(Node, Type):
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule(self._get_field("permissions"))  # type: ignore
+        return LicenseRule._from_data(self._get_field("permissions"))  # type: ignore
 
     @property
     def spdx_id(
@@ -363,7 +363,7 @@ class License(Node, Type):
         :rtype: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule(await self._fetch_field("conditions"))  # type: ignore
+        return LicenseRule._from_data(await self._fetch_field("conditions"))  # type: ignore
 
     async def fetch_description(
         self: Self,
@@ -547,7 +547,7 @@ class License(Node, Type):
         :rtype: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule(await self._fetch_field("limitations"))  # type: ignore
+        return LicenseRule._from_data(await self._fetch_field("limitations"))  # type: ignore
 
     async def fetch_name(
         self: Self,
@@ -616,7 +616,7 @@ class License(Node, Type):
         :rtype: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule(await self._fetch_field("permissions"))  # type: ignore
+        return LicenseRule._from_data(await self._fetch_field("permissions"))  # type: ignore
 
     async def fetch_spdx_id(
         self: Self,

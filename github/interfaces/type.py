@@ -29,49 +29,16 @@ class Type:
 
     _graphql_type: ClassVar[str]
 
-    @overload
-    def __new__(
-        cls: type[Self],
-        /,
+    def __init__(
+        self: Self,
         data: T_json_object,
         http: HTTPClient | None = None,
-    ) -> Self:
-        ...
-
-    @overload
-    def __new__(
-        cls: type[Self],
         /,
-        data: list[T_json_object],
-        http: HTTPClient | None = None,
-    ) -> list[Self]:
-        ...
+    ) -> None:
+        self._data: T_json_object = data
 
-    def __new__(
-        cls: type[Self],
-        /,
-        data: T_json_object | list[T_json_object],
-        http: HTTPClient | None = None,
-    ) -> Self | list[Self]:
-        if isinstance(data, list):
-            return [cls(o, http) for o in data]
-
-        return super().__new__(cls)
-
-    if TYPE_CHECKING:  # NOTE: pyright#4569
-        _data: TypeData
-        _http: HTTPClient
-    else:
-        def __init__(
-            self: Self,
-            /,
-            data: T_json_object,
-            http: HTTPClient | None = None,
-        ) -> None:
-            self._data: T_json_object = data
-
-            if http is not None:
-                self._http: HTTPClient = http
+        if http is not None:
+            self._http: HTTPClient = http
 
     def __repr__(
         self: Self,
@@ -93,6 +60,41 @@ class Type:
             return f"<{self.__class__.__name__} {m_fields}>"
         else:
             return f"<{self.__class__.__name__}>"
+
+    @overload
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: T_json_object,
+        /,
+        *,
+        http: HTTPClient | None = None,
+    ) -> Self:
+        pass
+
+    @overload
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: list[T_json_object],
+        /,
+        *,
+        http: HTTPClient | None = None,
+    ) -> list[Self]:
+        pass
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: T_json_object | list[T_json_object],
+        /,
+        *,
+        http: HTTPClient | None = None,
+    ) -> Self | list[Self]:
+        if isinstance(data, list):
+            return [cls(o, http) for o in data]
+
+        return cls(data, http)
 
     def _get_field(
         self: Self,

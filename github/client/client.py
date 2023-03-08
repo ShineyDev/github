@@ -120,7 +120,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_all_codes_of_conduct(**kwargs)
-        return CodeOfConduct(data, self._http)
+        return CodeOfConduct._from_data(data, http=self._http)
 
     async def fetch_all_licenses(
         self: Self,
@@ -142,7 +142,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_all_licenses(**kwargs)
-        return License(data, self._http)
+        return License._from_data(data, http=self._http)
 
     async def fetch_code_of_conduct(
         self: Self,
@@ -172,7 +172,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_code_of_conduct(key, **kwargs)
-        return CodeOfConduct(data, self._http)
+        return CodeOfConduct._from_data(data, http=self._http)
 
     async def fetch_license(
         self: Self,
@@ -202,7 +202,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_license(key, **kwargs)
-        return License(data, self._http)
+        return License._from_data(data, http=self._http)
 
     async def fetch_metadata(
         self: Self,
@@ -218,7 +218,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_metadata(**kwargs)
-        return Metadata(data)
+        return Metadata._from_data(data)
 
     async def fetch_rate_limit(
         self: Self,
@@ -234,7 +234,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_rate_limit(**kwargs)
-        return RateLimit(data)
+        return RateLimit._from_data(data)
 
     async def fetch_topic(
         self: Self,
@@ -262,7 +262,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_topic(name, **kwargs)
-        return Topic(data, self._http)
+        return Topic._from_data(data, http=self._http)
 
 
 __all__: list[str] = [
