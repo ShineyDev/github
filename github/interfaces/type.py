@@ -40,9 +40,7 @@ class Type:
         /,
     ) -> None:
         self._data = utilities.DataWrapper(data)  # type: ignore
-
-        if http is not None:
-            self._http: HTTPClient = http
+        self._http: HTTPClient | None = http
 
     def __repr__(
         self: Self,
