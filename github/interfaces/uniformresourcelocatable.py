@@ -47,7 +47,7 @@ class UniformResourceLocatable:
         :type: :class:`str`
         """
 
-        return self._get_field("resourcePath")  # type: ignore
+        return self._data["resourcePath"]
 
     @property
     def url(
@@ -60,7 +60,7 @@ class UniformResourceLocatable:
         :type: :class:`str`
         """
 
-        return self._get_field("url")  # type: ignore
+        return self._data["url"]
 
     async def _fetch_field(
         self: Self,

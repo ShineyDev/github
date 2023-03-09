@@ -43,7 +43,7 @@ class Actor:
         :type: :class:`str`
         """
 
-        return self._get_field("avatarUrl")  # type: ignore
+        return self._data["avatarUrl"]
 
     @property
     def login(
@@ -56,7 +56,7 @@ class Actor:
         :type: :class:`str`
         """
 
-        return self._get_field("login")  # type: ignore
+        return self._data["login"]
 
     async def fetch_avatar_url(
         self: Self,

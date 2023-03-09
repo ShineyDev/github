@@ -47,7 +47,7 @@ class Starrable:
         :type: :class:`int`
         """
 
-        return self._get_field("stargazerCount")  # type: ignore
+        return self._data["stargazerCount"]
 
     @property
     def viewer_has_starred(
@@ -60,7 +60,7 @@ class Starrable:
         :type: :class:`bool`
         """
 
-        return self._get_field("viewerHasStarred")  # type: ignore
+        return self._data["viewerHasStarred"]
 
     async def fetch_stargazer_count(
         self: Self,

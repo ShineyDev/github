@@ -67,7 +67,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         :type: :class:`str`
         """
 
-        return self._get_field("body")  # type: ignore
+        return self._data["body"]
 
     @property
     def key(
@@ -80,7 +80,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         :type: :class:`str`
         """
 
-        return self._get_field("key")  # type: ignore
+        return self._data["key"]
 
     @property
     def name(
@@ -93,7 +93,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         :type: :class:`str`
         """
 
-        return self._get_field("name")  # type: ignore
+        return self._data["name"]
 
     @property
     def resource_path(

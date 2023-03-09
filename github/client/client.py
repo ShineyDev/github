@@ -46,7 +46,7 @@ class Client(graphql.client.Client):
         session: ClientSession,
         user_agent: str | None = None,
     ) -> None:
-        self._http = HTTPClient(token, session, user_agent)
+        self._http: HTTPClient = HTTPClient(token, session, user_agent)
 
     async def request(
         self: Self,

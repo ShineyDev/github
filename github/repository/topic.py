@@ -67,7 +67,7 @@ class Topic(Node, Starrable, Type):
         :type: :class:`str`
         """
 
-        return self._get_field("name")  # type: ignore
+        return self._data["name"]
 
     async def fetch_name(
         self: Self,

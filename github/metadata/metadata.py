@@ -12,12 +12,12 @@ if TYPE_CHECKING:
 
 
     class MetadataData(TypeData):
-        git_ip_addresses: list[str]
-        github_services_sha: str
-        hook_ip_addresses: list[str]
-        importer_ip_addresses: list[str]
-        is_password_authentication_verifiable: bool
-        pages_ip_addresses: list[str]
+        gitIpAddresses: list[str]
+        gitHubServicesSha: str
+        hookIpAddresses: list[str]
+        importerIpAddresses: list[str]
+        isPasswordAuthenticationVerifiable: bool
+        pagesIpAddresses: list[str]
 
 
 class Metadata(Type):
@@ -51,7 +51,7 @@ class Metadata(Type):
         :type: List[:class:`str`]
         """
 
-        return self._get_field("gitIpAddresses")  # type: ignore
+        return self._data["gitIpAddresses"]
 
     @property
     def github_services_sha(
@@ -64,7 +64,7 @@ class Metadata(Type):
         :type: :class:`str`
         """
 
-        return self._get_field("gitHubServicesSha")  # type: ignore
+        return self._data["gitHubServicesSha"]
 
     @property
     def hook_ip_addresses(
@@ -77,7 +77,7 @@ class Metadata(Type):
         :type: List[:class:`str`]
         """
 
-        return self._get_field("hookIpAddresses")  # type: ignore
+        return self._data["hookIpAddresses"]
 
     @property
     def importer_ip_addresses(
@@ -90,7 +90,7 @@ class Metadata(Type):
         :type: List[:class:`str`]
         """
 
-        return self._get_field("importerIpAddresses")  # type: ignore
+        return self._data["importerIpAddresses"]
 
     @property
     def is_password_authentication_verifiable(
@@ -103,7 +103,7 @@ class Metadata(Type):
         :type: :class:`bool`
         """
 
-        return self._get_field("isPasswordAuthenticationVerifiable")  # type: ignore
+        return self._data["isPasswordAuthenticationVerifiable"]
 
     @property
     def pages_ip_addresses(
@@ -116,7 +116,7 @@ class Metadata(Type):
         :type: List[:class:`str`]
         """
 
-        return self._get_field("pagesIpAddresses")  # type: ignore
+        return self._data["pagesIpAddresses"]
 
 
 __all__: list[str] = [

@@ -76,7 +76,7 @@ class Node:
         :type: :class:`str`
         """
 
-        return self._get_field("id")  # type: ignore
+        return self._data["id"]
 
     async def _fetch_field(
         self: Self,

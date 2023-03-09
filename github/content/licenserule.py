@@ -47,7 +47,7 @@ class LicenseRule(Type):
         :type: :class:`str`
         """
 
-        return self._get_field("description")  # type: ignore
+        return self._data["description"]
 
     @property
     def key(
@@ -60,7 +60,7 @@ class LicenseRule(Type):
         :type: :class:`str`
         """
 
-        return self._get_field("key")  # type: ignore
+        return self._data["key"]
 
     @property
     def label(
@@ -73,7 +73,7 @@ class LicenseRule(Type):
         :type: :class:`str`
         """
 
-        return self._get_field("label")  # type: ignore
+        return self._data["label"]
 
 
 __all__: list[str] = [

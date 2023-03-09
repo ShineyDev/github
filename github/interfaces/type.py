@@ -2,7 +2,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, ClassVar, overload
 
 if TYPE_CHECKING:
+    from typing import Any
     from typing_extensions import Self
+
     from github.client.http import HTTPClient
     from github.utilities.types import T_json_key, T_json_object, T_json_value
 
@@ -21,6 +23,8 @@ if TYPE_CHECKING:
 class Type:
     __slots__ = ("_data", "_http")
 
+    _data: TypeData
+
     _repr_fields: ClassVar[list[str]]
 
     _graphql_fields: ClassVar[dict[str, str] | list[str]] = [
@@ -35,7 +39,7 @@ class Type:
         http: HTTPClient | None = None,
         /,
     ) -> None:
-        self._data: T_json_object = data
+        self._data = utilities.DataWrapper(data)  # type: ignore
 
         if http is not None:
             self._http: HTTPClient = http
@@ -95,16 +99,6 @@ class Type:
             return [cls(o, http) for o in data]
 
         return cls(data, http)
-
-    def _get_field(
-        self: Self,
-        field: T_json_key,
-        /,
-    ) -> T_json_value:
-        try:
-            return self._data[field]
-        except KeyError:
-            raise ClientObjectMissingFieldError(field) from None
 
 
 __all__: list[str] = [

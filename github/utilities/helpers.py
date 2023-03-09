@@ -100,24 +100,10 @@ def get_defined_repr_fields(
     return sorted(repr_fields)
 
 
-def wrap(
-    wrapped: Any,  # TODO
-) -> Any:  # TODO
-    def decorator(wrapper):
-        wrapper.__doc__ = wrapped.__doc__
-        wrapper.__name__ = wrapped.__name__
-        wrapper.__qualname__ = wrapped.__qualname__
-
-        return wrapper
-
-    return decorator
-
-
 __all__: list[str] = [
     "follow",
     "get_graphql_type",
     "get_defined_graphql_fields",
     "get_merged_graphql_fields",
     "get_defined_repr_fields",
-    "wrap",
 ]

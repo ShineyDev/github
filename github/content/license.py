@@ -89,7 +89,7 @@ class License(Node, Type):
         :type: :class:`str`
         """
 
-        return self._get_field("body")  # type: ignore
+        return self._data["body"]
 
     @property
     def choosealicense_url(
@@ -102,7 +102,7 @@ class License(Node, Type):
         :type: Optional[:class:`str`]
         """
 
-        return self._get_field("url")  # type: ignore
+        return self._data["url"]
 
     @property
     def conditions(
@@ -115,7 +115,7 @@ class License(Node, Type):
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule._from_data(self._get_field("conditions"))  # type: ignore
+        return LicenseRule._from_data(self._data["conditions"])
 
     @property
     def description(
@@ -128,7 +128,7 @@ class License(Node, Type):
         :type: Optional[:class:`str`]
         """
 
-        return self._get_field("description")  # type: ignore
+        return self._data["description"]
 
     @property
     def implementation(
@@ -141,7 +141,7 @@ class License(Node, Type):
         :type: Optional[:class:`str`]
         """
 
-        return self._get_field("implementation")  # type: ignore
+        return self._data["implementation"]
 
     @property
     def is_featured(
@@ -154,7 +154,7 @@ class License(Node, Type):
         :type: :class:`bool`
         """
 
-        return self._get_field("featured")  # type: ignore
+        return self._data["featured"]
 
     @property
     def is_hidden(
@@ -167,7 +167,7 @@ class License(Node, Type):
         :type: :class:`bool`
         """
 
-        return self._get_field("hidden")  # type: ignore
+        return self._data["hidden"]
 
     @property
     def is_pseudo(
@@ -180,7 +180,7 @@ class License(Node, Type):
         :type: :class:`bool`
         """
 
-        return self._get_field("pseudoLicense")  # type: ignore
+        return self._data["isPseudoLicense"]
 
     @property
     def key(
@@ -193,7 +193,7 @@ class License(Node, Type):
         :type: :class:`str`
         """
 
-        return self._get_field("key")  # type: ignore
+        return self._data["key"]
 
     @property
     def limitations(
@@ -206,7 +206,7 @@ class License(Node, Type):
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule._from_data(self._get_field("limitations"))  # type: ignore
+        return LicenseRule._from_data(self._data["limitations"])
 
     @property
     def name(
@@ -219,7 +219,7 @@ class License(Node, Type):
         :type: :class:`str`
         """
 
-        return self._get_field("name")  # type: ignore
+        return self._data["name"]
 
     @property
     def nickname(
@@ -232,7 +232,7 @@ class License(Node, Type):
         :type: Optional[:class:`str`]
         """
 
-        return self._get_field("nickname")  # type: ignore
+        return self._data["nickname"]
 
     @property
     def permissions(
@@ -245,7 +245,7 @@ class License(Node, Type):
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule._from_data(self._get_field("permissions"))  # type: ignore
+        return LicenseRule._from_data(self._data["permissions"])
 
     @property
     def spdx_id(
@@ -258,7 +258,7 @@ class License(Node, Type):
         :type: Optional[:class:`str`]
         """
 
-        return self._get_field("spdxId")  # type: ignore
+        return self._data["spdxId"]
 
     async def _fetch_field(
         self: Self,

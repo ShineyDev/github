@@ -24,7 +24,7 @@ if TYPE_CHECKING:
     class RateLimitData(OptionalRateLimitData, TypeData):
         limit: int
         remaining: int
-        resets_at: DateTime
+        resetAt: str
         used: int
 
 
@@ -57,18 +57,11 @@ class RateLimit(Type):
         """
 
         try:
-            limit = self._get_field("limit")
-
-            if TYPE_CHECKING:
-                limit = cast(int, limit)
+            limit = self._data["limit"]
         except ClientObjectMissingFieldError as e:
             try:
-                remaining = self._get_field("remaining")
-                used = self._get_field("used")
-
-                if TYPE_CHECKING:
-                    remaining = cast(int, remaining)
-                    used = cast(int, used)
+                remaining = self._data["remaining"]
+                used = self._data["used"]
             except ClientObjectMissingFieldError:
                 raise e from None
 
@@ -89,18 +82,11 @@ class RateLimit(Type):
         """
 
         try:
-            remaining = self._get_field("remaining")
-
-            if TYPE_CHECKING:
-                remaining = cast(int, remaining)
+            remaining = self._data["remaining"]
         except ClientObjectMissingFieldError as e:
             try:
-                limit = self._get_field("limit")
-                used = self._get_field("used")
-
-                if TYPE_CHECKING:
-                    limit = cast(int, limit)
-                    used = cast(int, used)
+                limit = self._data["limit"]
+                used = self._data["used"]
             except ClientObjectMissingFieldError:
                 raise e from None
 
@@ -119,12 +105,7 @@ class RateLimit(Type):
         :type: :class:`~datetime.datetime`
         """
 
-        resets_at = self._get_field("resetAt")
-
-        if TYPE_CHECKING:
-            resets_at = cast(str, resets_at)
-
-        return utilities.iso_to_datetime(resets_at)
+        return utilities.iso_to_datetime(self._data["resetAt"])
 
     @property
     def used(
@@ -138,18 +119,11 @@ class RateLimit(Type):
         """
 
         try:
-            used = self._get_field("used")
-
-            if TYPE_CHECKING:
-                used = cast(int, used)
+            used = self._data["used"]
         except ClientObjectMissingFieldError as e:
             try:
-                limit = self._get_field("limit")
-                remaining = self._get_field("remaining")
-
-                if TYPE_CHECKING:
-                    limit = cast(int, limit)
-                    remaining = cast(int, remaining)
+                limit = self._data["limit"]
+                remaining = self._data["remaining"]
             except ClientObjectMissingFieldError:
                 raise e from None
 
