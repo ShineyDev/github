@@ -180,7 +180,7 @@ class License(Node, Type):
         :type: :class:`bool`
         """
 
-        return self._data["isPseudoLicense"]
+        return self._data["pseudoLicense"]
 
     @property
     def key(
