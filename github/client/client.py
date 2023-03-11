@@ -12,7 +12,7 @@ import graphql
 
 from github.client.http import HTTPClient
 from github.content import CodeOfConduct, License
-from github.metadata import Metadata, RateLimit
+from github.connection import Metadata, RateLimit
 from github.repository import Topic
 
 
