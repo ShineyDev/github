@@ -10,6 +10,7 @@ github.interfaces
     actor
     node
     packageowner
+    profileowner
     starrable
     uniformresourcelocatable
 
