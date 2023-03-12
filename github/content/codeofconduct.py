@@ -6,8 +6,6 @@ if TYPE_CHECKING:
 
     from github.utilities.types import T_json_key, T_json_value
 
-import re
-
 from github.client.errors import ClientObjectMissingFieldError
 from github.interfaces import Node, Type, UniformResourceLocatable
 

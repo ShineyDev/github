@@ -2,11 +2,10 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, ClassVar, overload
 
 if TYPE_CHECKING:
-    from typing import Any
     from typing_extensions import Self
 
     from github.client.http import HTTPClient
-    from github.utilities.types import T_json_key, T_json_object, T_json_value
+    from github.utilities.types import T_json_object
 
 from github import utilities
 from github.client.errors import ClientObjectMissingFieldError

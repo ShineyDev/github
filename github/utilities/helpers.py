@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Any, Iterable
+    from typing import Iterable
 
     from github import Type
     from github.utilities.types import T_json_key, T_json_object, T_json_value
