@@ -16,6 +16,7 @@ if TYPE_CHECKING:
 
     class PackageOwnerData(OptionalPackageOwnerData):
         pass
+        # NOTE: id: str (on Node)
 
 
 class PackageOwner:

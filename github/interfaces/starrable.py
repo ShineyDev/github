@@ -18,6 +18,7 @@ if TYPE_CHECKING:
 
 
     class StarrableData(OptionalStarrableData):
+        # NOTE: id: str (on Node)
         stargazerCount: int
         viewerHasStarred: bool
 

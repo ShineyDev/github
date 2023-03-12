@@ -12,7 +12,8 @@ if TYPE_CHECKING:
     class ActorData(TypedDict):
         avatarUrl: str
         login: str
-
+        # NOTE: resourcePath: str (on UniformResourceLocatable)
+        # NOTE: url: str (on UniformResourceLocatable)
 
 class Actor:
     """
