@@ -1,13 +1,12 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, overload
 
 if TYPE_CHECKING:
     from typing import Any, Iterable, cast
     from typing_extensions import Self
 
     from aiohttp import ClientResponse, ClientSession
-
-    from github.interfaces import Type
+    from github.interfaces import Node, UniformResourceLocatable
     from github.utilities.types import T_json_key, T_json_object, T_json_value
 
 import uuid
@@ -15,6 +14,14 @@ import uuid
 import graphql
 
 import github
+
+
+if TYPE_CHECKING:
+    from github.content.codeofconduct import CodeOfConductData
+    from github.content.license import LicenseData
+    from github.connection.metadata import MetadataData
+    from github.connection.ratelimit import RateLimitData
+    from github.repository.topic import TopicData
 
 
 class HTTPClient(graphql.client.http.HTTPClient):
@@ -89,7 +96,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         /,
         *,
         fields: Iterable[str] | None = None,
-    ) -> list[T_json_object]:
+    ) -> list[CodeOfConductData]:
         fields = github.utilities.get_merged_graphql_fields(github.CodeOfConduct, fields)
         query = "{codesOfConduct{%s}}" % ",".join(fields)
         path = ("codesOfConduct",)
@@ -102,7 +109,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
             value = github.utilities.follow(data, ("data", *path))
 
             if TYPE_CHECKING:
-                value = cast(list[T_json_object], value)
+                value = cast(list[CodeOfConductData], value)
 
             if any([c.get("body", False) is None for c in value]):
                 # NOTE: (body=null) 1240368
@@ -110,17 +117,14 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         value = await self._fetch(query, *path, _data_validate=validate)
 
-        if TYPE_CHECKING:
-            value = cast(list[T_json_object], value)
-
-        return value
+        return value  # type: ignore
 
     async def fetch_query_all_licenses(
         self: Self,
         /,
         *,
         fields: Iterable[str] | None = None,
-    ) -> list[T_json_object]:
+    ) -> list[LicenseData]:
         fields = github.utilities.get_merged_graphql_fields(github.License, fields)
         query = "{licenses{%s}}" % ",".join(fields)
         path = ("licenses",)
@@ -133,7 +137,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
             value = github.utilities.follow(data, ("data", *path))
 
             if TYPE_CHECKING:
-                value = cast(list[T_json_object], value)
+                value = cast(list[LicenseData], value)
 
             if any([l.get("body", False) == "" for l in value]):
                 # NOTE: (body="") 1240368
@@ -141,10 +145,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         value = await self._fetch(query, *path, _data_validate=validate)
 
-        if TYPE_CHECKING:
-            value = cast(list[T_json_object], value)
-
-        return value
+        return value  # type: ignore
 
     async def fetch_query_code_of_conduct(
         self: Self,
@@ -152,7 +153,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         key: str,
         *,
         fields: Iterable[str] | None = None,
-    ) -> T_json_object:
+    ) -> CodeOfConductData:
         fields = github.utilities.get_merged_graphql_fields(github.CodeOfConduct, fields)
         query = "query($key:String!){codeOfConduct(key:$key){%s}}" % ",".join(fields)
         path = ("codeOfConduct",)
@@ -165,7 +166,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
             value = github.utilities.follow(data, ("data", *path))
 
             if TYPE_CHECKING:
-                value = cast(T_json_object, value)
+                value = cast(CodeOfConductData, value)
 
             if value is None or key == "other":
                 # NOTE: (value=null) 1143102
@@ -179,7 +180,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         value = await self._fetch(query, *path, key=key, _data_validate=validate)
 
         if TYPE_CHECKING:
-            value = cast(T_json_object, value)
+            value = cast(CodeOfConductData, value)
 
         if "key" not in value.keys():
             value["key"] = key
@@ -192,7 +193,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         key: str,
         *,
         fields: Iterable[str] | None = None,
-    ) -> T_json_object:
+    ) -> LicenseData:
         fields = github.utilities.get_merged_graphql_fields(github.License, fields)
         query = "query($key:String!){license(key:$key){%s}}" % ",".join(fields)
         path = ("license",)
@@ -205,7 +206,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
             value = github.utilities.follow(data, ("data", *path))
 
             if TYPE_CHECKING:
-                value = cast(T_json_object, value)
+                value = cast(LicenseData, value)
 
             if value is None or key == "other":
                 # NOTE: (value=null) 1143102
@@ -219,7 +220,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         value = await self._fetch(query, *path, key=key, _data_validate=validate)
 
         if TYPE_CHECKING:
-            value = cast(T_json_object, value)
+            value = cast(LicenseData, value)
 
         if "key" not in value.keys():
             value["key"] = key
@@ -231,22 +232,19 @@ class HTTPClient(graphql.client.http.HTTPClient):
         /,
         *,
         fields: Iterable[str] | None = None,
-    ) -> T_json_object:
+    ) -> MetadataData:
         fields = github.utilities.get_merged_graphql_fields(github.Metadata, fields)
         query = "{meta{%s}}" % ",".join(fields)
         path = ("meta",)
 
         value = await self._fetch(query, *path)
 
-        if TYPE_CHECKING:
-            value = cast(T_json_object, value)
-
-        return value
+        return value  # type: ignore
 
     async def fetch_query_node(
         self: Self,
         /,
-        type: type[Type],
+        type: type[Node],
         id: str,
         *,
         fields: Iterable[str] | None = None,
@@ -270,22 +268,19 @@ class HTTPClient(graphql.client.http.HTTPClient):
         /,
         *,
         fields: Iterable[str] | None = None,
-    ) -> T_json_object:
+    ) -> RateLimitData:
         fields = github.utilities.get_merged_graphql_fields(github.RateLimit, fields)
         query = "{rateLimit(dryRun:true){%s}}" % ",".join(fields)
         path = ("rateLimit",)
 
         value = await self._fetch(query, *path)
 
-        if TYPE_CHECKING:
-            value = cast(T_json_object, value)
-
-        return value
+        return value  # type: ignore
 
     async def fetch_query_resource(
         self: Self,
         /,
-        type: type[Type],
+        type: type[UniformResourceLocatable],
         url: str,
         *,
         fields: Iterable[str] | None = None,
@@ -309,7 +304,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         name: str,
         *,
         fields: Iterable[str] | None = None,
-    ) -> T_json_object:
+    ) -> TopicData:
         fields = github.utilities.get_merged_graphql_fields(github.Topic, fields)
         query = "query($name:String!){topic(name:$name){%s}}" % ",".join(fields)
         path = ("topic",)
@@ -322,7 +317,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
             value = github.utilities.follow(data, ("data", *path))
 
             if TYPE_CHECKING:
-                value = cast(T_json_object, value)
+                value = cast(TopicData, value)
 
             if value is None:
                 # NOTE: (value=null) 1143102
@@ -331,7 +326,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         value = await self._fetch(query, *path, name=name, _data_validate=validate)
 
         if TYPE_CHECKING:
-            value = cast(T_json_object, value)
+            value = cast(TopicData, value)
 
         if "name" not in value.keys():
             value["name"] = name
@@ -345,17 +340,14 @@ class HTTPClient(graphql.client.http.HTTPClient):
         limit: int | None,
         *,
         fields: Iterable[str] | None = None,
-    ) -> list[T_json_object]:
+    ) -> list[TopicData]:
         fields = github.utilities.get_merged_graphql_fields(github.Topic, fields)
         query = "query($topic_id:ID!,$limit:Int){node(id:$topic_id){...on Topic{relatedTopics(first:$limit){%s}}}}" % ",".join(fields)
         path = ("node", "relatedTopics")
 
         value = await self._fetch(query, *path, limit=limit, topic_id=topic_id)
 
-        if TYPE_CHECKING:
-            value = cast(list[T_json_object], value)
-
-        return value
+        return value  # type: ignore
 
 
 __all__: list[str] = [
