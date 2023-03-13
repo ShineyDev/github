@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING, ClassVar, overload
+from typing import TYPE_CHECKING, ClassVar, Iterable, overload
 
 if TYPE_CHECKING:
     from typing_extensions import Self
@@ -77,7 +77,7 @@ class Type:
     @classmethod
     def _from_data(
         cls: type[Self],
-        data: list[T_json_object],
+        data: Iterable[T_json_object],
         /,
         *,
         http: HTTPClient | None = None,
@@ -87,15 +87,15 @@ class Type:
     @classmethod
     def _from_data(
         cls: type[Self],
-        data: T_json_object | list[T_json_object],
+        data: T_json_object | Iterable[T_json_object],
         /,
         *,
         http: HTTPClient | None = None,
     ) -> Self | list[Self]:
-        if isinstance(data, list):
+        if isinstance(data, dict):
+            return cls(data, http)
+        else:
             return [cls(o, http) for o in data]
-
-        return cls(data, http)
 
 
 __all__: list[str] = [

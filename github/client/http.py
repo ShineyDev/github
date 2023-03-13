@@ -95,7 +95,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         /,
         *,
         fields: Iterable[str] | None = None,
-    ) -> list[CodeOfConductData]:
+    ) -> tuple[CodeOfConductData, ...]:
         fields = github.utilities.get_merged_graphql_fields(github.CodeOfConduct, fields)
         query = "{codesOfConduct{%s}}" % ",".join(fields)
         path = ("codesOfConduct",)
@@ -108,7 +108,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
             value = github.utilities.follow(data, ("data", *path))
 
             if TYPE_CHECKING:
-                value = cast(list[CodeOfConductData], value)
+                value = cast(tuple[CodeOfConductData, ...], value)
 
             if any([c.get("body", False) is None for c in value]):
                 # NOTE: (body=null) 1240368
@@ -123,7 +123,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         /,
         *,
         fields: Iterable[str] | None = None,
-    ) -> list[LicenseData]:
+    ) -> tuple[LicenseData, ...]:
         fields = github.utilities.get_merged_graphql_fields(github.License, fields)
         query = "{licenses{%s}}" % ",".join(fields)
         path = ("licenses",)
@@ -136,7 +136,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
             value = github.utilities.follow(data, ("data", *path))
 
             if TYPE_CHECKING:
-                value = cast(list[LicenseData], value)
+                value = cast(tuple[LicenseData, ...], value)
 
             if any([l.get("body", False) == "" for l in value]):
                 # NOTE: (body="") 1240368
@@ -383,7 +383,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         limit: int | None,
         *,
         fields: Iterable[str] | None = None,
-    ) -> list[TopicData]:
+    ) -> tuple[TopicData, ...]:
         fields = github.utilities.get_merged_graphql_fields(github.Topic, fields)
         query = "query($topic_id:ID!,$limit:Int){node(id:$topic_id){...on Topic{relatedTopics(first:$limit){%s}}}}" % ",".join(fields)
         path = ("node", "relatedTopics")
