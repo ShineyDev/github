@@ -4,6 +4,9 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
+    from github.client.http import HTTPClient
+    from github.interfaces import Node
+
 
 if TYPE_CHECKING:
     from typing import TypedDict
@@ -31,6 +34,7 @@ class Starrable:
     __slots__ = ()
 
     _data: StarrableData
+    _http: HTTPClient
 
     _graphql_fields: dict[str, str] = {
         "stargazer_count": "stargazerCount",
@@ -90,6 +94,48 @@ class Starrable:
         """
 
         return await self._fetch_field("viewerHasStarred")  # type: ignore
+
+    async def star(
+        self: Self,
+        /,
+    ) -> None:
+        """
+        |coro|
+
+        Stars the starrable.
+
+        Use of this mutation will also update the following fields:
+
+        - :attr:`~.viewer_has_starred`
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        data = await self._http.mutate_starrable_star(self.id, fields=["viewerHasStarred"])
+
+        self._data["viewerHasStarred"] = data["viewerHasStarred"]
+
+    async def unstar(
+        self: Self,
+        /,
+    ) -> None:
+        """
+        |coro|
+
+        Unstars the starrable.
+
+        Use of this mutation will also update the following fields:
+
+        - :attr:`~.viewer_has_starred`
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        data = await self._http.mutate_starrable_unstar(self.id, fields=["viewerHasStarred"])
+
+        self._data["viewerHasStarred"] = data["viewerHasStarred"]
 
 
 __all__: list[str] = [

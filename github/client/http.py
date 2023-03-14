@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     from github.content.codeofconduct import CodeOfConductData
     from github.content.license import LicenseData
     from github.interfaces import Node, UniformResourceLocatable
+    from github.interfaces.starrable import StarrableData
     from github.repository import Topic
     from github.repository.topic import TopicData
     from github.utilities.types import T_json_key, T_json_object, T_json_value
@@ -404,6 +405,36 @@ class HTTPClient(graphql.client.http.HTTPClient):
             kwargs["mutation_id"] = self.uuid
 
         return await self._fetch(document_, *path, _data_validate=_data_validate, **kwargs)
+
+    async def mutate_starrable_star(
+        self: Self,
+        /,
+        starrable_id: str,
+        *,
+        fields: Iterable[str] | None = None,
+    ) -> StarrableData:
+        fields = github.utilities.get_merged_graphql_fields(github.Starrable, fields)
+        query = "mutation($starrable_id:ID!,$mutation_id:String!){addStar(input:{clientMutationId:$mutation_id,starrableId:$starrable_id}){starrable{%s}}}" % ",".join(fields)
+        path = ("addStar", "starrable")
+
+        value = await self._mutate(query, *path, starrable_id=starrable_id)
+
+        return value  # type: ignore
+
+    async def mutate_starrable_unstar(
+        self: Self,
+        /,
+        starrable_id: str,
+        *,
+        fields: Iterable[str] | None = None,
+    ) -> StarrableData:
+        fields = github.utilities.get_merged_graphql_fields(github.Starrable, fields)
+        query = "mutation($starrable_id:ID!,$mutation_id:String!){removeStar(input:{clientMutationId:$mutation_id,starrableId:$starrable_id}){starrable{%s}}}" % ",".join(fields)
+        path = ("removeStar", "starrable")
+
+        value = await self._mutate(query, *path, starrable_id=starrable_id)
+
+        return value  # type: ignore
 
 
 __all__: list[str] = [
