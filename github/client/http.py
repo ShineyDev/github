@@ -392,6 +392,19 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return value  # type: ignore
 
+    async def _mutate(
+        self: Self,
+        document_: str,
+        /,
+        *path: T_json_key,
+        _data_validate: Any | None = None,  # TODO
+        **kwargs,  # TODO
+    ) -> T_json_value:
+        if "mutation_id" not in kwargs.keys():
+            kwargs["mutation_id"] = self.uuid
+
+        return await self._fetch(document_, *path, _data_validate=_data_validate, **kwargs)
+
 
 __all__: list[str] = [
     "HTTPClient",
