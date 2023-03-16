@@ -92,13 +92,12 @@ rst_prolog = """
 .. |graphql_reference_link| replace:: GitHub's GraphQL API reference
 .. _graphql_reference_link: https://docs.github.com/en/graphql/reference
 
-.. |pat| replace:: |pat_link|_
-.. |pat_link| replace:: personal access token
-.. _pat_link: https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
-
 .. |spdx| replace:: |spdx_link|_
 .. |spdx_link| replace:: SPDX
 .. _spdx_link: https://spdx.dev/
+
+.. _link_token_create: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+.. _link_token_view: https://github.com/settings/tokens
 """
 source_suffix = ".rst"
 

@@ -23,7 +23,18 @@ class Client(graphql.client.Client):
     Parameters
     ----------
     token: :class:`str`
-        A |pat|.
+        A GitHub personal access token.
+
+        .. seealso::
+
+            - `Creating a personal access token <link_token_create_>`_
+            - `View your personal access tokens <link_token_view_>`_
+
+        .. note::
+
+            Currently, fine-grained personal access tokens are not able
+            to access the GraphQL API.
+
     session: :class:`aiohttp.ClientSession`
         A client session.
     user_agent: :class:`str`
