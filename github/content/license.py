@@ -39,6 +39,7 @@ class License(Node, Type):
     """
     Represents a license.
 
+
     .. container:: operations
 
         .. describe:: x == y
@@ -305,8 +306,10 @@ class License(Node, Type):
 
         Fetches the body of the license.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
@@ -328,8 +331,10 @@ class License(Node, Type):
 
         Fetches a URL to the license on |choosealicense|.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
@@ -351,8 +356,10 @@ class License(Node, Type):
 
         Fetches the conditions of the license.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
@@ -374,8 +381,10 @@ class License(Node, Type):
 
         Fetches a description of the license.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
@@ -397,8 +406,10 @@ class License(Node, Type):
 
         Fetches the ID of the node.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
@@ -420,8 +431,10 @@ class License(Node, Type):
 
         Fetches a guide to implementing the license.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
@@ -443,8 +456,10 @@ class License(Node, Type):
 
         Fetches whether the license is featured.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
@@ -466,8 +481,10 @@ class License(Node, Type):
 
         Fetches whether the license is hidden.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
@@ -489,8 +506,10 @@ class License(Node, Type):
 
         Fetches whether the license is pseudo.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
@@ -512,8 +531,10 @@ class License(Node, Type):
 
         Fetches the machine-readable key of the license.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
@@ -535,8 +556,10 @@ class License(Node, Type):
 
         Fetches the limitations of the license.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
@@ -558,8 +581,10 @@ class License(Node, Type):
 
         Fetches the human-readable name of the license.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
@@ -581,8 +606,10 @@ class License(Node, Type):
 
         Fetches the human-readable nickname of the license.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
@@ -604,8 +631,10 @@ class License(Node, Type):
 
         Fetches the permissions of the license.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
@@ -627,8 +656,10 @@ class License(Node, Type):
 
         Fetches the ID of the license on |spdx|.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`

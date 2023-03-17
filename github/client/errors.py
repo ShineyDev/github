@@ -23,10 +23,12 @@ class ClientObjectMissingFieldError(ClientError):
     """
     Represents an :exc:`AttributeError` caused by a missing field.
 
+
     Attributes
     ----------
     message: :class:`str`
         The error message.
+
     fields: Tuple[:class:`str`]
         The missing fields.
     """
@@ -59,12 +61,15 @@ class ClientResponseGraphQLArgumentValueRangeExceededError(ClientResponseGraphQL
     """
     Represents a GraphQL ``"ARGUMENT_LIMIT"`` response.
 
+
     Attributes
     ----------
     message: :class:`str`
         The error message.
+
     response: :class:`aiohttp.ClientResponse`
         The client response.
+
     data: :class:`dict`
         The response data.
     """
@@ -76,12 +81,15 @@ class ClientResponseGraphQLForbiddenError(ClientResponseGraphQLError):
     """
     Represents a GraphQL ``"FORBIDDEN"`` response.
 
+
     Attributes
     ----------
     message: :class:`str`
         The error message.
+
     response: :class:`aiohttp.ClientResponse`
         The client response.
+
     data: :class:`dict`
         The response data.
     """
@@ -93,16 +101,21 @@ class ClientResponseGraphQLInsufficientScopesError(ClientResponseGraphQLError):
     """
     Represents a GraphQL ``"INSUFFICIENT_SCOPES"`` response.
 
+
     Attributes
     ----------
     message: :class:`str`
         The error message.
+
     response: :class:`aiohttp.ClientResponse`
         The client response.
+
     data: :class:`dict`
         The response data.
+
     granted_scopes: List[:class:`str`]
         The granted scopes.
+
     required_scopes: List[:class:`str`]
         The required scopes.
     """
@@ -143,12 +156,15 @@ class ClientResponseGraphQLInternalError(ClientResponseGraphQLError):
     """
     Represents a GraphQL ``"INTERNAL"`` response.
 
+
     Attributes
     ----------
     message: :class:`str`
         The error message.
+
     response: :class:`aiohttp.ClientResponse`
         The client response.
+
     data: :class:`dict`
         The response data.
     """
@@ -160,12 +176,15 @@ class ClientResponseGraphQLMaximumNodeLimitExceededError(ClientResponseGraphQLEr
     """
     Represents a GraphQL ``"MAX_NODE_LIMIT_EXCEEDED"`` response.
 
+
     Attributes
     ----------
     message: :class:`str`
         The error message.
+
     response: :class:`aiohttp.ClientResponse`
         The client response.
+
     data: :class:`dict`
         The response data.
     """
@@ -177,12 +196,15 @@ class ClientResponseGraphQLNotFoundError(ClientResponseGraphQLError):
     """
     Represents a GraphQL ``"NOT_FOUND"`` response.
 
+
     Attributes
     ----------
     message: :class:`str`
         The error message.
+
     response: :class:`aiohttp.ClientResponse`
         The client response.
+
     data: :class:`dict`
         The response data.
     """
@@ -194,12 +216,15 @@ class ClientResponseGraphQLUnprocessableError(ClientResponseGraphQLError):
     """
     Represents a GraphQL ``"UNPROCESSABLE"`` response.
 
+
     Attributes
     ----------
     message: :class:`str`
         The error message.
+
     response: :class:`aiohttp.ClientResponse`
         The client response.
+
     data: :class:`dict`
         The response data.
     """
@@ -216,12 +241,15 @@ class ClientResponseHTTPUnauthorizedError(ClientResponseHTTPError):
     """
     Represents an HTTP 401 response.
 
+
     Attributes
     ----------
     message: :class:`str`
         The error message.
+
     response: :class:`aiohttp.ClientResponse`
         The client response.
+
     data: Optional[:class:`dict`]
         The response data.
     """

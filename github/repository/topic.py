@@ -30,6 +30,7 @@ class Topic(Node, Starrable, Type):
     """
     Represents a repository topic.
 
+
     .. container:: operations
 
         .. describe:: x == y
@@ -78,8 +79,10 @@ class Topic(Node, Starrable, Type):
 
         Fetches the name of the topic.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
 
@@ -101,13 +104,17 @@ class Topic(Node, Starrable, Type):
 
         Fetches topics related to the topic.
 
+
         Parameters
         ----------
+
         limit: :class:`int`
             The number of related topics to fetch. Defaults to 3.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
 

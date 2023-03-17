@@ -24,6 +24,7 @@ class Node:
     """
     Represents an object with an ID.
 
+
     .. container:: operations
 
         .. describe:: x == y
@@ -116,8 +117,10 @@ class Node:
 
         Fetches the ID of the node.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
 

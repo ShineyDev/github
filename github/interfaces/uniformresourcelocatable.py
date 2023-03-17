@@ -100,8 +100,10 @@ class UniformResourceLocatable:
 
         Fetches an HTTP path to the resource.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`url` attribute is missing.
 
@@ -120,8 +122,10 @@ class UniformResourceLocatable:
 
         Fetches an HTTP URL to the resource.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`url` attribute is missing.
 

@@ -70,8 +70,10 @@ class Actor:
 
         Fetches a URL to the avatar of the actor.
 
+
         Parameters
         ----------
+
         size: :class:`int`
             The width of the square image in pixels.
 

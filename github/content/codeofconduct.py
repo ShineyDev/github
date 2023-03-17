@@ -26,6 +26,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
     """
     Represents a code of conduct.
 
+
     .. container:: operations
 
         .. describe:: x == y
@@ -171,8 +172,10 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
 
         Fetches the body of the code of conduct.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
             all missing. OR; (on an instance-level code of conduct) The
@@ -195,8 +198,10 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
 
         Fetches the ID of the node.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
             all missing. OR; (on an instance-level code of conduct) The
@@ -219,8 +224,10 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
 
         Fetches the machine-readable key of the code of conduct.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
             all missing. OR; (on an instance-level code of conduct) The
@@ -243,8 +250,10 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
 
         Fetches the human-readable name of the code of conduct.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
             all missing. OR; (on an instance-level code of conduct) The
@@ -267,8 +276,10 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
 
         Fetches an HTTP path to the resource.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
             all missing. OR; (on an instance-level code of conduct) The
@@ -291,8 +302,10 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
 
         Fetches an HTTP URL to the resource.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientObjectMissingFieldError
             The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
             all missing. OR; (on an instance-level code of conduct) The

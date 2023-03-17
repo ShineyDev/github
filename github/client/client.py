@@ -20,8 +20,10 @@ class Client(graphql.client.Client):
     """
     The base class for interaction with the API.
 
+
     Parameters
     ----------
+
     token: :class:`str`
         A GitHub personal access token.
 
@@ -37,6 +39,7 @@ class Client(graphql.client.Client):
 
     session: :class:`aiohttp.ClientSession`
         A client session.
+
     user_agent: :class:`str`
         A user agent. Defaults to ``ShineyDev/github@VERSION:UUID``.
 
@@ -71,19 +74,37 @@ class Client(graphql.client.Client):
 
         Sends a request to GitHub's GraphQL API.
 
+
         Parameters
         ----------
+
         document: :class:`str`
             A GraphQL document.
 
             .. tip::
+
                 If you haven't already, you should |graphql_learn|.
                 You can also read |graphql_guides|, find documentation
                 in |graphql_reference|, and use |graphql_explorer|.
+
         operation: :class:`str`
             The name of the operation from the document to execute.
+            Defaults to ``None``, which implies that the document
+            contains only one operation.
+
         **variables
             A mapping of GraphQL variables.
+
+
+        Raises
+        ------
+
+        ~github.client.errors.ClientResponseHTTPError
+            Arbitrary HTTP error.
+
+        ~github.client.errors.ClientResponseGraphQLError
+            Arbitrary GraphQL error.
+
 
         Examples
         --------
@@ -97,13 +118,6 @@ class Client(graphql.client.Client):
 
             >>> await client.request("query($login:String!){user(login:$login){name}}", login="nat")
             {'user': {'name': 'Nat Friedman'}}
-
-        Raises
-        ------
-        ~github.client.errors.ClientResponseHTTPError
-            Arbitrary HTTP error.
-        ~github.client.errors.ClientResponseGraphQLError
-            Arbitrary GraphQL error.
 
 
         :rtype: :class:`dict`
@@ -121,8 +135,10 @@ class Client(graphql.client.Client):
 
         Fetches all codes of conduct.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientResponseGraphQLInternalError
             The GraphQL service failed to fetch a code of conduct body.
 
@@ -143,8 +159,10 @@ class Client(graphql.client.Client):
 
         Fetches all licenses.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientResponseGraphQLInternalError
             The GraphQL service failed to fetch a license body.
 
@@ -166,15 +184,20 @@ class Client(graphql.client.Client):
 
         Fetches a code of conduct by its key.
 
+
         Parameters
         ----------
+
         key: :class:`str`
             See :attr:`CodeOfConduct.key`.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientResponseGraphQLInternalError
             The GraphQL service failed to fetch the code of conduct body.
+
         ~github.client.errors.ClientResponseGraphQLNotFoundError
             A code of conduct with the provided key does not exist.
 
@@ -196,15 +219,20 @@ class Client(graphql.client.Client):
 
         Fetches a license by its key.
 
+
         Parameters
         ----------
+
         key: :class:`str`
             See :attr:`License.key`.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientResponseGraphQLInternalError
             The GraphQL service failed to fetch the license body.
+
         ~github.client.errors.ClientResponseGraphQLNotFoundError
             A license with the provided key does not exist.
 
@@ -258,13 +286,17 @@ class Client(graphql.client.Client):
 
         Fetches a topic by its name.
 
+
         Parameters
         ----------
+
         name: :class:`str`
             See :attr:`Topic.name <github.Topic.name>`.
 
+
         Raises
         ------
+
         ~github.client.errors.ClientResponseGraphQLNotFoundError
             A topic with the provided name does not exist.
 
