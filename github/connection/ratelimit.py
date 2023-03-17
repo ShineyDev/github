@@ -29,7 +29,7 @@ if TYPE_CHECKING:
 
 class RateLimit(Type):
     """
-    Represents GitHub rate limit data.
+    Represents GitHub rate limit state.
     """
 
     __slots__ = ()
