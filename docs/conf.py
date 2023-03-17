@@ -76,26 +76,14 @@ rst_prolog = """
 .. |coro_link| replace:: coroutine
 .. _coro_link: https://docs.python.org/3/library/asyncio-task.html#coroutine
 
-.. |graphql_explorer| replace:: |graphql_explorer_link|_
-.. |graphql_explorer_link| replace:: GitHub's GraphiQL Explorer
-.. _graphql_explorer_link: https://graphql.github.com/explorer
-
-.. |graphql_guides| replace:: |graphql_guides_link|_
-.. |graphql_guides_link| replace:: GitHub's GraphQL guides
-.. _graphql_guides_link: https://docs.github.com/en/graphql/guides
-
-.. |graphql_learn| replace:: |graphql_learn_link|_
-.. |graphql_learn_link| replace:: learn GraphQL
-.. _graphql_learn_link: https://graphql.org/learn/
-
-.. |graphql_reference| replace:: |graphql_reference_link|_
-.. |graphql_reference_link| replace:: GitHub's GraphQL API reference
-.. _graphql_reference_link: https://docs.github.com/en/graphql/reference
-
 .. |spdx| replace:: |spdx_link|_
 .. |spdx_link| replace:: SPDX
 .. _spdx_link: https://spdx.dev/
 
+.. _link_graphql_explorer: https://graphql.github.com/explorer
+.. _link_graphql_guide: https://docs.github.com/en/graphql/guides
+.. _link_graphql_learn: https://graphql.org/learn/
+.. _link_graphql_reference: https://docs.github.com/en/graphql/reference
 .. _link_token_create: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
 .. _link_token_view: https://github.com/settings/tokens
 """

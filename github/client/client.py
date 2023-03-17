@@ -83,9 +83,13 @@ class Client(graphql.client.Client):
 
             .. tip::
 
-                If you haven't already, you should |graphql_learn|.
-                You can also read |graphql_guides|, find documentation
-                in |graphql_reference|, and use |graphql_explorer|.
+                If you haven't already, you should
+                `learn GraphQL <link_graphql_learn_>`_. You can also
+                read GitHub's `GraphQL guides <link_graphql_guide_>`_,
+                find documentation in the
+                `GraphQL API reference <link_graphql_reference_>`_, and
+                use the `GraphiQL Explorer <link_graphql_explorer_>`_
+                to experiment with the API.
 
         operation: :class:`str`
             The name of the operation from the document to execute.
