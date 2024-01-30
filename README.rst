@@ -1,24 +1,24 @@
 .. raw:: html
 
     <p align="center">
-        <a href="https://github.com/ShineyDev/github/actions?query=workflow%3AAnalyze">
-            <img alt="Analyze Status" src="https://github.com/ShineyDev/github/workflows/Analyze/badge.svg?event=push" />
+        <a href="https://github.com/ShineyDev/github/actions/workflows/analyze.yml?query=branch%3Amain+event%3Apush+is%3Acompleted">
+            <img alt="Analyze Status" src="https://github.com/ShineyDev/github/actions/workflows/analyze.yml/badge.svg?branch=main&event=push" />
         </a>
 
-        <a href="https://github.com/ShineyDev/github/actions?query=workflow%3ABuild">
-            <img alt="Build Status" src="https://github.com/ShineyDev/github/workflows/Build/badge.svg?event=push" />
+        <a href="https://github.com/ShineyDev/github/actions/workflows/build.yml?query=branch%3Amain+event%3Apush+is%3Acompleted">
+            <img alt="Build Status" src="https://github.com/ShineyDev/github/actions/workflows/build.yml/badge.svg?branch=main&event=push" />
         </a>
 
-        <a href="https://github.com/ShineyDev/github/actions?query=workflow%3ACheck">
-            <img alt="Check Status" src="https://github.com/ShineyDev/github/workflows/Check/badge.svg?event=push" />
+        <a href="https://github.com/ShineyDev/github/actions/workflows/check.yml?query=branch%3Amain+event%3Apush+is%3Acompleted">
+            <img alt="Check Status" src="https://github.com/ShineyDev/github/actions/workflows/check.yml/badge.svg?branch=main&event=push" />
         </a>
 
-        <a href="https://github.com/ShineyDev/github/actions?query=workflow%3ADeploy">
-            <img alt="Deploy Status" src="https://github.com/ShineyDev/github/workflows/Deploy/badge.svg?event=push" />
+        <a href="https://github.com/ShineyDev/github/actions/workflows/deploy.yml?query=branch%3Amain+event%3Apush+is%3Acompleted">
+            <img alt="Deploy Status" src="https://github.com/ShineyDev/github/actions/workflows/deploy.yml/badge.svg?branch=main&event=push" />
         </a>
 
-        <a href="https://github.com/ShineyDev/github/actions?query=workflow%3ALint">
-            <img alt="Lint Status" src="https://github.com/ShineyDev/github/workflows/Lint/badge.svg?event=push" />
+        <a href="https://github.com/ShineyDev/github/actions/workflows/lint.yml?query=branch%3Amain+event%3Apush+is%3Acompleted">
+            <img alt="Lint Status" src="https://github.com/ShineyDev/github/actions/workflows/lint.yml/badge.svg?branch=main&event=push" />
         </a>
     </p>
 
