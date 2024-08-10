@@ -39,7 +39,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         self.uuid = str(uuid.uuid4())
 
         self.token = f"bearer {token}"
-        self.user_agent = user_agent or f"ShineyDev/github@{github.version}:{self.uuid}"
+        self.user_agent = (user_agent or "ShineyDev/github@{version}:{uuid}").format(uuid=self.uuid, version=github.version)
 
     async def request(
         self: Self,

@@ -45,9 +45,11 @@ class Client(graphql.client.Client):
 
         .. note::
 
-            We request that you use your GitHub username or the name of
-            your application for the User-Agent header value. This
-            allows us to contact you should there be a problem.
+            GitHub requests that you use your GitHub username or the
+            name of the application for the User-Agent header value to
+            allow them to contact you should there be a problem. Using
+            ``USERNAME; ShineyDev/github@{version}:{uuid}``, replacing
+            USERNAME with your username, would suffice for both.
     """
 
     __slots__ = ()
