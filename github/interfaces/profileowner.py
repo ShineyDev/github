@@ -8,14 +8,14 @@ if TYPE_CHECKING:
 if TYPE_CHECKING:
     from typing import TypedDict
 
-    # TODO: from github.???.gist import GistData
-    # TODO: from github.???.repository import RepositoryData
-    # TODO: from github.utilities.types import ConnectionData
+    # from github.gist.gist import GistData  # TODO: [support-gist]
+    # from github.repository.repository import RepositoryData  # TODO: [support-repository]
+    from github.utilities.types import ConnectionData
 
 
     class _OptionalProfileOwnerShowcaseData(TypedDict, total=False):
         pass
-        # TODO: items: ConnectionData[GistData | RepositoryData]
+        # items: ConnectionData[GistData | RepositoryData]  # TODO: [support-gist] [support-repository]
 
 
     class _ProfileOwnerShowcaseData(_OptionalProfileOwnerShowcaseData):
@@ -24,8 +24,8 @@ if TYPE_CHECKING:
 
     class OptionalProfileOwnerData(TypedDict, total=False):
         pass
-        # TODO: pinnableItems: ConnectionData[GistData | RepositoryData]
-        # TODO: pinnedItems: ConnectionData[GistData | RepositoryData]
+        # pinnableItems: ConnectionData[GistData | RepositoryData]  # TODO: [support-gist] [support-repository]
+        # pinnedItems: ConnectionData[GistData | RepositoryData]  # TODO: [support-gist] [support-repository]
 
 
     class ProfileOwnerData(OptionalProfileOwnerData):
