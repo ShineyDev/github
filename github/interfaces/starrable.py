@@ -11,13 +11,13 @@ if TYPE_CHECKING:
 if TYPE_CHECKING:
     from typing import TypedDict
 
-    # TODO: from ??? import UserData
-    # TODO: from ??? import ConnectionData
+    # from github.user.user import UserData  # TODO: [support-user]
+    from github.utilities.types import ConnectionData
 
 
     class OptionalStarrableData(TypedDict, total=False):
+        # stargazers: ConnectionData[UserData]  # TODO: [support-user]
         pass
-        # TODO: stargazers: ConnectionData[UserData]
 
 
     class StarrableData(OptionalStarrableData):
