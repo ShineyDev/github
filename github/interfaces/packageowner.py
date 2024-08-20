@@ -5,18 +5,18 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import TypedDict
 
-    # TODO: from github.???.package import PackageData
-    # TODO: from github.utilities.types import ConnectionData
+    # from github.???.package import PackageData  # TODO: [support-package]
+    from github.utilities.types import ConnectionData
 
 
     class OptionalPackageOwnerData(TypedDict, total=False):
+        # packages: ConnectionData[PackageData]  # TODO: [support-package]
         pass
-        # TODO: packages: ConnectionData[PackageData]
 
 
     class PackageOwnerData(OptionalPackageOwnerData):
-        pass
         # NOTE: id: str (on Node)
+        pass
 
 
 class PackageOwner:
