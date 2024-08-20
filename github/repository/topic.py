@@ -13,13 +13,13 @@ if TYPE_CHECKING:
     from github.interfaces.node import NodeData
     from github.interfaces.starrable import StarrableData
     from github.interfaces.type import TypeData
-    # TODO: from ??? import RepositoryData
-    # TODO: from ??? import ConnectionData
+    # from github.repository.repository import RepositoryData  # TODO: [support-repository]
+    from github.utilities.types import ConnectionData
 
 
     class OptionalTopicData(TypedDict, total=False):
         relatedTopics: list[TopicData]
-        # TODO: repositories: ConnectionData[RepositoryData]
+        # repositories: ConnectionData[RepositoryData]  # TODO: [support-repository]
 
 
     class TopicData(OptionalTopicData, NodeData, StarrableData, TypeData):
