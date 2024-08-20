@@ -13,6 +13,7 @@ if TYPE_CHECKING:
 
     class MetadataData(TypeData):
         gitIpAddresses: list[str]
+        githubEnterpriseImporterIpAddresses: list[str]
         gitHubServicesSha: str
         hookIpAddresses: list[str]
         importerIpAddresses: list[str]
@@ -32,6 +33,7 @@ class Metadata(Type):
     _graphql_type: str = "GitHubMetadata"
 
     _graphql_fields: dict[str, str] = {
+        "enterprise_importer_ip_addresses": "githubEnterpriseImporterIpAddresses",
         "git_ip_addresses": "gitIpAddresses",
         "github_services_sha": "gitHubServicesSha",
         "hook_ip_addresses": "hookIpAddresses",
@@ -39,6 +41,20 @@ class Metadata(Type):
         "is_password_authentication_verifiable": "isPasswordAuthenticationVerifiable",
         "pages_ip_addresses": "pagesIpAddresses",
     }
+
+    @property
+    def enterprise_importer_ip_addresses(
+        self: Self,
+        /,
+    ) -> list[str]:
+        """
+        The IP addresses that GitHub Enterprise Importer uses for
+        outbound connections.
+
+        :type: List[:class:`str`]
+        """
+
+        return self._data["githubEnterpriseImporterIpAddresses"]
 
     @property
     def git_ip_addresses(
