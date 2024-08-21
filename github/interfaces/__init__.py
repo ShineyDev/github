@@ -1,5 +1,7 @@
 from github.interfaces.actor import *
 from github.interfaces.actor import __all__ as _actor__all__
+from github.interfaces.discussionauthor import *
+from github.interfaces.discussionauthor import __all__ as _discussionauthor__all__
 from github.interfaces.node import *
 from github.interfaces.node import __all__ as _node__all__
 from github.interfaces.packageowner import *
@@ -16,6 +18,7 @@ from github.interfaces.uniformresourcelocatable import __all__ as _uniformresour
 
 __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_actor__all__,
+    *_discussionauthor__all__,
     *_node__all__,
     *_packageowner__all__,
     *_profileowner__all__,
