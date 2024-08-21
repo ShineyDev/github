@@ -1,6 +1,9 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from typing_extensions import Self
+
 
 if TYPE_CHECKING:
     from typing import TypedDict
@@ -29,6 +32,30 @@ class PackageOwner:
     __slots__ = ()
 
     _data: PackageOwnerData
+
+    async def fetch_packages(
+        self: Self,
+        /,
+    ) -> None:
+        """
+        |aiter|
+
+        Fetches packages from the package owner.
+
+
+        Raises
+        ------
+
+        ~github.client.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: ConnectionIterator[Package]
+
+        ..      :class:`~github.utility.ConnectionIterator`[:class:`~github.Package`]
+        """
+
+        raise NotImplementedError  # TODO: PackageOwner.packages
 
 
 __all__: list[str] = [
