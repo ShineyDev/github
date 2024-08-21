@@ -95,6 +95,30 @@ class Starrable:
 
         return await self._fetch_field("viewerHasStarred")  # type: ignore
 
+    async def fetch_stargazers(
+        self: Self,
+        /,
+    ) -> None:
+        """
+        |aiter|
+
+        Fetches stargazers from the starrable.
+
+
+        Raises
+        ------
+
+        ~github.client.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: ConnectionIterator[User]
+
+        ..      :class:`~github.utility.ConnectionIterator`[:class:`~github.User`]
+        """
+
+        raise NotImplementedError  # TODO: Starrable.stargazers
+
     async def star(
         self: Self,
         /,
