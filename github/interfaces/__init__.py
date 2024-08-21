@@ -8,6 +8,8 @@ from github.interfaces.packageowner import *
 from github.interfaces.packageowner import __all__ as _packageowner__all__
 from github.interfaces.profileowner import *
 from github.interfaces.profileowner import __all__ as _profileowner__all__
+from github.interfaces.repositoryowner import *
+from github.interfaces.repositoryowner import __all__ as _repositoryowner__all__
 from github.interfaces.starrable import *
 from github.interfaces.starrable import __all__ as _starrable__all__
 from github.interfaces.type import *
@@ -22,6 +24,7 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_node__all__,
     *_packageowner__all__,
     *_profileowner__all__,
+    *_repositoryowner__all__,
     *_starrable__all__,
     *_type__all__,
     *_uniformresourcelocatable__all__,
