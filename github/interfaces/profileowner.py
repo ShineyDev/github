@@ -165,6 +165,78 @@ class ProfileOwner:
 
         return self._data["websiteUrl"]
 
+    async def fetch_pinnable_items(
+        self: Self,
+        /,
+    ) -> None:
+        """
+        |aiter|
+
+        Fetches pinnable items from the profile author.
+
+
+        Raises
+        ------
+
+        ~github.client.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: ConnectionIterator[Gist | Repository]
+
+        ..      :class:`~github.utility.ConnectionIterator`[:class:`~github.Gist` | :class:`~github.Repository`]
+        """
+
+        raise NotImplementedError  # TODO: ProfileOwner.pinnableItems
+
+    async def fetch_pinned_items(
+        self: Self,
+        /,
+    ) -> None:
+        """
+        |aiter|
+
+        Fetches pinned items from the profile author.
+
+
+        Raises
+        ------
+
+        ~github.client.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: ConnectionIterator[Gist | Repository]
+
+        ..      :class:`~github.utility.ConnectionIterator`[:class:`~github.Gist` | :class:`~github.Repository`]
+        """
+
+        raise NotImplementedError  # TODO: ProfileOwner.pinnedItems
+
+    async def fetch_showcase_items(
+        self: Self,
+        /,
+    ) -> None:
+        """
+        |aiter|
+
+        Fetches showcase items from the profile author.
+
+
+        Raises
+        ------
+
+        ~github.client.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: ConnectionIterator[Gist | Repository]
+
+        ..      :class:`~github.utility.ConnectionIterator`[:class:`~github.Gist` | :class:`~github.Repository`]
+        """
+
+        raise NotImplementedError  # TODO: ProfileOwner.itemShowcase.items
+
 
 __all__: list[str] = [
     "ProfileOwner",
