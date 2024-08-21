@@ -1,6 +1,9 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from typing_extensions import Self
+
 
 if TYPE_CHECKING:
     from typing import TypedDict
@@ -30,6 +33,54 @@ class DiscussionAuthor:
     __slots__ = ()
 
     _data: DiscussionAuthorData
+
+    async def fetch_discussion_comments(
+        self: Self,
+        /,
+    ) -> None:
+        """
+        |aiter|
+
+        Fetches discussion comments from the discussion author.
+
+
+        Raises
+        ------
+
+        ~github.client.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: ConnectionIterator[DiscussionComment]
+
+        ..      :class:`~github.utility.ConnectionIterator`[:class:`~github.DiscussionComment`]
+        """
+
+        raise NotImplementedError  # TODO: RepositoryDiscussionCommentAuthor.repositoryDiscussionComments
+
+    async def fetch_discussions(
+        self: Self,
+        /,
+    ) -> None:
+        """
+        |aiter|
+
+        Fetches discussions from the discussion author.
+
+
+        Raises
+        ------
+
+        ~github.client.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: ConnectionIterator[Discussion]
+
+        ..      :class:`~github.utility.ConnectionIterator`[:class:`~github.Discussion`]
+        """
+
+        raise NotImplementedError  # TODO: RepositoryDiscussionAuthor.repositoryDiscussions
 
 
 __all__: list[str] = [
