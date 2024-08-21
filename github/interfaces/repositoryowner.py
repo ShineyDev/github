@@ -1,6 +1,9 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from typing_extensions import Self
+
 
 if TYPE_CHECKING:
     from typing import TypedDict
@@ -33,6 +36,54 @@ class RepositoryOwner:
     __slots__ = ()
 
     _data: RepositoryOwnerData
+
+    async def fetch_repositories(
+        self: Self,
+        /,
+    ) -> None:
+        """
+        |aiter|
+
+        Fetches repositories from the repository owner.
+
+
+        Raises
+        ------
+
+        ~github.client.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: ConnectionIterator[Repository]
+
+        ..      :class:`~github.utility.ConnectionIterator`[:class:`~github.Repository`]
+        """
+
+        raise NotImplementedError  # TODO: RepositoryOwner.repositories
+
+    async def fetch_repository(
+        self: Self,
+        /,
+    ) -> None:
+        """
+        |coro|
+
+        Fetches a repository from the repository owner.
+
+
+        Raises
+        ------
+
+        ~github.client.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: Repository
+
+        ..      :class:`~github.Repository`
+        """
+
+        raise NotImplementedError  # TODO: RepositoryOwner.repository
 
 
 __all__: list[str] = [
