@@ -125,6 +125,30 @@ class Topic(Node, Starrable, Type):
         data = await self._http.fetch_topic_related_topics(self.id, limit, **kwargs)
         return Topic._from_data(data)
 
+    async def fetch_repositories(
+        self: Self,
+        /,
+    ) -> None:
+        """
+        |aiter|
+
+        Fetches repositories from the topic.
+
+
+        Raises
+        ------
+
+        ~github.client.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: ConnectionIterator[Repository]
+
+        ..      :class:`~github.utility.ConnectionIterator`[:class:`~github.Repository`]
+        """
+
+        raise NotImplementedError  # TODO: Topic.repositories
+
 
 __all__: list[str] = [
     "Topic",
