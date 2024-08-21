@@ -8,7 +8,7 @@ from github.client.errors import ClientObjectMissingFieldError
 
 
 if TYPE_CHECKING:
-    from github.utilities.types import T_json_key, T_json_value
+    from github.utility.types import T_json_key, T_json_value
 
     _K = TypeVar("_K", bound=T_json_key)
     _V = TypeVar("_V", bound=T_json_value)

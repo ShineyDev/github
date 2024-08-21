@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
     # from github.gist.gist import GistData  # TODO: [support-gist]
     # from github.repository.repository import RepositoryData  # TODO: [support-repository]
-    from github.utilities.types import ConnectionData
+    from github.utility.types import ConnectionData
 
 
     class _OptionalProfileOwnerShowcaseData(TypedDict, total=False):

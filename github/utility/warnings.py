@@ -37,7 +37,7 @@ def changing(
         if why:
             message += f" {why}."
 
-        @github.utilities.wrap(callable)
+        @github.utility.wrap(callable)
         def wrapper(*args, **kwargs):
             warn_once(message, who, 2)
             return callable(*args, **kwargs)
@@ -77,7 +77,7 @@ def deprecated(
         if why:
             message += f" {why}."
 
-        @github.utilities.wrap(callable)
+        @github.utility.wrap(callable)
         def wrapper(*args, **kwargs):
             warn_once(message, who, 2)
             return callable(*args, **kwargs)

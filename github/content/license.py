@@ -4,9 +4,9 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
-    from github.utilities.types import T_json_key, T_json_value
+    from github.utility.types import T_json_key, T_json_value
 
-from github import utilities
+from github import utility
 from github.client.errors import ClientObjectMissingFieldError
 from github.content.licenserule import LicenseRule
 from github.interfaces import Node, Type
@@ -63,17 +63,17 @@ class License(Node, Type):
     _graphql_fields: dict[str, str] = {
         "body": "body",
         "choosealicense_url": "url",
-        "conditions": "conditions{%s}" % ",".join(utilities.get_defined_graphql_fields(LicenseRule)),
+        "conditions": "conditions{%s}" % ",".join(utility.get_defined_graphql_fields(LicenseRule)),
         "description": "description",
         "implementation": "implementation",
         "is_featured": "featured",
         "is_hidden": "hidden",
         "is_pseudo": "pseudoLicense",
         "key": "key",
-        "limitations": "limitations{%s}" % ",".join(utilities.get_defined_graphql_fields(LicenseRule)),
+        "limitations": "limitations{%s}" % ",".join(utility.get_defined_graphql_fields(LicenseRule)),
         "name": "name",
         "nickname": "nickname",
-        "permissions": "permissions{%s}" % ",".join(utilities.get_defined_graphql_fields(LicenseRule)),
+        "permissions": "permissions{%s}" % ",".join(utility.get_defined_graphql_fields(LicenseRule)),
         "spdx_id": "spdxId",
     }
 

@@ -5,9 +5,9 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.client.http import HTTPClient
-    from github.utilities.types import T_json_object
+    from github.utility.types import T_json_object
 
-from github import utilities
+from github import utility
 from github.client.errors import ClientObjectMissingFieldError
 
 
@@ -38,14 +38,14 @@ class Type:
         http: HTTPClient | None = None,
         /,
     ) -> None:
-        self._data = utilities.DataWrapper(data)  # type: ignore
+        self._data = utility.DataWrapper(data)  # type: ignore
         self._http: HTTPClient | None = http
 
     def __repr__(
         self: Self,
         /,
     ) -> str:
-        d_fields = utilities.get_defined_repr_fields(self.__class__)
+        d_fields = utility.get_defined_repr_fields(self.__class__)
 
         f_fields = dict()
         for name in d_fields:

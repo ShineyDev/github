@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from github.interfaces.starrable import StarrableData
     from github.interfaces.type import TypeData
     # from github.repository.repository import RepositoryData  # TODO: [support-repository]
-    from github.utilities.types import ConnectionData
+    from github.utility.types import ConnectionData
 
 
     class OptionalTopicData(TypedDict, total=False):

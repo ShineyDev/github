@@ -15,7 +15,7 @@ if TYPE_CHECKING:
     from github.interfaces.starrable import StarrableData
     from github.repository import Topic
     from github.repository.topic import TopicData
-    from github.utilities.types import T_json_key, T_json_object, T_json_value
+    from github.utility.types import T_json_key, T_json_object, T_json_value
 
 import uuid
 
@@ -89,7 +89,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         **kwargs,  # TODO
     ) -> T_json_value:
         data = await self.request(document_, None, kwargs, _data_validate=_data_validate)
-        return github.utilities.follow(data, path)
+        return github.utility.follow(data, path)
 
     async def fetch_query_all_codes_of_conduct(
         self: Self,
@@ -97,7 +97,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         *,
         fields: Iterable[str] | None = None,
     ) -> tuple[CodeOfConductData, ...]:
-        fields = github.utilities.get_merged_graphql_fields(github.CodeOfConduct, fields)
+        fields = github.utility.get_merged_graphql_fields(github.CodeOfConduct, fields)
         query = "{codesOfConduct{%s}}" % ",".join(fields)
         path = ("codesOfConduct",)
 
@@ -106,7 +106,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
             data: T_json_object,
             /,
         ) -> None:
-            value = github.utilities.follow(data, ("data", *path))
+            value = github.utility.follow(data, ("data", *path))
 
             if TYPE_CHECKING:
                 value = cast(tuple[CodeOfConductData, ...], value)
@@ -125,7 +125,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         *,
         fields: Iterable[str] | None = None,
     ) -> tuple[LicenseData, ...]:
-        fields = github.utilities.get_merged_graphql_fields(github.License, fields)
+        fields = github.utility.get_merged_graphql_fields(github.License, fields)
         query = "{licenses{%s}}" % ",".join(fields)
         path = ("licenses",)
 
@@ -134,7 +134,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
             data: T_json_object,
             /,
         ) -> None:
-            value = github.utilities.follow(data, ("data", *path))
+            value = github.utility.follow(data, ("data", *path))
 
             if TYPE_CHECKING:
                 value = cast(tuple[LicenseData, ...], value)
@@ -154,7 +154,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         *,
         fields: Iterable[str] | None = None,
     ) -> CodeOfConductData:
-        fields = github.utilities.get_merged_graphql_fields(github.CodeOfConduct, fields)
+        fields = github.utility.get_merged_graphql_fields(github.CodeOfConduct, fields)
         query = "query($key:String!){codeOfConduct(key:$key){%s}}" % ",".join(fields)
         path = ("codeOfConduct",)
 
@@ -163,7 +163,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
             data: T_json_object,
             /,
         ) -> None:
-            value = github.utilities.follow(data, ("data", *path))
+            value = github.utility.follow(data, ("data", *path))
 
             if TYPE_CHECKING:
                 value = cast(CodeOfConductData, value)
@@ -194,7 +194,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         *,
         fields: Iterable[str] | None = None,
     ) -> LicenseData:
-        fields = github.utilities.get_merged_graphql_fields(github.License, fields)
+        fields = github.utility.get_merged_graphql_fields(github.License, fields)
         query = "query($key:String!){license(key:$key){%s}}" % ",".join(fields)
         path = ("license",)
 
@@ -203,7 +203,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
             data: T_json_object,
             /,
         ) -> None:
-            value = github.utilities.follow(data, ("data", *path))
+            value = github.utility.follow(data, ("data", *path))
 
             if TYPE_CHECKING:
                 value = cast(LicenseData, value)
@@ -233,7 +233,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         *,
         fields: Iterable[str] | None = None,
     ) -> MetadataData:
-        fields = github.utilities.get_merged_graphql_fields(github.Metadata, fields)
+        fields = github.utility.get_merged_graphql_fields(github.Metadata, fields)
         query = "{meta{%s}}" % ",".join(fields)
         path = ("meta",)
 
@@ -282,8 +282,8 @@ class HTTPClient(graphql.client.http.HTTPClient):
         *,
         fields: Iterable[str] | None = None,
     ) -> T_json_object:
-        fields = github.utilities.get_merged_graphql_fields(type, fields)
-        query = "query($id:ID!){node(id:$id){...on %s{%s}}}" % (github.utilities.get_graphql_type(type), ",".join(fields))
+        fields = github.utility.get_merged_graphql_fields(type, fields)
+        query = "query($id:ID!){node(id:$id){...on %s{%s}}}" % (github.utility.get_graphql_type(type), ",".join(fields))
         path = ("node",)
 
         value = await self._fetch(query, *path, id=id)
@@ -302,7 +302,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         *,
         fields: Iterable[str] | None = None,
     ) -> RateLimitData:
-        fields = github.utilities.get_merged_graphql_fields(github.RateLimit, fields)
+        fields = github.utility.get_merged_graphql_fields(github.RateLimit, fields)
         query = "{rateLimit(dryRun:true){%s}}" % ",".join(fields)
         path = ("rateLimit",)
 
@@ -329,8 +329,8 @@ class HTTPClient(graphql.client.http.HTTPClient):
         *,
         fields: Iterable[str] | None = None,
     ) -> T_json_object:
-        fields = github.utilities.get_merged_graphql_fields(type, fields)
-        query = "query($url:URI!){resource(url:$url){...on %s{%s}}}" % (github.utilities.get_graphql_type(type), ",".join(fields))
+        fields = github.utility.get_merged_graphql_fields(type, fields)
+        query = "query($url:URI!){resource(url:$url){...on %s{%s}}}" % (github.utility.get_graphql_type(type), ",".join(fields))
         path = ("resource",)
 
         value = await self._fetch(query, *path, url=url)
@@ -349,7 +349,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         *,
         fields: Iterable[str] | None = None,
     ) -> TopicData:
-        fields = github.utilities.get_merged_graphql_fields(github.Topic, fields)
+        fields = github.utility.get_merged_graphql_fields(github.Topic, fields)
         query = "query($name:String!){topic(name:$name){%s}}" % ",".join(fields)
         path = ("topic",)
 
@@ -358,7 +358,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
             data: T_json_object,
             /,
         ) -> None:
-            value = github.utilities.follow(data, ("data", *path))
+            value = github.utility.follow(data, ("data", *path))
 
             if TYPE_CHECKING:
                 value = cast(TopicData, value)
@@ -385,7 +385,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         *,
         fields: Iterable[str] | None = None,
     ) -> tuple[TopicData, ...]:
-        fields = github.utilities.get_merged_graphql_fields(github.Topic, fields)
+        fields = github.utility.get_merged_graphql_fields(github.Topic, fields)
         query = "query($topic_id:ID!,$limit:Int){node(id:$topic_id){...on Topic{relatedTopics(first:$limit){%s}}}}" % ",".join(fields)
         path = ("node", "relatedTopics")
 
@@ -413,7 +413,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         *,
         fields: Iterable[str] | None = None,
     ) -> StarrableData:
-        fields = github.utilities.get_merged_graphql_fields(github.Starrable, fields)
+        fields = github.utility.get_merged_graphql_fields(github.Starrable, fields)
         query = "mutation($starrable_id:ID!,$mutation_id:String!){addStar(input:{clientMutationId:$mutation_id,starrableId:$starrable_id}){starrable{%s}}}" % ",".join(fields)
         path = ("addStar", "starrable")
 
@@ -428,7 +428,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         *,
         fields: Iterable[str] | None = None,
     ) -> StarrableData:
-        fields = github.utilities.get_merged_graphql_fields(github.Starrable, fields)
+        fields = github.utility.get_merged_graphql_fields(github.Starrable, fields)
         query = "mutation($starrable_id:ID!,$mutation_id:String!){removeStar(input:{clientMutationId:$mutation_id,starrableId:$starrable_id}){starrable{%s}}}" % ",".join(fields)
         path = ("removeStar", "starrable")
 

@@ -11,7 +11,7 @@ from github.connection import *
 from github.connection import __all__ as _connection__all__
 from github.repository import *
 from github.repository import __all__ as _repository__all__
-from github import utilities
+from github import utility
 
 
 class _VersionInfo(NamedTuple):
@@ -33,7 +33,7 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_content__all__,
     *_connection__all__,
     *_repository__all__,
-    "utilities",
+    "utility",
     "version",
     "version_info",
 ]

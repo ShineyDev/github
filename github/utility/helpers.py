@@ -5,7 +5,7 @@ if TYPE_CHECKING:
     from typing import Iterable
 
     from github import Type
-    from github.utilities.types import T_json_key, T_json_object, T_json_value
+    from github.utility.types import T_json_key, T_json_object, T_json_value
 
 import functools
 

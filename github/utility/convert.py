@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from github.utilities.types import Date, DateTime
+    from github.utility.types import Date, DateTime
 
 import base64
 import datetime
@@ -25,7 +25,7 @@ def datetime_to_iso(
     offset = obj.utcoffset()
 
     if offset is None:
-        github.utilities.warn_once(
+        github.utility.warn_once(
             "using timezone-unaware datetime is not recommended, use aware datetime instead. for example, use datetime.now(timezone.utc) instead of "
             "datetime.utcnow(). assuming UTC for now.",
             github.ClientDeprecationWarning,
@@ -45,7 +45,7 @@ def datetime_to_iso(
         minutes, rest = divmod(rest, datetime.timedelta(minutes=1))
 
         if rest:
-            github.utilities.warn_once(
+            github.utility.warn_once(
                 "using timezone with second or millisecond offset is not allowed. truncating to hours and minutes.",
                 github.ClientDeprecationWarning,
                 2,

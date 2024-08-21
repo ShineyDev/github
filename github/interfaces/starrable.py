@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     from typing import TypedDict
 
     # from github.user.user import UserData  # TODO: [support-user]
-    from github.utilities.types import ConnectionData
+    from github.utility.types import ConnectionData
 
 
     class OptionalStarrableData(TypedDict, total=False):
