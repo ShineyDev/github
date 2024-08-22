@@ -3,6 +3,7 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.pyright]
+reportInvalidTypeVarUse = false
 reportUnnecessaryTypeIgnoreComment = "warning"
 enableExperimentalFeatures = true
 pythonVersion = "3.8"
