@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Mapping, overload
 
 if TYPE_CHECKING:
-    from typing import Any, Iterable, cast
+    from typing import Any, Iterable, Tuple, cast
     from typing_extensions import Self
 
     from aiohttp import ClientResponse, ClientSession
@@ -109,7 +109,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
             value = github.utility.follow(data, ("data", *path))
 
             if TYPE_CHECKING:
-                value = cast(tuple[CodeOfConductData, ...], value)
+                value = cast(Tuple[CodeOfConductData, ...], value)
 
             if any([c.get("body", False) is None for c in value]):
                 # NOTE: (body=null) 1240368
@@ -137,7 +137,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
             value = github.utility.follow(data, ("data", *path))
 
             if TYPE_CHECKING:
-                value = cast(tuple[LicenseData, ...], value)
+                value = cast(Tuple[LicenseData, ...], value)
 
             if any([l.get("body", False) == "" for l in value]):
                 # NOTE: (body="") 1240368

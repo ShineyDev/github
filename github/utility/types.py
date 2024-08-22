@@ -3,7 +3,8 @@ from typing import TYPE_CHECKING
 
 assert TYPE_CHECKING
 
-from typing import Generic, Mapping, TypeAlias, TypedDict, TypeVar
+from typing import Generic, List, Mapping, TypedDict, TypeVar, Union
+from typing_extensions import TypeAlias
 
 from datetime import date, datetime
 
@@ -15,7 +16,7 @@ Date: TypeAlias = date
 DateTime: TypeAlias = datetime
 
 T_json_key: TypeAlias = str
-T_json_value: TypeAlias = None | bool | int | float | str | list["T_json_value"] | Mapping[T_json_key, "T_json_value"]
+T_json_value: TypeAlias = Union[None, bool, int, float, str, List["T_json_value"], Mapping[T_json_key, "T_json_value"]]
 T_json_object: TypeAlias = Mapping[str, object]
 
 
