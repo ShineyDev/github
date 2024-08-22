@@ -37,9 +37,22 @@ class Starrable:
     _http: HTTPClient
 
     _graphql_fields: dict[str, str] = {
+        "has_viewer_starred": "viewerHasStarred",
         "stargazer_count": "stargazerCount",
-        "viewer_has_starred": "viewerHasStarred",
     }
+
+    @property
+    def has_viewer_starred(
+        self: Self,
+        /,
+    ) -> bool:
+        """
+        Whether the viewer has starred the starrable.
+
+        :type: :class:`bool`
+        """
+
+        return self._data["viewerHasStarred"]
 
     @property
     def stargazer_count(
@@ -54,18 +67,19 @@ class Starrable:
 
         return self._data["stargazerCount"]
 
-    @property
-    def viewer_has_starred(
+    async def fetch_has_viewer_starred(
         self: Self,
         /,
     ) -> bool:
         """
-        Whether the viewer has starred the starrable.
+        |coro|
 
-        :type: :class:`bool`
+        Fetches whether the viewer has starred the starrable.
+
+        :rtype: :class:`bool`
         """
 
-        return self._data["viewerHasStarred"]
+        return await self._fetch_field("viewerHasStarred")  # type: ignore
 
     async def fetch_stargazer_count(
         self: Self,
@@ -80,20 +94,6 @@ class Starrable:
         """
 
         return await self._fetch_field("stargazerCount")  # type: ignore
-
-    async def fetch_viewer_has_starred(
-        self: Self,
-        /,
-    ) -> bool:
-        """
-        |coro|
-
-        Fetches whether the viewer has starred the starrable.
-
-        :rtype: :class:`bool`
-        """
-
-        return await self._fetch_field("viewerHasStarred")  # type: ignore
 
     async def fetch_stargazers(
         self: Self,
