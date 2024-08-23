@@ -36,7 +36,7 @@ class Metadata(Type):
         "enterprise_importer_ip_addresses": "githubEnterpriseImporterIpAddresses",
         "git_ip_addresses": "gitIpAddresses",
         "github_services_sha": "gitHubServicesSha",
-        "hook_ip_addresses": "hookIpAddresses",
+        "webhook_ip_addresses": "hookIpAddresses",
         "importer_ip_addresses": "importerIpAddresses",
         "is_password_authentication_verifiable": "isPasswordAuthenticationVerifiable",
         "pages_ip_addresses": "pagesIpAddresses",
@@ -83,12 +83,12 @@ class Metadata(Type):
         return self._data["gitHubServicesSha"]
 
     @property
-    def hook_ip_addresses(
+    def webhook_ip_addresses(
         self: Self,
         /,
     ) -> list[str]:
         """
-        The IP addresses for service hooks.
+        The IP addresses for webhooks.
 
         :type: List[:class:`str`]
         """
