@@ -1,7 +1,8 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING, ClassVar, Iterable, overload
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from typing import ClassVar, Iterable, cast, overload
     from typing_extensions import Self
 
     from github.client.http import HTTPClient
@@ -62,27 +63,29 @@ class Type:
         else:
             return f"<{self.__class__.__name__}>"
 
-    @overload
-    @classmethod
-    def _from_data(
-        cls: type[Self],
-        data: T_json_object,
-        /,
-        *,
-        http: HTTPClient | None = None,
-    ) -> Self:
-        pass
+    if TYPE_CHECKING:
 
-    @overload
-    @classmethod
-    def _from_data(
-        cls: type[Self],
-        data: Iterable[T_json_object],
-        /,
-        *,
-        http: HTTPClient | None = None,
-    ) -> list[Self]:
-        pass
+        @overload
+        @classmethod
+        def _from_data(
+            cls: type[Self],
+            data: T_json_object,
+            /,
+            *,
+            http: HTTPClient | None = None,
+        ) -> Self:
+            pass
+
+        @overload
+        @classmethod
+        def _from_data(
+            cls: type[Self],
+            data: Iterable[T_json_object],
+            /,
+            *,
+            http: HTTPClient | None = None,
+        ) -> list[Self]:
+            pass
 
     @classmethod
     def _from_data(
@@ -93,8 +96,14 @@ class Type:
         http: HTTPClient | None = None,
     ) -> Self | list[Self]:
         if isinstance(data, dict):
+            if TYPE_CHECKING:
+                data = cast(T_json_object, data)
+
             return cls(data, http)
         else:
+            if TYPE_CHECKING:
+                data = cast(Iterable[T_json_object], data)
+
             return [cls(o, http) for o in data]
 
 
