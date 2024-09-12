@@ -1,8 +1,8 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING, Mapping, overload
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Any, Iterable, Tuple, cast
+    from typing import Any, Iterable, Tuple, cast, overload
     from typing_extensions import Self
 
     from aiohttp import ClientResponse, ClientSession
@@ -241,38 +241,40 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return value  # type: ignore
 
-    @overload
-    async def fetch_query_node(
-        self: Self,
-        /,
-        type: type[CodeOfConduct],
-        id: str,
-        *,
-        fields: Iterable[str] | None = None,
-    ) -> CodeOfConductData:
-        pass
+    if TYPE_CHECKING:
 
-    @overload
-    async def fetch_query_node(
-        self: Self,
-        /,
-        type: type[License],
-        id: str,
-        *,
-        fields: Iterable[str] | None = None,
-    ) -> LicenseData:
-        pass
+        @overload
+        async def fetch_query_node(
+            self: Self,
+            /,
+            type: type[CodeOfConduct],
+            id: str,
+            *,
+            fields: Iterable[str] | None = None,
+        ) -> CodeOfConductData:
+            pass
 
-    @overload
-    async def fetch_query_node(
-        self: Self,
-        /,
-        type: type[Topic],
-        id: str,
-        *,
-        fields: Iterable[str] | None = None,
-    ) -> TopicData:
-        pass
+        @overload
+        async def fetch_query_node(
+            self: Self,
+            /,
+            type: type[License],
+            id: str,
+            *,
+            fields: Iterable[str] | None = None,
+        ) -> LicenseData:
+            pass
+
+        @overload
+        async def fetch_query_node(
+            self: Self,
+            /,
+            type: type[Topic],
+            id: str,
+            *,
+            fields: Iterable[str] | None = None,
+        ) -> TopicData:
+            pass
 
     async def fetch_query_node(
         self: Self,
@@ -310,16 +312,18 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return value  # type: ignore
 
-    @overload
-    async def fetch_query_resource(
-        self: Self,
-        /,
-        type: type[CodeOfConduct],
-        url: str,
-        *,
-        fields: Iterable[str] | None = None,
-    ) -> CodeOfConductData:
-        pass
+    if TYPE_CHECKING:
+
+        @overload
+        async def fetch_query_resource(
+            self: Self,
+            /,
+            type: type[CodeOfConduct],
+            url: str,
+            *,
+            fields: Iterable[str] | None = None,
+        ) -> CodeOfConductData:
+            pass
 
     async def fetch_query_resource(
         self: Self,
