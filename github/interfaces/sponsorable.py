@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
-    from github.client.http import HTTPClient
+    from github.core.http import HTTPClient
 
 
 if TYPE_CHECKING:

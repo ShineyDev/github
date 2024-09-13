@@ -46,7 +46,7 @@ class PackageOwner:
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
 
 

@@ -1,4 +1,4 @@
-.. currentmodule:: github.client.errors
+.. currentmodule:: github.core.errors
 
 
 Errors

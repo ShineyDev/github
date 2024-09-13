@@ -5,11 +5,11 @@ if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
 
-    from github.client.http import HTTPClient
+    from github.core.http import HTTPClient
     from github.interfaces.type import Type
     from github.utility.types import T_json_key, T_json_value
 
-from github.client.errors import ClientObjectMissingFieldError
+from github.core.errors import ClientObjectMissingFieldError
 
 
 if TYPE_CHECKING:
@@ -104,7 +104,7 @@ class UniformResourceLocatable:
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`url` attribute is missing.
 
 
@@ -126,7 +126,7 @@ class UniformResourceLocatable:
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`url` attribute is missing.
 
 

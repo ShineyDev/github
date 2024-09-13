@@ -15,7 +15,7 @@ An asynchronous Python library for interaction with GitHub's GraphQL API.
     :caption: Reference
     :maxdepth: 2
 
-    reference/github/client/index
+    reference/github/core/index
     reference/github/connection/index
     reference/github/content/index
     reference/github/repository/index

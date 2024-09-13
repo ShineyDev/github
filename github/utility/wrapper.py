@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, TypeVar
 if TYPE_CHECKING:
     from typing import Any, Self
 
-from github.client.errors import ClientObjectMissingFieldError
+from github.core.errors import ClientObjectMissingFieldError
 
 
 if TYPE_CHECKING:

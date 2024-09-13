@@ -50,7 +50,7 @@ class RepositoryOwner:
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
 
 
@@ -74,7 +74,7 @@ class RepositoryOwner:
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
 
 

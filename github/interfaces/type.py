@@ -5,11 +5,11 @@ if TYPE_CHECKING:
     from typing import ClassVar, Iterable, cast, overload
     from typing_extensions import Self
 
-    from github.client.http import HTTPClient
+    from github.core.http import HTTPClient
     from github.utility.types import T_json_object
 
 from github import utility
-from github.client.errors import ClientObjectMissingFieldError
+from github.core.errors import ClientObjectMissingFieldError
 
 
 if TYPE_CHECKING:

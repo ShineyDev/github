@@ -7,7 +7,7 @@ if TYPE_CHECKING:
     from github.utility.types import DateTime
 
 from github import utility
-from github.client.errors import ClientObjectMissingFieldError
+from github.core.errors import ClientObjectMissingFieldError
 from github.interfaces import Type
 
 

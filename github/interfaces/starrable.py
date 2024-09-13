@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
-    from github.client.http import HTTPClient
+    from github.core.http import HTTPClient
     from github.interfaces import Node
 
 
@@ -108,7 +108,7 @@ class Starrable:
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
 
 

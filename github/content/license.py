@@ -7,7 +7,7 @@ if TYPE_CHECKING:
     from github.utility.types import T_json_key, T_json_value
 
 from github import utility
-from github.client.errors import ClientObjectMissingFieldError
+from github.core.errors import ClientObjectMissingFieldError
 from github.content.licenserule import LicenseRule
 from github.interfaces import Node, Type
 
@@ -310,7 +310,7 @@ class License(Node, Type):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
@@ -335,7 +335,7 @@ class License(Node, Type):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
@@ -360,7 +360,7 @@ class License(Node, Type):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
@@ -385,7 +385,7 @@ class License(Node, Type):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
@@ -410,7 +410,7 @@ class License(Node, Type):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
@@ -435,7 +435,7 @@ class License(Node, Type):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
@@ -460,7 +460,7 @@ class License(Node, Type):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
@@ -485,7 +485,7 @@ class License(Node, Type):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
@@ -510,7 +510,7 @@ class License(Node, Type):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
@@ -535,7 +535,7 @@ class License(Node, Type):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
@@ -560,7 +560,7 @@ class License(Node, Type):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
@@ -585,7 +585,7 @@ class License(Node, Type):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
@@ -610,7 +610,7 @@ class License(Node, Type):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
@@ -635,7 +635,7 @@ class License(Node, Type):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)
@@ -660,7 +660,7 @@ class License(Node, Type):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`.id` and :attr:`.key` attributes are both
             missing. OR; (on an instance-level license) The :attr:`key`
             attribute is missing. OR; (on a repository-level license)

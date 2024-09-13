@@ -6,7 +6,7 @@ if TYPE_CHECKING:
 
     from github.utility.types import T_json_key, T_json_value
 
-from github.client.errors import ClientObjectMissingFieldError
+from github.core.errors import ClientObjectMissingFieldError
 from github.interfaces import Node, Type, UniformResourceLocatable
 
 
@@ -176,7 +176,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
             all missing. OR; (on an instance-level code of conduct) The
             :attr:`id` and :attr:`key` attributes are missing. OR; (on
@@ -202,7 +202,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
             all missing. OR; (on an instance-level code of conduct) The
             :attr:`id` and :attr:`key` attributes are missing. OR; (on
@@ -228,7 +228,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
             all missing. OR; (on an instance-level code of conduct) The
             :attr:`id` and :attr:`key` attributes are missing. OR; (on
@@ -254,7 +254,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
             all missing. OR; (on an instance-level code of conduct) The
             :attr:`id` and :attr:`key` attributes are missing. OR; (on
@@ -280,7 +280,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
             all missing. OR; (on an instance-level code of conduct) The
             :attr:`id` and :attr:`key` attributes are missing. OR; (on
@@ -306,7 +306,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`id`, :attr:`key`, and :attr:`url` attributes are
             all missing. OR; (on an instance-level code of conduct) The
             :attr:`id` and :attr:`key` attributes are missing. OR; (on

@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 import graphql
 
-from github.client.http import HTTPClient
+from github.core.http import HTTPClient
 from github.content import CodeOfConduct, License
 from github.connection import Metadata, RateLimit
 from github.repository import Topic
@@ -100,10 +100,10 @@ class Client(graphql.client.Client):
         Raises
         ------
 
-        ~github.client.errors.ClientResponseHTTPError
+        ~github.core.errors.ClientResponseHTTPError
             Arbitrary HTTP error.
 
-        ~github.client.errors.ClientResponseGraphQLError
+        ~github.core.errors.ClientResponseGraphQLError
             Arbitrary GraphQL error.
 
 
@@ -140,7 +140,7 @@ class Client(graphql.client.Client):
         Raises
         ------
 
-        ~github.client.errors.ClientResponseGraphQLInternalError
+        ~github.core.errors.ClientResponseGraphQLInternalError
             The GraphQL service failed to fetch a code of conduct body.
 
 
@@ -164,7 +164,7 @@ class Client(graphql.client.Client):
         Raises
         ------
 
-        ~github.client.errors.ClientResponseGraphQLInternalError
+        ~github.core.errors.ClientResponseGraphQLInternalError
             The GraphQL service failed to fetch a license body.
 
 
@@ -196,10 +196,10 @@ class Client(graphql.client.Client):
         Raises
         ------
 
-        ~github.client.errors.ClientResponseGraphQLInternalError
+        ~github.core.errors.ClientResponseGraphQLInternalError
             The GraphQL service failed to fetch the code of conduct body.
 
-        ~github.client.errors.ClientResponseGraphQLNotFoundError
+        ~github.core.errors.ClientResponseGraphQLNotFoundError
             A code of conduct with the provided key does not exist.
 
 
@@ -231,10 +231,10 @@ class Client(graphql.client.Client):
         Raises
         ------
 
-        ~github.client.errors.ClientResponseGraphQLInternalError
+        ~github.core.errors.ClientResponseGraphQLInternalError
             The GraphQL service failed to fetch the license body.
 
-        ~github.client.errors.ClientResponseGraphQLNotFoundError
+        ~github.core.errors.ClientResponseGraphQLNotFoundError
             A license with the provided key does not exist.
 
 
@@ -298,7 +298,7 @@ class Client(graphql.client.Client):
         Raises
         ------
 
-        ~github.client.errors.ClientResponseGraphQLNotFoundError
+        ~github.core.errors.ClientResponseGraphQLNotFoundError
             A topic with the provided name does not exist.
 
 

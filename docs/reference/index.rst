@@ -7,7 +7,7 @@ Reference
 .. toctree::
     :maxdepth: 2
 
-    github/client/index
+    github/core/index
     github/connection/index
     github/content/index
     github/repository/index

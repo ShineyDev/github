@@ -1,8 +1,8 @@
 :orphan:
 
 
-github.client
-=============
+github.core
+===========
 
 .. toctree::
     :maxdepth: 1

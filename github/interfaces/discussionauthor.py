@@ -47,7 +47,7 @@ class DiscussionAuthor:
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
 
 
@@ -71,7 +71,7 @@ class DiscussionAuthor:
         Raises
         ------
 
-        ~github.client.errors.ClientObjectMissingFieldError
+        ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
 
 
