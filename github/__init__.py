@@ -11,6 +11,8 @@ from github.connection import *
 from github.connection import __all__ as _connection__all__
 from github.repository import *
 from github.repository import __all__ as _repository__all__
+from github.user import *
+from github.user import __all__ as _user__all__
 from github import utility
 
 
@@ -33,6 +35,7 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_content__all__,
     *_connection__all__,
     *_repository__all__,
+    *_user__all__,
     "utility",
     "version",
     "version_info",
