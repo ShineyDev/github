@@ -51,15 +51,29 @@ class ProfileOwner:
     _data: ProfileOwnerData
 
     _graphql_fields: dict[str, str] = {
+        "can_viewer_update_showcase": "viewerCanChangePinnedItems",
         # "email": "email",  # NOTE: see ProfileOwner.email
         "has_pinnable_items": "anyPinnableItems",
         "has_pinned_items": "itemShowcase{hasPinnedItems}",
         "location": "location",
         "name": "name",
         "showcase_slots_remaining": "pinnedItemsRemaining",
-        "viewer_can_change_pinned_items": "viewerCanChangePinnedItems",
         "website": "websiteUrl",
     }
+
+    @property
+    def can_viewer_update_showcase(
+        self: Self,
+        /,
+    ) -> bool:
+        """
+        Whether the authenticated user can update the showcase of the
+        profile owner.
+
+        :type: :class:`bool`
+        """
+
+        return self._data["viewerCanChangePinnedItems"]
 
     @property
     def email(
@@ -146,19 +160,6 @@ class ProfileOwner:
         """
 
         return self._data["pinnedItemsRemaining"]
-
-    @property
-    def viewer_can_update_showcase(
-        self: Self,
-        /,
-    ) -> bool:
-        """
-        Whether the authenticated user can update the showcase of the profile owner.
-
-        :type: :class:`bool`
-        """
-
-        return self._data["viewerCanChangePinnedItems"]
 
     @property
     def website(
