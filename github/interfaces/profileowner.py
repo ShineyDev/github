@@ -173,6 +173,37 @@ class ProfileOwner:
 
         return self._data["websiteUrl"]
 
+    async def fetch_email(
+        self: Self,
+        /,
+    ) -> str | None:
+        """
+        |coro|
+
+        Fetches the email of the profile owner.
+
+        .. note::
+
+            This field requires the following token scopes:
+
+            - ``read:org`` for :attr:`Organization.email`.
+            - ``read:user`` OR ``user:email`` for :attr:`User.email`.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+        ~github.core.errors.ClientResponseGraphQLInsufficientScopesError
+            The token used by the client does not have the required scopes.
+
+
+        :rtype: Optional[:class:`str`]
+        """
+
+        return await self._fetch_field("email")  # type: ignore
+
     async def fetch_pinnable_items(
         self: Self,
         /,
