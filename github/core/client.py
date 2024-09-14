@@ -14,6 +14,7 @@ from github.core.http import HTTPClient
 from github.content import CodeOfConduct, License
 from github.connection import Metadata, RateLimit
 from github.repository import Topic
+from github.user import AuthenticatedUser, User
 
 
 class Client(graphql.client.Client):
@@ -307,6 +308,55 @@ class Client(graphql.client.Client):
 
         data = await self._http.fetch_query_topic(name, **kwargs)
         return Topic._from_data(data, http=self._http)
+
+    async def fetch_user(
+        self: Self,
+        login: str,
+        /,
+        **kwargs,  # TODO
+    ) -> User:
+        """
+        |coro|
+
+        Fetches a user by its login.
+
+
+        Parameters
+        ----------
+
+        login: :class:`str`
+            See :attr:`User.login <github.User.login>`.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientResponseGraphQLNotFoundError
+            A user with the provided login does not exist.
+
+
+        :rtype: :class:`~github.User`
+        """
+
+        data = await self._http.fetch_query_user(login, **kwargs)
+        return User._from_data(data, http=self._http)
+
+    async def fetch_viewer(
+        self: Self,
+        /,
+        **kwargs,  # TODO
+    ) -> AuthenticatedUser:
+        """
+        |coro|
+
+        Fetches the authenticated user.
+
+
+        :rtype: :class:`~github.AuthenticatedUser`
+        """
+
+        data = await self._http.fetch_query_viewer(**kwargs)
+        return AuthenticatedUser._from_data(data, http=self._http)
 
 
 __all__: list[str] = [

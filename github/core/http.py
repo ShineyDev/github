@@ -12,9 +12,12 @@ if TYPE_CHECKING:
     from github.content.codeofconduct import CodeOfConductData
     from github.content.license import LicenseData
     from github.interfaces import Node, UniformResourceLocatable
+    from github.interfaces.profileowner import ProfileOwnerData
     from github.interfaces.starrable import StarrableData
     from github.repository import Topic
     from github.repository.topic import TopicData
+    from github.user import User
+    from github.user.user import UserData
     from github.utility.types import T_json_key, T_json_object, T_json_value
 
 import uuid
@@ -79,6 +82,37 @@ class HTTPClient(graphql.client.http.HTTPClient):
             raise github.ClientError(e.message) from e
         else:
             return data
+
+    def _patch_profileownerdata(
+        self: Self,
+        data: ProfileOwnerData,
+        /,
+    ) -> ProfileOwnerData:
+        if data.get("email", False) == "":
+            data["email"] = None
+
+        return data
+
+    def _patch_userdata(
+        self: Self,
+        data: UserData,
+        /,
+    ) -> UserData:
+        data = self._patch_profileownerdata(data)  # type: ignore
+
+        if data.get("bio", False) == "":
+            data["bio"] = None
+
+        if data.get("bioHTML", False) == "":
+            data["bioHTML"] = None
+
+        if data.get("companyHTML", False) == "":
+            data["companyHTML"] = None
+
+        if data.get("pronouns", False) == "":
+            data["pronouns"] = None
+
+        return data
 
     async def _fetch(
         self: Self,
@@ -276,6 +310,17 @@ class HTTPClient(graphql.client.http.HTTPClient):
         ) -> TopicData:
             pass
 
+        @overload
+        async def fetch_query_node(
+            self: Self,
+            /,
+            type: type[User],
+            id: str,
+            *,
+            fields: Iterable[str] | None = None,
+        ) -> UserData:
+            pass
+
     async def fetch_query_node(
         self: Self,
         /,
@@ -323,6 +368,17 @@ class HTTPClient(graphql.client.http.HTTPClient):
             *,
             fields: Iterable[str] | None = None,
         ) -> CodeOfConductData:
+            pass
+
+        @overload
+        async def fetch_query_resource(
+            self: Self,
+            /,
+            type: type[User],
+            url: str,
+            *,
+            fields: Iterable[str] | None = None,
+        ) -> UserData:
             pass
 
     async def fetch_query_resource(
@@ -378,6 +434,54 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         if "name" not in value.keys():
             value["name"] = name
+
+        return value
+
+    async def fetch_query_user(
+        self: Self,
+        login: str,
+        *,
+        fields: Iterable[str] | None = None,
+    ) -> UserData:
+        fields = github.utility.get_merged_graphql_fields(github.User, fields)
+
+        # NOTE: this holds together the hack in User._from_data
+        if "isViewer" not in fields:
+            fields.append("isViewer")
+
+        query = "query($login:String!){user(login:$login){%s}}" % ",".join(fields)
+        path = ("user",)
+
+        value = await self._fetch(query, *path, login=login)
+
+        if TYPE_CHECKING:
+            value = cast(UserData, value)
+
+        if "login" not in value.keys():
+            value["login"] = login
+
+        value = self._patch_userdata(value)
+
+        return value
+
+    async def fetch_query_viewer(
+        self: Self,
+        *,
+        fields: Iterable[str] | None = None,
+    ) -> UserData:
+        fields = github.utility.get_merged_graphql_fields(github.User, fields)
+        query = "query{viewer{%s}}" % ",".join(fields)
+        path = ("viewer",)
+
+        value = await self._fetch(query, *path)
+
+        if TYPE_CHECKING:
+            value = cast(UserData, value)
+
+        if "isViewer" not in value.keys():
+            value["isViewer"] = True
+
+        value = self._patch_userdata(value)
 
         return value
 
