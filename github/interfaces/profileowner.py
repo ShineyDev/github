@@ -30,7 +30,7 @@ if TYPE_CHECKING:
 
     class ProfileOwnerData(OptionalProfileOwnerData):
         anyPinnableItems: bool
-        email: str
+        email: str | None
         # NOTE: id: str (on Node)
         itemShowcase: _ProfileOwnerShowcaseData
         location: str | None
