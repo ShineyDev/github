@@ -80,7 +80,7 @@ class ProfileOwner:
         :type: Optional[:class:`str`]
         """
 
-        return self._data["email"] or None
+        return self._data["email"]
 
     @property
     def has_pinnable_items(
