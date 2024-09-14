@@ -2,7 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Dict, TypeVar
 
 if TYPE_CHECKING:
-    from typing import Any
     from typing_extensions import Self
 
 from github.core.errors import ClientObjectMissingFieldError
@@ -18,19 +17,6 @@ else:
     _V = TypeVar("_V")
 
 
-def wrap(
-    wrapped: Any,  # TODO
-) -> Any:  # TODO
-    def decorator(wrapper):
-        wrapper.__doc__ = wrapped.__doc__
-        wrapper.__name__ = wrapped.__name__
-        wrapper.__qualname__ = wrapped.__qualname__
-
-        return wrapper
-
-    return decorator
-
-
 class DataWrapper(Dict[_K, _V]):
     def __getitem__(
         self: Self,
@@ -44,6 +30,5 @@ class DataWrapper(Dict[_K, _V]):
 
 
 __all__: list[str] = [
-    "wrap",
     "DataWrapper",
 ]
