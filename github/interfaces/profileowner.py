@@ -51,7 +51,7 @@ class ProfileOwner:
     _data: ProfileOwnerData
 
     _graphql_fields: dict[str, str] = {
-        "email": "email",
+        # "email": "email",  # NOTE: see ProfileOwner.email
         "has_pinnable_items": "anyPinnableItems",
         "has_pinned_items": "itemShowcase{hasPinnedItems}",
         "location": "location",
@@ -68,6 +68,14 @@ class ProfileOwner:
     ) -> str | None:
         """
         The email of the profile owner.
+
+        .. note::
+
+            This field is not requested by default. It requires the
+            following token scopes:
+
+            - ``read:org`` for :attr:`Organization.email`.
+            - ``read:user`` OR ``user:email`` for :attr:`User.email`.
 
         :type: Optional[:class:`str`]
         """
