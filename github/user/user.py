@@ -124,7 +124,7 @@ class User(
         # "company_html": "companyHTML",  # NOTE: see User.company_html
         "created_at": "createdAt",
         "database_id": "databaseId",
-        # "is_admin": "isSiteAdmin",
+        # "is_administrator": "isSiteAdmin",
         "is_bounty_program_member": "isBountyHunter",
         "is_campus_program_member": "isCampusExpert",
         "is_developer_program_member": "isDeveloperProgramMember",
@@ -269,7 +269,7 @@ class User(
         return self._data["databaseId"]
 
     @property
-    def is_admin(
+    def is_administrator(
         self: Self,
         /,
     ) -> bool:
@@ -611,7 +611,7 @@ class User(
 
         return await self._fetch_field("databaseId")  # type: ignore
 
-    async def fetch_is_admin(
+    async def fetch_is_administrator(
         self: Self,
         /,
     ) -> bool:
