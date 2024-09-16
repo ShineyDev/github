@@ -135,7 +135,7 @@ class License(Node, Type):
     def implementation(
         self: Self,
         /,
-    ) -> str:
+    ) -> str | None:
         """
         A guide to implementing the license.
 
