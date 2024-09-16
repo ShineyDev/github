@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, reveal_type
 
 if TYPE_CHECKING:
     from typing import cast
@@ -23,6 +23,7 @@ if TYPE_CHECKING:
     from github.interfaces.sponsorable import SponsorableData
     from github.interfaces.type import TypeData
     from github.interfaces.uniformresourcelocatable import UniformResourceLocatableData
+    from github.utility.types import ConnectionData
 
 
     class OptionalUserData(TypedDict, total=False):
@@ -30,8 +31,6 @@ if TYPE_CHECKING:
         # contributionsCollection  # TODO
         # copilotEndpoints  # TODO
         # enterprises  # TODO
-        # followers  # TODO
-        # following  # TODO
         # gistComments  # TODO
         # gists  # TODO
         # issueComments  # TODO
@@ -68,6 +67,8 @@ if TYPE_CHECKING:
         companyHTML: str | None
         createdAt: str
         databaseId: int
+        followers: ConnectionData[User]
+        following: ConnectionData[User]
         isBountyHunter: bool
         isCampusExpert: bool
         isDeveloperProgramMember: bool
@@ -124,6 +125,8 @@ class User(
         # "company_html": "companyHTML",  # NOTE: see User.company_html
         "created_at": "createdAt",
         "database_id": "databaseId",
+        "follower_count": "followers{totalCount}",
+        "following_count": "following{totalCount}",
         # "is_administrator": "isSiteAdmin",
         "is_bounty_program_member": "isBountyHunter",
         "is_campus_program_member": "isCampusExpert",
@@ -267,6 +270,32 @@ class User(
         """
 
         return self._data["databaseId"]
+
+    @property
+    def follower_count(
+        self: Self,
+        /,
+    ) -> int:
+        """
+        The number of users following the user.
+
+        :type: :class:`int`
+        """
+
+        return self._data["followers"]["totalCount"]
+
+    @property
+    def following_count(
+        self: Self,
+        /,
+    ) -> int:
+        """
+        The number of users the user is following.
+
+        :type: :class:`int`
+        """
+
+        return self._data["following"]["totalCount"]
 
     @property
     def is_administrator(
