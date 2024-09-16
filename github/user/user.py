@@ -130,7 +130,7 @@ class User(
         "is_developer_program_member": "isDeveloperProgramMember",
         "is_employee": "isEmployee",
         "is_following_viewer": "isFollowingViewer",
-        "is_star_program_member": "isGitHubStar",
+        "is_stars_program_member": "isGitHubStar",
         "is_hireable": "isHireable",
         "is_viewer": "isViewer",
         "is_viewer_following": "viewerIsFollowing",
@@ -365,7 +365,7 @@ class User(
         return self._data["isHireable"]
 
     @property
-    def is_star_program_member(
+    def is_stars_program_member(
         self: Self,
         /,
     ) -> bool:
@@ -752,7 +752,7 @@ class User(
 
         return await self._fetch_field("isFollowingViewer")  # type: ignore
 
-    async def fetch_is_star_program_member(
+    async def fetch_is_stars_program_member(
         self: Self,
         /,
     ) -> bool:
