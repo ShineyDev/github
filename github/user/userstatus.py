@@ -26,7 +26,7 @@ if TYPE_CHECKING:
         emoji: str | None
         emojiHTML: str | None
         expiresAt: str | None
-        indicatesLimitedActivity: bool
+        indicatesLimitedAvailability: bool
         message: str | None
         updatedAt: str
 
@@ -62,7 +62,7 @@ class UserStatus(Node, Type):
         "emoji": "emoji",
         "emoji_html": "emojiHTML",
         "expires_at": "expiresAt",
-        "is_busy": "indicatesLimitedActivity",
+        "is_busy": "indicatesLimitedAvailability",
         "message": "message",
         "updated_at": "updatedAt",
     }
@@ -137,7 +137,7 @@ class UserStatus(Node, Type):
         :type: :class:`bool`
         """
 
-        return self._data["indicatesLimitedActivity"]
+        return self._data["indicatesLimitedAvailability"]
 
     @property
     def message(
@@ -286,7 +286,7 @@ class UserStatus(Node, Type):
         :rtype: :class:`bool`
         """
 
-        return await self._fetch_field("indicatesLimitedActivity")  # type: ignore
+        return await self._fetch_field("indicatesLimitedAvailability")  # type: ignore
 
     async def fetch_message(
         self: Self,
