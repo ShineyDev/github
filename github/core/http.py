@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     from github.repository.topic import TopicData
     from github.user import User
     from github.user.user import UserData
+    from github.user.userstatus import UserStatusData
     from github.utility.types import T_json_key, T_json_object, T_json_value
 
 import uuid
@@ -498,6 +499,21 @@ class HTTPClient(graphql.client.http.HTTPClient):
         path = ("node", "relatedTopics")
 
         value = await self._fetch(query, *path, limit=limit, topic_id=topic_id)
+
+        return value  # type: ignore
+
+    async def fetch_user_status(
+        self: Self,
+        /,
+        user_id: str,
+        *,
+        fields: Iterable[str] | None = None,
+    ) -> UserStatusData:
+        fields = github.utility.get_merged_graphql_fields(github.UserStatus, fields)
+        query = "query($user_id:ID!){node(id:$user_id){...on User{status{%s}}}}" % ",".join(fields)
+        path = ("node", "status")
+
+        value = await self._fetch(query, *path, user_id=user_id)
 
         return value  # type: ignore
 

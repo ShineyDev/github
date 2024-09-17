@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING, reveal_type
 if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
+    from github.user import UserStatus
     from github.utility.types import DateTime
 
 import github
@@ -951,6 +952,30 @@ class User(
             value = cast(str, value)
 
         return github.utility.iso_to_datetime(value)
+
+    async def fetch_status(
+        self: Self,
+        /,
+        **kwargs,  # TODO
+    ) -> UserStatus:
+        """
+        |coro|
+
+        Fetches the user's status.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.UserStatus`
+        """
+
+        data = await self._http.fetch_user_status(self.id, **kwargs)
+        return github.UserStatus._from_data(data, http=self._http)
 
 
 class AuthenticatedUser(User):
