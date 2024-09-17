@@ -119,10 +119,10 @@ class User(
 
     _graphql_fields: dict[str, str] = {
         "bio": "bio",
-        # "bio_html": "bioHTML",  # NOTE: see User.bio_html
+        "bio_html": "bioHTML",
         "can_viewer_follow": "viewerCanFollow",
         "company": "company",
-        # "company_html": "companyHTML",  # NOTE: see User.company_html
+        "company_html": "companyHTML",
         "created_at": "createdAt",
         "database_id": "databaseId",
         "follower_count": "followers{totalCount}",
@@ -177,17 +177,11 @@ class User(
         """
         The bio of the user as HTML.
 
-        .. note::
+        This variant of :attr:`~github.User.bio` does the following:
 
-            This field is not requested by default. It is very rarely
-            used and duplicates the content of
-            :attr:`~github.User.bio`. Consider using
-            :func:`html.escape(_, quote=False) <html.escape>` on
-            :attr:`~github.User.bio` and wrapping the value with
-            ``<div>`` tags for the same* result.
-
-            \\* The value generated is not guaranteed to be identical
-            to the value provided by the API.
+        - Replaces ``:name:`` in the string with emoji.
+        - Sanitizes the string such that it cannot contain HTML tags.
+        - Wraps the string in ``<div>`` tags.
 
         :type: Optional[:class:`str`]
         """
@@ -228,17 +222,12 @@ class User(
         """
         The company of the user as HTML.
 
-        .. note::
+        This variant of :attr:`~github.User.company` does the
+        following:
 
-            This field is not requested by default. It is very rarely
-            used and duplicates the content of
-            :attr:`~github.User.company`. Consider using
-            :func:`html.escape(_, quote=False) <html.escape>` on
-            :attr:`~github.User.company` and wrapping the value with
-            ``<div>`` tags for the same result.
-
-            \\* The value generated is not guaranteed to be identical
-            to the value provided by the API.
+        - Replaces ``:name:`` in the string with emoji.
+        - Sanitizes the string such that it cannot contain HTML tags.
+        - Wraps the string in ``<div>`` tags.
 
         :type: Optional[:class:`str`]
         """
@@ -512,6 +501,12 @@ class User(
 
         Fetches the bio of the user as HTML.
 
+        This variant of :attr:`~github.User.bio` does the following:
+
+        - Replaces ``:name:`` in the string with emoji.
+        - Sanitizes the string such that it cannot contain HTML tags.
+        - Wraps the string in ``<div>`` tags.
+
 
         Raises
         ------
@@ -577,6 +572,13 @@ class User(
         |coro|
 
         Fetches the company of the user as HTML.
+
+        This variant of :attr:`~github.User.company` does the
+        following:
+
+        - Replaces ``:name:`` in the string with emoji.
+        - Sanitizes the string such that it cannot contain HTML tags.
+        - Wraps the string in ``<div>`` tags.
 
 
         Raises
