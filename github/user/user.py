@@ -1016,11 +1016,11 @@ class AuthenticatedUser(User):
     async def update_status(
         self: Self,
         /,
+        message: str | None = None,
         *,
         busy: bool | None = None,
         emoji: str | None = None,
         expires_at: DateTime | None = None,
-        message: str | None = None,
         # organization: Organization | None = None,  # TODO (implement-organization): implement github.Organization
     ) -> UserStatus | None:
         """
@@ -1037,6 +1037,8 @@ class AuthenticatedUser(User):
 
         Parameters
         ----------
+        message: Optional[:class:`str`]
+            The message to display on the status.
         busy: :class:`bool`
             Whether to mark the user as busy.
         emoji: Optional[:class:`str`]
@@ -1044,8 +1046,6 @@ class AuthenticatedUser(User):
             unicode emoji or its name with colons.
         expires_at: :class:`~datetime.datetime`
             The date and time at which to expire the status in UTC.
-        message: Optional[:class:`str`]
-            The message to display on the status.
         organization: :class:`~github.Organization`
             The organization whose members will be allowed to see the
             status.
