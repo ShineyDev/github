@@ -38,7 +38,7 @@ class Metadata(Type):
         "github_services_sha": "gitHubServicesSha",
         "webhook_ip_addresses": "hookIpAddresses",
         "importer_ip_addresses": "importerIpAddresses",
-        "is_password_authentication_verifiable": "isPasswordAuthenticationVerifiable",
+        # "is_password_authentication_verifiable": "isPasswordAuthenticationVerifiable",  # NOTE: see Metadata.is_password_authentication_verifiable
         "pages_ip_addresses": "pagesIpAddresses",
     }
 
@@ -115,6 +115,11 @@ class Metadata(Type):
     ) -> bool:
         """
         Whether users are verified.
+
+        .. note::
+
+            This field is not requested by default. It will always be
+            ``False`` on this branch. See TODO.
 
         :type: :class:`bool`
         """
