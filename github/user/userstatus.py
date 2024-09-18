@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 
     from github.interfaces.node import NodeData
     from github.interfaces.type import TypeData
+    from github.user.user import UserData
 
 
     class OptionalUserStatusData(TypedDict, total=False):
@@ -29,6 +30,7 @@ if TYPE_CHECKING:
         indicatesLimitedAvailability: bool
         message: str | None
         updatedAt: str
+        user: UserData
 
 
 class UserStatus(Node, Type):
@@ -58,6 +60,7 @@ class UserStatus(Node, Type):
     ]
 
     _graphql_fields: dict[str, str] = {
+        "can_viewer_update": "user{isViewer}",
         "created_at": "createdAt",
         "emoji": "emoji",
         "emoji_html": "emojiHTML",
@@ -68,6 +71,19 @@ class UserStatus(Node, Type):
     }
 
     _node_prefix: str = "US"
+
+    @property
+    def can_viewer_update(
+        self: Self,
+        /,
+    ) -> bool:
+        """
+        Whether the authenticated user can update this status.
+
+        :type: :class:`bool`
+        """
+
+        return self._data["user"]["isViewer"]
 
     @property
     def created_at(
@@ -164,6 +180,33 @@ class UserStatus(Node, Type):
         """
 
         return github.utility.iso_to_datetime(self._data["updatedAt"])
+
+    async def fetch_can_viewer_update(
+        self: Self,
+        /,
+    ) -> bool:
+        """
+        |coro|
+
+        Fetches whether the authenticated user can update this status.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`bool`
+        """
+
+        user = await self._fetch_field("user{isViewer}")
+
+        if TYPE_CHECKING:
+            user = cast(UserData, user)
+
+        return user["isViewer"]
 
     async def fetch_created_at(
         self: Self,
