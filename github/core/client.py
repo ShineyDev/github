@@ -6,10 +6,12 @@ if TYPE_CHECKING:
 
     from aiohttp import ClientSession
 
-    from github.utility.types import T_json_object
+    from github.user import UserStatus
+    from github.utility.types import DateTime, T_json_object
 
 import graphql
 
+import github
 from github.core.http import HTTPClient
 from github.content import CodeOfConduct, License
 from github.connection import Metadata, RateLimit
@@ -357,6 +359,78 @@ class Client(graphql.client.Client):
 
         data = await self._http.fetch_query_viewer(**kwargs)
         return AuthenticatedUser._from_data(data, http=self._http)
+
+    async def clear_status(
+        self: Self,
+        /,
+    ) -> None:
+        """
+        |coro|
+
+        Clears the authenticated user's status.
+
+        .. note::
+
+            This mutation requires the following token scopes:
+
+            - ``user``
+        """
+
+        await self._http.mutate_user_update_status(None, None, None, None, None)
+
+    async def update_status(
+        self: Self,
+        /,
+        message: str | None = None,
+        *,
+        busy: bool | None = None,
+        emoji: str | None = None,
+        expires_at: DateTime | None = None,
+        # organization: Organization | None = None,  # TODO (implement-organization): implement github.Organization
+    ) -> UserStatus | None:
+        """
+        |coro|
+
+        Updates the authenticated user's status.
+
+        .. note::
+
+            This mutation requires the following token scopes:
+
+            - ``user``
+
+
+        Parameters
+        ----------
+        message: Optional[:class:`str`]
+            The message to display on the status.
+        busy: :class:`bool`
+            Whether to mark the user as busy.
+        emoji: Optional[:class:`str`]
+            The emoji to display on the status. This can either be a
+            unicode emoji or its name with colons.
+        expires_at: :class:`~datetime.datetime`
+            The date and time at which to expire the status in UTC.
+        organization: :class:`~github.Organization`
+            The organization whose members will be allowed to see the
+            status.
+
+
+        :rtype: Optional[:class:`~github.UserStatus`]
+        """
+
+        data = await self._http.mutate_user_update_status(
+            busy,
+            emoji,
+            github.utility.datetime_to_iso(expires_at) if expires_at else expires_at,
+            message,
+            None,  # organization.id,  # TODO (implement-organization): implement github.Organization
+        )
+
+        if not data:
+            return None
+
+        return github.UserStatus._from_data(data, http=self._http)
 
 
 __all__: list[str] = [
