@@ -995,6 +995,78 @@ class AuthenticatedUser(User):
             Returns the hash of the object's :attr:`ID <.id>`.
     """
 
+    async def clear_status(
+        self: Self,
+        /,
+    ) -> None:
+        """
+        |coro|
+
+        Clears the authenticated user's status.
+
+        .. note::
+
+            This mutation requires the following token scopes:
+
+            - ``user``
+        """
+
+        await self._http.mutate_user_update_status(None, None, None, None, None)
+
+    async def update_status(
+        self: Self,
+        /,
+        *,
+        busy: bool | None = None,
+        emoji: str | None = None,
+        expires_at: DateTime | None = None,
+        message: str | None = None,
+        # organization: Organization | None = None,  # TODO (implement-organization): implement github.Organization
+    ) -> UserStatus | None:
+        """
+        |coro|
+
+        Updates the authenticated user's status.
+
+        .. note::
+
+            This mutation requires the following token scopes:
+
+            - ``user``
+
+
+        Parameters
+        ----------
+        busy: :class:`bool`
+            Whether to mark the user as busy.
+        emoji: Optional[:class:`str`]
+            The emoji to display on the status. This can either be a
+            unicode emoji or its name with colons.
+        expires_at: :class:`~datetime.datetime`
+            The date and time at which to expire the status in UTC.
+        message: Optional[:class:`str`]
+            The message to display on the status.
+        organization: :class:`~github.Organization`
+            The organization whose members will be allowed to see the
+            status.
+
+
+        :rtype: Optional[:class:`~github.UserStatus`]
+        """
+
+        data = await self._http.mutate_user_update_status(
+            busy,
+            emoji,
+            github.utility.datetime_to_iso(expires_at) if expires_at else expires_at,
+            message,
+            None,  # organization.id,  # TODO (implement-organization): implement github.Organization
+        )
+
+        if not data:
+            return None
+
+        return github.UserStatus._from_data(data, http=self._http)
+
 
 __all__: list[str] = [
     "User",
