@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     from github.interfaces.starrable import StarrableData
     from github.repository import Topic
     from github.repository.topic import TopicData
-    from github.user import User
+    from github.user import User, UserStatus
     from github.user.user import UserData
     from github.user.userstatus import UserStatusData
     from github.utility.types import T_json_key, T_json_object, T_json_value
@@ -320,6 +320,17 @@ class HTTPClient(graphql.client.http.HTTPClient):
             *,
             fields: Iterable[str] | None = None,
         ) -> UserData:
+            pass
+
+        @overload
+        async def fetch_query_node(
+            self: Self,
+            /,
+            type: type[UserStatus],
+            id: str,
+            *,
+            fields: Iterable[str] | None = None,
+        ) -> UserStatusData:
             pass
 
     async def fetch_query_node(
