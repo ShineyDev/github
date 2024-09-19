@@ -4,6 +4,8 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
+
+    from github.user import User
     from github.utility.types import DateTime
 
 import github
@@ -379,6 +381,30 @@ class UserStatus(Node, Type):
             value = cast(str, value)
 
         return github.utility.iso_to_datetime(value)
+
+    async def fetch_user(
+        self: Self,
+        /,
+        **kwargs,
+    ) -> User:
+        """
+        |coro|
+
+        Fetches the user the status belongs to.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.User`
+        """
+
+        data = await self._http.fetch_userstatus_user(self.id, **kwargs)
+        return github.User._from_data(data, http=self._http)
 
 
 __all__: list[str] = [

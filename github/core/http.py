@@ -528,6 +528,21 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return value  # type: ignore
 
+    async def fetch_userstatus_user(
+        self: Self,
+        /,
+        userstatus_id: str,
+        *,
+        fields: Iterable[str] | None = None,
+    ) -> UserData:
+        fields = github.utility.get_merged_graphql_fields(github.User, fields)
+        query = "query($userstatus_id:ID!){node(id:$userstatus_id){...on UserStatus{user{%s}}}}" % ",".join(fields)
+        path = ("node", "user")
+
+        data = await self._fetch(query, *path, userstatus_id=userstatus_id)
+
+        return data  # type: ignore
+
     async def _mutate(
         self: Self,
         document_: str,
