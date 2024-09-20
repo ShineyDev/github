@@ -32,8 +32,6 @@ groups:
   labels:
   - name: dotcom
     description: This is related to github.com.
-  - name: ghae
-    description: This is related to GHAE.
   - name: ghes
     description: This is related to GHES.
 
