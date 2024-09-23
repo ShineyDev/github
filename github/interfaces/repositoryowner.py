@@ -8,8 +8,8 @@ if TYPE_CHECKING:
 if TYPE_CHECKING:
     from typing import TypedDict
 
+    from github.connections.connection import ConnectionData
     # from github.repository.repository import RepositoryData  # TODO: [support-repository]
-    from github.utility.types import ConnectionData
 
 
     class OptionalRepositoryOwnerData(TypedDict, total=False):

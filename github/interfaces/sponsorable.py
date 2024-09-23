@@ -10,8 +10,8 @@ if TYPE_CHECKING:
 if TYPE_CHECKING:
     from typing import TypedDict
 
+    from github.connections.connection import ConnectionData
     # from github.user.user import UserData  # TODO: [support-user]
-    from github.utility.types import ConnectionData
 
 
     class OptionalSponsorableData(TypedDict, total=False):

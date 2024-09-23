@@ -14,6 +14,7 @@ from github.interfaces import Actor, DiscussionAuthor, Node, PackageOwner, Profi
 if TYPE_CHECKING:
     from typing import TypedDict
 
+    from github.connections.connection import ConnectionData
     from github.interfaces.actor import ActorData
     from github.interfaces.discussionauthor import DiscussionAuthorData
     from github.interfaces.node import NodeData
@@ -24,7 +25,6 @@ if TYPE_CHECKING:
     from github.interfaces.sponsorable import SponsorableData
     from github.interfaces.type import TypeData
     from github.interfaces.uniformresourcelocatable import UniformResourceLocatableData
-    from github.utility.types import ConnectionData
 
 
     class OptionalUserData(TypedDict, total=False):

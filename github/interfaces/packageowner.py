@@ -8,8 +8,8 @@ if TYPE_CHECKING:
 if TYPE_CHECKING:
     from typing import TypedDict
 
+    from github.connections.connection import ConnectionData
     # from github.???.package import PackageData  # TODO: [support-package]
-    from github.utility.types import ConnectionData
 
 
     class OptionalPackageOwnerData(TypedDict, total=False):
