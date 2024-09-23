@@ -5,7 +5,13 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.core.http import HTTPClient
+    from github.connections import Connection
     from github.interfaces import Node
+    from github.user import User
+    from github.user.user import UserData
+
+import github
+from github.utility import MISSING
 
 
 if TYPE_CHECKING:
@@ -95,14 +101,29 @@ class Starrable:
 
         return await self._fetch_field("stargazerCount")  # type: ignore
 
-    async def fetch_stargazers(
+    def fetch_stargazers(
         self: Self,
         /,
-    ) -> None:
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        # order_by: StargazerOrder = MISSING,  # NOTE (stargazerorder): StargazerOrder has only one attribute
+        reverse: bool = MISSING,
+    ) -> Connection[User]:
         """
         |aiter|
 
         Fetches stargazers from the starrable.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
 
 
         Raises
@@ -112,12 +133,24 @@ class Starrable:
             The :attr:`id` attribute is missing.
 
 
-        :rtype: ConnectionIterator[User]
-
-        ..      :class:`~github.utility.ConnectionIterator`[:class:`~github.User`]
+        :rtype: :class:`~github.connections.Connection`[:class:`~github.User`]
         """
 
-        raise NotImplementedError  # TODO: Starrable.stargazers
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        def userdata_to_user(userdata: UserData, /) -> User:
+            return github.User._from_data(userdata, http=self._http)
+
+        return github.Connection(
+            self._http.collect_starrable_stargazers,
+            self.id,
+            None,  # order_by.value if order_by is not MISSING else None  # NOTE (stargazerorder): StargazerOrder has only one attribute
+            data_map=userdata_to_user,
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+        )
 
     async def star(
         self: Self,
