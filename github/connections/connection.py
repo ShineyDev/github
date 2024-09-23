@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import Generic, TypeVar, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Any, AsyncIterator, Awaitable, Callable, Final, type_check_only
+    from typing import Any, AsyncIterator, Awaitable, Callable, Final, cast, type_check_only
     from typing_extensions import Self
 
     _T = TypeVar("_T")
@@ -55,6 +55,7 @@ class Connection(AsyncIterator[_Tci]):
     __slots__ = (
         "_collector",
         "_cursor",
+        "_length",
         "_limit",
         "_args",
         "_kwargs",
@@ -74,16 +75,17 @@ class Connection(AsyncIterator[_Tci]):
         *args: Any,
         data_filter: Callable[[Any], bool | Awaitable[bool]] | None = MISSING,
         data_map: Callable[[Any], _Tci | Awaitable[_Tci]] | None = MISSING,
+        length: int | None = MISSING,
         limit: int | None = MISSING,
         **kwargs: Any,
     ) -> None:
         self._collector: Callable[..., Awaitable[ConnectionData[Any]]] = collector
+        self._length: int | None = length if length is not MISSING else None
         self._limit: int | None = limit if limit is not MISSING else None
 
         self._args: tuple[Any, ...] = args
         self._kwargs: dict[str, Any] = kwargs
         self._kwargs.setdefault("cursor", None)
-        self._kwargs.setdefault("length", None)
         self._kwargs.setdefault("reverse", False)
 
         # NOTE: the initial stages (see below for the user
@@ -122,7 +124,7 @@ class Connection(AsyncIterator[_Tci]):
                 #       the user requested
                 raise StopAsyncIteration
 
-        if self._buffer:
+        if not self._paginating and self._buffer:
             if self._limit is not None:
                 self._limit -= 1
 
@@ -133,14 +135,18 @@ class Connection(AsyncIterator[_Tci]):
             raise StopAsyncIteration
 
         if self._limit is not None:
-            self._kwargs["length"] = max(DEFAULT_MINIMUM_NODES, min(self._limit, self._kwargs["length"] or DEFAULT_MAXIMUM_NODES))
+            self._kwargs["length"] = max(DEFAULT_MINIMUM_NODES, min(self._limit, self._length or DEFAULT_MAXIMUM_NODES))
 
-        staged_nodes = list()
+        if self._paginating:
+            staged_nodes = self._buffer
+            self._buffer.clear()
+        else:
+            staged_nodes = list()
 
         cursor_name = "startCursor" if self._kwargs["reverse"] else "endCursor"
         page_name = "hasPreviousPage" if self._kwargs["reverse"] else "hasNextPage"
 
-        while not staged_nodes and not self._done:
+        while not self._done and ((not self._paginating and not staged_nodes) or (self._paginating and self._length is not None and len(staged_nodes) < self._length)):
             data = await self._collector(*self._args, **self._kwargs)
 
             nodes, next_cursor, has_next_page = data["nodes"], data["pageInfo"][cursor_name], data["pageInfo"][page_name]
@@ -184,7 +190,13 @@ class Connection(AsyncIterator[_Tci]):
             if self._limit is not None:
                 self._limit -= len(staged_nodes)
 
-            return staged_nodes[:self._limit]  # type: ignore  # NOTE: this is magic, see Connection.paginate
+            if TYPE_CHECKING:
+                self._length = cast(int, self._length)
+
+            if len(staged_nodes) > self._length:
+                self._buffer = staged_nodes[self._length:]
+
+            return staged_nodes[:self._length]  # type: ignore  # NOTE: this is magic, see Connection.paginate
 
         self._buffer = staged_nodes
 
@@ -271,7 +283,7 @@ class Connection(AsyncIterator[_Tci]):
         if self._locked:
             raise RuntimeError("cannot update while iterating")
 
-        self._kwargs["length"] = length if length is not MISSING else None
+        self._length = length if length is not MISSING else None
         self._paginating = True
 
         return self  # type: ignore  # NOTE: this is magic, see note on PaginatedConnectionIterator below
