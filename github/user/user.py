@@ -68,8 +68,8 @@ if TYPE_CHECKING:
         companyHTML: str | None
         createdAt: str
         databaseId: int
-        followers: ConnectionData[User]
-        following: ConnectionData[User]
+        followers: ConnectionData[UserData]
+        following: ConnectionData[UserData]
         isBountyHunter: bool
         isCampusExpert: bool
         isDeveloperProgramMember: bool
