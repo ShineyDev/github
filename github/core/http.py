@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     from aiohttp import ClientResponse, ClientSession
     from github.connection.metadata import MetadataData
     from github.connection.ratelimit import RateLimitData
+    from github.connections.connection import ConnectionData
     from github.content import CodeOfConduct, License
     from github.content.codeofconduct import CodeOfConductData
     from github.content.license import LicenseData
@@ -26,6 +27,10 @@ import uuid
 import graphql
 
 import github
+
+
+DEFAULT_MAXIMUM_NODES: int = 50
+DEFAULT_MINIMUM_NODES: int = 10
 
 
 class HTTPClient(graphql.client.http.HTTPClient):
@@ -542,6 +547,41 @@ class HTTPClient(graphql.client.http.HTTPClient):
         data = await self._fetch(query, *path, userstatus_id=userstatus_id)
 
         return data  # type: ignore
+
+    async def _collect(
+        self: Self,
+        document_: str,
+        /,
+        *path: T_json_key,
+        _data_validate: Any | None = None,  # TODO
+        cursor: str | None,
+        length: int | None,
+        reverse: bool,
+        **kwargs,
+    ) -> ConnectionData[Any]:
+        direction_name = "last" if reverse else "first"
+        position_name = "before" if reverse else "after"
+
+        kwargs[direction_name] = length if length is not None else DEFAULT_MAXIMUM_NODES
+        kwargs[position_name] = cursor
+
+        data = await self._fetch(document_, *path, _data_validate=_data_validate, **kwargs)
+
+        if TYPE_CHECKING:
+            data = cast(ConnectionData[Any], data)
+
+        if reverse:
+            try:
+                data["edges"] = list(reversed(data["edges"]))
+            except KeyError:
+                pass
+
+            try:
+                data["nodes"] = list(reversed(data["nodes"]))
+            except KeyError:
+                pass
+
+        return data
 
     async def _mutate(
         self: Self,
