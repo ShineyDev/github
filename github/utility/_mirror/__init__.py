@@ -9,6 +9,8 @@ import sys
 
 from .cache import *
 from .cache import __all__ as _cache__all__
+from .call import *
+from .call import __all__ as _call__all__
 from .terminal import *
 from .terminal import __all__ as _terminal__all__
 from .typing import *
@@ -42,6 +44,7 @@ version_info: _VersionInfo = _VersionInfo(0, 1, 0, "alpha", 0)
 
 __all__ = [  # pyright: ignore[reportUnsupportedDunderAll]
     *_cache__all__,
+    *_call__all__,
     *_terminal__all__,
     *_typing__all__,
     *_version__all__,
