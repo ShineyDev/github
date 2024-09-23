@@ -957,7 +957,7 @@ class User(
         self: Self,
         /,
         **kwargs,  # TODO
-    ) -> UserStatus:
+    ) -> UserStatus | None:
         """
         |coro|
 
@@ -975,6 +975,10 @@ class User(
         """
 
         data = await self._http.fetch_user_status(self.id, **kwargs)
+
+        if not data:
+            return None
+
         return github.UserStatus._from_data(data, http=self._http)
 
 
