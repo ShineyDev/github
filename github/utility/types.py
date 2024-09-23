@@ -21,7 +21,7 @@ T_json_object: TypeAlias = Mapping[str, object]
 
 
 class ConnectionData(TypedDict, Generic[_T]):
-    edges: ConnectionEdgeData[_T]
+    edges: list[ConnectionEdgeData[_T]]
     nodes: list[_T]
     pageInfo: ConnectionPageData
     totalCount: int
