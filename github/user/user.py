@@ -9,6 +9,7 @@ if TYPE_CHECKING:
 
 import github
 from github.interfaces import Actor, DiscussionAuthor, Node, PackageOwner, ProfileOwner, RepositoryOwner, Sponsorable, Type, UniformResourceLocatable
+from github.utility import MISSING
 
 
 if TYPE_CHECKING:
@@ -1020,12 +1021,12 @@ class AuthenticatedUser(User):
     async def update_status(
         self: Self,
         /,
-        message: str | None = None,
+        message: str | None = MISSING,
         *,
-        busy: bool | None = None,
-        emoji: str | None = None,
-        expires_at: DateTime | None = None,
-        # organization: Organization | None = None,  # TODO (implement-organization): implement github.Organization
+        busy: bool = MISSING,
+        emoji: str | None = MISSING,
+        expires_at: DateTime = MISSING,
+        # organization: Organization = MISSING,  # TODO (implement-organization): implement github.Organization
     ) -> UserStatus | None:
         """
         |coro|
@@ -1059,10 +1060,10 @@ class AuthenticatedUser(User):
         """
 
         data = await self._http.mutate_user_update_status(
-            busy,
-            emoji,
-            github.utility.datetime_to_iso(expires_at) if expires_at else expires_at,
-            message,
+            busy if busy is not MISSING else False,
+            emoji if emoji is not MISSING else None,
+            github.utility.datetime_to_iso(expires_at) if expires_at is not MISSING else None,
+            message if message is not MISSING else None,
             None,  # organization.id,  # TODO (implement-organization): implement github.Organization
         )
 

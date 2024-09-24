@@ -5,6 +5,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
 from github.interfaces import Node, Starrable, Type
+from github.utility import MISSING
 
 
 if TYPE_CHECKING:
@@ -96,7 +97,7 @@ class Topic(Node, Starrable, Type):
         self: Self,
         /,
         *,
-        limit: int | None = None,
+        limit: int = MISSING,
         **kwargs,  # TODO
     ) -> list[Topic]:
         """
@@ -122,7 +123,7 @@ class Topic(Node, Starrable, Type):
         :rtype: List[:class:`~github.Topic`]
         """
 
-        data = await self._http.fetch_topic_related_topics(self.id, limit, **kwargs)
+        data = await self._http.fetch_topic_related_topics(self.id, limit if limit is not MISSING else None, **kwargs)
         return Topic._from_data(data)
 
     async def fetch_repositories(

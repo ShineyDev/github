@@ -17,6 +17,7 @@ from github.content import CodeOfConduct, License
 from github.connection import Metadata, RateLimit
 from github.repository import Topic
 from github.user import AuthenticatedUser, User
+from github.utility import MISSING
 
 
 class Client(graphql.client.Client):
@@ -58,14 +59,14 @@ class Client(graphql.client.Client):
         token: str,
         *,
         session: ClientSession,
-        user_agent: str | None = None,
+        user_agent: str = MISSING,
     ) -> None:
         self._http: HTTPClient = HTTPClient(token, session, user_agent)
 
     async def request(
         self: Self,
         document: str,
-        operation: str | None = None,
+        operation: str = MISSING,
         /,
         **variables: T_json_object,
     ) -> T_json_object:
@@ -381,12 +382,12 @@ class Client(graphql.client.Client):
     async def update_status(
         self: Self,
         /,
-        message: str | None = None,
+        message: str | None = MISSING,
         *,
-        busy: bool | None = None,
-        emoji: str | None = None,
-        expires_at: DateTime | None = None,
-        # organization: Organization | None = None,  # TODO (implement-organization): implement github.Organization
+        busy: bool = MISSING,
+        emoji: str | None = MISSING,
+        expires_at: DateTime = MISSING,
+        # organization: Organization = MISSING,  # TODO (implement-organization): implement github.Organization
     ) -> UserStatus | None:
         """
         |coro|
@@ -420,10 +421,10 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.mutate_user_update_status(
-            busy,
-            emoji,
-            github.utility.datetime_to_iso(expires_at) if expires_at else expires_at,
-            message,
+            busy if busy is not MISSING else False,
+            emoji if emoji is not MISSING else None,
+            github.utility.datetime_to_iso(expires_at) if expires_at is not MISSING else None,
+            message if message is not MISSING else None,
             None,  # organization.id,  # TODO (implement-organization): implement github.Organization
         )
 

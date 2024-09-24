@@ -4,6 +4,8 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
+from github.utility import MISSING
+
 
 if TYPE_CHECKING:
     from typing import TypedDict
@@ -63,7 +65,7 @@ class Actor:
         self: Self,
         /,
         *,
-        size: int | None = None,
+        size: int = MISSING,
     ) -> str:
         """
         |coro|
@@ -81,7 +83,7 @@ class Actor:
         :rtype: :class:`str`
         """
 
-        if size is not None:
+        if size is MISSING:
             field = f"avatarUrl(size:{size})"
             save = False
         else:

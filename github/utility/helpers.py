@@ -9,6 +9,8 @@ if TYPE_CHECKING:
 
 import functools
 
+from github.utility import MISSING
+
 
 def follow(
     data: T_json_object,
@@ -59,12 +61,12 @@ def get_defined_graphql_fields(
 
 def get_merged_graphql_fields(
     type: type[Type],
-    requested_fields: Iterable[str] | None = None,
+    requested_fields: Iterable[str] = MISSING,
     /,
 ) -> list[str]:
     defined_fields = get_defined_graphql_fields(type)
 
-    if requested_fields is None:
+    if requested_fields is MISSING:
         return list(defined_fields.values())
 
     merged_fields = list(requested_fields)

@@ -27,6 +27,7 @@ import uuid
 import graphql
 
 import github
+from github.utility import MISSING
 
 
 DEFAULT_MAXIMUM_NODES: int = 50
@@ -57,7 +58,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         variables_: T_json_object,
         /,
         *,
-        headers: dict[str, str] | None = None,
+        headers: dict[str, str] = MISSING,
         **kwargs,  # TODO
     ) -> T_json_object:
         headers = headers or dict()
@@ -135,7 +136,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         self: Self,
         /,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
     ) -> tuple[CodeOfConductData, ...]:
         fields = github.utility.get_merged_graphql_fields(github.CodeOfConduct, fields)
         query = "{codesOfConduct{%s}}" % ",".join(fields)
@@ -163,7 +164,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         self: Self,
         /,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
     ) -> tuple[LicenseData, ...]:
         fields = github.utility.get_merged_graphql_fields(github.License, fields)
         query = "{licenses{%s}}" % ",".join(fields)
@@ -192,7 +193,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         /,
         key: str,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
     ) -> CodeOfConductData:
         fields = github.utility.get_merged_graphql_fields(github.CodeOfConduct, fields)
         query = "query($key:String!){codeOfConduct(key:$key){%s}}" % ",".join(fields)
@@ -232,7 +233,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         /,
         key: str,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
     ) -> LicenseData:
         fields = github.utility.get_merged_graphql_fields(github.License, fields)
         query = "query($key:String!){license(key:$key){%s}}" % ",".join(fields)
@@ -271,7 +272,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         self: Self,
         /,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
     ) -> MetadataData:
         fields = github.utility.get_merged_graphql_fields(github.Metadata, fields)
         query = "{meta{%s}}" % ",".join(fields)
@@ -290,9 +291,8 @@ class HTTPClient(graphql.client.http.HTTPClient):
             type: type[CodeOfConduct],
             id: str,
             *,
-            fields: Iterable[str] | None = None,
-        ) -> CodeOfConductData:
-            pass
+            fields: Iterable[str] = ...,
+        ) -> CodeOfConductData: ...
 
         @overload
         async def fetch_query_node(
@@ -301,9 +301,8 @@ class HTTPClient(graphql.client.http.HTTPClient):
             type: type[License],
             id: str,
             *,
-            fields: Iterable[str] | None = None,
-        ) -> LicenseData:
-            pass
+            fields: Iterable[str] = ...,
+        ) -> LicenseData: ...
 
         @overload
         async def fetch_query_node(
@@ -312,9 +311,8 @@ class HTTPClient(graphql.client.http.HTTPClient):
             type: type[Topic],
             id: str,
             *,
-            fields: Iterable[str] | None = None,
-        ) -> TopicData:
-            pass
+            fields: Iterable[str] = ...,
+        ) -> TopicData: ...
 
         @overload
         async def fetch_query_node(
@@ -323,9 +321,8 @@ class HTTPClient(graphql.client.http.HTTPClient):
             type: type[User],
             id: str,
             *,
-            fields: Iterable[str] | None = None,
-        ) -> UserData:
-            pass
+            fields: Iterable[str] = ...,
+        ) -> UserData: ...
 
         @overload
         async def fetch_query_node(
@@ -334,9 +331,8 @@ class HTTPClient(graphql.client.http.HTTPClient):
             type: type[UserStatus],
             id: str,
             *,
-            fields: Iterable[str] | None = None,
-        ) -> UserStatusData:
-            pass
+            fields: Iterable[str] = ...,
+        ) -> UserStatusData: ...
 
     async def fetch_query_node(
         self: Self,
@@ -344,7 +340,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         type: type[Node],
         id: str,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
     ) -> T_json_object:
         fields = github.utility.get_merged_graphql_fields(type, fields)
         query = "query($id:ID!){node(id:$id){...on %s{%s}}}" % (github.utility.get_graphql_type(type), ",".join(fields))
@@ -364,7 +360,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         self: Self,
         /,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
     ) -> RateLimitData:
         fields = github.utility.get_merged_graphql_fields(github.RateLimit, fields)
         query = "{rateLimit(dryRun:true){%s}}" % ",".join(fields)
@@ -383,9 +379,8 @@ class HTTPClient(graphql.client.http.HTTPClient):
             type: type[CodeOfConduct],
             url: str,
             *,
-            fields: Iterable[str] | None = None,
-        ) -> CodeOfConductData:
-            pass
+            fields: Iterable[str] = ...,
+        ) -> CodeOfConductData: ...
 
         @overload
         async def fetch_query_resource(
@@ -394,9 +389,8 @@ class HTTPClient(graphql.client.http.HTTPClient):
             type: type[User],
             url: str,
             *,
-            fields: Iterable[str] | None = None,
-        ) -> UserData:
-            pass
+            fields: Iterable[str] = ...,
+        ) -> UserData: ...
 
     async def fetch_query_resource(
         self: Self,
@@ -404,7 +398,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         type: type[UniformResourceLocatable],
         url: str,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
     ) -> T_json_object:
         fields = github.utility.get_merged_graphql_fields(type, fields)
         query = "query($url:URI!){resource(url:$url){...on %s{%s}}}" % (github.utility.get_graphql_type(type), ",".join(fields))
@@ -424,7 +418,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         self: Self,
         name: str,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
     ) -> TopicData:
         fields = github.utility.get_merged_graphql_fields(github.Topic, fields)
         query = "query($name:String!){topic(name:$name){%s}}" % ",".join(fields)
@@ -458,7 +452,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         self: Self,
         login: str,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
     ) -> UserData:
         fields = github.utility.get_merged_graphql_fields(github.User, fields)
 
@@ -484,7 +478,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
     async def fetch_query_viewer(
         self: Self,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
     ) -> UserData:
         fields = github.utility.get_merged_graphql_fields(github.User, fields)
         query = "query{viewer{%s}}" % ",".join(fields)
@@ -508,7 +502,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         topic_id: str,
         limit: int | None,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
     ) -> tuple[TopicData, ...]:
         fields = github.utility.get_merged_graphql_fields(github.Topic, fields)
         query = "query($topic_id:ID!,$limit:Int){node(id:$topic_id){...on Topic{relatedTopics(first:$limit){%s}}}}" % ",".join(fields)
@@ -523,7 +517,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         /,
         user_id: str,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
     ) -> UserStatusData:
         fields = github.utility.get_merged_graphql_fields(github.UserStatus, fields)
         query = "query($user_id:ID!){node(id:$user_id){...on User{status{%s}}}}" % ",".join(fields)
@@ -538,7 +532,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         /,
         userstatus_id: str,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
     ) -> UserData:
         fields = github.utility.get_merged_graphql_fields(github.User, fields)
         query = "query($userstatus_id:ID!){node(id:$userstatus_id){...on UserStatus{user{%s}}}}" % ",".join(fields)
@@ -589,7 +583,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         starrable_id: str,
         order_by: str | None,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[UserData]:
         fields = github.utility.get_merged_graphql_fields(github.User, fields)
@@ -621,7 +615,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         /,
         starrable_id: str,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
     ) -> StarrableData:
         fields = github.utility.get_merged_graphql_fields(github.Starrable, fields)
         query = "mutation($starrable_id:ID!,$mutation_id:String!){addStar(input:{clientMutationId:$mutation_id,starrableId:$starrable_id}){starrable{%s}}}" % ",".join(fields)
@@ -636,7 +630,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         /,
         starrable_id: str,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
     ) -> StarrableData:
         fields = github.utility.get_merged_graphql_fields(github.Starrable, fields)
         query = "mutation($starrable_id:ID!,$mutation_id:String!){removeStar(input:{clientMutationId:$mutation_id,starrableId:$starrable_id}){starrable{%s}}}" % ",".join(fields)
@@ -655,7 +649,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         message: str | None,
         organization_id: str | None,
         *,
-        fields: Iterable[str] | None = None,
+        fields: Iterable[str] = MISSING,
     ) -> UserStatusData | None:
         fields = github.utility.get_merged_graphql_fields(github.UserStatus, fields)
         query = "mutation($busy:Boolean,$emoji:String,$expires_at:DateTime,$message:String,$mutation_id:String!,$organization_id:ID){changeUserStatus(input:{clientMutationId:$mutation_id,emoji:$emoji,expiresAt:$expires_at,limitedAvailability:$busy,message:$message,organizationId:$organization_id}){status{%s}}}" % ",".join(fields)

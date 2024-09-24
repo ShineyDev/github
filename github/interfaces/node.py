@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     from github.utility.types import T_json_key, T_json_value
 
 from github.core.errors import ClientObjectMissingFieldError
+from github.utility import MISSING
 
 
 if TYPE_CHECKING:
@@ -84,7 +85,7 @@ class Node:
         field: T_json_key,
         /,
         *,
-        save: bool = True,
+        save: bool = MISSING,
     ) -> T_json_value:
         try:
             id = self.id

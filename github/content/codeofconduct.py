@@ -8,6 +8,7 @@ if TYPE_CHECKING:
 
 from github.core.errors import ClientObjectMissingFieldError
 from github.interfaces import Node, Type, UniformResourceLocatable
+from github.utility import MISSING
 
 
 if TYPE_CHECKING:
@@ -125,7 +126,7 @@ class CodeOfConduct(Node, Type, UniformResourceLocatable):
         field: T_json_key,
         /,
         *,
-        save: bool = True,
+        save: bool = MISSING,
     ) -> T_json_value:
         try:
             id = self.id
