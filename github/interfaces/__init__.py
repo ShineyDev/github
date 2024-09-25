@@ -1,5 +1,7 @@
 from github.interfaces.actor import *
 from github.interfaces.actor import __all__ as _actor__all__
+from github.interfaces.announcementowner import *
+from github.interfaces.announcementowner import __all__ as _announcementowner__all__
 from github.interfaces.discussionauthor import *
 from github.interfaces.discussionauthor import __all__ as _discussionauthor__all__
 from github.interfaces.node import *
@@ -22,6 +24,7 @@ from github.interfaces.type import __all__ as _type__all__
 
 __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_actor__all__,
+    *_announcementowner__all__,
     *_discussionauthor__all__,
     *_node__all__,
     *_packageowner__all__,
