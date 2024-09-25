@@ -21,8 +21,8 @@ if TYPE_CHECKING:
         # NOTE: avatarUrl: str (on ProfileOwner)
         # NOTE: id: str (on Node)
         # NOTE: login: str (on ProfileOwner)
-        # NOTE: resourcePath: str (on UniformResourceLocatable)
-        # NOTE: url: str (on UniformResourceLocatable)
+        # NOTE: resourcePath: str (on Resource)
+        # NOTE: url: str (on Resource)
         pass
 
 

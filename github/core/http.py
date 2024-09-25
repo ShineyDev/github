@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     from github.content import CodeOfConduct, License
     from github.content.codeofconduct import CodeOfConductData
     from github.content.license import LicenseData
-    from github.interfaces import Node, UniformResourceLocatable
+    from github.interfaces import Node, Resource
     from github.interfaces.profileowner import ProfileOwnerData
     from github.interfaces.starrable import StarrableData
     from github.repository import Topic
@@ -395,7 +395,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
     async def fetch_query_resource(
         self: Self,
         /,
-        type: type[UniformResourceLocatable],
+        type: type[Resource],
         url: str,
         *,
         fields: Iterable[str] = MISSING,

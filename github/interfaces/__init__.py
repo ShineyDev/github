@@ -10,14 +10,14 @@ from github.interfaces.profileowner import *
 from github.interfaces.profileowner import __all__ as _profileowner__all__
 from github.interfaces.repositoryowner import *
 from github.interfaces.repositoryowner import __all__ as _repositoryowner__all__
+from github.interfaces.resource import *
+from github.interfaces.resource import __all__ as _resource__all__
 from github.interfaces.sponsorable import *
 from github.interfaces.sponsorable import __all__ as _sponsorable__all__
 from github.interfaces.starrable import *
 from github.interfaces.starrable import __all__ as _starrable__all__
 from github.interfaces.type import *
 from github.interfaces.type import __all__ as _type__all__
-from github.interfaces.uniformresourcelocatable import *
-from github.interfaces.uniformresourcelocatable import __all__ as _uniformresourcelocatable__all__
 
 
 __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
@@ -27,8 +27,8 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_packageowner__all__,
     *_profileowner__all__,
     *_repositoryowner__all__,
+    *_resource__all__,
     *_sponsorable__all__,
     *_starrable__all__,
     *_type__all__,
-    *_uniformresourcelocatable__all__,
 ]

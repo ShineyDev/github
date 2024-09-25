@@ -7,23 +7,23 @@ if TYPE_CHECKING:
     from github.utility.types import T_json_key, T_json_value
 
 from github.core.errors import ClientObjectMissingFieldError
-from github.interfaces import Node, Type, UniformResourceLocatable
+from github.interfaces import Node, Resource, Type
 from github.utility import MISSING
 
 
 if TYPE_CHECKING:
     from github.interfaces.node import NodeData
+    from github.interfaces.resource import ResourceData
     from github.interfaces.type import TypeData
-    from github.interfaces.uniformresourcelocatable import UniformResourceLocatableData
 
 
-    class CodeOfConductData(NodeData, TypeData, UniformResourceLocatableData):
+    class CodeOfConductData(NodeData, ResourceData, TypeData):
         body: str
         key: str
         name: str
 
 
-class CodeOfConduct(Node, Type, UniformResourceLocatable):
+class CodeOfConduct(Node, Resource, Type):
     """
     Represents a code of conduct.
 

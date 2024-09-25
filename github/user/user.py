@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from github.utility.types import DateTime
 
 import github
-from github.interfaces import Actor, DiscussionAuthor, Node, PackageOwner, ProfileOwner, RepositoryOwner, Sponsorable, Type, UniformResourceLocatable
+from github.interfaces import Actor, DiscussionAuthor, Node, PackageOwner, ProfileOwner, RepositoryOwner, Resource, Sponsorable, Type
 from github.utility import MISSING
 
 
@@ -23,9 +23,9 @@ if TYPE_CHECKING:
     from github.interfaces.profileowner import ProfileOwnerData
     # from github.interfaces.projectowner import ProjectOwnerData  # TODO (support-projects): GitHub Projects support
     from github.interfaces.repositoryowner import RepositoryOwnerData
+    from github.interfaces.resource import ResourceData
     from github.interfaces.sponsorable import SponsorableData
     from github.interfaces.type import TypeData
-    from github.interfaces.uniformresourcelocatable import UniformResourceLocatableData
 
 
     class OptionalUserData(TypedDict, total=False):
@@ -59,9 +59,9 @@ if TYPE_CHECKING:
         ProfileOwnerData,
         # ProjectOwnerData,  # TODO (support-projects): GitHub Projects support
         RepositoryOwnerData,
+        ResourceData,
         SponsorableData,
         TypeData,
-        UniformResourceLocatableData,
     ):
         bio: str | None
         bioHTML: str | None
@@ -97,7 +97,7 @@ class User(
     RepositoryOwner,
     Sponsorable,
     Type,
-    UniformResourceLocatable,
+    Resource,
 ):
     """
     Represents a GitHub user.

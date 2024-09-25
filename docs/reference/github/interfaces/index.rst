@@ -11,8 +11,8 @@ github.interfaces
     node
     packageowner
     profileowner
+    resource
     starrable
-    uniformresourcelocatable
 
 
 Still can't find what you're looking for?

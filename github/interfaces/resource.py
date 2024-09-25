@@ -17,19 +17,19 @@ if TYPE_CHECKING:
     from typing import TypedDict
 
 
-    class UniformResourceLocatableData(TypedDict):
+    class ResourceData(TypedDict):
         resourcePath: str
         url: str
 
 
-class UniformResourceLocatable:
+class Resource:
     """
     Represents an object with a URL.
     """
 
     __slots__ = ()
 
-    _data: UniformResourceLocatableData
+    _data: ResourceData
     _http: HTTPClient
 
     _graphql_fields: dict[str, str] = {
@@ -138,5 +138,5 @@ class UniformResourceLocatable:
 
 
 __all__: list[str] = [
-    "UniformResourceLocatable",
+    "Resource",
 ]
