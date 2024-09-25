@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     from github.connection.ratelimit import RateLimitData
     from github.connections.connection import ConnectionData
     from github.content import CodeOfConduct, License
+    from github.content.announcement import AnnouncementData
     from github.content.codeofconduct import CodeOfConductData
     from github.content.license import LicenseData
     from github.interfaces import Node, Resource
@@ -131,6 +132,27 @@ class HTTPClient(graphql.client.http.HTTPClient):
     ) -> T_json_value:
         data = await self.request(document_, None, kwargs, _data_validate=_data_validate)
         return github.utility.follow(data, path)
+
+    async def fetch_announcementowner_announcement(
+        self: Self,
+        /,
+        announcementowner_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> AnnouncementData | None:
+        fields = github.utility.get_merged_graphql_fields(github.Announcement, fields)
+        query = "query($announcementowner_id: ID!){node(id:$announcementowner_id){...on AnnouncementBanner{%s}}}" % ",".join(fields)
+        path = ("node",)
+
+        data = await self._fetch(query, *path, announcementowner_id=announcementowner_id)
+
+        if TYPE_CHECKING:
+            data = cast(AnnouncementData, data)
+
+        if data["announcementCreatedAt"] is None:
+            return None
+
+        return data
 
     async def fetch_query_all_codes_of_conduct(
         self: Self,
