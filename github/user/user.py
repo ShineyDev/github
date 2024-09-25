@@ -977,7 +977,7 @@ class User(
 
         data = await self._http.fetch_user_status(self.id, **kwargs)
 
-        if not data:
+        if data is None:
             return None
 
         return github.UserStatus._from_data(data, http=self._http)
