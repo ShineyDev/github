@@ -557,12 +557,22 @@ class HTTPClient(graphql.client.http.HTTPClient):
         fields: Iterable[str] = MISSING,
     ) -> UserData:
         fields = github.utility.get_merged_graphql_fields(github.User, fields)
+
+        # NOTE: this holds together the hack in User._from_data
+        if "isViewer" not in fields:
+            fields.append("isViewer")
+
         query = "query($userstatus_id:ID!){node(id:$userstatus_id){...on UserStatus{user{%s}}}}" % ",".join(fields)
         path = ("node", "user")
 
         data = await self._fetch(query, *path, userstatus_id=userstatus_id)
 
-        return data  # type: ignore
+        if TYPE_CHECKING:
+            data = cast(UserData, data)
+
+        data = self._patch_userdata(data)
+
+        return data
 
     async def _collect(
         self: Self,
