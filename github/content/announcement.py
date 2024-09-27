@@ -21,7 +21,7 @@ if TYPE_CHECKING:
         announcement: str
         announcementCreatedAt: str
         announcementExpiresAt: str | None
-        announcementUserDismissable: bool
+        announcementUserDismissible: bool
         id: str
 
 
@@ -51,7 +51,7 @@ class Announcement(Type):
         "text": "announcement",
         "created_at": "announcementCreatedAt",
         "expires_at": "announcementExpiresAt",
-        "can_viewer_dismiss": "announcementUserDismissable",
+        "can_viewer_dismiss": "announcementUserDismissible",
         "id": "id",
     }
 
@@ -66,7 +66,7 @@ class Announcement(Type):
         :type: :class:`bool`
         """
 
-        return self._data["announcementUserDismissable"]
+        return self._data["announcementUserDismissible"]
 
     @property
     def created_at(
