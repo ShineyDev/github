@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     from github.interfaces import Node, Resource
     from github.interfaces.profileowner import ProfileOwnerData
     from github.interfaces.starrable import StarrableData
+    from github.organization.organization import OrganizationData
     from github.repository import Topic
     from github.repository.topic import TopicData
     from github.user import User, UserStatus
@@ -90,6 +91,21 @@ class HTTPClient(graphql.client.http.HTTPClient):
             raise github.ClientError(e.message) from e
         else:
             return data
+
+    def _patch_organizationdata(
+        self: Self,
+        data: OrganizationData,
+        /,
+    ) -> OrganizationData:
+        data = self._patch_profileownerdata(data)  # type: ignore
+
+        if data.get("description", False) == "":
+            data["description"] = None
+
+        if data.get("descriptionHTML", False) == "<div></div>":
+            data["descriptionHTML"] = None
+
+        return data
 
     def _patch_profileownerdata(
         self: Self,
