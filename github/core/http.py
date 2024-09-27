@@ -108,9 +108,6 @@ class HTTPClient(graphql.client.http.HTTPClient):
     ) -> UserData:
         data = self._patch_profileownerdata(data)  # type: ignore
 
-        if data.get("bio", False) == "":
-            data["bio"] = None
-
         if data.get("bioHTML", False) == "":
             data["bioHTML"] = None
 
