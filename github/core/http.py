@@ -391,6 +391,28 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return value
 
+    async def fetch_query_organization(
+        self: Self,
+        login: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> OrganizationData:
+        fields = github.utility.get_merged_graphql_fields(github.Organization, fields)
+        query = "query($login:String!){organization(login:$login){%s}}" % ",".join(fields)
+        path = ("organization",)
+
+        data = await self._fetch(query, *path, login=login)
+
+        if TYPE_CHECKING:
+            data = cast(OrganizationData, data)
+
+        if "login" not in data.keys():
+            data["login"] = login
+
+        data = self._patch_organizationdata(data)
+
+        return data
+
     async def fetch_query_rate_limit(
         self: Self,
         /,

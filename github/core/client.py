@@ -6,6 +6,7 @@ if TYPE_CHECKING:
 
     from aiohttp import ClientSession
 
+    from github.organization import Organization
     from github.user import UserStatus
     from github.utility.types import DateTime, T_json_object
 
@@ -263,6 +264,44 @@ class Client(graphql.client.Client):
 
         data = await self._http.fetch_query_metadata(**kwargs)
         return Metadata._from_data(data)
+
+    async def fetch_organization(
+        self: Self,
+        login: str,
+        /,
+        **kwargs,  # TODO
+    ) -> Organization:
+        """
+        |coro|
+
+        Fetches an organization by its login.
+
+        .. note::
+
+            This query requires the following token scopes:
+
+            - ``read:org``
+
+
+        Parameters
+        ----------
+
+        login: :class:`str`
+            See :attr:`Organization.login <github.Organization.login>`.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientResponseGraphQLNotFoundError
+            A user with the provided login does not exist.
+
+
+        :rtype: :class:`~github.Organization`
+        """
+
+        data = await self._http.fetch_query_organization(login, **kwargs)
+        return github.Organization._from_data(data, http=self._http)
 
     async def fetch_rate_limit(
         self: Self,
