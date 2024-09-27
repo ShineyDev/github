@@ -55,6 +55,8 @@ class Announcement(Type):
         "id": "id",
     }
 
+    _graphql_type = "Organization"  # NOTE: this is a lie.
+
     @property
     def can_viewer_dismiss(
         self: Self,
