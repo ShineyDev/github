@@ -584,6 +584,29 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return value  # type: ignore
 
+    async def fetch_userstatus_organization(
+        self: Self,
+        /,
+        userstatus_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> OrganizationData | None:
+        fields = github.utility.get_merged_graphql_fields(github.User, fields)
+        query = "query($userstatus_id:ID!){node(id:$userstatus_id){...on UserStatus{organization{%s}}}}" % ",".join(fields)
+        path = ("node", "organization")
+
+        data = await self._fetch(query, *path, userstatus_id=userstatus_id)
+
+        if data is None:
+            return None
+
+        if TYPE_CHECKING:
+            data = cast(OrganizationData, data)
+
+        data = self._patch_organizationdata(data)
+
+        return data
+
     async def fetch_userstatus_user(
         self: Self,
         /,

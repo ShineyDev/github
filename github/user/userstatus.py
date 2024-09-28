@@ -5,6 +5,7 @@ if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
 
+    from github.organization import Organization
     from github.user import User
     from github.utility.types import DateTime
 
@@ -381,6 +382,30 @@ class UserStatus(Node, Type):
             value = cast(str, value)
 
         return github.utility.iso_to_datetime(value)
+
+    async def fetch_organization(
+        self: Self,
+        /,
+        **kwargs,
+    ) -> Organization | None:
+        """
+        |coro|
+
+        Fetches the organization the status is visible to members of.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: Optional[:class:`~github.Organization`]
+        """
+
+        data = await self._http.fetch_userstatus_organization(self.id, **kwargs)
+        return github.Organization._from_data(data, http=self._http)
 
     async def fetch_user(
         self: Self,
