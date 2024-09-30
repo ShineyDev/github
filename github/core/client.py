@@ -426,7 +426,7 @@ class Client(graphql.client.Client):
         busy: bool = MISSING,
         emoji: str | None = MISSING,
         expires_at: DateTime = MISSING,
-        # organization: Organization = MISSING,  # TODO (implement-organization): implement github.Organization
+        organization: Organization = MISSING,
     ) -> UserStatus | None:
         """
         |coro|
@@ -464,7 +464,7 @@ class Client(graphql.client.Client):
             emoji if emoji is not MISSING else None,
             github.utility.datetime_to_iso(expires_at) if expires_at is not MISSING else None,
             message if message is not MISSING else None,
-            None,  # organization.id,  # TODO (implement-organization): implement github.Organization
+            organization.id if organization is not MISSING else None,
         )
 
         if not data:
