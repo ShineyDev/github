@@ -745,9 +745,6 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "mutation($busy:Boolean,$emoji:String,$expires_at:DateTime,$message:String,$mutation_id:String!,$organization_id:ID){changeUserStatus(input:{clientMutationId:$mutation_id,emoji:$emoji,expiresAt:$expires_at,limitedAvailability:$busy,message:$message,organizationId:$organization_id}){status{%s}}}" % ",".join(fields)
         path = ("changeUserStatus", "status")
 
-        # NOTE: temporary patch for 3004533
-        busy = busy if busy is not None else False
-
         value = await self._mutate(query, *path, busy=busy, emoji=emoji, expires_at=expires_at, message=message, organization_id=organization_id)
 
         return value  # type: ignore
