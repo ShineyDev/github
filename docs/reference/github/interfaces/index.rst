@@ -8,10 +8,14 @@ github.interfaces
     :maxdepth: 1
 
     actor
+    announcementowner
+    discussionauthor
     node
     packageowner
     profileowner
+    repositoryowner
     resource
+    sponsorable
     starrable
 
 
