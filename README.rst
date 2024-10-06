@@ -1,11 +1,11 @@
 .. raw:: html
 
     <p align="center">
-        <a href="https://github.com/ShineyDev/github/actions/workflows/analyze.yml?query=branch%3Amain+event%3Apush"><img alt="Analyze Status" src="https://github.com/ShineyDev/github/actions/workflows/analyze.yml/badge.svg?branch=main&event=push" /></a>
-        <a href="https://github.com/ShineyDev/github/actions/workflows/build.yml?query=branch%3Amain+event%3Apush"><img alt="Build Status" src="https://github.com/ShineyDev/github/actions/workflows/build.yml/badge.svg?branch=main&event=push" /></a>
-        <a href="https://github.com/ShineyDev/github/actions/workflows/check.yml?query=branch%3Amain+event%3Apush"><img alt="Check Status" src="https://github.com/ShineyDev/github/actions/workflows/check.yml/badge.svg?branch=main&event=push" /></a>
-        <a href="https://github.com/ShineyDev/github/actions/workflows/deploy.yml?query=branch%3Amain+event%3Apush"><img alt="Deploy Status" src="https://github.com/ShineyDev/github/actions/workflows/deploy.yml/badge.svg?branch=main&event=push" /></a>
-        <a href="https://github.com/ShineyDev/github/actions/workflows/lint.yml?query=branch%3Amain+event%3Apush"><img alt="Lint Status" src="https://github.com/ShineyDev/github/actions/workflows/lint.yml/badge.svg?branch=main&event=push" /></a>
+        <a href="https://github.com/ShineyDev/github/actions/workflows/analyze.yml?query=branch%3Adotcom+event%3Apush"><img alt="Analyze Status" src="https://github.com/ShineyDev/github/actions/workflows/analyze.yml/badge.svg?branch=dotcom&event=push" /></a>
+        <a href="https://github.com/ShineyDev/github/actions/workflows/build.yml?query=branch%3Adotcom+event%3Apush"><img alt="Build Status" src="https://github.com/ShineyDev/github/actions/workflows/build.yml/badge.svg?branch=dotcom&event=push" /></a>
+        <a href="https://github.com/ShineyDev/github/actions/workflows/check.yml?query=branch%3Adotcom+event%3Apush"><img alt="Check Status" src="https://github.com/ShineyDev/github/actions/workflows/check.yml/badge.svg?branch=dotcom&event=push" /></a>
+        <a href="https://github.com/ShineyDev/github/actions/workflows/deploy.yml?query=branch%3Adotcom+event%3Apush"><img alt="Deploy Status" src="https://github.com/ShineyDev/github/actions/workflows/deploy.yml/badge.svg?branch=dotcom&event=push" /></a>
+        <a href="https://github.com/ShineyDev/github/actions/workflows/lint.yml?query=branch%3Adotcom+event%3Apush"><img alt="Lint Status" src="https://github.com/ShineyDev/github/actions/workflows/lint.yml/badge.svg?branch=dotcom&event=push" /></a>
     </p>
 
 ----------
