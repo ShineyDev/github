@@ -10,17 +10,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        PYTHON_VERSION: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        PYTHON_VERSION: ["3.8", "3.9", "3.10", "3.11", "3.12"]
 
     name: Build
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Python ${{ matrix.PYTHON_VERSION }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.PYTHON_VERSION }}
 

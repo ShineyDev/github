@@ -15,15 +15,17 @@ env:
 
 jobs:
   labels:
+    if: github.repository_owner == 'ShineyDev'
+
     name: Sync Labels
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Python ${{ env.PYTHON_VERSION }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ env.PYTHON_VERSION }}
 

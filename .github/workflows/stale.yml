@@ -13,14 +13,14 @@ env:
 
 jobs:
   stale:
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    if: false  # github.repository_owner == 'ShineyDev' && ( github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' )  # TODO(actions): put this back
 
     name: Mark as stale
     runs-on: ubuntu-latest
 
     steps:
     - name: Stale
-      uses: actions/stale@v3
+      uses: actions/stale@v9
       with:
         repo-token: ${{ env.AUTH_TOKEN }}
         days-before-stale: 30
@@ -42,14 +42,14 @@ jobs:
           If you believe the pull request will continue to be inactive but should remain open, add the `A:backlog` label.
 
   unstale:
-    if: github.event_name == 'issue_comment' && contains(github.event.issue.labels.*.name, 'A:stale') && github.event.issue.user.type != 'Bot'
+    if: github.repository_owner == 'ShineyDev' && github.event_name == 'issue_comment' && contains(github.event.issue.labels.*.name, 'A:stale') && github.event.issue.user.type != 'Bot'
 
     name: Unmark as stale
     runs-on: ubuntu-latest
 
     steps:
     - name: Unstale
-      uses: actions/github-script@v3
+      uses: actions/github-script@v7
       with:
         github-token: ${{ env.AUTH_TOKEN }}
         script: |-
