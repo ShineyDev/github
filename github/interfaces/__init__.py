@@ -18,6 +18,8 @@ from github.interfaces.sponsorable import *
 from github.interfaces.sponsorable import __all__ as _sponsorable__all__
 from github.interfaces.starrable import *
 from github.interfaces.starrable import __all__ as _starrable__all__
+from github.interfaces.subscribable import *
+from github.interfaces.subscribable import __all__ as _subscribable__all__
 from github.interfaces.type import *
 from github.interfaces.type import __all__ as _type__all__
 
@@ -33,5 +35,6 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_resource__all__,
     *_sponsorable__all__,
     *_starrable__all__,
+    *_subscribable__all__,
     *_type__all__,
 ]

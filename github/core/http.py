@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     from github.interfaces import Node, Resource
     from github.interfaces.profileowner import ProfileOwnerData
     from github.interfaces.starrable import StarrableData
+    from github.interfaces.subscribable import SubscribableData
     from github.organization.organization import OrganizationData
     from github.repository import Topic
     from github.repository.topic import TopicData
@@ -727,6 +728,22 @@ class HTTPClient(graphql.client.http.HTTPClient):
         path = ("removeStar", "starrable")
 
         value = await self._mutate(query, *path, starrable_id=starrable_id)
+
+        return value  # type: ignore
+
+    async def mutate_subscribable_update_subscription(
+        self: Self,
+        /,
+        subscribable_id: str,
+        state: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> SubscribableData:
+        fields = github.utility.get_merged_graphql_fields(github.Subscribable, fields)
+        query = "mutation($subscribable_id:ID!,$mutation_id:String!,$state:SubscriptionState!){updateSubscription(input:{clientMutationId:$mutation_id,subscribableId:$subscribable_id,state:$state}){subscribable{%s}}}" % ",".join(fields)
+        path = ("updateSubscription", "subscribable")
+
+        value = await self._mutate(query, *path, starrable_id=subscribable_id, state=state)
 
         return value  # type: ignore
 
