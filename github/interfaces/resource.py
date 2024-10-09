@@ -70,6 +70,8 @@ class Resource:
         *,
         save: bool = MISSING,
     ) -> T_json_value:
+        save = save if save is not MISSING else True
+
         try:
             url = self.url
         except ClientObjectMissingFieldError:
