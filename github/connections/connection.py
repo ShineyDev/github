@@ -170,6 +170,7 @@ class Connection(AsyncIterator[_Tci]):
                     if stage_type == "filter":
                         if not await utility.call_maybe_coroutine(stage, staged_node):
                             filter = True
+                            break
                     elif stage_type == "map":
                         staged_node = await utility.call_maybe_coroutine(stage, staged_node)
                     else:
