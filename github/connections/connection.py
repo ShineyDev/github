@@ -284,6 +284,9 @@ class Connection(AsyncIterator[_Tci]):
         if self._locked:
             raise RuntimeError("cannot update while iterating")
 
+        if self._paginating:
+            raise RuntimeError("already paginating connection")
+
         self._length = length if length is not MISSING else None
         self._paginating = True
 
