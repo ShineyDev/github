@@ -155,18 +155,12 @@ class HTTPClient(graphql.client.http.HTTPClient):
         fields: Iterable[str] = MISSING,
     ) -> AnnouncementData | None:
         fields = github.utility.get_merged_graphql_fields(github.Announcement, fields)
-        query = "query($announcementowner_id: ID!){node(id:$announcementowner_id){...on AnnouncementBanner{%s}}}" % ",".join(fields)
-        path = ("node",)
+        query = "query($announcementowner_id: ID!){node(id:$announcementowner_id){...on Enterprise{announcementBanner{%(f)s}}...on Organization{announcementBanner{%(f)s}}}}" % {"f": ",".join(fields)}
+        path = ("node", "announcementBanner")
 
         data = await self._fetch(query, *path, announcementowner_id=announcementowner_id)
 
-        if TYPE_CHECKING:
-            data = cast(AnnouncementData, data)
-
-        if data["announcementCreatedAt"] is None:
-            return None
-
-        return data
+        return data  # type: ignore
 
     async def fetch_query_all_codes_of_conduct(
         self: Self,
