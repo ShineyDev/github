@@ -8,7 +8,7 @@ Reference
     :maxdepth: 2
 
     github/core/index
-    github/connection/index
+    github/api/index
     github/content/index
     github/repository/index
     github/interfaces/index

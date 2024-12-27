@@ -6,8 +6,8 @@ if TYPE_CHECKING:
 
     from aiohttp import ClientSession
 
+    from github.api import Metadata, RateLimit
     from github.content import CodeOfConduct, License
-    from github.connection import Metadata, RateLimit
     from github.organization import Organization
     from github.repository import Repository, Topic
     from github.user import AuthenticatedUser, User, UserStatus

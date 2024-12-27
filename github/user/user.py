@@ -17,7 +17,7 @@ from github.utility import MISSING
 if TYPE_CHECKING:
     from typing import TypedDict
 
-    from github.connections.connection import ConnectionData
+    from github.connection.connection import ConnectionData
     from github.interfaces.actor import ActorData
     from github.interfaces.discussionauthor import DiscussionAuthorData
     from github.interfaces.node import NodeData

@@ -5,7 +5,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.core.http import HTTPClient
-    from github.connections import Connection
+    from github.connection import Connection
     from github.interfaces import Node
     from github.user import User
     from github.user.user import UserData
@@ -17,7 +17,7 @@ from github.utility import MISSING
 if TYPE_CHECKING:
     from typing import TypedDict
 
-    from github.connections.connection import ConnectionData
+    from github.connection.connection import ConnectionData
     # from github.user.user import UserData  # TODO: [support-user]
 
 
@@ -133,7 +133,7 @@ class Starrable:
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.connections.Connection`[:class:`~github.User`]
+        :rtype: :class:`~github.connection.Connection`[:class:`~github.User`]
         """
 
         if TYPE_CHECKING and not isinstance(self, Node):

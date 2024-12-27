@@ -8,7 +8,7 @@ if TYPE_CHECKING:
 if TYPE_CHECKING:
     from typing import TypedDict
 
-    from github.connections.connection import ConnectionData
+    from github.connection.connection import ConnectionData
     # from github.gist.gist import GistData  # TODO: [support-gist]
     # from github.repository.repository import RepositoryData  # TODO: [support-repository]
 

@@ -8,7 +8,7 @@ github
     :maxdepth: 2
 
     core/index
-    connection/index
+    api/index
     content/index
     repository/index
     interfaces/index

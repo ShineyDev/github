@@ -1,8 +1,8 @@
 :orphan:
 
 
-github.connection
-=================
+github.api
+==========
 
 .. toctree::
     :maxdepth: 1

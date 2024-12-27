@@ -6,9 +6,9 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from aiohttp import ClientResponse, ClientSession
-    from github.connection.metadata import MetadataData
-    from github.connection.ratelimit import RateLimitData
-    from github.connections.connection import ConnectionData
+    from github.api.metadata import MetadataData
+    from github.api.ratelimit import RateLimitData
+    from github.connection.connection import ConnectionData
     from github.content import CodeOfConduct, License
     from github.content.announcement import AnnouncementData
     from github.content.codeofconduct import CodeOfConductData

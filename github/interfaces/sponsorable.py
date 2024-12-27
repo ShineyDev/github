@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 if TYPE_CHECKING:
     from typing import TypedDict
 
-    from github.connections.connection import ConnectionData
+    from github.connection.connection import ConnectionData
     # from github.user.user import UserData  # TODO: [support-user]
 
 

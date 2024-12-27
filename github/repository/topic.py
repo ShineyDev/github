@@ -5,7 +5,7 @@ if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
 
-    from github.connections import Connection, RepositoryOrder
+    from github.connection import Connection, RepositoryOrder
     from github.repository import Repository
     from github.repository.repository import RepositoryData
 
@@ -17,7 +17,7 @@ from github.utility import MISSING
 if TYPE_CHECKING:
     from typing import TypedDict
 
-    from github.connections.connection import ConnectionData
+    from github.connection.connection import ConnectionData
     from github.interfaces.node import NodeData
     from github.interfaces.starrable import StarrableData
     from github.interfaces.type import TypeData
@@ -209,7 +209,7 @@ class Topic(Node, Starrable, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.connections.Connection`[:class:`~github.Repository`]
+        :rtype: :class:`~github.connection.Connection`[:class:`~github.Repository`]
         """
 
         if TYPE_CHECKING and not isinstance(self, Node):

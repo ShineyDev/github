@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
-    from github.connections import Connection, RepositoryOrder
+    from github.connection import Connection, RepositoryOrder
     from github.interfaces import Node
     from github.repository import Repository
     from github.repository.repository import RepositoryData
@@ -16,7 +16,7 @@ from github.utility import MISSING
 if TYPE_CHECKING:
     from typing import TypedDict
 
-    from github.connections.connection import ConnectionData
+    from github.connection.connection import ConnectionData
     # from github.repository.repository import RepositoryData  # TODO: [support-repository]
 
 
@@ -81,7 +81,7 @@ class RepositoryOwner:
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.connections.Connection`[:class:`~github.Repository`]
+        :rtype: :class:`~github.connection.Connection`[:class:`~github.Repository`]
         """
 
         if TYPE_CHECKING and not isinstance(self, Node):
