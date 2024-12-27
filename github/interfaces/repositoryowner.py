@@ -4,6 +4,12 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
+    from github.interfaces import Node
+    from github.repository import Repository
+
+import github
+from github.utility import MISSING
+
 
 if TYPE_CHECKING:
     from typing import TypedDict
@@ -63,12 +69,23 @@ class RepositoryOwner:
 
     async def fetch_repository(
         self: Self,
+        name: str,
         /,
-    ) -> None:
+        *,
+        follow_renames: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Repository:
         """
         |coro|
 
         Fetches a repository from the repository owner.
+
+
+        Parameters
+        ----------
+
+        name: :class:`str`
+            The name of the repository.
 
 
         Raises
@@ -76,14 +93,24 @@ class RepositoryOwner:
 
         ~github.core.errors.ClientObjectMissingFieldError
             The :attr:`id` attribute is missing.
+        ~github.core.errors.ClientResponseGraphQLNotFoundError
+            A repository with the provided name does not exist.
 
 
-        :rtype: Repository
-
-        ..      :class:`~github.Repository`
+        :rtype: :class:`~github.Repository`
         """
 
-        raise NotImplementedError  # TODO: RepositoryOwner.repository
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        data = await self._http.fetch_repositoryowner_repository(
+            self.id,
+            name,
+            follow_renames if follow_renames is not MISSING else None,
+            **kwargs,
+        )
+
+        return github.Repository._from_data(data, http=self._http)
 
 
 __all__: list[str] = [
