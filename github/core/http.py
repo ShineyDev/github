@@ -19,6 +19,7 @@ if TYPE_CHECKING:
     from github.interfaces.subscribable import SubscribableData
     from github.organization.organization import OrganizationData
     from github.repository import Topic
+    from github.repository.repository import RepositoryData
     from github.repository.topic import TopicData
     from github.user import User, UserStatus
     from github.user.user import UserData
@@ -115,6 +116,19 @@ class HTTPClient(graphql.client.http.HTTPClient):
     ) -> ProfileOwnerData:
         if data.get("email", False) == "":
             data["email"] = None
+
+        return data
+
+    def _patch_repositorydata(
+        self: Self,
+        data: RepositoryData,
+        /,
+    ) -> RepositoryData:
+        if data.get("descriptionHTML", False) == "<div></div>":
+            data["descriptionHTML"] = None
+
+        if data.get("shortDescriptionHTML", False) == "":
+            data["shortDescriptionHTML"] = None
 
         return data
 
