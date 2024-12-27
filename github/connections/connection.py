@@ -136,6 +136,8 @@ class Connection(AsyncIterator[_Tci]):
 
         if self._limit is not None:
             self._kwargs["length"] = max(DEFAULT_MINIMUM_NODES, min(self._limit, self._length or DEFAULT_MAXIMUM_NODES))
+        else:
+            self._kwargs["length"] = self._length or DEFAULT_MAXIMUM_NODES
 
         if self._paginating:
             staged_nodes = self._buffer
