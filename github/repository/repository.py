@@ -6,6 +6,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.connection import Connection
+    from github.content import CodeOfConduct
     from github.user import User
     from github.utility.types import DateTime
 
@@ -1248,6 +1249,34 @@ class Repository(
             updated_at = cast(str, updated_at)
 
         return github.utility.iso_to_datetime(updated_at)
+
+    async def fetch_code_of_conduct(
+        self: Self,
+        /,
+        **kwargs,  # TODO
+    ) -> CodeOfConduct | None:
+        """
+        |coro|
+
+        Fetches the code of conduct for the repository, if any.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.CodeOfConduct` | None
+        """
+
+        data = await self._http.fetch_repository_code_of_conduct(self.id, **kwargs)
+
+        if data is None:
+            return None
+
+        return github.CodeOfConduct._from_data(data, http=self._http)
 
     def fetch_assignable_users(
         self: Self,

@@ -591,6 +591,19 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return value
 
+    async def fetch_repository_code_of_conduct(
+        self: Self,
+        /,
+        repository_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> CodeOfConductData | None:
+        fields = github.utility.get_merged_graphql_fields(github.CodeOfConduct, fields)
+        query = "query($repository_id:ID!){node(id:$repository_id){...on Repository{codeOfConduct{%s}}}}" % ",".join(fields)
+        path = ("node", "codeOfConduct")
+
+        return await self._fetch(query, *path, repository_id=repository_id)  # type: ignore
+
     async def fetch_repositoryowner_repository(
         self: Self,
         /,
