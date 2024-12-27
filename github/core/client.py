@@ -7,6 +7,7 @@ if TYPE_CHECKING:
     from aiohttp import ClientSession
 
     from github.organization import Organization
+    from github.repository import Repository
     from github.user import UserStatus
     from github.utility.types import DateTime, T_json_object
 
@@ -318,6 +319,52 @@ class Client(graphql.client.Client):
 
         data = await self._http.fetch_query_rate_limit(**kwargs)
         return RateLimit._from_data(data)
+
+    async def fetch_repository(
+        self: Self,
+        owner: str,
+        name: str,
+        /,
+        *,
+        follow_renames: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Repository:
+        """
+        |coro|
+
+        Fetches a repository by its owner and name.
+
+
+        Parameters
+        ----------
+
+        owner: :class:`str`
+            The login of the owner of the repository.
+        name: :class:`str`
+            The name of the repository.
+        follow_renames: :class:`bool`
+            Whether to follow repository renames when requesting a
+            repository by its non-current name. Defaults to ``True``.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientResponseGraphQLNotFoundError
+            A repository with the provided owner and name does not exist.
+
+
+        :rtype: :class:`~github.Repository`
+        """
+
+        data = await self._http.fetch_query_repository(
+            owner,
+            name,
+            follow_renames if follow_renames is not MISSING else None,
+            **kwargs,
+        )
+
+        return github.Repository._from_data(data, http=self._http)
 
     async def fetch_topic(
         self: Self,

@@ -436,6 +436,35 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return value  # type: ignore
 
+    async def fetch_query_repository(
+        self: Self,
+        /,
+        owner: str,
+        name: str,
+        follow_renames: bool | None,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> RepositoryData:
+        fields = github.utility.get_merged_graphql_fields(github.Repository, fields)
+        query = "query($follow_renames:Boolean,$name:String!,$owner:String!){repository(followRenames:$follow_renames,name:$name,owner:$owner){%s}}" % ",".join(fields)
+        path = ("repository",)
+
+        data = await self._fetch(query, *path, owner=owner, name=name, follow_renames=follow_renames)
+
+        if TYPE_CHECKING:
+            data = cast(RepositoryData, data)
+
+        if follow_renames is False:
+            if "name" not in data.keys():
+                data["name"] = name
+
+            if "nameWithOwner" not in data.keys():
+                data["nameWithOwner"] = f"{owner}/{name}"
+
+        data = self._patch_repositorydata(data)
+
+        return data
+
     if TYPE_CHECKING:
 
         @overload
