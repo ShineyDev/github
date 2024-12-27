@@ -1256,6 +1256,7 @@ class Repository(
         cursor: str | None = MISSING,
         limit: int = MISSING,
         reverse: bool = MISSING,
+        **kwargs,  # TODO
     ) -> Connection[User]:
         """
         |aiter|
@@ -1293,6 +1294,7 @@ class Repository(
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
         )
 
 
