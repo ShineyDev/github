@@ -731,6 +731,20 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data
 
+    async def collect_repository_assignable_users(
+        self: Self,
+        /,
+        repository_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+        **kwargs,
+    ) -> ConnectionData[UserData]:
+        fields = github.utility.get_merged_graphql_fields(github.User, fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$repository_id:ID!){node(id:$repository_id){...on Repository{assignableUsers(after:$after,before:$before,first:$first,last:$last){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        path = ("node", "assignableUsers")
+
+        return await self._collect(query, *path, repository_id=repository_id, **kwargs)
+
     async def collect_repositoryowner_repositories(
         self: Self,
         /,

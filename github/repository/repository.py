@@ -5,6 +5,8 @@ if TYPE_CHECKING:
     from typing import Literal, cast
     from typing_extensions import Self
 
+    from github.connection import Connection
+    from github.user import User
     from github.utility.types import DateTime
 
 import github
@@ -1246,6 +1248,52 @@ class Repository(
             updated_at = cast(str, updated_at)
 
         return github.utility.iso_to_datetime(updated_at)
+
+    def fetch_assignable_users(
+        self: Self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        reverse: bool = MISSING,
+    ) -> Connection[User]:
+        """
+        |aiter|
+
+        Fetches assignable users from the repository.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.connection.Connection`[:class:`~github.User`]
+        """
+
+        def userdata_to_user(userdata: UserData, /) -> User:
+            return github.User._from_data(userdata, http=self._http)
+
+        return github.Connection(
+            self._http.collect_repository_assignable_users,
+            self.id,
+            data_map=userdata_to_user,
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+        )
 
 
 __all__: list[str] = [
