@@ -4,6 +4,11 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
+    from github.connections import Connection, RepositoryOrder
+    from github.repository import Repository
+    from github.repository.repository import RepositoryData
+
+import github
 from github.interfaces import Node, Starrable, Type
 from github.utility import MISSING
 
@@ -126,14 +131,33 @@ class Topic(Node, Starrable, Type):
         data = await self._http.fetch_topic_related_topics(self.id, limit if limit is not MISSING else None, **kwargs)
         return Topic._from_data(data)
 
-    async def fetch_repositories(
+    def fetch_repositories(
         self: Self,
         /,
-    ) -> None:
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        order_by: RepositoryOrder = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Repository]:
         """
         |aiter|
 
         Fetches repositories from the topic.
+
+
+        Parameters
+        ----------
+
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        order_by: :class:`~github.RepositoryOrder`
+            The field by which to order the elements.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
 
 
         Raises
@@ -143,12 +167,25 @@ class Topic(Node, Starrable, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: ConnectionIterator[Repository]
-
-        ..      :class:`~github.utility.ConnectionIterator`[:class:`~github.Repository`]
+        :rtype: :class:`~github.connections.Connection`[:class:`~github.Repository`]
         """
 
-        raise NotImplementedError  # TODO: Topic.repositories
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        def repositorydata_to_repository(repositorydata: RepositoryData, /) -> Repository:
+            return github.Repository._from_data(repositorydata, http=self._http)
+
+        return github.Connection(
+            self._http.collect_topic_repositories,
+            self.id,
+            order_by.value if order_by is not MISSING else None,
+            data_map=repositorydata_to_repository,
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else None,
+            **kwargs,
+        )
 
 
 __all__: list[str] = [
