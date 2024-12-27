@@ -391,6 +391,18 @@ class Client(graphql.client.Client):
         ~github.core.errors.ClientResponseGraphQLNotFoundError
             A topic with the provided name does not exist.
 
+            .. note::
+
+                There is actually no concept of a topic that does not
+                exist. Without getting into technical details, this
+                means that unless you provide a name containing an
+                invalid character, this function will always return a
+                valid topic.
+
+                For a more accurate representation of whether a topic
+                "exists", see that its :attr:`~github.Topic.repository_count`
+                is not zero.
+
 
         :rtype: :class:`~github.Topic`
         """

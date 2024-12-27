@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from typing import cast
     from typing_extensions import Self
 
     from github.connections import Connection, RepositoryOrder
@@ -20,16 +21,16 @@ if TYPE_CHECKING:
     from github.interfaces.node import NodeData
     from github.interfaces.starrable import StarrableData
     from github.interfaces.type import TypeData
-    # from github.repository.repository import RepositoryData  # TODO: [support-repository]
+    from github.repository.repository import RepositoryData
 
 
     class OptionalTopicData(TypedDict, total=False):
         relatedTopics: list[TopicData]
-        # repositories: ConnectionData[RepositoryData]  # TODO: [support-repository]
 
 
     class TopicData(OptionalTopicData, NodeData, StarrableData, TypeData):
         name: str
+        repositories: ConnectionData[RepositoryData]
 
 
 class Topic(Node, Starrable, Type):
@@ -57,9 +58,10 @@ class Topic(Node, Starrable, Type):
         "name",
     ]
 
-    _graphql_fields: list[str] = [
-        "name",
-    ]
+    _graphql_fields: dict[str, str] = {
+        "name": "name",
+        "repository_count": "repositories{totalCount}",
+    }
 
     _node_prefix: str = "TO"
 
@@ -75,6 +77,19 @@ class Topic(Node, Starrable, Type):
         """
 
         return self._data["name"]
+
+    @property
+    def repository_count(
+        self: Self,
+        /,
+    ) -> int:
+        """
+        The number of repositories associated with the topic.
+
+        :type: :class:`int`
+        """
+
+        return self._data["repositories"]["totalCount"]
 
     async def fetch_name(
         self: Self,
@@ -97,6 +112,33 @@ class Topic(Node, Starrable, Type):
         """
 
         return await self._fetch_field("name")  # type: ignore
+
+    async def fetch_repository_count(
+        self: Self,
+        /,
+    ) -> int:
+        """
+        |coro|
+
+        Fetches the number of repositories associated with the topic.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`int`
+        """
+
+        connection = await self._fetch_field("repositories{totalCount}")
+
+        if TYPE_CHECKING:
+            connection = cast(ConnectionData, connection)
+
+        return connection["totalCount"]
 
     async def fetch_related_topics(
         self: Self,
