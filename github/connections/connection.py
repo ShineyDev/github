@@ -7,8 +7,8 @@ if TYPE_CHECKING:
 
     _T = TypeVar("_T")
 
+import github
 from github.core.http import DEFAULT_MAXIMUM_NODES, DEFAULT_MINIMUM_NODES
-from github import utility
 from github.utility import MISSING
 
 
@@ -158,11 +158,11 @@ class Connection(AsyncIterator[_Tci]):
 
             for node in nodes:
                 if self._data_filter is not None:
-                    if not await utility.call_maybe_coroutine(self._data_filter, node):
+                    if not await github.utility.call_maybe_coroutine(self._data_filter, node):
                         continue
 
                 if self._data_map is not None:
-                    staged_node = await utility.call_maybe_coroutine(self._data_map, node)
+                    staged_node = await github.utility.call_maybe_coroutine(self._data_map, node)
                 else:
                     staged_node = node
 
@@ -170,11 +170,11 @@ class Connection(AsyncIterator[_Tci]):
 
                 for stage_type, stage in self._stages:
                     if stage_type == "filter":
-                        if not await utility.call_maybe_coroutine(stage, staged_node):
+                        if not await github.utility.call_maybe_coroutine(stage, staged_node):
                             filter = True
                             break
                     elif stage_type == "map":
-                        staged_node = await utility.call_maybe_coroutine(stage, staged_node)
+                        staged_node = await github.utility.call_maybe_coroutine(stage, staged_node)
                     else:
                         raise RuntimeError("invalid stage type; this shouldn't happen")
 

@@ -8,8 +8,8 @@ if TYPE_CHECKING:
     from github.core.http import HTTPClient
     from github.utility.types import T_json_object
 
+import github
 from github import utility
-from github.core.errors import ClientObjectMissingFieldError
 
 
 if TYPE_CHECKING:
@@ -52,7 +52,7 @@ class Type:
         for name in d_fields:
             try:
                 value = getattr(self, name)
-            except ClientObjectMissingFieldError:
+            except github.ClientObjectMissingFieldError:
                 pass
             else:
                 f_fields[name] = value

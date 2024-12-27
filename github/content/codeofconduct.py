@@ -6,7 +6,7 @@ if TYPE_CHECKING:
 
     from github.utility.types import T_json_key, T_json_value
 
-from github.core.errors import ClientObjectMissingFieldError
+import github
 from github.interfaces import Node, Resource, Type
 from github.utility import MISSING
 
@@ -132,21 +132,21 @@ class CodeOfConduct(Node, Resource, Type):
 
         try:
             id = self.id
-        except ClientObjectMissingFieldError:
+        except github.ClientObjectMissingFieldError:
             id = False
 
         try:
             key = self.key
-        except ClientObjectMissingFieldError:
+        except github.ClientObjectMissingFieldError:
             key = False
 
         try:
             url = self.url
-        except ClientObjectMissingFieldError:
+        except github.ClientObjectMissingFieldError:
             url = False
 
         if id is False and key is False and url is False:
-            raise ClientObjectMissingFieldError("id", "key", "url") from None
+            raise github.ClientObjectMissingFieldError("id", "key", "url") from None
 
         if id is not False:
             data = await self._http.fetch_query_node(self.__class__, id, fields=(field,))
@@ -155,9 +155,9 @@ class CodeOfConduct(Node, Resource, Type):
         elif url:
             raise NotImplementedError  # TODO: custom code of conduct
         elif not url:
-            raise ClientObjectMissingFieldError("id", "url") from None
+            raise github.ClientObjectMissingFieldError("id", "url") from None
         elif not key:
-            raise ClientObjectMissingFieldError("id", "key") from None
+            raise github.ClientObjectMissingFieldError("id", "key") from None
 
         value = data[field]
 

@@ -6,8 +6,8 @@ if TYPE_CHECKING:
 
     from github.utility.types import DateTime
 
+import github
 from github import utility
-from github.core.errors import ClientObjectMissingFieldError
 from github.interfaces import Type
 
 
@@ -57,11 +57,11 @@ class RateLimit(Type):
 
         try:
             limit = self._data["limit"]
-        except ClientObjectMissingFieldError as e:
+        except github.ClientObjectMissingFieldError as e:
             try:
                 remaining = self._data["remaining"]
                 used = self._data["used"]
-            except ClientObjectMissingFieldError:
+            except github.ClientObjectMissingFieldError:
                 raise e from None
 
             limit = remaining + used
@@ -82,11 +82,11 @@ class RateLimit(Type):
 
         try:
             remaining = self._data["remaining"]
-        except ClientObjectMissingFieldError as e:
+        except github.ClientObjectMissingFieldError as e:
             try:
                 limit = self._data["limit"]
                 used = self._data["used"]
-            except ClientObjectMissingFieldError:
+            except github.ClientObjectMissingFieldError:
                 raise e from None
 
             remaining = limit - used
@@ -119,11 +119,11 @@ class RateLimit(Type):
 
         try:
             used = self._data["used"]
-        except ClientObjectMissingFieldError as e:
+        except github.ClientObjectMissingFieldError as e:
             try:
                 limit = self._data["limit"]
                 remaining = self._data["remaining"]
-            except ClientObjectMissingFieldError:
+            except github.ClientObjectMissingFieldError:
                 raise e from None
 
             used = limit - remaining

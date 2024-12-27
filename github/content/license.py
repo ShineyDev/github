@@ -6,8 +6,7 @@ if TYPE_CHECKING:
 
     from github.utility.types import T_json_key, T_json_value
 
-from github import utility
-from github.core.errors import ClientObjectMissingFieldError
+import github
 from github.content.licenserule import LicenseRule
 from github.interfaces import Node, Type
 from github.utility import MISSING
@@ -64,17 +63,17 @@ class License(Node, Type):
     _graphql_fields: dict[str, str] = {
         "body": "body",
         "choosealicense_url": "url",
-        "conditions": "conditions{%s}" % ",".join(utility.get_defined_graphql_fields(LicenseRule)),
+        "conditions": "conditions{%s}" % ",".join(github.utility.get_defined_graphql_fields(LicenseRule)),
         "description": "description",
         "implementation": "implementation",
         "is_featured": "featured",
         "is_hidden": "hidden",
         "is_pseudo": "pseudoLicense",
         "key": "key",
-        "limitations": "limitations{%s}" % ",".join(utility.get_defined_graphql_fields(LicenseRule)),
+        "limitations": "limitations{%s}" % ",".join(github.utility.get_defined_graphql_fields(LicenseRule)),
         "name": "name",
         "nickname": "nickname",
-        "permissions": "permissions{%s}" % ",".join(utility.get_defined_graphql_fields(LicenseRule)),
+        "permissions": "permissions{%s}" % ",".join(github.utility.get_defined_graphql_fields(LicenseRule)),
         "spdx_id": "spdxId",
     }
 
@@ -117,7 +116,7 @@ class License(Node, Type):
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule._from_data(self._data["conditions"])
+        return github.LicenseRule._from_data(self._data["conditions"])
 
     @property
     def description(
@@ -208,7 +207,7 @@ class License(Node, Type):
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule._from_data(self._data["limitations"])
+        return github.LicenseRule._from_data(self._data["limitations"])
 
     @property
     def name(
@@ -247,7 +246,7 @@ class License(Node, Type):
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule._from_data(self._data["permissions"])
+        return github.LicenseRule._from_data(self._data["permissions"])
 
     @property
     def spdx_id(
@@ -273,25 +272,25 @@ class License(Node, Type):
 
         try:
             id = self.id
-        except ClientObjectMissingFieldError:
+        except github.ClientObjectMissingFieldError:
             id = False
 
         try:
             key = self.key
-        except ClientObjectMissingFieldError:
+        except github.ClientObjectMissingFieldError:
             key = False
 
         if id is False and key is False:
-            raise ClientObjectMissingFieldError("id", "key") from None
+            raise github.ClientObjectMissingFieldError("id", "key") from None
 
         if id is not False:
             data = await self._http.fetch_query_node(self.__class__, id, fields=(field,))
         elif key and key != "other":
             data = await self._http.fetch_query_license(key, fields=(field,))
         elif key is False:
-            raise ClientObjectMissingFieldError("key") from None
+            raise github.ClientObjectMissingFieldError("key") from None
         else:
-            raise ClientObjectMissingFieldError("id") from None
+            raise github.ClientObjectMissingFieldError("id") from None
 
         value = data[field]
 
@@ -373,7 +372,7 @@ class License(Node, Type):
         :rtype: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule._from_data(await self._fetch_field("conditions"))  # type: ignore
+        return github.LicenseRule._from_data(await self._fetch_field("conditions"))  # type: ignore
 
     async def fetch_description(
         self: Self,
@@ -573,7 +572,7 @@ class License(Node, Type):
         :rtype: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule._from_data(await self._fetch_field("limitations"))  # type: ignore
+        return github.LicenseRule._from_data(await self._fetch_field("limitations"))  # type: ignore
 
     async def fetch_name(
         self: Self,
@@ -648,7 +647,7 @@ class License(Node, Type):
         :rtype: List[:class:`~github.LicenseRule`]
         """
 
-        return LicenseRule._from_data(await self._fetch_field("permissions"))  # type: ignore
+        return github.LicenseRule._from_data(await self._fetch_field("permissions"))  # type: ignore
 
     async def fetch_spdx_id(
         self: Self,

@@ -6,19 +6,17 @@ if TYPE_CHECKING:
 
     from aiohttp import ClientSession
 
+    from github.content import CodeOfConduct, License
+    from github.connection import Metadata, RateLimit
     from github.organization import Organization
-    from github.repository import Repository
-    from github.user import UserStatus
+    from github.repository import Repository, Topic
+    from github.user import AuthenticatedUser, User, UserStatus
     from github.utility.types import DateTime, T_json_object
 
 import graphql
 
 import github
 from github.core.http import HTTPClient
-from github.content import CodeOfConduct, License
-from github.connection import Metadata, RateLimit
-from github.repository import Topic
-from github.user import AuthenticatedUser, User
 from github.utility import MISSING
 
 
@@ -154,7 +152,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_all_codes_of_conduct(**kwargs)
-        return CodeOfConduct._from_data(data, http=self._http)
+        return github.CodeOfConduct._from_data(data, http=self._http)
 
     async def fetch_all_licenses(
         self: Self,
@@ -178,7 +176,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_all_licenses(**kwargs)
-        return License._from_data(data, http=self._http)
+        return github.License._from_data(data, http=self._http)
 
     async def fetch_code_of_conduct(
         self: Self,
@@ -213,7 +211,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_code_of_conduct(key, **kwargs)
-        return CodeOfConduct._from_data(data, http=self._http)
+        return github.CodeOfConduct._from_data(data, http=self._http)
 
     async def fetch_license(
         self: Self,
@@ -248,7 +246,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_license(key, **kwargs)
-        return License._from_data(data, http=self._http)
+        return github.License._from_data(data, http=self._http)
 
     async def fetch_metadata(
         self: Self,
@@ -264,7 +262,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_metadata(**kwargs)
-        return Metadata._from_data(data)
+        return github.Metadata._from_data(data)
 
     async def fetch_organization(
         self: Self,
@@ -318,7 +316,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_rate_limit(**kwargs)
-        return RateLimit._from_data(data)
+        return github.RateLimit._from_data(data)
 
     async def fetch_repository(
         self: Self,
@@ -408,7 +406,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_topic(name, **kwargs)
-        return Topic._from_data(data, http=self._http)
+        return github.Topic._from_data(data, http=self._http)
 
     async def fetch_user(
         self: Self,
@@ -440,7 +438,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_user(login, **kwargs)
-        return User._from_data(data, http=self._http)
+        return github.User._from_data(data, http=self._http)
 
     async def fetch_viewer(
         self: Self,
@@ -457,7 +455,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_viewer(**kwargs)
-        return AuthenticatedUser._from_data(data, http=self._http)
+        return github.AuthenticatedUser._from_data(data, http=self._http)
 
     async def clear_status(
         self: Self,

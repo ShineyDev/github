@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from github.interfaces.type import Type
     from github.utility.types import T_json_key, T_json_value
 
-from github.core.errors import ClientObjectMissingFieldError
+import github
 from github.utility import MISSING
 
 
@@ -74,11 +74,11 @@ class Resource:
 
         try:
             url = self.url
-        except ClientObjectMissingFieldError:
+        except github.ClientObjectMissingFieldError:
             url = False
 
         if url is False:
-            raise ClientObjectMissingFieldError("url") from None
+            raise github.ClientObjectMissingFieldError("url") from None
 
         cls = self.__class__
 

@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from github.interfaces.type import Type
     from github.utility.types import T_json_key, T_json_value
 
-from github.core.errors import ClientObjectMissingFieldError
+import github
 from github.utility import MISSING
 
 
@@ -91,11 +91,11 @@ class Node:
 
         try:
             id = self.id
-        except ClientObjectMissingFieldError:
+        except github.ClientObjectMissingFieldError:
             id = False
 
         if id is False:
-            raise ClientObjectMissingFieldError("id") from None
+            raise github.ClientObjectMissingFieldError("id") from None
 
         cls = self.__class__
 
