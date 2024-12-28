@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     from github.connection import Connection, RepositoryOrder
     from github.content import CodeOfConduct, License
     from github.organization import Organization
+    from github.repository import Topic
     from github.user import User
     from github.utility.types import DateTime
 
@@ -1565,6 +1566,54 @@ class Repository(
             self._http.collect_repository_mentionable_users,
             self.id,
             data_map=userdata_to_user,
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
+        )
+
+    def fetch_topics(
+        self: Self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Topic]:
+        """
+        |aiter|
+
+        Fetches topics from the repository.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.connection.Connection`[:class:`~github.Topic`]
+        """
+
+        def topicdata_to_topic(userdata: TopicData, /) -> Topic:
+            return github.Topic._from_data(userdata, http=self._http)
+
+        return github.Connection(
+            self._http.collect_repository_topics,
+            self.id,
+            data_map=topicdata_to_topic,
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,

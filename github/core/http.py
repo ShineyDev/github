@@ -832,6 +832,29 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
 
+    async def collect_repository_topics(
+        self: Self,
+        /,
+        repository_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+        **kwargs,
+    ) -> ConnectionData[TopicData]:
+        fields = github.utility.get_merged_graphql_fields(github.Topic, fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$repository_id:ID!){node(id:$repository_id){...on Repository{repositoryTopics(after:$after,before:$before,first:$first,last:$last){nodes{topic{%s}},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        path = ("node", "repositoryTopics")
+
+        data = await self._collect(query, *path, repository_id=repository_id, **kwargs)
+
+        nodes = list()
+
+        for node in data["nodes"]:
+            nodes.append(node["topic"])
+
+        data["nodes"] = nodes
+
+        return data
+
     async def collect_repository_mentionable_users(
         self: Self,
         /,
