@@ -1341,6 +1341,34 @@ class Repository(
         else:
             raise RuntimeError(f"invalid type {graphql_type} for Repository.owner")
 
+    async def fetch_parent(
+        self: Self,
+        /,
+        **kwargs,  # TODO
+    ) -> Repository | None:
+        """
+        |coro|
+
+        Fetches the parent of the repository, if it is a fork.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Repository` | None
+        """
+
+        data = await self._http.fetch_repository_parent(self.id, **kwargs)
+
+        if data is None:
+            return None
+
+        return github.Repository._from_data(data, http=self._http)
+
     def fetch_assignable_users(
         self: Self,
         /,
