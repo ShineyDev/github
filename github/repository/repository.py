@@ -6,7 +6,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.connection import Connection, RepositoryOrder
-    from github.content import CodeOfConduct
+    from github.content import CodeOfConduct, License
     from github.user import User
     from github.utility.types import DateTime
 
@@ -1277,6 +1277,34 @@ class Repository(
             return None
 
         return github.CodeOfConduct._from_data(data, http=self._http)
+
+    async def fetch_license(
+        self: Self,
+        /,
+        **kwargs,  # TODO
+    ) -> License | None:
+        """
+        |coro|
+
+        Fetches the license for the repository, if any.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.License` | None
+        """
+
+        data = await self._http.fetch_repository_license(self.id, **kwargs)
+
+        if data is None:
+            return None
+
+        return github.License._from_data(data, http=self._http)
 
     def fetch_assignable_users(
         self: Self,
