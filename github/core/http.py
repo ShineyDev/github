@@ -617,6 +617,20 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return await self._fetch(query, *path, repository_id=repository_id)  # type: ignore
 
+    async def fetch_repository_owner(
+        self: Self,
+        /,
+        repository_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> OrganizationData | UserData:
+        organization_fields = github.utility.get_merged_graphql_fields(github.Organization, fields)
+        user_fields = github.utility.get_merged_graphql_fields(github.User, fields)
+        query = "query($repository_id:ID!){node(id:$repository_id){...on Repository{owner{...on Organization{%s}...on User{%s}}}}}" % (",".join(organization_fields), ",".join(user_fields))
+        path = ("node", "owner")
+
+        return await self._fetch(query, *path, repository_id=repository_id)  # type: ignore
+
     async def fetch_repositoryowner_repository(
         self: Self,
         /,

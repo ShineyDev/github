@@ -7,6 +7,7 @@ if TYPE_CHECKING:
 
     from github.connection import Connection, RepositoryOrder
     from github.content import CodeOfConduct, License
+    from github.organization import Organization
     from github.user import User
     from github.utility.types import DateTime
 
@@ -1305,6 +1306,40 @@ class Repository(
             return None
 
         return github.License._from_data(data, http=self._http)
+
+    async def fetch_owner(
+        self: Self,
+        /,
+        **kwargs,  # TODO
+    ) -> Organization | User:
+        """
+        |coro|
+
+        Fetches the owner of the repository.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Organization` | :class:`~github.User`
+        """
+
+        data = await self._http.fetch_repository_owner(self.id, **kwargs)
+
+        # TODO[type-from-data]
+
+        graphql_type = data["__typename"]
+
+        if graphql_type == "Organization":
+            return github.Organization._from_data(data, http=self._http)
+        elif graphql_type == "User":
+            return github.User._from_data(data, http=self._http)
+        else:
+            raise RuntimeError(f"invalid type {graphql_type} for Repository.owner")
 
     def fetch_assignable_users(
         self: Self,
