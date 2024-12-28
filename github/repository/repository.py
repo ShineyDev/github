@@ -1370,6 +1370,34 @@ class Repository(
 
         return github.Repository._from_data(data, http=self._http)
 
+    async def fetch_template(
+        self: Self,
+        /,
+        **kwargs,  # TODO
+    ) -> Repository | None:
+        """
+        |coro|
+
+        Fetches the template the repository used, if any.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Repository` | None
+        """
+
+        data = await self._http.fetch_repository_template(self.id, **kwargs)
+
+        if data is None:
+            return None
+
+        return github.Repository._from_data(data, http=self._http)
+
     def fetch_assignable_users(
         self: Self,
         /,
