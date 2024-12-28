@@ -1460,6 +1460,54 @@ class Repository(
             **kwargs,
         )
 
+    def fetch_mentionable_users(
+        self: Self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[User]:
+        """
+        |aiter|
+
+        Fetches mentionable users from the repository.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.connection.Connection`[:class:`~github.User`]
+        """
+
+        def userdata_to_user(userdata: UserData, /) -> User:
+            return github.User._from_data(userdata, http=self._http)
+
+        return github.Connection(
+            self._http.collect_repository_mentionable_users,
+            self.id,
+            data_map=userdata_to_user,
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
+        )
+
 
 __all__: list[str] = [
     "Repository",
