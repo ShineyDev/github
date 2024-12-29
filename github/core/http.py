@@ -19,6 +19,7 @@ if TYPE_CHECKING:
     from github.interfaces.subscribable import SubscribableData
     from github.organization.organization import OrganizationData
     from github.repository import Topic
+    from github.repository.label import LabelData
     from github.repository.repository import RepositoryData
     from github.repository.topic import TopicData
     from github.user import User, UserStatus
@@ -93,6 +94,16 @@ class HTTPClient(graphql.client.http.HTTPClient):
             raise github.ClientError(e.message) from e
         else:
             return data
+
+    def _patch_labeldata(
+        self: Self,
+        data: LabelData,
+        /,
+    ) -> LabelData:
+        if data.get("description", False) == "":
+            data["description"] = None
+
+        return data
 
     def _patch_organizationdata(
         self: Self,
