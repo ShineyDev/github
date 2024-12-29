@@ -5,7 +5,7 @@ if TYPE_CHECKING:
     from typing import Literal, cast
     from typing_extensions import Self
 
-    from github.connection import Connection, RepositoryOrder
+    from github.connection import Connection, LabelOrder, RepositoryOrder
     from github.content import CodeOfConduct, License
     from github.organization import Organization
     from github.repository import Label, Topic
@@ -62,7 +62,7 @@ if TYPE_CHECKING:
         # issueTemplates  # TODO
         # issues: ConnectionData[IssueData]  # TODO
         label: LabelData
-        # labels: ConnectionData[LabelData]  # TODO
+        labels: ConnectionData[LabelData]
         # languages: ConnectionData[LanguageData]  # TODO
         # latestRelease: ReleaseData | None  # TODO
         licenseInfo: LicenseData | None
@@ -1572,6 +1572,58 @@ class Repository(
             self.id,
             order_by.value if order_by is not MISSING else None,
             data_map=repositorydata_to_repository,
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
+        )
+
+    def fetch_labels(
+        self: Self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        order_by: LabelOrder = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Label]:
+        """
+        |aiter|
+
+        Fetches labels in the repository.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        order_by: :class:`~github.LabelOrder`
+            The field by which to order the elements.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.connection.Connection`[:class:`~github.Label`]
+        """
+
+        def labeldata_to_label(labeldata: LabelData, /) -> Label:
+            return github.Label._from_data(labeldata, http=self._http)
+
+        return github.Connection(
+            self._http.collect_repository_labels,
+            self.id,
+            order_by.value if order_by is not MISSING else None,
+            data_map=labeldata_to_label,
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,
