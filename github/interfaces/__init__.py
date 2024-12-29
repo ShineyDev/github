@@ -10,6 +10,8 @@ from github.interfaces.packageowner import *
 from github.interfaces.packageowner import __all__ as _packageowner__all__
 from github.interfaces.profileowner import *
 from github.interfaces.profileowner import __all__ as _profileowner__all__
+from github.interfaces.repositorynode import *
+from github.interfaces.repositorynode import __all__ as _repositorynode__all__
 from github.interfaces.repositoryowner import *
 from github.interfaces.repositoryowner import __all__ as _repositoryowner__all__
 from github.interfaces.resource import *
@@ -30,6 +32,7 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_discussionauthor__all__,
     *_node__all__,
     *_packageowner__all__,
+    *_repositorynode__all__,
     *_profileowner__all__,
     *_repositoryowner__all__,
     *_resource__all__,
