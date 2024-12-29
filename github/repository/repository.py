@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from github.connection import Connection, RepositoryOrder
     from github.content import CodeOfConduct, License
     from github.organization import Organization
-    from github.repository import Topic
+    from github.repository import Label, Topic
     from github.user import User
     from github.utility.types import DateTime
 
@@ -30,6 +30,7 @@ if TYPE_CHECKING:
     from github.interfaces.resource import ResourceData
     from github.interfaces.type import TypeData
     from github.organization.organization import OrganizationData
+    from github.repository.label import LabelData
     from github.repository.topic import TopicData
     from github.user.user import UserData
 
@@ -60,7 +61,7 @@ if TYPE_CHECKING:
         # issueOrPullRequest: IssueData | PullRequestData  # TODO
         # issueTemplates  # TODO
         # issues: ConnectionData[IssueData]  # TODO
-        # label: LabelData  # TODO
+        label: LabelData
         # labels: ConnectionData[LabelData]  # TODO
         # languages: ConnectionData[LanguageData]  # TODO
         # latestRelease: ReleaseData | None  # TODO
@@ -1279,6 +1280,31 @@ class Repository(
             return None
 
         return github.CodeOfConduct._from_data(data, http=self._http)
+
+    async def fetch_label(
+        self: Self,
+        name: str,
+        /,
+        **kwargs,  # TODO
+    ) -> Label:
+        """
+        |coro|
+
+        Fetches a label in the repository.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Label`
+        """
+
+        data = await self._http.fetch_repository_label(self.id, name, **kwargs)
+        return github.Label._from_data(data, http=self._http)
 
     async def fetch_license(
         self: Self,

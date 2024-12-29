@@ -615,6 +615,43 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return await self._fetch(query, *path, repository_id=repository_id)  # type: ignore
 
+    async def fetch_repository_label(
+        self: Self,
+        /,
+        repository_id: str,
+        name: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> LabelData:
+        fields = github.utility.get_merged_graphql_fields(github.Label, fields)
+        query = "query($name:String!,$repository_id:ID!){node(id:$repository_id){...on Repository{label(name:$name){%s}}}}" % ",".join(fields)
+        path = ("node", "label")
+
+        def validate(
+            response: ClientResponse,
+            data: T_json_object,
+            /,
+        ) -> None:
+            value = github.utility.follow(data, ("data", *path))
+
+            if TYPE_CHECKING:
+                value = cast(LabelData, value)
+
+            if value is None:
+                raise github.ClientResponseGraphQLNotFoundError(f"Could not resolve to a label with the name '{name}'.", response, data)
+
+        data = await self._fetch(query, *path, repository_id=repository_id, name=name, _data_validate=validate)
+
+        if TYPE_CHECKING:
+            data = cast(LabelData, data)
+
+        if "name" not in data.keys():
+            data["name"] = name
+
+        data = self._patch_labeldata(data)
+
+        return data
+
     async def fetch_repository_license(
         self: Self,
         /,
