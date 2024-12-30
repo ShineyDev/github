@@ -4,6 +4,8 @@ from github.interfaces.announcementowner import *
 from github.interfaces.announcementowner import __all__ as _announcementowner__all__
 from github.interfaces.assignable import *
 from github.interfaces.assignable import __all__ as _assignable__all__
+from github.interfaces.closable import *
+from github.interfaces.closable import __all__ as _closable__all__
 from github.interfaces.discussionauthor import *
 from github.interfaces.discussionauthor import __all__ as _discussionauthor__all__
 from github.interfaces.node import *
@@ -32,6 +34,7 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_actor__all__,
     *_announcementowner__all__,
     *_assignable__all__,
+    *_closable__all__,
     *_discussionauthor__all__,
     *_node__all__,
     *_packageowner__all__,
