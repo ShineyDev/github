@@ -12,8 +12,10 @@ from github.interfaces import Actor, AnnouncementOwner, DiscussionAuthor, Node, 
 
 
 if TYPE_CHECKING:
-    from typing import TypedDict
+    from typing import Literal
 
+    from github.automation.mannequin import MannequinData
+    from github.connection.connection import ConnectionData
     from github.interfaces.actor import ActorData
     from github.interfaces.announcementowner import AnnouncementOwnerData
     from github.interfaces.discussionauthor import DiscussionAuthorData
@@ -24,14 +26,10 @@ if TYPE_CHECKING:
     from github.interfaces.resource import ResourceData
     from github.interfaces.sponsorable import SponsorableData
     from github.interfaces.type import TypeData
-
-
-    class OptionalOrganizationData(TypedDict, total=False):
-        pass
+    from github.user.user import UserData
 
 
     class OrganizationData(
-        OptionalOrganizationData,
         ActorData,
         AnnouncementOwnerData,
         DiscussionAuthorData,
@@ -45,27 +43,45 @@ if TYPE_CHECKING:
         SponsorableData,
         TypeData,
     ):
+        __typename: Literal["Organization"]
+
         archivedAt: str | None
+        # auditLog  # TODO
         createdAt: str
         databaseId: int
         description: str | None
         descriptionHTML: str | None
-        # ipAllowListEnabledSetting
-        # ipAllowListForInstalledAppsEnabledSetting
+        # domains  # TODO
+        # enterpriseOwners  # TODO
+        # interactionAbility  # TODO
+        ipAllowListEnabledSetting: Literal["DISABLED", "ENABLED"]
+        # ipAllowListEntries  # TODO
+        ipAllowListForInstalledAppsEnabledSetting: Literal["DISABLED", "ENABLED"]
         isVerified: bool
-        # membersCanForkPrivateRepositories
-        # newTeamResourcePath
-        # newTeamUrl
-        # notificationDeliveryRestrictionEnabledSetting
-        # requiresTwoFactorAuthentication
-        # teamsResourcePath
-        # teamsUrl
+        mannequins: ConnectionData[MannequinData]
+        membersCanForkPrivateRepositories: bool
+        # membersWithRole  # TODO
+        newTeamResourcePath: str
+        newTeamUrl: str
+        notificationDeliveryRestrictionEnabledSetting: Literal["DISABLED", "ENABLED"]
+        organizationBillingEmail: str | None
+        pendingMembers: ConnectionData[UserData]
+        # repositoryMigrations  # TODO
+        requiresTwoFactorAuthentication: bool | None  # TODO
+        # ruleset  # TODO
+        # rulesets  # TODO
+        # samlIdentityProvider  # TODO
+        # team  # TODO
+        # teams  # TODO
+        teamsResourcePath: str
+        teamsUrl: str
         twitterUsername: str | None
         updatedAt: str
         viewerCanAdminister: bool
         viewerCanCreateTeams: bool
         viewerIsAMember: bool
         viewerIsFollowing: bool
+        webCommitSignoffRequired: bool
 
 
 class Organization(

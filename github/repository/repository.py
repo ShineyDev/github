@@ -18,7 +18,7 @@ from github.utility import MISSING
 
 
 if TYPE_CHECKING:
-    from typing import TypedDict
+    from typing import Literal
 
     from github.connection.connection import ConnectionData
     from github.content.codeofconduct import CodeOfConductData
@@ -35,69 +35,7 @@ if TYPE_CHECKING:
     from github.user.user import UserData
 
 
-    class OptionalRepositoryData(TypedDict, total=False):
-        assignableUsers: ConnectionData[UserData]
-        # branchProtectionRules  # TODO
-        codeOfConduct: CodeOfConductData | None
-        # codeowners  # TODO
-        collaborators: ConnectionData[UserData]
-        # commitComments: ConnectionData[CommitCommentData]  # TODO
-        # contactLinks  # TODO
-        # contributingGuidelines  # TODO
-        # defaultBranchRef  # TODO
-        # dependencyGraphManifests  # TODO
-        # deployKeys  # TODO
-        # deployments: ConnectionData[DeploymentData]  # TODO
-        # discussion: DiscussionData  # TODO
-        # discussionCategories: ConnectionData[DiscussionCategoryData]  # TODO
-        # discussionCategory: DiscussionCategoryData  # TODO
-        # discussions: ConnectionData[DiscussionData]  # TODO
-        # environment: EnvironmentData  # TODO
-        # environments: ConnectionData[EnvironmentData]  # TODO
-        forks: ConnectionData[RepositoryData]
-        # fundingLinks  # TODO
-        # interactionAbility  # TODO
-        # issue: IssueData  # TODO
-        # issueOrPullRequest: IssueData | PullRequestData  # TODO
-        # issueTemplates  # TODO
-        # issues: ConnectionData[IssueData]  # TODO
-        label: LabelData
-        labels: ConnectionData[LabelData]
-        # languages: ConnectionData[LanguageData]  # TODO
-        # latestRelease: ReleaseData | None  # TODO
-        licenseInfo: LicenseData | None
-        # lockReason  # TODO
-        mentionableUsers: ConnectionData[UserData]
-        # mergeQueue  # TODO
-        # milestone: MilestoneData  # TODO
-        # milestones: ConnectionData[MilestoneData]  # TODO
-        # object  # TODO
-        owner: OrganizationData | UserData
-        parent: RepositoryData | None
-        # pinnedDiscussions  # TODO
-        # pinnedEnvironments  # TODO
-        # pinnedIssues  # TODO
-        # primaryLanguage: LanguageData | None  # TODO
-        # pullRequest: PullRequestData  # TODO
-        # pullRequestTemplates  # TODO
-        # pullRequests: ConnectionData[PullRequestData]  # TODO
-        # ref  # TODO
-        # refs  # TODO
-        # release: ReleaseData  # TODO
-        # releases: ConnectionData[ReleaseData]  # TODO
-        repositoryTopics: ConnectionData[TopicData]  # TODO
-        # ruleset  # TODO
-        # rulesets  # TODO
-        # submodules  # TODO
-        # tempCloneToken  # TODO
-        templateRepository: RepositoryData | None
-        # vulnerabilityAlert: VulnerabilityAlertData
-        # vulnerabilityAlerts: ConnectionData[VulnerabilityAlertData]
-        watchers: ConnectionData[UserData]
-
-
     class RepositoryData(
-        OptionalRepositoryData,
         NodeData,
         PackageOwnerData,
         # ProjectOwnerData,  # TODO
@@ -106,17 +44,39 @@ if TYPE_CHECKING:
         ResourceData,
         TypeData,
     ):
+        __typename: Literal["Repository"]
+
         allowUpdateBranch: bool
         archivedAt: str | None
+        assignableUsers: ConnectionData[UserData]
         autoMergeAllowed: bool
+        # branchProtectionRules  # TODO
+        codeOfConduct: CodeOfConductData | None
+        # codeowners  # TODO
+        collaborators: ConnectionData[UserData]
+        # commitComments  # TODO
+        # contactLinks  # TODO
+        # contributingGuidelines  # TODO
         createdAt: str
         databaseId: int
+        # defaultBranchRef  # TODO
         deleteBranchOnMerge: bool
+        # dependencyGraphManifests  # TODO
+        # deployKeys  # TODO
+        # deployments  # TODO
         description: str | None
         descriptionHTML: str | None
+        # discussion  # TODO
+        # discussionCategories  # TODO
+        # discussionCategory  # TODO
+        # discussions  # TODO
         diskUsage: int
+        # environment  # TODO
+        # environments  # TODO
         forkCount: int
         forkingAllowed: bool
+        forks: ConnectionData[RepositoryData]
+        # fundingLinks  # TODO
         hasDiscussionsEnabled: bool
         hasIssuesEnabled: bool
         hasProjectsEnabled: bool
@@ -124,6 +84,7 @@ if TYPE_CHECKING:
         hasVulnerabilityAlertsEnabled: bool
         hasWikiEnabled: bool
         homepageUrl: str
+        # interactionAbility  # TODO
         isArchived: bool
         isBlankIssuesEnabled: bool
         isDisabled: bool
@@ -136,22 +97,56 @@ if TYPE_CHECKING:
         isSecurityPolicyEnabled: bool
         isTemplate: bool
         isUserConfigurationRepository: bool
+        # issue  # TODO
+        # issueOrPullRequest  # TODO
+        # issueTemplates  # TODO
+        # issues  # TODO
+        label: LabelData
+        labels: ConnectionData[LabelData]
+        # languages  # TODO
+        # latestRelease  # TODO
+        licenseInfo: LicenseData | None
+        # lockReason  # TODO
+        mentionableUsers: ConnectionData[UserData]
         mergeCommitAllowed: bool
         mergeCommitMessage: Literal["BLANK", "PR_BODY", "PR_TITLE"]
         mergeCommitTitle: Literal["MERGE_MESSAGE", "PR_TITLE"]
+        # mergeQueue  # TODO
+        # milestone  # TODO
+        # milestones  # TODO
         mirrorUrl: str | None
         name: str
         nameWithOwner: str
+        # object  # TODO
         openGraphImageUrl: str
-        # planFeatures  # TODO: this is many
+        owner: OrganizationData | UserData
+        parent: RepositoryData | None
+        # pinnedDiscussions  # TODO
+        # pinnedEnvironments  # TODO
+        # pinnedIssues  # TODO
+        # planFeatures  # TODO
+        # primaryLanguage  # TODO
+        # pullRequest  # TODO
+        # pullRequestTemplates  # TODO
+        # pullRequests  # TODO
         pushedAt: str | None
         rebaseMergeAllowed: bool
+        # ref  # TODO
+        # refs  # TODO
+        # release  # TODO
+        # releases  # TODO
+        repositoryTopics: ConnectionData[TopicData]  # TODO: this is a lie
+        # ruleset  # TODO
+        # rulesets  # TODO
         securityPolicyUrl: str | None
         shortDescriptionHTML: str | None
         squashMergeAllowed: bool
         squashMergeCommitMessage: Literal["BLANK", "COMMIT_MESSAGES", "PR_BODY"]
         squashMergeCommitTitle: Literal["COMMIT_OR_PR_TITLE", "PR_TITLE"]
         sshUrl: str
+        # submodules  # TODO
+        # tempCloneToken  # TODO
+        templateRepository: RepositoryData | None
         updatedAt: str
         usesCustomOpenGraphImage: bool
         viewerCanAdminister: bool
@@ -161,6 +156,9 @@ if TYPE_CHECKING:
         viewerPermission: Literal["ADMIN", "MAINTAIN", "READ", "TRIAGE", "WRITE"]
         viewerPossibleCommitEmails: list[str]
         visibility: Literal["INTERNAL", "PRIVATE", "PUBLIC"]
+        # vulnerabilityAlert  # TODO
+        # vulnerabilityAlerts  # TODO
+        watchers: ConnectionData[UserData]
         webCommitSignoffRequired: bool
 
 

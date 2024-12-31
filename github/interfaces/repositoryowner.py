@@ -17,21 +17,16 @@ if TYPE_CHECKING:
     from typing import TypedDict
 
     from github.connection.connection import ConnectionData
-    # from github.repository.repository import RepositoryData  # TODO: [support-repository]
 
 
-    class OptionalRepositoryOwnerData(TypedDict, total=False):
-        # repositories: ConnectionData[RepositoryData]  # TODO: [support-repository]
-        pass
-
-
-    class RepositoryOwnerData(OptionalRepositoryOwnerData):
-        # NOTE: avatarUrl: str (on ProfileOwner)
-        # NOTE: id: str (on Node)
-        # NOTE: login: str (on ProfileOwner)
-        # NOTE: resourcePath: str (on Resource)
-        # NOTE: url: str (on Resource)
-        pass
+    class RepositoryOwnerData(TypedDict):
+        # avatarUrl: str  # NOTE: on Actor
+        # id: str  # NOTE: on Node
+        # login: str  # NOTE: on Actor
+        repositories: ConnectionData[RepositoryData]
+        repository: RepositoryData
+        # resourcePath: str  # NOTE: on Resource
+        # url: str  # NOTE: on Resource
 
 
 class RepositoryOwner:

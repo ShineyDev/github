@@ -11,16 +11,27 @@ if TYPE_CHECKING:
     from typing import TypedDict
 
     from github.connection.connection import ConnectionData
-    # from github.user.user import UserData  # TODO: [support-user]
+    from github.organization.organization import OrganizationData
+    from github.user.user import UserData
 
 
-    class OptionalSponsorableData(TypedDict, total=False):
-        pass
-
-
-    class SponsorableData(OptionalSponsorableData):
+    class SponsorableData(TypedDict):
+        estimatedNextSponsorsPayoutInCents: int
         hasSponsorsListing: bool
+        isSponsoredBy: bool
         isSponsoringViewer: bool
+        # lifetimeReceivedSponsorshipValues  # TODO
+        monthlyEstimatedSponsorsIncomeInCents: int
+        sponsoring: ConnectionData[OrganizationData | UserData]
+        sponsors: ConnectionData[OrganizationData | UserData]
+        # sponsorsActivities  # TODO
+        # sponsorsListing  # TODO
+        # sponsorshipForViewerAsSponsor  # TODO
+        # sponsorshipForViewerAsSponsorable  # TODO
+        # sponsorshipNewsletters  # TODO
+        # sponsorshipsAsMaintainer  # TODO
+        # sponsorshipsAsSponsor  # TODO
+        totalSponsorshipAmountAsSponsorInCents: int
         viewerCanSponsor: bool
         viewerIsSponsoring: bool
 

@@ -8,6 +8,8 @@ from github.interfaces import Assignable, Closable, Comment, Deletable, Node, Re
 
 
 if TYPE_CHECKING:
+    from typing import Literal
+
     from github.connection.connection import ConnectionData
     from github.interfaces.assignable import AssignableData
     from github.interfaces.closable import ClosableData
@@ -36,6 +38,8 @@ if TYPE_CHECKING:
         SubscribableData,
         # UpdatableData,  # TODO
     ):
+        __typename: Literal["Issue"]
+
         bodyResourcePath: str
         bodyUrl: str
         # closedByPullRequestsReferences  # TODO

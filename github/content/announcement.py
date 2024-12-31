@@ -11,10 +11,14 @@ from github.interfaces import Type
 
 
 if TYPE_CHECKING:
+    from typing import Literal
+
     from github.interfaces.type import TypeData
 
 
     class AnnouncementData(TypeData):
+        __typename: Literal["AnnouncementBanner"]
+
         createdAt: str
         expiresAt: str | None
         isUserDismissible: bool

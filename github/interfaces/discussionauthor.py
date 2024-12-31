@@ -8,18 +8,10 @@ if TYPE_CHECKING:
 if TYPE_CHECKING:
     from typing import TypedDict
 
-    from github.connection.connection import ConnectionData
-    # from github.repository.discussion import Discussion  # TODO: [support-discussions]
-    # from github.repository.discussioncomment import DiscussionComment  # TODO: [support-discussions]
 
-
-    class OptionalDiscussionAuthorData(TypedDict, total=False):
-        # repositoryDiscussionComments: ConnectionData[DiscussionComment]  # TODO: [support-discussions]
-        # repositoryDiscussions: ConnectionData[Discussion]  # TODO: [support-discussions]
-        pass
-
-
-    class DiscussionAuthorData(OptionalDiscussionAuthorData):
+    class DiscussionAuthorData(TypedDict):
+        # repositoryDiscussionComments: ConnectionData[DiscussionCommentData]  # TODO: [support-discussions]
+        # repositoryDiscussions: ConnectionData[DiscussionData]  # TODO: [support-discussions]
         pass
 
 

@@ -14,8 +14,8 @@ if TYPE_CHECKING:
     class ActorData(TypedDict):
         avatarUrl: str
         login: str
-        # NOTE: resourcePath: str (on Resource)
-        # NOTE: url: str (on Resource)
+        # resourcePath: str  # NOTE: on Resource
+        # url: str  # NOTE: on Resource
 
 class Actor:
     """

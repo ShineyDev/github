@@ -15,7 +15,7 @@ from github.utility import MISSING
 
 
 if TYPE_CHECKING:
-    from typing import Literal, TypedDict
+    from typing import Literal
 
     from github.connection.connection import ConnectionData
     from github.interfaces.actor import ActorData
@@ -23,37 +23,15 @@ if TYPE_CHECKING:
     from github.interfaces.node import NodeData
     from github.interfaces.packageowner import PackageOwnerData
     from github.interfaces.profileowner import ProfileOwnerData
-    # from github.interfaces.projectowner import ProjectOwnerData  # TODO (support-projects): GitHub Projects support
     from github.interfaces.repositoryowner import RepositoryOwnerData
     from github.interfaces.resource import ResourceData
     from github.interfaces.sponsorable import SponsorableData
     from github.interfaces.type import TypeData
-
-
-    class OptionalUserData(TypedDict, total=False):
-        # commitComments  # TODO
-        # contributionsCollection  # TODO
-        # copilotEndpoints  # TODO
-        # enterprises  # TODO
-        # gistComments  # TODO
-        # gists  # TODO
-        # issueComments  # TODO
-        # issues  # TODO
-        # lists  # TODO
-        # organizations  # TODO
-        # publicKeys  # TODO
-        # pullRequests  # TODO
-        # repositoriesContributedTo  # TODO
-        # savedReplies  # TODO
-        # socialAccounts  # TODO
-        # sponsoring  # TODO
-        # starredRepositories  # TODO
-        # topRepositories  # TODO
-        # watching  # TODO
-        pass
+    from github.organization.organization import OrganizationData
+    from github.repository.issue import IssueData
+    from github.repository.repository import RepositoryData
 
     class UserData(
-        OptionalUserData,
         ActorData,
         DiscussionAuthorData,
         NodeData,
@@ -69,12 +47,22 @@ if TYPE_CHECKING:
 
         bio: str | None
         bioHTML: str | None
+        canReceiveOrganizationEmailsWhenNotificationsRestricted: bool
+        # commitComments  # TODO
         company: str | None
         companyHTML: str | None
+        # contributionsCollection  # TODO
+        # copilotEndpoints  # TODO
         createdAt: str
         databaseId: int
+        # enterprises  # TODO
         followers: ConnectionData[UserData]
         following: ConnectionData[UserData]
+        # gist  # TODO
+        # gistComments  # TODO
+        # gists  # TODO
+        # hovercard  # TODO
+        # interactionAbility  # TODO
         isBountyHunter: bool
         isCampusExpert: bool
         isDeveloperProgramMember: bool
@@ -84,11 +72,26 @@ if TYPE_CHECKING:
         isHireable: bool
         isSiteAdmin: bool
         isViewer: bool
+        # issueComments  # TODO
+        issues: ConnectionData[IssueData]
+        # lists  # TODO
+        organization: OrganizationData
+        # organizationVerifiedDomainEmails  # TODO
+        organizations: ConnectionData[OrganizationData]
         pronouns: str | None
+        # publicKeys  # TODO
+        # pullRequests  # TODO
+        repositoriesContributedTo: ConnectionData[RepositoryData]
+        # savedReplies  # TODO
+        # socialAccounts  # TODO
+        starredRepositories: ConnectionData[RepositoryData]
+        # suggestedListNames  # TODO
+        topRepositories: ConnectionData[RepositoryData]
         twitterUsername: str | None
         updatedAt: str
         viewerCanFollow: bool
         viewerIsFollowing: bool
+        watching: ConnectionData[RepositoryData]
 
 
 class User(

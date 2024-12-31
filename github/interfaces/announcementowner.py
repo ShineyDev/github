@@ -13,13 +13,11 @@ import github
 if TYPE_CHECKING:
     from typing import TypedDict
 
-
-    class OptionalAnnouncementOwnerData(TypedDict, total=False):
-        pass
+    from github.content.announcement import AnnouncementData
 
 
-    class AnnouncementOwnerData(OptionalAnnouncementOwnerData):
-        pass
+    class AnnouncementOwnerData(TypedDict):
+        announcementBanner: AnnouncementData | None
 
 
 class AnnouncementOwner:

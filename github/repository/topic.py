@@ -15,7 +15,7 @@ from github.utility import MISSING
 
 
 if TYPE_CHECKING:
-    from typing import TypedDict
+    from typing import Literal
 
     from github.connection.connection import ConnectionData
     from github.interfaces.node import NodeData
@@ -24,12 +24,11 @@ if TYPE_CHECKING:
     from github.repository.repository import RepositoryData
 
 
-    class OptionalTopicData(TypedDict, total=False):
-        relatedTopics: list[TopicData]
+    class TopicData(NodeData, StarrableData, TypeData):
+        __typename: Literal["Topic"]
 
-
-    class TopicData(OptionalTopicData, NodeData, StarrableData, TypeData):
         name: str
+        relatedTopics: list[TopicData]
         repositories: ConnectionData[RepositoryData]
 
 

@@ -8,17 +8,10 @@ if TYPE_CHECKING:
 if TYPE_CHECKING:
     from typing import TypedDict
 
-    from github.connection.connection import ConnectionData
-    # from github.???.package import PackageData  # TODO: [support-package]
 
-
-    class OptionalPackageOwnerData(TypedDict, total=False):
-        # packages: ConnectionData[PackageData]  # TODO: [support-package]
-        pass
-
-
-    class PackageOwnerData(OptionalPackageOwnerData):
-        # NOTE: id: str (on Node)
+    class PackageOwnerData(TypedDict):
+        # id: str  # NOTE: on Node
+        # packages: ConnectionData[PackageData]  # TODO: [support-packages]
         pass
 
 

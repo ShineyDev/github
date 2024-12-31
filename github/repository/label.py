@@ -12,7 +12,7 @@ from github.interfaces import Node, RepositoryNode, Resource, Type
 
 
 if TYPE_CHECKING:
-    from typing import TypedDict
+    from typing import Literal
 
     from github.interfaces.node import NodeData
     from github.interfaces.repositorynode import RepositoryNodeData
@@ -21,6 +21,8 @@ if TYPE_CHECKING:
 
 
     class LabelData(NodeData, RepositoryNodeData, ResourceData, TypeData):
+        __typename: Literal["Label"]
+
         color: str
         createdAt: str
         description: str | None

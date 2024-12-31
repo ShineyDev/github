@@ -14,24 +14,24 @@ from github.interfaces import Node, Type
 
 
 if TYPE_CHECKING:
-    from typing import TypedDict
+    from typing import Literal
 
     from github.interfaces.node import NodeData
     from github.interfaces.type import TypeData
+    from github.organization.organization import OrganizationData
     from github.user.user import UserData
 
 
-    class OptionalUserStatusData(TypedDict, total=False):
-        pass
+    class UserStatusData(NodeData, TypeData):
+        __typename: Literal["UserStatus"]
 
-
-    class UserStatusData(OptionalUserStatusData, NodeData, TypeData):
         createdAt: str
         emoji: str | None
         emojiHTML: str | None
         expiresAt: str | None
         indicatesLimitedAvailability: bool
         message: str | None
+        organization: OrganizationData | None
         updatedAt: str
         user: UserData
 

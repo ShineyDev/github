@@ -8,10 +8,14 @@ from github.interfaces import Type
 
 
 if TYPE_CHECKING:
+    from typing import Literal
+
     from github.interfaces.type import TypeData
 
 
     class MetadataData(TypeData):
+        __typename: Literal["GitHubMetadata"]
+
         gitIpAddresses: list[str]
         githubEnterpriseImporterIpAddresses: list[str]
         gitHubServicesSha: str

@@ -13,12 +13,16 @@ from github.utility import MISSING
 
 
 if TYPE_CHECKING:
+    from typing import Literal
+
     from github.content.licenserule import LicenseRuleData
     from github.interfaces.node import NodeData
     from github.interfaces.type import TypeData
 
 
     class LicenseData(NodeData, TypeData):
+        __typename: Literal["License"]
+
         body: str
         conditions: list[LicenseRuleData]
         description: str | None

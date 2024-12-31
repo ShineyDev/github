@@ -8,34 +8,22 @@ if TYPE_CHECKING:
 if TYPE_CHECKING:
     from typing import TypedDict
 
-    from github.connection.connection import ConnectionData
-    # from github.gist.gist import GistData  # TODO: [support-gist]
-    # from github.repository.repository import RepositoryData  # TODO: [support-repository]
 
-
-    class _OptionalProfileOwnerShowcaseData(TypedDict, total=False):
-        pass
-        # items: ConnectionData[GistData | RepositoryData]  # TODO: [support-gist] [support-repository]
-
-
-    class _ProfileOwnerShowcaseData(_OptionalProfileOwnerShowcaseData):
+    class _ProfileOwnerShowcaseData(TypedDict):
         hasPinnedItems: bool
+        # items: ConnectionData[GistData | RepositoryData]  # TODO: [support-gist]
 
 
-    class OptionalProfileOwnerData(TypedDict, total=False):
-        pass
-        # pinnableItems: ConnectionData[GistData | RepositoryData]  # TODO: [support-gist] [support-repository]
-        # pinnedItems: ConnectionData[GistData | RepositoryData]  # TODO: [support-gist] [support-repository]
-
-
-    class ProfileOwnerData(OptionalProfileOwnerData):
+    class ProfileOwnerData(TypedDict):
         anyPinnableItems: bool
         email: str | None
-        # NOTE: id: str (on Node)
+        # id: str  # NOTE: on Node
         itemShowcase: _ProfileOwnerShowcaseData
         location: str | None
-        # NOTE: login: str (on Actor)
+        # login: str  # NOTE: on Actor
         name: str | None
+        # pinnableItems: ConnectionData[GistData | RepositoryData]  # TODO: [support-gist]
+        # pinnedItems: ConnectionData[GistData | RepositoryData]  # TODO: [support-gist]
         pinnedItemsRemaining: int
         viewerCanChangePinnedItems: bool
         websiteUrl: str | None

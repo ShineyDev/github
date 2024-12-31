@@ -12,12 +12,16 @@ from github.utility import MISSING
 
 
 if TYPE_CHECKING:
+    from typing import Literal
+
     from github.interfaces.node import NodeData
     from github.interfaces.resource import ResourceData
     from github.interfaces.type import TypeData
 
 
     class CodeOfConductData(NodeData, ResourceData, TypeData):
+        __typename: Literal["CodeOfConduct"]
+
         body: str
         key: str
         name: str

@@ -18,17 +18,13 @@ if TYPE_CHECKING:
     from typing import TypedDict
 
     from github.connection.connection import ConnectionData
-    # from github.user.user import UserData  # TODO: [support-user]
+    from github.user.user import UserData
 
 
-    class OptionalStarrableData(TypedDict, total=False):
-        # stargazers: ConnectionData[UserData]  # TODO: [support-user]
-        pass
-
-
-    class StarrableData(OptionalStarrableData):
-        # NOTE: id: str (on Node)
+    class StarrableData(TypedDict):
+        # id: str  # NOTE: on Node
         stargazerCount: int
+        stargazers: ConnectionData[UserData]
         viewerHasStarred: bool
 
 

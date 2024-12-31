@@ -8,10 +8,14 @@ from github.interfaces import Type
 
 
 if TYPE_CHECKING:
+    from typing import Literal
+
     from github.interfaces.type import TypeData
 
 
     class LicenseRuleData(TypeData):
+        __typename: Literal["LicenseRule"]
+
         description: str
         key: str
         label: str

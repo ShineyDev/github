@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING, TypedDict
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing_extensions import Self
@@ -12,16 +12,17 @@ from github.interfaces import Type
 
 
 if TYPE_CHECKING:
+    from typing import Literal
+
     from github.interfaces.type import TypeData
 
 
-    class OptionalRateLimitData(TypedDict, total=False):
+    class RateLimitData(TypeData):
+        __typename: Literal["RateLimit"]
+
         cost: int
-        nodeCount: int
-
-
-    class RateLimitData(OptionalRateLimitData, TypeData):
         limit: int
+        nodeCount: int
         remaining: int
         resetAt: str
         used: int

@@ -15,12 +15,8 @@ if TYPE_CHECKING:
     from typing import TypedDict
 
 
-    class OptionalSubscribableData(TypedDict, total=False):
-        pass
-
-
-    class SubscribableData(OptionalSubscribableData):
-        # NOTE: id: str (on Node)
+    class SubscribableData(TypedDict):
+        # id: str  # NOTE: on Node
         viewerCanSubscribe: bool
         viewerSubscription: str
 
