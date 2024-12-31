@@ -15,7 +15,7 @@ from github.utility import MISSING
 
 
 if TYPE_CHECKING:
-    from typing import TypedDict
+    from typing import Literal, TypedDict
 
     from github.connection.connection import ConnectionData
     from github.interfaces.actor import ActorData
@@ -65,6 +65,8 @@ if TYPE_CHECKING:
         SponsorableData,
         TypeData,
     ):
+        __typename: Literal["User"]
+
         bio: str | None
         bioHTML: str | None
         company: str | None

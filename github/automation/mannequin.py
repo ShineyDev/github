@@ -11,6 +11,8 @@ from github.interfaces import Actor, Node, Resource, Type
 
 
 if TYPE_CHECKING:
+    from typing import Literal
+
     from github.interfaces.actor import ActorData
     from github.interfaces.node import NodeData
     from github.interfaces.resource import ResourceData
@@ -19,6 +21,8 @@ if TYPE_CHECKING:
 
 
     class MannequinData(ActorData, NodeData, ResourceData, TypeData):
+        __typename: Literal["Mannequin"]
+
         claimant: User | None
         createdAt: str
         databaseId: int
