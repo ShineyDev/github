@@ -5,7 +5,9 @@ if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
 
+    from github.automation import Bot, Mannequin
     from github.interfaces import Node
+    from github.user import User
     from github.utility.types import DateTime
 
 import github
@@ -355,6 +357,45 @@ class Comment:
         """
 
         return await self._fetch_field("viewerDidAuthor")  # type: ignore
+
+    async def fetch_author(
+        self: Self,
+        /,
+        **kwargs,  # TODO
+    ) -> Bot | Mannequin | User:
+        """
+        |coro|
+
+        Fetches the author of the comment.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Bot` | :class:`~github.Mannequin` | :class:`~github.User`
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        data = await self._http.fetch_comment_author(self.id, **kwargs)
+
+        # TODO[type-from-data]
+
+        graphql_type = data["__typename"]
+
+        if graphql_type == "Bot":
+            return github.Bot._from_data(data, http=self._http)
+        elif graphql_type == "Mannequin":
+            return github.Mannequin._from_data(data, http=self._http)
+        elif graphql_type == "User":
+            return github.User._from_data(data, http=self._http)
+        else:
+            raise RuntimeError(f"unsupported type {graphql_type} for Comment.author")
 
 
 __all__ = [

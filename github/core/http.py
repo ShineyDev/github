@@ -8,6 +8,8 @@ if TYPE_CHECKING:
     from aiohttp import ClientResponse, ClientSession
     from github.api.metadata import MetadataData
     from github.api.ratelimit import RateLimitData
+    from github.automation.bot import BotData
+    from github.automation.mannequin import MannequinData
     from github.connection.connection import ConnectionData
     from github.content import CodeOfConduct, License
     from github.content.announcement import AnnouncementData
@@ -203,6 +205,29 @@ class HTTPClient(graphql.client.http.HTTPClient):
         data = await self._fetch(query, *path, announcementowner_id=announcementowner_id)
 
         return data  # type: ignore
+
+    async def fetch_comment_author(
+        self: Self,
+        /,
+        comment_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> BotData | MannequinData | UserData:
+        bot_fields = github.utility.get_merged_graphql_fields(github.Bot, fields)
+        mannequin_fields = github.utility.get_merged_graphql_fields(github.Mannequin, fields)
+        user_fields = github.utility.get_merged_graphql_fields(github.User, fields)
+        query = "query($comment_id:ID!){node(id:$comment_id){...on Comment{author{...on Bot{%s}...on Mannequin{%s}...on User{%s}}}}}" % (",".join(bot_fields), ",".join(mannequin_fields), ",".join(user_fields))
+        path = ("node", "author")
+
+        data = await self._fetch(query, *path, comment_id=comment_id)
+
+        if TYPE_CHECKING:
+            data = cast(BotData | MannequinData | UserData, data)
+
+        if data["__typename"] == "User":
+            data = self._patch_userdata(data)
+
+        return data
 
     async def fetch_query_all_codes_of_conduct(
         self: Self,
