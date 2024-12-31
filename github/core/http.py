@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     from github.content.codeofconduct import CodeOfConductData
     from github.content.license import LicenseData
     from github.interfaces import Node, Resource
+    from github.interfaces.comment import CommentData
     from github.interfaces.profileowner import ProfileOwnerData
     from github.interfaces.starrable import StarrableData
     from github.interfaces.subscribable import SubscribableData
@@ -94,6 +95,22 @@ class HTTPClient(graphql.client.http.HTTPClient):
             raise github.ClientError(e.message) from e
         else:
             return data
+
+    def _patch_commentdata(
+        self: Self,
+        data: CommentData,
+        /,
+    ) -> CommentData:
+        if data.get("body", False) == "":
+            data["body"] = None
+
+        if data.get("bodyHTML", False) == "":  # TODO: check this
+            data["bodyHTML"] = None
+
+        if data.get("bodyText", False) == "":
+            data["bodyText"] = None
+
+        return data
 
     def _patch_labeldata(
         self: Self,
