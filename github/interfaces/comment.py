@@ -397,6 +397,49 @@ class Comment:
         else:
             raise RuntimeError(f"unsupported type {graphql_type} for Comment.author")
 
+    async def fetch_editor(
+        self: Self,
+        /,
+        **kwargs,  # TODO
+    ) -> Bot | User | None:
+        """
+        |coro|
+
+        Fetches the last editor of the comment.
+
+        ..
+           TODO: note that you probably want edit.author instead
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Bot` | :class:`~github.User` | None
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        data = await self._http.fetch_comment_editor(self.id, **kwargs)
+
+        if data is None:
+            return None
+
+        # TODO[type-from-data]
+
+        graphql_type = data["__typename"]
+
+        if graphql_type == "Bot":
+            return github.Bot._from_data(data, http=self._http)
+        elif graphql_type == "User":
+            return github.User._from_data(data, http=self._http)
+        else:
+            raise RuntimeError(f"unsupported type {graphql_type} for Comment.author")
+
 
 __all__ = [
     "Comment",

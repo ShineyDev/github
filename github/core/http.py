@@ -229,6 +229,31 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data
 
+    async def fetch_comment_editor(
+        self: Self,
+        /,
+        comment_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> BotData | UserData | None:
+        bot_fields = github.utility.get_merged_graphql_fields(github.Bot, fields)
+        user_fields = github.utility.get_merged_graphql_fields(github.User, fields)
+        query = "query($comment_id:ID!){node(id:$comment_id){...on Comment{author{...on Bot{%s}...on User{%s}}}}}" % (",".join(bot_fields), ",".join(user_fields))
+        path = ("node", "editor")
+
+        data = await self._fetch(query, *path, comment_id=comment_id)
+
+        if data is None:
+            return None
+
+        if TYPE_CHECKING:
+            data = cast(BotData | UserData, data)
+
+        if data["__typename"] == "User":
+            data = self._patch_userdata(data)
+
+        return data
+
     async def fetch_query_all_codes_of_conduct(
         self: Self,
         /,
