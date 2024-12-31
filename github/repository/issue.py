@@ -4,13 +4,14 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
-from github.interfaces import Assignable, Closable, Node, RepositoryNode, Resource, Subscribable, Type
+from github.interfaces import Assignable, Closable, Comment, Node, RepositoryNode, Resource, Subscribable, Type
 
 
 if TYPE_CHECKING:
     from github.connection.connection import ConnectionData
     from github.interfaces.assignable import AssignableData
     from github.interfaces.closable import ClosableData
+    from github.interfaces.comment import CommentData
     from github.interfaces.node import NodeData
     from github.interfaces.repositorynode import RepositoryNodeData
     from github.interfaces.resource import ResourceData
@@ -21,7 +22,7 @@ if TYPE_CHECKING:
     class IssueData(
         AssignableData,
         ClosableData,
-        # CommentData,  # TODO
+        CommentData,
         # CommentableData,  # TODO
         # DeletableData,  # TODO
         # LabelableData,  # TODO
@@ -63,6 +64,7 @@ if TYPE_CHECKING:
 class Issue(
     Assignable,
     Closable,
+    Comment,
     Node,
     RepositoryNode,
     Resource,
