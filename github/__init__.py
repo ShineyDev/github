@@ -7,6 +7,8 @@ from github.interfaces import *
 from github.interfaces import __all__ as _interfaces__all__
 from github.api import *
 from github.api import __all__ as _api__all__
+from github.automation import *
+from github.automation import __all__ as _automation__all__
 from github.connection import *
 from github.connection import __all__ as _connection__all__
 from github.content import *
@@ -37,6 +39,7 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_core__all__,
     *_interfaces__all__,
     *_api__all__,
+    *_automation__all__,
     *_connection__all__,
     *_content__all__,
     *_organization__all__,
