@@ -956,6 +956,20 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data
 
+    async def collect_assignable_assignees(
+        self: Self,
+        /,
+        assignable_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+        **kwargs,
+    ) -> ConnectionData[UserData]:
+        fields = github.utility.get_merged_graphql_fields(github.User, fields)
+        query = "query($assignable_id:ID!){node(id:$assignable_id){...on Assignable{assignees(after:$after,before:$before,first:$first,last:$last){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        path = ("node", "assignees")
+
+        return await self._collect(query, *path, assignable_id=assignable_id, **kwargs)
+
     async def collect_issue_participants(
         self: Self,
         /,
