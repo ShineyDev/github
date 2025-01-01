@@ -364,6 +364,48 @@ class Client(graphql.client.Client):
 
         return github.Repository._from_data(data, http=self._http)
 
+    async def fetch_repository_owner(
+        self: Self,
+        login: str,
+        /,
+        **kwargs,  # TODO
+    ) -> Organization | User:
+        """
+        |coro|
+
+        Fetches a repository owner by its login.
+
+
+        Parameters
+        ----------
+
+        login: :class:`str`
+            The login of the repository owner.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientResponseGraphQLNotFoundError
+            A repository owner with the provided login does not exist.
+
+
+        :rtype: :class:`~github.Organization` | :class:`~github.User`
+        """
+
+        data = await self._http.fetch_query_repository_owner(login, **kwargs)
+
+        # TODO[type-from-data]
+
+        graphql_type = data["__typename"]
+
+        if graphql_type == "Organization":
+            return github.Organization._from_data(data, http=self._http)
+        elif graphql_type == "User":
+            return github.User._from_data(data, http=self._http)
+        else:
+            raise RuntimeError(f"invalid type {graphql_type} for Query.repositoryOwner")
+
     async def fetch_topic(
         self: Self,
         name: str,

@@ -543,6 +543,30 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data
 
+    async def fetch_query_repository_owner(
+        self: Self,
+        /,
+        login: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> OrganizationData | UserData:
+        organization_fields = github.utility.get_merged_graphql_fields(github.Organization, fields)
+        user_fields = github.utility.get_merged_graphql_fields(github.User, fields)
+        query = "query($login:String!){repositoryOwner(login:$login){...on Organization{%s}...on User{%s}}}" % (",".join(organization_fields), ",".join(user_fields))
+        path = ("repositoryOwner",)
+
+        data = await self._fetch(query, *path, login=login)
+
+        if TYPE_CHECKING:
+            data = cast(OrganizationData | UserData, data)
+
+        if data["__typename"] == "Organization":
+            data = self._patch_organizationdata(data)
+        elif data["__typename"] == "User":
+            data = self._patch_userdata(data)
+
+        return data
+
     if TYPE_CHECKING:
 
         @overload
