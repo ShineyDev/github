@@ -89,6 +89,7 @@ if TYPE_CHECKING:
         topRepositories: ConnectionData[RepositoryData]
         twitterUsername: str | None
         updatedAt: str
+        userViewType: Literal["PRIVATE", "PUBLIC"]
         viewerCanFollow: bool
         viewerIsFollowing: bool
         watching: ConnectionData[RepositoryData]
@@ -149,6 +150,7 @@ class User(
         "pronouns": "pronouns",
         # "twitter_username": "twitterUsername",  # NOTE: see User.twitter_username
         "updated_at": "updatedAt",
+        # "": "userViewType",  # TODO: name, type
     }
 
     _node_prefix: str = "U"
