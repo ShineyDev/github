@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
-from github.interfaces import Assignable, Closable, Comment, Deletable, Labelable, Lockable, Node, RepositoryNode, Resource, Subscribable, Type
+from github.interfaces import Assignable, Closable, Comment, Deletable, Labelable, Lockable, Node, Reactable, RepositoryNode, Resource, Subscribable, Type
 
 
 if TYPE_CHECKING:
@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     from github.interfaces.labelable import LabelableData
     from github.interfaces.lockable import LockableData
     from github.interfaces.node import NodeData
+    from github.interfaces.reactable import ReactableData
     from github.interfaces.repositorynode import RepositoryNodeData
     from github.interfaces.resource import ResourceData
     from github.interfaces.subscribable import SubscribableData
@@ -34,7 +35,7 @@ if TYPE_CHECKING:
         LockableData,
         NodeData,
         # ProjectOwnerData,  # TODO
-        # ReactableData,  # TODO
+        ReactableData,
         RepositoryNodeData,
         ResourceData,
         SubscribableData,
@@ -76,6 +77,7 @@ class Issue(
     Labelable,
     Lockable,
     Node,
+    Reactable,
     RepositoryNode,
     Resource,
     Subscribable,
