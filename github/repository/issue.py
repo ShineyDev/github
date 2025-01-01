@@ -22,6 +22,7 @@ if TYPE_CHECKING:
     from github.interfaces.repositorynode import RepositoryNodeData
     from github.interfaces.resource import ResourceData
     from github.interfaces.subscribable import SubscribableData
+    from github.interfaces.type import TypeData
     from github.interfaces.updatable import UpdatableData
     from github.user.user import UserData
 
@@ -40,6 +41,7 @@ if TYPE_CHECKING:
         RepositoryNodeData,
         ResourceData,
         SubscribableData,
+        TypeData,
         UpdatableData,
     ):
         __typename: Literal["Issue"]
