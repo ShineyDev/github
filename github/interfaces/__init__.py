@@ -14,6 +14,8 @@ from github.interfaces.discussionauthor import *
 from github.interfaces.discussionauthor import __all__ as _discussionauthor__all__
 from github.interfaces.labelable import *
 from github.interfaces.labelable import __all__ as _labelable__all__
+from github.interfaces.lockable import *
+from github.interfaces.lockable import __all__ as _lockable__all__
 from github.interfaces.node import *
 from github.interfaces.node import __all__ as _node__all__
 from github.interfaces.packageowner import *
@@ -45,6 +47,7 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_deletable__all__,
     *_discussionauthor__all__,
     *_labelable__all__,
+    *_lockable__all__,
     *_node__all__,
     *_packageowner__all__,
     *_repositorynode__all__,
