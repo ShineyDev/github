@@ -231,7 +231,7 @@ class Issue(
         :rtype: :class:`int`
         """
 
-        return await self._fetch_field("databaseId")  # type: ignore
+        return int(await self._fetch_field("fullDatabaseId"))  # type: ignore
 
     async def fetch_is_pinned(
         self: Self,
