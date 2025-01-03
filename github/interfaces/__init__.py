@@ -40,6 +40,8 @@ from github.interfaces.type import *
 from github.interfaces.type import __all__ as _type__all__
 from github.interfaces.updatable import *
 from github.interfaces.updatable import __all__ as _updatable__all__
+from github.interfaces.votable import *
+from github.interfaces.votable import __all__ as _votable__all__
 
 
 __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
@@ -64,4 +66,5 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_subscribable__all__,
     *_type__all__,
     *_updatable__all__,
+    *_votable__all__,
 ]
