@@ -5,6 +5,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.connection import Connection
+    from github.repository import IssueState
     from github.user import User
     from github.user.user import UserData
 
@@ -123,7 +124,7 @@ class Issue(
         "is_pinned": "isPinned",
         "is_read": "isReadByViewer",
         "number": "number",
-        # "state": "state",  # TODO: type
+        "state": "state",
         # "": "stateReason",  # TODO: name, type
         "title": "title",
         "title_html": "titleHTML",
@@ -184,6 +185,19 @@ class Issue(
         """
 
         return self._data["number"]
+
+    @property
+    def state(
+        self: Self,
+        /,
+    ) -> IssueState:
+        """
+        The state of the issue.
+
+        :type: :class:`~github.IssueState`
+        """
+
+        return github.IssueState(self._data["state"])
 
     @property
     def title(
@@ -299,6 +313,28 @@ class Issue(
         """
 
         return await self._fetch_field("number")  # type: ignore
+
+    async def fetch_state(
+        self: Self,
+        /,
+    ) -> IssueState:
+        """
+        |coro|
+
+        Fetches the state of the issue.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.IssueState`
+        """
+
+        return github.IssueState(await self._fetch_field("state"))
 
     async def fetch_title(
         self: Self,
