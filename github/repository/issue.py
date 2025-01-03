@@ -63,7 +63,7 @@ if TYPE_CHECKING:
         number: int
         parent: IssueData | None
         participants: ConnectionData[UserData]
-        state: str
+        state: Literal["CLOSED", "OPEN"]
         stateReason: str
         # subIssues  # TODO
         # subIssuesSummary  # TODO
