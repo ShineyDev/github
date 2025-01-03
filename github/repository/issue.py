@@ -65,7 +65,7 @@ if TYPE_CHECKING:
         parent: IssueData | None
         participants: ConnectionData[UserData]
         state: Literal["CLOSED", "OPEN"]
-        stateReason: str
+        stateReason: Literal["COMPLETED", "DUPLICATE", "NOT_PLANNED", "REOPENED"]
         # subIssues  # TODO
         # subIssuesSummary  # TODO
         # timelineItems  # TODO
@@ -74,8 +74,8 @@ if TYPE_CHECKING:
         # trackedInIssues  # TODO
         # trackedIssues  # TODO
         # trackedIssuesCount  # TODO
-        viewerThreadSubscriptionFormAction: str
-        viewerThreadSubscriptionStatus: str
+        viewerThreadSubscriptionFormAction: Literal["NONE", "SUBSCRIBE", "UNSUBSCRIBE"]
+        viewerThreadSubscriptionStatus: Literal["DISABLED", "IGNORING_LIST", "IGNORING_THREAD", "NONE", "SUBSCRIBED_TO_LIST", "SUBSCRIBED_TO_THREAD", "SUBSCRIBED_TO_THREAD_EVENTS", "SUBSCRIBED_TO_THREAD_TYPE", "UNAVAILABLE"]
 
 
 class Issue(
