@@ -5,8 +5,9 @@ if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
 
-    from github.connection import Connection, IssueOrder
+    from github.connection import Connection, IssueOrder, OrganizationOrder
     from github.organization import Organization
+    from github.organization.organization import OrganizationData
     from github.repository import Issue
     from github.repository.issue import IssueData
     from github.user import UserStatus
@@ -30,7 +31,6 @@ if TYPE_CHECKING:
     from github.interfaces.resource import ResourceData
     from github.interfaces.sponsorable import SponsorableData
     from github.interfaces.type import TypeData
-    from github.organization.organization import OrganizationData
     from github.repository.repository import RepositoryData
 
     class UserData(
@@ -1203,6 +1203,56 @@ class User(
             self.id,
             order_by.value if order_by is not MISSING else None,
             data_map=issuedata_to_issue,
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+        )
+
+    def fetch_organizations(
+        self: Self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        order_by: OrganizationOrder = MISSING,
+        reverse: bool = MISSING,
+    ) -> Connection[Organization]:
+        """
+        |aiter|
+
+        Fetches organizations the user is a member of.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        order_by: :class:`~github.OrganizationOrder`
+            The field by which to order the elements.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection`[:class:`~github.Organization`]
+        """
+
+        def organizationdata_to_organization(organizationdata: OrganizationData, /) -> Organization:
+            return github.Organization._from_data(organizationdata, http=self._http)
+
+        return github.Connection(
+            self._http.collect_user_organizations,
+            self.id,
+            order_by.value if order_by is not MISSING else None,
+            data_map=organizationdata_to_organization,
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,
