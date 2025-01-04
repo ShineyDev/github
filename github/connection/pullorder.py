@@ -1,4 +1,15 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
 import enum
+
+
+if TYPE_CHECKING:
+    from typing import Literal
+    from typing_extensions import TypeAlias
+
+
+    PullOrderData: TypeAlias = Literal["COMMENTS", "CREATED_AT", "UPDATED_AT"]
 
 
 class PullOrder(enum.Enum):

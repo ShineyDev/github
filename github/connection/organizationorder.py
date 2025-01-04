@@ -1,4 +1,15 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
 import enum
+
+
+if TYPE_CHECKING:
+    from typing import Literal
+    from typing_extensions import TypeAlias
+
+
+    OrganizationOrderData: TypeAlias = Literal["CREATED_AT", "LOGIN"]
 
 
 class OrganizationOrder(enum.Enum):

@@ -1,4 +1,15 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
 import enum
+
+
+if TYPE_CHECKING:
+    from typing import Literal
+    from typing_extensions import TypeAlias
+
+
+    RepositoryOrderData: TypeAlias = Literal["CREATED_AT", "NAME", "PUSHED_AT", "STARGAZERS", "UPDATED_AT"]
 
 
 class RepositoryOrder(enum.Enum):

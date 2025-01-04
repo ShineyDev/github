@@ -31,6 +31,7 @@ if TYPE_CHECKING:
     from github.interfaces.subscribable import SubscribableData
     from github.interfaces.type import TypeData
     from github.interfaces.updatable import UpdatableData
+    from github.repository.issuestate import IssueStateData
 
 
     class IssueData(
@@ -64,7 +65,7 @@ if TYPE_CHECKING:
         number: int
         parent: IssueData | None
         participants: ConnectionData[UserData]
-        state: Literal["CLOSED", "OPEN"]
+        state: IssueStateData
         stateReason: Literal["COMPLETED", "DUPLICATE", "NOT_PLANNED", "REOPENED"]
         # subIssues  # TODO
         # subIssuesSummary  # TODO

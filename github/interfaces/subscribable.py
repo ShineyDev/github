@@ -14,11 +14,13 @@ import github
 if TYPE_CHECKING:
     from typing import TypedDict
 
+    from github.repository.subscriptionstate import SubscriptionStateData
+
 
     class SubscribableData(TypedDict):
         # id: str  # NOTE: on Node
         viewerCanSubscribe: bool
-        viewerSubscription: str
+        viewerSubscription: SubscriptionStateData
 
 
 class Subscribable:
