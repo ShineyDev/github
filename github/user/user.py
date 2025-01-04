@@ -653,6 +653,50 @@ class User(
 
         return await self._fetch_field("databaseId")  # type: ignore
 
+    async def fetch_follower_count(
+        self: Self,
+        /,
+    ) -> int:
+        """
+        |coro|
+
+        Fetches the number of users following the user.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`int`
+        """
+
+        return (await self._fetch_field("follower_count"))["totalCount"]  # type: ignore
+
+    async def fetch_following_count(
+        self: Self,
+        /,
+    ) -> int:
+        """
+        |coro|
+
+        Fetches the number of users the user is following.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`int`
+        """
+
+        return (await self._fetch_field("following_count"))["totalCount"]  # type: ignore
+
     async def fetch_is_administrator(
         self: Self,
         /,
