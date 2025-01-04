@@ -1183,6 +1183,20 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return await self._collect(query, *path, topic_id=topic_id, order_by=order_by_data, **kwargs)
 
+    async def collect_user_followers(
+        self: Self,
+        /,
+        user_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+        **kwargs,
+    ) -> ConnectionData[UserData]:
+        fields = github.utility.get_merged_graphql_fields(github.User, fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$user_id:ID!){node(id:$user_id){...on User{followers(after:$after,before:$before,first:$first,last:$last){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        path = ("node", "followers")
+
+        return await self._collect(query, *path, user_id=user_id, **kwargs)
+
     async def _mutate(
         self: Self,
         document_: str,

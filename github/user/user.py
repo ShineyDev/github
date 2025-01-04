@@ -5,6 +5,7 @@ if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
 
+    from github.connection import Connection
     from github.organization import Organization
     from github.user import UserStatus
     from github.utility.types import DateTime
@@ -1034,6 +1035,52 @@ class User(
             return None
 
         return github.UserStatus._from_data(data, http=self._http)
+
+    def fetch_followers(
+        self: Self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        reverse: bool = MISSING,
+    ) -> Connection[User]:
+        """
+        |aiter|
+
+        Fetches users following the user.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.connection.Connection`[:class:`~github.User`]
+        """
+
+        def userdata_to_user(userdata: UserData, /) -> User:
+            return github.User._from_data(userdata, http=self._http)
+
+        return github.Connection(
+            self._http.collect_user_followers,
+            self.id,
+            data_map=userdata_to_user,
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+        )
 
 
 class AuthenticatedUser(User):
