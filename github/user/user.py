@@ -1009,6 +1009,37 @@ class User(
 
         return github.utility.iso_to_datetime(value)
 
+    async def fetch_organization(
+        self: Self,
+        login: str,
+        /,
+        **kwargs,  # TODO
+    ) -> Organization:
+        """
+        |coro|
+
+        Fetches an organization the user is a member of by its login.
+
+        .. note::
+
+            This query requires the following token scopes:
+
+            - ``read:org``
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Organization`
+        """
+
+        data = await self._http.fetch_user_organization(self.id, login, **kwargs)
+        return github.Organization._from_data(data, http=self._http)
+
     async def fetch_status(
         self: Self,
         /,

@@ -859,6 +859,40 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return value  # type: ignore
 
+    async def fetch_user_organization(
+        self: Self,
+        /,
+        user_id: str,
+        organization_login: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> OrganizationData:
+        fields = github.utility.get_merged_graphql_fields(github.Organization, fields)
+        query = "query($organization_login:String!,$user_id:ID!){node(id:$user_id){...on User{organization(login:$organization_login){%s}}}}" % ",".join(fields)
+        path = ("node", "organization")
+
+        def validate(
+            response: ClientResponse,
+            data: T_json_object,
+            /,
+        ) -> None:
+            value = github.utility.follow(data, ("data", *path))
+
+            if value is None:
+                raise github.ClientResponseGraphQLNotFoundError(f"Could not resolve to a organization with the name '{organization_login}'.", response, data)
+
+        data = await self._fetch(query, *path, user_id=user_id, organization_login=organization_login, _data_validate=validate)
+
+        if TYPE_CHECKING:
+            data = cast(OrganizationData, data)
+
+        if "login" not in data.keys():
+            data["login"] = organization_login
+
+        data = self._patch_organizationdata(data)
+
+        return data
+
     async def fetch_user_status(
         self: Self,
         /,
