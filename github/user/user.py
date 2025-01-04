@@ -5,8 +5,10 @@ if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
 
-    from github.connection import Connection
+    from github.connection import Connection, IssueOrder
     from github.organization import Organization
+    from github.repository import Issue
+    from github.repository.issue import IssueData
     from github.user import UserStatus
     from github.utility.types import DateTime
 
@@ -29,7 +31,6 @@ if TYPE_CHECKING:
     from github.interfaces.sponsorable import SponsorableData
     from github.interfaces.type import TypeData
     from github.organization.organization import OrganizationData
-    from github.repository.issue import IssueData
     from github.repository.repository import RepositoryData
 
     class UserData(
@@ -1123,6 +1124,54 @@ class User(
             self._http.collect_user_following,
             self.id,
             data_map=userdata_to_user,
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+        )
+
+    def fetch_issues(
+        self: Self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        order_by: IssueOrder = MISSING,
+        reverse: bool = MISSING,
+    ) -> Connection[Issue]:
+        """
+        |aiter|
+
+        Fetches issues associated with the user.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection`[:class:`~github.Issue`]
+        """
+
+        def issuedata_to_issue(issuedata: IssueData, /) -> Issue:
+            return github.Issue._from_data(issuedata, http=self._http)
+
+        return github.Connection(
+            self._http.collect_user_issues,
+            self.id,
+            order_by.value if order_by is not MISSING else None,
+            data_map=issuedata_to_issue,
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,

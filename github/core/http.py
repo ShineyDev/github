@@ -22,6 +22,7 @@ if TYPE_CHECKING:
     from github.interfaces.subscribable import SubscribableData
     from github.organization.organization import OrganizationData
     from github.repository import Topic
+    from github.repository.issue import IssueData
     from github.repository.label import LabelData
     from github.repository.repository import RepositoryData
     from github.repository.topic import TopicData
@@ -1210,6 +1211,26 @@ class HTTPClient(graphql.client.http.HTTPClient):
         path = ("node", "following")
 
         return await self._collect(query, *path, user_id=user_id, **kwargs)
+
+    async def collect_user_issues(
+        self: Self,
+        /,
+        user_id: str,
+        order_by: str | None,
+        *,
+        fields: Iterable[str] = MISSING,
+        **kwargs,
+    ) -> ConnectionData[IssueData]:
+        fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$user_id:ID!){node(id:$user_id){...on User{issues(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        path = ("node", "issues")
+
+        if order_by is None:
+            order_by_data = None
+        else:
+            order_by_data = {"direction": "ASC", "field": order_by}
+
+        return await self._collect(query, *path, user_id=user_id, order_by=order_by_data, **kwargs)
 
     async def _mutate(
         self: Self,
