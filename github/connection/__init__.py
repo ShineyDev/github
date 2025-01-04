@@ -1,5 +1,7 @@
 from github.connection.connection import *
 from github.connection.connection import __all__ as _connection__all__
+from github.connection.issueorder import *
+from github.connection.issueorder import __all__ as _issueorder__all__
 from github.connection.labelorder import *
 from github.connection.labelorder import __all__ as _label__all__
 from github.connection.repositoryorder import *
@@ -10,6 +12,7 @@ from github.connection.stargazerorder import __all__ as _stargazerorder__all__
 
 __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_connection__all__,
+    *_issueorder__all__,
     *_label__all__,
     *_repositoryorder__all__,
     *_stargazerorder__all__,
