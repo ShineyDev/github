@@ -6,6 +6,8 @@ from github.connection.labelorder import *
 from github.connection.labelorder import __all__ as _label__all__
 from github.connection.organizationorder import *
 from github.connection.organizationorder import __all__ as _organizationorder__all__
+from github.connection.pullorder import *
+from github.connection.pullorder import __all__ as _pullorder__all__
 from github.connection.repositoryorder import *
 from github.connection.repositoryorder import __all__ as _repositoryorder__all__
 from github.connection.stargazerorder import *
@@ -17,6 +19,7 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_issueorder__all__,
     *_label__all__,
     *_organizationorder__all__,
+    *_pullorder__all__,
     *_repositoryorder__all__,
     *_stargazerorder__all__,
 ]
