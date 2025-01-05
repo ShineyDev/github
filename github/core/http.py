@@ -731,6 +731,28 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data
 
+    async def fetch_repository_issue(
+        self: Self,
+        /,
+        repository_id: str,
+        number: int,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> IssueData:
+        fields = github.utility.get_merged_graphql_fields(github.Discussion, fields)
+        query = "query($number:Int!,$repository_id:ID!){node(id:$repository_id){...on Repository{issue(number:$number){%s}}}}" % ",".join(fields)
+        path = ("node", "issue")
+
+        data = await self._fetch(query, *path, repository_id=repository_id, number=number)
+
+        if TYPE_CHECKING:
+            data = cast(IssueData, data)
+
+        if "number" not in data.keys():
+            data["number"] = number
+
+        return data
+
     async def fetch_repository_label(
         self: Self,
         /,

@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from github.connection import Connection, DiscussionOrder, LabelOrder, RepositoryOrder
     from github.content import CodeOfConduct, License
     from github.organization import Organization
-    from github.repository import Discussion, Label, Topic
+    from github.repository import Discussion, Issue, Label, Topic
     from github.repository.discussion import DiscussionData
     from github.user import User
     from github.utility.types import DateTime
@@ -1310,6 +1310,37 @@ class Repository(
 
         data = await self._http.fetch_repository_discussion(self.id, number, **kwargs)
         return github.Discussion._from_data(data, http=self._http)
+
+    async def fetch_issue(
+        self: Self,
+        number: int,
+        /,
+        **kwargs,  # TODO
+    ) -> Issue:
+        """
+        |coro|
+
+        Fetches an issue in the repository.
+
+
+        Parameters
+        ----------
+        number: :class:`int`
+            The number of the issue.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Issue`
+        """
+
+        data = await self._http.fetch_repository_issue(self.id, number, **kwargs)
+        return github.Issue._from_data(data, http=self._http)
 
     async def fetch_label(
         self: Self,
