@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from github.connection import Connection, DiscussionOrder, IssueOrder, LabelOrder, RepositoryOrder
     from github.content import CodeOfConduct, License
     from github.organization import Organization
-    from github.repository import Discussion, Issue, Label, Topic
+    from github.repository import Discussion, Issue, Label, Pull, Topic
     from github.repository.discussion import DiscussionData
     from github.repository.issue import IssueData
     from github.user import User
@@ -1457,6 +1457,37 @@ class Repository(
             return None
 
         return github.Repository._from_data(data, http=self._http)
+
+    async def fetch_pull(
+        self: Self,
+        number: int,
+        /,
+        **kwargs,  # TODO
+    ) -> Pull:
+        """
+        |coro|
+
+        Fetches a pull request in the repository.
+
+
+        Parameters
+        ----------
+        number: :class:`int`
+            The number of the pull request.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Pull`
+        """
+
+        data = await self._http.fetch_repository_pull(self.id, number, **kwargs)
+        return github.Pull._from_data(data, http=self._http)
 
     async def fetch_template(
         self: Self,

@@ -830,6 +830,28 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return await self._fetch(query, *path, repository_id=repository_id)  # type: ignore
 
+    async def fetch_repository_pull(
+        self: Self,
+        /,
+        repository_id: str,
+        number: int,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> PullData:
+        fields = github.utility.get_merged_graphql_fields(github.Pull, fields)
+        query = "query($number:Int!,$repository_id:ID!){node(id:$repository_id){...on Repository{pullRequest(number:$number){%s}}}}" % ",".join(fields)
+        path = ("node", "pullRequest")
+
+        data = await self._fetch(query, *path, repository_id=repository_id, number=number)
+
+        if TYPE_CHECKING:
+            data = cast(PullData, data)
+
+        if "number" not in data.keys():
+            data["number"] = number
+
+        return data
+
     async def fetch_repository_template(
         self: Self,
         /,
