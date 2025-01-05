@@ -5,10 +5,14 @@ if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
 
+    from github.automation import Mannequin
+    from github.automation.mannequin import MannequinData
+    from github.connection import Connection, MannequinOrder
     from github.utility.types import DateTime
 
 import github
 from github.interfaces import Actor, AnnouncementOwner, DiscussionAuthor, Node, PackageOwner, ProfileOwner, RepositoryOwner, Resource, Sponsorable, Type
+from github.utility import MISSING
 
 
 if TYPE_CHECKING:
@@ -593,6 +597,58 @@ class Organization(
             updated_at = cast(str, updated_at)
 
         return github.utility.iso_to_datetime(updated_at)
+
+    def fetch_mannequins(
+        self: Self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        order_by: MannequinOrder = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Mannequin]:
+        """
+        |aiter|
+
+        Fetches mannequins in the organization.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        order_by: :class:`~github.MannequinOrder`
+            The field by which to order the elements.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection`[:class:`~github.Mannequin`]
+        """
+
+        def mannequindata_to_mannequin(mannequindata: MannequinData, /) -> Mannequin:
+            return github.Mannequin._from_data(mannequindata, http=self._http)
+
+        return github.Connection(
+            self._http.collect_organization_mannequins,
+            self.id,
+            order_by.value if order_by is not MISSING else None,
+            data_map=mannequindata_to_mannequin,
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
+        )
 
 
 __all__ = [
