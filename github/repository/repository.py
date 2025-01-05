@@ -5,10 +5,11 @@ if TYPE_CHECKING:
     from typing import Literal, cast
     from typing_extensions import Self
 
-    from github.connection import Connection, LabelOrder, RepositoryOrder
+    from github.connection import Connection, DiscussionOrder, LabelOrder, RepositoryOrder
     from github.content import CodeOfConduct, License
     from github.organization import Organization
     from github.repository import Discussion, Label, Topic
+    from github.repository.discussion import DiscussionData
     from github.user import User
     from github.utility.types import DateTime
 
@@ -1549,6 +1550,58 @@ class Repository(
             self._http.collect_repository_collaborators,
             self.id,
             data_map=userdata_to_user,
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
+        )
+
+    def fetch_discussions(
+        self: Self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        order_by: DiscussionOrder = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Discussion]:
+        """
+        |aiter|
+
+        Fetches discussions in the repository.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        order_by: :class:`~github.DiscussionOrder`
+            The field by which to order the elements.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection`[:class:`~github.Discussion`]
+        """
+
+        def discussiondata_to_discussion(discussiondata: DiscussionData, /) -> Discussion:
+            return github.Discussion._from_data(discussiondata, http=self._http)
+
+        return github.Connection(
+            self._http.collect_repository_discussions,
+            self.id,
+            order_by.value if order_by is not MISSING else None,
+            data_map=discussiondata_to_discussion,
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,
