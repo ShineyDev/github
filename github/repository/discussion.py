@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
-from github.interfaces import Closable, Comment, Deletable, Labelable, Lockable, Node, Reactable, RepositoryNode, Subscribable, Type, Updatable, Votable
+from github.interfaces import Closable, Comment, Deletable, Labelable, Lockable, Node, Reactable, RepositoryNode, Resource, Subscribable, Type, Updatable, Votable
 
 
 if TYPE_CHECKING:
@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     from github.interfaces.node import NodeData
     from github.interfaces.reactable import ReactableData
     from github.interfaces.repositorynode import RepositoryNodeData
+    from github.interfaces.resource import ResourceData
     from github.interfaces.subscribable import SubscribableData
     from github.interfaces.type import TypeData
     from github.interfaces.updatable import UpdatableData
@@ -36,6 +37,7 @@ if TYPE_CHECKING:
         NodeData,
         ReactableData,
         RepositoryNodeData,
+        ResourceData,
         SubscribableData,
         TypeData,
         UpdatableData,
@@ -64,6 +66,7 @@ class Discussion(
     Node,
     Reactable,
     RepositoryNode,
+    Resource,
     Subscribable,
     Type,
     Updatable,
