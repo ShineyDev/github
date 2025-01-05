@@ -56,7 +56,7 @@ if TYPE_CHECKING:
         isAnswered: bool
         number: int
         # poll  # TODO
-        stateReason: Literal["DUPLICATE", "OUTDATED", "REOPENED", "RESOLVED"]
+        stateReason: Literal["DUPLICATE", "OUTDATED", "REOPENED", "RESOLVED"] | None
         title: str
 
 

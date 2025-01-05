@@ -66,7 +66,7 @@ if TYPE_CHECKING:
         parent: IssueData | None
         participants: ConnectionData[UserData]
         state: IssueStateData
-        stateReason: Literal["COMPLETED", "DUPLICATE", "NOT_PLANNED", "REOPENED"]
+        stateReason: Literal["COMPLETED", "DUPLICATE", "NOT_PLANNED", "REOPENED"] | None
         # subIssues  # TODO
         # subIssuesSummary  # TODO
         # timelineItems  # TODO
