@@ -6,6 +6,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.connection import Connection
+    from github.repository import PullState
     from github.user import User
     from github.utility.types import DateTime
 
@@ -338,6 +339,19 @@ class Pull(
         return self._data["number"]
 
     @property
+    def state(
+        self: Self,
+        /,
+    ) -> PullState:
+        """
+        The state of the pull request.
+
+        :type: :class:`~github.PullState`
+        """
+
+        return github.PullState(self._data["state"])
+
+    @property
     def title(
         self: Self,
         /,
@@ -592,6 +606,28 @@ class Pull(
         """
 
         return await self._fetch_field("number")  # type: ignore
+
+    async def fetch_state(
+        self: Self,
+        /,
+    ) -> PullState:
+        """
+        |coro|
+
+        Fetches the state of the pull request.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.PullState`
+        """
+
+        return github.PullState(await self._fetch_field("state"))
 
     async def fetch_title(
         self: Self,
