@@ -4,6 +4,9 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
+    from github.repository import DiscussionState
+
+import github
 from github.interfaces import Closable, Comment, Deletable, Labelable, Lockable, Node, Reactable, RepositoryNode, Resource, Subscribable, Type, Updatable, Votable
 
 
@@ -147,6 +150,32 @@ class Discussion(
         return self._data["number"]
 
     @property
+    def state(
+        self: Self,
+        /,
+    ) -> DiscussionState:
+        """
+        The state of the discussion.
+
+        .. note::
+
+            This is not an API field.
+
+            Instead, this is calculated using
+            :attr:`~github.Discussion.closed_reason`, and requires that
+            field to be present.
+
+        :type: :class:`~github.DiscussionState`
+        """
+
+        reason = self._data["stateReason"]
+
+        if reason is not None and reason != "REOPENED":
+            return github.DiscussionState.closed
+        else:
+            return github.DiscussionState.open
+
+    @property
     def title(
         self: Self,
         /,
@@ -224,6 +253,33 @@ class Discussion(
         """
 
         return await self._fetch_field("number")  # type: ignore
+
+    async def fetch_state(
+        self: Self,
+        /,
+    ) -> DiscussionState:
+        """
+        |coro|
+
+        Fetches the state of the discussion.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.DiscussionState`
+        """
+
+        reason = await self._fetch_field("stateReason")
+
+        if reason is not None and reason != "REOPENED":
+            return github.DiscussionState.closed
+        else:
+            return github.DiscussionState.open
 
     async def fetch_title(
         self: Self,
