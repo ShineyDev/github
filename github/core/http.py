@@ -22,6 +22,7 @@ if TYPE_CHECKING:
     from github.interfaces.subscribable import SubscribableData
     from github.organization.organization import OrganizationData
     from github.repository import Topic
+    from github.repository.discussion import DiscussionData
     from github.repository.issue import IssueData
     from github.repository.label import LabelData
     from github.repository.pull import PullData
@@ -707,6 +708,28 @@ class HTTPClient(graphql.client.http.HTTPClient):
         path = ("node", "codeOfConduct")
 
         return await self._fetch(query, *path, repository_id=repository_id)  # type: ignore
+
+    async def fetch_repository_discussion(
+        self: Self,
+        /,
+        repository_id: str,
+        number: int,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> DiscussionData:
+        fields = github.utility.get_merged_graphql_fields(github.Discussion, fields)
+        query = "query($number:Int!,$repository_id:ID!){node(id:$repository_id){...on Repository{discussion(number:$number){%s}}}}" % ",".join(fields)
+        path = ("node", "discussion")
+
+        data = await self._fetch(query, *path, repository_id=repository_id, number=number)
+
+        if TYPE_CHECKING:
+            data = cast(DiscussionData, data)
+
+        if "number" not in data.keys():
+            data["number"] = number
+
+        return data
 
     async def fetch_repository_label(
         self: Self,
