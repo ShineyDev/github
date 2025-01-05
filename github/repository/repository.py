@@ -129,9 +129,9 @@ if TYPE_CHECKING:
         # pinnedIssues  # TODO
         # planFeatures  # TODO
         # primaryLanguage  # TODO
-        # pullRequest  # TODO
+        pullRequest: PullData
         # pullRequestTemplates  # TODO
-        # pullRequests  # TODO
+        pullRequests: ConnectionData[PullData]
         pushedAt: str | None
         rebaseMergeAllowed: bool
         # ref  # TODO
