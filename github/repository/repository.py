@@ -101,7 +101,7 @@ if TYPE_CHECKING:
         isTemplate: bool
         isUserConfigurationRepository: bool
         issue: IssueData
-        # issueOrPullRequest  # TODO
+        issueOrPullRequest: IssueData | PullData
         # issueTemplates  # TODO
         issues: ConnectionData[IssueData]
         label: LabelData
