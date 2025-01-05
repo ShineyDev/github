@@ -68,10 +68,10 @@ if TYPE_CHECKING:
         # deployments  # TODO
         description: str | None
         descriptionHTML: str | None
-        # discussion  # TODO
+        discussion: DiscussionData
         # discussionCategories  # TODO
         # discussionCategory  # TODO
-        # discussions  # TODO
+        discussions: ConnectionData[DiscussionData]
         diskUsage: int
         # environment  # TODO
         # environments  # TODO
@@ -99,10 +99,10 @@ if TYPE_CHECKING:
         isSecurityPolicyEnabled: bool
         isTemplate: bool
         isUserConfigurationRepository: bool
-        # issue  # TODO
+        issue: IssueData
         # issueOrPullRequest  # TODO
         # issueTemplates  # TODO
-        # issues  # TODO
+        issues: ConnectionData[IssueData]
         label: LabelData
         labels: ConnectionData[LabelData]
         # languages  # TODO
