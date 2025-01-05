@@ -1344,6 +1344,47 @@ class Repository(
         data = await self._http.fetch_repository_issue(self.id, number, **kwargs)
         return github.Issue._from_data(data, http=self._http)
 
+    async def fetch_issue_or_pull(
+        self: Self,
+        number: int,
+        /,
+        **kwargs,  # TODO
+    ) -> Issue:
+        """
+        |coro|
+
+        Fetches an issue or a pull request in the repository.
+
+
+        Parameters
+        ----------
+        number: :class:`int`
+            The number of the issue or pull request.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Issue` | :class:`~github.Pull`
+        """
+
+        data = await self._http.fetch_repository_issue_or_pull(self.id, number, **kwargs)
+
+        # TODO[type-from-data]
+
+        graphql_type = data["__typename"]
+
+        if graphql_type == "Issue":
+            return github.Issue._from_data(data, http=self._http)
+        elif graphql_type == "PullRequest":
+            return github.Pull._from_data(data, http=self._http)
+        else:
+            raise RuntimeError(f"invalid type {graphql_type} for Repository.issueOrPullRequest")
+
     async def fetch_label(
         self: Self,
         name: str,
