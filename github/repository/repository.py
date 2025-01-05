@@ -5,12 +5,13 @@ if TYPE_CHECKING:
     from typing import Literal, cast
     from typing_extensions import Self
 
-    from github.connection import Connection, DiscussionOrder, IssueOrder, LabelOrder, RepositoryOrder
+    from github.connection import Connection, DiscussionOrder, IssueOrder, LabelOrder, PullOrder, RepositoryOrder
     from github.content import CodeOfConduct, License
     from github.organization import Organization
     from github.repository import Discussion, Issue, Label, Pull, Topic
     from github.repository.discussion import DiscussionData
     from github.repository.issue import IssueData
+    from github.repository.pull import PullData
     from github.user import User
     from github.utility.types import DateTime
 
@@ -1869,6 +1870,58 @@ class Repository(
             self._http.collect_repository_mentionable_users,
             self.id,
             data_map=userdata_to_user,
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
+        )
+
+    def fetch_pulls(
+        self: Self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        order_by: PullOrder = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Pull]:
+        """
+        |aiter|
+
+        Fetches pull requests in the repository.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        order_by: :class:`~github.PullOrder`
+            The field by which to order the elements.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection`[:class:`~github.Pull`]
+        """
+
+        def pulldata_to_pull(pulldata: PullData, /) -> Pull:
+            return github.Pull._from_data(pulldata, http=self._http)
+
+        return github.Connection(
+            self._http.collect_repository_pulls,
+            self.id,
+            order_by.value if order_by is not MISSING else None,
+            data_map=pulldata_to_pull,
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,
