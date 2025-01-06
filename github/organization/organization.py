@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     from github.automation import Mannequin
     from github.automation.mannequin import MannequinData
     from github.connection import Connection, MannequinOrder
+    from github.organization import Team
     from github.utility.types import DateTime
 
 import github
@@ -597,6 +598,37 @@ class Organization(
             updated_at = cast(str, updated_at)
 
         return github.utility.iso_to_datetime(updated_at)
+
+    async def fetch_team(
+        self: Self,
+        slug: str,
+        /,
+        **kwargs,  # TODO
+    ) -> Team:
+        """
+        |coro|
+
+        Fetches a team in the organization.
+
+
+        Parameters
+        ----------
+        slug: :class:`slug`
+            The slug of the team.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Team`
+        """
+
+        data = await self._http.fetch_organization_team(self.id, slug, **kwargs)
+        return github.Team._from_data(data, http=self._http)
 
     def fetch_mannequins(
         self: Self,

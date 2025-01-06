@@ -268,6 +268,40 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data
 
+    async def fetch_organization_team(
+        self: Self,
+        /,
+        organization_id: str,
+        team_slug: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> TeamData:
+        fields = github.utility.get_merged_graphql_fields(github.Team, fields)
+        query = "query($organization_id:ID!,$team_slug:String!){node(id:$organization_id){...on Organization{team(slug:$team_slug){%s}}}}" % ",".join(fields)
+        path = ("node", "team")
+
+        def validate(
+            response: ClientResponse,
+            data: T_json_object,
+            /,
+        ) -> None:
+            value = github.utility.follow(data, ("data", *path))
+
+            if value is None:
+                raise github.ClientResponseGraphQLNotFoundError(f"Could not resolve to a team with the slug '{team_slug}'.", response, data)
+
+        data = await self._fetch(query, *path, organization_id=organization_id, team_slug=team_slug, _data_validate=validate)
+
+        if TYPE_CHECKING:
+            data = cast(TeamData, data)
+
+        if "slug" not in data.keys():
+            data["slug"] = team_slug
+
+        data = self._patch_teamdata(data)
+
+        return data
+
     async def fetch_query_all_codes_of_conduct(
         self: Self,
         /,
