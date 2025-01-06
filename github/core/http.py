@@ -1185,7 +1185,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         **kwargs,
     ) -> ConnectionData[MannequinData]:
         fields = github.utility.get_merged_graphql_fields(github.Mannequin, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:RepositoryOrder,$organization_id:ID!){node(id:$organization_id){...on Organization{mannequins(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:MannequinOrder,$organization_id:ID!){node(id:$organization_id){...on Organization{mannequins(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "mannequins")
 
         if order_by is None:
