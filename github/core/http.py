@@ -21,6 +21,7 @@ if TYPE_CHECKING:
     from github.interfaces.starrable import StarrableData
     from github.interfaces.subscribable import SubscribableData
     from github.organization.organization import OrganizationData
+    from github.organization.team import TeamData
     from github.repository import Topic
     from github.repository.discussion import DiscussionData
     from github.repository.issue import IssueData
@@ -162,6 +163,16 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         if data.get("shortDescriptionHTML", False) == "":
             data["shortDescriptionHTML"] = None
+
+        return data
+
+    def _patch_teamdata(
+        self: Self,
+        data: TeamData,
+        /,
+    ) -> TeamData:
+        if data.get("description", False) == "":
+            data["description"] = None
 
         return data
 
