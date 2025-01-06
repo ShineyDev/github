@@ -7,8 +7,9 @@ if TYPE_CHECKING:
 
     from github.automation import Mannequin
     from github.automation.mannequin import MannequinData
-    from github.connection import Connection, MannequinOrder
+    from github.connection import Connection, MannequinOrder, TeamOrder
     from github.organization import Team
+    from github.organization.team import TeamData
     from github.utility.types import DateTime
 
 import github
@@ -676,6 +677,58 @@ class Organization(
             self.id,
             order_by.value if order_by is not MISSING else None,
             data_map=mannequindata_to_mannequin,
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
+        )
+
+    def fetch_teams(
+        self: Self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        order_by: TeamOrder = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Team]:
+        """
+        |aiter|
+
+        Fetches teams in the organization.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        order_by: :class:`~github.TeamOrder`
+            The field by which to order the elements.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection`[:class:`~github.Team`]
+        """
+
+        def teamdata_to_team(data: TeamData, /) -> Team:
+            return github.Team._from_data(data, http=self._http)
+
+        return github.Connection(
+            self._http.collect_organization_teams,
+            self.id,
+            order_by.value if order_by is not MISSING else None,
+            data_map=teamdata_to_team,
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,

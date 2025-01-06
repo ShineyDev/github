@@ -1195,6 +1195,26 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return await self._collect(query, *path, organization_id=organization_id, order_by=order_by_data, **kwargs)
 
+    async def collect_organization_teams(
+        self: Self,
+        /,
+        organization_id: str,
+        order_by: str | None,
+        *,
+        fields: Iterable[str] = MISSING,
+        **kwargs,
+    ) -> ConnectionData[TeamData]:
+        fields = github.utility.get_merged_graphql_fields(github.Team, fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:TeamOrder,$organization_id:ID!){node(id:$organization_id){...on Organization{teams(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        path = ("node", "teams")
+
+        if order_by is None:
+            order_by_data = None
+        else:
+            order_by_data = {"direction": "ASC", "field": order_by}
+
+        return await self._collect(query, *path, organization_id=organization_id, order_by=order_by_data, **kwargs)
+
     async def collect_pull_participants(
         self: Self,
         /,
