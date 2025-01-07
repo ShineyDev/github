@@ -205,7 +205,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         /,
         *,
         fields: Iterable[str] = MISSING,
-    ) -> tuple[CodeOfConductData, ...]:
+    ) -> list[CodeOfConductData]:
         fields = github.utility.get_merged_graphql_fields(github.CodeOfConduct, fields)
         query = "{codesOfConduct{%s}}" % ",".join(fields)
         path = ("codesOfConduct",)
@@ -233,7 +233,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         /,
         *,
         fields: Iterable[str] = MISSING,
-    ) -> tuple[LicenseData, ...]:
+    ) -> list[LicenseData]:
         fields = github.utility.get_merged_graphql_fields(github.License, fields)
         query = "{licenses{%s}}" % ",".join(fields)
         path = ("licenses",)
