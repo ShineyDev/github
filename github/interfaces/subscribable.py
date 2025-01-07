@@ -31,7 +31,6 @@ class Subscribable:
     __slots__ = ()
 
     _data: SubscribableData
-    _http: HTTPClient
 
     _graphql_fields: dict[str, str] = {
         "viewer_can_update_subscription": "viewerCanSubscribe",
@@ -95,7 +94,7 @@ class Subscribable:
 
         subscription = await self._fetch_field("viewerSubscription")  # type: ignore
 
-        return github.SubscriptionState(self._data["viewerSubscription"])
+        return github.SubscriptionState(subscription)
 
     async def ignore(
         self: Self,

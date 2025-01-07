@@ -36,7 +36,6 @@ class Starrable:
     __slots__ = ()
 
     _data: StarrableData
-    _http: HTTPClient
 
     _graphql_fields: dict[str, str] = {
         "has_viewer_starred": "viewerHasStarred",

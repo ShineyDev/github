@@ -5,8 +5,7 @@ if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
 
-    from github.core.http import HTTPClient
-    from github.interfaces.type import Type
+    from github.interfaces import Node, Type
     from github.utility.types import T_json_key, T_json_value
 
 import github
@@ -30,7 +29,6 @@ class Resource:
     __slots__ = ()
 
     _data: ResourceData
-    _http: HTTPClient
 
     _graphql_fields: dict[str, str] = {
         "resource_path": "resourcePath",
@@ -84,6 +82,9 @@ class Resource:
 
         if TYPE_CHECKING:
             cls = cast(type[Type], cls)
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
 
         data = await self._http.fetch_query_resource(cls, url, fields=(field,))
 

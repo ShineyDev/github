@@ -229,9 +229,6 @@ class Topic(Node, Starrable, Type):
         :rtype: :class:`~github.connection.Connection`[:class:`~github.Repository`]
         """
 
-        if TYPE_CHECKING and not isinstance(self, Node):
-            raise NotImplementedError
-
         def repositorydata_to_repository(repositorydata: RepositoryData, /) -> Repository:
             return github.Repository._from_data(repositorydata, http=self._http)
 
