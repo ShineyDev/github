@@ -8,6 +8,8 @@ if TYPE_CHECKING:
     from github.core.http import HTTPClient
     from github.utility.types import T_json_object
 
+import abc
+
 import github
 from github import utility
 
@@ -20,7 +22,7 @@ if TYPE_CHECKING:
         __typename: str
 
 
-class Type:
+class Type(abc.ABC):
     __slots__ = ("_data", "_http")
 
     _data: TypeData
@@ -63,48 +65,24 @@ class Type:
         else:
             return f"<{self.__class__.__name__}>"
 
-    if TYPE_CHECKING:
-
-        @overload
-        @classmethod
-        def _from_data(
-            cls: type[Self],
-            data: T_json_object,
-            /,
-            *,
-            http: HTTPClient | None = None,
-        ) -> Self:
-            pass
-
-        @overload
-        @classmethod
-        def _from_data(
-            cls: type[Self],
-            data: Iterable[T_json_object],
-            /,
-            *,
-            http: HTTPClient | None = None,
-        ) -> list[Self]:
-            pass
+    @staticmethod
+    @abc.abstractmethod
+    def _patch_data(
+        data: T_json_object,
+        /,
+    ) -> T_json_object:
+        raise NotImplementedError
 
     @classmethod
+    @abc.abstractmethod
     def _from_data(
         cls: type[Self],
-        data: T_json_object | Iterable[T_json_object],
+        data: T_json_object,
         /,
         *,
         http: HTTPClient | None = None,
-    ) -> Self | list[Self]:
-        if isinstance(data, dict):
-            if TYPE_CHECKING:
-                data = cast(T_json_object, data)
-
-            return cls(data, http)
-        else:
-            if TYPE_CHECKING:
-                data = cast(Iterable[T_json_object], data)
-
-            return [cls(o, http) for o in data]
+    ) -> Self:
+        raise NotImplementedError
 
 
 __all__: list[str] = [

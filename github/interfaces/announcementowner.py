@@ -58,7 +58,7 @@ class AnnouncementOwner:
         if data is None:
             return None
 
-        return github.Announcement._from_data(data, http=self._http)
+        return github.Announcement._from_data(data)
 
 
 __all__: list[str] = [

@@ -152,7 +152,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_all_codes_of_conduct(**kwargs)
-        return github.CodeOfConduct._from_data(data, http=self._http)
+        return [github.CodeOfConduct._from_data(d, http=self._http) for d in data]
 
     async def fetch_all_licenses(
         self: Self,
@@ -176,7 +176,7 @@ class Client(graphql.client.Client):
         """
 
         data = await self._http.fetch_query_all_licenses(**kwargs)
-        return github.License._from_data(data, http=self._http)
+        return [github.License._from_data(d, http=self._http) for d in data]
 
     async def fetch_code_of_conduct(
         self: Self,
@@ -397,14 +397,12 @@ class Client(graphql.client.Client):
 
         # TODO[type-from-data]
 
-        graphql_type = data["__typename"]
-
-        if graphql_type == "Organization":
+        if data["__typename"] == "Organization":
             return github.Organization._from_data(data, http=self._http)
-        elif graphql_type == "User":
+        elif data["__typename"] == "User":
             return github.User._from_data(data, http=self._http)
         else:
-            raise RuntimeError(f"invalid type {graphql_type} for Query.repositoryOwner")
+            raise RuntimeError(f"invalid type {data['__typename']} for Query.repositoryOwner")
 
     async def fetch_topic(
         self: Self,

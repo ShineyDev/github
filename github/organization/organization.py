@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     from github.automation import Mannequin
     from github.automation.mannequin import MannequinData
     from github.connection import Connection, MannequinOrder, TeamOrder
+    from github.core.http import HTTPClient
     from github.organization import Team
     from github.organization.team import TeamData
     from github.utility.types import DateTime
@@ -123,6 +124,31 @@ class Organization(
     __slots__ = ()
 
     _data: OrganizationData
+
+    @staticmethod
+    def _patch_data(
+        data: OrganizationData,
+        /,
+    ) -> OrganizationData:
+        data = ProfileOwner._patch_data(data)
+
+        if data.get("description", False) == "":
+            data["description"] = None
+
+        if data.get("descriptionHTML", False) == "<div></div>":
+            data["descriptionHTML"] = None
+
+        return data
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: OrganizationData,
+        /,
+        *,
+        http: HTTPClient,
+    ) -> Self:
+        return cls(cls._patch_data(data), http)
 
     _graphql_fields: dict[str, str] = {
         "archived_at": "archivedAt",

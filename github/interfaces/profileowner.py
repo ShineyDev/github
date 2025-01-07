@@ -6,7 +6,7 @@ if TYPE_CHECKING:
 
 
 if TYPE_CHECKING:
-    from typing import TypedDict
+    from typing import TypeVar, TypedDict
 
 
     class _ProfileOwnerShowcaseData(TypedDict):
@@ -29,6 +29,9 @@ if TYPE_CHECKING:
         websiteUrl: str | None
 
 
+    _ProfileOwnerData_T_co = TypeVar("_ProfileOwnerData_T_co", bound=ProfileOwnerData, covariant=True)
+
+
 class ProfileOwner:
     """
     Represents an object that can own a profile.
@@ -37,6 +40,16 @@ class ProfileOwner:
     __slots__ = ()
 
     _data: ProfileOwnerData
+
+    @staticmethod
+    def _patch_data(
+        data: _ProfileOwnerData_T_co,
+        /,
+    ) -> _ProfileOwnerData_T_co:
+        if data.get("email", False) == "":
+            data["email"] = None
+
+        return data
 
     _graphql_fields: dict[str, str] = {
         "can_viewer_update_showcase": "viewerCanChangePinnedItems",

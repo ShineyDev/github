@@ -6,6 +6,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.connection import Connection, IssueOrder, OrganizationOrder, PullOrder, RepositoryOrder
+    from github.core.http import HTTPClient
     from github.organization import Organization
     from github.organization.organization import OrganizationData
     from github.repository import Issue, Pull, Repository
@@ -97,6 +98,9 @@ if TYPE_CHECKING:
         viewerIsFollowing: bool
         watching: ConnectionData[RepositoryData]
 
+    class ViewerData(UserData):
+        isViewer: Literal[True]
+
 
 class User(
     Actor,
@@ -130,6 +134,39 @@ class User(
 
     _data: UserData
 
+    @staticmethod
+    def _patch_data(
+        data: UserData,
+        /,
+    ) -> UserData:
+        data = ProfileOwner._patch_data(data)
+
+        if data.get("bioHTML", False) == "":
+            data["bioHTML"] = None
+
+        if data.get("companyHTML", False) == "":
+            data["companyHTML"] = None
+
+        if data.get("pronouns", False) == "":
+            data["pronouns"] = None
+
+        return data
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: UserData,
+        /,
+        *,
+        http: HTTPClient,
+    ) -> User:
+        data = cls._patch_data(data)
+
+        if not data.get("isViewer", None):
+            return cls(data, http)
+        else:
+            return AuthenticatedUser(data, http)
+
     _graphql_fields: dict[str, str] = {
         "bio": "bio",
         "bio_html": "bioHTML",
@@ -157,18 +194,6 @@ class User(
     }
 
     _node_prefix: str = "U"
-
-    if not TYPE_CHECKING:
-
-        @classmethod
-        def _from_data(cls, data, /, *, http=None):
-            if isinstance(data, dict):
-                if not data.get("isViewer", None):
-                    return cls(data, http)
-                else:
-                    return AuthenticatedUser(data, http)
-            else:
-                return [cls._from_data(o, http=http) for o in data]
 
     @property
     def bio(
@@ -1376,6 +1401,25 @@ class AuthenticatedUser(User):
 
             Returns the hash of the object's :attr:`ID <.id>`.
     """
+
+    @staticmethod
+    def _patch_data(
+        data: ViewerData,
+        /,
+    ) -> ViewerData:
+        return User._patch_data(data)  # type: ignore
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: ViewerData,
+        /,
+        *,
+        http: HTTPClient,
+    ) -> Self:
+        data = cls._patch_data(data)
+
+        return cls(data, http)
 
     async def clear_status(
         self: Self,

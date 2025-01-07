@@ -30,6 +30,21 @@ class LicenseRule(Type):
 
     _data: LicenseRuleData
 
+    @staticmethod
+    def _patch_data(
+        data: LicenseRuleData,
+        /,
+    ) -> LicenseRuleData:
+        return data
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: LicenseRuleData,
+        /,
+    ) -> Self:
+        return cls(cls._patch_data(data))
+
     _repr_fields: list[str] = [
         "key",
     ]

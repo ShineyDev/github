@@ -6,6 +6,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.connection import Connection
+    from github.core.http import HTTPClient
     from github.repository import PullState
     from github.user import User
     from github.utility.types import DateTime
@@ -157,6 +158,25 @@ class Pull(
     __slots__ = ()
 
     _data: PullData
+
+    @staticmethod
+    def _patch_data(
+        data: PullData,
+        /,
+    ) -> PullData:
+        data = Comment._patch_data(data)
+
+        return data
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: PullData,
+        /,
+        *,
+        http: HTTPClient,
+    ) -> Self:
+        return cls(cls._patch_data(data), http)
 
     _graphql_fields: dict[str, str] = {
         "addition_count": "additions",

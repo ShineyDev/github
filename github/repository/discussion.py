@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
+    from github.core.http import HTTPClient
     from github.repository import DiscussionState
 
 import github
@@ -94,6 +95,25 @@ class Discussion(
     __slots__ = ()
 
     _data: DiscussionData
+
+    @staticmethod
+    def _patch_data(
+        data: DiscussionData,
+        /,
+    ) -> DiscussionData:
+        data = Comment._patch_data(data)
+
+        return data
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: DiscussionData,
+        /,
+        *,
+        http: HTTPClient,
+    ) -> Self:
+        return cls(cls._patch_data(data), http)
 
     _repr_fields: list[str] = [
         "number",

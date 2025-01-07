@@ -5,6 +5,7 @@ if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
 
+    from github.core.http import HTTPClient
     from github.organization import Organization
     from github.user import User
     from github.utility.types import DateTime
@@ -56,6 +57,23 @@ class UserStatus(Node, Type):
     __slots__ = ()
 
     _data: UserStatusData
+
+    @staticmethod
+    def _patch_data(
+        data: UserStatusData,
+        /,
+    ) -> UserStatusData:
+        return data
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: UserStatusData,
+        /,
+        *,
+        http: HTTPClient,
+    ) -> Self:
+        return cls(cls._patch_data(data), http)
 
     _repr_fields: list[str] = [
         "message",

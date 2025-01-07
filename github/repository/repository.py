@@ -7,6 +7,7 @@ if TYPE_CHECKING:
 
     from github.connection import Connection, DiscussionOrder, IssueOrder, LabelOrder, PullOrder, RepositoryOrder
     from github.content import CodeOfConduct, License
+    from github.core.http import HTTPClient
     from github.organization import Organization
     from github.repository import Discussion, Issue, Label, Pull, Topic
     from github.repository.discussion import DiscussionData
@@ -193,6 +194,29 @@ class Repository(
     __slots__ = ()
 
     _data: RepositoryData
+
+    @staticmethod
+    def _patch_data(
+        data: RepositoryData,
+        /,
+    ) -> RepositoryData:
+        if data.get("descriptionHTML", False) == "<div></div>":
+            data["descriptionHTML"] = None
+
+        if data.get("shortDescriptionHTML", False) == "":
+            data["shortDescriptionHTML"] = None
+
+        return data
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: RepositoryData,
+        /,
+        *,
+        http: HTTPClient,
+    ) -> Self:
+        return cls(cls._patch_data(data), http)
 
     _repr_fields: list[str] = [
         "name",
@@ -1349,7 +1373,7 @@ class Repository(
         number: int,
         /,
         **kwargs,  # TODO
-    ) -> Issue:
+    ) -> Issue | Pull:
         """
         |coro|
 
@@ -1376,14 +1400,12 @@ class Repository(
 
         # TODO[type-from-data]
 
-        graphql_type = data["__typename"]
-
-        if graphql_type == "Issue":
+        if data["__typename"] == "Issue":
             return github.Issue._from_data(data, http=self._http)
-        elif graphql_type == "PullRequest":
+        elif data["__typename"] == "PullRequest":
             return github.Pull._from_data(data, http=self._http)
         else:
-            raise RuntimeError(f"invalid type {graphql_type} for Repository.issueOrPullRequest")
+            raise RuntimeError(f"invalid type {data['__typename']} for Repository.issueOrPullRequest")
 
     async def fetch_label(
         self: Self,
@@ -1463,14 +1485,12 @@ class Repository(
 
         # TODO[type-from-data]
 
-        graphql_type = data["__typename"]
-
-        if graphql_type == "Organization":
+        if data["__typename"] == "Organization":
             return github.Organization._from_data(data, http=self._http)
-        elif graphql_type == "User":
+        elif data["__typename"] == "User":
             return github.User._from_data(data, http=self._http)
         else:
-            raise RuntimeError(f"invalid type {graphql_type} for Repository.owner")
+            raise RuntimeError(f"invalid type {data['__typename']} for Repository.owner")
 
     async def fetch_parent(
         self: Self,

@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
+    from github.core.http import HTTPClient
     from github.utility.types import T_json_key, T_json_value
 
 import github
@@ -59,6 +60,23 @@ class License(Node, Type):
     __slots__ = ()
 
     _data: LicenseData
+
+    @staticmethod
+    def _patch_data(
+        data: LicenseData,
+        /,
+    ) -> LicenseData:
+        return data
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: LicenseData,
+        /,
+        *,
+        http: HTTPClient,
+    ) -> Self:
+        return cls(cls._patch_data(data), http)
 
     _repr_fields: list[str] = [
         "key",
@@ -120,7 +138,7 @@ class License(Node, Type):
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return github.LicenseRule._from_data(self._data["conditions"])
+        return [github.LicenseRule._from_data(d) for d in self._data["conditions"]]
 
     @property
     def description(
@@ -211,7 +229,7 @@ class License(Node, Type):
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return github.LicenseRule._from_data(self._data["limitations"])
+        return [github.LicenseRule._from_data(d) for d in self._data["limitations"]]
 
     @property
     def name(
@@ -250,7 +268,7 @@ class License(Node, Type):
         :type: List[:class:`~github.LicenseRule`]
         """
 
-        return github.LicenseRule._from_data(self._data["permissions"])
+        return [github.LicenseRule._from_data(d) for d in self._data["permissions"]]
 
     @property
     def spdx_id(

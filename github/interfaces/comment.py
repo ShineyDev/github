@@ -14,7 +14,7 @@ import github
 
 
 if TYPE_CHECKING:
-    from typing import TypedDict
+    from typing import TypeVar, TypedDict
 
     from github.automation.bot import BotData
     from github.automation.mannequin import MannequinData
@@ -38,6 +38,9 @@ if TYPE_CHECKING:
         viewerDidAuthor: bool
 
 
+    _CommentData_T_co = TypeVar("_CommentData_T_co", bound=CommentData, covariant=True)
+
+
 class Comment:
     """
     Represents a comment.
@@ -46,6 +49,22 @@ class Comment:
     __slots__ = ()
 
     _data: CommentData
+
+    @staticmethod
+    def _patch_data(
+        data: _CommentData_T_co,
+        /,
+    ) -> _CommentData_T_co:
+        if data.get("body", False) == "":
+            data["body"] = None
+
+        if data.get("bodyHTML", False) == "":
+            data["bodyHTML"] = None
+
+        if data.get("bodyText", False) == "":
+            data["bodyText"] = None
+
+        return data
 
     _graphql_fields: dict[str, str] = {
         # "": "authorAssociation",  # TODO: name, type

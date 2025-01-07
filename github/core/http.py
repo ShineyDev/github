@@ -16,8 +16,6 @@ if TYPE_CHECKING:
     from github.content.codeofconduct import CodeOfConductData
     from github.content.license import LicenseData
     from github.interfaces import Node, Resource
-    from github.interfaces.comment import CommentData
-    from github.interfaces.profileowner import ProfileOwnerData
     from github.interfaces.starrable import StarrableData
     from github.interfaces.subscribable import SubscribableData
     from github.organization.organization import OrganizationData
@@ -30,7 +28,7 @@ if TYPE_CHECKING:
     from github.repository.repository import RepositoryData
     from github.repository.topic import TopicData
     from github.user import User, UserStatus
-    from github.user.user import UserData
+    from github.user.user import UserData, ViewerData
     from github.user.userstatus import UserStatusData
     from github.utility.types import T_json_key, T_json_object, T_json_value
 
@@ -102,98 +100,6 @@ class HTTPClient(graphql.client.http.HTTPClient):
         else:
             return data
 
-    def _patch_commentdata(
-        self: Self,
-        data: CommentData,
-        /,
-    ) -> CommentData:
-        if data.get("body", False) == "":
-            data["body"] = None
-
-        if data.get("bodyHTML", False) == "":  # TODO: check this
-            data["bodyHTML"] = None
-
-        if data.get("bodyText", False) == "":
-            data["bodyText"] = None
-
-        return data
-
-    def _patch_labeldata(
-        self: Self,
-        data: LabelData,
-        /,
-    ) -> LabelData:
-        if data.get("description", False) == "":
-            data["description"] = None
-
-        return data
-
-    def _patch_organizationdata(
-        self: Self,
-        data: OrganizationData,
-        /,
-    ) -> OrganizationData:
-        data = self._patch_profileownerdata(data)  # type: ignore
-
-        if data.get("description", False) == "":
-            data["description"] = None
-
-        if data.get("descriptionHTML", False) == "<div></div>":
-            data["descriptionHTML"] = None
-
-        return data
-
-    def _patch_profileownerdata(
-        self: Self,
-        data: ProfileOwnerData,
-        /,
-    ) -> ProfileOwnerData:
-        if data.get("email", False) == "":
-            data["email"] = None
-
-        return data
-
-    def _patch_repositorydata(
-        self: Self,
-        data: RepositoryData,
-        /,
-    ) -> RepositoryData:
-        if data.get("descriptionHTML", False) == "<div></div>":
-            data["descriptionHTML"] = None
-
-        if data.get("shortDescriptionHTML", False) == "":
-            data["shortDescriptionHTML"] = None
-
-        return data
-
-    def _patch_teamdata(
-        self: Self,
-        data: TeamData,
-        /,
-    ) -> TeamData:
-        if data.get("description", False) == "":
-            data["description"] = None
-
-        return data
-
-    def _patch_userdata(
-        self: Self,
-        data: UserData,
-        /,
-    ) -> UserData:
-        data = self._patch_profileownerdata(data)  # type: ignore
-
-        if data.get("bioHTML", False) == "":
-            data["bioHTML"] = None
-
-        if data.get("companyHTML", False) == "":
-            data["companyHTML"] = None
-
-        if data.get("pronouns", False) == "":
-            data["pronouns"] = None
-
-        return data
-
     async def _fetch(
         self: Self,
         document_: str,
@@ -238,9 +144,6 @@ class HTTPClient(graphql.client.http.HTTPClient):
         if TYPE_CHECKING:
             data = cast(BotData | MannequinData | UserData, data)
 
-        if data["__typename"] == "User":
-            data = self._patch_userdata(data)
-
         return data
 
     async def fetch_comment_editor(
@@ -262,9 +165,6 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         if TYPE_CHECKING:
             data = cast(BotData | UserData, data)
-
-        if data["__typename"] == "User":
-            data = self._patch_userdata(data)
 
         return data
 
@@ -297,8 +197,6 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         if "slug" not in data.keys():
             data["slug"] = team_slug
-
-        data = self._patch_teamdata(data)
 
         return data
 
@@ -544,8 +442,6 @@ class HTTPClient(graphql.client.http.HTTPClient):
         if "login" not in data.keys():
             data["login"] = login
 
-        data = self._patch_organizationdata(data)
-
         return data
 
     async def fetch_query_rate_limit(
@@ -587,8 +483,6 @@ class HTTPClient(graphql.client.http.HTTPClient):
             if "nameWithOwner" not in data.keys():
                 data["nameWithOwner"] = f"{owner}/{name}"
 
-        data = self._patch_repositorydata(data)
-
         return data
 
     async def fetch_query_repository_owner(
@@ -607,11 +501,6 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         if TYPE_CHECKING:
             data = cast(OrganizationData | UserData, data)
-
-        if data["__typename"] == "Organization":
-            data = self._patch_organizationdata(data)
-        elif data["__typename"] == "User":
-            data = self._patch_userdata(data)
 
         return data
 
@@ -716,15 +605,13 @@ class HTTPClient(graphql.client.http.HTTPClient):
         if "login" not in value.keys():
             value["login"] = login
 
-        value = self._patch_userdata(value)
-
         return value
 
     async def fetch_query_viewer(
         self: Self,
         *,
         fields: Iterable[str] = MISSING,
-    ) -> UserData:
+    ) -> ViewerData:
         fields = github.utility.get_merged_graphql_fields(github.User, fields)
         query = "query{viewer{%s}}" % ",".join(fields)
         path = ("viewer",)
@@ -732,12 +619,10 @@ class HTTPClient(graphql.client.http.HTTPClient):
         value = await self._fetch(query, *path)
 
         if TYPE_CHECKING:
-            value = cast(UserData, value)
+            value = cast(ViewerData, value)
 
         if "isViewer" not in value.keys():
             value["isViewer"] = True
-
-        value = self._patch_userdata(value)
 
         return value
 
@@ -854,8 +739,6 @@ class HTTPClient(graphql.client.http.HTTPClient):
         if "name" not in data.keys():
             data["name"] = name
 
-        data = self._patch_labeldata(data)
-
         return data
 
     async def fetch_repository_license(
@@ -949,8 +832,6 @@ class HTTPClient(graphql.client.http.HTTPClient):
         if TYPE_CHECKING:
             data = cast(RepositoryData, data)
 
-        data = self._patch_repositorydata(data)
-
         return data
 
     async def fetch_repositoryowner_repository(
@@ -974,8 +855,6 @@ class HTTPClient(graphql.client.http.HTTPClient):
         if follow_renames is False:
             if "name" not in data.keys():
                 data["name"] = name
-
-        data = self._patch_repositorydata(data)
 
         return data
 
@@ -1025,8 +904,6 @@ class HTTPClient(graphql.client.http.HTTPClient):
         if "login" not in data.keys():
             data["login"] = organization_login
 
-        data = self._patch_organizationdata(data)
-
         return data
 
     async def fetch_user_status(
@@ -1063,8 +940,6 @@ class HTTPClient(graphql.client.http.HTTPClient):
         if TYPE_CHECKING:
             data = cast(OrganizationData, data)
 
-        data = self._patch_organizationdata(data)
-
         return data
 
     async def fetch_userstatus_user(
@@ -1087,8 +962,6 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         if TYPE_CHECKING:
             data = cast(UserData, data)
-
-        data = self._patch_userdata(data)
 
         return data
 

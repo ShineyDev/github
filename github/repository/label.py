@@ -5,6 +5,7 @@ if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
 
+    from github.core.http import HTTPClient
     from github.utility.types import DateTime
 
 import github
@@ -53,6 +54,26 @@ class Label(Node, RepositoryNode, Resource, Type):
     __slots__ = ()
 
     _data: LabelData
+
+    @staticmethod
+    def _patch_data(
+        data: LabelData,
+        /,
+    ) -> LabelData:
+        if data.get("description", False) == "":
+            data["description"] = None
+
+        return data
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: LabelData,
+        /,
+        *,
+        http: HTTPClient,
+    ) -> Self:
+        return cls(cls._patch_data(data), http)
 
     _repr_fields: list[str] = [
         "name",

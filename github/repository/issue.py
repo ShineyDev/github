@@ -5,6 +5,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.connection import Connection
+    from github.core.http import HTTPClient
     from github.repository import IssueState
     from github.user import User
     from github.user.user import UserData
@@ -113,6 +114,25 @@ class Issue(
     __slots__ = ()
 
     _data: IssueData
+
+    @staticmethod
+    def _patch_data(
+        data: IssueData,
+        /,
+    ) -> IssueData:
+        data = Comment._patch_data(data)
+
+        return data
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: IssueData,
+        /,
+        *,
+        http: HTTPClient,
+    ) -> Self:
+        return cls(cls._patch_data(data), http)
 
     _repr_fields: list[str] = [
         "number",

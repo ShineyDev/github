@@ -34,6 +34,21 @@ class Announcement(Type):
 
     _data: AnnouncementData
 
+    @staticmethod
+    def _patch_data(
+        data: AnnouncementData,
+        /,
+    ) -> AnnouncementData:
+        return data
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: AnnouncementData,
+        /,
+    ) -> Self:
+        return cls(cls._patch_data(data))
+
     _graphql_fields: dict[str, str] = {
         "created_at": "createdAt",
         "expires_at": "expiresAt",

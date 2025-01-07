@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
+    from github.core.http import HTTPClient
     from github.utility.types import DateTime
 
 import github
@@ -50,6 +51,23 @@ class Mannequin(Actor, Node, Resource, Type):
     __slots__ = ()
 
     _data: MannequinData
+
+    @staticmethod
+    def _patch_data(
+        data: MannequinData,
+        /,
+    ) -> MannequinData:
+        return data
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: MannequinData,
+        /,
+        *,
+        http: HTTPClient,
+    ) -> Self:
+        return cls(cls._patch_data(data), http)
 
     _graphql_fields: dict[str, str] = {
         "created_at": "createdAt",

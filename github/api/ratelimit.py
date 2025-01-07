@@ -37,6 +37,21 @@ class RateLimit(Type):
 
     _data: RateLimitData
 
+    @staticmethod
+    def _patch_data(
+        data: RateLimitData,
+        /,
+    ) -> RateLimitData:
+        return data
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: RateLimitData,
+        /,
+    ) -> Self:
+        return cls(cls._patch_data(data))
+
     _graphql_fields: dict[str, str] = {
         "limit": "limit",
         "remaining": "remaining",

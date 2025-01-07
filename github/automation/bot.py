@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
+    from github.core.http import HTTPClient
     from github.utility.types import DateTime
 
 import github
@@ -47,6 +48,23 @@ class Bot(Actor, Node, Resource, Type):
     __slots__ = ()
 
     _data: BotData
+
+    @staticmethod
+    def _patch_data(
+        data: BotData,
+        /,
+    ) -> BotData:
+        return data
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: BotData,
+        /,
+        *,
+        http: HTTPClient,
+    ) -> Self:
+        return cls(cls._patch_data(data), http)
 
     _graphql_fields: dict[str, str] = {
         "created_at": "createdAt",

@@ -34,6 +34,21 @@ class Metadata(Type):
 
     _data: MetadataData
 
+    @staticmethod
+    def _patch_data(
+        data: MetadataData,
+        /,
+    ) -> MetadataData:
+        return data
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: MetadataData,
+        /,
+    ) -> Self:
+        return cls(cls._patch_data(data))
+
     _graphql_type: str = "GitHubMetadata"
 
     _graphql_fields: dict[str, str] = {

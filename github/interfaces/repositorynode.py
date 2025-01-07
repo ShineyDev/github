@@ -5,6 +5,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.interfaces import Node
+    from github.repository import Repository
 
 import github
 
@@ -32,7 +33,7 @@ class RepositoryNode:
         self: Self,
         /,
         **kwargs,  # TODO
-    ) -> str:
+    ) -> Repository:
         """
         |coro|
 

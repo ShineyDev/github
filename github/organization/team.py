@@ -5,6 +5,7 @@ if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
 
+    from github.core.http import HTTPClient
     from github.utility.types import DateTime
 
 import github
@@ -95,6 +96,26 @@ class Team(
     __slots__ = ()
 
     _data: TeamData
+
+    @staticmethod
+    def _patch_data(
+        data: TeamData,
+        /,
+    ) -> TeamData:
+        if data.get("description", False) == "":
+            data["description"] = None
+
+        return data
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: TeamData,
+        /,
+        *,
+        http: HTTPClient,
+    ) -> Self:
+        return cls(cls._patch_data(data), http)
 
     _graphql_fields: dict[str, str] = {
         "avatar_url": "avatarUrl",

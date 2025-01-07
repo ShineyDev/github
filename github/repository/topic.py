@@ -6,6 +6,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.connection import Connection, RepositoryOrder
+    from github.core.http import HTTPClient
     from github.repository import Repository
     from github.repository.repository import RepositoryData
 
@@ -52,6 +53,23 @@ class Topic(Node, Starrable, Type):
     __slots__ = ()
 
     _data: TopicData
+
+    @staticmethod
+    def _patch_data(
+        data: TopicData,
+        /,
+    ) -> TopicData:
+        return data
+
+    @classmethod
+    def _from_data(
+        cls: type[Self],
+        data: TopicData,
+        /,
+        *,
+        http: HTTPClient,
+    ) -> Self:
+        return cls(cls._patch_data(data), http)
 
     _repr_fields: list[str] = [
         "name",
@@ -170,7 +188,7 @@ class Topic(Node, Starrable, Type):
         """
 
         data = await self._http.fetch_topic_related_topics(self.id, limit if limit is not MISSING else None, **kwargs)
-        return Topic._from_data(data)
+        return [Topic._from_data(d, http=self._http) for d in data]
 
     def fetch_repositories(
         self: Self,
