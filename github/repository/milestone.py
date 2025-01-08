@@ -23,6 +23,7 @@ if TYPE_CHECKING:
     from github.interfaces.resource import ResourceData
     from github.interfaces.type import TypeData
     from github.repository.issue import IssueData
+    from github.repository.milestonestate import MilestoneStateData
     from github.repository.pull import PullData
     from github.user.user import UserData
 
@@ -44,7 +45,7 @@ if TYPE_CHECKING:
         number: int
         progressPercentage: float
         pullRequests: ConnectionData[PullData]
-        state: Literal["CLOSED", "OPEN"]
+        state: MilestoneStateData
         title: str
         updatedAt: str
 
