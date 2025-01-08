@@ -214,6 +214,19 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data
 
+    async def fetch_pull_milestone(
+        self: Self,
+        /,
+        pull_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> MilestoneData | None:
+        fields = github.utility.get_merged_graphql_fields(github.Milestone, fields)
+        query = "query($pull_id:ID!){node(id:$pull_id){...on PullRequest{milestone{%s}}}}" % ",".join(fields)
+        path = ("node", "milestone")
+
+        return await self._fetch(query, *path, pull_id=pull_id)  # type: ignore
+
     async def fetch_query_all_codes_of_conduct(
         self: Self,
         /,

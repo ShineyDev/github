@@ -7,7 +7,7 @@ if TYPE_CHECKING:
 
     from github.connection import Connection
     from github.core.http import HTTPClient
-    from github.repository import PullState
+    from github.repository import Milestone, PullState
     from github.user import User
     from github.utility.types import DateTime
 
@@ -36,6 +36,7 @@ if TYPE_CHECKING:
     from github.interfaces.updatable import UpdatableData
     from github.organization.organization import OrganizationData
     from github.repository.issue import IssueData
+    from github.repository.milestone import MilestoneData
     from github.repository.repository import RepositoryData
     from github.user.user import UserData
 
@@ -95,7 +96,7 @@ if TYPE_CHECKING:
         merged: bool
         mergedAt: str | None
         mergedBy: BotData | MannequinData | UserData | None
-        # milestone  # TODO
+        milestone: MilestoneData | None
         number: int
         participants: ConnectionData[UserData]
         permalink: str
@@ -692,6 +693,35 @@ class Pull(
         """
 
         return await self._fetch_field("titleHTML")  # type: ignore
+
+    async def fetch_milestone(
+        self: Self,
+        /,
+        **kwargs,  # TODO
+    ) -> Milestone | None:
+        """
+        |coro|
+
+        Fetches the milestone the pull request is contributing toward,
+        if any.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Milestone` | None
+        """
+
+        data = await self._http.fetch_pull_milestone(self.id, **kwargs)
+
+        if data is None:
+            return None
+
+        return github.Milestone._from_data(data, http=self._http)
 
     def fetch_participants(
         self: Self,
