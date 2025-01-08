@@ -8,6 +8,8 @@ from github.repository.issuestate import *
 from github.repository.issuestate import __all__ as _issuestate__all__
 from github.repository.label import *
 from github.repository.label import __all__ as _label__all__
+from github.repository.milestone import *
+from github.repository.milestone import __all__ as _milestone__all__
 from github.repository.pull import *
 from github.repository.pull import __all__ as _pull__all__
 from github.repository.pullstate import *
@@ -26,6 +28,7 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_issue__all__,
     *_issuestate__all__,
     *_label__all__,
+    *_milestone__all__,
     *_pull__all__,
     *_pullstate__all__,
     *_repository__all__,
