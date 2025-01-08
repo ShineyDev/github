@@ -141,6 +141,9 @@ class User(
     ) -> UserData:
         data = ProfileOwner._patch_data(data)
 
+        if data.get("bio", False) == "":
+            data["bio"] = None
+
         if data.get("bioHTML", False) == "":
             data["bioHTML"] = None
 
