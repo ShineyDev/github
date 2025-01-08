@@ -781,6 +781,28 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return await self._fetch(query, *path, repository_id=repository_id)  # type: ignore
 
+    async def fetch_repository_milestone(
+        self: Self,
+        /,
+        repository_id: str,
+        number: int,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> MilestoneData:
+        fields = github.utility.get_merged_graphql_fields(github.Milestone, fields)
+        query = "query($number:Int!,$repository_id:ID!){node(id:$repository_id){...on Repository{milestone(number:$number){%s}}}}" % ",".join(fields)
+        path = ("node", "milestone")
+
+        data = await self._fetch(query, *path, repository_id=repository_id, number=number)
+
+        if TYPE_CHECKING:
+            data = cast(MilestoneData, data)
+
+        if "number" not in data.keys():
+            data["number"] = number
+
+        return data
+
     async def fetch_repository_owner(
         self: Self,
         /,

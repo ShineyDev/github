@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from github.content import CodeOfConduct, License
     from github.core.http import HTTPClient
     from github.organization import Organization
-    from github.repository import Discussion, Issue, Label, Pull, Topic
+    from github.repository import Discussion, Issue, Label, Milestone, Pull, Topic
     from github.repository.discussion import DiscussionData
     from github.repository.issue import IssueData
     from github.repository.pull import PullData
@@ -35,6 +35,7 @@ if TYPE_CHECKING:
     from github.interfaces.type import TypeData
     from github.organization.organization import OrganizationData
     from github.repository.label import LabelData
+    from github.repository.milestone import MilestoneData
     from github.repository.topic import TopicData
     from github.user.user import UserData
 
@@ -116,7 +117,7 @@ if TYPE_CHECKING:
         mergeCommitMessage: Literal["BLANK", "PR_BODY", "PR_TITLE"]
         mergeCommitTitle: Literal["MERGE_MESSAGE", "PR_TITLE"]
         # mergeQueue  # TODO
-        # milestone  # TODO
+        milestone: Milestone
         # milestones  # TODO
         mirrorUrl: str | None
         name: str
@@ -1459,6 +1460,37 @@ class Repository(
             return None
 
         return github.License._from_data(data, http=self._http)
+
+    async def fetch_milestone(
+        self: Self,
+        number: int,
+        /,
+        **kwargs,  # TODO
+    ) -> Milestone:
+        """
+        |coro|
+
+        Fetches a milestone in the repository.
+
+
+        Parameters
+        ----------
+        number: :class:`int`
+            The number of the milestone.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Milestone`
+        """
+
+        data = await self._http.fetch_repository_milestone(self.id, number, **kwargs)
+        return github.Milestone._from_data(data, http=self._http)
 
     async def fetch_owner(
         self: Self,
