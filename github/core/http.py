@@ -696,7 +696,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         *,
         fields: Iterable[str] = MISSING,
     ) -> IssueData:
-        fields = github.utility.get_merged_graphql_fields(github.Discussion, fields)
+        fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
         query = "query($number:Int!,$repository_id:ID!){node(id:$repository_id){...on Repository{issue(number:$number){%s}}}}" % ",".join(fields)
         path = ("node", "issue")
 
