@@ -6,6 +6,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.core.http import HTTPClient
+    from github.repository import MilestoneState
     from github.utility.types import DateTime
 
 import github
@@ -98,7 +99,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
         "due_at": "dueOn",
         "number": "number",
         "progress": "progressPercentage",
-        # "state": "state",  # TODO: type
+        "state": "state",
         "title": "title",
         "updated_at": "updatedAt",
     }
@@ -174,6 +175,19 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
         """
 
         return self._data["progressPercentage"]
+
+    @property
+    def state(
+        self: Self,
+        /,
+    ) -> MilestoneState:
+        """
+        The state of the milestone.
+
+        :type: :class:`~github.MilestoneState`
+        """
+
+        return github.MilestoneState(self._data["state"])
 
     @property
     def title(
@@ -320,6 +334,28 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
         """
 
         return await self._fetch_field("progressPercentage")  # type: ignore
+
+    async def fetch_state(
+        self: Self,
+        /,
+    ) -> MilestoneState:
+        """
+        |coro|
+
+        Fetches the state of the milestone.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.MilestoneState`
+        """
+
+        return github.MilestoneState(await self._fetch_field("state"))
 
     async def fetch_title(
         self: Self,
