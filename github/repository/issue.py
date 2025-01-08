@@ -6,7 +6,7 @@ if TYPE_CHECKING:
 
     from github.connection import Connection
     from github.core.http import HTTPClient
-    from github.repository import IssueState
+    from github.repository import IssueState, Milestone
     from github.user import User
     from github.user.user import UserData
 
@@ -33,6 +33,7 @@ if TYPE_CHECKING:
     from github.interfaces.type import TypeData
     from github.interfaces.updatable import UpdatableData
     from github.repository.issuestate import IssueStateData
+    from github.repository.milestone import MilestoneData
 
 
     class IssueData(
@@ -62,7 +63,7 @@ if TYPE_CHECKING:
         isPinned: bool
         isReadByViewer: bool
         # linkedBranches  # TODO
-        # milestone: MilestoneData  # TODO
+        milestone: MilestoneData | None
         number: int
         parent: IssueData | None
         participants: ConnectionData[UserData]
@@ -400,6 +401,34 @@ class Issue(
         """
 
         return await self._fetch_field("titleHTML")  # type: ignore
+
+    async def fetch_milestone(
+        self: Self,
+        /,
+        **kwargs,  # TODO
+    ) -> Milestone | None:
+        """
+        |coro|
+
+        Fetches the milestone the issue is contributing toward, if any.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Milestone` | None
+        """
+
+        data = await self._http.fetch_issue_milestone(self.id, **kwargs)
+
+        if data is None:
+            return None
+
+        return github.Milestone._from_data(data, http=self._http)
 
     def fetch_participants(
         self: Self,

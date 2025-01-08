@@ -24,6 +24,7 @@ if TYPE_CHECKING:
     from github.repository.discussion import DiscussionData
     from github.repository.issue import IssueData
     from github.repository.label import LabelData
+    from github.repository.milestone import MilestoneData
     from github.repository.pull import PullData
     from github.repository.repository import RepositoryData
     from github.repository.topic import TopicData
@@ -167,6 +168,19 @@ class HTTPClient(graphql.client.http.HTTPClient):
             data = cast(BotData | UserData, data)
 
         return data
+
+    async def fetch_issue_milestone(
+        self: Self,
+        /,
+        issue_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> MilestoneData | None:
+        fields = github.utility.get_merged_graphql_fields(github.Milestone, fields)
+        query = "query($issue_id:ID!){node(id:$issue_id){...on Issue{milestone{%s}}}}" % ",".join(fields)
+        path = ("node", "milestone")
+
+        return await self._fetch(query, *path, issue_id=issue_id)  # type: ignore
 
     async def fetch_organization_team(
         self: Self,
