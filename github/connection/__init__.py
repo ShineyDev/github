@@ -8,6 +8,8 @@ from github.connection.labelorder import *
 from github.connection.labelorder import __all__ as _labelorder__all__
 from github.connection.mannequinorder import *
 from github.connection.mannequinorder import __all__ as _mannequinorder__all__
+from github.connection.milestoneorder import *
+from github.connection.milestoneorder import __all__ as _milestoneorder__all__
 from github.connection.organizationorder import *
 from github.connection.organizationorder import __all__ as _organizationorder__all__
 from github.connection.pullorder import *
@@ -26,6 +28,7 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_issueorder__all__,
     *_labelorder__all__,
     *_mannequinorder__all__,
+    *_milestoneorder__all__,
     *_organizationorder__all__,
     *_pullorder__all__,
     *_repositoryorder__all__,
