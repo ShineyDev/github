@@ -5,13 +5,14 @@ if TYPE_CHECKING:
     from typing import Literal, cast
     from typing_extensions import Self
 
-    from github.connection import Connection, DiscussionOrder, IssueOrder, LabelOrder, PullOrder, RepositoryOrder
+    from github.connection import Connection, DiscussionOrder, IssueOrder, LabelOrder, MilestoneOrder, PullOrder, RepositoryOrder
     from github.content import CodeOfConduct, License
     from github.core.http import HTTPClient
     from github.organization import Organization
     from github.repository import Discussion, Issue, Label, Milestone, Pull, Topic
     from github.repository.discussion import DiscussionData
     from github.repository.issue import IssueData
+    from github.repository.milestone import MilestoneData
     from github.repository.pull import PullData
     from github.user import User
     from github.utility.types import DateTime
@@ -35,7 +36,6 @@ if TYPE_CHECKING:
     from github.interfaces.type import TypeData
     from github.organization.organization import OrganizationData
     from github.repository.label import LabelData
-    from github.repository.milestone import MilestoneData
     from github.repository.topic import TopicData
     from github.user.user import UserData
 
@@ -118,7 +118,7 @@ if TYPE_CHECKING:
         mergeCommitTitle: Literal["MERGE_MESSAGE", "PR_TITLE"]
         # mergeQueue  # TODO
         milestone: MilestoneData
-        # milestones  # TODO
+        milestones: ConnectionData[MilestoneData]
         mirrorUrl: str | None
         name: str
         nameWithOwner: str
@@ -1963,6 +1963,55 @@ class Repository(
             self._http.collect_repository_mentionable_users,
             self.id,
             data_map=userdata_to_user,
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
+        )
+
+    def fetch_milestones(
+        self: Self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        order_by: MilestoneOrder = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Milestone]:
+        """
+        |aiter|
+
+        Fetches milestones in the repository.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        order_by: :class:`~github.MilestoneOrder`
+            The field by which to order the elements.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection`[:class:`~github.Milestone`]
+        """
+
+        return github.Connection(
+            self._http.collect_repository_milestones,
+            self.id,
+            order_by.value if order_by is not MISSING else None,
+            data_map=lambda d: github.Milestone._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,
