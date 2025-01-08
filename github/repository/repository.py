@@ -117,7 +117,7 @@ if TYPE_CHECKING:
         mergeCommitMessage: Literal["BLANK", "PR_BODY", "PR_TITLE"]
         mergeCommitTitle: Literal["MERGE_MESSAGE", "PR_TITLE"]
         # mergeQueue  # TODO
-        milestone: Milestone
+        milestone: MilestoneData
         # milestones  # TODO
         mirrorUrl: str | None
         name: str
