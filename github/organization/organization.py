@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from github.utility.types import DateTime
 
 import github
-from github.interfaces import Actor, AnnouncementOwner, DiscussionAuthor, Node, PackageOwner, ProfileOwner, RepositoryOwner, Resource, Sponsorable, Type
+from github.interfaces import Actor, AnnouncementOwner, DiscussionAuthor, Node, PackageOwner, ProfileOwner, ProjectOwner, RepositoryOwner, Resource, Sponsorable, Type
 from github.utility import MISSING
 
 
@@ -29,6 +29,7 @@ if TYPE_CHECKING:
     from github.interfaces.node import NodeData
     from github.interfaces.packageowner import PackageOwnerData
     from github.interfaces.profileowner import ProfileOwnerData
+    from github.interfaces.projectowner import ProjectOwnerData
     from github.interfaces.repositoryowner import RepositoryOwnerData
     from github.interfaces.resource import ResourceData
     from github.interfaces.sponsorable import SponsorableData
@@ -44,7 +45,7 @@ if TYPE_CHECKING:
         NodeData,
         PackageOwnerData,
         ProfileOwnerData,
-        # ProjectOwnerData,  # TODO
+        ProjectOwnerData,
         RepositoryOwnerData,
         ResourceData,
         SponsorableData,
@@ -99,7 +100,7 @@ class Organization(
     Node,
     PackageOwner,
     ProfileOwner,
-    # ProjectOwner,  # TODO
+    ProjectOwner,
     RepositoryOwner,
     Resource,
     Sponsorable,

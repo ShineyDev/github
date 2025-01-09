@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     from github.utility.types import DateTime
 
 import github
-from github.interfaces import Assignable, Closable, Comment, Labelable, Lockable, Node, Reactable, RepositoryNode, Resource, Type, Subscribable, Updatable
+from github.interfaces import Assignable, Closable, Comment, Labelable, Lockable, Node, ProjectOwner, Reactable, RepositoryNode, Resource, Type, Subscribable, Updatable
 from github.utility import MISSING
 
 
@@ -28,6 +28,7 @@ if TYPE_CHECKING:
     from github.interfaces.labelable import LabelableData
     from github.interfaces.lockable import LockableData
     from github.interfaces.node import NodeData
+    from github.interfaces.projectowner import ProjectOwnerData
     from github.interfaces.reactable import ReactableData
     from github.interfaces.repositorynode import RepositoryNodeData
     from github.interfaces.resource import ResourceData
@@ -49,7 +50,7 @@ if TYPE_CHECKING:
         LabelableData,
         LockableData,
         NodeData,
-        # ProjectOwnerData,  # TODO
+        ProjectOwnerData,
         ReactableData,
         RepositoryNodeData,
         ResourceData,
@@ -133,6 +134,7 @@ class Pull(
     Labelable,
     Lockable,
     Node,
+    ProjectOwner,
     Reactable,
     RepositoryNode,
     Resource,

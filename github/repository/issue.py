@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from github.user.user import UserData
 
 import github
-from github.interfaces import Assignable, Closable, Comment, Deletable, Labelable, Lockable, Node, Reactable, RepositoryNode, Resource, Subscribable, Type, Updatable
+from github.interfaces import Assignable, Closable, Comment, Deletable, Labelable, Lockable, Node, ProjectOwner, Reactable, RepositoryNode, Resource, Subscribable, Type, Updatable
 from github.utility import MISSING
 
 
@@ -26,6 +26,7 @@ if TYPE_CHECKING:
     from github.interfaces.labelable import LabelableData
     from github.interfaces.lockable import LockableData
     from github.interfaces.node import NodeData
+    from github.interfaces.projectowner import ProjectOwnerData
     from github.interfaces.reactable import ReactableData
     from github.interfaces.repositorynode import RepositoryNodeData
     from github.interfaces.resource import ResourceData
@@ -45,7 +46,7 @@ if TYPE_CHECKING:
         LabelableData,
         LockableData,
         NodeData,
-        # ProjectOwnerData,  # TODO
+        ProjectOwnerData,
         ReactableData,
         RepositoryNodeData,
         ResourceData,
@@ -89,6 +90,7 @@ class Issue(
     Labelable,
     Lockable,
     Node,
+    ProjectOwner,
     Reactable,
     RepositoryNode,
     Resource,
