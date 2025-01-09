@@ -5,12 +5,14 @@ if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
 
+    from github.connection import Connection, IssueOrder
     from github.core.http import HTTPClient
-    from github.repository import MilestoneState
+    from github.repository import Issue, MilestoneState
     from github.utility.types import DateTime
 
 import github
 from github.interfaces import Closable, Node, RepositoryNode, Resource, Type
+from github.utility import MISSING
 
 
 if TYPE_CHECKING:
@@ -406,6 +408,55 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
             updated_at = cast(str, updated_at)
 
         return github.utility.iso_to_datetime(updated_at)
+
+    def fetch_issues(
+        self: Self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        order_by: IssueOrder = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Issue]:
+        """
+        |aiter|
+
+        Fetches issues in the milestone.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        order_by: :class:`~github.IssueOrder`
+            The field by which to order the elements.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection`[:class:`~github.Issue`]
+        """
+
+        return github.Connection(
+            self._http.collect_milestone_issues,
+            self.id,
+            order_by.value if order_by is not MISSING else None,
+            data_map=lambda d: github.Issue._from_data(d, http=self._http),
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
+        )
 
 
 __all__ = [
