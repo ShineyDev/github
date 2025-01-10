@@ -58,6 +58,7 @@ if TYPE_CHECKING:
         companyHTML: str | None
         # contributionsCollection  # TODO
         # copilotEndpoints  # TODO
+        # copilotLimitedUser  # TODO
         createdAt: str
         databaseId: int
         # enterprises  # TODO
@@ -80,6 +81,7 @@ if TYPE_CHECKING:
         # issueComments  # TODO
         issues: ConnectionData[IssueData]
         # lists  # TODO
+        # notificationThreads  # TODO
         organization: OrganizationData
         # organizationVerifiedDomainEmails  # TODO
         organizations: ConnectionData[OrganizationData]
