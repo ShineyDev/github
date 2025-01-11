@@ -873,7 +873,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         fields: Iterable[str] = MISSING,
     ) -> RepositoryData:
         fields = github.utility.get_merged_graphql_fields(github.Repository, fields)
-        query = "query($repositorynode_id:ID!){node(id:$repositorynode_id){...on RepositoryNode{repository{%s}}}}" % ",".join(fields)
+        query = "query($repositorynode_id:ID!){node(id:$repositorynode_id){...on Label{repository{%(f)s}}...on Milestone{repository{%(f)s}}...on RepositoryNode{repository{%(f)s}}}}" % {"f": ",".join(fields)}
         path = ("node", "repository")
 
         data = await self._fetch(query, *path, repositorynode_id=repositorynode_id)
