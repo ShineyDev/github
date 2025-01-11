@@ -18,10 +18,13 @@ from github.utility import MISSING
 if TYPE_CHECKING:
     from typing import Literal
 
+    from github.connection.connection import ConnectionData
     from github.interfaces.node import NodeData
     from github.interfaces.repositorynode import RepositoryNodeData
     from github.interfaces.resource import ResourceData
     from github.interfaces.type import TypeData
+    from github.repository.issue import IssueData
+    from github.repository.pull import PullData
 
 
     class LabelData(NodeData, RepositoryNodeData, ResourceData, TypeData):
@@ -31,9 +34,9 @@ if TYPE_CHECKING:
         createdAt: str
         description: str | None
         isDefault: bool
-        # issues: ConnectionData[IssueData]  # TODO
+        issues: ConnectionData[IssueData]
         name: str
-        # pullRequests: ConnectionData[PullRequestData]  # TODO
+        pullRequests: ConnectionData[PullData]
         updatedAt: str
 
 
