@@ -5,13 +5,14 @@ if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
 
-    from github.connection import Connection, IssueOrder
+    from github.connection import Connection, IssueOrder, PullOrder
     from github.core.http import HTTPClient
-    from github.repository import Issue
+    from github.repository import Issue, Pull
     from github.utility.types import DateTime
 
 import github
 from github.interfaces import Node, RepositoryNode, Resource, Type
+from github.utility import MISSING
 
 
 if TYPE_CHECKING:
@@ -374,6 +375,55 @@ class Label(Node, RepositoryNode, Resource, Type):
             self.id,
             order_by.value if order_by is not MISSING else None,
             data_map=lambda d: github.Issue._from_data(d, http=self._http),
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
+        )
+
+    def fetch_pulls(
+        self: Self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        order_by: PullOrder = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Pull]:
+        """
+        |aiter|
+
+        Fetches pull requests associated with the label.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        order_by: :class:`~github.PullOrder`
+            The field by which to order the elements.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection`[:class:`~github.Pull`]
+        """
+
+        return github.Connection(
+            self._http.collect_label_pulls,
+            self.id,
+            order_by.value if order_by is not MISSING else None,
+            data_map=lambda d: github.Pull._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,
