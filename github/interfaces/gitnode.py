@@ -34,6 +34,8 @@ class GitNode:
         "object_id": "oid",
     }
 
+    _graphql_type: str = "GitObject"
+
     @property
     def object_id(
         self: Self,
