@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from typing import cast
     from typing_extensions import Self
 
     from github.core.http import HTTPClient
@@ -112,6 +113,82 @@ class Bot(Actor, Node, Resource, Type):
         """
 
         return github.utility.iso_to_datetime(self._data["updatedAt"])
+
+    async def fetch_created_at(
+        self: Self,
+        /,
+    ) -> DateTime:
+        """
+        |coro|
+
+        Fetches the date and time at which the bot was created.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~datetime.datetime`
+        """
+
+        created_at = await self._fetch_field("createdAt")
+
+        if TYPE_CHECKING:
+            created_at = cast(str, created_at)
+
+        return github.utility.iso_to_datetime(created_at)
+
+    async def fetch_database_id(
+        self: Self,
+        /,
+    ) -> int:
+        """
+        |coro|
+
+        Fetches the database ID of the bot.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`int`
+        """
+
+        return await self._fetch_field("databaseId")  # type: ignore
+
+    async def fetch_updated_at(
+        self: Self,
+        /,
+    ) -> DateTime:
+        """
+        |coro|
+
+        Fetches the date and time at which the bot was last updated.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~datetime.datetime`
+        """
+
+        updated_at = await self._fetch_field("updatedAt")
+
+        if TYPE_CHECKING:
+            updated_at = cast(str, updated_at)
+
+        return github.utility.iso_to_datetime(updated_at)
 
 
 __all__ = [
