@@ -12,6 +12,8 @@ from github.interfaces.deletable import *
 from github.interfaces.deletable import __all__ as _deletable__all__
 from github.interfaces.discussionauthor import *
 from github.interfaces.discussionauthor import __all__ as _discussionauthor__all__
+from github.interfaces.gitnode import *
+from github.interfaces.gitnode import __all__ as _gitnode__all__
 from github.interfaces.labelable import *
 from github.interfaces.labelable import __all__ as _labelable__all__
 from github.interfaces.lockable import *
@@ -54,6 +56,7 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_comment__all__,
     *_deletable__all__,
     *_discussionauthor__all__,
+    *_gitnode__all__,
     *_labelable__all__,
     *_lockable__all__,
     *_node__all__,
