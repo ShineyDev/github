@@ -12,6 +12,9 @@ from github.interfaces import GitNode, Node, RepositoryNode, Type
 if TYPE_CHECKING:
     from typing import Literal
 
+    from github.git.blob import BlobData
+    from github.git.commit import CommitData
+    from github.git.tree import TreeData
     from github.interfaces.gitnode import GitNodeData
     from github.interfaces.node import NodeData
     from github.interfaces.repositorynode import RepositoryNodeData
@@ -24,7 +27,7 @@ if TYPE_CHECKING:
         message: str | None
         name: str
         # tagger  # TODO
-        # target  # TODO
+        target: BlobData | CommitData | TreeData
 
 
 class Tag(GitNode, Node, RepositoryNode, Type):
