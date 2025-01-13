@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     from typing import Literal
 
     from github.connection.connection import ConnectionData
+    from github.git.tree import TreeData
     from github.interfaces.gitnode import GitNodeData
     from github.interfaces.node import NodeData
     from github.interfaces.repositorynode import RepositoryNodeData
@@ -59,7 +60,7 @@ if TYPE_CHECKING:
         # statusCheckRollup  # TODO
         # submodules  # TODO
         tarballUrl: str
-        # tree  # TODO
+        tree: TreeData
         treeResourcePath: str
         treeUrl: str
         updatesChannel: str | None
