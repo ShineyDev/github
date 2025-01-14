@@ -6,6 +6,8 @@ from github.git.tag import *
 from github.git.tag import __all__ as _tag__all__
 from github.git.tree import *
 from github.git.tree import __all__ as _tree__all__
+from github.git.treeentry import *
+from github.git.treeentry import __all__ as _treeentry__all__
 
 
 __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
@@ -13,4 +15,5 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_commit__all__,
     *_tag__all__,
     *_tree__all__,
+    *_treeentry__all__,
 ]
