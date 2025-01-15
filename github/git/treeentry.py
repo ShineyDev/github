@@ -5,7 +5,9 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.core.http import HTTPClient
+    from github.git import TreeEntryMode, TreeEntryType
 
+import github
 from github.interfaces import Type
 
 
@@ -74,7 +76,7 @@ class TreeEntry(Type):
         "is_generated": "isGenerated",
         # "__language_id": "language{id}",  # TODO: type
         "line_count": "lineCount",
-        # "mode": "mode",  # TODO: type
+        "mode": "mode",
         "name": "name",
         # "": "nameRaw",  # TODO: name
         # "__object_id": "object{id}",  # TODO: implement
@@ -84,7 +86,7 @@ class TreeEntry(Type):
         # "__repository_id": "repository{id}",  # TODO: implement
         "size": "size",
         # "submodule": "submodule{%s}",  # TODO: type
-        # "type": "type",  # TODO: type
+        "type": "type",
     }
 
     @property
@@ -127,6 +129,19 @@ class TreeEntry(Type):
         """
 
         return self._data["lineCount"]
+
+    @property
+    def mode(
+        self: Self,
+        /,
+    ) -> TreeEntryMode:
+        """
+        The mode of the tree entry.
+
+        :type: :class:`~github.TreeEntryMode`
+        """
+
+        return github.TreeEntryMode(self._data["mode"])
 
     @property
     def name(
@@ -180,6 +195,19 @@ class TreeEntry(Type):
         """
 
         return self._data["size"]
+
+    @property
+    def type(
+        self: Self,
+        /,
+    ) -> TreeEntryType:
+        """
+        The type of the tree entry.
+
+        :type: :class:`~github.TreeEntryType`
+        """
+
+        return github.TreeEntryType(self._data["type"])
 
 
 __all__ = [
