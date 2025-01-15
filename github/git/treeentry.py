@@ -14,6 +14,8 @@ if TYPE_CHECKING:
 
     from github.git.blob import BlobData
     from github.git.tree import TreeData
+    from github.git.treeentrymode import TreeEntryModeData
+    from github.git.treeentrytype import TreeEntryTypeData
     from github.interfaces.type import TypeData
     from github.repository.repository import RepositoryData
 
@@ -25,7 +27,7 @@ if TYPE_CHECKING:
         isGenerated: bool
         # language  # TODO
         lineCount: int | None
-        mode: Literal[16384, 33188, 33261, 40960, 57344]
+        mode: TreeEntryModeData
         name: str
         nameRaw: str
         object: BlobData | TreeData
@@ -35,7 +37,7 @@ if TYPE_CHECKING:
         repository: RepositoryData
         size: int
         # submodule  # TODO
-        type: Literal["blob", "tree"]
+        type: TreeEntryTypeData
 
 
 class TreeEntry(Type):
