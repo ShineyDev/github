@@ -13,6 +13,8 @@ from github.connection import *
 from github.connection import __all__ as _connection__all__
 from github.content import *
 from github.content import __all__ as _content__all__
+from github.git import *
+from github.git import __all__ as _git__all__
 from github.organization import *
 from github.organization import __all__ as _organization__all__
 from github.repository import *
@@ -42,6 +44,7 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_automation__all__,
     *_connection__all__,
     *_content__all__,
+    *_git__all__,
     *_organization__all__,
     *_repository__all__,
     *_user__all__,
