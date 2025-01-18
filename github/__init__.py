@@ -19,6 +19,8 @@ from github.organization import *
 from github.organization import __all__ as _organization__all__
 from github.repository import *
 from github.repository import __all__ as _repository__all__
+from github.security import *
+from github.security import __all__ as _security__all__
 from github.user import *
 from github.user import __all__ as _user__all__
 from github import utility
@@ -47,6 +49,7 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_git__all__,
     *_organization__all__,
     *_repository__all__,
+    *_security__all__,
     *_user__all__,
     "utility",
     "version",
