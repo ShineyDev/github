@@ -99,6 +99,8 @@ class Advisory(Node, Type):
         "withdrawn_at": "withdrawnAt",
     }
 
+    _graphql_type = "SecurityAdvisory"
+
     _node_prefix = "GSA"
 
     @property
