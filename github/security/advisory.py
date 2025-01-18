@@ -6,7 +6,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.core.http import HTTPClient
-    from github.security import AdvisoryClassification
+    from github.security import AdvisoryClassification, AdvisorySeverity
     from github.utility.types import DateTime
 
 import github
@@ -19,6 +19,7 @@ if TYPE_CHECKING:
     from github.interfaces.node import NodeData
     from github.interfaces.type import TypeData
     from github.security.advisoryclassification import AdvisoryClassificationData
+    from github.security.advisoryseverity import AdvisorySeverityData
 
 
     class AdvisoryData(NodeData, TypeData):
@@ -38,7 +39,7 @@ if TYPE_CHECKING:
         permalink: str | None
         publishedAt: str
         # references  # TODO
-        severity: Literal["CRITICAL", "HIGH", "LOW", "MODERATE"]
+        severity: AdvisorySeverityData
         summary: str
         updatedAt: str
         # vulnerabilities  # TODO
@@ -92,7 +93,7 @@ class Advisory(Node, Type):
         # "": "notificationsPermalink",  # TODO: name
         # "": "permalink",  # TODO: name
         "published_at": "publishedAt",
-        # "severity": "severity",  # TODO: type
+        "severity": "severity",
         "summary": "summary",
         "updated_at": "updatedAt",
         "withdrawn_at": "withdrawnAt",
@@ -151,6 +152,19 @@ class Advisory(Node, Type):
         """
 
         return github.utility.iso_to_datetime(self._data["publishedAt"])
+
+    @property
+    def severity(
+        self: Self,
+        /,
+    ) -> AdvisorySeverity:
+        """
+        The severity of the advisory.
+
+        :type: :class:`~github.AdvisorySeverity`
+        """
+
+        return github.AdvisorySeverity(self._data["severity"])
 
     @property
     def summary(
@@ -288,6 +302,28 @@ class Advisory(Node, Type):
             published_at = cast(str, published_at)
 
         return github.utility.iso_to_datetime(published_at)
+
+    async def fetch_severity(
+        self: Self,
+        /,
+    ) -> AdvisorySeverity:
+        """
+        |coro|
+
+        Fetches the severity of the advisory.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.AdvisorySeverity`
+        """
+
+        return github.AdvisorySeverity(await self._fetch_field("severity"))
 
     async def fetch_summary(
         self: Self,
