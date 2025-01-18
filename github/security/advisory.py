@@ -94,7 +94,7 @@ class Advisory(Node, Type):
         # "": "permalink",  # TODO: name
         "published_at": "publishedAt",
         "severity": "severity",
-        "summary": "summary",
+        "title": "summary",
         "updated_at": "updatedAt",
         "withdrawn_at": "withdrawnAt",
     }
@@ -167,12 +167,12 @@ class Advisory(Node, Type):
         return github.AdvisorySeverity(self._data["severity"])
 
     @property
-    def summary(
+    def title(
         self: Self,
         /,
     ) -> str:
         """
-        The summary of the advisory.
+        The title of the advisory.
 
         :type: :class:`str`
         """
@@ -325,14 +325,14 @@ class Advisory(Node, Type):
 
         return github.AdvisorySeverity(await self._fetch_field("severity"))
 
-    async def fetch_summary(
+    async def fetch_title(
         self: Self,
         /,
     ) -> str:
         """
         |coro|
 
-        Fetches the summary of the advisory.
+        Fetches the title of the advisory.
 
 
         Raises
