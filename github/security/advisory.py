@@ -6,6 +6,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.core.http import HTTPClient
+    from github.security import AdvisoryClassification
     from github.utility.types import DateTime
 
 import github
@@ -17,12 +18,13 @@ if TYPE_CHECKING:
 
     from github.interfaces.node import NodeData
     from github.interfaces.type import TypeData
+    from github.security.advisoryclassification import AdvisoryClassificationData
 
 
     class AdvisoryData(NodeData, TypeData):
         __typename: Literal["SecurityAdvisory"]
 
-        classification: Literal["GENERAL", "MALWARE"]
+        classification: AdvisoryClassificationData
         # cvss  # TODO
         # cvssSeverities  # TODO
         # cwes  # TODO
@@ -83,7 +85,7 @@ class Advisory(Node, Type):
         return cls(cls._patch_data(data), http)
 
     _graphql_fields: dict[str, str] = {
-        # "classification": "classification",  # TODO: type
+        "classification": "classification",
         "database_id": "databaseId",
         "description": "description",
         # "": "ghsaId",  # TODO: name
@@ -97,6 +99,19 @@ class Advisory(Node, Type):
     }
 
     _node_prefix = "GSA"
+
+    @property
+    def classification(
+        self: Self,
+        /,
+    ) -> AdvisoryClassification:
+        """
+        The classification of the advisory.
+
+        :type: :class:`~github.AdvisoryClassification`
+        """
+
+        return github.AdvisoryClassification(self._data["classification"])
 
     @property
     def database_id(
@@ -180,6 +195,28 @@ class Advisory(Node, Type):
             return None
 
         return github.utility.iso_to_datetime(withdrawn_at)
+
+    async def fetch_classification(
+        self: Self,
+        /,
+    ) -> AdvisoryClassification:
+        """
+        |coro|
+
+        Fetches the classification of the advisory.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.AdvisoryClassification`
+        """
+
+        return github.AdvisoryClassification(await self._fetch_field("classification"))
 
     async def fetch_database_id(
         self: Self,
