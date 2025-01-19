@@ -5,12 +5,14 @@ if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
 
+    from github.connection import Connection, VulnerabilityOrder
     from github.core.http import HTTPClient
-    from github.security import AdvisoryClassification, AdvisorySeverity
+    from github.security import AdvisoryClassification, AdvisorySeverity, Vulnerability
     from github.utility.types import DateTime
 
 import github
 from github.interfaces import Node, Type
+from github.utility import MISSING
 
 
 if TYPE_CHECKING:
@@ -407,6 +409,55 @@ class Advisory(Node, Type):
             withdrawn_at = cast(str, withdrawn_at)
 
         return github.utility.iso_to_datetime(withdrawn_at)
+
+    def fetch_vulnerabilities(
+        self: Self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        order_by: VulnerabilityOrder = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Vulnerability]:
+        """
+        |aiter|
+
+        Fetches individual vulnerabilities from the advisory.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        order_by: :class:`~github.VulnerabilityOrder`
+            The field by which to order the elements.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection`[:class:`~github.Vulnerability`]
+        """
+
+        return github.Connection(
+            self._http.collect_advisory_vulnerabilities,
+            self.id,
+            order_by.value if order_by is not MISSING else None,
+            data_map=lambda d: github.Vulnerability._from_data(d),
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
+        )
 
 
 __all__ = [
