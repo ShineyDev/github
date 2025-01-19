@@ -1,3 +1,5 @@
+from github.connection.advisoryorder import *
+from github.connection.advisoryorder import __all__ as _advisoryorder__all__
 from github.connection.connection import *
 from github.connection.connection import __all__ as _connection__all__
 from github.connection.discussionorder import *
@@ -25,6 +27,7 @@ from github.connection.vulnerabilityorder import __all__ as _vulnerabilityorder_
 
 
 __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
+    *_advisoryorder__all__,
     *_connection__all__,
     *_discussionorder__all__,
     *_issueorder__all__,
