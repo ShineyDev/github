@@ -7,11 +7,11 @@ if TYPE_CHECKING:
     from aiohttp import ClientSession
 
     from github.api import Metadata, RateLimit
-    from github.connection import Connection, VulnerabilityOrder
+    from github.connection import AdvisoryOrder, Connection, VulnerabilityOrder
     from github.content import CodeOfConduct, License
     from github.organization import Organization
     from github.repository import Repository, Topic
-    from github.security import Vulnerability
+    from github.security import Advisory, Vulnerability
     from github.user import AuthenticatedUser, User, UserStatus
     from github.utility.types import DateTime, T_json_object
 
@@ -498,6 +498,54 @@ class Client(graphql.client.Client):
 
         data = await self._http.fetch_query_viewer(**kwargs)
         return github.AuthenticatedUser._from_data(data, http=self._http)
+
+    def fetch_advisories(
+        self: Self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        order_by: AdvisoryOrder = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Advisory]:
+        """
+        |aiter|
+
+        Fetches security advisories.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        order_by: :class:`~github.AdvisoryOrder`
+            The field by which to order the elements.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection`[:class:`~github.Advisory`]
+        """
+
+        return github.Connection(
+            self._http.collect_query_advisories,
+            order_by.value if order_by is not MISSING else None,
+            data_map=lambda d: github.Advisory._from_data(d, http=self._http),
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
+        )
 
     def fetch_vulnerabilities(
         self: Self,

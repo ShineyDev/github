@@ -28,6 +28,7 @@ if TYPE_CHECKING:
     from github.repository.pull import PullData
     from github.repository.repository import RepositoryData
     from github.repository.topic import TopicData
+    from github.security.advisory import AdvisoryData
     from github.security.vulnerability import VulnerabilityData
     from github.user import User, UserStatus
     from github.user.user import UserData, ViewerData
@@ -1251,6 +1252,25 @@ class HTTPClient(graphql.client.http.HTTPClient):
         path = ("node", "participants")
 
         return await self._collect(query, *path, pull_id=pull_id, **kwargs)
+
+    async def collect_query_advisories(
+        self: Self,
+        /,
+        order_by: str | None,
+        *,
+        fields: Iterable[str] = MISSING,
+        **kwargs,
+    ) -> ConnectionData[AdvisoryData]:
+        fields = github.utility.get_merged_graphql_fields(github.Advisory, fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:SecurityAdvisoryOrder){securityAdvisories(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}" % ",".join(fields)
+        path = ("securityAdvisories",)
+
+        if order_by is None:
+            order_by_data = None
+        else:
+            order_by_data = {"direction": "ASC", "field": order_by}
+
+        return await self._collect(query, *path, order_by=order_by_data, **kwargs)
 
     async def collect_query_vulnerabilities(
         self: Self,
