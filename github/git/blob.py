@@ -66,14 +66,14 @@ class Blob(GitNode, Node, RepositoryNode, Type):
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _graphql_fields: dict[str, str] =  {
+    _graphql_fields =  {
         "size": "byteSize",
         "is_text": "isBinary",
         # "": "isTruncated",  # TODO: [blob-content]
         # "": "text",  # TODO: [blob-content]
     }
 
-    _node_prefix: str = "B"
+    _node_prefix = "B"
 
     @property
     def is_text(

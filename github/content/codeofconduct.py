@@ -66,17 +66,17 @@ class CodeOfConduct(Node, Resource, Type):
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _repr_fields: list[str] = [
+    _repr_fields = [
         "key",
     ]
 
-    _graphql_fields: list[str] = [
+    _graphql_fields = [
         "body",
         "key",
         "name",
     ]
 
-    _node_prefix: str = "COC"
+    _node_prefix = "COC"
 
     @property
     def body(

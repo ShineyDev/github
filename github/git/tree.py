@@ -63,7 +63,7 @@ class Tree(GitNode, Node, RepositoryNode, Type):
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _node_prefix: str = "TREE"
+    _node_prefix = "TREE"
 
 
 __all__ = [

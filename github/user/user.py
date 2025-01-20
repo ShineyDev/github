@@ -173,7 +173,7 @@ class User(
         else:
             return AuthenticatedUser(data, http)
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "bio": "bio",
         "bio_html": "bioHTML",
         "can_viewer_follow": "viewerCanFollow",
@@ -199,7 +199,7 @@ class User(
         # "": "userViewType",  # TODO: name, type
     }
 
-    _node_prefix: str = "U"
+    _node_prefix = "U"
 
     @property
     def bio(

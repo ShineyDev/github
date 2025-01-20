@@ -31,7 +31,7 @@ class Closable:
 
     _data: ClosableData
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "is_closed": "closed",
         "closed_at": "closedAt",
         "viewer_can_close": "viewerCanClose",

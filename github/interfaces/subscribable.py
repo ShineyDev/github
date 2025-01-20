@@ -32,7 +32,7 @@ class Subscribable:
 
     _data: SubscribableData
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "viewer_can_update_subscription": "viewerCanSubscribe",
         "viewer_subscription": "viewerSubscription",
     }

@@ -26,11 +26,11 @@ class Actor:
 
     _data: ActorData
 
-    _repr_fields: list[str] = [
+    _repr_fields = [
         "login",
     ]
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "avatar_url": "avatarUrl",
         "login": "login",
     }

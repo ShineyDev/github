@@ -23,7 +23,7 @@ class Lockable:
 
     _data: LockableData
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         # "": "activeLockReason",  # TODO: name, type
         "is_locked": "locked",
     }

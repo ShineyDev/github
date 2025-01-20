@@ -45,11 +45,11 @@ class LicenseRule(Type):
     ) -> Self:
         return cls(cls._patch_data(data))
 
-    _repr_fields: list[str] = [
+    _repr_fields = [
         "key",
     ]
 
-    _graphql_fields: list[str] = [
+    _graphql_fields = [
         "description",
         "key",
         "label",

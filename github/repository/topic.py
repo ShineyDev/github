@@ -71,16 +71,16 @@ class Topic(Node, Starrable, Type):
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _repr_fields: list[str] = [
+    _repr_fields = [
         "name",
     ]
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "name": "name",
         "repository_count": "repositories{totalCount}",
     }
 
-    _node_prefix: str = "TO"
+    _node_prefix = "TO"
 
     @property
     def name(

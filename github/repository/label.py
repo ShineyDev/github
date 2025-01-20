@@ -81,11 +81,11 @@ class Label(Node, RepositoryNode, Resource, Type):
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _repr_fields: list[str] = [
+    _repr_fields = [
         "name",
     ]
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "color": "color",
         "created_at": "createdAt",
         "description": "description",
@@ -94,7 +94,7 @@ class Label(Node, RepositoryNode, Resource, Type):
         "updated_at": "updatedAt",
     }
 
-    _node_prefix: str = "LA"
+    _node_prefix = "LA"
 
     @property
     def color(

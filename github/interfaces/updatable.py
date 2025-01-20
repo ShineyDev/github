@@ -22,7 +22,7 @@ class Updatable:
 
     _data: UpdatableData
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "viewer_can_update": "viewerCanUpdate",
     }
 

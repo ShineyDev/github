@@ -70,14 +70,14 @@ class Mannequin(Actor, Node, Resource, Type):
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "created_at": "createdAt",
         "database_id": "databaseId",
         # "email": "email",  # TODO: find
         "updated_at": "updatedAt",
     }
 
-    _node_prefix: str = "M"
+    _node_prefix = "M"
 
     @property
     def created_at(

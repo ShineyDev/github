@@ -67,13 +67,13 @@ class Bot(Actor, Node, Resource, Type):
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "created_at": "createdAt",
         "database_id": "databaseId",
         "updated_at": "updatedAt",
     }
 
-    _node_prefix: str = "BOT"
+    _node_prefix = "BOT"
 
     @property
     def created_at(

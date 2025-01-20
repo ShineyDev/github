@@ -66,7 +66,7 @@ class Comment:
 
         return data
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         # "": "authorAssociation",  # TODO: name, type
         "body": "body",
         "body_html": "bodyHTML",

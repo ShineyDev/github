@@ -87,7 +87,7 @@ class Advisory(Node, Type):
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "classification": "classification",
         "database_id": "databaseId",
         "description": "description",

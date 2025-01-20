@@ -115,11 +115,11 @@ class Discussion(
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _repr_fields: list[str] = [
+    _repr_fields = [
         "number",
     ]
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         # "": "answerChosenAt",  # TODO: name
         "database_id": "databaseId",
         "is_answered": "isAnswered",
@@ -128,7 +128,7 @@ class Discussion(
         "title": "title",
     }
 
-    _node_prefix: str = "D"
+    _node_prefix = "D"
 
     @property
     def database_id(

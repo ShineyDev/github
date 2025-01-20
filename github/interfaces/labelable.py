@@ -34,7 +34,7 @@ class Labelable:
 
     _data: LabelableData
 
-    _graphql_fields: dict[str, str,] = {
+    _graphql_fields = {
         "viewer_can_label": "viewerCanLabel",
     }
 

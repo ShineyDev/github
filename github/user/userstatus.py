@@ -75,12 +75,12 @@ class UserStatus(Node, Type):
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _repr_fields: list[str] = [
+    _repr_fields = [
         "message",
         "is_busy",
     ]
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "can_viewer_update": "user{isViewer}",
         "created_at": "createdAt",
         "emoji": "emoji",
@@ -91,7 +91,7 @@ class UserStatus(Node, Type):
         "updated_at": "updatedAt",
     }
 
-    _node_prefix: str = "US"
+    _node_prefix = "US"
 
     @property
     def can_viewer_update(

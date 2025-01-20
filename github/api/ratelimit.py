@@ -52,7 +52,7 @@ class RateLimit(Type):
     ) -> Self:
         return cls(cls._patch_data(data))
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "limit": "limit",
         "remaining": "remaining",
         "resets_at": "resetAt",

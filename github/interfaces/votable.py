@@ -24,7 +24,7 @@ class Votable:
 
     _data: VotableData
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "upvote_count": "upvoteCount",
         "viewer_can_upvote": "viewerCanUpvote",
         "viewer_has_upvoted": "viewerHasUpvoted",

@@ -219,11 +219,11 @@ class Repository(
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _repr_fields: list[str] = [
+    _repr_fields = [
         "name",
     ]
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         # "": "allowUpdateBranch",  # TODO: name
         "archived_at": "archivedAt",
         # "": "autoMergeAllowed",  # TODO: name
@@ -280,7 +280,7 @@ class Repository(
         # "": "webCommitSignoffRequired",  # TODO: name
     }
 
-    _node_prefix: str = "R"
+    _node_prefix = "R"
 
     @property
     def allows_fork(

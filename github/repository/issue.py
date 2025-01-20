@@ -137,11 +137,11 @@ class Issue(
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _repr_fields: list[str] = [
+    _repr_fields = [
         "number",
     ]
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         # "": "bodyResourcePath",  # TODO: name
         # "": "bodyUrl",  # TODO: name
         "database_id": "fullDatabaseId",
@@ -156,7 +156,7 @@ class Issue(
         # "": "viewerThreadSubscriptionStatus",  # TODO: name, type
     }
 
-    _node_prefix: str = "I"
+    _node_prefix = "I"
 
     @property
     def database_id(

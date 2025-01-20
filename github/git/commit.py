@@ -105,7 +105,7 @@ class Commit(GitNode, Node, RepositoryNode, Resource, Subscribable, Type):
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "addition_count": "additions",
         # "": "authoredByCommitter",  # TODO: name
         "authored_at": "authoredDate",
@@ -126,7 +126,7 @@ class Commit(GitNode, Node, RepositoryNode, Resource, Subscribable, Type):
         # "": "zipballUrl",  # TODO: name
     }
 
-    _node_prefix: str = "C"
+    _node_prefix = "C"
 
     @property
     def addition_count(

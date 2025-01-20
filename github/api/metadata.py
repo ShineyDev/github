@@ -49,9 +49,7 @@ class Metadata(Type):
     ) -> Self:
         return cls(cls._patch_data(data))
 
-    _graphql_type: str = "GitHubMetadata"
-
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "enterprise_importer_ip_addresses": "githubEnterpriseImporterIpAddresses",
         "git_ip_addresses": "gitIpAddresses",
         "github_services_sha": "gitHubServicesSha",
@@ -60,6 +58,8 @@ class Metadata(Type):
         # "is_password_authentication_verifiable": "isPasswordAuthenticationVerifiable",  # NOTE: see Metadata.is_password_authentication_verifiable
         "pages_ip_addresses": "pagesIpAddresses",
     }
+
+    _graphql_type = "GitHubMetadata"
 
     @property
     def enterprise_importer_ip_addresses(

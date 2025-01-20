@@ -47,7 +47,7 @@ class Sponsorable:
     _data: SponsorableData
     _http: HTTPClient
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "can_viewer_sponsor": "viewerCanSponsor",
         "has_sponsors_listing": "hasSponsorsListing",
         "is_sponsoring_viewer": "isSponsoringViewer",

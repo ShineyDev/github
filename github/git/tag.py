@@ -78,12 +78,12 @@ class Tag(GitNode, Node, RepositoryNode, Type):
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _graphql_fields: list[str] = [
+    _graphql_fields = [
         "message",
         "name",
     ]
 
-    _node_prefix: str = "TA"
+    _node_prefix = "TA"
 
     @property
     def message(

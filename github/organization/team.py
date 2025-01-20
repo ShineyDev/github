@@ -117,7 +117,7 @@ class Team(
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "avatar_url": "avatarUrl",
         # "": "combinedSlug",  # TODO: name
         "created_at": "createdAt",
@@ -147,7 +147,7 @@ class Team(
         "viewer_can_administer": "viewerCanAdminister",
     }
 
-    _node_prefix: str = "T"
+    _node_prefix = "T"
 
     @property
     def avatar_url(

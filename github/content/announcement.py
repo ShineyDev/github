@@ -49,7 +49,7 @@ class Announcement(Type):
     ) -> Self:
         return cls(cls._patch_data(data))
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "created_at": "createdAt",
         "expires_at": "expiresAt",
         "can_viewer_dismiss": "isUserDismissible",

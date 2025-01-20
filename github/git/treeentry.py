@@ -71,7 +71,7 @@ class TreeEntry(Type):
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "extension": "extension",
         "is_generated": "isGenerated",
         # "__language_id": "language{id}",  # TODO: type

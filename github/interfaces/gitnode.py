@@ -27,14 +27,14 @@ class GitNode:
 
     _data: GitNodeData
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         # "": "abbreviatedOid",  # TODO: name
         # "": "commitResourcePath",  # TODO: name
         # "": "commitUrl",  # TODO: name
         "object_id": "oid",
     }
 
-    _graphql_type: str = "GitObject"
+    _graphql_type = "GitObject"
 
     @property
     def object_id(

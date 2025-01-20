@@ -151,7 +151,7 @@ class Organization(
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "archived_at": "archivedAt",
         "can_viewer_administer": "viewerCanAdminister",
         "can_viewer_create_teams": "viewerCanCreateTeams",
@@ -166,7 +166,7 @@ class Organization(
         "updated_at": "updatedAt",
     }
 
-    _node_prefix: str = "O"
+    _node_prefix = "O"
 
     @property
     def archived_at(

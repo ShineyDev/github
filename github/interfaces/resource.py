@@ -30,7 +30,7 @@ class Resource:
 
     _data: ResourceData
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "resource_path": "resourcePath",
         "url": "url",
     }

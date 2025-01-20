@@ -78,11 +78,11 @@ class License(Node, Type):
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _repr_fields: list[str] = [
+    _repr_fields = [
         "key",
     ]
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "body": "body",
         "choosealicense_url": "url",
         "conditions": "conditions{%s}" % ",".join(github.utility.get_defined_graphql_fields(LicenseRule)),
@@ -99,7 +99,7 @@ class License(Node, Type):
         "spdx_id": "spdxId",
     }
 
-    _node_prefix: str = "L"
+    _node_prefix = "L"
 
     @property
     def body(

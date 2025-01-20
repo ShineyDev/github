@@ -51,7 +51,7 @@ class ProfileOwner:
 
         return data
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "can_viewer_update_showcase": "viewerCanChangePinnedItems",
         # "email": "email",  # NOTE: see ProfileOwner.email
         "has_pinnable_items": "anyPinnableItems",

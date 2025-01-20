@@ -22,7 +22,7 @@ class Deletable:
 
     _data: DeletableData
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "viewer_can_delete": "viewerCanDelete",
     }
 

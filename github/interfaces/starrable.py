@@ -37,7 +37,7 @@ class Starrable:
 
     _data: StarrableData
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "has_viewer_starred": "viewerHasStarred",
         "stargazer_count": "stargazerCount",
     }

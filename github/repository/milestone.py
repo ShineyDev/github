@@ -91,11 +91,11 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _repr_fields: list[str] = [
+    _repr_fields = [
         "number",
     ]
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "created_at": "createdAt",
         "description": "description",
         "due_at": "dueOn",
@@ -106,7 +106,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
         "updated_at": "updatedAt",
     }
 
-    _node_prefix: str = "MI"
+    _node_prefix = "MI"
 
     @property
     def created_at(

@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Any, cast
+    from typing import Any, ClassVar, cast
     from typing_extensions import Self
 
     from github.core.http import HTTPClient
@@ -43,13 +43,15 @@ class Node:
     _data: NodeData
     _http: HTTPClient
 
-    _repr_fields: list[str] = [
+    _repr_fields = [
         "id",
     ]
 
-    _graphql_fields: list[str] = [
+    _graphql_fields = [
         "id",
     ]
+
+    _node_prefix: ClassVar[str] = MISSING
 
     def __hash__(
         self: Self,

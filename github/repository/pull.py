@@ -181,7 +181,7 @@ class Pull(
     ) -> Self:
         return cls(cls._patch_data(data), http)
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "addition_count": "additions",
         # "": "baseRefName",  # TODO: name
         # "": "baseRefOid",  # TODO: name
@@ -221,9 +221,9 @@ class Pull(
         # "": "viewerCanUpdateBranch",  # TODO: name
     }
 
-    _graphql_type: str = "PullRequest"
+    _graphql_type = "PullRequest"
 
-    _node_prefix: str = "PR"
+    _node_prefix = "PR"
 
     @property
     def addition_count(

@@ -26,7 +26,7 @@ class Reactable:
 
     _data: ReactableData
 
-    _graphql_fields: dict[str, str] = {
+    _graphql_fields = {
         "viewer_can_react": "viewerCanReact",
     }
 

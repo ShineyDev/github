@@ -33,8 +33,6 @@ class Assignable:
 
     _data: AssignableData
 
-    _graphql_fields: list[str] = []
-
     def fetch_assignees(
         self: Self,
         /,
