@@ -5,7 +5,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.core.http import HTTPClient
-    from github.connection import Connection
+    from github.connection import Connection, StargazerOrder
     from github.interfaces import Node
     from github.user import User
     from github.user.user import UserData
@@ -102,7 +102,7 @@ class Starrable:
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        # order_by: StargazerOrder = MISSING,  # NOTE (stargazerorder): StargazerOrder has only one attribute
+        order_by: StargazerOrder = MISSING,
         reverse: bool = MISSING,
     ) -> Connection[User]:
         """
@@ -140,7 +140,7 @@ class Starrable:
         return github.Connection(
             self._http.collect_starrable_stargazers,
             self.id,
-            None,  # order_by.value if order_by is not MISSING else None  # NOTE (stargazerorder): StargazerOrder has only one attribute
+            order_by.value if order_by is not MISSING else None,
             data_map=userdata_to_user,
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
