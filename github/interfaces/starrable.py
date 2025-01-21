@@ -4,7 +4,6 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing_extensions import Self
 
-    from github.core.http import HTTPClient
     from github.connection import Connection, StargazerOrder
     from github.interfaces import Node
     from github.user import User
