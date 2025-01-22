@@ -5,6 +5,7 @@ if TYPE_CHECKING:
     from typing import cast
     from typing_extensions import Self
 
+    from github.connection import Connection
     from github.core.http import HTTPClient
     from github.utility.types import DateTime
 
@@ -447,6 +448,51 @@ class Team(
         """
 
         return await self._fetch_field("viewerCanAdminister")  # type: ignore
+
+    def fetch_ancestors(
+        self: Self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Team]:
+        """
+        |aiter|
+
+        Fetches ancestors of the team.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection`[:class:`~github.Team`]
+        """
+
+        return github.Connection(
+            self._http.collect_team_ancestors,
+            self.id,
+            data_map=lambda d: github.Team._from_data(d, http=self._http),
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
+        )
 
 
 __all__ = [
