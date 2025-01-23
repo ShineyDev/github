@@ -157,7 +157,10 @@ class Assignable:
 
         data = await self._http.mutate_assignable_add_assignees(self.id, [a.id for a in assignees], fields=("assignees{totalCount}",))
 
-        return data["assignees"]["totalCount"]
+        if "assignees" not in self._data.keys():
+            self._data["assignees"] = dict()  # type: ignore
+
+        self._data["assignees"]["totalCount"] = data["assignees"]["totalCount"]
 
     async def remove_assignees(
         self: Self,
@@ -189,7 +192,10 @@ class Assignable:
 
         data = await self._http.mutate_assignable_remove_assignees(self.id, [a.id for a in assignees], fields=("assignees{totalCount}",))
 
-        return data["assignees"]["totalCount"]
+        if "assignees" not in self._data.keys():
+            self._data["assignees"] = dict()  # type: ignore
+
+        self._data["assignees"]["totalCount"] = data["assignees"]["totalCount"]
 
 
 __all__ = [
