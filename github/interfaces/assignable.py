@@ -138,6 +138,13 @@ class Assignable:
         Adds assignees to the assignable.
 
 
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.assignee_count`
+
+
         Parameters
         ----------
 
@@ -148,7 +155,9 @@ class Assignable:
         if TYPE_CHECKING and not isinstance(self, Node):
             raise NotImplementedError
 
-        await self._http.mutate_assignable_add_assignees(self.id, [a.id for a in assignees])
+        data = await self._http.mutate_assignable_add_assignees(self.id, [a.id for a in assignees], fields=("assignees{totalCount}",))
+
+        return data["assignees"]["totalCount"]
 
     async def remove_assignees(
         self: Self,
@@ -161,6 +170,13 @@ class Assignable:
         Removes assignees from the assignable.
 
 
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.assignee_count`
+
+
         Parameters
         ----------
 
@@ -171,7 +187,9 @@ class Assignable:
         if TYPE_CHECKING and not isinstance(self, Node):
             raise NotImplementedError
 
-        await self._http.mutate_assignable_remove_assignees(self.id, [a.id for a in assignees])
+        data = await self._http.mutate_assignable_remove_assignees(self.id, [a.id for a in assignees], fields=("assignees{totalCount}",))
+
+        return data["assignees"]["totalCount"]
 
 
 __all__ = [

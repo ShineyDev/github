@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     from github.content.codeofconduct import CodeOfConductData
     from github.content.license import LicenseData
     from github.interfaces import Node, Resource
+    from github.interfaces.assignable import AssignableData
     from github.interfaces.starrable import StarrableData
     from github.interfaces.subscribable import SubscribableData
     from github.organization.organization import OrganizationData
@@ -1690,22 +1691,32 @@ class HTTPClient(graphql.client.http.HTTPClient):
         /,
         assignable_id: str,
         assignee_ids: list[str],
-    ) -> None:
-        fields = ("__typename",)
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> AssignableData:
+        fields = ("__typename",) if fields is MISSING else fields
         query = "mutation($assignable_id:ID!,$assignee_ids:[ID!]!,$mutation_id:String!){addAssigneesToAssignable(input:{clientMutationId:$mutation_id,assignableId:$assignable_id,assigneeIds:$assignee_ids}){assignable{%s}}}" % ",".join(fields)
+        path = ("addAssigneesToAssignable", "assignable")
 
-        await self._mutate(query, assignable_id=assignable_id, assignee_ids=assignee_ids)
+        data = await self._mutate(query, *path, assignable_id=assignable_id, assignee_ids=assignee_ids)
+
+        return data  # type: ignore
 
     async def mutate_assignable_remove_assignees(
         self: Self,
         /,
         assignable_id: str,
         assignee_ids: list[str],
-    ) -> None:
-        fields = ("__typename",)
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> AssignableData:
+        fields = ("__typename",) if fields is MISSING else fields
         query = "mutation($assignable_id:ID!,$assignee_ids:[ID!]!,$mutation_id:String!){removeAssigneesToAssignable(input:{clientMutationId:$mutation_id,assignableId:$assignable_id,assigneeIds:$assignee_ids}){assignable{%s}}}" % ",".join(fields)
+        path = ("removeAssigneesFromAssignable", "assignable")
 
-        await self._mutate(query, assignable_id=assignable_id, assignee_ids=assignee_ids)
+        data = await self._mutate(query, *path, assignable_id=assignable_id, assignee_ids=assignee_ids)
+
+        return data  # type: ignore
 
     async def mutate_starrable_star(
         self: Self,
