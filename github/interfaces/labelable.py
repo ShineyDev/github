@@ -197,6 +197,41 @@ class Labelable:
 
         self._data["labels"]["totalCount"] = data["labels"]["totalCount"]
 
+    async def remove_labels(
+        self: Self,
+        /,
+        *labels: Label,
+    ) -> None:
+        """
+        |coro|
+
+        Removes labels from the labelable.
+
+
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.label_count`
+
+
+        Parameters
+        ----------
+
+        *labels: :class:`github.Label`
+            The labels to remove.
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        data = await self._http.mutate_labelable_remove_labels(self.id, [l.id for l in labels], fields=("labels{totalCount}",))
+
+        if "labels" not in self._data.keys():
+            self._data["labels"] = dict()  # type: ignore
+
+        self._data["labels"]["totalCount"] = data["labels"]["totalCount"]
+
 
 __all__ = [
     "Labelable",

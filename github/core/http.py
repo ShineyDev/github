@@ -1735,6 +1735,22 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data  # type: ignore
 
+    async def mutate_labelable_remove_labels(
+        self: Self,
+        /,
+        labelable_id: str,
+        label_ids: list[str],
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> LabelableData:
+        fields = ("__typename",) if fields is MISSING else fields
+        query = "mutation($labelable_id:ID!,$label_ids:[ID!]!,$mutation_id:String!){removeLabelsFromLabelable(input:{clientMutationId:$mutation_id,labelableId:$labelable_id,labelIds:$label_ids}){labelable{%s}}}" % ",".join(fields)
+        path = ("removeLabelsFromLabelable", "labelable")
+
+        data = await self._mutate(query, *path, labelable_id=labelable_id, label_ids=label_ids)
+
+        return data  # type: ignore
+
     async def mutate_starrable_star(
         self: Self,
         /,
