@@ -162,6 +162,41 @@ class Labelable:
             **kwargs,
         )
 
+    async def add_labels(
+        self: Self,
+        /,
+        *labels: Label,
+    ) -> None:
+        """
+        |coro|
+
+        Adds labels to the labelable.
+
+
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.label_count`
+
+
+        Parameters
+        ----------
+
+        *labels: :class:`github.Label`
+            The labels to add.
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        data = await self._http.mutate_labelable_add_labels(self.id, [l.id for l in labels], fields=("labels{totalCount}",))
+
+        if "labels" not in self._data.keys():
+            self._data["labels"] = dict()  # type: ignore
+
+        self._data["labels"]["totalCount"] = data["labels"]["totalCount"]
+
 
 __all__ = [
     "Labelable",

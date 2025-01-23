@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     from github.content.license import LicenseData
     from github.interfaces import Node, Resource
     from github.interfaces.assignable import AssignableData
+    from github.interfaces.labelable import LabelableData
     from github.interfaces.starrable import StarrableData
     from github.interfaces.subscribable import SubscribableData
     from github.organization.organization import OrganizationData
@@ -1715,6 +1716,22 @@ class HTTPClient(graphql.client.http.HTTPClient):
         path = ("removeAssigneesFromAssignable", "assignable")
 
         data = await self._mutate(query, *path, assignable_id=assignable_id, assignee_ids=assignee_ids)
+
+        return data  # type: ignore
+
+    async def mutate_labelable_add_labels(
+        self: Self,
+        /,
+        labelable_id: str,
+        label_ids: list[str],
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> LabelableData:
+        fields = ("__typename",) if fields is MISSING else fields
+        query = "mutation($labelable_id:ID!,$label_ids:[ID!]!,$mutation_id:String!){addLabelsToLabelable(input:{clientMutationId:$mutation_id,labelableId:$labelable_id,labelIds:$label_ids}){labelable{%s}}}" % ",".join(fields)
+        path = ("addLabelsToLabelable", "labelable")
+
+        data = await self._mutate(query, *path, labelable_id=labelable_id, label_ids=label_ids)
 
         return data  # type: ignore
 
