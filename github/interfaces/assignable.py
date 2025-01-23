@@ -108,6 +108,29 @@ class Assignable:
 
         await self._http.mutate_assignable_add_assignees(self.id, [a.id for a in assignees])
 
+    async def remove_assignees(
+        self: Self,
+        /,
+        *assignees: User,
+    ) -> None:
+        """
+        |coro|
+
+        Removes assignees from the assignable.
+
+
+        Parameters
+        ----------
+
+        *assignees: :class:`github.User`
+            The assignees to remove.
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        await self._http.mutate_assignable_remove_assignees(self.id, [a.id for a in assignees])
+
 
 __all__ = [
     "Assignable",

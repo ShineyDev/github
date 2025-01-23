@@ -1696,6 +1696,17 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         await self._mutate(query, assignable_id=assignable_id, assignee_ids=assignee_ids)
 
+    async def mutate_assignable_remove_assignees(
+        self: Self,
+        /,
+        assignable_id: str,
+        assignee_ids: list[str],
+    ) -> None:
+        fields = ("__typename",)
+        query = "mutation($assignable_id:ID!,$assignee_ids:[ID!]!,$mutation_id:String!){removeAssigneesToAssignable(input:{clientMutationId:$mutation_id,assignableId:$assignable_id,assigneeIds:$assignee_ids}){assignable{%s}}}" % ",".join(fields)
+
+        await self._mutate(query, assignable_id=assignable_id, assignee_ids=assignee_ids)
+
     async def mutate_starrable_star(
         self: Self,
         /,
