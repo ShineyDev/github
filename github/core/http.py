@@ -1711,7 +1711,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         fields: Iterable[str] = MISSING,
     ) -> AssignableData:
         fields = ("__typename",) if fields is MISSING else fields
-        query = "mutation($assignable_id:ID!,$assignee_ids:[ID!]!,$mutation_id:String!){removeAssigneesToAssignable(input:{clientMutationId:$mutation_id,assignableId:$assignable_id,assigneeIds:$assignee_ids}){assignable{%s}}}" % ",".join(fields)
+        query = "mutation($assignable_id:ID!,$assignee_ids:[ID!]!,$mutation_id:String!){removeAssigneesFromAssignable(input:{clientMutationId:$mutation_id,assignableId:$assignable_id,assigneeIds:$assignee_ids}){assignable{%s}}}" % ",".join(fields)
         path = ("removeAssigneesFromAssignable", "assignable")
 
         data = await self._mutate(query, *path, assignable_id=assignable_id, assignee_ids=assignee_ids)
