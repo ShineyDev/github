@@ -35,8 +35,47 @@ class Labelable:
     _data: LabelableData
 
     _graphql_fields = {
+        "label_count": "labels{totalCount}",
         "viewer_can_label": "viewerCanLabel",
     }
+
+    @property
+    def label_count(
+        self: Self,
+        /,
+    ) -> int:
+        """
+        The number of labels on the labelable.
+
+        :type: :class:`int`
+        """
+
+        return self._data["labels"]["totalCount"]
+
+    async def fetch_label_count(
+        self: Self,
+        /,
+    ) -> int:
+        """
+        |coro|
+
+        Fetches the number of labels on the labelable.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`int`
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        return await self._fetch_field("labels{totalCount}")  # type: ignore
 
     @property
     def viewer_can_label(
