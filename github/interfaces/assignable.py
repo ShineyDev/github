@@ -85,6 +85,29 @@ class Assignable:
             **kwargs,
         )
 
+    async def add_assignees(
+        self: Self,
+        /,
+        *assignees: User,
+    ) -> None:
+        """
+        |coro|
+
+        Adds assignees to the assignable.
+
+
+        Parameters
+        ----------
+
+        *assignees: :class:`github.User`
+            The assignees to add.
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        await self._http.mutate_assignable_add_assignees(self.id, [a.id for a in assignees])
+
 
 __all__ = [
     "Assignable",
