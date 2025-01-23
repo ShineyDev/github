@@ -33,6 +33,48 @@ class Assignable:
 
     _data: AssignableData
 
+    _graphql_fields = {
+        "assignee_count": "assignees{totalCount}",
+    }
+
+    @property
+    def assignee_count(
+        self: Self,
+        /,
+    ) -> int:
+        """
+        The number of assignees on the assignable.
+
+        :type: :class:`int`
+        """
+
+        return self._data["assignees"]["totalCount"]
+
+    async def fetch_assignee_count(
+        self: Self,
+        /,
+    ) -> int:
+        """
+        |coro|
+
+        Fetches the number of assignees on the assignable.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`int`
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        return await self._fetch_field("assignees{totalCount}")  # type: ignore
+
     def fetch_assignees(
         self: Self,
         /,
