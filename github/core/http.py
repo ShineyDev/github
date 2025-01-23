@@ -1758,7 +1758,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         *,
         fields: Iterable[str] = MISSING,
     ) -> StarrableData:
-        fields = github.utility.get_merged_graphql_fields(github.Starrable, fields)
+        fields = ("__typename",) if fields is MISSING else fields
         query = "mutation($starrable_id:ID!,$mutation_id:String!){addStar(input:{clientMutationId:$mutation_id,starrableId:$starrable_id}){starrable{%s}}}" % ",".join(fields)
         path = ("addStar", "starrable")
 
@@ -1773,7 +1773,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         *,
         fields: Iterable[str] = MISSING,
     ) -> StarrableData:
-        fields = github.utility.get_merged_graphql_fields(github.Starrable, fields)
+        fields = ("__typename",) if fields is MISSING else fields
         query = "mutation($starrable_id:ID!,$mutation_id:String!){removeStar(input:{clientMutationId:$mutation_id,starrableId:$starrable_id}){starrable{%s}}}" % ",".join(fields)
         path = ("removeStar", "starrable")
 
@@ -1789,7 +1789,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         *,
         fields: Iterable[str] = MISSING,
     ) -> SubscribableData:
-        fields = github.utility.get_merged_graphql_fields(github.Subscribable, fields)
+        fields = ("__typename",) if fields is MISSING else fields
         query = "mutation($subscribable_id:ID!,$mutation_id:String!,$state:SubscriptionState!){updateSubscription(input:{clientMutationId:$mutation_id,subscribableId:$subscribable_id,state:$state}){subscribable{%s}}}" % ",".join(fields)
         path = ("updateSubscription", "subscribable")
 
