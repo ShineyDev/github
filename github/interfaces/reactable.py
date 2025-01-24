@@ -8,12 +8,14 @@ if TYPE_CHECKING:
 if TYPE_CHECKING:
     from typing import Literal, TypedDict
 
+    from github.connection.connection import ConnectionData
+
 
     class ReactableData(TypedDict):
         # databaseId  # TODO: elsewhere
         # id  # NOTE: on Node
         # reactionGroups  # TODO
-        # reactions  # TODO
+        reactions: ConnectionData[object]  # TODO
         viewerCanReact: bool
 
 
