@@ -196,6 +196,41 @@ class Reactable:
 
         return github.Reaction._from_data(reaction_data, http=self._http)
 
+    async def remove_reaction(
+        self: Self,
+        content: ReactionContent,
+        /,
+    ) -> None:
+        """
+        |coro|
+
+        Removes a reaction from the reactable.
+
+
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.reaction_count`
+
+
+        Parameters
+        ----------
+
+        content: :class:`~github.ReactionContent`
+            The content of the reaction.
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        reactable_data = await self._http.mutate_reactable_add_reaction(self.id, content.value, fields=("reactions{totalCount}",))
+
+        if "reactions" not in self._data.keys():
+            self._data["reactions"] = dict()  # type: ignore
+
+        self._data["reactions"]["totalCount"] = reactable_data["reactions"]["totalCount"]
+
 
 __all__ = [
     "Reactable",

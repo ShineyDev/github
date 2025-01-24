@@ -1804,6 +1804,22 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return (data["subject"], data["reaction"])  # type: ignore
 
+    async def mutate_reactable_remove_reaction(
+        self: Self,
+        /,
+        reactable_id: str,
+        content: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> ReactableData:
+        fields = ("__typename",) if fields is MISSING else fields
+        query = "mutation($reactable_id:ID!,$content:ReactionContent!,$mutation_id:String!){addReaction(input:{clientMutationId:$mutation_id,subjectId:$reactable_id,content:$content}){subject{%s}}}" % ",".join(fields)
+        path = ("addReaction", "subject")
+
+        data = await self._mutate(query, *path, reactable_id=reactable_id, content=content)
+
+        return data  # type: ignore
+
     async def mutate_starrable_star(
         self: Self,
         /,
