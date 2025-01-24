@@ -657,6 +657,19 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return value
 
+    async def fetch_reaction_author(
+        self: Self,
+        /,
+        reaction_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> UserData | None:
+        fields = github.utility.get_merged_graphql_fields(github.User, fields)
+        query = "query($reaction_id:ID!){node(id:$reaction_id){...on Reaction{user{%s}}}}" % ",".join(fields)
+        path = ("node", "user")
+
+        return await self._fetch(query, *path, reaction_id=reaction_id)  # type: ignore
+
     async def fetch_repository_code_of_conduct(
         self: Self,
         /,

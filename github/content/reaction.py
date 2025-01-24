@@ -6,6 +6,7 @@ if TYPE_CHECKING:
 
     from github.content import ReactionContent
     from github.core.http import HTTPClient
+    from github.user import User
     from github.utility.types import DateTime
 
 import github
@@ -186,6 +187,30 @@ class Reaction(Node, Type):
         """
 
         return await self._fetch_field("databaseId")  # type: ignore
+
+    async def fetch_author(
+        self,
+        /,
+        **kwargs,
+    ) -> User:
+        """
+        |coro|
+
+        Fetches the author of the reaction.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.User`
+        """
+
+        data = await self._http.fetch_reaction_author(self.id, **kwargs)
+        return github.User._from_data(data, http=self._http)
 
 
 __all__ = [
