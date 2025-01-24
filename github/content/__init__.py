@@ -8,6 +8,8 @@ from github.content.licenserule import *
 from github.content.licenserule import __all__ as _licenserule__all__
 from github.content.reaction import *
 from github.content.reaction import __all__ as _reaction__all__
+from github.content.reactioncontent import *
+from github.content.reactioncontent import __all__ as _reactioncontent__all__
 
 
 __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
@@ -16,4 +18,5 @@ __all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
     *_license__all__,
     *_licenserule__all__,
     *_reaction__all__,
+    *_reactioncontent__all__,
 ]
