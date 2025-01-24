@@ -166,6 +166,13 @@ class Reactable:
 
         Adds a reaction to the reactable.
 
+        .. note::
+
+            This mutation requires the following token scopes:
+
+            - ``public_repo`` (on a :class:`~github.RepositoryNode`)
+            - ``write:discussions`` (on a :class:`~github.TeamDiscussion` or a :class:`~github.TeamDiscussionComment`)
+
 
         .. note::
 
@@ -205,6 +212,20 @@ class Reactable:
         |coro|
 
         Removes a reaction from the reactable.
+
+        .. note::
+
+            This mutation requires the following token scopes:
+
+            - ``public_repo`` (on a :class:`~github.RepositoryNode`)
+            - ``write:discussions`` (on a :class:`~github.TeamDiscussion` or a :class:`~github.TeamDiscussionComment`)
+
+
+        .. warning::
+
+            For reasons beyond my comprehension, this mutation will
+            raise FORBIDDEN when the reaction you attempt to remove
+            does not exist, despite having the required permission.
 
 
         .. note::
