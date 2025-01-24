@@ -224,7 +224,7 @@ class Reactable:
         if TYPE_CHECKING and not isinstance(self, Node):
             raise NotImplementedError
 
-        reactable_data = await self._http.mutate_reactable_add_reaction(self.id, content.value, fields=("reactions{totalCount}",))
+        reactable_data = await self._http.mutate_reactable_remove_reaction(self.id, content.value, fields=("reactions{totalCount}",))
 
         if "reactions" not in self._data.keys():
             self._data["reactions"] = dict()  # type: ignore

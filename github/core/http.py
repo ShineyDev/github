@@ -1813,8 +1813,8 @@ class HTTPClient(graphql.client.http.HTTPClient):
         fields: Iterable[str] = MISSING,
     ) -> ReactableData:
         fields = ("__typename",) if fields is MISSING else fields
-        query = "mutation($reactable_id:ID!,$content:ReactionContent!,$mutation_id:String!){addReaction(input:{clientMutationId:$mutation_id,subjectId:$reactable_id,content:$content}){subject{%s}}}" % ",".join(fields)
-        path = ("addReaction", "subject")
+        query = "mutation($reactable_id:ID!,$content:ReactionContent!,$mutation_id:String!){removeReaction(input:{clientMutationId:$mutation_id,subjectId:$reactable_id,content:$content}){subject{%s}}}" % ",".join(fields)
+        path = ("removeReaction", "subject")
 
         data = await self._mutate(query, *path, reactable_id=reactable_id, content=content)
 
