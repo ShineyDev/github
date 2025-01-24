@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import cast
 
+    from github.content import ReactionContent
     from github.core.http import HTTPClient
     from github.utility.types import DateTime
 
@@ -14,6 +15,7 @@ from github.interfaces import Node, Type
 if TYPE_CHECKING:
     from typing import Literal
 
+    from github.content.reactioncontent import ReactionContentData
     from github.interfaces.node import NodeData
     from github.interfaces.type import TypeData
     from github.user.user import UserData
@@ -22,7 +24,7 @@ if TYPE_CHECKING:
     class ReactionData(NodeData, TypeData):
         __typename: Literal["Reaction"]
 
-        content: Literal["CONFUSED", "EYES", "HEART", "HOORAY", "LAUGH", "ROCKET", "THUMBS_DOWN", "THUMBS_UP"]
+        content: ReactionContentData
         createdAt: str
         databaseId: int
         # reactable  # TODO
@@ -68,12 +70,25 @@ class Reaction(Node, Type):
         return cls(cls._patch_data(data), http)
 
     _graphql_fields = {
-        # "content": "content",  # TODO: type
+        "content": "content",
         "created_at": "createdAt",
         "database_id": "databaseId",
     }
 
     _node_prefix = "REA"
+
+    @property
+    def content(
+        self,
+        /,
+    ) -> ReactionContent:
+        """
+        The content of the reaction.
+
+        :type: :class:`~github.ReactionContent`
+        """
+
+        return github.ReactionContent(self._data["content"])
 
     @property
     def created_at(
@@ -100,6 +115,28 @@ class Reaction(Node, Type):
         """
 
         return self._data["databaseId"]
+
+    async def fetch_content(
+        self,
+        /,
+    ) -> ReactionContent:
+        """
+        |coro|
+
+        Fetches the content of the reaction.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.ReactionContent`
+        """
+
+        return github.ReactionContent(await self._fetch_field("content"))
 
     async def fetch_created_at(
         self,
