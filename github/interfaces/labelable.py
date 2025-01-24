@@ -52,6 +52,20 @@ class Labelable:
 
         return self._data["labels"]["totalCount"]
 
+    @property
+    def viewer_can_label(
+        self: Self,
+        /,
+    ) -> bool:
+        """
+        Whether the authenticated user can update labels on the
+        labelable.
+
+        :type: :class:`bool`
+        """
+
+        return self._data["viewerCanLabel"]
+
     async def fetch_label_count(
         self: Self,
         /,
@@ -76,20 +90,6 @@ class Labelable:
             raise NotImplementedError
 
         return await self._fetch_field("labels{totalCount}")  # type: ignore
-
-    @property
-    def viewer_can_label(
-        self: Self,
-        /,
-    ) -> bool:
-        """
-        Whether the authenticated user can update labels on the
-        labelable.
-
-        :type: :class:`bool`
-        """
-
-        return self._data["viewerCanLabel"]
 
     async def fetch_viewer_can_label(
         self: Self,
