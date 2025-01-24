@@ -5,7 +5,7 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.connection import Connection, ReactionOrder
-    from github.content import Reaction
+    from github.content import Reaction, ReactionContent
     from github.interfaces import Node
 
 import github
@@ -155,6 +155,46 @@ class Reactable:
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,
         )
+
+    async def add_reaction(
+        self: Self,
+        content: ReactionContent,
+        /,
+    ) -> Reaction:
+        """
+        |coro|
+
+        Adds a reaction to the reactable.
+
+
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.reaction_count`
+
+
+        Parameters
+        ----------
+
+        content: :class:`~github.ReactionContent`
+            The content of the reaction.
+
+
+        :rtype: :class:`~github.Reaction`
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        reactable_data, reaction_data = await self._http.mutate_reactable_add_reaction(self.id, content.value, reactable_fields=("reactions{totalCount}",))
+
+        if "reactions" not in self._data.keys():
+            self._data["reactions"] = dict()  # type: ignore
+
+        self._data["reactions"]["totalCount"] = reactable_data["reactions"]["totalCount"]
+
+        return github.Reaction._from_data(reaction_data, http=self._http)
 
 
 __all__ = [

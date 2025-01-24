@@ -19,6 +19,7 @@ if TYPE_CHECKING:
     from github.interfaces import Node, Resource
     from github.interfaces.assignable import AssignableData
     from github.interfaces.labelable import LabelableData
+    from github.interfaces.reactable import ReactableData
     from github.interfaces.starrable import StarrableData
     from github.interfaces.subscribable import SubscribableData
     from github.organization.organization import OrganizationData
@@ -1784,6 +1785,24 @@ class HTTPClient(graphql.client.http.HTTPClient):
         data = await self._mutate(query, *path, labelable_id=labelable_id, label_ids=label_ids)
 
         return data  # type: ignore
+
+    async def mutate_reactable_add_reaction(
+        self: Self,
+        /,
+        reactable_id: str,
+        content: str,
+        *,
+        reactable_fields: Iterable[str] = MISSING,
+        reaction_fields: Iterable[str] = MISSING,
+    ) -> tuple[ReactableData, ReactionData]:
+        reactable_fields = ("__typename",) if reactable_fields is MISSING else reactable_fields
+        reaction_fields = github.utility.get_merged_graphql_fields(github.Reaction, reaction_fields)
+        query = "mutation($reactable_id:ID!,$content:ReactionContent!,$mutation_id:String!){addReaction(input:{clientMutationId:$mutation_id,subjectId:$reactable_id,content:$content}){subject{%s},reaction{%s}}}" % (",".join(reactable_fields), ",".join(reaction_fields))
+        path = ("addReaction",)
+
+        data = await self._mutate(query, *path, reactable_id=reactable_id, content=content)
+
+        return (data["subject"], data["reaction"])  # type: ignore
 
     async def mutate_starrable_star(
         self: Self,
