@@ -73,7 +73,7 @@ class Comment:
         "body_html": "bodyHTML",
         "body_text": "bodyText",
         "created_at": "createdAt",
-        # "": "createdViaEmail",  # TODO: name
+        "is_email": "createdViaEmail",
         "edit_count": "userContentEdits{totalCount}",
         # "": "includesCreatedEdit",  # TODO: name
         "edited_at": "lastEditedAt",
@@ -179,6 +179,19 @@ class Comment:
             return None
 
         return github.utility.iso_to_datetime(edited_at)
+
+    @property
+    def is_email(
+        self: Self,
+        /,
+    ) -> bool:
+        """
+        Whether the comment was created via email.
+
+        :type: :class:`bool`
+        """
+
+        return self._data["createdViaEmail"]
 
     @property
     def published_at(
@@ -362,6 +375,28 @@ class Comment:
             edited_at = cast(str, edited_at)
 
         return github.utility.iso_to_datetime(edited_at)
+
+    async def fetch_is_email(
+        self: Self,
+        /,
+    ) -> bool:
+        """
+        |coro|
+
+        Fetches whether the comment was created via email.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`bool`
+        """
+
+        return await self._fetch_field("createdViaEmail")  # type: ignore
 
     async def fetch_published_at(
         self: Self,
