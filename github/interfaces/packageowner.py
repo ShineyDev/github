@@ -27,30 +27,6 @@ class PackageOwner:
 
     _data: PackageOwnerData
 
-    async def fetch_packages(
-        self: Self,
-        /,
-    ) -> None:
-        """
-        |aiter|
-
-        Fetches packages from the package owner.
-
-
-        Raises
-        ------
-
-        ~github.core.errors.ClientObjectMissingFieldError
-            The :attr:`id` attribute is missing.
-
-
-        :rtype: ConnectionIterator[Package]
-
-        ..      :class:`~github.utility.ConnectionIterator`[:class:`~github.Package`]
-        """
-
-        raise NotImplementedError  # TODO: PackageOwner.packages
-
 
 __all__: list[str] = [
     "PackageOwner",
