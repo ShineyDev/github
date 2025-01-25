@@ -28,8 +28,8 @@ def datetime_to_iso(
         github.utility.warn_once(
             "using timezone-unaware datetime is not recommended, use aware datetime instead. for example, use datetime.now(timezone.utc) instead of "
             "datetime.utcnow(). assuming UTC for now.",
-            github.ClientDeprecationWarning,
-            2,
+            cls=github.ClientDeprecationWarning,
+            level=2,
         )
 
     if not offset:
@@ -47,8 +47,8 @@ def datetime_to_iso(
         if rest:
             github.utility.warn_once(
                 "using timezone with second or millisecond offset is not allowed. truncating to hours and minutes.",
-                github.ClientDeprecationWarning,
-                2,
+                cls=github.ClientDeprecationWarning,
+                level=2,
             )
 
         offset = f"{sign}{hours:>02}:{minutes:>02}"
