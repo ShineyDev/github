@@ -5,12 +5,13 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import TypedDict
 
+    from github.connection.connection import ConnectionData
+
 
     class ProjectOwnerData(TypedDict):
         # id: str  # NOTE: on Node
         # projectV2  # TODO
-        # projectsV2  # TODO
-        pass
+        projectsV2: ConnectionData[object]  # TODO
 
 
 class ProjectOwner:
