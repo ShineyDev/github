@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
     class PackageOwnerData(TypedDict):
         # id: str  # NOTE: on Node
-        packages: ConnectionData[object]
+        packages: ConnectionData[object]  # TODO
 
 
 class PackageOwner:
