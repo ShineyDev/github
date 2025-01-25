@@ -38,6 +38,51 @@ class RepositoryOwner:
 
     _data: RepositoryOwnerData
 
+    async def fetch_repository(
+        self: Self,
+        name: str,
+        /,
+        *,
+        follow_renames: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Repository:
+        """
+        |coro|
+
+        Fetches a repository from the repository owner.
+
+
+        Parameters
+        ----------
+
+        name: :class:`str`
+            The name of the repository.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+        ~github.core.errors.ClientResponseGraphQLNotFoundError
+            A repository with the provided name does not exist.
+
+
+        :rtype: :class:`~github.Repository`
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        data = await self._http.fetch_repositoryowner_repository(
+            self.id,
+            name,
+            follow_renames if follow_renames is not MISSING else None,
+            **kwargs,
+        )
+
+        return github.Repository._from_data(data, http=self._http)
+
     def fetch_repositories(
         self: Self,
         /,
@@ -93,51 +138,6 @@ class RepositoryOwner:
             reverse=reverse if reverse is not MISSING else None,
             **kwargs,
         )
-
-    async def fetch_repository(
-        self: Self,
-        name: str,
-        /,
-        *,
-        follow_renames: bool = MISSING,
-        **kwargs,  # TODO
-    ) -> Repository:
-        """
-        |coro|
-
-        Fetches a repository from the repository owner.
-
-
-        Parameters
-        ----------
-
-        name: :class:`str`
-            The name of the repository.
-
-
-        Raises
-        ------
-
-        ~github.core.errors.ClientObjectMissingFieldError
-            The :attr:`id` attribute is missing.
-        ~github.core.errors.ClientResponseGraphQLNotFoundError
-            A repository with the provided name does not exist.
-
-
-        :rtype: :class:`~github.Repository`
-        """
-
-        if TYPE_CHECKING and not isinstance(self, Node):
-            raise NotImplementedError
-
-        data = await self._http.fetch_repositoryowner_repository(
-            self.id,
-            name,
-            follow_renames if follow_renames is not MISSING else None,
-            **kwargs,
-        )
-
-        return github.Repository._from_data(data, http=self._http)
 
 
 __all__: list[str] = [
