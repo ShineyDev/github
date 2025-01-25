@@ -28,5 +28,5 @@ class PullOrder(enum.Enum):
 
 
 __all__ = [
-    "PullOrder"
+    "PullOrder",
 ]

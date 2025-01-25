@@ -34,5 +34,5 @@ class RepositoryOrder(enum.Enum):
 
 
 __all__ = [
-    "RepositoryOrder"
+    "RepositoryOrder",
 ]

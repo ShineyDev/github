@@ -127,7 +127,7 @@ def node_to_database(
     return int(id)
 
 
-__all__: list[str] = [
+__all__ = [
     "date_to_iso",
     "datetime_to_iso",
     "iso_to_date",

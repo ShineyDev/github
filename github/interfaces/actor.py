@@ -1,9 +1,6 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from typing_extensions import Self
-
 from github.utility import MISSING
 
 
@@ -37,7 +34,7 @@ class Actor:
 
     @property
     def avatar_url(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -50,7 +47,7 @@ class Actor:
 
     @property
     def login(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -62,7 +59,7 @@ class Actor:
         return self._data["login"]
 
     async def fetch_avatar_url(
-        self: Self,
+        self,
         /,
         *,
         size: int = MISSING,
@@ -93,7 +90,7 @@ class Actor:
         return await self._fetch_field(field, save=save)  # type: ignore
 
     async def fetch_login(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -107,6 +104,6 @@ class Actor:
         return await self._fetch_field("login")  # type: ignore
 
 
-__all__: list[str] = [
+__all__ = [
     "Actor",
 ]

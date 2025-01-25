@@ -2,9 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
-    from github.core.http import HTTPClient
     from github.interfaces import Node
     from github.repository import SubscriptionState
 
@@ -39,7 +36,7 @@ class Subscribable:
 
     @property
     def viewer_can_update_subscription(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -53,7 +50,7 @@ class Subscribable:
 
     @property
     def viewer_subscription(
-        self: Self,
+        self,
         /,
     ) -> SubscriptionState:
         """
@@ -65,7 +62,7 @@ class Subscribable:
         return github.SubscriptionState(self._data["viewerSubscription"])
 
     async def fetch_viewer_can_update_subscription(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -80,7 +77,7 @@ class Subscribable:
         return await self._fetch_field("viewerCanSubscribe")  # type: ignore
 
     async def fetch_viewer_subscription(
-        self: Self,
+        self,
         /,
     ) -> SubscriptionState:
         """
@@ -97,7 +94,7 @@ class Subscribable:
         return github.SubscriptionState(subscription)
 
     async def ignore(
-        self: Self,
+        self,
         /,
     ) -> None:
         """
@@ -113,7 +110,7 @@ class Subscribable:
         await self.update_subscription(github.SubscriptionState.ignored)
 
     async def subscribe(
-        self: Self,
+        self,
         /,
     ) -> None:
         """
@@ -129,7 +126,7 @@ class Subscribable:
         await self.update_subscription(github.SubscriptionState.subscribed)
 
     async def unsubscribe(
-        self: Self,
+        self,
         /,
     ) -> None:
         """
@@ -145,7 +142,7 @@ class Subscribable:
         await self.update_subscription(github.SubscriptionState.unsubscribed)
 
     async def update_subscription(
-        self: Self,
+        self,
         /,
         state: SubscriptionState,
     ) -> None:
@@ -168,6 +165,6 @@ class Subscribable:
         self._data["viewerSubscription"] = data["viewerSubscription"]
 
 
-__all__: list[str] = [
+__all__ = [
     "Subscribable",
 ]

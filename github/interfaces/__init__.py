@@ -48,7 +48,7 @@ from github.interfaces.votable import *
 from github.interfaces.votable import __all__ as _votable__all__
 
 
-__all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
+__all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_actor__all__,
     *_announcementowner__all__,
     *_assignable__all__,

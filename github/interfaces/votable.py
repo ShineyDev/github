@@ -1,9 +1,6 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from typing_extensions import Self
-
 
 if TYPE_CHECKING:
     from typing import TypedDict
@@ -32,7 +29,7 @@ class Votable:
 
     @property
     def upvote_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -45,7 +42,7 @@ class Votable:
 
     @property
     def viewer_can_upvote(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -58,7 +55,7 @@ class Votable:
 
     @property
     def viewer_has_upvoted(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -70,7 +67,7 @@ class Votable:
         return self._data["viewerHasUpvoted"]
 
     async def fetch_upvote_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -84,7 +81,7 @@ class Votable:
         return await self._fetch_field("upvoteCount")  # type: ignore
 
     async def fetch_viewer_can_upvote(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -98,7 +95,7 @@ class Votable:
         return await self._fetch_field("viewerCanUpvote")  # type: ignore
 
     async def fetch_viewer_has_upvoted(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """

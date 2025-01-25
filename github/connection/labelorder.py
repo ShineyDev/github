@@ -25,5 +25,5 @@ class LabelOrder(enum.Enum):
 
 
 __all__ = [
-    "LabelOrder"
+    "LabelOrder",
 ]

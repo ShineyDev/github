@@ -1,9 +1,6 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from typing_extensions import Self
-
 from github.interfaces import Type
 
 
@@ -43,10 +40,10 @@ class Metadata(Type):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: MetadataData,
         /,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data))
 
     _graphql_fields = {
@@ -63,7 +60,7 @@ class Metadata(Type):
 
     @property
     def enterprise_importer_ip_addresses(
-        self: Self,
+        self,
         /,
     ) -> list[str]:
         """
@@ -77,7 +74,7 @@ class Metadata(Type):
 
     @property
     def git_ip_addresses(
-        self: Self,
+        self,
         /,
     ) -> list[str]:
         """
@@ -90,7 +87,7 @@ class Metadata(Type):
 
     @property
     def github_services_sha(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -103,7 +100,7 @@ class Metadata(Type):
 
     @property
     def webhook_ip_addresses(
-        self: Self,
+        self,
         /,
     ) -> list[str]:
         """
@@ -116,7 +113,7 @@ class Metadata(Type):
 
     @property
     def importer_ip_addresses(
-        self: Self,
+        self,
         /,
     ) -> list[str]:
         """
@@ -129,7 +126,7 @@ class Metadata(Type):
 
     @property
     def is_password_authentication_verifiable(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -147,7 +144,7 @@ class Metadata(Type):
 
     @property
     def pages_ip_addresses(
-        self: Self,
+        self,
         /,
     ) -> list[str]:
         """
@@ -159,6 +156,6 @@ class Metadata(Type):
         return self._data["pagesIpAddresses"]
 
 
-__all__: list[str] = [
+__all__ = [
     "Metadata",
 ]

@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import cast
-    from typing_extensions import Self
 
     from github.core.http import HTTPClient
 
@@ -58,12 +57,12 @@ class Blob(GitNode, Node, RepositoryNode, Type):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: BlobData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _graphql_fields =  {
@@ -77,7 +76,7 @@ class Blob(GitNode, Node, RepositoryNode, Type):
 
     @property
     def is_text(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -95,7 +94,7 @@ class Blob(GitNode, Node, RepositoryNode, Type):
 
     @property
     def size(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -107,7 +106,7 @@ class Blob(GitNode, Node, RepositoryNode, Type):
         return self._data["byteSize"]
 
     async def fetch_is_text(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -137,7 +136,7 @@ class Blob(GitNode, Node, RepositoryNode, Type):
         return not is_binary
 
     async def fetch_size(
-        self: Self,
+        self,
         /,
     ) -> int:
         """

@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from github.connection import Connection, StargazerOrder
     from github.interfaces import Node
     from github.user import User
@@ -43,7 +41,7 @@ class Starrable:
 
     @property
     def has_viewer_starred(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -56,7 +54,7 @@ class Starrable:
 
     @property
     def stargazer_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -68,7 +66,7 @@ class Starrable:
         return self._data["stargazerCount"]
 
     async def fetch_has_viewer_starred(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -82,7 +80,7 @@ class Starrable:
         return await self._fetch_field("viewerHasStarred")  # type: ignore
 
     async def fetch_stargazer_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -96,7 +94,7 @@ class Starrable:
         return await self._fetch_field("stargazerCount")  # type: ignore
 
     def fetch_stargazers(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -147,7 +145,7 @@ class Starrable:
         )
 
     async def star(
-        self: Self,
+        self,
         /,
     ) -> None:
         """
@@ -168,7 +166,7 @@ class Starrable:
         self._data["viewerHasStarred"] = data["viewerHasStarred"]
 
     async def unstar(
-        self: Self,
+        self,
         /,
     ) -> None:
         """
@@ -189,6 +187,6 @@ class Starrable:
         self._data["viewerHasStarred"] = data["viewerHasStarred"]
 
 
-__all__: list[str] = [
+__all__ = [
     "Starrable",
 ]

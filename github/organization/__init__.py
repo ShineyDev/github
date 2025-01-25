@@ -4,7 +4,7 @@ from github.organization.team import *
 from github.organization.team import __all__ as _team__all__
 
 
-__all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
+__all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_organization__all__,
     *_team__all__,
 ]

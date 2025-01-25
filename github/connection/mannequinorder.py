@@ -25,5 +25,5 @@ class MannequinOrder(enum.Enum):
 
 
 __all__ = [
-    "MannequinOrder"
+    "MannequinOrder",
 ]

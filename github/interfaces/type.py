@@ -2,8 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import ClassVar, Iterable, cast, overload
-    from typing_extensions import Self
+    from typing import ClassVar
 
     from github.core.http import HTTPClient
     from github.utility.types import T_json_object
@@ -36,7 +35,7 @@ class Type(abc.ABC):
     _graphql_type: ClassVar[str]
 
     def __init__(
-        self: Self,
+        self,
         data: T_json_object,
         http: HTTPClient | None = None,
         /,
@@ -45,7 +44,7 @@ class Type(abc.ABC):
         self._http: HTTPClient | None = http
 
     def __repr__(
-        self: Self,
+        self,
         /,
     ) -> str:
         d_fields = utility.get_defined_repr_fields(self.__class__)
@@ -76,15 +75,15 @@ class Type(abc.ABC):
     @classmethod
     @abc.abstractmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: T_json_object,
         /,
         *,
         http: HTTPClient | None = None,
-    ) -> Self:
+    ):
         raise NotImplementedError
 
 
-__all__: list[str] = [
+__all__ = [
     "Type",
 ]

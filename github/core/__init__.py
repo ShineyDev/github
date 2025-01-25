@@ -6,7 +6,7 @@ from github.core.errors import *
 from github.core.errors import __all__ as _errors__all__
 
 
-__all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
+__all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_client__all__,
     *_dummy__all__,
     *_errors__all__,

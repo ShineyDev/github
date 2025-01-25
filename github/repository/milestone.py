@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import cast
-    from typing_extensions import Self
 
     from github.connection import Connection, IssueOrder, PullOrder
     from github.core.http import HTTPClient
@@ -83,12 +82,12 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: MilestoneData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _repr_fields = [
@@ -110,7 +109,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
 
     @property
     def created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -123,7 +122,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
 
     @property
     def description(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -136,7 +135,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
 
     @property
     def due_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -154,7 +153,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
 
     @property
     def number(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -167,7 +166,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
 
     @property
     def progress(
-        self: Self,
+        self,
         /,
     ) -> float:
         """
@@ -180,7 +179,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
 
     @property
     def state(
-        self: Self,
+        self,
         /,
     ) -> MilestoneState:
         """
@@ -193,7 +192,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
 
     @property
     def title(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -206,7 +205,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
 
     @property
     def updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -218,7 +217,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
         return github.utility.iso_to_datetime(self._data["updatedAt"])
 
     async def fetch_created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -248,7 +247,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
         return github.utility.iso_to_datetime(created_at)
 
     async def fetch_description(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -262,7 +261,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
         return await self._fetch_field("description")  # type: ignore
 
     async def fetch_due_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -293,7 +292,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
         return github.utility.iso_to_datetime(due_at)
 
     async def fetch_number(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -315,7 +314,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
         return await self._fetch_field("number")  # type: ignore
 
     async def fetch_progress(
-        self: Self,
+        self,
         /,
     ) -> float:
         """
@@ -338,7 +337,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
         return await self._fetch_field("progressPercentage")  # type: ignore
 
     async def fetch_state(
-        self: Self,
+        self,
         /,
     ) -> MilestoneState:
         """
@@ -360,7 +359,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
         return github.MilestoneState(await self._fetch_field("state"))
 
     async def fetch_title(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -382,7 +381,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
         return await self._fetch_field("title")  # type: ignore
 
     async def fetch_updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -410,7 +409,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
         return github.utility.iso_to_datetime(updated_at)
 
     def fetch_issues(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -459,7 +458,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
         )
 
     def fetch_pulls(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,

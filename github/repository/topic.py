@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import cast
-    from typing_extensions import Self
 
     from github.connection import Connection, RepositoryOrder
     from github.core.http import HTTPClient
@@ -63,12 +62,12 @@ class Topic(Node, Starrable, Type):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: TopicData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _repr_fields = [
@@ -84,7 +83,7 @@ class Topic(Node, Starrable, Type):
 
     @property
     def name(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -97,7 +96,7 @@ class Topic(Node, Starrable, Type):
 
     @property
     def repository_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -109,7 +108,7 @@ class Topic(Node, Starrable, Type):
         return self._data["repositories"]["totalCount"]
 
     async def fetch_name(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -131,7 +130,7 @@ class Topic(Node, Starrable, Type):
         return await self._fetch_field("name")  # type: ignore
 
     async def fetch_repository_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -158,7 +157,7 @@ class Topic(Node, Starrable, Type):
         return connection["totalCount"]
 
     async def fetch_related_topics(
-        self: Self,
+        self,
         /,
         *,
         limit: int = MISSING,
@@ -191,7 +190,7 @@ class Topic(Node, Starrable, Type):
         return [Topic._from_data(d, http=self._http) for d in data]
 
     def fetch_repositories(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -244,6 +243,6 @@ class Topic(Node, Starrable, Type):
         )
 
 
-__all__: list[str] = [
+__all__ = [
     "Topic",
 ]

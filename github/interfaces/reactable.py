@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from github.connection import Connection, ReactionOrder
     from github.content import Reaction, ReactionContent
     from github.interfaces import Node
@@ -42,7 +40,7 @@ class Reactable:
 
     @property
     def reaction_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -55,7 +53,7 @@ class Reactable:
 
     @property
     def viewer_can_react(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -67,7 +65,7 @@ class Reactable:
         return self._data["viewerCanReact"]
 
     async def fetch_reaction_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -92,7 +90,7 @@ class Reactable:
         return await self._fetch_field("reactions{totalCount}")  # type: ignore
 
     async def fetch_viewer_can_react(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -107,7 +105,7 @@ class Reactable:
         return await self._fetch_field("viewerCanReact")  # type: ignore
 
     def fetch_reactions(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -157,7 +155,7 @@ class Reactable:
         )
 
     async def add_reaction(
-        self: Self,
+        self,
         content: ReactionContent,
         /,
     ) -> Reaction:
@@ -204,7 +202,7 @@ class Reactable:
         return github.Reaction._from_data(reaction_data, http=self._http)
 
     async def remove_reaction(
-        self: Self,
+        self,
         content: ReactionContent,
         /,
     ) -> None:

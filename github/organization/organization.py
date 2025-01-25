@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import cast
-    from typing_extensions import Self
 
     from github.automation import Mannequin
     from github.connection import Connection, MannequinOrder, TeamOrder
@@ -142,12 +141,12 @@ class Organization(
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: OrganizationData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _graphql_fields = {
@@ -171,7 +170,7 @@ class Organization(
 
     @property
     def archived_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -189,7 +188,7 @@ class Organization(
 
     @property
     def can_viewer_administer(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -202,7 +201,7 @@ class Organization(
 
     @property
     def can_viewer_create_teams(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -216,7 +215,7 @@ class Organization(
 
     @property
     def created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -229,7 +228,7 @@ class Organization(
 
     @property
     def database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -242,7 +241,7 @@ class Organization(
 
     @property
     def description(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -255,7 +254,7 @@ class Organization(
 
     @property
     def description_html(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -275,7 +274,7 @@ class Organization(
 
     @property
     def is_verified(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -288,7 +287,7 @@ class Organization(
 
     @property
     def is_viewer_following(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -301,7 +300,7 @@ class Organization(
 
     @property
     def is_viewer_member(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -314,7 +313,7 @@ class Organization(
 
     @property
     def mannequin_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -327,7 +326,7 @@ class Organization(
 
     @property
     def team_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -340,7 +339,7 @@ class Organization(
 
     @property
     def twitter_username(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -353,7 +352,7 @@ class Organization(
 
     @property
     def updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -365,7 +364,7 @@ class Organization(
         return github.utility.iso_to_datetime(self._data["updatedAt"])
 
     async def fetch_archived_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -396,7 +395,7 @@ class Organization(
         return github.utility.iso_to_datetime(archived_at)
 
     async def fetch_can_viewer_administer(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -419,7 +418,7 @@ class Organization(
         return await self._fetch_field("viewerCanAdminister")  # type: ignore
 
     async def fetch_can_viewer_create_teams(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -442,7 +441,7 @@ class Organization(
         return await self._fetch_field("viewerCanCreateTeams")  # type: ignore
 
     async def fetch_created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -470,7 +469,7 @@ class Organization(
         return github.utility.iso_to_datetime(created_at)
 
     async def fetch_database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -492,7 +491,7 @@ class Organization(
         return await self._fetch_field("databaseId")  # type: ignore
 
     async def fetch_description(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -514,7 +513,7 @@ class Organization(
         return await self._fetch_field("description")  # type: ignore
 
     async def fetch_description_html(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -536,7 +535,7 @@ class Organization(
         return await self._fetch_field("descriptionHTML")  # type: ignore
 
     async def fetch_is_verified(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -559,7 +558,7 @@ class Organization(
         return await self._fetch_field("isVerified")  # type: ignore
 
     async def fetch_is_viewer_following(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -582,7 +581,7 @@ class Organization(
         return await self._fetch_field("viewerIsFollowing")  # type: ignore
 
     async def fetch_is_viewer_member(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -605,7 +604,7 @@ class Organization(
         return await self._fetch_field("viewerIsAMember")  # type: ignore
 
     async def fetch_mannequin_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -627,7 +626,7 @@ class Organization(
         return await self._fetch_field("mannequins{totalCount}")  # type: ignore
 
     async def fetch_team_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -649,7 +648,7 @@ class Organization(
         return await self._fetch_field("teams{totalCount}")  # type: ignore
 
     async def fetch_twitter_username(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -671,7 +670,7 @@ class Organization(
         return await self._fetch_field("twitterUsername")  # type: ignore
 
     async def fetch_updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -699,7 +698,7 @@ class Organization(
         return github.utility.iso_to_datetime(updated_at)
 
     async def fetch_team(
-        self: Self,
+        self,
         slug: str,
         /,
         **kwargs,  # TODO
@@ -730,7 +729,7 @@ class Organization(
         return github.Team._from_data(data, http=self._http)
 
     def fetch_mannequins(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -782,7 +781,7 @@ class Organization(
         )
 
     def fetch_teams(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,

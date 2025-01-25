@@ -34,5 +34,5 @@ class TreeEntryMode(enum.Enum):
 
 
 __all__ = [
-    "TreeEntryMode"
+    "TreeEntryMode",
 ]

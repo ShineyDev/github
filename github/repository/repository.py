@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import Literal, cast
-    from typing_extensions import Self
 
     from github.connection import Connection, DiscussionOrder, IssueOrder, LabelOrder, MilestoneOrder, PullOrder, RepositoryOrder
     from github.content import CodeOfConduct, License
@@ -211,12 +210,12 @@ class Repository(
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: RepositoryData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _repr_fields = [
@@ -284,7 +283,7 @@ class Repository(
 
     @property
     def allows_fork(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -297,7 +296,7 @@ class Repository(
 
     @property
     def allows_merge(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -311,7 +310,7 @@ class Repository(
 
     @property
     def allows_rebase(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -324,7 +323,7 @@ class Repository(
 
     @property
     def allows_squash(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -337,7 +336,7 @@ class Repository(
 
     @property
     def archived_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -355,7 +354,7 @@ class Repository(
 
     @property
     def created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -368,7 +367,7 @@ class Repository(
 
     @property
     def database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -381,7 +380,7 @@ class Repository(
 
     @property
     def description(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -394,7 +393,7 @@ class Repository(
 
     @property
     def description_html(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -407,7 +406,7 @@ class Repository(
 
     @property
     def disk_usage(  # TODO: KB or KiB  # TODO: rounding
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -420,7 +419,7 @@ class Repository(
 
     @property
     def fork_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -433,7 +432,7 @@ class Repository(
 
     @property
     def has_discussions_enabled(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -447,7 +446,7 @@ class Repository(
 
     @property
     def has_issues_enabled(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -461,7 +460,7 @@ class Repository(
 
     @property
     def has_projects_enabled(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -475,7 +474,7 @@ class Repository(
 
     @property
     def has_sponsors_enabled(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -489,7 +488,7 @@ class Repository(
 
     @property
     def has_wiki_enabled(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -502,7 +501,7 @@ class Repository(
 
     @property
     def is_archived(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -515,7 +514,7 @@ class Repository(
 
     @property
     def is_disabled(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -528,7 +527,7 @@ class Repository(
 
     @property
     def is_empty(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -541,7 +540,7 @@ class Repository(
 
     @property
     def is_fork(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -554,7 +553,7 @@ class Repository(
 
     @property
     def is_locked(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -567,7 +566,7 @@ class Repository(
 
     @property
     def is_mirror(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -580,7 +579,7 @@ class Repository(
 
     @property
     def is_private(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -593,7 +592,7 @@ class Repository(
 
     @property
     def is_template(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -606,7 +605,7 @@ class Repository(
 
     @property
     def name(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -619,7 +618,7 @@ class Repository(
 
     @property
     def pushed_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -638,7 +637,7 @@ class Repository(
 
     @property
     def updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -650,7 +649,7 @@ class Repository(
         return github.utility.iso_to_datetime(self._data["updatedAt"])
 
     async def fetch_allows_fork(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -673,7 +672,7 @@ class Repository(
         return await self._fetch_field("forkingAllowed")  # type: ignore
 
     async def fetch_allows_merge(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -696,7 +695,7 @@ class Repository(
         return await self._fetch_field("mergeCommitAllowed")  # type: ignore
 
     async def fetch_allows_rebase(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -718,7 +717,7 @@ class Repository(
         return await self._fetch_field("rebaseMergeAllowed")  # type: ignore
 
     async def fetch_allows_squash(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -740,7 +739,7 @@ class Repository(
         return await self._fetch_field("squashMergeAllowed")  # type: ignore
 
     async def fetch_archived_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -771,7 +770,7 @@ class Repository(
         return github.utility.iso_to_datetime(archived_at)
 
     async def fetch_created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -798,7 +797,7 @@ class Repository(
         return github.utility.iso_to_datetime(created_at)
 
     async def fetch_database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -820,7 +819,7 @@ class Repository(
         return await self._fetch_field("databaseId")  # type: ignore
 
     async def fetch_description(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -842,7 +841,7 @@ class Repository(
         return await self._fetch_field("description")  # type: ignore
 
     async def fetch_description_html(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -864,7 +863,7 @@ class Repository(
         return await self._fetch_field("descriptionHTML")  # type: ignore
 
     async def fetch_disk_usage(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -887,7 +886,7 @@ class Repository(
         return await self._fetch_field("diskUsage")  # type: ignore
 
     async def fetch_fork_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -909,7 +908,7 @@ class Repository(
         return await self._fetch_field("forkCount")  # type: ignore
 
     async def fetch_has_discussions_enabled(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -932,7 +931,7 @@ class Repository(
         return await self._fetch_field("hasDiscussionsEnabled")  # type: ignore
 
     async def fetch_has_issues_enabled(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -955,7 +954,7 @@ class Repository(
         return await self._fetch_field("hasIssuesEnabled")  # type: ignore
 
     async def fetch_has_projects_enabled(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -978,7 +977,7 @@ class Repository(
         return await self._fetch_field("hasProjectsEnabled")  # type: ignore
 
     async def fetch_has_sponsors_enabled(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -1001,7 +1000,7 @@ class Repository(
         return await self._fetch_field("hasSponsorshipsEnabled")  # type: ignore
 
     async def fetch_has_wiki_enabled(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -1023,7 +1022,7 @@ class Repository(
         return await self._fetch_field("hasWikiEnabled")  # type: ignore
 
     async def fetch_is_archived(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -1045,7 +1044,7 @@ class Repository(
         return await self._fetch_field("isArchived")  # type: ignore
 
     async def fetch_is_disabled(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -1067,7 +1066,7 @@ class Repository(
         return await self._fetch_field("isDisabled")  # type: ignore
 
     async def fetch_is_empty(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -1089,7 +1088,7 @@ class Repository(
         return await self._fetch_field("isEmpty")  # type: ignore
 
     async def fetch_is_fork(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -1111,7 +1110,7 @@ class Repository(
         return await self._fetch_field("isFork")  # type: ignore
 
     async def fetch_is_locked(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -1133,7 +1132,7 @@ class Repository(
         return await self._fetch_field("isLocked")  # type: ignore
 
     async def fetch_is_mirror(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -1155,7 +1154,7 @@ class Repository(
         return await self._fetch_field("isMirror")  # type: ignore
 
     async def fetch_is_private(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -1177,7 +1176,7 @@ class Repository(
         return await self._fetch_field("isPrivate")  # type: ignore
 
     async def fetch_is_template(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -1199,7 +1198,7 @@ class Repository(
         return await self._fetch_field("isTemplate")  # type: ignore
 
     async def fetch_name(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -1221,7 +1220,7 @@ class Repository(
         return await self._fetch_field("name")  # type: ignore
 
     async def fetch_pushed_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -1252,7 +1251,7 @@ class Repository(
         return github.utility.iso_to_datetime(pushed_at)
 
     async def fetch_updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -1280,7 +1279,7 @@ class Repository(
         return github.utility.iso_to_datetime(updated_at)
 
     async def fetch_code_of_conduct(
-        self: Self,
+        self,
         /,
         **kwargs,  # TODO
     ) -> CodeOfConduct | None:
@@ -1308,7 +1307,7 @@ class Repository(
         return github.CodeOfConduct._from_data(data, http=self._http)
 
     async def fetch_discussion(
-        self: Self,
+        self,
         number: int,
         /,
         **kwargs,  # TODO
@@ -1339,7 +1338,7 @@ class Repository(
         return github.Discussion._from_data(data, http=self._http)
 
     async def fetch_issue(
-        self: Self,
+        self,
         number: int,
         /,
         **kwargs,  # TODO
@@ -1370,7 +1369,7 @@ class Repository(
         return github.Issue._from_data(data, http=self._http)
 
     async def fetch_issue_or_pull(
-        self: Self,
+        self,
         number: int,
         /,
         **kwargs,  # TODO
@@ -1409,7 +1408,7 @@ class Repository(
             raise RuntimeError(f"invalid type {data['__typename']} for Repository.issueOrPullRequest")
 
     async def fetch_label(
-        self: Self,
+        self,
         name: str,
         /,
         **kwargs,  # TODO
@@ -1434,7 +1433,7 @@ class Repository(
         return github.Label._from_data(data, http=self._http)
 
     async def fetch_license(
-        self: Self,
+        self,
         /,
         **kwargs,  # TODO
     ) -> License | None:
@@ -1462,7 +1461,7 @@ class Repository(
         return github.License._from_data(data, http=self._http)
 
     async def fetch_milestone(
-        self: Self,
+        self,
         number: int,
         /,
         **kwargs,  # TODO
@@ -1493,7 +1492,7 @@ class Repository(
         return github.Milestone._from_data(data, http=self._http)
 
     async def fetch_owner(
-        self: Self,
+        self,
         /,
         **kwargs,  # TODO
     ) -> Organization | User:
@@ -1525,7 +1524,7 @@ class Repository(
             raise RuntimeError(f"invalid type {data['__typename']} for Repository.owner")
 
     async def fetch_parent(
-        self: Self,
+        self,
         /,
         **kwargs,  # TODO
     ) -> Repository | None:
@@ -1553,7 +1552,7 @@ class Repository(
         return github.Repository._from_data(data, http=self._http)
 
     async def fetch_pull(
-        self: Self,
+        self,
         number: int,
         /,
         **kwargs,  # TODO
@@ -1584,7 +1583,7 @@ class Repository(
         return github.Pull._from_data(data, http=self._http)
 
     async def fetch_template(
-        self: Self,
+        self,
         /,
         **kwargs,  # TODO
     ) -> Repository | None:
@@ -1612,7 +1611,7 @@ class Repository(
         return github.Repository._from_data(data, http=self._http)
 
     def fetch_assignable_users(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -1660,7 +1659,7 @@ class Repository(
         )
 
     def fetch_collaborators(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -1714,7 +1713,7 @@ class Repository(
         )
 
     def fetch_discussions(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -1766,7 +1765,7 @@ class Repository(
         )
 
     def fetch_forks(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -1818,7 +1817,7 @@ class Repository(
         )
 
     def fetch_issues(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -1870,7 +1869,7 @@ class Repository(
         )
 
     def fetch_labels(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -1922,7 +1921,7 @@ class Repository(
         )
 
     def fetch_mentionable_users(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -1970,7 +1969,7 @@ class Repository(
         )
 
     def fetch_milestones(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -2019,7 +2018,7 @@ class Repository(
         )
 
     def fetch_pulls(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -2071,7 +2070,7 @@ class Repository(
         )
 
     def fetch_topics(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -2119,7 +2118,7 @@ class Repository(
         )
 
     def fetch_watchers(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -2167,7 +2166,7 @@ class Repository(
         )
 
     async def archive(
-        self: Self,
+        self,
         /,
     ) -> None:
         """
@@ -2188,7 +2187,7 @@ class Repository(
         self._data["isArchived"] = data["isArchived"]
 
     async def unarchive(
-        self: Self,
+        self,
         /,
     ) -> None:
         """
@@ -2209,6 +2208,6 @@ class Repository(
         self._data["isArchived"] = data["isArchived"]
 
 
-__all__: list[str] = [
+__all__ = [
     "Repository",
 ]

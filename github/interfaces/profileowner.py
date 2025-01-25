@@ -1,9 +1,6 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from typing_extensions import Self
-
 
 if TYPE_CHECKING:
     from typing import TypeVar, TypedDict
@@ -64,7 +61,7 @@ class ProfileOwner:
 
     @property
     def can_viewer_update_showcase(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -78,7 +75,7 @@ class ProfileOwner:
 
     @property
     def email(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -99,7 +96,7 @@ class ProfileOwner:
 
     @property
     def has_pinnable_items(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -112,7 +109,7 @@ class ProfileOwner:
 
     @property
     def has_pinned_items(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -125,7 +122,7 @@ class ProfileOwner:
 
     @property
     def location(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -138,7 +135,7 @@ class ProfileOwner:
 
     @property
     def name(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -151,7 +148,7 @@ class ProfileOwner:
 
     @property
     def showcase_slots_remaining(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -164,7 +161,7 @@ class ProfileOwner:
 
     @property
     def website(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -176,7 +173,7 @@ class ProfileOwner:
         return self._data["websiteUrl"]
 
     async def fetch_email(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -207,7 +204,7 @@ class ProfileOwner:
         return await self._fetch_field("email")  # type: ignore
 
     async def fetch_pinnable_items(
-        self: Self,
+        self,
         /,
     ) -> None:
         """
@@ -231,7 +228,7 @@ class ProfileOwner:
         raise NotImplementedError  # TODO: ProfileOwner.pinnableItems
 
     async def fetch_pinned_items(
-        self: Self,
+        self,
         /,
     ) -> None:
         """
@@ -255,7 +252,7 @@ class ProfileOwner:
         raise NotImplementedError  # TODO: ProfileOwner.pinnedItems
 
     async def fetch_showcase_items(
-        self: Self,
+        self,
         /,
     ) -> None:
         """
@@ -279,6 +276,6 @@ class ProfileOwner:
         raise NotImplementedError  # TODO: ProfileOwner.itemShowcase.items
 
 
-__all__: list[str] = [
+__all__ = [
     "ProfileOwner",
 ]

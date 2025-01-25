@@ -24,7 +24,7 @@ from github.repository.topic import *
 from github.repository.topic import __all__ as _topic__all__
 
 
-__all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
+__all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_discussion__all__,
     *_discussionstate__all__,
     *_issue__all__,

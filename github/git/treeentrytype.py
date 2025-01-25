@@ -25,5 +25,5 @@ class TreeEntryType(enum.Enum):
 
 
 __all__ = [
-    "TreeEntryType"
+    "TreeEntryType",
 ]

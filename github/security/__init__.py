@@ -8,7 +8,7 @@ from github.security.vulnerability import *
 from github.security.vulnerability import __all__ as _vulnerability__all__
 
 
-__all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
+__all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_advisory__all__,
     *_advisoryclassification__all__,
     *_advisoryseverity__all__,

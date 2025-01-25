@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from github.core.http import HTTPClient
     from github.repository import DiscussionState
 
@@ -107,12 +105,12 @@ class Discussion(
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: DiscussionData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _repr_fields = [
@@ -132,7 +130,7 @@ class Discussion(
 
     @property
     def database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -145,7 +143,7 @@ class Discussion(
 
     @property
     def is_answered(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -158,7 +156,7 @@ class Discussion(
 
     @property
     def number(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -171,7 +169,7 @@ class Discussion(
 
     @property
     def state(
-        self: Self,
+        self,
         /,
     ) -> DiscussionState:
         """
@@ -197,7 +195,7 @@ class Discussion(
 
     @property
     def title(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -209,7 +207,7 @@ class Discussion(
         return self._data["title"]
 
     async def fetch_database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -231,7 +229,7 @@ class Discussion(
         return await self._fetch_field("databaseId")  # type: ignore
 
     async def fetch_is_answered(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -253,7 +251,7 @@ class Discussion(
         return await self._fetch_field("isAnswered")  # type: ignore
 
     async def fetch_number(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -275,7 +273,7 @@ class Discussion(
         return await self._fetch_field("number")  # type: ignore
 
     async def fetch_state(
-        self: Self,
+        self,
         /,
     ) -> DiscussionState:
         """
@@ -302,7 +300,7 @@ class Discussion(
             return github.DiscussionState.open
 
     async def fetch_title(
-        self: Self,
+        self,
         /,
     ) -> str:
         """

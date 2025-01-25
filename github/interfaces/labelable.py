@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from github.connection import Connection, LabelOrder
     from github.interfaces import Node
     from github.repository import Label
@@ -41,7 +39,7 @@ class Labelable:
 
     @property
     def label_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -54,7 +52,7 @@ class Labelable:
 
     @property
     def viewer_can_label(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -67,7 +65,7 @@ class Labelable:
         return self._data["viewerCanLabel"]
 
     async def fetch_label_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -92,7 +90,7 @@ class Labelable:
         return await self._fetch_field("labels{totalCount}")  # type: ignore
 
     async def fetch_viewer_can_label(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -107,7 +105,7 @@ class Labelable:
         return await self._fetch_field("viewerCanLabel")  # type: ignore
 
     def fetch_labels(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -163,7 +161,7 @@ class Labelable:
         )
 
     async def add_labels(
-        self: Self,
+        self,
         /,
         *labels: Label,
     ) -> None:
@@ -198,7 +196,7 @@ class Labelable:
         self._data["labels"]["totalCount"] = data["labels"]["totalCount"]
 
     async def remove_labels(
-        self: Self,
+        self,
         /,
         *labels: Label,
     ) -> None:

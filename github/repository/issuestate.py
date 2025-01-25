@@ -25,5 +25,5 @@ class IssueState(enum.Enum):
 
 
 __all__ = [
-    "IssueState"
+    "IssueState",
 ]

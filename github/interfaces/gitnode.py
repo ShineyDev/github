@@ -1,9 +1,6 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from typing_extensions import Self
-
 
 if TYPE_CHECKING:
     from typing import TypedDict
@@ -38,7 +35,7 @@ class GitNode:
 
     @property
     def object_id(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -50,7 +47,7 @@ class GitNode:
         return self._data["oid"]
 
     async def fetch_object_id(
-        self: Self,
+        self,
         /,
     ) -> str:
         """

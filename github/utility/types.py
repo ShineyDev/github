@@ -20,7 +20,7 @@ T_json_value: TypeAlias = Union[None, bool, int, float, str, List["T_json_value"
 T_json_object: TypeAlias = Mapping[str, object]
 
 
-__all__: list[str] = [
+__all__ = [
     "Date",
     "DateTime",
     "T_json_key",

@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import Any, Iterable, Tuple, cast, overload
-    from typing_extensions import Self
 
     from aiohttp import ClientResponse, ClientSession
     from github.api.metadata import MetadataData
@@ -55,7 +54,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
     __slots__ = ("token", "user_agent", "uuid")
 
     def __init__(
-        self: Self,
+        self,
         /,
         token: str,
         session: ClientSession,
@@ -69,7 +68,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         self.user_agent = (user_agent or "ShineyDev/github@{version}:{uuid}").format(uuid=self.uuid, version=github.version)
 
     async def request(
-        self: Self,
+        self,
         document_: str,
         operation_: str | None,
         variables_: T_json_object,
@@ -108,7 +107,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
             return data
 
     async def _fetch(
-        self: Self,
+        self,
         document_: str,
         /,
         *path: T_json_key,
@@ -119,7 +118,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return github.utility.follow(data, path)
 
     async def fetch_announcementowner_announcement(
-        self: Self,
+        self,
         /,
         announcementowner_id: str,
         *,
@@ -134,7 +133,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data  # type: ignore
 
     async def fetch_comment_author(
-        self: Self,
+        self,
         /,
         comment_id: str,
         *,
@@ -154,7 +153,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def fetch_comment_editor(
-        self: Self,
+        self,
         /,
         comment_id: str,
         *,
@@ -176,7 +175,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def fetch_issue_milestone(
-        self: Self,
+        self,
         /,
         issue_id: str,
         *,
@@ -189,7 +188,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._fetch(query, *path, issue_id=issue_id)  # type: ignore
 
     async def fetch_organization_team(
-        self: Self,
+        self,
         /,
         organization_id: str,
         team_slug: str,
@@ -221,7 +220,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def fetch_pull_milestone(
-        self: Self,
+        self,
         /,
         pull_id: str,
         *,
@@ -234,7 +233,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._fetch(query, *path, pull_id=pull_id)  # type: ignore
 
     async def fetch_query_all_codes_of_conduct(
-        self: Self,
+        self,
         /,
         *,
         fields: Iterable[str] = MISSING,
@@ -262,7 +261,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return value  # type: ignore
 
     async def fetch_query_all_licenses(
-        self: Self,
+        self,
         /,
         *,
         fields: Iterable[str] = MISSING,
@@ -290,7 +289,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return value  # type: ignore
 
     async def fetch_query_code_of_conduct(
-        self: Self,
+        self,
         /,
         key: str,
         *,
@@ -330,7 +329,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return value
 
     async def fetch_query_license(
-        self: Self,
+        self,
         /,
         key: str,
         *,
@@ -370,7 +369,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return value
 
     async def fetch_query_metadata(
-        self: Self,
+        self,
         /,
         *,
         fields: Iterable[str] = MISSING,
@@ -387,7 +386,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         @overload
         async def fetch_query_node(
-            self: Self,
+            self,
             /,
             type: type[CodeOfConduct],
             id: str,
@@ -397,7 +396,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         @overload
         async def fetch_query_node(
-            self: Self,
+            self,
             /,
             type: type[License],
             id: str,
@@ -407,7 +406,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         @overload
         async def fetch_query_node(
-            self: Self,
+            self,
             /,
             type: type[Topic],
             id: str,
@@ -417,7 +416,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         @overload
         async def fetch_query_node(
-            self: Self,
+            self,
             /,
             type: type[User],
             id: str,
@@ -427,7 +426,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         @overload
         async def fetch_query_node(
-            self: Self,
+            self,
             /,
             type: type[UserStatus],
             id: str,
@@ -436,7 +435,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         ) -> UserStatusData: ...
 
     async def fetch_query_node(
-        self: Self,
+        self,
         /,
         type: type[Node],
         id: str,
@@ -458,7 +457,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return value
 
     async def fetch_query_organization(
-        self: Self,
+        self,
         login: str,
         *,
         fields: Iterable[str] = MISSING,
@@ -478,7 +477,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def fetch_query_rate_limit(
-        self: Self,
+        self,
         /,
         *,
         fields: Iterable[str] = MISSING,
@@ -492,7 +491,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return value  # type: ignore
 
     async def fetch_query_repository(
-        self: Self,
+        self,
         /,
         owner: str,
         name: str,
@@ -519,7 +518,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def fetch_query_repository_owner(
-        self: Self,
+        self,
         /,
         login: str,
         *,
@@ -541,7 +540,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         @overload
         async def fetch_query_resource(
-            self: Self,
+            self,
             /,
             type: type[CodeOfConduct],
             url: str,
@@ -551,7 +550,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         @overload
         async def fetch_query_resource(
-            self: Self,
+            self,
             /,
             type: type[User],
             url: str,
@@ -560,7 +559,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         ) -> UserData: ...
 
     async def fetch_query_resource(
-        self: Self,
+        self,
         /,
         type: type[Resource],
         url: str,
@@ -582,7 +581,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return value
 
     async def fetch_query_topic(
-        self: Self,
+        self,
         name: str,
         *,
         fields: Iterable[str] = MISSING,
@@ -616,7 +615,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return value
 
     async def fetch_query_user(
-        self: Self,
+        self,
         login: str,
         *,
         fields: Iterable[str] = MISSING,
@@ -641,7 +640,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return value
 
     async def fetch_query_viewer(
-        self: Self,
+        self,
         *,
         fields: Iterable[str] = MISSING,
     ) -> ViewerData:
@@ -660,7 +659,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return value
 
     async def fetch_reaction_author(
-        self: Self,
+        self,
         /,
         reaction_id: str,
         *,
@@ -673,7 +672,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._fetch(query, *path, reaction_id=reaction_id)  # type: ignore
 
     async def fetch_repository_code_of_conduct(
-        self: Self,
+        self,
         /,
         repository_id: str,
         *,
@@ -686,7 +685,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._fetch(query, *path, repository_id=repository_id)  # type: ignore
 
     async def fetch_repository_discussion(
-        self: Self,
+        self,
         /,
         repository_id: str,
         number: int,
@@ -708,7 +707,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def fetch_repository_issue(
-        self: Self,
+        self,
         /,
         repository_id: str,
         number: int,
@@ -730,7 +729,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def fetch_repository_issue_or_pull(
-        self: Self,
+        self,
         /,
         repository_id: str,
         number: int,
@@ -753,7 +752,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def fetch_repository_label(
-        self: Self,
+        self,
         /,
         repository_id: str,
         name: str,
@@ -788,7 +787,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def fetch_repository_license(
-        self: Self,
+        self,
         /,
         repository_id: str,
         *,
@@ -801,7 +800,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._fetch(query, *path, repository_id=repository_id)  # type: ignore
 
     async def fetch_repository_milestone(
-        self: Self,
+        self,
         /,
         repository_id: str,
         number: int,
@@ -823,7 +822,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def fetch_repository_owner(
-        self: Self,
+        self,
         /,
         repository_id: str,
         *,
@@ -837,7 +836,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._fetch(query, *path, repository_id=repository_id)  # type: ignore
 
     async def fetch_repository_parent(
-        self: Self,
+        self,
         /,
         repository_id: str,
         *,
@@ -850,7 +849,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._fetch(query, *path, repository_id=repository_id)  # type: ignore
 
     async def fetch_repository_pull(
-        self: Self,
+        self,
         /,
         repository_id: str,
         number: int,
@@ -872,7 +871,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def fetch_repository_template(
-        self: Self,
+        self,
         /,
         repository_id: str,
         *,
@@ -885,7 +884,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._fetch(query, *path, repository_id=repository_id)  # type: ignore
 
     async def fetch_repositorynode_repository(
-        self: Self,
+        self,
         /,
         repositorynode_id: str,
         *,
@@ -903,7 +902,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def fetch_repositoryowner_repository(
-        self: Self,
+        self,
         /,
         repositoryowner_id: str,
         name: str,
@@ -927,7 +926,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def fetch_topic_related_topics(
-        self: Self,
+        self,
         /,
         topic_id: str,
         limit: int | None,
@@ -943,7 +942,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return value  # type: ignore
 
     async def fetch_user_organization(
-        self: Self,
+        self,
         /,
         user_id: str,
         organization_login: str,
@@ -975,7 +974,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def fetch_user_status(
-        self: Self,
+        self,
         /,
         user_id: str,
         *,
@@ -990,7 +989,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return value  # type: ignore
 
     async def fetch_userstatus_organization(
-        self: Self,
+        self,
         /,
         userstatus_id: str,
         *,
@@ -1011,7 +1010,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def fetch_userstatus_user(
-        self: Self,
+        self,
         /,
         userstatus_id: str,
         *,
@@ -1034,7 +1033,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def _collect(
-        self: Self,
+        self,
         document_: str,
         /,
         *path: T_json_key,
@@ -1069,7 +1068,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def collect_advisory_vulnerabilities(
-        self: Self,
+        self,
         /,
         advisory_id: str,
         order_by: str | None,
@@ -1089,7 +1088,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, advisory_id=advisory_id, order_by=order_by_data, **kwargs)
 
     async def collect_assignable_assignees(
-        self: Self,
+        self,
         /,
         assignable_id: str,
         *,
@@ -1103,7 +1102,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, assignable_id=assignable_id, **kwargs)
 
     async def collect_issue_participants(
-        self: Self,
+        self,
         /,
         issue_id: str,
         *,
@@ -1117,7 +1116,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, issue_id=issue_id, **kwargs)
 
     async def collect_label_issues(
-        self: Self,
+        self,
         /,
         label_id: str,
         order_by: str | None,
@@ -1137,7 +1136,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, label_id=label_id, order_by=order_by_data, **kwargs)
 
     async def collect_label_pulls(
-        self: Self,
+        self,
         /,
         label_id: str,
         order_by: str | None,
@@ -1157,7 +1156,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, label_id=label_id, order_by=order_by_data, **kwargs)
 
     async def collect_labelable_labels(
-        self: Self,
+        self,
         /,
         labelable_id: str,
         order_by: str | None,
@@ -1177,7 +1176,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, labelable_id=labelable_id, order_by=order_by_data, **kwargs)
 
     async def collect_milestone_issues(
-        self: Self,
+        self,
         /,
         milestone_id: str,
         order_by: str | None,
@@ -1197,7 +1196,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, milestone_id=milestone_id, order_by=order_by_data, **kwargs)
 
     async def collect_milestone_pulls(
-        self: Self,
+        self,
         /,
         milestone_id: str,
         order_by: str | None,
@@ -1217,7 +1216,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, milestone_id=milestone_id, order_by=order_by_data, **kwargs)
 
     async def collect_organization_mannequins(
-        self: Self,
+        self,
         /,
         organization_id: str,
         order_by: str | None,
@@ -1237,7 +1236,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, organization_id=organization_id, order_by=order_by_data, **kwargs)
 
     async def collect_organization_teams(
-        self: Self,
+        self,
         /,
         organization_id: str,
         order_by: str | None,
@@ -1257,7 +1256,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, organization_id=organization_id, order_by=order_by_data, **kwargs)
 
     async def collect_pull_participants(
-        self: Self,
+        self,
         /,
         pull_id: str,
         *,
@@ -1271,7 +1270,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, pull_id=pull_id, **kwargs)
 
     async def collect_query_advisories(
-        self: Self,
+        self,
         /,
         order_by: str | None,
         *,
@@ -1290,7 +1289,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, order_by=order_by_data, **kwargs)
 
     async def collect_query_vulnerabilities(
-        self: Self,
+        self,
         /,
         order_by: str | None,
         *,
@@ -1309,7 +1308,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, order_by=order_by_data, **kwargs)
 
     async def collect_reactable_reactions(
-        self: Self,
+        self,
         /,
         reactable_id: str,
         order_by: str | None,
@@ -1329,7 +1328,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, reactable_id=reactable_id, order_by=order_by_data, **kwargs)
 
     async def collect_repository_assignable_users(
-        self: Self,
+        self,
         /,
         repository_id: str,
         *,
@@ -1343,7 +1342,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, repository_id=repository_id, **kwargs)
 
     async def collect_repository_collaborators(
-        self: Self,
+        self,
         /,
         repository_id: str,
         *,
@@ -1357,7 +1356,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, repository_id=repository_id, **kwargs)
 
     async def collect_repository_discussions(
-        self: Self,
+        self,
         /,
         repository_id: str,
         order_by: str | None,
@@ -1377,7 +1376,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
 
     async def collect_repository_forks(
-        self: Self,
+        self,
         /,
         repository_id: str,
         order_by: str | None,
@@ -1397,7 +1396,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
 
     async def collect_repository_issues(
-        self: Self,
+        self,
         /,
         repository_id: str,
         order_by: str | None,
@@ -1417,7 +1416,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
 
     async def collect_repository_labels(
-        self: Self,
+        self,
         /,
         repository_id: str,
         order_by: str | None,
@@ -1437,7 +1436,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
 
     async def collect_repository_milestones(
-        self: Self,
+        self,
         /,
         repository_id: str,
         order_by: str | None,
@@ -1457,7 +1456,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
 
     async def collect_repository_pulls(
-        self: Self,
+        self,
         /,
         repository_id: str,
         order_by: str | None,
@@ -1477,7 +1476,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
 
     async def collect_repository_topics(
-        self: Self,
+        self,
         /,
         repository_id: str,
         *,
@@ -1500,7 +1499,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data
 
     async def collect_repository_mentionable_users(
-        self: Self,
+        self,
         /,
         repository_id: str,
         *,
@@ -1514,7 +1513,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, repository_id=repository_id, **kwargs)
 
     async def collect_repository_watchers(
-        self: Self,
+        self,
         /,
         repository_id: str,
         *,
@@ -1528,7 +1527,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, repository_id=repository_id, **kwargs)
 
     async def collect_repositoryowner_repositories(
-        self: Self,
+        self,
         /,
         repositoryowner_id: str,
         order_by: str | None,
@@ -1548,7 +1547,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, repositoryowner_id=repositoryowner_id, order_by=order_by_data, **kwargs)
 
     async def collect_starrable_stargazers(
-        self: Self,
+        self,
         /,
         starrable_id: str,
         order_by: str | None,
@@ -1568,7 +1567,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, starrable_id=starrable_id, order_by=order_by_data, **kwargs)
 
     async def collect_team_ancestors(
-        self: Self,
+        self,
         /,
         team_id: str,
         *,
@@ -1582,7 +1581,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, team_id=team_id, **kwargs)
 
     async def collect_topic_repositories(
-        self: Self,
+        self,
         /,
         topic_id: str,
         order_by: str | None,
@@ -1602,7 +1601,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, topic_id=topic_id, order_by=order_by_data, **kwargs)
 
     async def collect_user_followers(
-        self: Self,
+        self,
         /,
         user_id: str,
         *,
@@ -1616,7 +1615,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, user_id=user_id, **kwargs)
 
     async def collect_user_following(
-        self: Self,
+        self,
         /,
         user_id: str,
         *,
@@ -1630,7 +1629,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, user_id=user_id, **kwargs)
 
     async def collect_user_issues(
-        self: Self,
+        self,
         /,
         user_id: str,
         order_by: str | None,
@@ -1650,7 +1649,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, user_id=user_id, order_by=order_by_data, **kwargs)
 
     async def collect_user_organizations(
-        self: Self,
+        self,
         /,
         user_id: str,
         order_by: str | None,
@@ -1670,7 +1669,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, user_id=user_id, order_by=order_by_data, **kwargs)
 
     async def collect_user_pulls(
-        self: Self,
+        self,
         /,
         user_id: str,
         order_by: str | None,
@@ -1690,7 +1689,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, user_id=user_id, order_by=order_by_data, **kwargs)
 
     async def collect_user_watching(
-        self: Self,
+        self,
         /,
         user_id: str,
         order_by: str | None,
@@ -1710,7 +1709,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._collect(query, *path, user_id=user_id, order_by=order_by_data, **kwargs)
 
     async def _mutate(
-        self: Self,
+        self,
         document_: str,
         /,
         *path: T_json_key,
@@ -1723,7 +1722,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return await self._fetch(document_, *path, _data_validate=_data_validate, **kwargs)
 
     async def mutate_assignable_add_assignees(
-        self: Self,
+        self,
         /,
         assignable_id: str,
         assignee_ids: list[str],
@@ -1739,7 +1738,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data  # type: ignore
 
     async def mutate_assignable_remove_assignees(
-        self: Self,
+        self,
         /,
         assignable_id: str,
         assignee_ids: list[str],
@@ -1755,7 +1754,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data  # type: ignore
 
     async def mutate_labelable_add_labels(
-        self: Self,
+        self,
         /,
         labelable_id: str,
         label_ids: list[str],
@@ -1771,7 +1770,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data  # type: ignore
 
     async def mutate_labelable_remove_labels(
-        self: Self,
+        self,
         /,
         labelable_id: str,
         label_ids: list[str],
@@ -1787,7 +1786,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data  # type: ignore
 
     async def mutate_reactable_add_reaction(
-        self: Self,
+        self,
         /,
         reactable_id: str,
         content: str,
@@ -1805,7 +1804,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return (data["subject"], data["reaction"])  # type: ignore
 
     async def mutate_reactable_remove_reaction(
-        self: Self,
+        self,
         /,
         reactable_id: str,
         content: str,
@@ -1821,7 +1820,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data  # type: ignore
 
     async def mutate_repository_archive(
-        self: Self,
+        self,
         /,
         repository_id: str,
         *,
@@ -1836,7 +1835,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data  # type: ignore
 
     async def mutate_repository_unarchive(
-        self: Self,
+        self,
         /,
         repository_id: str,
         *,
@@ -1851,7 +1850,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return data  # type: ignore
 
     async def mutate_starrable_star(
-        self: Self,
+        self,
         /,
         starrable_id: str,
         *,
@@ -1866,7 +1865,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return value  # type: ignore
 
     async def mutate_starrable_unstar(
-        self: Self,
+        self,
         /,
         starrable_id: str,
         *,
@@ -1881,7 +1880,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return value  # type: ignore
 
     async def mutate_subscribable_update_subscription(
-        self: Self,
+        self,
         /,
         subscribable_id: str,
         state: str,
@@ -1897,7 +1896,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return value  # type: ignore
 
     async def mutate_user_update_status(
-        self: Self,
+        self,
         /,
         busy: bool | None,
         emoji: str | None,
@@ -1916,6 +1915,6 @@ class HTTPClient(graphql.client.http.HTTPClient):
         return value  # type: ignore
 
 
-__all__: list[str] = [
+__all__ = [
     "HTTPClient",
 ]

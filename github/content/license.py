@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from github.core.http import HTTPClient
     from github.utility.types import T_json_key, T_json_value
 
@@ -70,12 +68,12 @@ class License(Node, Type):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: LicenseData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _repr_fields = [
@@ -103,7 +101,7 @@ class License(Node, Type):
 
     @property
     def body(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -116,7 +114,7 @@ class License(Node, Type):
 
     @property
     def choosealicense_url(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -129,7 +127,7 @@ class License(Node, Type):
 
     @property
     def conditions(
-        self: Self,
+        self,
         /,
     ) -> list[LicenseRule]:
         """
@@ -142,7 +140,7 @@ class License(Node, Type):
 
     @property
     def description(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -155,7 +153,7 @@ class License(Node, Type):
 
     @property
     def implementation(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -168,7 +166,7 @@ class License(Node, Type):
 
     @property
     def is_featured(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -181,7 +179,7 @@ class License(Node, Type):
 
     @property
     def is_hidden(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -194,7 +192,7 @@ class License(Node, Type):
 
     @property
     def is_pseudo(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -207,7 +205,7 @@ class License(Node, Type):
 
     @property
     def key(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -220,7 +218,7 @@ class License(Node, Type):
 
     @property
     def limitations(
-        self: Self,
+        self,
         /,
     ) -> list[LicenseRule]:
         """
@@ -233,7 +231,7 @@ class License(Node, Type):
 
     @property
     def name(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -246,7 +244,7 @@ class License(Node, Type):
 
     @property
     def nickname(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -259,7 +257,7 @@ class License(Node, Type):
 
     @property
     def permissions(
-        self: Self,
+        self,
         /,
     ) -> list[LicenseRule]:
         """
@@ -272,7 +270,7 @@ class License(Node, Type):
 
     @property
     def spdx_id(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -284,7 +282,7 @@ class License(Node, Type):
         return self._data["spdxId"]
 
     async def _fetch_field(
-        self: Self,
+        self,
         field: T_json_key,
         /,
         *,
@@ -322,7 +320,7 @@ class License(Node, Type):
         return value
 
     async def fetch_body(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -347,7 +345,7 @@ class License(Node, Type):
         return await self._fetch_field("body")  # type: ignore
 
     async def fetch_choosealicense_url(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -372,7 +370,7 @@ class License(Node, Type):
         return await self._fetch_field("url")  # type: ignore
 
     async def fetch_conditions(
-        self: Self,
+        self,
         /,
     ) -> list[LicenseRule]:
         """
@@ -397,7 +395,7 @@ class License(Node, Type):
         return github.LicenseRule._from_data(await self._fetch_field("conditions"))  # type: ignore
 
     async def fetch_description(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -422,7 +420,7 @@ class License(Node, Type):
         return await self._fetch_field("description")  # type: ignore
 
     async def fetch_id(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -447,7 +445,7 @@ class License(Node, Type):
         return await super().fetch_id()  # type: ignore
 
     async def fetch_implementation(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -472,7 +470,7 @@ class License(Node, Type):
         return await self._fetch_field("implementation")  # type: ignore
 
     async def fetch_is_featured(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -497,7 +495,7 @@ class License(Node, Type):
         return await self._fetch_field("featured")  # type: ignore
 
     async def fetch_is_hidden(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -522,7 +520,7 @@ class License(Node, Type):
         return await self._fetch_field("hidden")  # type: ignore
 
     async def fetch_is_pseudo(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -547,7 +545,7 @@ class License(Node, Type):
         return await self._fetch_field("pseudoLicense")  # type: ignore
 
     async def fetch_key(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -572,7 +570,7 @@ class License(Node, Type):
         return await self._fetch_field("key")  # type: ignore
 
     async def fetch_limitations(
-        self: Self,
+        self,
         /,
     ) -> list[LicenseRule]:
         """
@@ -597,7 +595,7 @@ class License(Node, Type):
         return github.LicenseRule._from_data(await self._fetch_field("limitations"))  # type: ignore
 
     async def fetch_name(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -622,7 +620,7 @@ class License(Node, Type):
         return await self._fetch_field("name")  # type: ignore
 
     async def fetch_nickname(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -647,7 +645,7 @@ class License(Node, Type):
         return await self._fetch_field("nickname")  # type: ignore
 
     async def fetch_permissions(
-        self: Self,
+        self,
         /,
     ) -> list[LicenseRule]:
         """
@@ -672,7 +670,7 @@ class License(Node, Type):
         return github.LicenseRule._from_data(await self._fetch_field("permissions"))  # type: ignore
 
     async def fetch_spdx_id(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -697,6 +695,6 @@ class License(Node, Type):
         return await self._fetch_field("spdxId")  # type: ignore
 
 
-__all__: list[str] = [
+__all__ = [
     "License",
 ]

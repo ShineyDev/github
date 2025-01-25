@@ -39,7 +39,7 @@ version: str = "1.0.0.0a"
 version_info: _VersionInfo = _VersionInfo(1, 0, 0, 0, "alpha", 0)
 
 
-__all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
+__all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_core__all__,
     *_interfaces__all__,
     *_api__all__,

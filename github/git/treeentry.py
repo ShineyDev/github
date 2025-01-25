@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from github.core.http import HTTPClient
     from github.git import TreeEntryMode, TreeEntryType
 
@@ -63,12 +61,12 @@ class TreeEntry(Type):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: TreeEntryData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _graphql_fields = {
@@ -91,7 +89,7 @@ class TreeEntry(Type):
 
     @property
     def extension(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -105,7 +103,7 @@ class TreeEntry(Type):
 
     @property
     def is_generated(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -118,7 +116,7 @@ class TreeEntry(Type):
 
     @property
     def line_count(
-        self: Self,
+        self,
         /,
     ) -> int | None:
         """
@@ -132,7 +130,7 @@ class TreeEntry(Type):
 
     @property
     def mode(
-        self: Self,
+        self,
         /,
     ) -> TreeEntryMode:
         """
@@ -145,7 +143,7 @@ class TreeEntry(Type):
 
     @property
     def name(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -158,7 +156,7 @@ class TreeEntry(Type):
 
     @property
     def object_id(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -171,7 +169,7 @@ class TreeEntry(Type):
 
     @property
     def path(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -184,7 +182,7 @@ class TreeEntry(Type):
 
     @property
     def size(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -198,7 +196,7 @@ class TreeEntry(Type):
 
     @property
     def type(
-        self: Self,
+        self,
         /,
     ) -> TreeEntryType:
         """

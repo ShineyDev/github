@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from github.interfaces import Node
     from github.repository import Repository
 
@@ -30,7 +28,7 @@ class RepositoryNode:
     _data: RepositoryNodeData
 
     async def fetch_repository(
-        self: Self,
+        self,
         /,
         **kwargs,  # TODO
     ) -> Repository:
@@ -57,6 +55,6 @@ class RepositoryNode:
         return github.Repository._from_data(data, http=self._http)
 
 
-__all__: list[str] = [
+__all__ = [
     "RepositoryNode",
 ]

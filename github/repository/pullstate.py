@@ -28,5 +28,5 @@ class PullState(enum.Enum):
 
 
 __all__ = [
-    "PullState"
+    "PullState",
 ]

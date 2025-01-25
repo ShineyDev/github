@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from github.interfaces import Node
 
 
@@ -33,7 +31,7 @@ class PackageOwner:
 
     @property
     def package_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -45,7 +43,7 @@ class PackageOwner:
         return self._data["packages"]["totalCount"]
 
     async def fetch_package_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -70,6 +68,6 @@ class PackageOwner:
         return await self._fetch_field("packages{totalCount}")  # type: ignore
 
 
-__all__: list[str] = [
+__all__ = [
     "PackageOwner",
 ]

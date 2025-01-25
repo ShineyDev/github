@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from github.connection import Connection
     from github.core.http import HTTPClient
     from github.repository import IssueState, Milestone
@@ -129,12 +127,12 @@ class Issue(
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: IssueData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _repr_fields = [
@@ -160,7 +158,7 @@ class Issue(
 
     @property
     def database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -173,7 +171,7 @@ class Issue(
 
     @property
     def is_pinned(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -186,7 +184,7 @@ class Issue(
 
     @property
     def is_read(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -199,7 +197,7 @@ class Issue(
 
     @property
     def number(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -212,7 +210,7 @@ class Issue(
 
     @property
     def state(
-        self: Self,
+        self,
         /,
     ) -> IssueState:
         """
@@ -225,7 +223,7 @@ class Issue(
 
     @property
     def title(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -238,7 +236,7 @@ class Issue(
 
     @property
     def title_html(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -250,7 +248,7 @@ class Issue(
         return self._data["titleHTML"]
 
     async def fetch_database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -272,7 +270,7 @@ class Issue(
         return int(await self._fetch_field("fullDatabaseId"))  # type: ignore
 
     async def fetch_is_pinned(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -294,7 +292,7 @@ class Issue(
         return await self._fetch_field("isPinned")  # type: ignore
 
     async def fetch_is_read(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -317,7 +315,7 @@ class Issue(
         return await self._fetch_field("isReadByViewer")  # type: ignore
 
     async def fetch_number(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -339,7 +337,7 @@ class Issue(
         return await self._fetch_field("number")  # type: ignore
 
     async def fetch_state(
-        self: Self,
+        self,
         /,
     ) -> IssueState:
         """
@@ -361,7 +359,7 @@ class Issue(
         return github.IssueState(await self._fetch_field("state"))
 
     async def fetch_title(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -383,7 +381,7 @@ class Issue(
         return await self._fetch_field("title")  # type: ignore
 
     async def fetch_title_html(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -405,7 +403,7 @@ class Issue(
         return await self._fetch_field("titleHTML")  # type: ignore
 
     async def fetch_milestone(
-        self: Self,
+        self,
         /,
         **kwargs,  # TODO
     ) -> Milestone | None:
@@ -433,7 +431,7 @@ class Issue(
         return github.Milestone._from_data(data, http=self._http)
 
     def fetch_participants(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,

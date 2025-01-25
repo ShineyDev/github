@@ -25,5 +25,5 @@ class DiscussionOrder(enum.Enum):
 
 
 __all__ = [
-    "DiscussionOrder"
+    "DiscussionOrder",
 ]

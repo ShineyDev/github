@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from github.connection import Connection
     from github.interfaces import Node
     from github.user import User
@@ -39,7 +37,7 @@ class Assignable:
 
     @property
     def assignee_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -51,7 +49,7 @@ class Assignable:
         return self._data["assignees"]["totalCount"]
 
     async def fetch_assignee_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -76,7 +74,7 @@ class Assignable:
         return await self._fetch_field("assignees{totalCount}")  # type: ignore
 
     def fetch_assignees(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -128,7 +126,7 @@ class Assignable:
         )
 
     async def add_assignees(
-        self: Self,
+        self,
         /,
         *assignees: User,
     ) -> None:
@@ -163,7 +161,7 @@ class Assignable:
         self._data["assignees"]["totalCount"] = data["assignees"]["totalCount"]
 
     async def remove_assignees(
-        self: Self,
+        self,
         /,
         *assignees: User,
     ) -> None:

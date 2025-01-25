@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import cast
-    from typing_extensions import Self
 
     from github.core.http import HTTPClient
     from github.utility.types import DateTime
@@ -97,12 +96,12 @@ class Commit(GitNode, Node, RepositoryNode, Resource, Subscribable, Type):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: CommitData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _graphql_fields = {
@@ -130,7 +129,7 @@ class Commit(GitNode, Node, RepositoryNode, Resource, Subscribable, Type):
 
     @property
     def addition_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -143,7 +142,7 @@ class Commit(GitNode, Node, RepositoryNode, Resource, Subscribable, Type):
 
     @property
     def authored_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -156,7 +155,7 @@ class Commit(GitNode, Node, RepositoryNode, Resource, Subscribable, Type):
 
     @property
     def committed_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -169,7 +168,7 @@ class Commit(GitNode, Node, RepositoryNode, Resource, Subscribable, Type):
 
     @property
     def deletion_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -182,7 +181,7 @@ class Commit(GitNode, Node, RepositoryNode, Resource, Subscribable, Type):
 
     @property
     def file_count(
-        self: Self,
+        self,
         /,
     ) -> int | None:
         """
@@ -197,7 +196,7 @@ class Commit(GitNode, Node, RepositoryNode, Resource, Subscribable, Type):
 
     @property
     def message(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -209,7 +208,7 @@ class Commit(GitNode, Node, RepositoryNode, Resource, Subscribable, Type):
         return self._data["message"]
 
     async def fetch_addition_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -231,7 +230,7 @@ class Commit(GitNode, Node, RepositoryNode, Resource, Subscribable, Type):
         return await self._fetch_field("additions")  # type: ignore
 
     async def fetch_authored_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -258,7 +257,7 @@ class Commit(GitNode, Node, RepositoryNode, Resource, Subscribable, Type):
         return github.utility.iso_to_datetime(authored_at)
 
     async def fetch_committed_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -285,7 +284,7 @@ class Commit(GitNode, Node, RepositoryNode, Resource, Subscribable, Type):
         return github.utility.iso_to_datetime(committed_at)
 
     async def fetch_deletion_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -307,7 +306,7 @@ class Commit(GitNode, Node, RepositoryNode, Resource, Subscribable, Type):
         return await self._fetch_field("deletions")  # type: ignore
 
     async def fetch_file_count(
-        self: Self,
+        self,
         /,
     ) -> int | None:
         """
@@ -330,7 +329,7 @@ class Commit(GitNode, Node, RepositoryNode, Resource, Subscribable, Type):
         return await self._fetch_field("changedFilesIfAvailable")  # type: ignore
 
     async def fetch_message(
-        self: Self,
+        self,
         /,
     ) -> str:
         """

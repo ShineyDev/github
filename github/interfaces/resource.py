@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import cast
-    from typing_extensions import Self
 
     from github.interfaces import Node, Type
     from github.utility.types import T_json_key, T_json_value
@@ -37,7 +36,7 @@ class Resource:
 
     @property
     def resource_path(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -50,7 +49,7 @@ class Resource:
 
     @property
     def url(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -62,7 +61,7 @@ class Resource:
         return self._data["url"]
 
     async def _fetch_field(
-        self: Self,
+        self,
         field: T_json_key,
         /,
         *,
@@ -96,7 +95,7 @@ class Resource:
         return value
 
     async def fetch_resource_path(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -118,7 +117,7 @@ class Resource:
         return await self._fetch_field("resourcePath")  # type: ignore
 
     async def fetch_url(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -140,6 +139,6 @@ class Resource:
         return await self._fetch_field("url")  # type: ignore
 
 
-__all__: list[str] = [
+__all__ = [
     "Resource",
 ]

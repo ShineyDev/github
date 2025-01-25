@@ -1,9 +1,6 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from typing_extensions import Self
-
 
 if TYPE_CHECKING:
     from typing import TypedDict
@@ -27,7 +24,7 @@ class DiscussionAuthor:
     _data: DiscussionAuthorData
 
     async def fetch_discussion_comments(
-        self: Self,
+        self,
         /,
     ) -> None:
         """
@@ -51,7 +48,7 @@ class DiscussionAuthor:
         raise NotImplementedError  # TODO: RepositoryDiscussionCommentAuthor.repositoryDiscussionComments
 
     async def fetch_discussions(
-        self: Self,
+        self,
         /,
     ) -> None:
         """
@@ -75,6 +72,6 @@ class DiscussionAuthor:
         raise NotImplementedError  # TODO: RepositoryDiscussionAuthor.repositoryDiscussions
 
 
-__all__: list[str] = [
+__all__ = [
     "DiscussionAuthor",
 ]

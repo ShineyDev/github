@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import cast
-    from typing_extensions import Self
 
     from github.core.http import HTTPClient
     from github.organization import Organization
@@ -67,12 +66,12 @@ class UserStatus(Node, Type):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: UserStatusData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _repr_fields = [
@@ -95,7 +94,7 @@ class UserStatus(Node, Type):
 
     @property
     def can_viewer_update(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -108,7 +107,7 @@ class UserStatus(Node, Type):
 
     @property
     def created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -121,7 +120,7 @@ class UserStatus(Node, Type):
 
     @property
     def emoji(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -134,7 +133,7 @@ class UserStatus(Node, Type):
 
     @property
     def emoji_html(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -147,7 +146,7 @@ class UserStatus(Node, Type):
 
     @property
     def expires_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -165,7 +164,7 @@ class UserStatus(Node, Type):
 
     @property
     def is_busy(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -178,7 +177,7 @@ class UserStatus(Node, Type):
 
     @property
     def message(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -191,7 +190,7 @@ class UserStatus(Node, Type):
 
     @property
     def updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -203,7 +202,7 @@ class UserStatus(Node, Type):
         return github.utility.iso_to_datetime(self._data["updatedAt"])
 
     async def fetch_can_viewer_update(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -230,7 +229,7 @@ class UserStatus(Node, Type):
         return user["isViewer"]
 
     async def fetch_created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -257,7 +256,7 @@ class UserStatus(Node, Type):
         return github.utility.iso_to_datetime(value)
 
     async def fetch_emoji(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -279,7 +278,7 @@ class UserStatus(Node, Type):
         return await self._fetch_field("emoji")  # type: ignore
 
     async def fetch_emoji_html(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -301,7 +300,7 @@ class UserStatus(Node, Type):
         return await self._fetch_field("emojiHTML")  # type: ignore
 
     async def fetch_expires_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -331,7 +330,7 @@ class UserStatus(Node, Type):
         return github.utility.iso_to_datetime(expires_at)
 
     async def fetch_is_busy(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -353,7 +352,7 @@ class UserStatus(Node, Type):
         return await self._fetch_field("indicatesLimitedAvailability")  # type: ignore
 
     async def fetch_message(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -375,7 +374,7 @@ class UserStatus(Node, Type):
         return await self._fetch_field("message")  # type: ignore
 
     async def fetch_updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -402,7 +401,7 @@ class UserStatus(Node, Type):
         return github.utility.iso_to_datetime(value)
 
     async def fetch_organization(
-        self: Self,
+        self,
         /,
         **kwargs,
     ) -> Organization | None:
@@ -426,7 +425,7 @@ class UserStatus(Node, Type):
         return github.Organization._from_data(data, http=self._http)
 
     async def fetch_user(
-        self: Self,
+        self,
         /,
         **kwargs,
     ) -> User:
@@ -450,6 +449,6 @@ class UserStatus(Node, Type):
         return github.User._from_data(data, http=self._http)
 
 
-__all__: list[str] = [
+__all__ = [
     "UserStatus",
 ]

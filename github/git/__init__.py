@@ -14,7 +14,7 @@ from github.git.treeentrytype import *
 from github.git.treeentrytype import __all__ as _treeentrytype__all__
 
 
-__all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
+__all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_blob__all__,
     *_commit__all__,
     *_tag__all__,

@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import Any, ClassVar, cast
-    from typing_extensions import Self
 
     from github.core.http import HTTPClient
     from github.interfaces.type import Type
@@ -54,13 +53,13 @@ class Node:
     _node_prefix: ClassVar[str] = MISSING
 
     def __hash__(
-        self: Self,
+        self,
         /,
     ) -> int:
         return hash(self.id)
 
     def __eq__(
-        self: Self,
+        self,
         other: Any,
         /,
     ) -> bool:
@@ -71,7 +70,7 @@ class Node:
 
     @property
     def id(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -83,7 +82,7 @@ class Node:
         return self._data["id"]
 
     async def _fetch_field(
-        self: Self,
+        self,
         field: T_json_key,
         /,
         *,
@@ -114,7 +113,7 @@ class Node:
         return value
 
     async def fetch_id(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -136,6 +135,6 @@ class Node:
         return await self._fetch_field("id")  # type: ignore
 
 
-__all__: list[str] = [
+__all__ = [
     "Node",
 ]

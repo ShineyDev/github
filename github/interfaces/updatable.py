@@ -1,9 +1,6 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from typing_extensions import Self
-
 
 if TYPE_CHECKING:
     from typing import TypedDict
@@ -28,7 +25,7 @@ class Updatable:
 
     @property
     def viewer_can_update(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -40,7 +37,7 @@ class Updatable:
         return self._data["viewerCanUpdate"]
 
     async def fetch_viewer_can_update(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """

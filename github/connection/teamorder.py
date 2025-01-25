@@ -22,5 +22,5 @@ class TeamOrder(enum.Enum):
 
 
 __all__ = [
-    "TeamOrder"
+    "TeamOrder",
 ]

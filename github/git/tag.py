@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from github.core.http import HTTPClient
 
 from github.interfaces import GitNode, Node, RepositoryNode, Type
@@ -70,12 +68,12 @@ class Tag(GitNode, Node, RepositoryNode, Type):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: TagData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _graphql_fields = [
@@ -87,7 +85,7 @@ class Tag(GitNode, Node, RepositoryNode, Type):
 
     @property
     def message(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -100,7 +98,7 @@ class Tag(GitNode, Node, RepositoryNode, Type):
 
     @property
     def name(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -112,7 +110,7 @@ class Tag(GitNode, Node, RepositoryNode, Type):
         return self._data["name"]
 
     async def fetch_message(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -134,7 +132,7 @@ class Tag(GitNode, Node, RepositoryNode, Type):
         return await self._fetch_field("message")  # type: ignore
 
     async def fetch_name(
-        self: Self,
+        self,
         /,
     ) -> str:
         """

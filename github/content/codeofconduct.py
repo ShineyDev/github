@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from github.core.http import HTTPClient
     from github.utility.types import T_json_key, T_json_value
 
@@ -58,12 +56,12 @@ class CodeOfConduct(Node, Resource, Type):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: CodeOfConductData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _repr_fields = [
@@ -80,7 +78,7 @@ class CodeOfConduct(Node, Resource, Type):
 
     @property
     def body(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -93,7 +91,7 @@ class CodeOfConduct(Node, Resource, Type):
 
     @property
     def key(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -106,7 +104,7 @@ class CodeOfConduct(Node, Resource, Type):
 
     @property
     def name(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -119,7 +117,7 @@ class CodeOfConduct(Node, Resource, Type):
 
     @property
     def resource_path(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -132,7 +130,7 @@ class CodeOfConduct(Node, Resource, Type):
 
     @property
     def url(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -144,7 +142,7 @@ class CodeOfConduct(Node, Resource, Type):
         return super().url
 
     async def _fetch_field(
-        self: Self,
+        self,
         field: T_json_key,
         /,
         *,
@@ -189,7 +187,7 @@ class CodeOfConduct(Node, Resource, Type):
         return value
 
     async def fetch_body(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -215,7 +213,7 @@ class CodeOfConduct(Node, Resource, Type):
         return await self._fetch_field("body")  # type: ignore
 
     async def fetch_id(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -241,7 +239,7 @@ class CodeOfConduct(Node, Resource, Type):
         return await super().fetch_id()  # type: ignore
 
     async def fetch_key(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -267,7 +265,7 @@ class CodeOfConduct(Node, Resource, Type):
         return await self._fetch_field("key")  # type: ignore
 
     async def fetch_name(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -293,7 +291,7 @@ class CodeOfConduct(Node, Resource, Type):
         return await self._fetch_field("name")  # type: ignore
 
     async def fetch_resource_path(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -319,7 +317,7 @@ class CodeOfConduct(Node, Resource, Type):
         return await super().fetch_resource_path()  # type: ignore
 
     async def fetch_url(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -345,6 +343,6 @@ class CodeOfConduct(Node, Resource, Type):
         return await super().fetch_url()  # type: ignore
 
 
-__all__: list[str] = [
+__all__ = [
     "CodeOfConduct",
 ]

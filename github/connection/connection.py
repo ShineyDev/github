@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import Generic, TypeVar, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Any, AsyncIterator, Awaitable, Callable, Final, cast, type_check_only
+    from typing import Any, AsyncIterator, Awaitable, Callable, cast, type_check_only
     from typing_extensions import Self
 
     _T = TypeVar("_T")
@@ -69,7 +69,7 @@ class Connection(AsyncIterator[_Tci]):
     )
 
     def __init__(
-        self: Self,
+        self,
         collector: Callable[..., Awaitable[ConnectionData[Any]]],
         /,
         *args: Any,
@@ -107,13 +107,13 @@ class Connection(AsyncIterator[_Tci]):
         self._paginating: bool = False
 
     def __aiter__(
-        self: Self,
+        self,
         /,
     ) -> Self:
         return self
 
     async def __anext__(
-        self: Self,
+        self,
         /,
     ) -> _Tci:
         self._locked = True
@@ -209,7 +209,7 @@ class Connection(AsyncIterator[_Tci]):
         return self._buffer.pop(0)
 
     def filter(
-        self: Self,
+        self,
         function: Callable[[_Tci], bool | Awaitable[bool]],
         /,
     ) -> Self:
@@ -235,7 +235,7 @@ class Connection(AsyncIterator[_Tci]):
         return self
 
     async def flatten(
-        self: Self,
+        self,
         /,
     ) -> list[_Tci]:
         """
@@ -250,7 +250,7 @@ class Connection(AsyncIterator[_Tci]):
         return [e async for e in self]
 
     def map(
-        self: Self,
+        self,
         function: Callable[[_Tci], _T | Awaitable[_T]],
         /,
     ) -> Connection[_T]:
@@ -275,12 +275,12 @@ class Connection(AsyncIterator[_Tci]):
         return self  # type: ignore  # NOTE: this is magic, see note on ConnectionIterator._stages above
 
     def paginate(
-        self: Self,
+        self,
         /,
         length: int = MISSING,
     ) -> PaginatedConnection[list[_Tci]]:
         """
-
+        TODO
         """
 
         if self._locked:
@@ -302,11 +302,11 @@ if TYPE_CHECKING:
 
     @type_check_only
     class PaginatedConnection(AsyncIterator[_Tci]):
-        def filter(self: Self, function: Callable[[_Tci], bool | Awaitable[bool]], /) -> Self: ...
-        async def flatten(self: Self, /) -> list[_Tci]: ...
-        def map(self: Self, function: Callable[[_Tci], _T | Awaitable[_T]], /) -> PaginatedConnection[_T]: ...
+        def filter(self, function: Callable[[_Tci], bool | Awaitable[bool]], /) -> Self: ...
+        async def flatten(self, /) -> list[_Tci]: ...
+        def map(self, function: Callable[[_Tci], _T | Awaitable[_T]], /) -> PaginatedConnection[_T]: ...
 
 
-__all__: Final[list[str]] = [
+__all__ = [
     "Connection",
 ]

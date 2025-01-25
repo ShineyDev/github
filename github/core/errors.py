@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import Iterable
-    from typing_extensions import Self
 
     from aiohttp import ClientResponse
 
@@ -36,7 +35,7 @@ class ClientObjectMissingFieldError(ClientError):
     __slots__ = ()
 
     def __init__(
-        self: Self,
+        self,
         /,
         *fields: str,
     ) -> None:
@@ -123,7 +122,7 @@ class ClientResponseGraphQLInsufficientScopesError(ClientResponseGraphQLError):
     __slots__ = ()
 
     def __init__(
-        self: Self,
+        self,
         /,
         message: str,
         response: ClientResponse,
@@ -280,7 +279,7 @@ class ServerDeprecationWarning(graphql.client.ServerDeprecationWarning):
     __slots__ = ()
 
 
-__all__: list[str] = [
+__all__ = [
     "ClientError",
     "ClientObjectMissingFieldError",
     "ClientResponseError",

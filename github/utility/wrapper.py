@@ -1,9 +1,6 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING, Dict, TypeVar
 
-if TYPE_CHECKING:
-    from typing_extensions import Self
-
 from github.core.errors import ClientObjectMissingFieldError
 
 
@@ -19,7 +16,7 @@ else:
 
 class DataWrapper(Dict[_K, _V]):
     def __getitem__(
-        self: Self,
+        self,
         key: _K,
         /,
     ) -> _V:
@@ -29,6 +26,6 @@ class DataWrapper(Dict[_K, _V]):
             raise ClientObjectMissingFieldError(key) from None
 
 
-__all__: list[str] = [
+__all__ = [
     "DataWrapper",
 ]

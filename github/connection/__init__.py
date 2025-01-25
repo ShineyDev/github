@@ -28,7 +28,7 @@ from github.connection.vulnerabilityorder import *
 from github.connection.vulnerabilityorder import __all__ as _vulnerabilityorder__all__
 
 
-__all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
+__all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_advisoryorder__all__,
     *_connection__all__,
     *_discussionorder__all__,

@@ -31,5 +31,5 @@ class MilestoneOrder(enum.Enum):
 
 
 __all__ = [
-    "MilestoneOrder"
+    "MilestoneOrder",
 ]

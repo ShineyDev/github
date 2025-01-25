@@ -31,5 +31,5 @@ class AdvisorySeverity(enum.Enum):
 
 
 __all__ = [
-    "AdvisorySeverity"
+    "AdvisorySeverity",
 ]

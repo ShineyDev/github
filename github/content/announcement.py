@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from github.utility.types import DateTime
 
 import github
@@ -43,10 +41,10 @@ class Announcement(Type):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: AnnouncementData,
         /,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data))
 
     _graphql_fields = {
@@ -60,7 +58,7 @@ class Announcement(Type):
 
     @property
     def can_viewer_dismiss(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -73,7 +71,7 @@ class Announcement(Type):
 
     @property
     def created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -86,7 +84,7 @@ class Announcement(Type):
 
     @property
     def expires_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -104,7 +102,7 @@ class Announcement(Type):
 
     @property
     def message(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -116,6 +114,6 @@ class Announcement(Type):
         return self._data["message"]
 
 
-__all__: list[str] = [
+__all__ = [
     "Announcement",
 ]

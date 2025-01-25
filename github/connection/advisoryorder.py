@@ -29,5 +29,5 @@ class AdvisoryOrder(enum.Enum):
 
 
 __all__ = [
-    "AdvisoryOrder"
+    "AdvisoryOrder",
 ]

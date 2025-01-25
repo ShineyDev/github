@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import cast
-    from typing_extensions import Self
 
     from github.connection import Connection, VulnerabilityOrder
     from github.core.http import HTTPClient
@@ -79,12 +78,12 @@ class Advisory(Node, Type):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: AdvisoryData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _graphql_fields = {
@@ -107,7 +106,7 @@ class Advisory(Node, Type):
 
     @property
     def classification(
-        self: Self,
+        self,
         /,
     ) -> AdvisoryClassification:
         """
@@ -120,7 +119,7 @@ class Advisory(Node, Type):
 
     @property
     def database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -133,7 +132,7 @@ class Advisory(Node, Type):
 
     @property
     def description(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -146,7 +145,7 @@ class Advisory(Node, Type):
 
     @property
     def published_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -159,7 +158,7 @@ class Advisory(Node, Type):
 
     @property
     def severity(
-        self: Self,
+        self,
         /,
     ) -> AdvisorySeverity:
         """
@@ -172,7 +171,7 @@ class Advisory(Node, Type):
 
     @property
     def title(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -185,7 +184,7 @@ class Advisory(Node, Type):
 
     @property
     def updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -198,7 +197,7 @@ class Advisory(Node, Type):
 
     @property
     def withdrawn_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -215,7 +214,7 @@ class Advisory(Node, Type):
         return github.utility.iso_to_datetime(withdrawn_at)
 
     async def fetch_classification(
-        self: Self,
+        self,
         /,
     ) -> AdvisoryClassification:
         """
@@ -237,7 +236,7 @@ class Advisory(Node, Type):
         return github.AdvisoryClassification(await self._fetch_field("classification"))
 
     async def fetch_database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -259,7 +258,7 @@ class Advisory(Node, Type):
         return await self._fetch_field("databaseId")  # type: ignore
 
     async def fetch_description(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -281,7 +280,7 @@ class Advisory(Node, Type):
         return await self._fetch_field("description")  # type: ignore
 
     async def fetch_published_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -308,7 +307,7 @@ class Advisory(Node, Type):
         return github.utility.iso_to_datetime(published_at)
 
     async def fetch_severity(
-        self: Self,
+        self,
         /,
     ) -> AdvisorySeverity:
         """
@@ -330,7 +329,7 @@ class Advisory(Node, Type):
         return github.AdvisorySeverity(await self._fetch_field("severity"))
 
     async def fetch_title(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -352,7 +351,7 @@ class Advisory(Node, Type):
         return await self._fetch_field("summary")  # type: ignore
 
     async def fetch_updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -380,7 +379,7 @@ class Advisory(Node, Type):
         return github.utility.iso_to_datetime(updated_at)
 
     async def fetch_withdrawn_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -411,7 +410,7 @@ class Advisory(Node, Type):
         return github.utility.iso_to_datetime(withdrawn_at)
 
     def fetch_vulnerabilities(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,

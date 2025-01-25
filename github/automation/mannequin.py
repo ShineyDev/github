@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import cast
-    from typing_extensions import Self
 
     from github.core.http import HTTPClient
     from github.utility.types import DateTime
@@ -62,12 +61,12 @@ class Mannequin(Actor, Node, Resource, Type):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: MannequinData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _graphql_fields = {
@@ -81,7 +80,7 @@ class Mannequin(Actor, Node, Resource, Type):
 
     @property
     def created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -94,7 +93,7 @@ class Mannequin(Actor, Node, Resource, Type):
 
     @property
     def database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -107,7 +106,7 @@ class Mannequin(Actor, Node, Resource, Type):
 
     @property
     def updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -119,7 +118,7 @@ class Mannequin(Actor, Node, Resource, Type):
         return github.utility.iso_to_datetime(self._data["updatedAt"])
 
     async def fetch_created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -146,7 +145,7 @@ class Mannequin(Actor, Node, Resource, Type):
         return github.utility.iso_to_datetime(created_at)
 
     async def fetch_database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -168,7 +167,7 @@ class Mannequin(Actor, Node, Resource, Type):
         return await self._fetch_field("databaseId")  # type: ignore
 
     async def fetch_updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """

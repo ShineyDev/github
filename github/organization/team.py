@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import cast
-    from typing_extensions import Self
 
     from github.connection import Connection
     from github.core.http import HTTPClient
@@ -110,12 +109,12 @@ class Team(
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: TeamData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _graphql_fields = {
@@ -152,7 +151,7 @@ class Team(
 
     @property
     def avatar_url(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -165,7 +164,7 @@ class Team(
 
     @property
     def created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -178,7 +177,7 @@ class Team(
 
     @property
     def database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -191,7 +190,7 @@ class Team(
 
     @property
     def description(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -204,7 +203,7 @@ class Team(
 
     @property
     def name(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -217,7 +216,7 @@ class Team(
 
     @property
     def slug(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -230,7 +229,7 @@ class Team(
 
     @property
     def updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -243,7 +242,7 @@ class Team(
 
     @property
     def viewer_can_administer(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -255,7 +254,7 @@ class Team(
         return self._data["viewerCanAdminister"]
 
     async def fetch_avatar_url(
-        self: Self,
+        self,
         /,
         *,
         size: int = MISSING,
@@ -286,7 +285,7 @@ class Team(
         return await self._fetch_field(field, save=save)  # type: ignore
 
     async def fetch_created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -313,7 +312,7 @@ class Team(
         return github.utility.iso_to_datetime(created_at)
 
     async def fetch_database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -335,7 +334,7 @@ class Team(
         return await self._fetch_field("databaseId")  # type: ignore
 
     async def fetch_description(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -357,7 +356,7 @@ class Team(
         return await self._fetch_field("description")  # type: ignore
 
     async def fetch_name(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -379,7 +378,7 @@ class Team(
         return await self._fetch_field("name")  # type: ignore
 
     async def fetch_slug(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -401,7 +400,7 @@ class Team(
         return await self._fetch_field("slug")  # type: ignore
 
     async def fetch_updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -428,7 +427,7 @@ class Team(
         return github.utility.iso_to_datetime(updated_at)
 
     async def fetch_viewer_can_administer(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -450,7 +449,7 @@ class Team(
         return await self._fetch_field("viewerCanAdminister")  # type: ignore
 
     def fetch_ancestors(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,

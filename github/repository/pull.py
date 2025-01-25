@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import cast
-    from typing_extensions import Self
 
     from github.connection import Connection
     from github.core.http import HTTPClient
@@ -173,12 +172,12 @@ class Pull(
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: PullData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _graphql_fields = {
@@ -227,7 +226,7 @@ class Pull(
 
     @property
     def addition_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -240,7 +239,7 @@ class Pull(
 
     @property
     def comment_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -253,7 +252,7 @@ class Pull(
 
     @property
     def database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -266,7 +265,7 @@ class Pull(
 
     @property
     def deletion_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -279,7 +278,7 @@ class Pull(
 
     @property
     def file_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -292,7 +291,7 @@ class Pull(
 
     @property
     def is_draft(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -305,7 +304,7 @@ class Pull(
 
     @property
     def is_merged(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -318,7 +317,7 @@ class Pull(
 
     @property
     def is_read(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -332,7 +331,7 @@ class Pull(
 
     @property
     def merged_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -350,7 +349,7 @@ class Pull(
 
     @property
     def number(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -363,7 +362,7 @@ class Pull(
 
     @property
     def state(
-        self: Self,
+        self,
         /,
     ) -> PullState:
         """
@@ -376,7 +375,7 @@ class Pull(
 
     @property
     def title(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -389,7 +388,7 @@ class Pull(
 
     @property
     def title_html(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -401,7 +400,7 @@ class Pull(
         return self._data["titleHTML"]
 
     async def fetch_addition_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -423,7 +422,7 @@ class Pull(
         return await self._fetch_field("additions")  # type: ignore
 
     async def fetch_comment_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -445,7 +444,7 @@ class Pull(
         return await self._fetch_field("totalCommentsCount")  # type: ignore
 
     async def fetch_database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -467,7 +466,7 @@ class Pull(
         return int(await self._fetch_field("fullDatabaseId"))  # type: ignore
 
     async def fetch_deletion_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -489,7 +488,7 @@ class Pull(
         return await self._fetch_field("deletions")  # type: ignore
 
     async def fetch_file_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -511,7 +510,7 @@ class Pull(
         return await self._fetch_field("changedFiles")  # type: ignore
 
     async def fetch_is_draft(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -533,7 +532,7 @@ class Pull(
         return await self._fetch_field("isDraft")  # type: ignore
 
     async def fetch_is_merged(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -555,7 +554,7 @@ class Pull(
         return await self._fetch_field("merged")  # type: ignore
 
     async def fetch_is_read(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -578,7 +577,7 @@ class Pull(
         return await self._fetch_field("isReadByViewer")  # type: ignore
 
     async def fetch_merged_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -609,7 +608,7 @@ class Pull(
         return github.utility.iso_to_datetime(merged_at)
 
     async def fetch_number(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -631,7 +630,7 @@ class Pull(
         return await self._fetch_field("number")  # type: ignore
 
     async def fetch_state(
-        self: Self,
+        self,
         /,
     ) -> PullState:
         """
@@ -653,7 +652,7 @@ class Pull(
         return github.PullState(await self._fetch_field("state"))
 
     async def fetch_title(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -675,7 +674,7 @@ class Pull(
         return await self._fetch_field("title")  # type: ignore
 
     async def fetch_title_html(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -697,7 +696,7 @@ class Pull(
         return await self._fetch_field("titleHTML")  # type: ignore
 
     async def fetch_milestone(
-        self: Self,
+        self,
         /,
         **kwargs,  # TODO
     ) -> Milestone | None:
@@ -726,7 +725,7 @@ class Pull(
         return github.Milestone._from_data(data, http=self._http)
 
     def fetch_participants(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,

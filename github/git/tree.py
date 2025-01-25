@@ -2,9 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import cast
-    from typing_extensions import Self
-
     from github.core.http import HTTPClient
 
 from github.interfaces import GitNode, Node, RepositoryNode, Type
@@ -55,12 +52,12 @@ class Tree(GitNode, Node, RepositoryNode, Type):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: TreeData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _node_prefix = "TREE"

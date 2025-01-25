@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from github.utility.types import DateTime
 
 import github
@@ -46,10 +44,10 @@ class RateLimit(Type):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: RateLimitData,
         /,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data))
 
     _graphql_fields = {
@@ -61,7 +59,7 @@ class RateLimit(Type):
 
     @property
     def limit(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -86,7 +84,7 @@ class RateLimit(Type):
 
     @property
     def remaining(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -111,7 +109,7 @@ class RateLimit(Type):
 
     @property
     def resets_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -124,7 +122,7 @@ class RateLimit(Type):
 
     @property
     def used(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -147,6 +145,6 @@ class RateLimit(Type):
         return used
 
 
-__all__: list[str] = [
+__all__ = [
     "RateLimit",
 ]

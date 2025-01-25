@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from aiohttp import ClientSession
 
     from github.api import Metadata, RateLimit
@@ -56,7 +54,7 @@ class Client(graphql.client.Client):
     __slots__ = ()
 
     def __init__(
-        self: Self,
+        self,
         /,
         token: str,
         *,
@@ -66,7 +64,7 @@ class Client(graphql.client.Client):
         self._http: HTTPClient = HTTPClient(token, session, user_agent)
 
     async def request(
-        self: Self,
+        self,
         document: str,
         operation: str = MISSING,
         /,
@@ -133,7 +131,7 @@ class Client(graphql.client.Client):
         return await super().request(document, operation, **variables)
 
     async def fetch_all_codes_of_conduct(
-        self: Self,
+        self,
         /,
         **kwargs,  # TODO
     ) -> list[CodeOfConduct]:
@@ -157,7 +155,7 @@ class Client(graphql.client.Client):
         return [github.CodeOfConduct._from_data(d, http=self._http) for d in data]
 
     async def fetch_all_licenses(
-        self: Self,
+        self,
         /,
         **kwargs,  # TODO
     ) -> list[License]:
@@ -181,7 +179,7 @@ class Client(graphql.client.Client):
         return [github.License._from_data(d, http=self._http) for d in data]
 
     async def fetch_code_of_conduct(
-        self: Self,
+        self,
         key: str,
         /,
         **kwargs,  # TODO
@@ -216,7 +214,7 @@ class Client(graphql.client.Client):
         return github.CodeOfConduct._from_data(data, http=self._http)
 
     async def fetch_license(
-        self: Self,
+        self,
         key: str,
         /,
         **kwargs,  # TODO
@@ -251,7 +249,7 @@ class Client(graphql.client.Client):
         return github.License._from_data(data, http=self._http)
 
     async def fetch_metadata(
-        self: Self,
+        self,
         /,
         **kwargs,  # TODO
     ) -> Metadata:
@@ -267,7 +265,7 @@ class Client(graphql.client.Client):
         return github.Metadata._from_data(data)
 
     async def fetch_organization(
-        self: Self,
+        self,
         login: str,
         /,
         **kwargs,  # TODO
@@ -305,7 +303,7 @@ class Client(graphql.client.Client):
         return github.Organization._from_data(data, http=self._http)
 
     async def fetch_rate_limit(
-        self: Self,
+        self,
         /,
         **kwargs,  # TODO
     ) -> RateLimit:
@@ -321,7 +319,7 @@ class Client(graphql.client.Client):
         return github.RateLimit._from_data(data)
 
     async def fetch_repository(
-        self: Self,
+        self,
         owner: str,
         name: str,
         /,
@@ -367,7 +365,7 @@ class Client(graphql.client.Client):
         return github.Repository._from_data(data, http=self._http)
 
     async def fetch_repository_owner(
-        self: Self,
+        self,
         login: str,
         /,
         **kwargs,  # TODO
@@ -407,7 +405,7 @@ class Client(graphql.client.Client):
             raise RuntimeError(f"invalid type {data['__typename']} for Query.repositoryOwner")
 
     async def fetch_topic(
-        self: Self,
+        self,
         name: str,
         /,
         **kwargs,  # TODO
@@ -451,7 +449,7 @@ class Client(graphql.client.Client):
         return github.Topic._from_data(data, http=self._http)
 
     async def fetch_user(
-        self: Self,
+        self,
         login: str,
         /,
         **kwargs,  # TODO
@@ -483,7 +481,7 @@ class Client(graphql.client.Client):
         return github.User._from_data(data, http=self._http)
 
     async def fetch_viewer(
-        self: Self,
+        self,
         /,
         **kwargs,  # TODO
     ) -> AuthenticatedUser:
@@ -500,7 +498,7 @@ class Client(graphql.client.Client):
         return github.AuthenticatedUser._from_data(data, http=self._http)
 
     def fetch_advisories(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -548,7 +546,7 @@ class Client(graphql.client.Client):
         )
 
     def fetch_vulnerabilities(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -596,7 +594,7 @@ class Client(graphql.client.Client):
         )
 
     async def clear_status(
-        self: Self,
+        self,
         /,
     ) -> None:
         """
@@ -614,7 +612,7 @@ class Client(graphql.client.Client):
         await self._http.mutate_user_update_status(None, None, None, None, None)
 
     async def update_status(
-        self: Self,
+        self,
         /,
         message: str | None = MISSING,
         *,
@@ -668,6 +666,6 @@ class Client(graphql.client.Client):
         return github.UserStatus._from_data(data, http=self._http)
 
 
-__all__: list[str] = [
+__all__ = [
     "Client",
 ]

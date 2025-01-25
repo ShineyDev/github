@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import cast
-    from typing_extensions import Self
 
     from github.automation import Bot, Mannequin
     from github.interfaces import Node
@@ -84,7 +83,7 @@ class Comment:
 
     @property
     def body(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -97,7 +96,7 @@ class Comment:
 
     @property
     def body_html(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -110,7 +109,7 @@ class Comment:
 
     @property
     def body_text(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -123,7 +122,7 @@ class Comment:
 
     @property
     def created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -136,7 +135,7 @@ class Comment:
 
     @property
     def edit_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -164,7 +163,7 @@ class Comment:
 
     @property
     def edited_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -182,7 +181,7 @@ class Comment:
 
     @property
     def is_email(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -195,7 +194,7 @@ class Comment:
 
     @property
     def published_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -213,7 +212,7 @@ class Comment:
 
     @property
     def updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -226,7 +225,7 @@ class Comment:
 
     @property
     def viewer_is_author(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -238,7 +237,7 @@ class Comment:
         return self._data["viewerDidAuthor"]
 
     async def fetch_body(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -252,7 +251,7 @@ class Comment:
         return await self._fetch_field("body")  # type: ignore
 
     async def fetch_body_html(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -266,7 +265,7 @@ class Comment:
         return await self._fetch_field("bodyHTML")  # type: ignore
 
     async def fetch_body_text(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -280,7 +279,7 @@ class Comment:
         return await self._fetch_field("bodyText")  # type: ignore
 
     async def fetch_created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -310,7 +309,7 @@ class Comment:
         return github.utility.iso_to_datetime(created_at)
 
     async def fetch_edit_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -344,7 +343,7 @@ class Comment:
             return edits - 1
 
     async def fetch_edited_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -377,7 +376,7 @@ class Comment:
         return github.utility.iso_to_datetime(edited_at)
 
     async def fetch_is_email(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -399,7 +398,7 @@ class Comment:
         return await self._fetch_field("createdViaEmail")  # type: ignore
 
     async def fetch_published_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -432,7 +431,7 @@ class Comment:
         return github.utility.iso_to_datetime(published_at)
 
     async def fetch_updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -463,7 +462,7 @@ class Comment:
         return github.utility.iso_to_datetime(updated_at)
 
     async def fetch_viewer_is_author(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -477,7 +476,7 @@ class Comment:
         return await self._fetch_field("viewerDidAuthor")  # type: ignore
 
     async def fetch_author(
-        self: Self,
+        self,
         /,
         **kwargs,  # TODO
     ) -> Bot | Mannequin | User:
@@ -516,7 +515,7 @@ class Comment:
             raise RuntimeError(f"unsupported type {graphql_type} for Comment.author")
 
     async def fetch_editor(
-        self: Self,
+        self,
         /,
         **kwargs,  # TODO
     ) -> Bot | User | None:

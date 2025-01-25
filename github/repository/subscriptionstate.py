@@ -29,5 +29,5 @@ class SubscriptionState(enum.Enum):
 
 
 __all__ = [
-    "SubscriptionState"
+    "SubscriptionState",
 ]

@@ -69,6 +69,6 @@ class ProjectOwner:
         return await self._fetch_field("projectsV2{totalCount}")  # type: ignore
 
 
-__all__: list[str] = [
+__all__ = [
     "ProjectOwner",
 ]

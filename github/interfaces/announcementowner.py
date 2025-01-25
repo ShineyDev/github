@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from github.content import Announcement
     from github.interfaces import Node
 
@@ -30,7 +28,7 @@ class AnnouncementOwner:
     _data: AnnouncementOwnerData
 
     async def fetch_announcement(
-        self: Self,
+        self,
         /,
         **kwargs,  # TODO
     ) -> Announcement | None:
@@ -61,6 +59,6 @@ class AnnouncementOwner:
         return github.Announcement._from_data(data)
 
 
-__all__: list[str] = [
+__all__ = [
     "AnnouncementOwner",
 ]

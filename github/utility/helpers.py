@@ -102,7 +102,7 @@ def get_defined_repr_fields(
     return sorted(repr_fields)
 
 
-__all__: list[str] = [
+__all__ = [
     "follow",
     "get_graphql_type",
     "get_defined_graphql_fields",

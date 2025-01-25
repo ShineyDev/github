@@ -1,9 +1,6 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from typing_extensions import Self
-
 
 if TYPE_CHECKING:
     from typing import Literal, TypedDict
@@ -30,7 +27,7 @@ class Lockable:
 
     @property
     def is_locked(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -42,7 +39,7 @@ class Lockable:
         return self._data["locked"]
 
     async def fetch_is_locked(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """

@@ -1,9 +1,6 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from typing_extensions import Self
-
 from github.interfaces import Type
 
 
@@ -39,10 +36,10 @@ class LicenseRule(Type):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: LicenseRuleData,
         /,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data))
 
     _repr_fields = [
@@ -57,7 +54,7 @@ class LicenseRule(Type):
 
     @property
     def description(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -70,7 +67,7 @@ class LicenseRule(Type):
 
     @property
     def key(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -83,7 +80,7 @@ class LicenseRule(Type):
 
     @property
     def label(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -95,6 +92,6 @@ class LicenseRule(Type):
         return self._data["label"]
 
 
-__all__: list[str] = [
+__all__ = [
     "LicenseRule",
 ]

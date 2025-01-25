@@ -22,5 +22,5 @@ class StargazerOrder(enum.Enum):
 
 
 __all__ = [
-    "StargazerOrder"
+    "StargazerOrder",
 ]

@@ -25,5 +25,5 @@ class OrganizationOrder(enum.Enum):
 
 
 __all__ = [
-    "OrganizationOrder"
+    "OrganizationOrder",
 ]

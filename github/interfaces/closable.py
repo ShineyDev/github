@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import cast
-    from typing_extensions import Self
 
     from github.interfaces import Node
     from github.utility.types import DateTime
@@ -40,7 +39,7 @@ class Closable:
 
     @property
     def closed_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -58,7 +57,7 @@ class Closable:
 
     @property
     def is_closed(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -71,7 +70,7 @@ class Closable:
 
     @property
     def viewer_can_close(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -84,7 +83,7 @@ class Closable:
 
     @property
     def viewer_can_reopen(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -96,7 +95,7 @@ class Closable:
         return self._data["viewerCanReopen"]
 
     async def fetch_closed_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime | None:
         """
@@ -130,7 +129,7 @@ class Closable:
         return github.utility.iso_to_datetime(closed_at)
 
     async def fetch_is_closed(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -144,7 +143,7 @@ class Closable:
         return await self._fetch_field("closed")  # type: ignore
 
     async def fetch_viewer_can_close(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -158,7 +157,7 @@ class Closable:
         return await self._fetch_field("viewerCanClose")  # type: ignore
 
     async def fetch_viewer_can_reopen(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """

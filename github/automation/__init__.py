@@ -4,7 +4,7 @@ from github.automation.mannequin import *
 from github.automation.mannequin import __all__ as _mannequin__all__
 
 
-__all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
+__all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_bot__all__,
     *_mannequin__all__,
 ]

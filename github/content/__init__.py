@@ -12,7 +12,7 @@ from github.content.reactioncontent import *
 from github.content.reactioncontent import __all__ as _reactioncontent__all__
 
 
-__all__: list[str] = [  # type: ignore[reportUnsupportedDunderAll]
+__all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_announcement__all__,
     *_codeofconduct__all__,
     *_license__all__,

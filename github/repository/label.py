@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import cast
-    from typing_extensions import Self
 
     from github.connection import Connection, IssueOrder, PullOrder
     from github.core.http import HTTPClient
@@ -73,12 +72,12 @@ class Label(Node, RepositoryNode, Resource, Type):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: LabelData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         return cls(cls._patch_data(data), http)
 
     _repr_fields = [
@@ -98,7 +97,7 @@ class Label(Node, RepositoryNode, Resource, Type):
 
     @property
     def color(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -111,7 +110,7 @@ class Label(Node, RepositoryNode, Resource, Type):
 
     @property
     def created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -124,7 +123,7 @@ class Label(Node, RepositoryNode, Resource, Type):
 
     @property
     def description(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -137,7 +136,7 @@ class Label(Node, RepositoryNode, Resource, Type):
 
     @property
     def is_default(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -165,7 +164,7 @@ class Label(Node, RepositoryNode, Resource, Type):
 
     @property
     def name(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -178,7 +177,7 @@ class Label(Node, RepositoryNode, Resource, Type):
 
     @property
     def updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -190,7 +189,7 @@ class Label(Node, RepositoryNode, Resource, Type):
         return github.utility.iso_to_datetime(self._data["updatedAt"])
 
     async def fetch_color(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -212,7 +211,7 @@ class Label(Node, RepositoryNode, Resource, Type):
         return int(await self._fetch_field("color"), 16)  # type: ignore
 
     async def fetch_created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -239,7 +238,7 @@ class Label(Node, RepositoryNode, Resource, Type):
         return github.utility.iso_to_datetime(created_at)
 
     async def fetch_description(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -261,7 +260,7 @@ class Label(Node, RepositoryNode, Resource, Type):
         return await self._fetch_field("description")  # type: ignore
 
     async def fetch_is_default(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -287,7 +286,7 @@ class Label(Node, RepositoryNode, Resource, Type):
         return await self._fetch_field("isDefault")  # type: ignore
 
     async def fetch_name(
-        self: Self,
+        self,
         /,
     ) -> str:
         """
@@ -309,7 +308,7 @@ class Label(Node, RepositoryNode, Resource, Type):
         return await self._fetch_field("name")  # type: ignore
 
     async def fetch_updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -336,7 +335,7 @@ class Label(Node, RepositoryNode, Resource, Type):
         return github.utility.iso_to_datetime(updated_at)
 
     def fetch_issues(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -385,7 +384,7 @@ class Label(Node, RepositoryNode, Resource, Type):
         )
 
     def fetch_pulls(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,

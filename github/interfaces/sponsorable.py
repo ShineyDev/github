@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from github.core.http import HTTPClient
 
 
@@ -56,7 +54,7 @@ class Sponsorable:
 
     @property
     def can_viewer_sponsor(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -69,7 +67,7 @@ class Sponsorable:
 
     @property
     def has_sponsors_listing(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -82,7 +80,7 @@ class Sponsorable:
 
     @property
     def is_sponsoring_viewer(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -95,7 +93,7 @@ class Sponsorable:
 
     @property
     def is_viewer_sponsoring(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -107,7 +105,7 @@ class Sponsorable:
         return self._data["viewerIsSponsoring"]
 
     async def fetch_can_viewer_sponsor(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -122,7 +120,7 @@ class Sponsorable:
         return await self._fetch_field("viewerCanSponsor")  # type: ignore
 
     async def fetch_has_sponsors_listing(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -136,7 +134,7 @@ class Sponsorable:
         return await self._fetch_field("hasSponsorsListing")  # type: ignore
 
     async def fetch_is_sponsoring_viewer(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -151,7 +149,7 @@ class Sponsorable:
         return await self._fetch_field("isSponsoringViewer")  # type: ignore
 
     async def fetch_is_viewer_sponsoring(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -166,6 +164,6 @@ class Sponsorable:
         return await self._fetch_field("viewerIsSponsoring")  # type: ignore
 
 
-__all__: list[str] = [
+__all__ = [
     "Sponsorable",
 ]

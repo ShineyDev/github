@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import cast
-    from typing_extensions import Self
 
     from github.connection import Connection, IssueOrder, OrganizationOrder, PullOrder, RepositoryOrder
     from github.core.http import HTTPClient
@@ -160,12 +159,12 @@ class User(
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: UserData,
         /,
         *,
         http: HTTPClient,
-    ) -> User:
+    ):
         data = cls._patch_data(data)
 
         if not data.get("isViewer", None):
@@ -203,7 +202,7 @@ class User(
 
     @property
     def bio(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -216,7 +215,7 @@ class User(
 
     @property
     def bio_html(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -235,7 +234,7 @@ class User(
 
     @property
     def can_viewer_follow(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -248,7 +247,7 @@ class User(
 
     @property
     def company(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -261,7 +260,7 @@ class User(
 
     @property
     def company_html(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -281,7 +280,7 @@ class User(
 
     @property
     def created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -294,7 +293,7 @@ class User(
 
     @property
     def database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -307,7 +306,7 @@ class User(
 
     @property
     def follower_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -320,7 +319,7 @@ class User(
 
     @property
     def following_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -333,7 +332,7 @@ class User(
 
     @property
     def is_administrator(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -351,7 +350,7 @@ class User(
 
     @property
     def is_bounty_program_member(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -364,7 +363,7 @@ class User(
 
     @property
     def is_campus_program_member(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -377,7 +376,7 @@ class User(
 
     @property
     def is_developer_program_member(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -390,7 +389,7 @@ class User(
 
     @property
     def is_employee(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -403,7 +402,7 @@ class User(
 
     @property
     def is_following_viewer(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -416,7 +415,7 @@ class User(
 
     @property
     def is_hireable(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -429,7 +428,7 @@ class User(
 
     @property
     def is_stars_program_member(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -442,7 +441,7 @@ class User(
 
     @property
     def is_viewer(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -459,7 +458,7 @@ class User(
 
     @property
     def is_viewer_following(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -472,7 +471,7 @@ class User(
 
     @property
     def pronouns(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -485,7 +484,7 @@ class User(
 
     @property
     def twitter_username(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -504,7 +503,7 @@ class User(
 
     @property
     def updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -516,7 +515,7 @@ class User(
         return github.utility.iso_to_datetime(self._data["updatedAt"])
 
     async def fetch_bio(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -538,7 +537,7 @@ class User(
         return await self._fetch_field("bio")  # type: ignore
 
     async def fetch_bio_html(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -566,7 +565,7 @@ class User(
         return await self._fetch_field("bioHTML")  # type: ignore
 
     async def fetch_can_viewer_follow(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -588,7 +587,7 @@ class User(
         return await self._fetch_field("viewerCanFollow")  # type: ignore
 
     async def fetch_company(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -610,7 +609,7 @@ class User(
         return await self._fetch_field("company")  # type: ignore
 
     async def fetch_company_html(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -639,7 +638,7 @@ class User(
         return await self._fetch_field("companyHTML")  # type: ignore
 
     async def fetch_created_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -666,7 +665,7 @@ class User(
         return github.utility.iso_to_datetime(value)
 
     async def fetch_database_id(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -688,7 +687,7 @@ class User(
         return await self._fetch_field("databaseId")  # type: ignore
 
     async def fetch_follower_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -710,7 +709,7 @@ class User(
         return (await self._fetch_field("follower_count"))["totalCount"]  # type: ignore
 
     async def fetch_following_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -732,7 +731,7 @@ class User(
         return (await self._fetch_field("following_count"))["totalCount"]  # type: ignore
 
     async def fetch_is_administrator(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -760,7 +759,7 @@ class User(
         return await self._fetch_field("isSiteAdmin")  # type: ignore
 
     async def fetch_is_bounty_program_member(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -783,7 +782,7 @@ class User(
         return await self._fetch_field("isBountyHunter")  # type: ignore
 
     async def fetch_is_campus_program_member(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -806,7 +805,7 @@ class User(
         return await self._fetch_field("isCampusExpert")  # type: ignore
 
     async def fetch_is_developer_program_member(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -829,7 +828,7 @@ class User(
         return await self._fetch_field("isDeveloperProgramMember")  # type: ignore
 
     async def fetch_is_employee(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -851,7 +850,7 @@ class User(
         return await self._fetch_field("isEmployee")  # type: ignore
 
     async def fetch_is_following_viewer(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -873,7 +872,7 @@ class User(
         return await self._fetch_field("isFollowingViewer")  # type: ignore
 
     async def fetch_is_stars_program_member(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -896,7 +895,7 @@ class User(
         return await self._fetch_field("isGitHubStar")  # type: ignore
 
     async def fetch_is_hireable(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -918,7 +917,7 @@ class User(
         return await self._fetch_field("isHireable")  # type: ignore
 
     async def fetch_is_viewer(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -944,7 +943,7 @@ class User(
         return await self._fetch_field("isViewer")  # type: ignore
 
     async def fetch_is_viewer_following(
-        self: Self,
+        self,
         /,
     ) -> bool:
         """
@@ -966,7 +965,7 @@ class User(
         return await self._fetch_field("viewerIsFollowing")  # type: ignore
 
     async def fetch_pronouns(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -988,7 +987,7 @@ class User(
         return await self._fetch_field("pronouns")  # type: ignore
 
     async def fetch_twitter_username(
-        self: Self,
+        self,
         /,
     ) -> str | None:
         """
@@ -1015,7 +1014,7 @@ class User(
         return await self._fetch_field("twitterUsername")  # type: ignore
 
     async def fetch_updated_at(
-        self: Self,
+        self,
         /,
     ) -> DateTime:
         """
@@ -1042,7 +1041,7 @@ class User(
         return github.utility.iso_to_datetime(value)
 
     async def fetch_organization(
-        self: Self,
+        self,
         login: str,
         /,
         **kwargs,  # TODO
@@ -1073,7 +1072,7 @@ class User(
         return github.Organization._from_data(data, http=self._http)
 
     async def fetch_status(
-        self: Self,
+        self,
         /,
         **kwargs,  # TODO
     ) -> UserStatus | None:
@@ -1101,7 +1100,7 @@ class User(
         return github.UserStatus._from_data(data, http=self._http)
 
     def fetch_followers(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -1147,7 +1146,7 @@ class User(
         )
 
     def fetch_following(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -1193,7 +1192,7 @@ class User(
         )
 
     def fetch_issues(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -1241,7 +1240,7 @@ class User(
         )
 
     def fetch_organizations(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -1291,7 +1290,7 @@ class User(
         )
 
     def fetch_pulls(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -1341,7 +1340,7 @@ class User(
         )
 
     def fetch_watching(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -1417,18 +1416,18 @@ class AuthenticatedUser(User):
 
     @classmethod
     def _from_data(
-        cls: type[Self],
+        cls,
         data: ViewerData,
         /,
         *,
         http: HTTPClient,
-    ) -> Self:
+    ):
         data = cls._patch_data(data)
 
         return cls(data, http)
 
     async def clear_status(
-        self: Self,
+        self,
         /,
     ) -> None:
         """
@@ -1446,7 +1445,7 @@ class AuthenticatedUser(User):
         await self._http.mutate_user_update_status(None, None, None, None, None)
 
     async def update_status(
-        self: Self,
+        self,
         /,
         message: str | None = MISSING,
         *,
@@ -1500,7 +1499,7 @@ class AuthenticatedUser(User):
         return github.UserStatus._from_data(data, http=self._http)
 
 
-__all__: list[str] = [
+__all__ = [
     "User",
     "AuthenticatedUser",
 ]

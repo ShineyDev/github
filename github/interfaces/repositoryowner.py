@@ -2,8 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from github.connection import Connection, RepositoryOrder
     from github.interfaces import Node
     from github.repository import Repository
@@ -44,7 +42,7 @@ class RepositoryOwner:
 
     @property
     def repository_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -56,7 +54,7 @@ class RepositoryOwner:
         return self._data["repositories"]["totalCount"]
 
     async def fetch_repository_count(
-        self: Self,
+        self,
         /,
     ) -> int:
         """
@@ -81,7 +79,7 @@ class RepositoryOwner:
         return await self._fetch_field("repositories{totalCount}")  # type: ignore
 
     async def fetch_repository(
-        self: Self,
+        self,
         name: str,
         /,
         *,
@@ -126,7 +124,7 @@ class RepositoryOwner:
         return github.Repository._from_data(data, http=self._http)
 
     def fetch_repositories(
-        self: Self,
+        self,
         /,
         *,
         cursor: str | None = MISSING,
@@ -182,6 +180,6 @@ class RepositoryOwner:
         )
 
 
-__all__: list[str] = [
+__all__ = [
     "RepositoryOwner",
 ]
