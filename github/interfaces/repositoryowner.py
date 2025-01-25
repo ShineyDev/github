@@ -31,9 +31,7 @@ if TYPE_CHECKING:
 
 class RepositoryOwner:
     """
-    Represents an object that can own a Repository.
-
-    ..                                  :class:`~github.Repository`
+    Represents an object that can own a :class:`~github.Repository`.
     """
 
     __slots__ = ()
