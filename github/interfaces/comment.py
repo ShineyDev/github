@@ -546,14 +546,12 @@ class Comment:
 
         # TODO[type-from-data]
 
-        graphql_type = data["__typename"]
-
-        if graphql_type == "Bot":
+        if data["__typename"] == "Bot":
             return github.Bot._from_data(data, http=self._http)
-        elif graphql_type == "User":
+        elif data["__typename"] == "User":
             return github.User._from_data(data, http=self._http)
         else:
-            raise RuntimeError(f"unsupported type {graphql_type} for Comment.author")
+            raise RuntimeError(f"unsupported type {data['__typename']} for Comment.author")
 
 
 __all__ = [
