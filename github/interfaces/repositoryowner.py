@@ -38,6 +38,48 @@ class RepositoryOwner:
 
     _data: RepositoryOwnerData
 
+    _graphql_fields = {
+        "repository_count": "repositories{totalCount}",
+    }
+
+    @property
+    def repository_count(
+        self: Self,
+        /,
+    ) -> int:
+        """
+        The number of repositories on the repository owner.
+
+        :type: :class:`int`
+        """
+
+        return self._data["repositories"]["totalCount"]
+
+    async def fetch_repository_count(
+        self: Self,
+        /,
+    ) -> int:
+        """
+        |coro|
+
+        Fetches the number of repositories on the repository owner.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`int`
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        return await self._fetch_field("repositories{totalCount}")  # type: ignore
+
     async def fetch_repository(
         self: Self,
         name: str,
