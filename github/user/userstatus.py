@@ -422,6 +422,10 @@ class UserStatus(Node, Type):
         """
 
         data = await self._http.fetch_userstatus_organization(self.id, **kwargs)
+
+        if data is None:
+            return None
+
         return github.Organization._from_data(data, http=self._http)
 
     async def fetch_user(
