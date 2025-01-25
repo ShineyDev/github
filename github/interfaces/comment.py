@@ -74,6 +74,7 @@ class Comment:
         "body_text": "bodyText",
         "created_at": "createdAt",
         # "": "createdViaEmail",  # TODO: name
+        "edit_count": "userContentEdits{totalCount}",
         # "": "includesCreatedEdit",  # TODO: name
         "edited_at": "lastEditedAt",
         "published_at": "publishedAt",
@@ -132,6 +133,34 @@ class Comment:
         """
 
         return github.utility.iso_to_datetime(self._data["createdAt"])
+
+    @property
+    def edit_count(
+        self: Self,
+        /,
+    ) -> int:
+        """
+        The number of edits to the comment, not including the created
+        edit.
+
+        :type: :class:`int`
+        """
+
+        edits = self._data["userContentEdits"]["totalCount"]
+
+        # NOTE: if the comment has not been edited, the edits
+        #       connection is empty. if the comment has been edited
+        #       once, the edits connection contains both the created
+        #       edit and the single edit.
+
+        if edits == 0:
+            return 0
+        else:
+            # TODO: this might require a check here for whether we
+            #       should be removing the (1) created edit. ie.
+            #       if self._data["includesCreatedEdit"]: e-1; else: e
+
+            return edits - 1
 
     @property
     def edited_at(
@@ -266,6 +295,40 @@ class Comment:
             created_at = cast(str, created_at)
 
         return github.utility.iso_to_datetime(created_at)
+
+    async def fetch_edit_count(
+        self: Self,
+        /,
+    ) -> int:
+        """
+        |coro|
+
+        Fetches the number of edits to the comment.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`int`
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        data = await self._fetch_field("userContentEdits{totalCount}")
+
+        # NOTE: see ~.edit_count for notes on this logic.
+
+        edits: int = data["userContentEdits"]["totalCount"]  # type: ignore
+
+        if edits == 0:
+            return 0
+        else:
+            return edits - 1
 
     async def fetch_edited_at(
         self: Self,
