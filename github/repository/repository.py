@@ -2166,6 +2166,27 @@ class Repository(
             **kwargs,
         )
 
+    async def archive(
+        self: Self,
+        /,
+    ) -> None:
+        """
+        |coro|
+
+        Archives the repository.
+
+
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.is_archived`
+        """
+
+        data = await self._http.mutate_repository_archive(self.id, fields=("isArchived",))
+
+        self._data["isArchived"] = data["isArchived"]
+
 
 __all__: list[str] = [
     "Repository",

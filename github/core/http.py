@@ -1820,6 +1820,21 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data  # type: ignore
 
+    async def mutate_repository_archive(
+        self: Self,
+        /,
+        repository_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> RepositoryData:
+        fields = ("__typename",) if fields is MISSING else fields
+        query = "mutation($repository_id:ID!,$mutation_id:String!){archiveRepository(input:{clientMutationId:$mutation_id,repositoryId:$repository_id}){repository{%s}}}" % ",".join(fields)
+        path = ("archiveRepository", "repository")
+
+        data = await self._mutate(query, *path, repository_id=repository_id)
+
+        return data  # type: ignore
+
     async def mutate_starrable_star(
         self: Self,
         /,
