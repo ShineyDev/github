@@ -65,7 +65,7 @@ class Blob(GitNode, Node, RepositoryNode, Type):
     ):
         return cls(cls._patch_data(data), http)
 
-    _graphql_fields =  {
+    _graphql_fields = {
         "size": "byteSize",
         "is_text": "isBinary",
         # "": "isTruncated",  # TODO: [blob-content]

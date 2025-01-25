@@ -14,6 +14,7 @@ if TYPE_CHECKING:
         # resourcePath: str  # NOTE: on Resource
         # url: str  # NOTE: on Resource
 
+
 class Actor:
     """
     Represents an object that can take action.

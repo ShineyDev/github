@@ -52,7 +52,7 @@ def get_defined_graphql_fields(
         defined_fields = dict()
 
     for type in type.__bases__:
-        for (key, value) in get_defined_graphql_fields(type).items():
+        for key, value in get_defined_graphql_fields(type).items():
             if key not in defined_fields.keys():
                 defined_fields[key] = value
 
@@ -71,7 +71,7 @@ def get_merged_graphql_fields(
 
     merged_fields = list(requested_fields)
 
-    for (i, r_field) in enumerate(merged_fields):
+    for i, r_field in enumerate(merged_fields):
         try:
             r_field = defined_fields[r_field]
         except KeyError:
