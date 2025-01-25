@@ -2187,6 +2187,27 @@ class Repository(
 
         self._data["isArchived"] = data["isArchived"]
 
+    async def unarchive(
+        self: Self,
+        /,
+    ) -> None:
+        """
+        |coro|
+
+        Unarchives the repository.
+
+
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.is_archived`
+        """
+
+        data = await self._http.mutate_repository_unarchive(self.id, fields=("isArchived",))
+
+        self._data["isArchived"] = data["isArchived"]
+
 
 __all__: list[str] = [
     "Repository",
