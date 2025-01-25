@@ -6,11 +6,9 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
     from github.automation import Mannequin
-    from github.automation.mannequin import MannequinData
     from github.connection import Connection, MannequinOrder, TeamOrder
     from github.core.http import HTTPClient
     from github.organization import Team
-    from github.organization.team import TeamData
     from github.utility.types import DateTime
 
 import github
@@ -34,6 +32,7 @@ if TYPE_CHECKING:
     from github.interfaces.resource import ResourceData
     from github.interfaces.sponsorable import SponsorableData
     from github.interfaces.type import TypeData
+    from github.organization.team import TeamData
     from github.user.user import UserData
 
 
@@ -79,8 +78,8 @@ if TYPE_CHECKING:
         # ruleset  # TODO
         # rulesets  # TODO
         # samlIdentityProvider  # TODO
-        # team  # TODO
-        # teams  # TODO
+        team: TeamData
+        teams: ConnectionData[TeamData]
         teamsResourcePath: str
         teamsUrl: str
         twitterUsername: str | None
