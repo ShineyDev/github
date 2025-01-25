@@ -192,11 +192,16 @@ class Reaction(Node, Type):
         self,
         /,
         **kwargs,
-    ) -> User:
+    ) -> User | None:
         """
         |coro|
 
         Fetches the author of the reaction.
+
+        .. warning::
+
+            This query will yield NULL if the author was not a
+            :class:`~github.User`.
 
 
         Raises
@@ -206,10 +211,14 @@ class Reaction(Node, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.User`
+        :rtype: :class:`~github.User` | None
         """
 
         data = await self._http.fetch_reaction_author(self.id, **kwargs)
+
+        if data is None:
+            return None
+
         return github.User._from_data(data, http=self._http)
 
 
