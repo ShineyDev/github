@@ -18,9 +18,7 @@ if TYPE_CHECKING:
 
 class PackageOwner:
     """
-    Represents an object that can own a Package.
-
-    ..                                  :class:`~github.Package`
+    Represents an object that can own a :class:`~github.Package`.
     """
 
     __slots__ = ()
