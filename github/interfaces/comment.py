@@ -18,6 +18,7 @@ if TYPE_CHECKING:
 
     from github.automation.bot import BotData
     from github.automation.mannequin import MannequinData
+    from github.connection.connection import ConnectionData
     from github.user.user import UserData
 
 
@@ -34,7 +35,7 @@ if TYPE_CHECKING:
         lastEditedAt: str | None
         publishedAt: str | None
         updatedAt: str
-        # userContentEdits  # TODO
+        userContentEdits: ConnectionData[object]  # TODO
         viewerDidAuthor: bool
 
 
