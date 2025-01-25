@@ -161,6 +161,7 @@ class Organization(
         "is_verified": "isVerified",
         "is_viewer_following": "viewerIsFollowing",
         "is_viewer_member": "viewerIsAMember",
+        "mannequin_count": "mannequins{totalCount}",
         "twitter_username": "twitterUsername",
         "updated_at": "updatedAt",
     }
@@ -309,6 +310,19 @@ class Organization(
         """
 
         return self._data["viewerIsAMember"]
+
+    @property
+    def mannequin_count(
+        self: Self,
+        /,
+    ) -> int:
+        """
+        The number of mannequins in the organization.
+
+        :type: :class:`int`
+        """
+
+        return self._data["mannequins"]["totalCount"]
 
     @property
     def twitter_username(
@@ -575,6 +589,28 @@ class Organization(
         """
 
         return await self._fetch_field("viewerIsAMember")  # type: ignore
+
+    async def fetch_mannequin_count(
+        self: Self,
+        /,
+    ) -> int:
+        """
+        |coro|
+
+        Fetches the number of mannequins in the organization.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`int`
+        """
+
+        return await self._fetch_field("mannequins{totalCount}")  # type: ignore
 
     async def fetch_twitter_username(
         self: Self,
