@@ -112,13 +112,10 @@ class Assignable:
         if TYPE_CHECKING and not isinstance(self, Node):
             raise NotImplementedError
 
-        def userdata_to_user(userdata: UserData, /) -> User:
-            return github.User._from_data(userdata, http=self._http)
-
         return github.Connection(
             self._http.collect_assignable_assignees,
             self.id,
-            data_map=userdata_to_user,
+            data_map=lambda d: github.User._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else None,

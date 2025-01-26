@@ -146,14 +146,11 @@ class Labelable:
         if TYPE_CHECKING and not isinstance(self, Node):
             raise NotImplementedError
 
-        def labeldata_to_label(labeldata: LabelData, /) -> Label:
-            return github.Label._from_data(labeldata, http=self._http)
-
         return github.Connection(
             self._http.collect_labelable_labels,
             self.id,
             order_by.value if order_by is not MISSING else None,
-            data_map=labeldata_to_label,
+            data_map=lambda d: github.Label._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,

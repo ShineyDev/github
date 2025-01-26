@@ -766,14 +766,11 @@ class Organization(
         :rtype: :class:`~github.Connection`[:class:`~github.Mannequin`]
         """
 
-        def mannequindata_to_mannequin(mannequindata: MannequinData, /) -> Mannequin:
-            return github.Mannequin._from_data(mannequindata, http=self._http)
-
         return github.Connection(
             self._http.collect_organization_mannequins,
             self.id,
             order_by.value if order_by is not MISSING else None,
-            data_map=mannequindata_to_mannequin,
+            data_map=lambda d: github.Mannequin._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,
@@ -818,14 +815,11 @@ class Organization(
         :rtype: :class:`~github.Connection`[:class:`~github.Team`]
         """
 
-        def teamdata_to_team(data: TeamData, /) -> Team:
-            return github.Team._from_data(data, http=self._http)
-
         return github.Connection(
             self._http.collect_organization_teams,
             self.id,
             order_by.value if order_by is not MISSING else None,
-            data_map=teamdata_to_team,
+            data_map=lambda d: github.Team._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,

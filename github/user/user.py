@@ -1133,13 +1133,10 @@ class User(
         :rtype: :class:`~github.connection.Connection`[:class:`~github.User`]
         """
 
-        def userdata_to_user(userdata: UserData, /) -> User:
-            return github.User._from_data(userdata, http=self._http)
-
         return github.Connection(
             self._http.collect_user_followers,
             self.id,
-            data_map=userdata_to_user,
+            data_map=lambda d: github.User._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,
@@ -1179,13 +1176,10 @@ class User(
         :rtype: :class:`~github.connection.Connection`[:class:`~github.User`]
         """
 
-        def userdata_to_user(userdata: UserData, /) -> User:
-            return github.User._from_data(userdata, http=self._http)
-
         return github.Connection(
             self._http.collect_user_following,
             self.id,
-            data_map=userdata_to_user,
+            data_map=lambda d: github.User._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,
@@ -1226,14 +1220,11 @@ class User(
         :rtype: :class:`~github.Connection`[:class:`~github.Issue`]
         """
 
-        def issuedata_to_issue(issuedata: IssueData, /) -> Issue:
-            return github.Issue._from_data(issuedata, http=self._http)
-
         return github.Connection(
             self._http.collect_user_issues,
             self.id,
             order_by.value if order_by is not MISSING else None,
-            data_map=issuedata_to_issue,
+            data_map=lambda d: github.Issue._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,
@@ -1276,14 +1267,11 @@ class User(
         :rtype: :class:`~github.Connection`[:class:`~github.Organization`]
         """
 
-        def organizationdata_to_organization(organizationdata: OrganizationData, /) -> Organization:
-            return github.Organization._from_data(organizationdata, http=self._http)
-
         return github.Connection(
             self._http.collect_user_organizations,
             self.id,
             order_by.value if order_by is not MISSING else None,
-            data_map=organizationdata_to_organization,
+            data_map=lambda d: github.Organization._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,
@@ -1326,14 +1314,11 @@ class User(
         :rtype: :class:`~github.Connection`[:class:`~github.Pull`]
         """
 
-        def pulldata_to_pull(pulldata: PullData, /) -> Pull:
-            return github.Pull._from_data(pulldata, http=self._http)
-
         return github.Connection(
             self._http.collect_user_pulls,
             self.id,
             order_by.value if order_by is not MISSING else None,
-            data_map=pulldata_to_pull,
+            data_map=lambda d: github.Pull._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,
@@ -1376,14 +1361,11 @@ class User(
         :rtype: :class:`~github.Connection`[:class:`~github.Repository`]
         """
 
-        def repositorydata_to_repository(repositorydata: RepositoryData, /) -> Repository:
-            return github.Repository._from_data(repositorydata, http=self._http)
-
         return github.Connection(
             self._http.collect_user_watching,
             self.id,
             order_by.value if order_by is not MISSING else None,
-            data_map=repositorydata_to_repository,
+            data_map=lambda d: github.Repository._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,

@@ -228,14 +228,11 @@ class Topic(Node, Starrable, Type):
         :rtype: :class:`~github.connection.Connection`[:class:`~github.Repository`]
         """
 
-        def repositorydata_to_repository(repositorydata: RepositoryData, /) -> Repository:
-            return github.Repository._from_data(repositorydata, http=self._http)
-
         return github.Connection(
             self._http.collect_topic_repositories,
             self.id,
             order_by.value if order_by is not MISSING else None,
-            data_map=repositorydata_to_repository,
+            data_map=lambda d: github.Repository._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else None,
