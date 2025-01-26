@@ -127,6 +127,7 @@ class Team(
         # "": "discussionsUrl",  # TODO: name
         # "": "editTeamResourcePath",  # TODO: name
         # "": "editTeamUrl",  # TODO: name
+        "member_count": "members{totalCount}",
         # "": "membersResourcePath",  # TODO: name
         # "": "membersUrl",  # TODO: name
         "name": "name",
@@ -200,6 +201,19 @@ class Team(
         """
 
         return self._data["description"]
+
+    @property
+    def member_count(
+        self,
+        /,
+    ) -> int:
+        """
+        The number of members on the team.
+
+        :type: :class:`int`
+        """
+
+        return self._data["members"]["totalCount"]
 
     @property
     def name(
@@ -354,6 +368,28 @@ class Team(
         """
 
         return await self._fetch_field("description")  # type: ignore
+
+    async def fetch_member_count(
+        self,
+        /,
+    ) -> int:
+        """
+        |coro|
+
+        Fetches the number of members on the team.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`int`
+        """
+
+        return await self._fetch_field("members{totalCount}")  # type: ignore
 
     async def fetch_name(
         self,
