@@ -7,10 +7,7 @@ if TYPE_CHECKING:
     from github.connection import Connection, IssueOrder, OrganizationOrder, PullOrder, RepositoryOrder
     from github.core.http import HTTPClient
     from github.organization import Organization
-    from github.organization.organization import OrganizationData
     from github.repository import Issue, Pull, Repository
-    from github.repository.issue import IssueData
-    from github.repository.pull import PullData
     from github.user import UserStatus
     from github.utility.types import DateTime
 
@@ -33,6 +30,9 @@ if TYPE_CHECKING:
     from github.interfaces.resource import ResourceData
     from github.interfaces.sponsorable import SponsorableData
     from github.interfaces.type import TypeData
+    from github.organization.organization import OrganizationData
+    from github.repository.issue import IssueData
+    from github.repository.pull import PullData
     from github.repository.repository import RepositoryData
 
     class UserData(
@@ -86,7 +86,7 @@ if TYPE_CHECKING:
         organizations: ConnectionData[OrganizationData]
         pronouns: str | None
         # publicKeys  # TODO
-        # pullRequests  # TODO
+        pullRequests: ConnectionData[PullData]
         repositoriesContributedTo: ConnectionData[RepositoryData]
         # savedReplies  # TODO
         # socialAccounts  # TODO
