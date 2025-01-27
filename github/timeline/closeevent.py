@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     from github.interfaces.timelineitem import TimelineItemData
     from github.interfaces.type import TypeData
     from github.repository.issue import IssueData
+    from github.repository.issueclosereason import IssueCloseReasonData
     from github.repository.pull import PullData
 
 
@@ -20,7 +21,7 @@ if TYPE_CHECKING:
 
         closable: IssueData | PullData
         # closer  # TODO
-        stateReason: Literal["COMPLETED", "DUPLICATE", "NOT_PLANNED", "REOPENED"]
+        stateReason: IssueCloseReasonData
 
 
 class CloseEvent(Node, Resource, TimelineItem, Type):
