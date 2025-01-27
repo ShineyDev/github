@@ -40,6 +40,8 @@ from github.interfaces.starrable import *
 from github.interfaces.starrable import __all__ as _starrable__all__
 from github.interfaces.subscribable import *
 from github.interfaces.subscribable import __all__ as _subscribable__all__
+from github.interfaces.timelineitem import *
+from github.interfaces.timelineitem import __all__ as _timelineitem__all__
 from github.interfaces.type import *
 from github.interfaces.type import __all__ as _type__all__
 from github.interfaces.updatable import *
@@ -70,6 +72,7 @@ __all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_sponsorable__all__,
     *_starrable__all__,
     *_subscribable__all__,
+    *_timelineitem__all__,
     *_type__all__,
     *_updatable__all__,
     *_votable__all__,
