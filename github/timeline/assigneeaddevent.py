@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from github.automation import Mannequin
+    from github.repository import Issue, Pull
     from github.user import User
 
 import github
@@ -84,6 +85,38 @@ class AssigneeAddEvent(Node, TimelineItem, Type):
             return github.User._from_data(data, http=self._http)
         else:
             raise RuntimeError(f"unsupported type {data['__typename']} for AssignedEvent.assignee")
+
+    async def fetch_subject(
+        self,
+        /,
+        **kwargs,  # TODO
+    ) -> Issue | Pull:
+        """
+        |coro|
+
+        Fetches the subject of the timeline item.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Issue` | :class:`~github.Pull`
+        """
+
+        data = await self._http.fetch_assigneeaddevent_subject(self.id, **kwargs)
+
+        # TODO[type-from-data]
+
+        if data["__typename"] == "Issue":
+            return github.Issue._from_data(data, http=self._http)
+        elif data["__typename"] == "PullRequest":
+            return github.Pull._from_data(data, http=self._http)
+        else:
+            raise RuntimeError(f"unsupported type {data['__typename']} for AssignedEvent.assignable")
 
 
 __all__ = [
