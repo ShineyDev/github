@@ -21,6 +21,8 @@ from github.repository import *
 from github.repository import __all__ as _repository__all__
 from github.security import *
 from github.security import __all__ as _security__all__
+from github.timeline import *
+from github.timeline import __all__ as _timeline__all__
 from github.user import *
 from github.user import __all__ as _user__all__
 from github import utility
@@ -50,6 +52,7 @@ __all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_organization__all__,
     *_repository__all__,
     *_security__all__,
+    *_timeline__all__,
     *_user__all__,
     "utility",
     "version",
