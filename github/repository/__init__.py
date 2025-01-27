@@ -16,6 +16,8 @@ from github.repository.milestonestate import *
 from github.repository.milestonestate import __all__ as _milestonestate__all__
 from github.repository.pull import *
 from github.repository.pull import __all__ as _pull__all__
+from github.repository.pullclosereason import *
+from github.repository.pullclosereason import __all__ as _pullclosereason__all__
 from github.repository.pullstate import *
 from github.repository.pullstate import __all__ as _pullstate__all__
 from github.repository.repository import *
@@ -36,6 +38,7 @@ __all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_milestone__all__,
     *_milestonestate__all__,
     *_pull__all__,
+    *_pullclosereason__all__,
     *_pullstate__all__,
     *_repository__all__,
     *_subscriptionstate__all__,
