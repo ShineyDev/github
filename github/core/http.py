@@ -170,6 +170,25 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data
 
+    async def fetch_closeevent_subject(
+        self,
+        /,
+        closeevent_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> IssueData | PullData:
+        issue_fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
+        pull_fields = github.utility.get_merged_graphql_fields(github.Pull, fields)
+        query = "query($closeevent_id:ID!){node(id:$closeevent_id){...on ClosedEvent{closable{...on Issue{%s}...on PullRequest{%s}}}}}" % (",".join(issue_fields), ",".join(pull_fields))
+        path = ("node", "closable")
+
+        data = await self._fetch(query, *path, closeevent_id=closeevent_id)
+
+        if TYPE_CHECKING:
+            data = cast(IssueData | PullData, data)
+
+        return data
+
     async def fetch_comment_author(
         self,
         /,
