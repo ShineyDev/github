@@ -1,6 +1,10 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from github.repository import IssueCloseReason
+
+import github
 from github.interfaces import Node, Resource, TimelineItem, Type
 
 
@@ -46,7 +50,46 @@ class CloseEvent(Node, Resource, TimelineItem, Type):
 
     _data: CloseEventData
 
+    _graphql_fields = {
+        "reason": "stateReason",
+    }
+
     _node_prefix = "CE"
+
+    @property
+    def reason(
+        self,
+        /,
+    ) -> IssueCloseReason:
+        """
+        The reason the subject was closed.
+
+        :type: :class:`~github.IssueCloseReason`
+        """
+
+        return github.IssueCloseReason(self._data["stateReason"])
+
+    async def fetch_reason(
+        self,
+        /,
+    ) -> IssueCloseReason:
+        """
+        |coro|
+
+        Fetches the reason the subject was closed.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.IssueCloseReason`
+        """
+
+        return github.IssueCloseReason(await self._fetch_field("stateReason"))
 
 
 __all__ = [
