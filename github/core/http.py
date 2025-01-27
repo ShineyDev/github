@@ -925,6 +925,23 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data
 
+    async def fetch_timelineitem_actor(
+        self,
+        /,
+        timelineitem_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> BotData | MannequinData | OrganizationData | UserData:
+        bot_fields = github.utility.get_merged_graphql_fields(github.Bot, fields)
+        mannequin_fields = github.utility.get_merged_graphql_fields(github.Mannequin, fields)
+        organization_fields = github.utility.get_merged_graphql_fields(github.Organization, fields)
+        user_fields = github.utility.get_merged_graphql_fields(github.User, fields)
+        raise NotImplementedError  # TODO: this query
+        query = "" % {"bf": ",".join(bot_fields), "mf": ",".join(mannequin_fields), "of": ",".join(organization_fields), "uf": ",".join(user_fields)}
+        path = ("node", "actor")
+
+        return await self._fetch(query, *path, timelineitem_id=timelineitem_id)  # type: ignore
+
     async def fetch_topic_related_topics(
         self,
         /,
