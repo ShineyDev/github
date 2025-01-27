@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from github.connection import Connection
     from github.core.http import HTTPClient
-    from github.repository import IssueState, Milestone
+    from github.repository import IssueCloseReason, IssueState, Milestone
     from github.user import User
     from github.user.user import UserData
 
@@ -31,6 +31,7 @@ if TYPE_CHECKING:
     from github.interfaces.subscribable import SubscribableData
     from github.interfaces.type import TypeData
     from github.interfaces.updatable import UpdatableData
+    from github.repository.issueclosereason import IssueCloseReasonData
     from github.repository.issuestate import IssueStateData
     from github.repository.milestone import MilestoneData
 
@@ -67,7 +68,7 @@ if TYPE_CHECKING:
         parent: IssueData | None
         participants: ConnectionData[UserData]
         state: IssueStateData
-        stateReason: Literal["COMPLETED", "DUPLICATE", "NOT_PLANNED", "REOPENED"] | None
+        stateReason: IssueCloseReasonData
         # subIssues  # TODO
         # subIssuesSummary  # TODO
         # timelineItems  # TODO
@@ -147,7 +148,7 @@ class Issue(
         "is_read": "isReadByViewer",
         "number": "number",
         "state": "state",
-        # "": "stateReason",  # TODO: name, type
+        "closed_reason": "stateReason",
         "title": "title",
         "title_html": "titleHTML",
         # "": "viewerThreadSubscriptionFormAction",  # TODO: name, type
@@ -155,6 +156,24 @@ class Issue(
     }
 
     _node_prefix = "I"
+
+    @property
+    def closed_reason(
+        self,
+        /,
+    ) -> IssueCloseReason | None:
+        """
+        The reason the issue is closed, if it is.
+
+        :type: :class:`~github.IssueCloseReason` | None
+        """
+
+        reason = self._data["stateReason"]
+
+        if reason == "REOPENED":
+            return None
+
+        return github.IssueCloseReason(reason)
 
     @property
     def database_id(
@@ -246,6 +265,33 @@ class Issue(
         """
 
         return self._data["titleHTML"]
+
+    async def fetch_closed_reason(
+        self,
+        /,
+    ) -> IssueCloseReason | None:
+        """
+        |coro|
+
+        Fetches the reason the issue is closed, if it is.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.IssueCloseReason` | None
+        """
+
+        reason = await self._fetch_field("stateReason")
+
+        if reason == "REOPENED":
+            return None
+
+        return github.IssueCloseReason(reason)
 
     async def fetch_database_id(
         self,
