@@ -6,7 +6,7 @@ if TYPE_CHECKING:
 
     from github.connection import Connection
     from github.core.http import HTTPClient
-    from github.repository import Milestone, PullState
+    from github.repository import Milestone, PullCloseReason, PullState
     from github.user import User
     from github.utility.types import DateTime
 
@@ -238,6 +238,34 @@ class Pull(
         return self._data["additions"]
 
     @property
+    def closed_reason(
+        self,
+        /,
+    ) -> PullCloseReason | None:
+        """
+        The reason the pull request is closed, if it is.
+
+        .. note::
+
+            This is not an API field.
+
+            Instead, this is calculated using
+            :attr:`~github.Pull.state`, and requires that field to be
+            present.
+
+        :type: :class:`~github.PullCloseReason` | None
+        """
+
+        state = self._data["state"]
+
+        if state == github.PullState.closed:
+            return github.PullCloseReason.rejected
+        if state == github.PullState.merged:
+            return github.PullCloseReason.completed
+        if state == github.PullState.open:
+            return None
+
+    @property
     def comment_count(
         self,
         /,
@@ -420,6 +448,35 @@ class Pull(
         """
 
         return await self._fetch_field("additions")  # type: ignore
+
+    async def fetch_closed_reason(
+        self,
+        /,
+    ) -> PullCloseReason | None:
+        """
+        |coro|
+
+        Fetches the reason the pull request is closed, if it is.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.PullCloseReason` | None
+        """
+
+        state = await self._fetch_field("state")
+
+        if state == github.PullState.closed:
+            return github.PullCloseReason.rejected
+        if state == github.PullState.merged:
+            return github.PullCloseReason.completed
+        if state == github.PullState.open:
+            return None
 
     async def fetch_comment_count(
         self,
