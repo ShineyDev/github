@@ -51,7 +51,7 @@ class CloseEvent(Node, Resource, TimelineItem, Type):
     _data: CloseEventData
 
     _graphql_fields = {
-        "reason": "stateReason",
+        "reason": "closable{__typename},stateReason",
     }
 
     _node_prefix = "CE"
@@ -60,23 +60,36 @@ class CloseEvent(Node, Resource, TimelineItem, Type):
     def reason(
         self,
         /,
-    ) -> IssueCloseReason:
+    ) -> IssueCloseReason | None:
         """
         The reason the subject was closed.
 
-        :type: :class:`~github.IssueCloseReason`
+        .. note::
+
+            This is always None for pull requests, since the reason is
+            not provided by the API.
+
+        :type: :class:`~github.IssueCloseReason` | None
         """
+
+        if self._data["closable"]["__typename"] == "PullRequest":
+            return None
 
         return github.IssueCloseReason(self._data["stateReason"])
 
     async def fetch_reason(
         self,
         /,
-    ) -> IssueCloseReason:
+    ) -> IssueCloseReason | None:
         """
         |coro|
 
         Fetches the reason the subject was closed.
+
+        .. note::
+
+            This is always None for pull requests, since the reason is
+            not provided by the API.
 
 
         Raises
@@ -86,10 +99,10 @@ class CloseEvent(Node, Resource, TimelineItem, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.IssueCloseReason`
+        :rtype: :class:`~github.IssueCloseReason` | None
         """
 
-        return github.IssueCloseReason(await self._fetch_field("stateReason"))
+        raise NotImplementedError  # TODO
 
     async def fetch_subject(
         self,
