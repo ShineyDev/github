@@ -766,6 +766,25 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return await self._fetch(query, *path, reaction_id=reaction_id)  # type: ignore
 
+    async def fetch_reopenevent_subject(
+        self,
+        /,
+        reopenevent_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> IssueData | PullData:
+        issue_fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
+        pull_fields = github.utility.get_merged_graphql_fields(github.Pull, fields)
+        query = "query($reopenevent_id:ID!){node(id:$reopenevent_id){...on ReopenedEvent{closable{...on Issue{%s}...on PullRequest{%s}}}}}" % (",".join(issue_fields), ",".join(pull_fields))
+        path = ("node", "closable")
+
+        data = await self._fetch(query, *path, reopenevent_id=reopenevent_id)
+
+        if TYPE_CHECKING:
+            data = cast(IssueData | PullData, data)
+
+        return data
+
     async def fetch_repository_code_of_conduct(
         self,
         /,
