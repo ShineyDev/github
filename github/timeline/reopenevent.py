@@ -22,6 +22,7 @@ if TYPE_CHECKING:
         __typename: Literal["ReopenedEvent"]
 
         closable: IssueData | PullData
+        stateReason: Literal["REOPENED"]
 
 
 class ReopenEvent(Node, TimelineItem, Type):
