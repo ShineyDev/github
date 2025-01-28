@@ -1,6 +1,10 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from github.automation import Mannequin
+    from github.user import User
+
 import github
 from github.interfaces import Node, TimelineItem, Type
 
@@ -50,6 +54,38 @@ class AssigneeRemoveEvent(Node, TimelineItem, Type):
     _graphql_type = "UnassignedEvent"
 
     _node_prefix = "UNE"
+
+    async def fetch_assignee(
+        self,
+        /,
+        **kwargs,  # TODO
+    ) -> Mannequin | User:
+        """
+        |coro|
+
+        Fetches the assignee removed.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Mannequin` | :class:`~github.User`
+        """
+
+        data = await self._http.fetch_assigneeremoveevent_assignee(self.id, **kwargs)
+
+        # TODO[type-from-data]
+
+        if data["__typename"] == "Mannequin":
+            return github.Mannequin._from_data(data, http=self._http)
+        elif data["__typename"] == "User":
+            return github.User._from_data(data, http=self._http)
+        else:
+            raise RuntimeError(f"unsupported type {data['__typename']} for UnassignedEvent.assignee")
 
 
 __all__ = [

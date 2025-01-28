@@ -170,6 +170,25 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data
 
+    async def fetch_assigneeremoveevent_assignee(
+        self,
+        /,
+        assigneeremoveevent_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> MannequinData | UserData:
+        mannequin_fields = github.utility.get_merged_graphql_fields(github.Mannequin, fields)
+        user_fields = github.utility.get_merged_graphql_fields(github.User, fields)
+        query = "query($assigneeremoveevent_id:ID!){node(id:$assigneeremoveevent_id){...on UnassignedEvent{assignee{...on Mannequin{%s}...on User{%s}}}}}" % (",".join(mannequin_fields), ",".join(user_fields))
+        path = ("node", "assignee")
+
+        data = await self._fetch(query, *path, assigneeremoveevent_id=assigneeremoveevent_id)
+
+        if TYPE_CHECKING:
+            data = cast(MannequinData | UserData, data)
+
+        return data
+
     async def fetch_closeevent_subject(
         self,
         /,
