@@ -189,6 +189,25 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data
 
+    async def fetch_assigneeremoveevent_subject(
+        self,
+        /,
+        assigneeremoveevent_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> IssueData | PullData:
+        issue_fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
+        pull_fields = github.utility.get_merged_graphql_fields(github.Pull, fields)
+        query = "query($assigneeremoveevent_id:ID!){node(id:$assigneeremoveevent_id){...on UnassignedEvent{assignable{...on Issue{%s}...on PullRequest{%s}}}}}" % (",".join(issue_fields), ",".join(pull_fields))
+        path = ("node", "assignable")
+
+        data = await self._fetch(query, *path, assigneeremoveevent_id=assigneeremoveevent_id)
+
+        if TYPE_CHECKING:
+            data = cast(IssueData | PullData, data)
+
+        return data
+
     async def fetch_closeevent_subject(
         self,
         /,
