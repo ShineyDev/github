@@ -54,6 +54,8 @@ class CloseEvent(Node, Resource, TimelineItem, Type):
         "reason": "closable{__typename},stateReason",
     }
 
+    _graphql_type = "ClosedEvent"
+
     _node_prefix = "CE"
 
     @property

@@ -52,6 +52,8 @@ class AssigneeAddEvent(Node, TimelineItem, Type):
 
     _data: AssigneeAddEventData
 
+    _graphql_type = "AssignedEvent"
+
     _node_prefix = "AE"
 
     async def fetch_assignee(
