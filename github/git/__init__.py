@@ -2,6 +2,8 @@ from github.git.blob import *
 from github.git.blob import __all__ as _blob__all__
 from github.git.commit import *
 from github.git.commit import __all__ as _commit__all__
+from github.git.referencetype import *
+from github.git.referencetype import __all__ as _referencetype__all__
 from github.git.tag import *
 from github.git.tag import __all__ as _tag__all__
 from github.git.tree import *
@@ -17,6 +19,7 @@ from github.git.treeentrytype import __all__ as _treeentrytype__all__
 __all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_blob__all__,
     *_commit__all__,
+    *_referencetype__all__,
     *_tag__all__,
     *_tree__all__,
     *_treeentry__all__,
