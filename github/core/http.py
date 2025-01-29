@@ -1965,6 +1965,29 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data  # type: ignore
 
+    async def mutate_repository_create_label(
+        self,
+        /,
+        repository_id: str,
+        label_name: str,
+        label_color: str,
+        label_description: str | None,
+        *,
+        label_fields: Iterable[str] = MISSING,
+        repository_fields: Iterable[str] = MISSING,
+    ) -> tuple[RepositoryData, LabelData]:
+        label_fields = github.utility.get_merged_graphql_fields(github.Label, label_fields)
+        repository_fields = ("__typename",) if repository_fields is MISSING else repository_fields
+        query = "mutation($label_color:String!,$label_description:String,$label_name:String!,$repository_id:ID!,$mutation_id:String!){createLabel(input:{clientMutationId:$mutation_id,color:$label_color,description:$label_description,name:$label_name,repositoryId:$repository_id}){label{%s,_r:repository{%s}}}}" % (",".join(label_fields), ",".join(repository_fields))
+        path = ("createLabel",)
+
+        data = await self._mutate(query, *path, repository_id=repository_id, label_name=label_name, label_color=label_color, label_description=label_description)
+
+        label_data: dict[str, Any] = data["label"]  # type: ignore
+        repository_data = label_data.pop("_r")
+
+        return (repository_data, label_data)  # type: ignore
+
     async def mutate_repository_unarchive(
         self,
         /,

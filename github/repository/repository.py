@@ -16,6 +16,8 @@ if TYPE_CHECKING:
     from github.user import User
     from github.utility.types import DateTime
 
+import random
+
 import github
 from github.interfaces import Node, PackageOwner, Starrable, Subscribable, Resource, Type
 from github.utility import MISSING
@@ -2155,6 +2157,66 @@ class Repository(
         data = await self._http.mutate_repository_archive(self.id, fields=("isArchived",))
 
         self._data["isArchived"] = data["isArchived"]
+
+    async def create_label(
+        self,
+        /,
+        name: str,
+        *,
+        color: int = MISSING,
+        description: str = MISSING,
+        fields = MISSING,  # TODO
+    ) -> Label:
+        """
+        |coro|
+
+        Creates a label on the repository.
+
+
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.label_count`
+
+
+        Parameters
+        ----------
+        name: :class:`str`
+            The name of the label.
+        color: :class:`int`
+            The color of the label. Defaults to a random value,
+            generated using the same method as the GitHub UI.
+        description: :class:`str`
+            The description of the label.
+
+
+        :rtype: :class:`~github.Label`
+        """
+
+        if color is MISSING:
+            # NOTE: generated using the same method as the GitHub UI.
+            #       yes, randomRGBColor is 0-254 for no reason.
+            r, g, b = (random.randint(0, 254) for _ in range(3))
+            color = (r << 16) + (g << 8) + b
+
+        color_string = f"{color:06x}"
+
+        repository_data, label_data = await self._http.mutate_repository_create_label(
+            self.id,
+            name,
+            color_string,
+            description if description is not MISSING else None,
+            label_fields=fields,
+            repository_fields=("labels{totalCount}",),
+        )
+
+        if "labels" not in self._data.keys():
+            self._data["labels"] = dict()  # type: ignore
+
+        self._data["labels"]["totalCount"] = repository_data["labels"]["totalCount"]
+
+        return github.Label._from_data(label_data, http=self._http)
 
     async def unarchive(
         self,
