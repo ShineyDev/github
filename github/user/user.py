@@ -170,7 +170,7 @@ class User(
         if not data.get("isViewer", None):
             return cls(data, http)
         else:
-            return AuthenticatedUser(data, http)
+            return Viewer(data, http)
 
     _graphql_fields = {
         "bio": "bio",
@@ -449,7 +449,7 @@ class User(
 
         .. seealso::
 
-            :class:`~github.AuthenticatedUser`
+            :class:`~github.Viewer`
 
         :type: :class:`bool`
         """
@@ -927,7 +927,7 @@ class User(
 
         .. seealso::
 
-            :class:`~github.AuthenticatedUser`
+            :class:`~github.Viewer`
 
 
         Raises
@@ -1372,7 +1372,7 @@ class User(
         )
 
 
-class AuthenticatedUser(User):
+class Viewer(User):
     """
     Represents the authenticated GitHub user.
 
@@ -1483,5 +1483,5 @@ class AuthenticatedUser(User):
 
 __all__ = [
     "User",
-    "AuthenticatedUser",
+    "Viewer",
 ]

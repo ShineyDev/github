@@ -10,7 +10,7 @@ if TYPE_CHECKING:
     from github.organization import Organization
     from github.repository import Repository, Topic
     from github.security import Advisory, Vulnerability
-    from github.user import AuthenticatedUser, User, UserStatus
+    from github.user import User, UserStatus, Viewer
     from github.utility.types import DateTime, T_json_object
 
 import graphql
@@ -484,18 +484,18 @@ class Client(graphql.client.Client):
         self,
         /,
         **kwargs,  # TODO
-    ) -> AuthenticatedUser:
+    ) -> Viewer:
         """
         |coro|
 
         Fetches the authenticated user.
 
 
-        :rtype: :class:`~github.AuthenticatedUser`
+        :rtype: :class:`~github.Viewer`
         """
 
         data = await self._http.fetch_query_viewer(**kwargs)
-        return github.AuthenticatedUser._from_data(data, http=self._http)
+        return github.Viewer._from_data(data, http=self._http)
 
     def fetch_advisories(
         self,
