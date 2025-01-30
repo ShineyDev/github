@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from github.repository import Issue, Pull
+    from github.repository import Issue, Label, Pull
 
 import github
 from github.interfaces import Node, TimelineItem, Type
@@ -51,6 +51,30 @@ class LabelRemoveEvent(Node, TimelineItem, Type):
     _graphql_type = "UnlabeledEvent"
 
     _node_prefix = "UNLE"
+
+    async def fetch_label(
+        self,
+        /,
+        **kwargs,  # TODO
+    ) -> Label:
+        """
+        |coro|
+
+        Fetches the label removed.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Label`
+        """
+
+        data = await self._http.fetch_labelremoveevent_label(self.id, **kwargs)
+        return github.Label._from_data(data, http=self._http)
 
     async def fetch_subject(
         self,
