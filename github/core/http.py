@@ -282,6 +282,25 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return await self._fetch(query, *path, issue_id=issue_id)  # type: ignore
 
+    async def fetch_lockevent_subject(
+        self,
+        /,
+        lockevent_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> IssueData | PullData:
+        issue_fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
+        pull_fields = github.utility.get_merged_graphql_fields(github.Pull, fields)
+        query = "query($lockevent_id:ID!){node(id:$lockevent_id){...on LockedEvent{lockable{...on Issue{%s}...on PullRequest{%s}}}}}" % (",".join(issue_fields), ",".join(pull_fields))
+        path = ("node", "lockable")
+
+        data = await self._fetch(query, *path, lockevent_id=lockevent_id)
+
+        if TYPE_CHECKING:
+            data = cast(IssueData | PullData, data)
+
+        return data
+
     async def fetch_organization_team(
         self,
         /,
