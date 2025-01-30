@@ -12,6 +12,8 @@ from github.repository.issuestate import *
 from github.repository.issuestate import __all__ as _issuestate__all__
 from github.repository.label import *
 from github.repository.label import __all__ as _label__all__
+from github.repository.lockreason import *
+from github.repository.lockreason import __all__ as _lockreason__all__
 from github.repository.milestone import *
 from github.repository.milestone import __all__ as _milestone__all__
 from github.repository.milestonestate import *
@@ -38,6 +40,7 @@ __all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_issueclosereason__all__,
     *_issuestate__all__,
     *_label__all__,
+    *_lockreason__all__,
     *_milestone__all__,
     *_milestonestate__all__,
     *_pull__all__,
