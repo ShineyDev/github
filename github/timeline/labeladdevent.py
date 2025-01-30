@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from github.repository import Issue, Pull
+    from github.repository import Issue, Label, Pull
 
 import github
 from github.interfaces import Node, TimelineItem, Type
@@ -51,6 +51,33 @@ class LabelAddEvent(Node, TimelineItem, Type):
     _graphql_type = "LabeledEvent"
 
     _node_prefix = "LE"
+
+    async def fetch_label(
+        self,
+        /,
+        **kwargs,  # TODO
+    ) -> Label:
+        """
+        |coro|
+
+        Fetches the label added.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Label`
+        """
+
+        data = await self._http.fetch_labeladdevent_label(self.id, **kwargs)
+
+        # TODO[type-from-data]
+
+        return github.Label._from_data(data, http=self._http)
 
     async def fetch_subject(
         self,
