@@ -319,6 +319,25 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data
 
+    async def fetch_labelremoveevent_subject(
+        self,
+        /,
+        labelremoveevent_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> IssueData | PullData:
+        issue_fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
+        pull_fields = github.utility.get_merged_graphql_fields(github.Pull, fields)
+        query = "query($labelremoveevent_id:ID!){node(id:$labelremoveevent_id){...on UnlabeledEvent{labelable{...on Issue{%s}...on PullRequest{%s}}}}}" % (",".join(issue_fields), ",".join(pull_fields))
+        path = ("node", "labelable")
+
+        data = await self._fetch(query, *path, labelremoveevent_id=labelremoveevent_id)
+
+        if TYPE_CHECKING:
+            data = cast(IssueData | PullData, data)
+
+        return data
+
     async def fetch_lockevent_subject(
         self,
         /,
