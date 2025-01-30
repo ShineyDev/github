@@ -1,6 +1,12 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from github.interfaces import Node
+    from github.repository import LockReason
+
+import github
+
 
 if TYPE_CHECKING:
     from typing import Literal, TypedDict
@@ -21,7 +27,7 @@ class Lockable:
     _data: LockableData
 
     _graphql_fields = {
-        # "": "activeLockReason",  # TODO: name, type
+        "locked_reason": "activeLockReason",
         "is_locked": "locked",
     }
 
@@ -38,6 +44,24 @@ class Lockable:
 
         return self._data["locked"]
 
+    @property
+    def locked_reason(
+        self,
+        /,
+    ) -> LockReason | None:
+        """
+        The reason the lockable is locked, if it is.
+
+        :type: :class:`~github.LockReason` | None
+        """
+
+        reason = self._data["activeLockReason"]
+
+        if reason is None:
+            return None
+
+        return github.LockReason(reason)
+
     async def fetch_is_locked(
         self,
         /,
@@ -51,6 +75,36 @@ class Lockable:
         """
 
         return await self._fetch_field("locked")  # type: ignore
+
+    async def fetch_locked_reason(
+        self,
+        /,
+    ) -> LockReason | None:
+        """
+        |coro|
+
+        Fetches the reason the lockable is locked, if it is.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.LockReason` | None
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        reason = await self._fetch_field("activeLockReason")
+
+        if reason is None:
+            return None
+
+        return github.LockReason(reason)
 
 
 __all__ = [
