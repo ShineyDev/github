@@ -74,9 +74,6 @@ class LabelAddEvent(Node, TimelineItem, Type):
         """
 
         data = await self._http.fetch_labeladdevent_label(self.id, **kwargs)
-
-        # TODO[type-from-data]
-
         return github.Label._from_data(data, http=self._http)
 
     async def fetch_subject(
