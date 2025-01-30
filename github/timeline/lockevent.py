@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 
 
     class LockEventData(NodeData, TimelineItemData, TypeData):
-        __typename: Literal["ClosedEvent"]
+        __typename: Literal["LockedEvent"]
 
         lockable: IssueData | PullData
         lockReason: LockReasonData
