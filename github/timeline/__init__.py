@@ -6,6 +6,8 @@ from github.timeline.closeevent import *
 from github.timeline.closeevent import __all__ as _closeevent__all__
 from github.timeline.labeladdevent import *
 from github.timeline.labeladdevent import __all__ as _labeladdevent__all__
+from github.timeline.labelremoveevent import *
+from github.timeline.labelremoveevent import __all__ as _labelremoveevent__all__
 from github.timeline.lockevent import *
 from github.timeline.lockevent import __all__ as _lockevent__all__
 from github.timeline.reopenevent import *
@@ -19,6 +21,7 @@ __all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_assigneeremoveevent__all__,
     *_closeevent__all__,
     *_labeladdevent__all__,
+    *_labelremoveevent__all__,
     *_lockevent__all__,
     *_reopenevent__all__,
     *_unlockevent__all__,
