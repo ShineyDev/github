@@ -17,14 +17,14 @@ class IssueCloseReason(enum.Enum):
     Represents the reason an :class:`~github.Issue` was closed.
     """
 
-    #: The issue is completed.
-    completed = "COMPLETED"
-
     #: The issue is a duplicate.
     duplicate = "DUPLICATE"
 
     #: The issue is rejected.
     rejected = "NOT_PLANNED"
+
+    #: The issue is resolved.
+    resolved = "COMPLETED"
 
 
 __all__ = [

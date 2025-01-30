@@ -17,11 +17,11 @@ class PullCloseReason(enum.Enum):
     Represents the reason a :class:`~github.Pull` was closed.
     """
 
-    #: The pull request is completed.
-    completed = "COMPLETED"
-
     #: The pull request is rejected.
     rejected = "__REJECTED"
+
+    #: The pull request is resolved.
+    resolved = "COMPLETED"
 
 
 __all__ = [

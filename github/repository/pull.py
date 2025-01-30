@@ -261,7 +261,7 @@ class Pull(
         if state == github.PullState.closed:
             return github.PullCloseReason.rejected
         if state == github.PullState.merged:
-            return github.PullCloseReason.completed
+            return github.PullCloseReason.resolved
         if state == github.PullState.open:
             return None
 
@@ -474,7 +474,7 @@ class Pull(
         if state == github.PullState.closed:
             return github.PullCloseReason.rejected
         if state == github.PullState.merged:
-            return github.PullCloseReason.completed
+            return github.PullCloseReason.resolved
         if state == github.PullState.open:
             return None
 
