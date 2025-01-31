@@ -1183,6 +1183,24 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return value  # type: ignore
 
+    async def fetch_unpinevent_subject(
+        self,
+        /,
+        unpinevent_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> IssueData:
+        fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
+        query = "query($unpinevent_id:ID!){node(id:$unpinevent_id){...on UnpinnedEvent{issue{%s}}}}" % ",".join(fields)
+        path = ("node", "issue")
+
+        data = await self._fetch(query, *path, unpinevent_id=unpinevent_id)
+
+        if TYPE_CHECKING:
+            data = cast(IssueData, data)
+
+        return data
+
     async def fetch_user_organization(
         self,
         /,
