@@ -1,6 +1,9 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from github.repository import Issue, Pull
+
 import github
 from github.interfaces import Node, TimelineItem, Type
 
@@ -46,6 +49,38 @@ class UnsubscribeEvent(Node, TimelineItem, Type):
     _graphql_type = "UnsubscribedEvent"
 
     _node_prefix = "UE"
+
+    async def fetch_subject(
+        self,
+        /,
+        **kwargs,  # TODO
+    ) -> Issue | Pull:
+        """
+        |coro|
+
+        Fetches the subject of the timeline item.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Issue` | :class:`~github.Pull`
+        """
+
+        data = await self._http.fetch_unsubscribeevent_subject(self.id, **kwargs)
+
+        # TODO[type-from-data]
+
+        if data["__typename"] == "Issue":
+            return github.Issue._from_data(data, http=self._http)
+        elif data["__typename"] == "PullRequest":
+            return github.Pull._from_data(data, http=self._http)
+        else:
+            raise RuntimeError(f"unsupported type {data['__typename']} for UnsubscribedEvent.subscribable")
 
 
 __all__ = [
