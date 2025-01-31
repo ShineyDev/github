@@ -407,6 +407,24 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data
 
+    async def fetch_pinevent_subject(
+        self,
+        /,
+        pinevent_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> IssueData:
+        fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
+        query = "query($pinevent_id:ID!){node(id:$pinevent_id){...on PinnedEvent{issue{%s}}}}" % ",".join(fields)
+        path = ("node", "issue")
+
+        data = await self._fetch(query, *path, pinevent_id=pinevent_id)
+
+        if TYPE_CHECKING:
+            data = cast(IssueData, data)
+
+        return data
+
     async def fetch_pull_milestone(
         self,
         /,

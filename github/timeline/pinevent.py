@@ -1,6 +1,9 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from github.repository import Issue
+
 import github
 from github.interfaces import Node, TimelineItem, Type
 
@@ -44,6 +47,30 @@ class PinEvent(Node, TimelineItem, Type):
     _graphql_type = "PinnedEvent"
 
     _node_prefix = "PE"
+
+    async def fetch_subject(
+        self,
+        /,
+        **kwargs,  # TODO
+    ) -> Issue:
+        """
+        |coro|
+
+        Fetches the subject of the timeline item.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Issue`
+        """
+
+        data = await self._http.fetch_pinevent_subject(self.id, **kwargs)
+        return github.Issue._from_data(data, http=self._http)
 
 
 __all__ = [
