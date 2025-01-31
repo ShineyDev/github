@@ -1150,6 +1150,25 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data
 
+    async def fetch_subscribeevent_subject(
+        self,
+        /,
+        subscribeevent_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> IssueData | PullData:
+        issue_fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
+        pull_fields = github.utility.get_merged_graphql_fields(github.Pull, fields)
+        query = "query($subscribeevent_id:ID!){node(id:$subscribeevent_id){...on SubscribedEvent{subscribable{...on Issue{%s}...on PullRequest{%s}}}}}" % (",".join(issue_fields), ",".join(pull_fields))
+        path = ("node", "subscribable")
+
+        data = await self._fetch(query, *path, subscribeevent_id=subscribeevent_id)
+
+        if TYPE_CHECKING:
+            data = cast(IssueData | PullData, data)
+
+        return data
+
     async def fetch_timelineitem_actor(
         self,
         /,
