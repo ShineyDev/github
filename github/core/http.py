@@ -1183,6 +1183,25 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return value  # type: ignore
 
+    async def fetch_unlockevent_subject(
+        self,
+        /,
+        unlockevent_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> IssueData | PullData:
+        issue_fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
+        pull_fields = github.utility.get_merged_graphql_fields(github.Pull, fields)
+        query = "query($unlockevent_id:ID!){node(id:$unlockevent_id){...on UnlockedEvent{lockable{...on Issue{%s}...on PullRequest{%s}}}}}" % (",".join(issue_fields), ",".join(pull_fields))
+        path = ("node", "lockable")
+
+        data = await self._fetch(query, *path, unlockevent_id=unlockevent_id)
+
+        if TYPE_CHECKING:
+            data = cast(IssueData | PullData, data)
+
+        return data
+
     async def fetch_unpinevent_subject(
         self,
         /,
@@ -1859,25 +1878,6 @@ class HTTPClient(graphql.client.http.HTTPClient):
             order_by_data = {"direction": "ASC", "field": order_by}
 
         return await self._collect(query, *path, topic_id=topic_id, order_by=order_by_data, **kwargs)
-
-    async def fetch_unlockevent_subject(
-        self,
-        /,
-        unlockevent_id: str,
-        *,
-        fields: Iterable[str] = MISSING,
-    ) -> IssueData | PullData:
-        issue_fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
-        pull_fields = github.utility.get_merged_graphql_fields(github.Pull, fields)
-        query = "query($unlockevent_id:ID!){node(id:$unlockevent_id){...on UnlockedEvent{lockable{...on Issue{%s}...on PullRequest{%s}}}}}" % (",".join(issue_fields), ",".join(pull_fields))
-        path = ("node", "lockable")
-
-        data = await self._fetch(query, *path, unlockevent_id=unlockevent_id)
-
-        if TYPE_CHECKING:
-            data = cast(IssueData | PullData, data)
-
-        return data
 
     async def collect_user_followers(
         self,
