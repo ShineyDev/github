@@ -20,6 +20,8 @@ from github.timeline.unlockevent import *
 from github.timeline.unlockevent import __all__ as _unlockevent__all__
 from github.timeline.unpinevent import *
 from github.timeline.unpinevent import __all__ as _unpinevent__all__
+from github.timeline.unsubscribeevent import *
+from github.timeline.unsubscribeevent import __all__ as _unsubscribeevent__all__
 
 
 __all__ = [  # type: ignore[reportUnsupportedDunderAll]
@@ -34,4 +36,5 @@ __all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_subscribeevent__all__,
     *_unlockevent__all__,
     *_unpinevent__all__,
+    *_unsubscribeevent__all__,
 ]
