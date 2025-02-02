@@ -5,10 +5,14 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import TypeVar, TypedDict
 
+    from github.connection.connection import ConnectionData
+    from github.content.gist import GistData
+    from github.repository.repository import RepositoryData
+
 
     class _ProfileOwnerShowcaseData(TypedDict):
         hasPinnedItems: bool
-        # items: ConnectionData[GistData | RepositoryData]  # TODO: [support-gist]
+        items: ConnectionData[GistData | RepositoryData]
 
 
     class ProfileOwnerData(TypedDict):
@@ -19,8 +23,8 @@ if TYPE_CHECKING:
         location: str | None
         # login: str  # NOTE: on Actor
         name: str | None
-        # pinnableItems: ConnectionData[GistData | RepositoryData]  # TODO: [support-gist]
-        # pinnedItems: ConnectionData[GistData | RepositoryData]  # TODO: [support-gist]
+        pinnableItems: ConnectionData[GistData | RepositoryData]
+        pinnedItems: ConnectionData[GistData | RepositoryData]
         pinnedItemsRemaining: int
         viewerCanChangePinnedItems: bool
         websiteUrl: str | None
