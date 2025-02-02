@@ -1843,6 +1843,27 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
 
+    async def collect_repository_references(
+        self,
+        /,
+        repository_id: str,
+        reference_prefix: str,
+        order_by: str | None,
+        *,
+        fields: Iterable[str] = MISSING,
+        **kwargs,
+    ) -> ConnectionData[ReferenceData]:
+        fields = github.utility.get_merged_graphql_fields(github.Reference, fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:RefOrder,$reference_prefix:String!,$repository_id:ID!){node(id:$repository_id){...on Repository{refs(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by,refPrefix:$reference_prefix){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        path = ("node", "refs")
+
+        if order_by is None:
+            order_by_data = None
+        else:
+            order_by_data = {"direction": "ASC", "field": order_by}
+
+        return await self._collect(query, *path, repository_id=repository_id, reference_prefix=reference_prefix, order_by=order_by_data, **kwargs)
+
     async def collect_repository_topics(
         self,
         /,

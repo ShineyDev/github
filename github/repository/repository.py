@@ -2,12 +2,12 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Literal, cast
+    from typing import Literal, overload, cast
 
-    from github.connection import Connection, DiscussionOrder, IssueOrder, LabelOrder, MilestoneOrder, PullOrder, RepositoryOrder
+    from github.connection import Connection, DiscussionOrder, IssueOrder, LabelOrder, MilestoneOrder, PullOrder, ReferenceOrder, RepositoryOrder
     from github.content import CodeOfConduct, License
     from github.core.http import HTTPClient
-    from github.git import Reference
+    from github.git import Reference, ReferenceType
     from github.organization import Organization
     from github.repository import Discussion, Issue, Label, Milestone, Pull, Topic
     from github.repository.discussion import DiscussionData
@@ -2073,6 +2073,113 @@ class Repository(
             self.id,
             order_by.value if order_by is not MISSING else None,
             data_map=lambda d: github.Pull._from_data(d, http=self._http),
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
+        )
+
+    if TYPE_CHECKING:
+
+        @overload  # NOTE: ()
+        def fetch_references(
+            self,
+            /,
+            *,
+            cursor: str | None = MISSING,
+            limit: int = MISSING,
+            order_by: ReferenceOrder = MISSING,
+            reverse: bool = MISSING,
+            **kwargs,  # TODO
+        ) -> Connection[Reference]:
+            ...
+
+        @overload  # NOTE: (prefix="refs/heads/")
+        def fetch_references(
+            self,
+            /,
+            *,
+            cursor: str | None = MISSING,
+            limit: int = MISSING,
+            order_by: ReferenceOrder = MISSING,
+            prefix: str,
+            reverse: bool = MISSING,
+            **kwargs,  # TODO
+        ) -> Connection[Reference]:
+            ...
+
+        @overload  # NOTE: (type=ReferenceType.head)
+        def fetch_references(
+            self,
+            /,
+            *,
+            cursor: str | None = MISSING,
+            limit: int = MISSING,
+            order_by: ReferenceOrder = MISSING,
+            reverse: bool = MISSING,
+            type: ReferenceType,
+            **kwargs,  # TODO
+        ) -> Connection[Reference]:
+            ...
+
+    def fetch_references(
+        self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        order_by: ReferenceOrder = MISSING,
+        prefix: str = MISSING,
+        reverse: bool = MISSING,
+        type: ReferenceType = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Reference]:
+        """
+        |aiter|
+
+        Fetches references in the repository.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        order_by: :class:`~github.ReferenceOrder`
+            The field by which to order the elements.
+        prefix: :class:`str`
+            The Git reference prefix, eg. "refs/heads/".
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+        type: :class:`~github.ReferenceType`
+            The Git reference type, eg. ReferenceType.head.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection`[:class:`~github.Reference`]
+        """
+
+        if type is not MISSING:
+            if prefix is not MISSING:
+                raise RuntimeError
+
+            prefix = type.value
+        elif prefix is MISSING:
+            prefix = "refs/"
+
+        return github.Connection(
+            self._http.collect_repository_references,
+            self.id,
+            prefix,
+            order_by.value if order_by is not MISSING else None,
+            data_map=lambda d: github.Reference._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,
