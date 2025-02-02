@@ -18,6 +18,8 @@ from github.connection.pullorder import *
 from github.connection.pullorder import __all__ as _pullorder__all__
 from github.connection.reactionorder import *
 from github.connection.reactionorder import __all__ as _reactionorder__all__
+from github.connection.referenceorder import *
+from github.connection.referenceorder import __all__ as _referenceorder__all__
 from github.connection.repositoryorder import *
 from github.connection.repositoryorder import __all__ as _repositoryorder__all__
 from github.connection.stargazerorder import *
@@ -39,6 +41,7 @@ __all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_organizationorder__all__,
     *_pullorder__all__,
     *_reactionorder__all__,
+    *_referenceorder__all__,
     *_repositoryorder__all__,
     *_stargazerorder__all__,
     *_teamorder__all__,
