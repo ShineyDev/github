@@ -94,7 +94,7 @@ class Reference(Node, RepositoryNode, Type):
         :type: :class:`str`
         """
 
-        return "/".join((self._data["name"], self._data["prefix"]))
+        return "".join((self._data["prefix"], self._data["name"]))
 
     @property
     def type(
@@ -143,7 +143,7 @@ class Reference(Node, RepositoryNode, Type):
         """
 
         data: ReferenceData = await self._fetch_field("name,prefix")  # type: ignore
-        return "/".join((data["name"], data["prefix"]))
+        return "".join((data["prefix"], data["name"]))
 
     async def fetch_type(
         self,
@@ -166,7 +166,7 @@ class Reference(Node, RepositoryNode, Type):
         """
 
         data: ReferenceData = await self._fetch_field("name,prefix")  # type: ignore
-        name = "/".join((data["name"], data["prefix"]))
+        name = "".join((data["prefix"], data["name"]))
 
         if name.startswith("refs/heads/"):
             return github.ReferenceType.head
