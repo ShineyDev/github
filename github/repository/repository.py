@@ -30,6 +30,7 @@ if TYPE_CHECKING:
     from github.connection.connection import ConnectionData
     from github.content.codeofconduct import CodeOfConductData
     from github.content.license import LicenseData
+    from github.git.reference import ReferenceData
     from github.interfaces.node import NodeData
     from github.interfaces.packageowner import PackageOwnerData
     from github.interfaces.starrable import StarrableData
@@ -39,6 +40,7 @@ if TYPE_CHECKING:
     from github.organization.organization import OrganizationData
     from github.repository.label import LabelData
     from github.repository.topic import TopicData
+    from github.security.vulnerability import VulnerabilityData
     from github.user.user import UserData
 
 
@@ -66,7 +68,7 @@ if TYPE_CHECKING:
         # contributingGuidelines  # TODO
         createdAt: str
         databaseId: int
-        # defaultBranchRef  # TODO
+        defaultBranchRef: ReferenceData | None
         deleteBranchOnMerge: bool
         # dependencyGraphManifests  # TODO
         # deployKeys  # TODO
@@ -138,8 +140,8 @@ if TYPE_CHECKING:
         pullRequests: ConnectionData[PullData]
         pushedAt: str | None
         rebaseMergeAllowed: bool
-        # ref  # TODO
-        # refs  # TODO
+        ref: ReferenceData
+        refs: ConnectionData[ReferenceData]
         # release  # TODO
         # releases  # TODO
         repositoryTopics: ConnectionData[TopicData]  # TODO: this is a lie
@@ -163,8 +165,8 @@ if TYPE_CHECKING:
         viewerPermission: Literal["ADMIN", "MAINTAIN", "READ", "TRIAGE", "WRITE"]
         viewerPossibleCommitEmails: list[str]
         visibility: Literal["INTERNAL", "PRIVATE", "PUBLIC"]
-        # vulnerabilityAlert  # TODO
-        # vulnerabilityAlerts  # TODO
+        vulnerabilityAlert: VulnerabilityData
+        vulnerabilityAlerts: ConnectionData[VulnerabilityData]
         watchers: ConnectionData[UserData]
         webCommitSignoffRequired: bool
 
