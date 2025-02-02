@@ -2,11 +2,14 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from github.connection import Connection, PullOrder
     from github.core.http import HTTPClient
     from github.git import ReferenceType
+    from github.repository import Pull
 
 import github
 from github.interfaces import Node, RepositoryNode, Type
+from github.utility import MISSING
 
 
 if TYPE_CHECKING:
@@ -171,6 +174,55 @@ class Reference(Node, RepositoryNode, Type):
             return github.ReferenceType.tag
         else:
             raise NotImplementedError
+
+    def fetch_pulls(
+        self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        order_by: PullOrder = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Pull]:
+        """
+        |aiter|
+
+        Fetches pull requests associated with the reference.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        order_by: :class:`~github.PullOrder`
+            The field by which to order the elements.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection`[:class:`~github.Pull`]
+        """
+
+        return github.Connection(
+            self._http.collect_reference_pulls,
+            self.id,
+            order_by.value if order_by is not MISSING else None,
+            data_map=lambda d: github.Pull._from_data(d, http=self._http),
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
+        )
 
 
 __all__ = [
