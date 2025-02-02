@@ -45,7 +45,7 @@ if TYPE_CHECKING:
         deletions: int
         # deployments  # TODO
         # file  # TODO
-        # history  # TODO
+        history: ConnectionData[CommitData]
         message: str
         messageBody: str
         messageBodyHTML: str
