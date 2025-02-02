@@ -11,9 +11,11 @@ import github
 if TYPE_CHECKING:
     from typing import Literal, TypedDict
 
+    from github.repository.lockreason import LockReasonData
+
 
     class LockableData(TypedDict):
-        activeLockReason: Literal["OFF_TOPIC", "RESOLVED", "SPAM", "TOO_HEATED"]
+        activeLockReason: LockReasonData
         locked: bool
 
 
