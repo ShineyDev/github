@@ -9,8 +9,8 @@ class ReferenceType(enum.Enum):
     """
 
     #: The tree entry is a directory.
-    branch = "refs/heads/"
     head = "refs/heads/"
+    branch = "refs/heads/"
 
     #: The tree entry is a normal file.
     tag = "refs/tags/"
