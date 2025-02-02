@@ -7,6 +7,7 @@ if TYPE_CHECKING:
     from github.connection import Connection, DiscussionOrder, IssueOrder, LabelOrder, MilestoneOrder, PullOrder, RepositoryOrder
     from github.content import CodeOfConduct, License
     from github.core.http import HTTPClient
+    from github.git import Reference
     from github.organization import Organization
     from github.repository import Discussion, Issue, Label, Milestone, Pull, Topic
     from github.repository.discussion import DiscussionData
@@ -1583,6 +1584,37 @@ class Repository(
 
         data = await self._http.fetch_repository_pull(self.id, number, **kwargs)
         return github.Pull._from_data(data, http=self._http)
+
+    async def fetch_reference(
+        self,
+        name: str,
+        /,
+        **kwargs,  # TODO
+    ) -> Reference:
+        """
+        |coro|
+
+        Fetches an issue in the repository.
+
+
+        Parameters
+        ----------
+        name: :class:`str`
+            The qualified name of the reference.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Reference`
+        """
+
+        data = await self._http.fetch_repository_reference(self.id, name, **kwargs)
+        return github.Reference._from_data(data, http=self._http)
 
     async def fetch_template(
         self,

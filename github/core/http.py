@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     from github.content.license import LicenseData
     from github.content.reaction import ReactionData
     from github.git.commit import CommitData
+    from github.git.reference import ReferenceData
     from github.git.tag import TagData
     from github.interfaces import Node, Resource
     from github.interfaces.assignable import AssignableData
@@ -1110,6 +1111,20 @@ class HTTPClient(graphql.client.http.HTTPClient):
             data["number"] = number
 
         return data
+
+    async def fetch_repository_reference(
+        self,
+        /,
+        repository_id: str,
+        name: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> ReferenceData:
+        fields = github.utility.get_merged_graphql_fields(github.Reference, fields)
+        query = "query($name:String!,$repository_id:ID!){node(id:$repository_id){...on Repository{ref(qualifiedName:$name){%s}}}}" % ",".join(fields)
+        path = ("node", "ref")
+
+        return await self._fetch(query, *path, repository_id=repository_id, name=name)  # type: ignore
 
     async def fetch_repository_template(
         self,
