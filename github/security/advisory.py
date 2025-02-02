@@ -17,10 +17,12 @@ from github.utility import MISSING
 if TYPE_CHECKING:
     from typing import Literal
 
+    from github.connection.connection import ConnectionData
     from github.interfaces.node import NodeData
     from github.interfaces.type import TypeData
     from github.security.advisoryclassification import AdvisoryClassificationData
     from github.security.advisoryseverity import AdvisorySeverityData
+    from github.security.vulnerability import VulnerabilityData
 
 
     class AdvisoryData(NodeData, TypeData):
@@ -36,14 +38,14 @@ if TYPE_CHECKING:
         ghsaId: str
         # identifiers  # TODO
         notificationsPermalink: str | None
-        # origin  # TODO
+        origin: str
         permalink: str | None
         publishedAt: str
         # references  # TODO
         severity: AdvisorySeverityData
         summary: str
         updatedAt: str
-        # vulnerabilities  # TODO
+        vulnerabilities: ConnectionData[VulnerabilityData]
         withdrawnAt: str | None
 
 
