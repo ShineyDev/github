@@ -20,6 +20,7 @@ if TYPE_CHECKING:
     from typing import Literal
 
     from github.connection.connection import ConnectionData
+    from github.content.gist import GistData
     from github.interfaces.actor import ActorData
     from github.interfaces.discussionauthor import DiscussionAuthorData
     from github.interfaces.node import NodeData
@@ -63,9 +64,9 @@ if TYPE_CHECKING:
         # enterprises  # TODO
         followers: ConnectionData[UserData]
         following: ConnectionData[UserData]
-        # gist  # TODO
+        gist: GistData
         # gistComments  # TODO
-        # gists  # TODO
+        gists: ConnectionData[GistData]
         # hovercard  # TODO
         # interactionAbility  # TODO
         isBountyHunter: bool
