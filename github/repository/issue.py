@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     from typing import Literal
 
     from github.connection.connection import ConnectionData
+    from github.git.reference import ReferenceData
     from github.interfaces.assignable import AssignableData
     from github.interfaces.closable import ClosableData
     from github.interfaces.comment import CommentData
@@ -34,6 +35,7 @@ if TYPE_CHECKING:
     from github.repository.issueclosereason import IssueCloseReasonData
     from github.repository.issuestate import IssueStateData
     from github.repository.milestone import MilestoneData
+    from github.repository.pull import PullData
 
 
     class IssueData(
@@ -57,19 +59,19 @@ if TYPE_CHECKING:
 
         bodyResourcePath: str
         bodyUrl: str
-        # closedByPullRequestsReferences  # TODO
+        closedByPullRequestsReferences: ConnectionData[PullData]
         fullDatabaseId: str
         # hovercard  # TODO
         isPinned: bool
         isReadByViewer: bool
-        # linkedBranches  # TODO
+        linkedBranches: ConnectionData[ReferenceData]
         milestone: MilestoneData | None
         number: int
         parent: IssueData | None
         participants: ConnectionData[UserData]
         state: IssueStateData
         stateReason: IssueCloseReasonData
-        # subIssues  # TODO
+        subIssues: ConnectionData[IssueData]
         # subIssuesSummary  # TODO
         # timelineItems  # TODO
         title: str
