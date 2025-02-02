@@ -10,6 +10,7 @@ from github.interfaces import GitNode, Node, RepositoryNode, Type
 if TYPE_CHECKING:
     from typing import Literal
 
+    from github.git.treeentry import TreeEntryData
     from github.interfaces.gitnode import GitNodeData
     from github.interfaces.node import NodeData
     from github.interfaces.repositorynode import RepositoryNodeData
@@ -19,7 +20,7 @@ if TYPE_CHECKING:
     class TreeData(GitNodeData, NodeData, RepositoryNodeData, TypeData):
         __typename: Literal["Tree"]
 
-        # entries  # TODO
+        entries: list[TreeEntryData]
 
 
 class Tree(GitNode, Node, RepositoryNode, Type):
