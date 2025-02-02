@@ -15,6 +15,8 @@ if TYPE_CHECKING:
     from github.content.codeofconduct import CodeOfConductData
     from github.content.license import LicenseData
     from github.content.reaction import ReactionData
+    from github.git.commit import CommitData
+    from github.git.tag import TagData
     from github.interfaces import Node, Resource
     from github.interfaces.assignable import AssignableData
     from github.interfaces.labelable import LabelableData
@@ -876,6 +878,20 @@ class HTTPClient(graphql.client.http.HTTPClient):
         path = ("node", "user")
 
         return await self._fetch(query, *path, reaction_id=reaction_id)  # type: ignore
+
+    async def fetch_reference_target(
+        self,
+        /,
+        reference_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> CommitData | TagData:
+        commit_fields = github.utility.get_merged_graphql_fields(github.Commit, fields)
+        tag_fields = github.utility.get_merged_graphql_fields(github.Tag, fields)
+        query = "query($reference_id:ID!){node(id:$reference_id){...on Ref{target{...on Commit{%s}...on Tag{%s}}}}}" % (",".join(commit_fields), ",".join(tag_fields))
+        path = ("node", "target")
+
+        return await self._fetch(query, *path, reference_id=reference_id)  # type: ignore
 
     async def fetch_reopenevent_subject(
         self,

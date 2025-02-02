@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from github.connection import Connection, PullOrder
     from github.core.http import HTTPClient
-    from github.git import ReferenceType
+    from github.git import Commit, ReferenceType, Tag
     from github.repository import Pull
 
 import github
@@ -174,6 +174,38 @@ class Reference(Node, RepositoryNode, Type):
             return github.ReferenceType.tag
         else:
             raise NotImplementedError
+
+    async def fetch_target(
+        self,
+        /,
+        **kwargs,  # TODO
+    ) -> Commit | Tag:
+        """
+        |coro|
+
+        Fetches the target of the reference.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Commit` | :class:`~github.Tag`
+        """
+
+        data = await self._http.fetch_reference_target(self.id, **kwargs)
+
+        # TODO[type-from-data]
+
+        if data["__typename"] == "Commit":
+            return github.Commit._from_data(data, http=self._http)
+        elif data["__typename"] == "Tag":
+            return github.Tag._from_data(data, http=self._http)
+        else:
+            raise RuntimeError(f"invalid type {data['__typename']} for Ref.target")
 
     def fetch_pulls(
         self,
