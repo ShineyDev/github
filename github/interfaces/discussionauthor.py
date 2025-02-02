@@ -5,11 +5,13 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import TypedDict
 
+    from github.connection.connection import ConnectionData
+    from github.repository.discussion import DiscussionData
+
 
     class DiscussionAuthorData(TypedDict):
-        # repositoryDiscussionComments: ConnectionData[DiscussionCommentData]  # TODO: [support-discussions]
-        # repositoryDiscussions: ConnectionData[DiscussionData]  # TODO: [support-discussions]
-        pass
+        # repositoryDiscussionComments  # TODO
+        repositoryDiscussions: ConnectionData[DiscussionData]
 
 
 class DiscussionAuthor:
