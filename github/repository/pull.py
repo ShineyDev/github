@@ -21,6 +21,8 @@ if TYPE_CHECKING:
     from github.automation.bot import BotData
     from github.automation.mannequin import MannequinData
     from github.connection.connection import ConnectionData
+    from github.git.commit import CommitData
+    from github.git.reference import ReferenceData
     from github.interfaces.assignable import AssignableData
     from github.interfaces.closable import ClosableData
     from github.interfaces.comment import CommentData
@@ -61,7 +63,7 @@ if TYPE_CHECKING:
 
         additions: int
         # autoMergeRequest  # TODO
-        # baseRef  # TODO
+        baseRef: ReferenceData | None
         baseRefName: str
         baseRefOid: str
         baseRepository: RepositoryData | None
@@ -70,11 +72,11 @@ if TYPE_CHECKING:
         checksResourcePath: str
         checksUrl: str
         closingIssuesReferences: ConnectionData[IssueData]
-        # commits  # TODO
+        commits: ConnectionData[CommitData]
         deletions: int
         # files  # TODO
         fullDatabaseId: str
-        # headRef  # TODO
+        headRef: ReferenceData | None
         headRefName: str
         headRefOid: str
         headRepository: RepositoryData | None
@@ -88,7 +90,7 @@ if TYPE_CHECKING:
         # latestOpinionatedReviews  # TODO
         # latestReviews  # TODO
         maintainerCanModify: bool
-        # mergeCommit  # TODO
+        mergeCommit: CommitData | None
         # mergeQueue  # TODO
         # mergeQueueEntry  # TODO
         mergeStateStatus: Literal["BEHIND", "BLOCKED", "CLEAN", "DIRTY", "HAS_HOOKS", "UNKNOWN", "UNSTABLE"]
@@ -100,7 +102,7 @@ if TYPE_CHECKING:
         number: int
         participants: ConnectionData[UserData]
         permalink: str
-        # potentialMergeCommit  # TODO
+        potentialMergeCommit: CommitData | None
         revertResourcePath: str
         revertUrl: str
         reviewDecision: Literal["APPROVED", "CHANGES_REQUESTED", "REVIEW_REQUIRED"]
