@@ -20,7 +20,7 @@ class ReleaseOrder(enum.Enum):
     #: The date and time at which the release was created.
     created_at = "CREATED_AT"
 
-    #: The name of the release.
+    #: The title of the release.
     title = "NAME"
 
 
