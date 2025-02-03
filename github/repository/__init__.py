@@ -30,6 +30,8 @@ from github.repository.repository import *
 from github.repository.repository import __all__ as _repository__all__
 from github.repository.repositoryprivacy import *
 from github.repository.repositoryprivacy import __all__ as _repositoryprivacy__all__
+from github.repository.repositoryvisibility import *
+from github.repository.repositoryvisibility import __all__ as _repositoryvisibility__all__
 from github.repository.subscriptionstate import *
 from github.repository.subscriptionstate import __all__ as _subscriptionstate__all__
 from github.repository.topic import *
@@ -53,6 +55,7 @@ __all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_release__all__,
     *_repository__all__,
     *_repositoryprivacy__all__,
+    *_repositoryvisibility__all__,
     *_subscriptionstate__all__,
     *_topic__all__,
 ]
