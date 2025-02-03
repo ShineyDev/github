@@ -40,6 +40,7 @@ if TYPE_CHECKING:
     from github.organization.organization import OrganizationData
     from github.repository.label import LabelData
     from github.repository.release import ReleaseData
+    from github.repository.repositoryvisibility import RepositoryVisibilityData
     from github.repository.topic import TopicData
     from github.security.vulnerability import VulnerabilityData
     from github.user.user import UserData
@@ -165,7 +166,7 @@ if TYPE_CHECKING:
         viewerDefaultMergeMethod: Literal["MERGE", "REBASE", "SQUASH"]
         viewerPermission: Literal["ADMIN", "MAINTAIN", "READ", "TRIAGE", "WRITE"]
         viewerPossibleCommitEmails: list[str]
-        visibility: Literal["INTERNAL", "PRIVATE", "PUBLIC"]
+        visibility: RepositoryVisibilityData
         vulnerabilityAlert: VulnerabilityData
         vulnerabilityAlerts: ConnectionData[VulnerabilityData]
         watchers: ConnectionData[UserData]
