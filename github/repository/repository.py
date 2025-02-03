@@ -39,6 +39,7 @@ if TYPE_CHECKING:
     from github.interfaces.type import TypeData
     from github.organization.organization import OrganizationData
     from github.repository.label import LabelData
+    from github.repository.release import ReleaseData
     from github.repository.topic import TopicData
     from github.security.vulnerability import VulnerabilityData
     from github.user.user import UserData
@@ -113,7 +114,7 @@ if TYPE_CHECKING:
         label: LabelData
         labels: ConnectionData[LabelData]
         # languages  # TODO
-        # latestRelease  # TODO
+        latestRelease: ReleaseData | None
         licenseInfo: LicenseData | None
         # lockReason  # TODO
         mentionableUsers: ConnectionData[UserData]
@@ -142,8 +143,8 @@ if TYPE_CHECKING:
         rebaseMergeAllowed: bool
         ref: ReferenceData
         refs: ConnectionData[ReferenceData]
-        # release  # TODO
-        # releases  # TODO
+        release: ReleaseData
+        releases: ConnectionData[ReleaseData]
         repositoryTopics: ConnectionData[TopicData]  # TODO: this is a lie
         # ruleset  # TODO
         # rulesets  # TODO
