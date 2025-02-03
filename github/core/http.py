@@ -32,6 +32,7 @@ if TYPE_CHECKING:
     from github.repository.label import LabelData
     from github.repository.milestone import MilestoneData
     from github.repository.pull import PullData
+    from github.repository.release import ReleaseData
     from github.repository.repository import RepositoryData
     from github.repository.topic import TopicData
     from github.security.advisory import AdvisoryData
@@ -1027,6 +1028,19 @@ class HTTPClient(graphql.client.http.HTTPClient):
             data["name"] = name
 
         return data
+
+    async def fetch_repository_latest_release(
+        self,
+        /,
+        repository_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> ReleaseData | None:
+        fields = github.utility.get_merged_graphql_fields(github.Release, fields)
+        query = "query($repository_id:ID!){node(id:$repository_id){...on Repository{latestRelease{%s}}}}" % ",".join(fields)
+        path = ("node", "latestRelease")
+
+        return await self._fetch(query, *path, repository_id=repository_id)  # type: ignore
 
     async def fetch_repository_license(
         self,

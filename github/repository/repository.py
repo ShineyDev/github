@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from github.core.http import HTTPClient
     from github.git import Reference, ReferenceType
     from github.organization import Organization
-    from github.repository import Discussion, Issue, Label, Milestone, Pull, Topic
+    from github.repository import Discussion, Issue, Label, Milestone, Pull, Release, Topic
     from github.repository.discussion import DiscussionData
     from github.repository.issue import IssueData
     from github.repository.milestone import MilestoneData
@@ -1437,6 +1437,35 @@ class Repository(
 
         data = await self._http.fetch_repository_label(self.id, name, **kwargs)
         return github.Label._from_data(data, http=self._http)
+
+    async def fetch_latest_release(
+        self,
+        /,
+        **kwargs,  # TODO
+    ) -> Release | None:
+        """
+        |coro|
+
+        Fetches the latest release in the repository, if there are is
+        one.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Release` | None
+        """
+
+        data = await self._http.fetch_repository_latest_release(self.id, **kwargs)
+
+        if data is None:
+            return None
+
+        return github.Release._from_data(data, http=self._http)
 
     async def fetch_license(
         self,
