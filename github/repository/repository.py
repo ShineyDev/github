@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from github.core.http import HTTPClient
     from github.git import Reference, ReferenceType, Tag
     from github.organization import Organization
-    from github.repository import Discussion, Issue, Label, Milestone, Pull, Release, Topic
+    from github.repository import Discussion, Issue, Label, Milestone, Pull, Release, RepositoryVisibility, Topic
     from github.repository.discussion import DiscussionData
     from github.repository.issue import IssueData
     from github.repository.milestone import MilestoneData
@@ -281,7 +281,7 @@ class Repository(
         # "": "viewerDefaultMergeMethod",  # TODO: name, type
         # "": "viewerPermission",  # TODO: name, type
         # "": "viewerPossibleCommitEmails",  # TODO: name
-        # "visibility": "visibility",  # TODO: type
+        "visibility": "visibility",
         # "": "webCommitSignoffRequired",  # TODO: name
     }
 
@@ -653,6 +653,19 @@ class Repository(
         """
 
         return github.utility.iso_to_datetime(self._data["updatedAt"])
+
+    @property
+    def visibility(
+        self,
+        /,
+    ) -> RepositoryVisibility:
+        """
+        The visibility of the repository.
+
+        :type: :class:`~github.RepositoryVisibility`
+        """
+
+        return github.RepositoryVisibility(self._data["visibility"])
 
     async def fetch_allows_fork(
         self,
@@ -1283,6 +1296,28 @@ class Repository(
             updated_at = cast(str, updated_at)
 
         return github.utility.iso_to_datetime(updated_at)
+
+    async def fetch_visibility(
+        self,
+        /,
+    ) -> RepositoryVisibility:
+        """
+        |coro|
+
+        Fetches the visibility of the repository.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.RepositoryVisibility`
+        """
+
+        return github.RepositoryVisibility(await self._fetch_field("visibility"))
 
     async def fetch_code_of_conduct(
         self,
