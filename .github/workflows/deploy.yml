@@ -28,8 +28,6 @@ env:
 
 jobs:
   job:
-    if: false  # TODO(actions): put this away
-
     name: Deploy
     runs-on: ubuntu-latest
 
