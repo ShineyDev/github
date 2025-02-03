@@ -1140,6 +1140,38 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return await self._fetch(query, *path, repository_id=repository_id, name=name)  # type: ignore
 
+    async def fetch_repository_release(
+        self,
+        /,
+        repository_id: str,
+        tag_name: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> ReleaseData:
+        fields = github.utility.get_merged_graphql_fields(github.Release, fields)
+        query = "query($repository_id:ID!,$tag_name:String!){node(id:$repository_id){...on Repository{release(tagName:$tag_name){%s}}}}" % ",".join(fields)
+        path = ("node", "release")
+
+        def validate(
+            response: ClientResponse,
+            data: T_json_object,
+            /,
+        ) -> None:
+            value = github.utility.follow(data, ("data", *path))
+
+            if TYPE_CHECKING:
+                value = cast(ReleaseData | None, value)
+
+            if value is None:
+                raise github.ClientResponseGraphQLNotFoundError(f"Could not resolve to a release with the tag '{tag_name}'.", response, data)
+
+        data = await self._fetch(query, *path, repository_id=repository_id, tag_name=tag_name, _data_validate=validate)
+
+        if TYPE_CHECKING:
+            data = cast(ReleaseData, data)
+
+        return data
+
     async def fetch_repository_template(
         self,
         /,

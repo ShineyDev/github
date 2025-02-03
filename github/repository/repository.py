@@ -7,7 +7,7 @@ if TYPE_CHECKING:
     from github.connection import Connection, DiscussionOrder, IssueOrder, LabelOrder, MilestoneOrder, PullOrder, ReferenceOrder, RepositoryOrder
     from github.content import CodeOfConduct, License
     from github.core.http import HTTPClient
-    from github.git import Reference, ReferenceType
+    from github.git import Reference, ReferenceType, Tag
     from github.organization import Organization
     from github.repository import Discussion, Issue, Label, Milestone, Pull, Release, Topic
     from github.repository.discussion import DiscussionData
@@ -1647,6 +1647,38 @@ class Repository(
 
         data = await self._http.fetch_repository_reference(self.id, name, **kwargs)
         return github.Reference._from_data(data, http=self._http)
+
+    async def fetch_release(
+        self,
+        /,
+        tag: Tag,
+        **kwargs,  # TODO
+    ) -> Release:
+        """
+        |coro|
+
+        Fetches a release in the repository.
+
+
+        Parameters
+        ----------
+
+        tag: :class:`~github.Tag`
+            The tag associated with the release.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Release`
+        """
+
+        data = await self._http.fetch_repository_release(self.id, tag.name, **kwargs)
+        return github.Release._from_data(data, http=self._http)
 
     async def fetch_template(
         self,
