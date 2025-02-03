@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from github.core.http import HTTPClient
     from github.git import Reference, ReferenceType, Tag
     from github.organization import Organization
-    from github.repository import Discussion, Issue, Label, Milestone, Pull, Release, RepositoryVisibility, Topic
+    from github.repository import Discussion, Issue, Label, Milestone, Pull, Release, RepositoryPrivacy, RepositoryVisibility, Topic
     from github.repository.discussion import DiscussionData
     from github.repository.issue import IssueData
     from github.repository.milestone import MilestoneData
@@ -621,6 +621,30 @@ class Repository(
         """
 
         return self._data["name"]
+
+    @property
+    def privacy(
+        self,
+        /,
+    ) -> RepositoryPrivacy:
+        """
+        The privacy of the repository.
+
+        .. note::
+
+            This is not an API field.
+
+            Instead, this is calculated using
+            :attr:`~github.Repository.visibility`, and requires that
+            field to be present.
+
+        :type: :class:`~github.RepositoryPrivacy`
+        """
+
+        if self.visibility is github.RepositoryVisibility.public:
+            return github.RepositoryPrivacy.public
+        else:
+            return github.RepositoryPrivacy.private
 
     @property
     def pushed_at(
@@ -1237,6 +1261,33 @@ class Repository(
         """
 
         return await self._fetch_field("name")  # type: ignore
+
+    async def fetch_privacy(
+        self,
+        /,
+    ) -> RepositoryPrivacy:
+        """
+        |coro|
+
+        Fetches the privacy of the repository.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.RepositoryPrivacy`
+        """
+
+        visibility = await self._fetch_field("visibility")
+
+        if visibility is github.RepositoryVisibility.public:
+            return github.RepositoryPrivacy.public
+        else:
+            return github.RepositoryPrivacy.private
 
     async def fetch_pushed_at(
         self,
