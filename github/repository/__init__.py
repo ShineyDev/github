@@ -24,6 +24,8 @@ from github.repository.pullclosereason import *
 from github.repository.pullclosereason import __all__ as _pullclosereason__all__
 from github.repository.pullstate import *
 from github.repository.pullstate import __all__ as _pullstate__all__
+from github.repository.release import *
+from github.repository.release import __all__ as _release__all__
 from github.repository.repository import *
 from github.repository.repository import __all__ as _repository__all__
 from github.repository.subscriptionstate import *
@@ -46,6 +48,7 @@ __all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_pull__all__,
     *_pullclosereason__all__,
     *_pullstate__all__,
+    *_release__all__,
     *_repository__all__,
     *_subscriptionstate__all__,
     *_topic__all__,
