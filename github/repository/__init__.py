@@ -1,5 +1,7 @@
 from github.repository.discussion import *
 from github.repository.discussion import __all__ as _discussion__all__
+from github.repository.discussioncategory import *
+from github.repository.discussioncategory import __all__ as _discussioncategory__all__
 from github.repository.discussionclosereason import *
 from github.repository.discussionclosereason import __all__ as _discussionclosereason__all__
 from github.repository.discussionstate import *
@@ -40,6 +42,7 @@ from github.repository.topic import __all__ as _topic__all__
 
 __all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_discussion__all__,
+    *_discussioncategory__all__,
     *_discussionclosereason__all__,
     *_discussionstate__all__,
     *_issue__all__,
