@@ -47,11 +47,11 @@ class Dummy(Any):
         self,
         /,
         *,
-        client: Client = MISSING,
+        client: Client | HTTPClient = MISSING,
         id: str = MISSING,
         type: Type = MISSING,
     ) -> None:
-        self._client: Client = client
+        self._client: Client | HTTPClient = client
         self._id: str = id
         self._type: Type = type
 
@@ -78,7 +78,10 @@ class Dummy(Any):
         if self._client is MISSING:
             raise AttributeError
 
-        return self._client._http
+        if isinstance(self._client, github.Client):
+            return self._client._http
+        else:
+            return self._client
 
     @property
     def _node_prefix(self, /) -> str:
