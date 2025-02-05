@@ -425,7 +425,10 @@ class DiscussionCategory(Node, RepositoryNode, Type):
         """
 
         return github.Repository.fetch_discussions(
-            github.Dummy(client=self._http, id=self._data["repository"]["id"]),
+            github.Dummy(
+                client=self._http,
+                id=self._data["repository"]["id"],
+            ),
             category=self,
             cursor=cursor,
             limit=limit,
