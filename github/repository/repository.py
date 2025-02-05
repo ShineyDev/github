@@ -1891,6 +1891,51 @@ class Repository(
             **kwargs,
         )
 
+    def fetch_discussion_categories(
+        self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[DiscussionCategory]:
+        """
+        |aiter|
+
+        Fetches discussion categories in the repository.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection`[:class:`~github.DiscussionCategory`]
+        """
+
+        return github.Connection(
+            self._http.collect_repository_discussion_categories,
+            self.id,
+            data_map=lambda d: github.DiscussionCategory._from_data(d, http=self._http),
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
+        )
+
     def fetch_discussions(
         self,
         /,
