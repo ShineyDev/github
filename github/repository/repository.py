@@ -1430,6 +1430,37 @@ class Repository(
         data = await self._http.fetch_repository_discussion(self.id, number, **kwargs)
         return github.Discussion._from_data(data, http=self._http)
 
+    async def fetch_discussion_category(
+        self,
+        slug: str,
+        /,
+        **kwargs,  # TODO
+    ) -> DiscussionCategory:
+        """
+        |coro|
+
+        Fetches a discussion category in the repository.
+
+
+        Parameters
+        ----------
+        slug: :class:`str`
+            The slug of the discussion category.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.DiscussionCategory`
+        """
+
+        data = await self._http.fetch_repository_discussion_category(self.id, slug, **kwargs)
+        return github.DiscussionCategory._from_data(data, http=self._http)
+
     async def fetch_issue(
         self,
         number: int,

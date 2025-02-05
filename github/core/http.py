@@ -963,6 +963,28 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data
 
+    async def fetch_repository_discussion_category(
+        self,
+        /,
+        repository_id: str,
+        discussioncategory_slug: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> DiscussionCategoryData:
+        fields = github.utility.get_merged_graphql_fields(github.DiscussionCategory, fields)
+        query = "query($discussioncategory_slug:String!,$repository_id:ID!){node(id:$repository_id){...on Repository{discussionCategory(slug:$discussioncategory_slug){%s}}}}" % ",".join(fields)
+        path = ("node", "discussionCategory")
+
+        data = await self._fetch(query, *path, repository_id=repository_id, discussioncategory_slug=discussioncategory_slug)
+
+        if TYPE_CHECKING:
+            data = cast(DiscussionCategoryData, data)
+
+        if "slug" not in data.keys():
+            data["slug"] = discussioncategory_slug
+
+        return data
+
     async def fetch_repository_issue(
         self,
         /,
