@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from github.core.http import HTTPClient
-    from github.repository import DiscussionState
+    from github.repository import DiscussionCategory, DiscussionState
 
 import github
 from github.interfaces import Closable, Comment, Deletable, Labelable, Lockable, Node, Reactable, RepositoryNode, Resource, Subscribable, Type, Updatable, Votable
@@ -320,6 +320,30 @@ class Discussion(
         """
 
         return await self._fetch_field("title")  # type: ignore
+
+    async def fetch_category(
+        self,
+        /,
+        **kwargs,  # TODO
+    ) -> DiscussionCategory:
+        """
+        |coro|
+
+        Fetches the category the discussion is in.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.DiscussionCategory`
+        """
+
+        data = await self._http.fetch_discussion_category(self.id, **kwargs)
+        return github.DiscussionCategory._from_data(data, http=self._http)
 
 
 __all__ = [
