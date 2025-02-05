@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from github.core.http import HTTPClient
     from github.git import Reference, ReferenceType, Tag
     from github.organization import Organization
-    from github.repository import Discussion, Issue, Label, Milestone, Pull, Release, RepositoryPrivacy, RepositoryVisibility, Topic
+    from github.repository import Discussion, DiscussionCategory, Issue, Label, Milestone, Pull, Release, RepositoryPrivacy, RepositoryVisibility, Topic
     from github.repository.discussion import DiscussionData
     from github.repository.issue import IssueData
     from github.repository.milestone import MilestoneData
@@ -1895,6 +1895,7 @@ class Repository(
         self,
         /,
         *,
+        category: DiscussionCategory = MISSING,
         cursor: str | None = MISSING,
         limit: int = MISSING,
         order_by: DiscussionOrder = MISSING,
@@ -1909,6 +1910,8 @@ class Repository(
 
         Parameters
         ----------
+        category: :class:`~github.DiscussionCategory`
+            The category to filter discussion by.
         cursor: :class:`str`
             The cursor to start at.
         limit: :class:`int`
@@ -1932,6 +1935,7 @@ class Repository(
         return github.Connection(
             self._http.collect_repository_discussions,
             self.id,
+            category.id if category is not MISSING else None,
             order_by.value if order_by is not MISSING else None,
             data_map=lambda d: github.Discussion._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,

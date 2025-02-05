@@ -1787,13 +1787,14 @@ class HTTPClient(graphql.client.http.HTTPClient):
         self,
         /,
         repository_id: str,
+        discussioncategory_id: str | None,
         order_by: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[DiscussionData]:
         fields = github.utility.get_merged_graphql_fields(github.Discussion, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:DiscussionOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{discussions(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$discussioncategory_id:ID,$first:Int,$last:Int,$order_by:DiscussionOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{discussions(after:$after,before:$before,categoryId:$discussioncategory_id,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "discussions")
 
         if order_by is None:
@@ -1801,7 +1802,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         else:
             order_by_data = {"direction": "ASC", "field": order_by}
 
-        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, discussioncategory_id=discussioncategory_id, order_by=order_by_data, **kwargs)
 
     async def collect_repository_forks(
         self,
