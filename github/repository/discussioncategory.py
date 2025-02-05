@@ -4,11 +4,14 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import cast
 
+    from github.connection import Connection, DiscussionOrder
     from github.core.http import HTTPClient
+    from github.repository import Discussion
     from github.utility.types import DateTime
 
 import github
 from github.interfaces import Node, RepositoryNode, Type
+from github.utility import MISSING
 
 
 if TYPE_CHECKING:
@@ -77,6 +80,7 @@ class DiscussionCategory(Node, RepositoryNode, Type):
         "emoji_html": "emojiHTML",
         "is_answerable": "isAnswerable",
         "name": "name",
+        "__repository_id": "repository{id}",
         "slug": "slug",
         "updated_at": "updatedAt",
     }
@@ -381,6 +385,54 @@ class DiscussionCategory(Node, RepositoryNode, Type):
             updated_at = cast(str, updated_at)
 
         return github.utility.iso_to_datetime(updated_at)
+
+    def fetch_discussions(
+        self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        order_by: DiscussionOrder = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Discussion]:
+        """
+        |aiter|
+
+        Fetches discussions in the discussion category.
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        order_by: :class:`~github.DiscussionOrder`
+            The field by which to order the elements.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection`[:class:`~github.Discussion`]
+        """
+
+        return github.Repository.fetch_discussions(
+            github.Dummy(id=self._data["repository"]["id"]),
+            category=self,
+            cursor=cursor,
+            limit=limit,
+            order_by=order_by,
+            reverse=reverse,
+            **kwargs,
+        )
 
 
 __all__ = [
