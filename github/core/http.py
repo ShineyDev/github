@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     from github.content import CodeOfConduct, License
     from github.content.announcement import AnnouncementData
     from github.content.codeofconduct import CodeOfConductData
+    from github.content.language import LanguageData
     from github.content.license import LicenseData
     from github.content.reaction import ReactionData
     from github.git.blob import BlobData
@@ -1066,6 +1067,19 @@ class HTTPClient(graphql.client.http.HTTPClient):
             data["name"] = name
 
         return data
+
+    async def fetch_repository_language(
+        self,
+        /,
+        repository_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> LanguageData | None:
+        fields = github.utility.get_merged_graphql_fields(github.Language, fields)
+        query = "query($repository_id:ID!){node(id:$repository_id){...on Repository{primaryLanguage{%s}}}}" % ",".join(fields)
+        path = ("node", "primaryLanguage")
+
+        return await self._fetch(query, *path, repository_id=repository_id)  # type: ignore
 
     async def fetch_repository_latest_release(
         self,

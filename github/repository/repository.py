@@ -5,7 +5,7 @@ if TYPE_CHECKING:
     from typing import Literal, overload, cast
 
     from github.connection import Connection, DiscussionOrder, IssueOrder, LabelOrder, MilestoneOrder, PullOrder, ReferenceOrder, ReleaseOrder, RepositoryOrder
-    from github.content import CodeOfConduct, License
+    from github.content import CodeOfConduct, Language, License
     from github.core.http import HTTPClient
     from github.git import Blob, Commit, Reference, ReferenceType, Tag, Tree
     from github.organization import Organization
@@ -1605,6 +1605,34 @@ class Repository(
 
         data = await self._http.fetch_repository_label(self.id, name, **kwargs)
         return github.Label._from_data(data, http=self._http)
+
+    async def fetch_language(
+        self,
+        /,
+        **kwargs,  # TODO
+    ) -> Language | None:
+        """
+        |coro|
+
+        Fetches the primary language of the repository, if it has one.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Language` | None
+        """
+
+        data = await self._http.fetch_repository_language(self.id, **kwargs)
+
+        if data is None:
+            return None
+
+        return github.Language._from_data(data, http=self._http)
 
     async def fetch_latest_release(
         self,
