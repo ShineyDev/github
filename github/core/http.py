@@ -15,9 +15,11 @@ if TYPE_CHECKING:
     from github.content.codeofconduct import CodeOfConductData
     from github.content.license import LicenseData
     from github.content.reaction import ReactionData
+    from github.git.blob import BlobData
     from github.git.commit import CommitData
     from github.git.reference import ReferenceData
     from github.git.tag import TagData
+    from github.git.tree import TreeData
     from github.interfaces import Node, Resource
     from github.interfaces.assignable import AssignableData
     from github.interfaces.labelable import LabelableData
@@ -1110,6 +1112,46 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         if "number" not in data.keys():
             data["number"] = number
+
+        return data
+
+    async def fetch_repository_object(
+        self,
+        /,
+        repository_id: str,
+        object_id: str | None,
+        object_expression: str | None,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> BlobData | CommitData | TagData | TreeData:
+        blob_fields = github.utility.get_merged_graphql_fields(github.Blob, fields)
+        commit_fields = github.utility.get_merged_graphql_fields(github.Commit, fields)
+        tag_fields = github.utility.get_merged_graphql_fields(github.Tag, fields)
+        tree_fields = github.utility.get_merged_graphql_fields(github.Tree, fields)
+        query = "query($object_expression:String,$object_id:GitObjectID,$repository_id:ID!){node(id:$repository_id){...on Repository{object(expression:$object_expression,oid:$object_id){...on Blob{%s}...on Commit{%s}...on Tag{%s}...on Tree{%s}}}}}" % (",".join(blob_fields), ",".join(commit_fields), ",".join(tag_fields), ",".join(tree_fields))
+        path = ("node", "object")
+
+        def validate(
+            response: ClientResponse,
+            data: T_json_object,
+            /,
+        ) -> None:
+            value = github.utility.follow(data, ("data", *path))
+
+            if value is None:
+                if object_expression:
+                    raise github.ClientResponseGraphQLNotFoundError(f"Could not resolve to an object with the expression '{object_expression}'.", response, data)
+                else:
+                    raise github.ClientResponseGraphQLNotFoundError(f"Could not resolve to an object with the id '{object_id}'.", response, data)
+
+        data = await self._fetch(query, *path, repository_id=repository_id, object_id=object_id, object_expression=object_expression, _data_validate=validate)
+
+        if TYPE_CHECKING:
+            data = cast(BlobData | CommitData | TagData | TreeData, data)
+
+        if object_id:
+            if "oid" not in data.keys():
+                data["oid"] = object_id
 
         return data
 

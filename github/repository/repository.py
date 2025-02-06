@@ -7,7 +7,7 @@ if TYPE_CHECKING:
     from github.connection import Connection, DiscussionOrder, IssueOrder, LabelOrder, MilestoneOrder, PullOrder, ReferenceOrder, ReleaseOrder, RepositoryOrder
     from github.content import CodeOfConduct, License
     from github.core.http import HTTPClient
-    from github.git import Reference, ReferenceType, Tag
+    from github.git import Blob, Commit, Reference, ReferenceType, Tag, Tree
     from github.organization import Organization
     from github.repository import Discussion, DiscussionCategory, Issue, Label, Milestone, Pull, Release, RepositoryLockReason, RepositoryPrivacy, RepositoryVisibility, Topic
     from github.repository.discussion import DiscussionData
@@ -30,7 +30,11 @@ if TYPE_CHECKING:
     from github.connection.connection import ConnectionData
     from github.content.codeofconduct import CodeOfConductData
     from github.content.license import LicenseData
+    from github.git.blob import BlobData
+    from github.git.commit import CommitData
     from github.git.reference import ReferenceData
+    from github.git.tag import TagData
+    from github.git.tree import TreeData
     from github.interfaces.node import NodeData
     from github.interfaces.packageowner import PackageOwnerData
     from github.interfaces.starrable import StarrableData
@@ -129,7 +133,7 @@ if TYPE_CHECKING:
         mirrorUrl: str | None
         name: str
         nameWithOwner: str
-        # object  # TODO
+        object: BlobData | CommitData | TagData | TreeData
         openGraphImageUrl: str
         owner: OrganizationData | UserData
         parent: RepositoryData | None
@@ -1689,6 +1693,84 @@ class Repository(
 
         data = await self._http.fetch_repository_milestone(self.id, number, **kwargs)
         return github.Milestone._from_data(data, http=self._http)
+
+    if TYPE_CHECKING:
+
+        @overload  # NOTE: ("db96e9bab0538e9e0343d03bf7460f50415a815e")
+        async def fetch_object(
+            self,
+            /,
+            id: str,
+            **kwargs,  # TODO
+        ) -> Blob | Commit | Tag | Tree:
+            ...
+
+        @overload  # NOTE: (expression="HEAD:README")
+        async def fetch_object(
+            self,
+            /,
+            *,
+            expression: str,
+            **kwargs,  # TODO
+        ) -> Blob | Commit | Tag | Tree:
+            ...
+
+    async def fetch_object(
+        self,
+        /,
+        id: str = MISSING,
+        *,
+        expression: str = MISSING,
+        **kwargs,  # TODO
+    ) -> Blob | Commit | Tag | Tree:
+        """
+        |coro|
+
+        Fetches an object in the repository.
+
+
+        Parameters
+        ----------
+        id: :class:`str`
+            The Git object ID of the object.
+        expression: :class`str`
+            A Git revision expression suitable for rev-parse.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Blob` | :class:`~github.Commit` | :class:`~github.Tag` | :class:`~github.Tree`
+        """
+
+        if id is MISSING and expression is MISSING:
+            raise RuntimeError
+        elif id is not MISSING and expression is not MISSING:
+            raise RuntimeError
+
+        data = await self._http.fetch_repository_object(
+            self.id,
+            id if id is not MISSING else None,
+            expression if expression is not MISSING else None,
+            **kwargs,
+        )
+
+        # TODO[type-from-data]
+
+        if data["__typename"] == "Blob":
+            return github.Blob._from_data(data, http=self._http)
+        elif data["__typename"] == "Commit":
+            return github.Commit._from_data(data, http=self._http)
+        elif data["__typename"] == "Tag":
+            return github.Tag._from_data(data, http=self._http)
+        elif data["__typename"] == "Tree":
+            return github.Tree._from_data(data, http=self._http)
+        else:
+            raise RuntimeError(f"invalid type {data['__typename']} for Repository.object")
 
     async def fetch_owner(
         self,
