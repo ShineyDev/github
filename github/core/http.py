@@ -1956,6 +1956,26 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
 
+    async def collect_repository_languages(
+        self,
+        /,
+        repository_id: str,
+        order_by: str | None,
+        *,
+        fields: Iterable[str] = MISSING,
+        **kwargs,
+    ) -> ConnectionData[LanguageData]:
+        fields = github.utility.get_merged_graphql_fields(github.Language, fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:LanguageOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{languages(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        path = ("node", "languages")
+
+        if order_by is None:
+            order_by_data = None
+        else:
+            order_by_data = {"direction": "ASC", "field": order_by}
+
+        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
+
     async def collect_repository_milestones(
         self,
         /,
