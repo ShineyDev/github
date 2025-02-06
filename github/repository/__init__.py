@@ -30,6 +30,8 @@ from github.repository.release import *
 from github.repository.release import __all__ as _release__all__
 from github.repository.repository import *
 from github.repository.repository import __all__ as _repository__all__
+from github.repository.repositorylockreason import *
+from github.repository.repositorylockreason import __all__ as _repositorylockreason__all__
 from github.repository.repositoryprivacy import *
 from github.repository.repositoryprivacy import __all__ as _repositoryprivacy__all__
 from github.repository.repositoryvisibility import *
@@ -57,6 +59,7 @@ __all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_pullstate__all__,
     *_release__all__,
     *_repository__all__,
+    *_repositorylockreason__all__,
     *_repositoryprivacy__all__,
     *_repositoryvisibility__all__,
     *_subscriptionstate__all__,
