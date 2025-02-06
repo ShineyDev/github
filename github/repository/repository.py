@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from github.core.http import HTTPClient
     from github.git import Reference, ReferenceType, Tag
     from github.organization import Organization
-    from github.repository import Discussion, DiscussionCategory, Issue, Label, Milestone, Pull, Release, RepositoryPrivacy, RepositoryVisibility, Topic
+    from github.repository import Discussion, DiscussionCategory, Issue, Label, Milestone, Pull, Release, RepositoryLockReason, RepositoryPrivacy, RepositoryVisibility, Topic
     from github.repository.discussion import DiscussionData
     from github.repository.issue import IssueData
     from github.repository.milestone import MilestoneData
@@ -40,6 +40,7 @@ if TYPE_CHECKING:
     from github.organization.organization import OrganizationData
     from github.repository.label import LabelData
     from github.repository.release import ReleaseData
+    from github.repository.repositorylockreason import RepositoryLockReasonData
     from github.repository.repositoryvisibility import RepositoryVisibilityData
     from github.repository.topic import TopicData
     from github.security.vulnerability import VulnerabilityData
@@ -117,7 +118,7 @@ if TYPE_CHECKING:
         # languages  # TODO
         latestRelease: ReleaseData | None
         licenseInfo: LicenseData | None
-        # lockReason  # TODO
+        lockReason: RepositoryLockReasonData | None
         mentionableUsers: ConnectionData[UserData]
         mergeCommitAllowed: bool
         mergeCommitMessage: Literal["BLANK", "PR_BODY", "PR_TITLE"]
@@ -609,6 +610,24 @@ class Repository(
         """
 
         return self._data["isTemplate"]
+
+    @property
+    def locked_reason(
+        self,
+        /,
+    ) -> RepositoryLockReason | None:
+        """
+        The reason the repository is locked, if it is.
+
+        :type: :class:`~github.RepositoryLockReason` | None
+        """
+
+        reason = self._data["lockReason"]
+
+        if reason is None:
+            return None
+
+        return github.RepositoryLockReason(reason)
 
     @property
     def name(
@@ -1240,6 +1259,33 @@ class Repository(
         """
 
         return await self._fetch_field("isTemplate")  # type: ignore
+
+    async def fetch_locked_reason(
+        self,
+        /,
+    ) -> RepositoryLockReason | None:
+        """
+        |coro|
+
+        Fetches the reason the repository is locked, if it is.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.RepositoryLockReason` | None
+        """
+
+        reason = await self._fetch_field("lockReason")
+
+        if reason is None:
+            return None
+
+        return github.RepositoryLockReason(reason)
 
     async def fetch_name(
         self,
