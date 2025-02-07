@@ -9,3 +9,4 @@ github.user
 
     user
     userstatus
+    viewer
