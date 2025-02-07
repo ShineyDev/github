@@ -224,9 +224,7 @@ class ProfileOwner:
             The :attr:`id` attribute is missing.
 
 
-        :rtype: ConnectionIterator[Gist | Repository]
-
-        ..      :class:`~github.utility.ConnectionIterator`[:class:`~github.Gist` | :class:`~github.Repository`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Gist` | :class:`~github.Repository`
         """
 
         raise NotImplementedError  # TODO: ProfileOwner.pinnableItems
@@ -248,9 +246,7 @@ class ProfileOwner:
             The :attr:`id` attribute is missing.
 
 
-        :rtype: ConnectionIterator[Gist | Repository]
-
-        ..      :class:`~github.utility.ConnectionIterator`[:class:`~github.Gist` | :class:`~github.Repository`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Gist` | :class:`~github.Repository`
         """
 
         raise NotImplementedError  # TODO: ProfileOwner.pinnedItems
@@ -272,9 +268,7 @@ class ProfileOwner:
             The :attr:`id` attribute is missing.
 
 
-        :rtype: ConnectionIterator[Gist | Repository]
-
-        ..      :class:`~github.utility.ConnectionIterator`[:class:`~github.Gist` | :class:`~github.Repository`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Gist` | :class:`~github.Repository` 
         """
 
         raise NotImplementedError  # TODO: ProfileOwner.itemShowcase.items

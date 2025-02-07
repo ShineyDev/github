@@ -272,7 +272,7 @@ class Connection(AsyncIterator[_Tci]):
 
         self._stages.append(("map", function))
 
-        return self  # type: ignore  # NOTE: this is magic, see note on ConnectionIterator._stages above
+        return self  # type: ignore  # NOTE: this is magic, see note on Connection._stages above
 
     def paginate(
         self,
@@ -292,13 +292,13 @@ class Connection(AsyncIterator[_Tci]):
         self._length = length if length is not MISSING else None
         self._paginating = True
 
-        return self  # type: ignore  # NOTE: this is magic, see note on PaginatedConnectionIterator below
+        return self  # type: ignore  # NOTE: this is magic, see note on PaginatedConnection below
 
 
 if TYPE_CHECKING:
 
     # NOTE: this type exists as an implementation detail for
-    #       ConnectionIterator.paginate to prevent further pagination
+    #       Connection.paginate to prevent further pagination
 
     @type_check_only
     class PaginatedConnection(AsyncIterator[_Tci]):
