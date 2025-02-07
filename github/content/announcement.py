@@ -90,7 +90,7 @@ class Announcement(Type):
         """
         The date and time at which the announcement will expire.
 
-        :type: Optional[:class:`~datetime.datetime`]
+        :type: :class:`~datetime.datetime` | None
         """
 
         expires_at = self._data["expiresAt"]

@@ -169,7 +169,7 @@ class Comment:
         """
         The date and time at which the comment was last edited.
 
-        :type: Optional[:class:`~datetime.datetime`]
+        :type: :class:`~datetime.datetime` | None
         """
 
         edited_at = self._data["lastEditedAt"]
@@ -200,7 +200,7 @@ class Comment:
         """
         The date and time at which the comment was published.
 
-        :type: Optional[:class:`~datetime.datetime`]
+        :type: :class:`~datetime.datetime` | None
         """
 
         published_at = self._data["publishedAt"]

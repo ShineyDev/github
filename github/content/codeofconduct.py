@@ -123,7 +123,7 @@ class CodeOfConduct(Node, Resource, Type):
         """
         An HTTP path to the resource.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return super().resource_path
@@ -136,7 +136,7 @@ class CodeOfConduct(Node, Resource, Type):
         """
         An HTTP URL to the resource.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return super().url
@@ -311,7 +311,7 @@ class CodeOfConduct(Node, Resource, Type):
             :attr:`url` attributes are missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await super().fetch_resource_path()  # type: ignore
@@ -337,7 +337,7 @@ class CodeOfConduct(Node, Resource, Type):
             :attr:`url` attributes are missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await super().fetch_url()  # type: ignore

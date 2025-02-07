@@ -249,7 +249,7 @@ class ClientResponseHTTPUnauthorizedError(ClientResponseHTTPError):
     response: :class:`aiohttp.ClientResponse`
         The client response.
 
-    data: Optional[:class:`dict`]
+    data: :class:`dict` | None
         The response data.
     """
 

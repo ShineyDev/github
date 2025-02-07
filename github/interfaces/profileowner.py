@@ -93,7 +93,7 @@ class ProfileOwner:
             - ``read:org`` for :attr:`Organization.email`.
             - ``read:user`` OR ``user:email`` for :attr:`User.email`.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["email"]
@@ -132,7 +132,7 @@ class ProfileOwner:
         """
         The location of the profile owner.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["location"]
@@ -145,7 +145,7 @@ class ProfileOwner:
         """
         The name of the profile owner.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["name"]
@@ -171,7 +171,7 @@ class ProfileOwner:
         """
         The website of the profile owner.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["websiteUrl"]
@@ -202,7 +202,7 @@ class ProfileOwner:
             The token used by the client does not have the required scopes.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("email")  # type: ignore

@@ -176,7 +176,7 @@ class Organization(
         """
         The date and time at which the organization was archived.
 
-        :type: Optional[:class:`~datetime.datetime`]
+        :type: :class:`~datetime.datetime` | None
         """
 
         archived_at = self._data["archivedAt"]
@@ -247,7 +247,7 @@ class Organization(
         """
         The description of the organization.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["description"]
@@ -267,7 +267,7 @@ class Organization(
         - Sanitizes the string such that it cannot contain HTML tags.
         - Wraps the string in ``<div>`` tags.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["descriptionHTML"]
@@ -345,7 +345,7 @@ class Organization(
         """
         The Twitter username of the organization.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["twitterUsername"]
@@ -381,7 +381,7 @@ class Organization(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`~datetime.datetime`]
+        :rtype: :class:`~datetime.datetime` | None
         """
 
         archived_at = await self._fetch_field("archivedAt")
@@ -507,7 +507,7 @@ class Organization(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("description")  # type: ignore
@@ -529,7 +529,7 @@ class Organization(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("descriptionHTML")  # type: ignore
@@ -664,7 +664,7 @@ class Organization(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("twitterUsername")  # type: ignore

@@ -126,7 +126,7 @@ class UserStatus(Node, Type):
         """
         The emoji of the status.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["emoji"]
@@ -139,7 +139,7 @@ class UserStatus(Node, Type):
         """
         The emoji of the status as HTML.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["emojiHTML"]
@@ -152,7 +152,7 @@ class UserStatus(Node, Type):
         """
         The date and time at which the status will expire.
 
-        :type: Optional[:class:`~datetime.datetime`]
+        :type: :class:`~datetime.datetime` | None
         """
 
         expires_at = self._data["expiresAt"]
@@ -183,7 +183,7 @@ class UserStatus(Node, Type):
         """
         The message of the status.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["message"]
@@ -272,7 +272,7 @@ class UserStatus(Node, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("emoji")  # type: ignore
@@ -294,7 +294,7 @@ class UserStatus(Node, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("emojiHTML")  # type: ignore
@@ -316,7 +316,7 @@ class UserStatus(Node, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`~datetime.datetime`]
+        :rtype: :class:`~datetime.datetime` | None
         """
 
         expires_at = await self._fetch_field("expiresAt")
@@ -368,7 +368,7 @@ class UserStatus(Node, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("message")  # type: ignore
@@ -418,7 +418,7 @@ class UserStatus(Node, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`~github.Organization`]
+        :rtype: :class:`~github.Organization` | None
         """
 
         data = await self._http.fetch_userstatus_organization(self.id, **kwargs)

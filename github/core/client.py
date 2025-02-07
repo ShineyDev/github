@@ -635,11 +635,11 @@ class Client(graphql.client.Client):
 
         Parameters
         ----------
-        message: Optional[:class:`str`]
+        message: :class:`str` | None
             The message to display on the status.
         busy: :class:`bool`
             Whether to mark the user as busy.
-        emoji: Optional[:class:`str`]
+        emoji: :class:`str` | None
             The emoji to display on the status. This can either be a
             unicode emoji or its name with colons.
         expires_at: :class:`~datetime.datetime`
@@ -649,7 +649,7 @@ class Client(graphql.client.Client):
             status.
 
 
-        :rtype: Optional[:class:`~github.UserStatus`]
+        :rtype: :class:`~github.UserStatus` | None
         """
 
         data = await self._http.mutate_user_update_status(

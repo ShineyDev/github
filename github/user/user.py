@@ -209,7 +209,7 @@ class User(
         """
         The bio of the user.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["bio"]
@@ -228,7 +228,7 @@ class User(
         - Sanitizes the string such that it cannot contain HTML tags.
         - Wraps the string in ``<div>`` tags.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["bioHTML"]
@@ -254,7 +254,7 @@ class User(
         """
         The company of the user.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["company"]
@@ -274,7 +274,7 @@ class User(
         - Sanitizes the string such that it cannot contain HTML tags.
         - Wraps the string in ``<div>`` tags.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["companyHTML"]
@@ -478,7 +478,7 @@ class User(
         """
         The pronouns of the user.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["pronouns"]
@@ -497,7 +497,7 @@ class User(
             this value via :meth:`~github.User.fetch_social_accounts`
             instead.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["twitterUsername"]
@@ -532,7 +532,7 @@ class User(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("bio")  # type: ignore
@@ -560,7 +560,7 @@ class User(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("bioHTML")  # type: ignore
@@ -604,7 +604,7 @@ class User(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("company")  # type: ignore
@@ -633,7 +633,7 @@ class User(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("companyHTML")  # type: ignore
@@ -982,7 +982,7 @@ class User(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("pronouns")  # type: ignore
@@ -1009,7 +1009,7 @@ class User(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("twitterUsername")  # type: ignore
@@ -1451,11 +1451,11 @@ class Viewer(User):
 
         Parameters
         ----------
-        message: Optional[:class:`str`]
+        message: :class:`str` | None
             The message to display on the status.
         busy: :class:`bool`
             Whether to mark the user as busy.
-        emoji: Optional[:class:`str`]
+        emoji: :class:`str` | None
             The emoji to display on the status. This can either be a
             unicode emoji or its name with colons.
         expires_at: :class:`~datetime.datetime`
@@ -1465,7 +1465,7 @@ class Viewer(User):
             status.
 
 
-        :rtype: Optional[:class:`~github.UserStatus`]
+        :rtype: :class:`~github.UserStatus` | None
         """
 
         data = await self._http.mutate_user_update_status(

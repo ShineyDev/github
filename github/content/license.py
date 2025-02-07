@@ -120,7 +120,7 @@ class License(Node, Type):
         """
         A URL to the license on |choosealicense|.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["url"]
@@ -146,7 +146,7 @@ class License(Node, Type):
         """
         A description of the license.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["description"]
@@ -159,7 +159,7 @@ class License(Node, Type):
         """
         A guide to implementing the license.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["implementation"]
@@ -250,7 +250,7 @@ class License(Node, Type):
         """
         The human-readable nickname of the license.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["nickname"]
@@ -276,7 +276,7 @@ class License(Node, Type):
         """
         The ID of the license on |spdx|.
 
-        :type: Optional[:class:`str`]
+        :type: :class:`str` | None
         """
 
         return self._data["spdxId"]
@@ -364,7 +364,7 @@ class License(Node, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("url")  # type: ignore
@@ -414,7 +414,7 @@ class License(Node, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("description")  # type: ignore
@@ -464,7 +464,7 @@ class License(Node, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("implementation")  # type: ignore
@@ -639,7 +639,7 @@ class License(Node, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("nickname")  # type: ignore
@@ -689,7 +689,7 @@ class License(Node, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`str`]
+        :rtype: :class:`str` | None
         """
 
         return await self._fetch_field("spdxId")  # type: ignore
