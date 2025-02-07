@@ -40,7 +40,7 @@ class Tag(GitNode, Node, RepositoryNode, Type):
 
     .. seealso::
 
-        :meth:`Repository.fetch_refs <github.Repository.fetch_refs>`
+        :meth:`Repository.fetch_references <github.Repository.fetch_references>`
 
 
     .. container:: operations
