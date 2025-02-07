@@ -1,8 +1,8 @@
 :orphan:
 
 
-github.user
-===========
+github.timeline
+===============
 
 .. toctree::
     :maxdepth: 1
