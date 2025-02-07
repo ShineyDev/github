@@ -225,7 +225,7 @@ class Topic(Node, Starrable, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.connection.Connection`[:class:`~github.Repository`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Repository`
         """
 
         return github.Connection(

@@ -140,7 +140,7 @@ class Labelable:
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Label`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Label`
         """
 
         if TYPE_CHECKING and not isinstance(self, Node):

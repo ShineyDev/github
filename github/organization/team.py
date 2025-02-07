@@ -516,7 +516,7 @@ class Team(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Team`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Team`
         """
 
         return github.Connection(

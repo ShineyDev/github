@@ -2014,7 +2014,7 @@ class Repository(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.connection.Connection`[:class:`~github.User`]
+        :rtype: :class:`~github.Connection` of :class:`~github.User`
         """
 
         return github.Connection(
@@ -2065,7 +2065,7 @@ class Repository(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.connection.Connection`[:class:`~github.User`]
+        :rtype: :class:`~github.Connection` of :class:`~github.User`
         """
 
         return github.Connection(
@@ -2110,7 +2110,7 @@ class Repository(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.DiscussionCategory`]
+        :rtype: :class:`~github.Connection` of :class:`~github.DiscussionCategory`
         """
 
         return github.Connection(
@@ -2161,7 +2161,7 @@ class Repository(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Discussion`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Discussion`
         """
 
         return github.Connection(
@@ -2211,7 +2211,7 @@ class Repository(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.connection.Connection`[:class:`~github.Repository`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Repository`
         """
 
         return github.Connection(
@@ -2260,7 +2260,7 @@ class Repository(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Issue`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Issue`
         """
 
         return github.Connection(
@@ -2309,7 +2309,7 @@ class Repository(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.connection.Connection`[:class:`~github.Label`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Label`
         """
 
         return github.Connection(
@@ -2358,7 +2358,7 @@ class Repository(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Language`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Language`
         """
 
         return github.Connection(
@@ -2404,7 +2404,7 @@ class Repository(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.connection.Connection`[:class:`~github.User`]
+        :rtype: :class:`~github.Connection` of :class:`~github.User`
         """
 
         return github.Connection(
@@ -2452,7 +2452,7 @@ class Repository(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Milestone`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Milestone`
         """
 
         return github.Connection(
@@ -2501,7 +2501,7 @@ class Repository(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Pull`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Pull`
         """
 
         return github.Connection(
@@ -2599,7 +2599,7 @@ class Repository(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Reference`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Reference`
         """
 
         if type is not MISSING:
@@ -2657,7 +2657,7 @@ class Repository(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Release`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Release`
         """
 
         return github.Connection(
@@ -2703,7 +2703,7 @@ class Repository(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.connection.Connection`[:class:`~github.Topic`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Topic`
         """
 
         return github.Connection(
@@ -2748,7 +2748,7 @@ class Repository(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.connection.Connection`[:class:`~github.User`]
+        :rtype: :class:`~github.Connection` of :class:`~github.User`
         """
 
         return github.Connection(

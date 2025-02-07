@@ -369,7 +369,7 @@ class Label(Node, RepositoryNode, Resource, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Issue`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Issue`
         """
 
         return github.Connection(
@@ -418,7 +418,7 @@ class Label(Node, RepositoryNode, Resource, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Pull`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Pull`
         """
 
         return github.Connection(

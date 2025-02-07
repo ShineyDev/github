@@ -511,7 +511,7 @@ class Issue(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.connection.Connection`[:class:`github.User`]
+        :rtype: :class:`~github.Connection` of :class:`github.User`
         """
 
         return github.Connection(

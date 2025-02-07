@@ -763,7 +763,7 @@ class Organization(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Mannequin`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Mannequin`
         """
 
         return github.Connection(
@@ -812,7 +812,7 @@ class Organization(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Team`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Team`
         """
 
         return github.Connection(

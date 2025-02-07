@@ -1131,7 +1131,7 @@ class User(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.connection.Connection`[:class:`~github.User`]
+        :rtype: :class:`~github.Connection` of :class:`~github.User`
         """
 
         return github.Connection(
@@ -1174,7 +1174,7 @@ class User(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.connection.Connection`[:class:`~github.User`]
+        :rtype: :class:`~github.Connection` of :class:`~github.User`
         """
 
         return github.Connection(
@@ -1218,7 +1218,7 @@ class User(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Issue`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Issue`
         """
 
         return github.Connection(
@@ -1265,7 +1265,7 @@ class User(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Organization`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Organization`
         """
 
         return github.Connection(
@@ -1312,7 +1312,7 @@ class User(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Pull`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Pull`
         """
 
         return github.Connection(
@@ -1359,7 +1359,7 @@ class User(
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Repository`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Repository`
         """
 
         return github.Connection(

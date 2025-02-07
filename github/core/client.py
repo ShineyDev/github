@@ -532,7 +532,7 @@ class Client(graphql.client.Client):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Advisory`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Advisory`
         """
 
         return github.Connection(
@@ -580,7 +580,7 @@ class Client(graphql.client.Client):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Vulnerability`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Vulnerability`
         """
 
         return github.Connection(

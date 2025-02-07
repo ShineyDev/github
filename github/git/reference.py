@@ -242,7 +242,7 @@ class Reference(Node, RepositoryNode, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Pull`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Pull`
         """
 
         return github.Connection(

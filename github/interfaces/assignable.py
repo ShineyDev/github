@@ -106,7 +106,7 @@ class Assignable:
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.connection.Connection`[:class:`github.User`]
+        :rtype: :class:`~github.Connection` of :class:`github.User`
         """
 
         if TYPE_CHECKING and not isinstance(self, Node):

@@ -446,7 +446,7 @@ class Advisory(Node, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Vulnerability`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Vulnerability`
         """
 
         return github.Connection(

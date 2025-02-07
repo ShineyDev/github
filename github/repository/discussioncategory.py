@@ -421,7 +421,7 @@ class DiscussionCategory(Node, RepositoryNode, Type):
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Discussion`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Discussion`
         """
 
         return github.Repository.fetch_discussions(

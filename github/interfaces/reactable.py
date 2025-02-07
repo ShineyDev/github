@@ -138,7 +138,7 @@ class Reactable:
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection`[:class:`~github.Reaction`]
+        :rtype: :class:`~github.Connection` of :class:`~github.Reaction`
         """
 
         if TYPE_CHECKING and not isinstance(self, Node):
