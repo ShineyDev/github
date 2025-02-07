@@ -11,8 +11,7 @@ class ReferenceType(enum.Enum):
     #: The tree entry is a directory.
     #:
     #: :meta hide-value:
-    head = "refs/heads/"
-    branch = "refs/heads/"
+    head = branch = "refs/heads/"
 
     #: The tree entry is a normal file.
     #:
