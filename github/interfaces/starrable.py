@@ -35,22 +35,9 @@ class Starrable:
     _data: StarrableData
 
     _graphql_fields = {
-        "has_viewer_starred": "viewerHasStarred",
+        "viewer_has_starred": "viewerHasStarred",
         "stargazer_count": "stargazerCount",
     }
-
-    @property
-    def has_viewer_starred(
-        self,
-        /,
-    ) -> bool:
-        """
-        Whether the viewer has starred the starrable.
-
-        :type: :class:`bool`
-        """
-
-        return self._data["viewerHasStarred"]
 
     @property
     def stargazer_count(
@@ -65,19 +52,18 @@ class Starrable:
 
         return self._data["stargazerCount"]
 
-    async def fetch_has_viewer_starred(
+    @property
+    def viewer_has_starred(
         self,
         /,
     ) -> bool:
         """
-        |coro|
+        Whether the viewer has starred the starrable.
 
-        Fetches whether the viewer has starred the starrable.
-
-        :rtype: :class:`bool`
+        :type: :class:`bool`
         """
 
-        return await self._fetch_field("viewerHasStarred")  # type: ignore
+        return self._data["viewerHasStarred"]
 
     async def fetch_stargazer_count(
         self,
@@ -92,6 +78,20 @@ class Starrable:
         """
 
         return await self._fetch_field("stargazerCount")  # type: ignore
+
+    async def fetch_viewer_has_starred(
+        self,
+        /,
+    ) -> bool:
+        """
+        |coro|
+
+        Fetches whether the viewer has starred the starrable.
+
+        :rtype: :class:`bool`
+        """
+
+        return await self._fetch_field("viewerHasStarred")  # type: ignore
 
     def fetch_stargazers(
         self,
