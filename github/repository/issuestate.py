@@ -18,9 +18,13 @@ class IssueState(enum.Enum):
     """
 
     #: The issue is closed.
+    #:
+    #: :meta hide-value:
     closed = "CLOSED"
 
     #: The issue is open.
+    #:
+    #: :meta hide-value:
     open = "OPEN"
 
 

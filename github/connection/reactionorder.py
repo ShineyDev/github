@@ -18,6 +18,8 @@ class ReactionOrder(enum.Enum):
     """
 
     #: The date and time at which the reaction was created.
+    #:
+    #: :meta hide-value:
     created_at = "CREATED_AT"
 
 

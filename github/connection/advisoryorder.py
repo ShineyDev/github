@@ -22,9 +22,13 @@ class AdvisoryOrder(enum.Enum):
     # TODO: EPSS_PERCENTILE
 
     #: The date and time at which the advisory was published.
+    #:
+    #: :meta hide-value:
     published_at = "PUBLISHED_AT"
 
     #: The date and time at which the advisory was last updated.
+    #:
+    #: :meta hide-value:
     updated_at = "UPDATED_AT"
 
 

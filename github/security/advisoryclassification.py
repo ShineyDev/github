@@ -18,9 +18,13 @@ class AdvisoryClassification(enum.Enum):
     """
 
     #: The advisory classification is general.
+    #:
+    #: :meta hide-value:
     general = "GENERAL"
 
     #: The advisory classification is malware.
+    #:
+    #: :meta hide-value:
     malware = "MALWARE"
 
 

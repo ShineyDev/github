@@ -18,12 +18,18 @@ class IssueOrder(enum.Enum):
     """
 
     #: The number of comments on the issue.
+    #:
+    #: :meta hide-value:
     comment_count = "COMMENTS"
 
     #: The date and time at which the issue was created.
+    #:
+    #: :meta hide-value:
     created_at = "CREATED_AT"
 
     #: The date and time at which the issue was last updated.
+    #:
+    #: :meta hide-value:
     updated_at = "UPDATED_AT"
 
 

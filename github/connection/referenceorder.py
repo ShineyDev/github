@@ -18,9 +18,13 @@ class ReferenceOrder(enum.Enum):
     """
 
     #: The date and time at which the reference was committed.
+    #:
+    #: :meta hide-value:
     committed_at = "TAG_COMMIT_DATE"
 
     #: The name of the reference.
+    #:
+    #: :meta hide-value:
     name = "ALPHABETICAL"
 
 

@@ -18,18 +18,28 @@ class TreeEntryMode(enum.Enum):
     """
 
     #: The tree entry is a directory.
+    #:
+    #: :meta hide-value:
     directory = 16384
 
     #: The tree entry is a normal file.
+    #:
+    #: :meta hide-value:
     file_normal = 33188
 
     #: The tree entry is an executable file.
+    #:
+    #: :meta hide-value:
     file_executable = 33261
 
     #: The tree entry is a symbolic link.
+    #:
+    #: :meta hide-value:
     symlink = 40960
 
     #: The tree entry is a submodule.
+    #:
+    #: :meta hide-value:
     submodule = 57344
 
 

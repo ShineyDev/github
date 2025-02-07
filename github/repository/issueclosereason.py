@@ -18,12 +18,18 @@ class IssueCloseReason(enum.Enum):
     """
 
     #: The issue is a duplicate.
+    #:
+    #: :meta hide-value:
     duplicate = "DUPLICATE"
 
     #: The issue is rejected.
+    #:
+    #: :meta hide-value:
     rejected = "NOT_PLANNED"
 
     #: The issue is resolved.
+    #:
+    #: :meta hide-value:
     resolved = "COMPLETED"
 
 

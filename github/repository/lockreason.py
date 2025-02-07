@@ -18,15 +18,23 @@ class LockReason(enum.Enum):
     """
 
     #: The conversation was too heated.
+    #:
+    #: :meta hide-value:
     heated = "TOO_HEATED"
 
     #: The conversation was resolved.
+    #:
+    #: :meta hide-value:
     resolved = "RESOLVED"
 
     #: The conversation was spam.
+    #:
+    #: :meta hide-value:
     spam = "SPAM"
 
     #: The conversation was off-topic.
+    #:
+    #: :meta hide-value:
     topic = "OFF_TOPIC"
 
 

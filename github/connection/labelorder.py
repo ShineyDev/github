@@ -18,9 +18,13 @@ class LabelOrder(enum.Enum):
     """
 
     #: The date and time at which the label was created.
+    #:
+    #: :meta hide-value:
     created_at = "CREATED_AT"
 
     #: The name of the label.
+    #:
+    #: :meta hide-value:
     name = "NAME"
 
 

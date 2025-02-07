@@ -18,9 +18,13 @@ class DiscussionOrder(enum.Enum):
     """
 
     #: The date and time at which the discussion was created.
+    #:
+    #: :meta hide-value:
     created_at = "CREATED_AT"
 
     #: The date and time at which the discussion was last updated.
+    #:
+    #: :meta hide-value:
     updated_at = "UPDATED_AT"
 
 

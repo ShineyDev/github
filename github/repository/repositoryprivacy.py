@@ -19,9 +19,13 @@ class RepositoryPrivacy(enum.Enum):
     """
 
     #: The repository is private.
+    #:
+    #: :meta hide-value:
     private = "PRIVATE"
 
     #: The repository is public.
+    #:
+    #: :meta hide-value:
     public = "PUBLIC"
 
 

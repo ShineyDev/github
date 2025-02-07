@@ -18,12 +18,18 @@ class PullOrder(enum.Enum):
     """
 
     #: The number of comments on the pull request.
+    #:
+    #: :meta hide-value:
     comment_count = "COMMENTS"
 
     #: The date and time at which the pull request was created.
+    #:
+    #: :meta hide-value:
     created_at = "CREATED_AT"
 
     #: The date and time at which the pull request was last updated.
+    #:
+    #: :meta hide-value:
     updated_at = "UPDATED_AT"
 
 

@@ -18,9 +18,13 @@ class ReleaseOrder(enum.Enum):
     """
 
     #: The date and time at which the release was created.
+    #:
+    #: :meta hide-value:
     created_at = "CREATED_AT"
 
     #: The title of the release.
+    #:
+    #: :meta hide-value:
     title = "NAME"
 
 

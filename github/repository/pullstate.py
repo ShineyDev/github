@@ -18,12 +18,18 @@ class PullState(enum.Enum):
     """
 
     #: The pull request is closed.
+    #:
+    #: :meta hide-value:
     closed = "CLOSED"
 
     #: The pull request is merged.
+    #:
+    #: :meta hide-value:
     merged = "MERGED"
 
     #: The pull request is open.
+    #:
+    #: :meta hide-value:
     open = "OPEN"
 
 

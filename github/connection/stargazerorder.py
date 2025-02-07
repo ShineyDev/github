@@ -18,6 +18,8 @@ class StargazerOrder(enum.Enum):
     """
 
     #: The date and time at which the stargazer starred the starrable.
+    #:
+    #: :meta hide-value:
     starred_at = "STARRED_AT"
 
 

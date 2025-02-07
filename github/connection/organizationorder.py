@@ -18,9 +18,13 @@ class OrganizationOrder(enum.Enum):
     """
 
     #: The date and time at which the organization was created.
+    #:
+    #: :meta hide-value:
     created_at = "CREATED_AT"
 
     #: The login of the organization.
+    #:
+    #: :meta hide-value:
     login = "LOGIN"
 
 

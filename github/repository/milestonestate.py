@@ -18,9 +18,13 @@ class MilestoneState(enum.Enum):
     """
 
     #: The milestone is closed.
+    #:
+    #: :meta hide-value:
     closed = "CLOSED"
 
     #: The milestone is open.
+    #:
+    #: :meta hide-value:
     open = "OPEN"
 
 

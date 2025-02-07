@@ -18,12 +18,18 @@ class DiscussionCloseReason(enum.Enum):
     """
 
     #: The discussion is a duplicate.
+    #:
+    #: :meta hide-value:
     duplicate = "DUPLICATE"
 
     #: The discussion is outdated.
+    #:
+    #: :meta hide-value:
     outdated = "OUTDATED"
 
     #: The discussion is resolved.
+    #:
+    #: :meta hide-value:
     resolved = "RESOLVED"
 
 

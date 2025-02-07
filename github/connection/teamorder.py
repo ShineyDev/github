@@ -18,6 +18,8 @@ class TeamOrder(enum.Enum):
     """
 
     #: The name of the team.
+    #:
+    #: :meta hide-value:
     name = "NAME"
 
 

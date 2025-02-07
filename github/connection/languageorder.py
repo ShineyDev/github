@@ -19,6 +19,8 @@ class LanguageOrder(enum.Enum):
     """
 
     #: The total size of files in the language.
+    #:
+    #: :meta hide-value:
     size = "SIZE"
 
 

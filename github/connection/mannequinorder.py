@@ -18,9 +18,13 @@ class MannequinOrder(enum.Enum):
     """
 
     #: The date and time at which the mannequin was created.
+    #:
+    #: :meta hide-value:
     created_at = "CREATED_AT"
 
     #: The login of the mannquin.
+    #:
+    #: :meta hide-value:
     login = "LOGIN"
 
 

@@ -19,12 +19,18 @@ class RepositoryVisibility(enum.Enum):
     """
 
     #: The repository is internal.
+    #:
+    #: :meta hide-value:
     internal = "INTERNAL"
 
     #: The repository is private.
+    #:
+    #: :meta hide-value:
     private = "PRIVATE"
 
     #: The repository is public.
+    #:
+    #: :meta hide-value:
     public = "PUBLIC"
 
 

@@ -18,9 +18,13 @@ class TreeEntryType(enum.Enum):
     """
 
     #: The tree entry is a :class:`~github.Blob`.
+    #:
+    #: :meta hide-value:
     blob = "blob"
 
     #: The tree entry is a :class:`~github.Tree`.
+    #:
+    #: :meta hide-value:
     tree = "tree"
 
 

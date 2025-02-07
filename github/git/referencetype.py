@@ -9,10 +9,14 @@ class ReferenceType(enum.Enum):
     """
 
     #: The tree entry is a directory.
+    #:
+    #: :meta hide-value:
     head = "refs/heads/"
     branch = "refs/heads/"
 
     #: The tree entry is a normal file.
+    #:
+    #: :meta hide-value:
     tag = "refs/tags/"
 
 

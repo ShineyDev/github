@@ -18,21 +18,33 @@ class RepositoryLockReason(enum.Enum):
     """
 
     #: The repository is locked for a billing-related reason.
+    #:
+    #: :meta hide-value:
     billing = "BILLING"
 
     #: The repository is locked due to a migration.
+    #:
+    #: :meta hide-value:
     migrating = "MIGRATING"
 
     #: The repository is locked due to a move.
+    #:
+    #: :meta hide-value:
     moving = "MOVING"
 
     #: The repository is locked due to a rename.
+    #:
+    #: :meta hide-value:
     rename = "RENAME"
 
     #: The repository is locked by trade control.
+    #:
+    #: :meta hide-value:
     trade = "TRADE_RESTRICTION"
 
     #: The repository is locked due to a transfer.
+    #:
+    #: :meta hide-value:
     transfer = "TRANSFERRING_OWNERSHIP"
 
 

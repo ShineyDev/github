@@ -19,12 +19,18 @@ class SubscriptionState(enum.Enum):
     """
 
     #: The user is never notified.
+    #:
+    #: :meta hide-value:
     ignored = "IGNORED"
 
     #: The user is notified of all conversation.
+    #:
+    #: :meta hide-value:
     subscribed = "SUBSCRIBED"
 
     #: The user is notified when participating or mentioned.
+    #:
+    #: :meta hide-value:
     unsubscribed = "UNSUBSCRIBED"
 
 

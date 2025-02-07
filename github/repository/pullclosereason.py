@@ -18,9 +18,13 @@ class PullCloseReason(enum.Enum):
     """
 
     #: The pull request is rejected.
+    #:
+    #: :meta hide-value:
     rejected = "__REJECTED"
 
     #: The pull request is resolved.
+    #:
+    #: :meta hide-value:
     resolved = "COMPLETED"
 
 

@@ -18,9 +18,13 @@ class DiscussionState(enum.Enum):
     """
 
     #: The discussion is closed.
+    #:
+    #: :meta hide-value:
     closed = "CLOSED"
 
     #: The discussion is open.
+    #:
+    #: :meta hide-value:
     open = "OPEN"
 
 

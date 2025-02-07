@@ -18,15 +18,23 @@ class AdvisorySeverity(enum.Enum):
     """
 
     #: The advisory severity is critical.
+    #:
+    #: :meta hide-value:
     critical = "CRITICAL"
 
     #: The advisory severity is high.
+    #:
+    #: :meta hide-value:
     high = "HIGH"
 
     #: The advisory severity is moderate.
+    #:
+    #: :meta hide-value:
     moderate = "MODERATE"
 
     #: The advisory severity is low.
+    #:
+    #: :meta hide-value:
     low = "LOW"
 
 

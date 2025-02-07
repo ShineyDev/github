@@ -18,15 +18,23 @@ class MilestoneOrder(enum.Enum):
     """
 
     #: The date and time at which the milestone was created.
+    #:
+    #: :meta hide-value:
     created_at = "CREATED_AT"
 
     #: The date and time at which the milestone is due.
+    #:
+    #: :meta hide-value:
     due_at = "DUE_DATE"
 
     #: The number of the milestone.
+    #:
+    #: :meta hide-value:
     number = "NUMBER"
 
     #: The date and time at which the milestone was last updated.
+    #:
+    #: :meta hide-value:
     updated_at = "UPDATED_AT"
 
 

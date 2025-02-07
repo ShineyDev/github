@@ -18,27 +18,43 @@ class ReactionContent(enum.Enum):
     """
 
     #: The ``:confused:`` emoji.
+    #:
+    #: :meta hide-value:
     confused = "CONFUSED"
 
     #: The ``:eyes:`` emoji.
+    #:
+    #: :meta hide-value:
     eyes = "EYES"
 
     #: The ``:heart:`` emoji.
+    #:
+    #: :meta hide-value:
     heart = "HEART"
 
     #: The ``:hooray:`` emoji.
+    #:
+    #: :meta hide-value:
     hooray = "HOORAY"
 
     #: The ``:laugh:`` emoji.
+    #:
+    #: :meta hide-value:
     laugh = "LAUGH"
 
     #: The ``:rocket:`` emoji.
+    #:
+    #: :meta hide-value:
     rocket = "ROCKET"
 
     #: The ``:-1:`` emoji.
+    #:
+    #: :meta hide-value:
     thumb_down = "THUMBS_DOWN"
 
     #: The ``:+1:`` emoji.
+    #:
+    #: :meta hide-value:
     thumb_up = "THUMBS_UP"
 
 
