@@ -7,15 +7,16 @@ Reference
 .. toctree::
     :maxdepth: 2
 
-    github/core/index
     github/api/index
+    github/automation/index
+    github/connection/index
     github/content/index
-    github/repository/index
+    github/core/index
+    github/git/index
     github/interfaces/index
+    github/organization/index
+    github/repository/index
+    github/security/index
+    github/timeline/index
+    github/user/index
     glossary
-
-
-Still can't find what you're looking for?
-
-* :ref:`genindex`
-* :ref:`search`

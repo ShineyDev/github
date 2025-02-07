@@ -15,11 +15,18 @@ An asynchronous Python library for interaction with GitHub's GraphQL API.
     :caption: Reference
     :maxdepth: 2
 
-    reference/github/core/index
     reference/github/api/index
+    reference/github/automation/index
+    reference/github/connection/index
     reference/github/content/index
-    reference/github/repository/index
+    reference/github/core/index
+    reference/github/git/index
     reference/github/interfaces/index
+    reference/github/organization/index
+    reference/github/repository/index
+    reference/github/security/index
+    reference/github/timeline/index
+    reference/github/user/index
     reference/glossary
 
 .. toctree::
@@ -28,9 +35,3 @@ An asynchronous Python library for interaction with GitHub's GraphQL API.
 
     project/implementation
     project/versioning
-
-
-Still can't find what you're looking for?
-
-* :ref:`genindex`
-* :ref:`search`

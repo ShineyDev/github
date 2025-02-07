@@ -1,8 +1,8 @@
 .. currentmodule:: github
 
 
-UserStatus
-==========
+User Status
+===========
 
 .. autoclass:: UserStatus()
     :inherited-members:

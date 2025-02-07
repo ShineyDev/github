@@ -1,8 +1,8 @@
 .. currentmodule:: github
 
 
-LicenseRule
-===========
+License Rule
+============
 
 .. autoclass:: LicenseRule()
     :inherited-members:

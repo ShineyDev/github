@@ -9,17 +9,25 @@ github.interfaces
 
     actor
     announcementowner
+    assignable
+    closable
+    comment
+    deletable
     discussionauthor
+    gitnode
+    labelable
+    lockable
     node
     packageowner
     profileowner
+    projectowner
+    reactable
+    repositorynode
     repositoryowner
     resource
     sponsorable
     starrable
-
-
-Still can't find what you're looking for?
-
-* :ref:`genindex`
-* :ref:`search`
+    subscribable
+    timelineitem
+    updatable
+    votable

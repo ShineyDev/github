@@ -8,10 +8,5 @@ github.core
     :maxdepth: 1
 
     client
+    dummy
     errors
-
-
-Still can't find what you're looking for?
-
-* :ref:`genindex`
-* :ref:`search`
