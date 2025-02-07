@@ -17,28 +17,28 @@ class ReactionContent(enum.Enum):
     Represents the content of a :class:`~github.Reaction`.
     """
 
-    #: The :confused: emoji.
+    #: The ``:confused:`` emoji.
     confused = "CONFUSED"
 
-    #: The :eyes: emoji.
+    #: The ``:eyes:`` emoji.
     eyes = "EYES"
 
-    #: The :heart: emoji.
+    #: The ``:heart:`` emoji.
     heart = "HEART"
 
-    #: The :hooray: emoji.
+    #: The ``:hooray:`` emoji.
     hooray = "HOORAY"
 
-    #: The :laugh: emoji.
+    #: The ``:laugh:`` emoji.
     laugh = "LAUGH"
 
-    #: The :rocket: emoji.
+    #: The ``:rocket:`` emoji.
     rocket = "ROCKET"
 
-    #: The :-1: emoji.
+    #: The ``:-1:`` emoji.
     thumb_down = "THUMBS_DOWN"
 
-    #: The :+1: emoji.
+    #: The ``:+1:`` emoji.
     thumb_up = "THUMBS_UP"
 
 
