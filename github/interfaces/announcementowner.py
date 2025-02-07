@@ -45,7 +45,7 @@ class AnnouncementOwner:
             The :attr:`id` attribute is missing.
 
 
-        :rtype: Optional[:class:`~github.content.Announcement`]
+        :rtype: :class:`~github.Announcement` | None
         """
 
         if TYPE_CHECKING and not isinstance(self, Node):
