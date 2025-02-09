@@ -5,7 +5,7 @@ if TYPE_CHECKING:
     from aiohttp import ClientSession
 
     from github.api import Metadata, RateLimit
-    from github.connection import AdvisoryOrder, Connection, VulnerabilityOrder
+    from github.connection import AdvisoryOrder, Connection, SponsorableOrder, VulnerabilityOrder
     from github.content import CodeOfConduct, License
     from github.organization import Organization
     from github.repository import Repository, Topic
@@ -539,6 +539,60 @@ class Client(graphql.client.Client):
             self._http.collect_query_advisories,
             order_by.value if order_by is not MISSING else None,
             data_map=lambda d: github.Advisory._from_data(d, http=self._http),
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else False,
+            **kwargs,
+        )
+
+    def fetch_sponsorables(
+        self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        order_by: SponsorableOrder = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Organization | User]:
+        """
+        |aiter|
+
+        Fetches sponsorable organizations and users.
+
+        .. note::
+
+            This query requires the following token scopes:
+
+            - ``read:org``
+
+
+        Parameters
+        ----------
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        order_by: :class:`~github.SponsorableOrder`
+            The field by which to order the elements.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection` of :class:`~github.Organization` | :class:`~github.User`
+        """
+
+        return github.Connection(
+            self._http.collect_query_sponsorables,
+            order_by.value if order_by is not MISSING else None,
+            data_map=lambda d: github.Organization._from_data(d, http=self._http) if d["__typename"] == "Organization" else github.User._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else False,

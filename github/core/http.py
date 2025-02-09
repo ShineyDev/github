@@ -1774,6 +1774,26 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return await self._collect(query, *path, order_by=order_by_data, **kwargs)
 
+    async def collect_query_sponsorables(
+        self,
+        /,
+        order_by: str | None,
+        *,
+        fields: Iterable[str] = MISSING,
+        **kwargs,
+    ) -> ConnectionData[OrganizationData | UserData]:
+        organization_fields = github.utility.get_merged_graphql_fields(github.Organization, fields)
+        user_fields = github.utility.get_merged_graphql_fields(github.User, fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:SponsorableOrder){sponsorables(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{...on Organization{%s}...on User{%s}},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}" % (",".join(organization_fields), ",".join(user_fields))
+        path = ("sponsorables",)
+
+        if order_by is None:
+            order_by_data = None
+        else:
+            order_by_data = {"direction": "ASC", "field": order_by}
+
+        return await self._collect(query, *path, order_by=order_by_data, **kwargs)
+
     async def collect_query_vulnerabilities(
         self,
         /,
