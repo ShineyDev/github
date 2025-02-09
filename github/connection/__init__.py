@@ -26,6 +26,8 @@ from github.connection.releaseorder import *
 from github.connection.releaseorder import __all__ as _releaseorder__all__
 from github.connection.repositoryorder import *
 from github.connection.repositoryorder import __all__ as _repositoryorder__all__
+from github.connection.sponsorableorder import *
+from github.connection.sponsorableorder import __all__ as _sponsorableorder__all__
 from github.connection.stargazerorder import *
 from github.connection.stargazerorder import __all__ as _stargazerorder__all__
 from github.connection.teamorder import *
@@ -49,6 +51,7 @@ __all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_referenceorder__all__,
     *_releaseorder__all__,
     *_repositoryorder__all__,
+    *_sponsorableorder__all__,
     *_stargazerorder__all__,
     *_teamorder__all__,
     *_vulnerabilityorder__all__,
