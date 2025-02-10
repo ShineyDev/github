@@ -12,6 +12,8 @@ from github.timeline.lockevent import *
 from github.timeline.lockevent import __all__ as _lockevent__all__
 from github.timeline.parentaddevent import *
 from github.timeline.parentaddevent import __all__ as _parentaddevent__all__
+from github.timeline.parentremoveevent import *
+from github.timeline.parentremoveevent import __all__ as _parentremoveevent__all__
 from github.timeline.pinevent import *
 from github.timeline.pinevent import __all__ as _pinevent__all__
 from github.timeline.reopenevent import *
@@ -34,6 +36,7 @@ __all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_labelremoveevent__all__,
     *_lockevent__all__,
     *_parentaddevent__all__,
+    *_parentremoveevent__all__,
     *_pinevent__all__,
     *_reopenevent__all__,
     *_subscribeevent__all__,
