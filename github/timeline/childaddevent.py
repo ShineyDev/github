@@ -20,7 +20,7 @@ if TYPE_CHECKING:
     class ChildAddEventData(NodeData, TimelineItemData, TypeData):
         __typename: Literal["SubIssueAddedEvent"]
 
-        parent: IssueData | None
+        subIssue: IssueData | None
 
 
 class ChildAddEvent(Node, TimelineItem, Type):
