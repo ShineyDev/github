@@ -3,7 +3,9 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from github.core.http import HTTPClient
+    from github.git import Blob, Commit, Tree
 
+import github
 from github.interfaces import GitNode, Node, RepositoryNode, Type
 
 
@@ -152,6 +154,40 @@ class Tag(GitNode, Node, RepositoryNode, Type):
         """
 
         return await self._fetch_field("name")  # type: ignore
+
+    async def fetch_target(
+        self,
+        /,
+        **kwargs,  # TODO
+    ) -> Blob | Commit | Tree:
+        """
+        |coro|
+
+        Fetches the target of the tag.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Blob` | :class:`~github.Commit` | :class:`~github.Tree`
+        """
+
+        data = await self._http.fetch_tag_target(self.id, **kwargs)
+
+        # TODO[type-from-data]
+
+        if data["__typename"] == "Blob":
+            return github.Blob._from_data(data, http=self._http)
+        elif data["__typename"] == "Commit":
+            return github.Commit._from_data(data, http=self._http)
+        elif data["__typename"] == "Tree":
+            return github.Tree._from_data(data, http=self._http)
+        else:
+            raise RuntimeError(f"invalid type {data['__typename']} for Tag.target")
 
 
 __all__ = [

@@ -1338,6 +1338,21 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data
 
+    async def fetch_tag_target(
+        self,
+        /,
+        tag_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> BlobData | CommitData | TreeData:
+        blob_fields = github.utility.get_merged_graphql_fields(github.Blob, fields)
+        commit_fields = github.utility.get_merged_graphql_fields(github.Commit, fields)
+        tree_fields = github.utility.get_merged_graphql_fields(github.Tree, fields)
+        query = "query($tag_id:ID!){node(id:$tag_id){...on Tag{target{...on Blob{%s}...on Commit{%s}...on Tree{%s}}}}}" % (",".join(blob_fields), ",".join(commit_fields), ",".join(tree_fields))
+        path = ("node", "target")
+
+        return await self._fetch(query, *path, tag_id=tag_id)  # type: ignore
+
     async def fetch_timelineitem_actor(
         self,
         /,
