@@ -441,6 +441,24 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data
 
+    async def fetch_parentaddevent_parent(
+        self,
+        /,
+        parentaddevent_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> IssueData:
+        fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
+        query = "query($parentaddevent_id:ID!){node(id:$parentaddevent_id){...on ParentIssueAddedEvent{parent{%s}}}}" % ",".join(fields)
+        path = ("node", "parent")
+
+        data = await self._fetch(query, *path, parentaddevent_id=parentaddevent_id)
+
+        if TYPE_CHECKING:
+            data = cast(IssueData, data)
+
+        return data
+
     async def fetch_pinevent_subject(
         self,
         /,
