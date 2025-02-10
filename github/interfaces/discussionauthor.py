@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from github.connection import Connection, DiscussionOrder
     from github.interfaces import Node
-    from github.repository import Discussion
+    from github.repository import Discussion, Repository
 
 import github
 from github.utility import MISSING
@@ -38,6 +38,7 @@ class DiscussionAuthor:
         cursor: str | None = MISSING,
         limit: int = MISSING,
         order_by: DiscussionOrder = MISSING,
+        repository: Repository = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Discussion]:
@@ -55,6 +56,8 @@ class DiscussionAuthor:
             The maximum number of elements to yield.
         order_by: :class:`~github.DiscussionOrder`
             The field by which to order the elements.
+        repository: :class:`~github.Repository`
+            The repository to filter discussions by.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
 
@@ -76,6 +79,7 @@ class DiscussionAuthor:
             self._http.collect_discussionauthor_discussions,
             self.id,
             order_by.value if order_by is not MISSING else None,
+            repository.id if repository is not MISSING else None,
             data_map=lambda d: github.Discussion._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
