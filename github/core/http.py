@@ -1636,6 +1636,20 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return await self._collect(query, *path, discussionauthor_id=discussionauthor_id, order_by=order_by_data, repository_id=repository_id, **kwargs)
 
+    async def collect_issue_children(
+        self,
+        /,
+        issue_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+        **kwargs,
+    ) -> ConnectionData[IssueData]:
+        fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
+        query = "query($issue_id:ID!){node(id:$issue_id){...on Issue{subIssues(after:$after,before:$before,first:$first,last:$last){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        path = ("node", "subIssues")
+
+        return await self._collect(query, *path, issue_id=issue_id, **kwargs)
+
     async def collect_issue_participants(
         self,
         /,

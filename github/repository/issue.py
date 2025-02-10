@@ -506,6 +506,52 @@ class Issue(
 
         return github.Issue._from_data(data, http=self._http)
 
+    def fetch_children(
+        self,
+        /,
+        *,
+        cursor: str | None = MISSING,
+        limit: int = MISSING,
+        reverse: bool = MISSING,
+        **kwargs,  # TODO
+    ) -> Connection[Issue]:
+        """
+        |aiter|
+
+        Fetches children of the issue.
+
+
+        Parameters
+        ----------
+
+        cursor: :class:`str`
+            The cursor to start at.
+        limit: :class:`int`
+            The maximum number of elements to yield.
+        reverse: :class:`bool`
+            Whether to yield the elements in reverse order.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Connection` of :class:`github.Issue`
+        """
+
+        return github.Connection(
+            self._http.collect_issue_children,
+            self.id,
+            data_map=lambda d: github.Issue._from_data(d, http=self._http),
+            cursor=cursor if cursor is not MISSING else None,
+            limit=limit if limit is not MISSING else None,
+            reverse=reverse if reverse is not MISSING else None,
+            **kwargs,
+        )
+
     def fetch_participants(
         self,
         /,
