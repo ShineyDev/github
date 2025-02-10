@@ -478,6 +478,34 @@ class Issue(
 
         return github.Milestone._from_data(data, http=self._http)
 
+    async def fetch_parent(
+        self,
+        /,
+        **kwargs,  # TODO
+    ) -> Issue | None:
+        """
+        |coro|
+
+        Fetches the parent of the issue, if is has one.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Issue` | None
+        """
+
+        data = await self._http.fetch_issue_parent(self.id, **kwargs)
+
+        if data is None:
+            return None
+
+        return github.Issue._from_data(data, http=self._http)
+
     def fetch_participants(
         self,
         /,

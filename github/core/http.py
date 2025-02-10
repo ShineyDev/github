@@ -303,6 +303,19 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return await self._fetch(query, *path, issue_id=issue_id)  # type: ignore
 
+    async def fetch_issue_parent(
+        self,
+        /,
+        issue_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> IssueData | None:
+        fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
+        query = "query($issue_id:ID!){node(id:$issue_id){...on Issue{parent{%s}}}}" % ",".join(fields)
+        path = ("node", "parent")
+
+        return await self._fetch(query, *path, issue_id=issue_id)  # type: ignore
+
     async def fetch_labeladdevent_label(
         self,
         /,
