@@ -1,6 +1,10 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from github.repository import Issue
+
+import github
 from github.interfaces import Node, TimelineItem, Type
 
 
@@ -44,6 +48,30 @@ class ParentRemoveEvent(Node, TimelineItem, Type):
     _graphql_type = "ParentIssueRemovedEvent"
 
     _node_prefix = "PIRE"
+
+    async def fetch_parent(
+        self,
+        /,
+        **kwargs,  # TODO
+    ) -> Issue:
+        """
+        |coro|
+
+        Fetches the parent.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`~github.Issue`
+        """
+
+        data = await self._http.fetch_parentremoveevent_parent(self.id, **kwargs)
+        return github.Issue._from_data(data, http=self._http)
 
 
 __all__ = [
