@@ -1602,6 +1602,26 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return await self._collect(query, *path, assignable_id=assignable_id, **kwargs)
 
+    async def collect_discussionauthor_discussions(
+        self,
+        /,
+        discussionauthor_id: str,
+        order_by: str | None,
+        *,
+        fields: Iterable[str] = MISSING,
+        **kwargs,
+    ) -> ConnectionData[DiscussionData]:
+        fields = github.utility.get_merged_graphql_fields(github.Discussion, fields)
+        query = "query($after:String,$before:String,$discussionauthor_id:ID!,$first:Int,$last:Int,$order_by:DiscussionOrder){node(id:$discussionauthor_id){...on RepositoryDiscussionAuthor{repositoryDiscussions(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        path = ("node", "repositoryDiscussions")
+
+        if order_by is None:
+            order_by_data = None
+        else:
+            order_by_data = {"direction": "ASC", "field": order_by}
+
+        return await self._collect(query, *path, discussionauthor_id=discussionauthor_id, order_by=order_by_data, **kwargs)
+
     async def collect_issue_participants(
         self,
         /,
