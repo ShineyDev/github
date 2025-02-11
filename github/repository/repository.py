@@ -269,7 +269,7 @@ class Repository(
         # "": "mergeCommitTitle",  # TODO: name, type
         # "": "mirrorUrl",  # TODO: name
         "name": "name",
-        # "": "nameWithOwner",  # TODO: name
+        "slug": "nameWithOwner",
         # "": "openGraphImageUrl",  # TODO: name: name
         "pushed_at": "pushedAt",
         "allows_rebase": "rebaseMergeAllowed",
@@ -688,6 +688,19 @@ class Repository(
             return None
 
         return github.utility.iso_to_datetime(pushed_at)
+
+    @property
+    def slug(
+        self,
+        /,
+    ) -> str:
+        """
+        The slug of the repository.
+
+        :type: :class:`str`
+        """
+
+        return self._data["nameWithOwner"]
 
     @property
     def updated_at(
@@ -1370,6 +1383,28 @@ class Repository(
             pushed_at = cast(str, pushed_at)
 
         return github.utility.iso_to_datetime(pushed_at)
+
+    async def fetch_slug(
+        self,
+        /,
+    ) -> str:
+        """
+        |coro|
+
+        Fetches the slug of the repository.
+
+
+        Raises
+        ------
+
+        ~github.core.errors.ClientObjectMissingFieldError
+            The :attr:`id` attribute is missing.
+
+
+        :rtype: :class:`str`
+        """
+
+        return await self._fetch_field("nameWithOwner")  # type: ignore
 
     async def fetch_updated_at(
         self,
