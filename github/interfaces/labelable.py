@@ -192,6 +192,33 @@ class Labelable:
 
         self._data["labels"]["totalCount"] = data["labels"]["totalCount"]
 
+    async def clear_labels(
+        self,
+        /,
+    ) -> None:
+        """
+        |coro|
+
+        Clears labels from the labelable.
+
+
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.label_count`
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        data = await self._http.mutate_labelable_clear_labels(self.id, fields=("labels{totalCount}",))
+
+        if "labels" not in self._data.keys():
+            self._data["labels"] = dict()  # type: ignore
+
+        self._data["labels"]["totalCount"] = data["labels"]["totalCount"]
+
     async def remove_labels(
         self,
         /,

@@ -2506,6 +2506,21 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data  # type: ignore
 
+    async def mutate_labelable_clear_labels(
+        self,
+        /,
+        labelable_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> LabelableData:
+        fields = ("__typename",) if fields is MISSING else fields
+        query = "mutation($labelable_id:ID!,$mutation_id:String!){clearLabelsFromLabelable(input:{clientMutationId:$mutation_id,labelableId:$labelable_id}){labelable{%s}}}" % ",".join(fields)
+        path = ("clearLabelsFromLabelable", "labelable")
+
+        data = await self._mutate(query, *path, labelable_id=labelable_id)
+
+        return data  # type: ignore
+
     async def mutate_labelable_remove_labels(
         self,
         /,
