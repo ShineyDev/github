@@ -2817,6 +2817,39 @@ class Repository(
 
         self._data["isArchived"] = data["isArchived"]
 
+    async def create_head(
+        self,
+        /,
+        name: str,
+        *,
+        target: Commit,
+        **kwargs,  # TODO
+    ) -> Reference:
+        """
+        |coro|
+
+        Creates a head on the repository.
+
+
+        Parameters
+        ----------
+        name: :class:`str`
+            The name of the head, eg. "main".
+        target: :class:`~github.Commit`
+            The commit for the head to point to.
+
+
+        :rtype: :class:`~github.Reference`
+        """
+
+        return await self.create_reference(
+            "refs/heads/" + name,
+            target=target,
+            **kwargs,
+        )
+
+    create_branch = create_head
+
     async def create_label(
         self,
         /,
@@ -2894,7 +2927,8 @@ class Repository(
         Parameters
         ----------
         name: :class:`str`
-            The qualified name of the Git ref.
+            The qualified name of the Git ref, eg. "refs/heads/main" or
+            "refs/tags/v1.1.0".
         target: :class:`~github.Commit`
             The commit for the reference to point to.
 
@@ -2904,6 +2938,37 @@ class Repository(
 
         data = await self._http.mutate_repository_create_reference(self.id, name, target.object_id, **kwargs)
         return github.Reference._from_data(data, http=self._http)
+
+    async def create_tag(
+        self,
+        /,
+        name: str,
+        *,
+        target: Commit,
+        **kwargs,  # TODO
+    ) -> Reference:
+        """
+        |coro|
+
+        Creates a tag on the repository.
+
+
+        Parameters
+        ----------
+        name: :class:`str`
+            The name of the tag, eg. "v1.1.0".
+        target: :class:`~github.Commit`
+            The commit for the tag to point to.
+
+
+        :rtype: :class:`~github.Reference`
+        """
+
+        return await self.create_reference(
+            "refs/tags/" + name,
+            target=target,
+            **kwargs,
+        )
 
     async def unarchive(
         self,
