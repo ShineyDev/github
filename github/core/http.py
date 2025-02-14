@@ -2609,6 +2609,23 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return (repository_data, label_data)  # type: ignore
 
+    async def mutate_repository_create_reference(
+        self,
+        /,
+        repository_id: str,
+        reference_name: str,
+        reference_target: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> tuple[RepositoryData, LabelData]:
+        fields = github.utility.get_merged_graphql_fields(github.Reference, fields)
+        query = "mutation($reference_name:String!,$reference_target:GitObjectID!,$repository_id:ID!,$mutation_id:String!){createRef(input:{clientMutationId:$mutation_id,name:$reference_name,oid:$reference_target,repositoryId:$repository_id}){ref{%s}}}" % ",".join(fields)
+        path = ("createRef",)
+
+        data = await self._mutate(query, *path, repository_id=repository_id, reference_name=reference_name, reference_target=reference_target)
+
+        return data  # type: ignore
+
     async def mutate_repository_unarchive(
         self,
         /,

@@ -2877,6 +2877,34 @@ class Repository(
 
         return github.Label._from_data(label_data, http=self._http)
 
+    async def create_reference(
+        self,
+        /,
+        name: str,
+        *,
+        target: Commit,
+        **kwargs,  # TODO
+    ) -> Reference:
+        """
+        |coro|
+
+        Creates a reference on the repository.
+
+
+        Parameters
+        ----------
+        name: :class:`str`
+            The qualified name of the Git ref.
+        target: :class:`~github.Commit`
+            The commit for the reference to point to.
+
+
+        :rtype: :class:`~github.Reference`
+        """
+
+        data = await self._http.mutate_repository_create_reference(self.id, name, target.object_id, **kwargs)
+        return github.Reference._from_data(data, http=self._http)
+
     async def unarchive(
         self,
         /,
