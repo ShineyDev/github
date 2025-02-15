@@ -5,7 +5,6 @@ if TYPE_CHECKING:
     from github.connection import Connection, RepositoryOrder
     from github.interfaces import Node
     from github.repository import Repository
-    from github.repository.repository import RepositoryData
 
 import github
 from github.utility import MISSING
@@ -15,6 +14,7 @@ if TYPE_CHECKING:
     from typing import TypedDict
 
     from github.connection.connection import ConnectionData
+    from github.repository.repository import RepositoryData
 
 
     class RepositoryOwnerData(TypedDict):
