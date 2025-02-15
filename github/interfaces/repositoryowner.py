@@ -216,9 +216,9 @@ class RepositoryOwner:
 
         repositoryowner_data, repository_data = await self._http.mutate_repositoryowner_create_repository(
             self.id,
-            description if description is not MISSING else None,
             name,
             visibility.value if visibility is not MISSING else github.RepositoryVisibility.public.value,
+            description if description is not MISSING else None,
             repository_fields=fields,
             repositoryowner_fields=("repositories{totalCount}",),
         )

@@ -695,9 +695,9 @@ class Client(graphql.client.Client):
 
         _, repository_data = await self._http.mutate_repositoryowner_create_repository(
             None,
-            description if description is not MISSING else None,
             name,
             visibility.value if visibility is not MISSING else github.RepositoryVisibility.public.value,
+            description if description is not MISSING else None,
             repository_fields=fields,
         )
 

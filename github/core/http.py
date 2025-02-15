@@ -2646,9 +2646,9 @@ class HTTPClient(graphql.client.http.HTTPClient):
         self,
         /,
         repositoryowner_id: str | None,
-        repository_description: str | None,
         repository_name: str,
         repository_visibility: str,
+        repository_description: str | None,
         *,
         repository_fields: Iterable[str] = MISSING,
         repositoryowner_fields: Iterable[str] = MISSING,
@@ -2658,7 +2658,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "mutation($repository_description:String,$repository_name:String!,$repository_visibility:RepositoryVisibility!,$repositoryowner_id:ID!,$mutation_id:String!){createRepository(input:{clientMutationId:$mutation_id,description:$repository_description,name:$repository_name,visibility:$repository_visibility,ownerId:$repositoryowner_id}){repository{%s,_o:owner{%s}}}}" % (",".join(repository_fields), ",".join(repositoryowner_fields))
         path = ("createRepository",)
 
-        data = await self._mutate(query, *path, repositoryowner_id=repositoryowner_id, repository_description=repository_description, repository_name=repository_name, repository_visibility=repository_visibility)
+        data = await self._mutate(query, *path, repositoryowner_id=repositoryowner_id, repository_name=repository_name, repository_visibility=repository_visibility, repository_description=repository_description)
 
         repository_data: dict[str, Any] = data["repository"]  # type: ignore
         repositoryowner_data = repository_data.pop("_o")
