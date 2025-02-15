@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from github.connection import Connection, RepositoryOrder
     from github.interfaces import Node
-    from github.repository import Repository
+    from github.repository import Repository, RepositoryVisibility
 
 import github
 from github.utility import MISSING
@@ -175,6 +175,60 @@ class RepositoryOwner:
             reverse=reverse if reverse is not MISSING else None,
             **kwargs,
         )
+
+    async def create_repository(
+        self,
+        /,
+        name: str,
+        *,
+        description: str = MISSING,
+        fields = MISSING,  # TODO
+        visibility: RepositoryVisibility = MISSING,
+    ) -> Repository:
+        """
+        |coro|
+
+        Creates a repository on the repository owner.
+
+
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.repository_count`
+
+
+        Parameters
+        ----------
+        name: :class:`str`
+            The name of the repository.
+        description: :class:`str`
+            The description of the repository.
+        visibility: :class:`~github.RepositoryVisibility`
+            The visibility of the repository.
+
+
+        :rtype: :class:`~github.Repository`
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        repositoryowner_data, repository_data = await self._http.mutate_repositoryowner_create_repository(
+            self.id,
+            description if description is not MISSING else None,
+            name,
+            visibility.value if visibility is not MISSING else github.RepositoryVisibility.public.value,
+            repository_fields=fields,
+            repositoryowner_fields=("repositories{totalCount}",),
+        )
+
+        if "repositories" not in self._data.keys():
+            self._data["repositories"] = dict()  # type: ignore
+
+        self._data["repositories"]["totalCount"] = repositoryowner_data["repositories"]["totalCount"]
+
+        return github.Repository._from_data(repository_data, http=self._http)
 
 
 __all__ = [

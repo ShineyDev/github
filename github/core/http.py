@@ -25,6 +25,7 @@ if TYPE_CHECKING:
     from github.interfaces.assignable import AssignableData
     from github.interfaces.labelable import LabelableData
     from github.interfaces.reactable import ReactableData
+    from github.interfaces.repositoryowner import RepositoryOwnerData
     from github.interfaces.starrable import StarrableData
     from github.interfaces.subscribable import SubscribableData
     from github.organization.organization import OrganizationData
@@ -2640,6 +2641,29 @@ class HTTPClient(graphql.client.http.HTTPClient):
         data = await self._mutate(query, *path, repository_id=repository_id)
 
         return data  # type: ignore
+
+    async def mutate_repositoryowner_create_repository(
+        self,
+        /,
+        repositoryowner_id: str,
+        repository_description: str | None,
+        repository_name: str,
+        repository_visibility: str,
+        *,
+        repository_fields: Iterable[str] = MISSING,
+        repositoryowner_fields: Iterable[str] = MISSING,
+    ) -> tuple[RepositoryOwnerData, RepositoryData]:
+        repository_fields = github.utility.get_merged_graphql_fields(github.Repository, repository_fields)
+        repositoryowner_fields = ("__typename",) if repositoryowner_fields is MISSING else repositoryowner_fields
+        query = "mutation($repository_description:String,$repository_name:String!,$repository_visibility:RepositoryVisibility!,$repositoryowner_id:ID!,$mutation_id:String!){createRepository(input:{clientMutationId:$mutation_id,description:$repository_description,name:$repository_name,visibility:$repository_visibility,ownerId:$repositoryowner_id}){repository{%s,_o:owner{%s}}}}" % (",".join(repository_fields), ",".join(repositoryowner_fields))
+        path = ("createRepository",)
+
+        data = await self._mutate(query, *path, repositoryowner_id=repositoryowner_id, repository_description=repository_description, repository_name=repository_name, repository_visibility=repository_visibility)
+
+        repository_data: dict[str, Any] = data["repository"]  # type: ignore
+        repositoryowner_data = repository_data.pop("_o")
+
+        return (repositoryowner_data, repository_data)  # type: ignore
 
     async def mutate_starrable_star(
         self,
