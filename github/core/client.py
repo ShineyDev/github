@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from github.connection import AdvisoryOrder, Connection, SponsorableOrder, VulnerabilityOrder
     from github.content import CodeOfConduct, License
     from github.organization import Organization
-    from github.repository import Repository, Topic
+    from github.repository import Repository, RepositoryVisibility, Topic
     from github.security import Advisory, Vulnerability
     from github.user import User, UserStatus, Viewer
     from github.utility.types import DateTime, T_json_object
@@ -664,6 +664,44 @@ class Client(graphql.client.Client):
         """
 
         await self._http.mutate_user_update_status(None, None, None, None, None)
+
+    async def create_repository(
+        self,
+        /,
+        name: str,
+        *,
+        description: str = MISSING,
+        fields = MISSING,  # TODO
+        visibility: RepositoryVisibility = MISSING,
+    ) -> Repository:
+        """
+        |coro|
+
+        Creates a repository on the authenticated user.
+
+
+        Parameters
+        ----------
+        name: :class:`str`
+            The name of the repository.
+        description: :class:`str`
+            The description of the repository.
+        visibility: :class:`~github.RepositoryVisibility`
+            The visibility of the repository.
+
+
+        :rtype: :class:`~github.Repository`
+        """
+
+        _, repository_data = await self._http.mutate_repositoryowner_create_repository(
+            None,
+            description if description is not MISSING else None,
+            name,
+            visibility.value if visibility is not MISSING else github.RepositoryVisibility.public.value,
+            repository_fields=fields,
+        )
+
+        return github.Repository._from_data(repository_data, http=self._http)
 
     async def update_status(
         self,

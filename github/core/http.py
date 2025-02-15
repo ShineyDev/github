@@ -2645,7 +2645,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
     async def mutate_repositoryowner_create_repository(
         self,
         /,
-        repositoryowner_id: str,
+        repositoryowner_id: str | None,
         repository_description: str | None,
         repository_name: str,
         repository_visibility: str,
