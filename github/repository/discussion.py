@@ -345,6 +345,12 @@ class Discussion(
         data = await self._http.fetch_discussion_category(self.id, **kwargs)
         return github.DiscussionCategory._from_data(data, http=self._http)
 
+    async def delete(
+        self,
+        /,
+    ) -> None:
+        await self._http.mutate_discussion_delete(self.id)
+
 
 __all__ = [
     "Discussion",

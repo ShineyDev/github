@@ -2491,6 +2491,15 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data  # type: ignore
 
+    async def mutate_discussion_delete(
+        self,
+        /,
+        discussion_id: str,
+    ) -> None:
+        query = "mutation($discussion_id:ID!,$mutation_id:String!){deleteDiscussion(input:{clientMutationId:$mutation_id,id:$discussion_id}){__typename}}"
+
+        await self._mutate(query, discussion_id=discussion_id)
+
     async def mutate_issue_delete(
         self,
         /,
