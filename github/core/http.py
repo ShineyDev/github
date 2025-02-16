@@ -24,6 +24,7 @@ if TYPE_CHECKING:
     from github.interfaces import Node, Resource
     from github.interfaces.assignable import AssignableData
     from github.interfaces.labelable import LabelableData
+    from github.interfaces.lockable import LockableData
     from github.interfaces.reactable import ReactableData
     from github.interfaces.repositoryowner import RepositoryOwnerData
     from github.interfaces.starrable import StarrableData
@@ -2562,6 +2563,22 @@ class HTTPClient(graphql.client.http.HTTPClient):
         path = ("removeLabelsFromLabelable", "labelable")
 
         data = await self._mutate(query, *path, labelable_id=labelable_id, label_ids=label_ids)
+
+        return data  # type: ignore
+
+    async def mutate_lockable_lock(
+        self,
+        /,
+        lockable_id: str,
+        reason: str | None,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> LockableData:
+        fields = ("__typename",) if fields is MISSING else fields
+        query = "mutation($lockable_id:ID!,$reason:LockReason,$mutation_id:String!){lockLockable(input:{clientMutationId:$mutation_id,lockableId:$lockable_id,lockReason:$reason}){lockedRecord{%s}}}" % ",".join(fields)
+        path = ("lockLockable", "lockedRecord")
+
+        data = await self._mutate(query, *path, lockable_id=lockable_id, reason=reason)
 
         return data  # type: ignore
 

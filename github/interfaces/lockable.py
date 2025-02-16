@@ -6,6 +6,7 @@ if TYPE_CHECKING:
     from github.repository import LockReason
 
 import github
+from github.utility import MISSING
 
 
 if TYPE_CHECKING:
@@ -107,6 +108,44 @@ class Lockable:
             return None
 
         return github.LockReason(reason)
+
+    async def lock(
+        self,
+        /,
+        *,
+        reason: LockReason = MISSING,
+    ) -> None:
+        """
+        |coro|
+
+        Locks the lockable.
+
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.is_locked`
+            - :attr:`~.locked_reason`
+
+
+        Parameters
+        ----------
+
+        reason: :class:`~github.LockReason`
+            The reason for locking the lockable.
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        data = await self._http.mutate_lockable_lock(
+            self.id,
+            reason.value if reason is not MISSING else None,
+            fields=("activeLockReason", "locked"),
+        )
+
+        self._data["activeLockReason"] = data["activeLockReason"]
+        self._data["locked"] = data["locked"]
 
 
 __all__ = [
