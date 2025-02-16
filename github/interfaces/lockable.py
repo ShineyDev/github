@@ -147,6 +147,34 @@ class Lockable:
         self._data["activeLockReason"] = data["activeLockReason"]
         self._data["locked"] = data["locked"]
 
+    async def unlock(
+        self,
+        /,
+    ) -> None:
+        """
+        |coro|
+
+        Unlocks the lockable.
+
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.is_locked`
+            - :attr:`~.locked_reason`
+        """
+
+        if TYPE_CHECKING and not isinstance(self, Node):
+            raise NotImplementedError
+
+        data = await self._http.mutate_lockable_unlock(
+            self.id,
+            fields=("activeLockReason", "locked"),
+        )
+
+        self._data["activeLockReason"] = data["activeLockReason"]
+        self._data["locked"] = data["locked"]
+
 
 __all__ = [
     "Lockable",

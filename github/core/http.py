@@ -2582,6 +2582,21 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data  # type: ignore
 
+    async def mutate_lockable_unlock(
+        self,
+        /,
+        lockable_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> LockableData:
+        fields = ("__typename",) if fields is MISSING else fields
+        query = "mutation($lockable_id:ID!,$mutation_id:String!){unlockLockable(input:{clientMutationId:$mutation_id,lockableId:$lockable_id}){unlockedRecord{%s}}}" % ",".join(fields)
+        path = ("unlockLockable", "unlockedRecord")
+
+        data = await self._mutate(query, *path, lockable_id=lockable_id)
+
+        return data  # type: ignore
+
     async def mutate_reactable_add_reaction(
         self,
         /,
