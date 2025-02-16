@@ -598,6 +598,12 @@ class Issue(
             **kwargs,
         )
 
+    async def delete(
+        self,
+        /,
+    ) -> None:
+        await self._http.mutate_issue_delete(self.id)
+
 
 __all__ = [
     "Issue",
