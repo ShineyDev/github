@@ -2491,6 +2491,15 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data  # type: ignore
 
+    async def mutate_label_delete(
+        self,
+        /,
+        label_id: str,
+    ) -> None:
+        query = "mutation($label_id:ID!,$mutation_id:String!){deleteLabel(input:{clientMutationId:$mutation_id,id:$label_id}){__typename}}"
+
+        await self._mutate(query, label_id=label_id)
+
     async def mutate_labelable_add_labels(
         self,
         /,

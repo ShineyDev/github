@@ -432,6 +432,18 @@ class Label(Node, RepositoryNode, Resource, Type):
             **kwargs,
         )
 
+    async def delete(  # TODO: figure out how we can make this a deletable without making it a deletable
+        self,
+        /,
+    ) -> None:
+        """
+        |coro|
+
+        Deletes the label.
+        """
+
+        await self._http.mutate_label_delete(self.id)
+
 
 __all__ = [
     "Label",
