@@ -9,7 +9,7 @@ import github
 
 
 if TYPE_CHECKING:
-    from typing import Literal, TypedDict
+    from typing import TypedDict
 
     from github.repository.lockreason import LockReasonData
 
