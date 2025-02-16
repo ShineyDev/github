@@ -1,6 +1,8 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
+import abc
+
 
 if TYPE_CHECKING:
     from typing import TypedDict
@@ -10,7 +12,7 @@ if TYPE_CHECKING:
         viewerCanDelete: bool
 
 
-class Deletable:
+class Deletable(abc.ABC):
     """
     Represents an object that can be deleted.
     """
@@ -50,6 +52,19 @@ class Deletable:
         """
 
         return await self._fetch_field("viewerCanDelete")  # type: ignore
+
+    @abc.abstractmethod
+    async def delete(
+        self,
+        /,
+    ) -> None:
+        """
+        |coro|
+
+        Deletes the deletable.
+        """
+
+        raise NotImplementedError
 
 
 __all__ = [
