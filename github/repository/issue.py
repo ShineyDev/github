@@ -598,6 +598,41 @@ class Issue(
             **kwargs,
         )
 
+    async def close(
+        self,
+        /,
+        *,
+        reason: IssueCloseReason = MISSING,
+    ) -> None:
+        """
+        |coro|
+
+        Closes the issue.
+
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.is_closed`
+            - :attr:`~.closed_reason`
+
+
+        Parameters
+        ----------
+
+        reason: :class:`~github.IssueCloseReason`
+            The reason for closing the issue. Defaults to resolved.
+        """
+
+        data = await self._http.mutate_issue_close(
+            self.id,
+            reason if reason is not MISSING else github.IssueCloseReason.resolved.value,
+            fields=("closed", "stateReason"),
+        )
+
+        self._data["closed"] = data["closed"]
+        self._data["stateReason"] = data["stateReason"]
+
     async def delete(
         self,
         /,

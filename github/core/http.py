@@ -2532,6 +2532,22 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data  # type: ignore
 
+    async def mutate_issue_close(
+        self,
+        /,
+        issue_id: str,
+        closed_reason: str | None,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> IssueData:
+        fields = ("__typename",) if fields is MISSING else fields
+        query = "mutation($closed_reason:IssueClosedStateReason,$issue_id:ID!,$mutation_id:String!){closeIssue(input:{clientMutationId:$mutation_id,issueId:$issue_id,stateReason:$closed_reason}){issue{%s}}}" % ",".join(fields)
+        path = ("closeIssue", "issue")
+
+        data = await self._mutate(query, *path, issue_id=issue_id, closed_reason=closed_reason)
+
+        return data  # type: ignore
+
     async def mutate_issue_delete(
         self,
         /,
