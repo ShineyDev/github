@@ -829,6 +829,31 @@ class Pull(
             **kwargs,
         )
 
+    async def close(
+        self,
+        /,
+    ) -> None:
+        """
+        |coro|
+
+        Closes the pull request.
+
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.is_closed`
+            - :attr:`~.closed_reason`
+        """
+
+        data = await self._http.mutate_pull_close(
+            self.id,
+            fields=("closed", "state"),
+        )
+
+        self._data["closed"] = data["closed"]
+        self._data["state"] = data["state"]
+
 
 __all__ = [
     "Pull",
