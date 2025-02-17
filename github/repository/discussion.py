@@ -388,6 +388,31 @@ class Discussion(
     ) -> None:
         await self._http.mutate_discussion_delete(self.id)
 
+    async def reopen(
+        self,
+        /,
+    ) -> None:
+        """
+        |coro|
+
+        Reopens the discussion.
+
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.is_closed`
+            - :attr:`~.closed_reason`
+        """
+
+        data = await self._http.mutate_discussion_reopen(
+            self.id,
+            fields=("closed", "stateReason"),
+        )
+
+        self._data["closed"] = data["closed"]
+        self._data["stateReason"] = data["stateReason"]
+
 
 __all__ = [
     "Discussion",
