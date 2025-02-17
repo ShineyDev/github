@@ -2674,6 +2674,21 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         return data  # type: ignore
 
+    async def mutate_pull_reopen(
+        self,
+        /,
+        pull_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> PullData:
+        fields = ("__typename",) if fields is MISSING else fields
+        query = "mutation($pull_id:ID!,$mutation_id:String!){reopenPullRequest(input:{clientMutationId:$mutation_id,pullRequestId:$pull_id}){pullRequest{%s}}}" % ",".join(fields)
+        path = ("reopenPullRequest", "pullRequest")
+
+        data = await self._mutate(query, *path, pull_id=pull_id)
+
+        return data  # type: ignore
+
     async def mutate_reactable_add_reaction(
         self,
         /,
