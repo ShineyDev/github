@@ -2557,6 +2557,21 @@ class HTTPClient(graphql.client.http.HTTPClient):
 
         await self._mutate(query, issue_id=issue_id)
 
+    async def mutate_issue_reopen(
+        self,
+        /,
+        issue_id: str,
+        *,
+        fields: Iterable[str] = MISSING,
+    ) -> IssueData:
+        fields = ("__typename",) if fields is MISSING else fields
+        query = "mutation($issue_id:ID!,$mutation_id:String!){reopenIssue(input:{clientMutationId:$mutation_id,issueId:$issue_id}){issue{%s}}}" % ",".join(fields)
+        path = ("reopenIssue", "issue")
+
+        data = await self._mutate(query, *path, issue_id=issue_id)
+
+        return data  # type: ignore
+
     async def mutate_label_delete(
         self,
         /,
