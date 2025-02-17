@@ -181,6 +181,13 @@ class Closable(abc.ABC):
         |coro|
 
         Closes the closable.
+
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.is_closed`
+            - :attr:`~.closed_reason`
         """
 
         raise NotImplementedError
@@ -194,6 +201,13 @@ class Closable(abc.ABC):
         |coro|
 
         Reopens the closable.
+
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.is_closed`
+            - :attr:`~.closed_reason`
         """
 
         raise NotImplementedError
