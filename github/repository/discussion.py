@@ -3,10 +3,11 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from github.core.http import HTTPClient
-    from github.repository import DiscussionCategory, DiscussionState
+    from github.repository import DiscussionCategory, DiscussionCloseReason, DiscussionState
 
 import github
 from github.interfaces import Closable, Comment, Deletable, Labelable, Lockable, Node, Reactable, RepositoryNode, Resource, Subscribable, Type, Updatable, Votable
+from github.utility import MISSING
 
 
 if TYPE_CHECKING:
@@ -344,6 +345,42 @@ class Discussion(
 
         data = await self._http.fetch_discussion_category(self.id, **kwargs)
         return github.DiscussionCategory._from_data(data, http=self._http)
+
+    async def close(
+        self,
+        /,
+        *,
+        reason: DiscussionCloseReason = MISSING,
+    ) -> None:
+        """
+        |coro|
+
+        Closes the discussion.
+
+        .. note::
+
+            Use of this mutation will also update the following fields:
+
+            - :attr:`~.is_closed`
+            - :attr:`~.closed_reason`
+
+
+        Parameters
+        ----------
+
+        reason: :class:`~github.DiscussionCloseReason`
+            The reason for closing the discussion. Defaults to
+            resolved.
+        """
+
+        data = await self._http.mutate_discussion_close(
+            self.id,
+            reason if reason is not MISSING else github.DiscussionCloseReason.resolved.value,
+            fields=("closed", "stateReason"),
+        )
+
+        self._data["closed"] = data["closed"]
+        self._data["stateReason"] = data["stateReason"]
 
     async def delete(
         self,
