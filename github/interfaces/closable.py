@@ -7,6 +7,8 @@ if TYPE_CHECKING:
     from github.interfaces import Node
     from github.utility.types import DateTime
 
+import abc
+
 import github
 
 
@@ -21,7 +23,7 @@ if TYPE_CHECKING:
         viewerCanReopen: bool
 
 
-class Closable:
+class Closable(abc.ABC):
     """
     Represents an object that can be closed.
     """
@@ -169,6 +171,32 @@ class Closable:
         """
 
         return await self._fetch_field("viewerCanReopen")  # type: ignore
+
+    @abc.abstractmethod
+    async def close(
+        self,
+        /,
+    ) -> None:
+        """
+        |coro|
+
+        Closes the closable.
+        """
+
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    async def reopen(
+        self,
+        /,
+    ) -> None:
+        """
+        |coro|
+
+        Reopens the closable.
+        """
+
+        raise NotImplementedError
 
 
 __all__ = [
