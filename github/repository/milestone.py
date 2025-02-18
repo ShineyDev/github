@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import cast
+    from typing_extensions import Never
 
     from github.connection import Connection, IssueOrder, PullOrder
     from github.core.http import HTTPClient
@@ -505,6 +506,32 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
             reverse=reverse if reverse is not MISSING else False,
             **kwargs,
         )
+
+    async def close(
+        self,
+        /,
+    ) -> Never:
+        """
+        .. attention::
+
+            Currently, there is no way to close milestones via GitHub's
+            GraphQL API. Use of this mutation will always raise.
+        """
+
+        raise NotImplementedError
+
+    async def reopen(
+        self,
+        /,
+    ) -> Never:
+        """
+        .. attention::
+
+            Currently, there is no way to close milestones via GitHub's
+            GraphQL API. Use of this mutation will always raise.
+        """
+
+        raise NotImplementedError
 
 
 __all__ = [
