@@ -9,10 +9,14 @@ github.timeline
 
     assigneeaddevent
     assigneeremoveevent
+    childaddevent
+    childremoveevent
     closeevent
     labeladdevent
     labelremoveevent
     lockevent
+    parentaddevent
+    parentremoveevent
     pinevent
     reopenevent
     subscribeevent

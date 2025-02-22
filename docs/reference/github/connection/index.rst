@@ -26,6 +26,7 @@ github.connection
     referenceorder
     releaseorder
     repositoryorder
+    sponsorableorder
     stargazerorder
     teamorder
     vulnerabilityorder
