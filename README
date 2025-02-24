@@ -1,0 +1,44 @@
+ShineyDev/github
+================
+
+An asynchronous Python library for interaction with GitHub's GraphQL API.
+
+source: https://github.com/ShineyDev/github
+documentation: https://docs.shiney.dev/github
+
+
+Install
+-------
+
+Warning: This installation may be unstable. If you're looking for a stable release, see
+https://github.com/ShineyDev/github/tags.
+
+```shell
+pip install --upgrade git+https://github.com/ShineyDev/github.git@dotcom
+```
+
+There is also a more in-depth installation guide in the documentation.
+
+
+Use
+---
+
+```python
+>>> import aiohttp
+>>> import github
+>>>
+>>> session = aiohttp.ClientSession()
+>>> client = github.Client(token="...", session=session)
+>>>
+>>> await client.request("{viewer{login}}")
+{'viewer': {'login': 'nat'}}
+```
+
+
+There are also more in-depth usage guides in the documentation.
+
+
+Copyright (c) 2019-present ShineyDev
+
+This repository is not endorsed by or affiliated with GitHub Inc. or its affiliates. "GitHub" is a
+registered trademark of GitHub Inc.
