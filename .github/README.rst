@@ -27,7 +27,7 @@ Install
 
 .. code:: shell
 
-    $ pip install --upgrade git+https://github.com/ShineyDev/github.git@dotcom
+    $ python -m pip install --upgrade git+https://github.com/ShineyDev/github.git@dotcom
 
 
 There is also a more in-depth `installation guide <https://docs.shiney.dev/github/latest/guide/installation>`_ in the documentation.
