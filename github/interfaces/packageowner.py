@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from github.connection import Connection, PackageOrder
     from github.interfaces import Node
-    from github.repository import Package
+    from github.repository import Package, Repository
 
 import github
 from github.utility import MISSING
@@ -79,6 +79,7 @@ class PackageOwner:
         cursor: str | None = MISSING,
         limit: int = MISSING,
         order_by: PackageOrder = MISSING,
+        repository: Repository = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Package]:
@@ -96,6 +97,8 @@ class PackageOwner:
             The maximum number of elements to yield.
         order_by: :class:`~github.PackageOrder`
             The field by which to order the elements.
+        repository: :class:`~github.Repository`
+            The repository to filter packages to.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
 
@@ -117,6 +120,7 @@ class PackageOwner:
             self._http.collect_packageowner_packages,
             self.id,
             order_by.value if order_by is not MISSING else None,
+            repository.id if repository is not MISSING else None,
             data_map=lambda d: github.Package._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,

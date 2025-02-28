@@ -1884,12 +1884,13 @@ class HTTPClient(graphql.client.http.HTTPClient):
         /,
         packageowner_id: str,
         order_by: str | None,
+        repository_id: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[PackageData]:
         fields = github.utility.get_merged_graphql_fields(github.Package, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$packageowner_id:ID!){node(id:$repository_id){...on PackageOwner{packages(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$packageowner_id:ID!,$repository_id:ID){node(id:$packageowner_id){...on PackageOwner{packages(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by,repositoryId:$repository_id){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "packages")
 
         if order_by is None:
@@ -1897,7 +1898,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         else:
             order_by_data = {"direction": "ASC", "field": order_by}
 
-        return await self._collect(query, *path, packageowner_id=packageowner_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, packageowner_id=packageowner_id, order_by=order_by_data, repository_id=repository_id, **kwargs)
 
     async def collect_pull_participants(
         self,
