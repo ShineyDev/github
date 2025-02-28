@@ -37,6 +37,7 @@ if TYPE_CHECKING:
     from github.repository.issue import IssueData
     from github.repository.label import LabelData
     from github.repository.milestone import MilestoneData
+    from github.repository.package import PackageData
     from github.repository.pull import PullData
     from github.repository.release import ReleaseData
     from github.repository.repository import RepositoryData
@@ -1877,6 +1878,26 @@ class HTTPClient(graphql.client.http.HTTPClient):
             order_by_data = {"direction": "ASC", "field": order_by}
 
         return await self._collect(query, *path, organization_id=organization_id, order_by=order_by_data, **kwargs)
+
+    async def collect_packageowner_packages(
+        self,
+        /,
+        packageowner_id: str,
+        order_by: str | None,
+        *,
+        fields: Iterable[str] = MISSING,
+        **kwargs,
+    ) -> ConnectionData[PackageData]:
+        fields = github.utility.get_merged_graphql_fields(github.Package, fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$packageowner_id:ID!){node(id:$repository_id){...on PackageOwner{packages(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        path = ("node", "packages")
+
+        if order_by is None:
+            order_by_data = None
+        else:
+            order_by_data = {"direction": "ASC", "field": order_by}
+
+        return await self._collect(query, *path, packageowner_id=packageowner_id, order_by=order_by_data, **kwargs)
 
     async def collect_pull_participants(
         self,
