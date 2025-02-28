@@ -16,6 +16,8 @@ from github.connection.milestoneorder import *
 from github.connection.milestoneorder import __all__ as _milestoneorder__all__
 from github.connection.organizationorder import *
 from github.connection.organizationorder import __all__ as _organizationorder__all__
+from github.connection.packageorder import *
+from github.connection.packageorder import __all__ as _packageorder__all__
 from github.connection.pullorder import *
 from github.connection.pullorder import __all__ as _pullorder__all__
 from github.connection.reactionorder import *
@@ -46,6 +48,7 @@ __all__ = [  # type: ignore[reportUnsupportedDunderAll]
     *_mannequinorder__all__,
     *_milestoneorder__all__,
     *_organizationorder__all__,
+    *_packageorder__all__,
     *_pullorder__all__,
     *_reactionorder__all__,
     *_referenceorder__all__,
