@@ -18,10 +18,11 @@ class LanguageOrder(enum.Enum):
     :class:`languages <github.Language>`.
     """
 
-    #: The total size of files in the language.
+    #: The total size of files in the language, in descending order.
+    #: ie. largest size first.
     #:
     #: :meta hide-value:
-    size = "SIZE"
+    size = {"direction": "DESC", "field": "SIZE"}
 
 
 __all__ = [

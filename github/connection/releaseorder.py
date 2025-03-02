@@ -17,15 +17,16 @@ class ReleaseOrder(enum.Enum):
     Represents fields by which you can order :class:`releases <github.Release>`.
     """
 
-    #: The date and time at which the release was created.
+    #: The date and time at which the release was created, in ascending
+    #: order. ie. least earliest first.
     #:
     #: :meta hide-value:
-    created_at = "CREATED_AT"
+    created_at = {"direction": "ASC", "field": "CREATED_AT"}
 
-    #: The title of the release.
+    #: The title of the release, in ascending order. ie. A-Z.
     #:
     #: :meta hide-value:
-    title = "NAME"
+    title = {"direction": "ASC", "field": "NAME"}
 
 
 __all__ = [

@@ -19,10 +19,10 @@ class SponsorableOrder(enum.Enum):
     :class:`users <github.User>`.
     """
 
-    #: The login of the sponsorable.
+    #: The login of the sponsorable, in ascending order. ie. A-Z.
     #:
     #: :meta hide-value:
-    login = "LOGIN"
+    login = {"direction": "ASC", "field": "LOGIN"}
 
 
 __all__ = [

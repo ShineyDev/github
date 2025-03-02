@@ -18,10 +18,11 @@ class PackageOrder(enum.Enum):
     :class:`packages <github.Package>`.
     """
 
-    #: The date and time at which the package was created.
+    #: The date and time at which the package was created, in ascending
+    #: order. ie. earliest created first.
     #:
     #: :meta hide-value:
-    created_at = "CREATED_AT"
+    created_at = {"direction": "ASC", "field": "CREATED_AT"}
 
 
 __all__ = [

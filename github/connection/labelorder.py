@@ -17,15 +17,16 @@ class LabelOrder(enum.Enum):
     Represents fields by which you can order :class:`labels <github.Label>`.
     """
 
-    #: The date and time at which the label was created.
+    #: The date and time at which the label was created, in ascending
+    #: order. ie. earliest created first.
     #:
     #: :meta hide-value:
-    created_at = "CREATED_AT"
+    created_at = {"direction": "ASC", "field": "CREATED_AT"}
 
-    #: The name of the label.
+    #: The name of the label, in ascending order. ie. A-Z.
     #:
     #: :meta hide-value:
-    name = "NAME"
+    name = {"direction": "ASC", "field": "NAME"}
 
 
 __all__ = [

@@ -17,15 +17,16 @@ class ReferenceOrder(enum.Enum):
     Represents fields by which you can order :class:`issues <github.Issue>`.
     """
 
-    #: The date and time at which the reference was committed.
+    #: The date and time at which the reference was committed, in
+    #: descending order. ie. most recently committed first.
     #:
     #: :meta hide-value:
-    committed_at = "TAG_COMMIT_DATE"
+    committed_at = {"direction": "DESC", "field": "TAG_COMMIT_DATE"}
 
-    #: The name of the reference.
+    #: The name of the reference, in ascending order. ie. A-Z.
     #:
     #: :meta hide-value:
-    name = "ALPHABETICAL"
+    name = {"direction": "ASC", "field": "ALPHABETICAL"}
 
 
 __all__ = [

@@ -21,15 +21,17 @@ class AdvisoryOrder(enum.Enum):
     # TODO: EPSS_PERCENTAGE
     # TODO: EPSS_PERCENTILE
 
-    #: The date and time at which the advisory was published.
+    #: The date and time at which the advisory was published, in
+    #: ascending order. ie. earliest published first.
     #:
     #: :meta hide-value:
-    published_at = "PUBLISHED_AT"
+    published_at = {"direction": "ASC", "field": "PUBLISHED_AT"}
 
-    #: The date and time at which the advisory was last updated.
+    #: The date and time at which the advisory was last updated, in
+    #: descending order. ie. most recently updated first.
     #:
     #: :meta hide-value:
-    updated_at = "UPDATED_AT"
+    updated_at = {"direction": "DESC", "field": "UPDATED_AT"}
 
 
 __all__ = [

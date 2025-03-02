@@ -17,25 +17,28 @@ class MilestoneOrder(enum.Enum):
     Represents fields by which you can order :class:`milestones <github.Milestone>`.
     """
 
-    #: The date and time at which the milestone was created.
+    #: The date and time at which the milestone was created, in
+    #: ascending order. ie. earliest created first.
     #:
     #: :meta hide-value:
-    created_at = "CREATED_AT"
+    created_at = {"direction": "ASC", "field": "CREATED_AT"}
 
-    #: The date and time at which the milestone is due.
+    #: The date and time at which the milestone is due, in ascending
+    #: order. ie. earliest due first.
     #:
     #: :meta hide-value:
-    due_at = "DUE_DATE"
+    due_at = {"direction": "ASC", "field": "DUE_DATE"}
 
-    #: The number of the milestone.
+    #: The number of the milestone, in ascending order. ie. A-Z.
     #:
     #: :meta hide-value:
-    number = "NUMBER"
+    number = {"direction": "ASC", "field": "NUMBER"}
 
-    #: The date and time at which the milestone was last updated.
+    #: The date and time at which the milestone was last updated, in
+    #: descending order. ie. most recently updated first.
     #:
     #: :meta hide-value:
-    updated_at = "UPDATED_AT"
+    updated_at = {"direction": "DESC", "field": "UPDATED_AT"}
 
 
 __all__ = [

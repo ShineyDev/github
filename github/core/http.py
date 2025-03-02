@@ -1669,12 +1669,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:SecurityVulnerabilityOrder,$advisory_id:ID!){node(id:$advisory_id){...on SecurityAdvisory{vulnerabilities(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "vulnerabilities")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, advisory_id=advisory_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, advisory_id=advisory_id, order_by=order_by, **kwargs)
 
     async def collect_assignable_assignees(
         self,
@@ -1704,12 +1699,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$discussionauthor_id:ID!,$first:Int,$last:Int,$order_by:DiscussionOrder,$repository_id:ID){node(id:$discussionauthor_id){...on RepositoryDiscussionAuthor{repositoryDiscussions(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by,repositoryId:$repository_id){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "repositoryDiscussions")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, discussionauthor_id=discussionauthor_id, order_by=order_by_data, repository_id=repository_id, **kwargs)
+        return await self._collect(query, *path, discussionauthor_id=discussionauthor_id, order_by=order_by, repository_id=repository_id, **kwargs)
 
     async def collect_issue_children(
         self,
@@ -1752,12 +1742,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$label_id:ID!){node(id:$label_id){...on Label{issues(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "issues")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, label_id=label_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, label_id=label_id, order_by=order_by, **kwargs)
 
     async def collect_label_pulls(
         self,
@@ -1772,12 +1757,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$label_id:ID!){node(id:$label_id){...on Label{pullRequests(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "pullRequests")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, label_id=label_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, label_id=label_id, order_by=order_by, **kwargs)
 
     async def collect_labelable_labels(
         self,
@@ -1792,12 +1772,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:LabelOrder,$labelable_id:ID!){node(id:$labelable_id){...on Labelable{labels(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "labels")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, labelable_id=labelable_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, labelable_id=labelable_id, order_by=order_by, **kwargs)
 
     async def collect_milestone_issues(
         self,
@@ -1812,12 +1787,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$milestone_id:ID!){node(id:$milestone_id){...on Milestone{issues(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "issues")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, milestone_id=milestone_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, milestone_id=milestone_id, order_by=order_by, **kwargs)
 
     async def collect_milestone_pulls(
         self,
@@ -1832,12 +1802,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$milestone_id:ID!){node(id:$milestone_id){...on Milestone{pullRequests(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "pullRequests")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, milestone_id=milestone_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, milestone_id=milestone_id, order_by=order_by, **kwargs)
 
     async def collect_organization_mannequins(
         self,
@@ -1852,12 +1817,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:MannequinOrder,$organization_id:ID!){node(id:$organization_id){...on Organization{mannequins(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "mannequins")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, organization_id=organization_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, organization_id=organization_id, order_by=order_by, **kwargs)
 
     async def collect_organization_teams(
         self,
@@ -1872,12 +1832,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:TeamOrder,$organization_id:ID!){node(id:$organization_id){...on Organization{teams(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "teams")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, organization_id=organization_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, organization_id=organization_id, order_by=order_by, **kwargs)
 
     async def collect_packageowner_packages(
         self,
@@ -1893,12 +1848,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$packageowner_id:ID!,$repository_id:ID){node(id:$packageowner_id){...on PackageOwner{packages(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by,repositoryId:$repository_id){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "packages")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, packageowner_id=packageowner_id, order_by=order_by_data, repository_id=repository_id, **kwargs)
+        return await self._collect(query, *path, packageowner_id=packageowner_id, order_by=order_by, repository_id=repository_id, **kwargs)
 
     async def collect_pull_participants(
         self,
@@ -1926,12 +1876,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:SecurityAdvisoryOrder){securityAdvisories(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}" % ",".join(fields)
         path = ("securityAdvisories",)
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, order_by=order_by, **kwargs)
 
     async def collect_query_sponsorables(
         self,
@@ -1946,12 +1891,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:SponsorableOrder){sponsorables(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{...on Organization{%s}...on User{%s}},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}" % (",".join(organization_fields), ",".join(user_fields))
         path = ("sponsorables",)
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, order_by=order_by, **kwargs)
 
     async def collect_query_vulnerabilities(
         self,
@@ -1965,12 +1905,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:SecurityVulnerabilityOrder){securityVulnerabilities(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}" % ",".join(fields)
         path = ("securityVulnerabilities",)
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, order_by=order_by, **kwargs)
 
     async def collect_reactable_reactions(
         self,
@@ -1985,12 +1920,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:ReactionOrder,$reactable_id:ID!){node(id:$reactable_id){...on Reactable{reactions(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "reactions")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, reactable_id=reactable_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, reactable_id=reactable_id, order_by=order_by, **kwargs)
 
     async def collect_reference_pulls(
         self,
@@ -2005,12 +1935,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$reference_id:ID!){node(id:$reference_id){...on Ref{associatedPullRequests(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "associatedPullRequests")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, reference_id=reference_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, reference_id=reference_id, order_by=order_by, **kwargs)
 
     async def collect_repository_assignable_users(
         self,
@@ -2068,12 +1993,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$discussioncategory_id:ID,$first:Int,$last:Int,$order_by:DiscussionOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{discussions(after:$after,before:$before,categoryId:$discussioncategory_id,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "discussions")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, repository_id=repository_id, discussioncategory_id=discussioncategory_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, discussioncategory_id=discussioncategory_id, order_by=order_by, **kwargs)
 
     async def collect_repository_forks(
         self,
@@ -2088,12 +2008,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:RepositoryOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{forks(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "forks")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by, **kwargs)
 
     async def collect_repository_issues(
         self,
@@ -2108,12 +2023,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{issues(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "issues")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by, **kwargs)
 
     async def collect_repository_labels(
         self,
@@ -2128,12 +2038,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:LabelOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{labels(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "labels")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by, **kwargs)
 
     async def collect_repository_languages(
         self,
@@ -2148,12 +2053,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:LanguageOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{languages(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "languages")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by, **kwargs)
 
     async def collect_repository_milestones(
         self,
@@ -2168,12 +2068,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:MilestoneOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{milestones(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "milestones")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by, **kwargs)
 
     async def collect_repository_pulls(
         self,
@@ -2188,12 +2083,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{pullRequests(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "pullRequests")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by, **kwargs)
 
     async def collect_repository_references(
         self,
@@ -2209,12 +2099,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:RefOrder,$reference_prefix:String!,$repository_id:ID!){node(id:$repository_id){...on Repository{refs(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by,refPrefix:$reference_prefix){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "refs")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, repository_id=repository_id, reference_prefix=reference_prefix, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, reference_prefix=reference_prefix, order_by=order_by, **kwargs)
 
     async def collect_repository_releases(
         self,
@@ -2229,12 +2114,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:ReleaseOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{releases(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "releases")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by, **kwargs)
 
     async def collect_repository_topics(
         self,
@@ -2300,12 +2180,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:RepositoryOrder,$repositoryowner_id:ID!){node(id:$repositoryowner_id){... on RepositoryOwner{repositories(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "repositories")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, repositoryowner_id=repositoryowner_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, repositoryowner_id=repositoryowner_id, order_by=order_by, **kwargs)
 
     async def collect_starrable_stargazers(
         self,
@@ -2320,12 +2195,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:StarOrder,$starrable_id:ID!){node(id:$starrable_id){...on Starrable{stargazers(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "stargazers")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, starrable_id=starrable_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, starrable_id=starrable_id, order_by=order_by, **kwargs)
 
     async def collect_team_ancestors(
         self,
@@ -2354,12 +2224,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:RepositoryOrder,$topic_id:ID!){node(id:$topic_id){... on Topic{repositories(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "repositories")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, topic_id=topic_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, topic_id=topic_id, order_by=order_by, **kwargs)
 
     async def collect_user_followers(
         self,
@@ -2402,12 +2267,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$user_id:ID!){node(id:$user_id){...on User{issues(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "issues")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, user_id=user_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, user_id=user_id, order_by=order_by, **kwargs)
 
     async def collect_user_organizations(
         self,
@@ -2422,12 +2282,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:OrganizationOrder,$user_id:ID!){node(id:$user_id){...on User{organizations(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "organizations")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, user_id=user_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, user_id=user_id, order_by=order_by, **kwargs)
 
     async def collect_user_pulls(
         self,
@@ -2442,12 +2297,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$user_id:ID!){node(id:$user_id){...on User{pullRequests(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "pullRequests")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, user_id=user_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, user_id=user_id, order_by=order_by, **kwargs)
 
     async def collect_user_watching(
         self,
@@ -2462,12 +2312,7 @@ class HTTPClient(graphql.client.http.HTTPClient):
         query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:RepositoryOrder,$user_id:ID!){node(id:$user_id){... on User{watching(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "watching")
 
-        if order_by is None:
-            order_by_data = None
-        else:
-            order_by_data = {"direction": "ASC", "field": order_by}
-
-        return await self._collect(query, *path, user_id=user_id, order_by=order_by_data, **kwargs)
+        return await self._collect(query, *path, user_id=user_id, order_by=order_by, **kwargs)
 
     async def _mutate(
         self,

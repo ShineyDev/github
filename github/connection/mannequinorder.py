@@ -17,15 +17,16 @@ class MannequinOrder(enum.Enum):
     Represents fields by which you can order :class:`mannequins <github.Mannequin>`.
     """
 
-    #: The date and time at which the mannequin was created.
+    #: The date and time at which the mannequin was created, in
+    #: ascending order. ie. earliest created first.
     #:
     #: :meta hide-value:
-    created_at = "CREATED_AT"
+    created_at = {"direction": "ASC", "field": "CREATED_AT"}
 
-    #: The login of the mannquin.
+    #: The login of the mannquin, in ascending order. ie. A-Z.
     #:
     #: :meta hide-value:
-    login = "LOGIN"
+    login = {"direction": "ASC", "field": "LOGIN"}
 
 
 __all__ = [

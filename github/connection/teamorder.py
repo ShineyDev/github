@@ -17,10 +17,10 @@ class TeamOrder(enum.Enum):
     Represents fields by which you can order :class:`teams <github.Team>`.
     """
 
-    #: The name of the team.
+    #: The name of the team, in ascending order. ie. A-Z.
     #:
     #: :meta hide-value:
-    name = "NAME"
+    name = {"direction": "ASC", "field": "NAME"}
 
 
 __all__ = [

@@ -17,10 +17,11 @@ class ReactionOrder(enum.Enum):
     Represents fields by which you can order :class:`reactions <github.Reaction>`.
     """
 
-    #: The date and time at which the reaction was created.
+    #: The date and time at which the reaction was created, in
+    #: ascending order. ie. earliest created first.
     #:
     #: :meta hide-value:
-    created_at = "CREATED_AT"
+    created_at = {"direction": "ASC", "field": "CREATED_AT"}
 
 
 __all__ = [
