@@ -36,6 +36,8 @@ class RepositoryOrder(enum.Enum):
 
     #: The number of stars on the repository, in descending first. ie.
     #: most stargazers first.
+    #:
+    #: :meta hide-value:
     stargazer_count = {"direction": "DESC", "field": "STARGAZERS"}
 
     #: The date and time at which the repository was last updated, in
