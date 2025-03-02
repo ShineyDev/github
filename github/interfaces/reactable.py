@@ -110,7 +110,7 @@ class Reactable:
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: ReactionOrder = MISSING,
+        order: ReactionOrder = MISSING,
         reverse: bool = MISSING,
     ) -> Connection[Reaction]:
         """
@@ -125,7 +125,7 @@ class Reactable:
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.ReactionOrder`
+        order: :class:`~github.ReactionOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -147,7 +147,7 @@ class Reactable:
         return github.Connection(
             self._http.collect_reactable_reactions,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Reaction._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,

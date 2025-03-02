@@ -2165,7 +2165,7 @@ class Repository(
         category: DiscussionCategory = MISSING,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: DiscussionOrder = MISSING,
+        order: DiscussionOrder = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Discussion]:
@@ -2183,7 +2183,7 @@ class Repository(
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.DiscussionOrder`
+        order: :class:`~github.DiscussionOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -2203,7 +2203,7 @@ class Repository(
             self._http.collect_repository_discussions,
             self.id,
             category.id if category is not MISSING else None,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Discussion._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
@@ -2217,7 +2217,7 @@ class Repository(
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: RepositoryOrder = MISSING,
+        order: RepositoryOrder = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Repository]:
@@ -2233,7 +2233,7 @@ class Repository(
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.RepositoryOrder`
+        order: :class:`~github.RepositoryOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -2252,7 +2252,7 @@ class Repository(
         return github.Connection(
             self._http.collect_repository_forks,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Repository._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
@@ -2266,7 +2266,7 @@ class Repository(
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: IssueOrder = MISSING,
+        order: IssueOrder = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Issue]:
@@ -2282,7 +2282,7 @@ class Repository(
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.IssueOrder`
+        order: :class:`~github.IssueOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -2301,7 +2301,7 @@ class Repository(
         return github.Connection(
             self._http.collect_repository_issues,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Issue._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
@@ -2315,7 +2315,7 @@ class Repository(
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: LabelOrder = MISSING,
+        order: LabelOrder = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Label]:
@@ -2331,7 +2331,7 @@ class Repository(
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.LabelOrder`
+        order: :class:`~github.LabelOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -2350,7 +2350,7 @@ class Repository(
         return github.Connection(
             self._http.collect_repository_labels,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Label._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
@@ -2364,7 +2364,7 @@ class Repository(
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: LanguageOrder = MISSING,
+        order: LanguageOrder = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Language]:
@@ -2380,7 +2380,7 @@ class Repository(
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.LanguageOrder`
+        order: :class:`~github.LanguageOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -2399,7 +2399,7 @@ class Repository(
         return github.Connection(
             self._http.collect_repository_languages,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Language._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
@@ -2458,7 +2458,7 @@ class Repository(
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: MilestoneOrder = MISSING,
+        order: MilestoneOrder = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Milestone]:
@@ -2474,7 +2474,7 @@ class Repository(
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.MilestoneOrder`
+        order: :class:`~github.MilestoneOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -2493,7 +2493,7 @@ class Repository(
         return github.Connection(
             self._http.collect_repository_milestones,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Milestone._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
@@ -2507,7 +2507,7 @@ class Repository(
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: PullOrder = MISSING,
+        order: PullOrder = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Pull]:
@@ -2523,7 +2523,7 @@ class Repository(
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.PullOrder`
+        order: :class:`~github.PullOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -2542,7 +2542,7 @@ class Repository(
         return github.Connection(
             self._http.collect_repository_pulls,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Pull._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
@@ -2559,7 +2559,7 @@ class Repository(
             *,
             cursor: str | None = MISSING,
             limit: int = MISSING,
-            order_by: ReferenceOrder = MISSING,
+            order: ReferenceOrder = MISSING,
             reverse: bool = MISSING,
             **kwargs,  # TODO
         ) -> Connection[Reference]:
@@ -2572,7 +2572,7 @@ class Repository(
             *,
             cursor: str | None = MISSING,
             limit: int = MISSING,
-            order_by: ReferenceOrder = MISSING,
+            order: ReferenceOrder = MISSING,
             prefix: str,
             reverse: bool = MISSING,
             **kwargs,  # TODO
@@ -2586,7 +2586,7 @@ class Repository(
             *,
             cursor: str | None = MISSING,
             limit: int = MISSING,
-            order_by: ReferenceOrder = MISSING,
+            order: ReferenceOrder = MISSING,
             reverse: bool = MISSING,
             type: ReferenceType,
             **kwargs,  # TODO
@@ -2599,7 +2599,7 @@ class Repository(
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: ReferenceOrder = MISSING,
+        order: ReferenceOrder = MISSING,
         prefix: str = MISSING,
         reverse: bool = MISSING,
         type: ReferenceType = MISSING,
@@ -2617,7 +2617,7 @@ class Repository(
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.ReferenceOrder`
+        order: :class:`~github.ReferenceOrder`
             The field by which to order the elements.
         prefix: :class:`str`
             The Git reference prefix, eg. "refs/heads/".
@@ -2649,7 +2649,7 @@ class Repository(
             self._http.collect_repository_references,
             self.id,
             prefix,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Reference._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
@@ -2663,7 +2663,7 @@ class Repository(
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: ReleaseOrder = MISSING,
+        order: ReleaseOrder = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Release]:
@@ -2679,7 +2679,7 @@ class Repository(
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.ReleaseOrder`
+        order: :class:`~github.ReleaseOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -2698,7 +2698,7 @@ class Repository(
         return github.Connection(
             self._http.collect_repository_releases,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Release._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,

@@ -37,7 +37,7 @@ class DiscussionAuthor:
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: DiscussionOrder = MISSING,
+        order: DiscussionOrder = MISSING,
         repository: Repository = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
@@ -54,7 +54,7 @@ class DiscussionAuthor:
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.DiscussionOrder`
+        order: :class:`~github.DiscussionOrder`
             The field by which to order the elements.
         repository: :class:`~github.Repository`
             The repository to filter discussions by.
@@ -78,7 +78,7 @@ class DiscussionAuthor:
         return github.Connection(
             self._http.collect_discussionauthor_discussions,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             repository.id if repository is not MISSING else None,
             data_map=lambda d: github.Discussion._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,

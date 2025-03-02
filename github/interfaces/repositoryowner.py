@@ -129,7 +129,7 @@ class RepositoryOwner:
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: RepositoryOrder = MISSING,
+        order: RepositoryOrder = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Repository]:
@@ -146,7 +146,7 @@ class RepositoryOwner:
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.RepositoryOrder`
+        order: :class:`~github.RepositoryOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -168,7 +168,7 @@ class RepositoryOwner:
         return github.Connection(
             self._http.collect_repositoryowner_repositories,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Repository._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,

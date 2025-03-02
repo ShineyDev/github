@@ -110,7 +110,7 @@ class Labelable:
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: LabelOrder = MISSING,
+        order: LabelOrder = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Label]:
@@ -127,7 +127,7 @@ class Labelable:
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.LabelOrder`
+        order: :class:`~github.LabelOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -149,7 +149,7 @@ class Labelable:
         return github.Connection(
             self._http.collect_labelable_labels,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Label._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,

@@ -503,7 +503,7 @@ class Client(graphql.client.Client):
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: AdvisoryOrder = MISSING,
+        order: AdvisoryOrder = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Advisory]:
@@ -519,7 +519,7 @@ class Client(graphql.client.Client):
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.AdvisoryOrder`
+        order: :class:`~github.AdvisoryOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -537,7 +537,7 @@ class Client(graphql.client.Client):
 
         return github.Connection(
             self._http.collect_query_advisories,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Advisory._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
@@ -551,7 +551,7 @@ class Client(graphql.client.Client):
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: SponsorableOrder = MISSING,
+        order: SponsorableOrder = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Organization | User]:
@@ -573,7 +573,7 @@ class Client(graphql.client.Client):
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.SponsorableOrder`
+        order: :class:`~github.SponsorableOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -591,7 +591,7 @@ class Client(graphql.client.Client):
 
         return github.Connection(
             self._http.collect_query_sponsorables,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Organization._from_data(d, http=self._http) if d["__typename"] == "Organization" else github.User._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
@@ -605,7 +605,7 @@ class Client(graphql.client.Client):
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: VulnerabilityOrder = MISSING,
+        order: VulnerabilityOrder = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Vulnerability]:
@@ -621,7 +621,7 @@ class Client(graphql.client.Client):
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.VulnerabilityOrder`
+        order: :class:`~github.VulnerabilityOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -639,7 +639,7 @@ class Client(graphql.client.Client):
 
         return github.Connection(
             self._http.collect_query_vulnerabilities,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Vulnerability._from_data(d),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,

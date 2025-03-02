@@ -392,7 +392,7 @@ class DiscussionCategory(Node, RepositoryNode, Type):
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: DiscussionOrder = MISSING,
+        order: DiscussionOrder = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Discussion]:
@@ -408,7 +408,7 @@ class DiscussionCategory(Node, RepositoryNode, Type):
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.DiscussionOrder`
+        order: :class:`~github.DiscussionOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -432,7 +432,7 @@ class DiscussionCategory(Node, RepositoryNode, Type):
             category=self,
             cursor=cursor,
             limit=limit,
-            order_by=order_by,
+            order=order,
             reverse=reverse,
             **kwargs,
         )

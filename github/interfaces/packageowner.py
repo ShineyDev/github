@@ -78,7 +78,7 @@ class PackageOwner:
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: PackageOrder = MISSING,
+        order: PackageOrder = MISSING,
         repository: Repository = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
@@ -95,7 +95,7 @@ class PackageOwner:
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.PackageOrder`
+        order: :class:`~github.PackageOrder`
             The field by which to order the elements.
         repository: :class:`~github.Repository`
             The repository to filter packages to.
@@ -119,7 +119,7 @@ class PackageOwner:
         return github.Connection(
             self._http.collect_packageowner_packages,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             repository.id if repository is not MISSING else None,
             data_map=lambda d: github.Package._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,

@@ -699,7 +699,7 @@ class Organization(
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: MannequinOrder = MISSING,
+        order: MannequinOrder = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Mannequin]:
@@ -715,7 +715,7 @@ class Organization(
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.MannequinOrder`
+        order: :class:`~github.MannequinOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -734,7 +734,7 @@ class Organization(
         return github.Connection(
             self._http.collect_organization_mannequins,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Mannequin._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
@@ -748,7 +748,7 @@ class Organization(
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: TeamOrder = MISSING,
+        order: TeamOrder = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
     ) -> Connection[Team]:
@@ -764,7 +764,7 @@ class Organization(
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.TeamOrder`
+        order: :class:`~github.TeamOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -783,7 +783,7 @@ class Organization(
         return github.Connection(
             self._http.collect_organization_teams,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Team._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,

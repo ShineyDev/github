@@ -1660,16 +1660,16 @@ class HTTPClient(graphql.client.http.HTTPClient):
         self,
         /,
         advisory_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[VulnerabilityData]:
         fields = github.utility.get_merged_graphql_fields(github.Vulnerability, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:SecurityVulnerabilityOrder,$advisory_id:ID!){node(id:$advisory_id){...on SecurityAdvisory{vulnerabilities(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:SecurityVulnerabilityOrder,$advisory_id:ID!){node(id:$advisory_id){...on SecurityAdvisory{vulnerabilities(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "vulnerabilities")
 
-        return await self._collect(query, *path, advisory_id=advisory_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, advisory_id=advisory_id, order=order, **kwargs)
 
     async def collect_assignable_assignees(
         self,
@@ -1689,17 +1689,17 @@ class HTTPClient(graphql.client.http.HTTPClient):
         self,
         /,
         discussionauthor_id: str,
-        order_by: str | None,
+        order: str | None,
         repository_id: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[DiscussionData]:
         fields = github.utility.get_merged_graphql_fields(github.Discussion, fields)
-        query = "query($after:String,$before:String,$discussionauthor_id:ID!,$first:Int,$last:Int,$order_by:DiscussionOrder,$repository_id:ID){node(id:$discussionauthor_id){...on RepositoryDiscussionAuthor{repositoryDiscussions(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by,repositoryId:$repository_id){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$discussionauthor_id:ID!,$first:Int,$last:Int,$order:DiscussionOrder,$repository_id:ID){node(id:$discussionauthor_id){...on RepositoryDiscussionAuthor{repositoryDiscussions(after:$after,before:$before,first:$first,last:$last,orderBy:$order,repositoryId:$repository_id){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "repositoryDiscussions")
 
-        return await self._collect(query, *path, discussionauthor_id=discussionauthor_id, order_by=order_by, repository_id=repository_id, **kwargs)
+        return await self._collect(query, *path, discussionauthor_id=discussionauthor_id, order=order, repository_id=repository_id, **kwargs)
 
     async def collect_issue_children(
         self,
@@ -1733,122 +1733,122 @@ class HTTPClient(graphql.client.http.HTTPClient):
         self,
         /,
         label_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[IssueData]:
         fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$label_id:ID!){node(id:$label_id){...on Label{issues(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:IssueOrder,$label_id:ID!){node(id:$label_id){...on Label{issues(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "issues")
 
-        return await self._collect(query, *path, label_id=label_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, label_id=label_id, order=order, **kwargs)
 
     async def collect_label_pulls(
         self,
         /,
         label_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[PullData]:
         fields = github.utility.get_merged_graphql_fields(github.Pull, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$label_id:ID!){node(id:$label_id){...on Label{pullRequests(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:IssueOrder,$label_id:ID!){node(id:$label_id){...on Label{pullRequests(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "pullRequests")
 
-        return await self._collect(query, *path, label_id=label_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, label_id=label_id, order=order, **kwargs)
 
     async def collect_labelable_labels(
         self,
         /,
         labelable_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[LabelData]:
         fields = github.utility.get_merged_graphql_fields(github.Label, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:LabelOrder,$labelable_id:ID!){node(id:$labelable_id){...on Labelable{labels(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:LabelOrder,$labelable_id:ID!){node(id:$labelable_id){...on Labelable{labels(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "labels")
 
-        return await self._collect(query, *path, labelable_id=labelable_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, labelable_id=labelable_id, order=order, **kwargs)
 
     async def collect_milestone_issues(
         self,
         /,
         milestone_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[IssueData]:
         fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$milestone_id:ID!){node(id:$milestone_id){...on Milestone{issues(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:IssueOrder,$milestone_id:ID!){node(id:$milestone_id){...on Milestone{issues(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "issues")
 
-        return await self._collect(query, *path, milestone_id=milestone_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, milestone_id=milestone_id, order=order, **kwargs)
 
     async def collect_milestone_pulls(
         self,
         /,
         milestone_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[PullData]:
         fields = github.utility.get_merged_graphql_fields(github.Pull, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$milestone_id:ID!){node(id:$milestone_id){...on Milestone{pullRequests(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:IssueOrder,$milestone_id:ID!){node(id:$milestone_id){...on Milestone{pullRequests(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "pullRequests")
 
-        return await self._collect(query, *path, milestone_id=milestone_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, milestone_id=milestone_id, order=order, **kwargs)
 
     async def collect_organization_mannequins(
         self,
         /,
         organization_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[MannequinData]:
         fields = github.utility.get_merged_graphql_fields(github.Mannequin, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:MannequinOrder,$organization_id:ID!){node(id:$organization_id){...on Organization{mannequins(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:MannequinOrder,$organization_id:ID!){node(id:$organization_id){...on Organization{mannequins(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "mannequins")
 
-        return await self._collect(query, *path, organization_id=organization_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, organization_id=organization_id, order=order, **kwargs)
 
     async def collect_organization_teams(
         self,
         /,
         organization_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[TeamData]:
         fields = github.utility.get_merged_graphql_fields(github.Team, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:TeamOrder,$organization_id:ID!){node(id:$organization_id){...on Organization{teams(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:TeamOrder,$organization_id:ID!){node(id:$organization_id){...on Organization{teams(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "teams")
 
-        return await self._collect(query, *path, organization_id=organization_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, organization_id=organization_id, order=order, **kwargs)
 
     async def collect_packageowner_packages(
         self,
         /,
         packageowner_id: str,
-        order_by: str | None,
+        order: str | None,
         repository_id: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[PackageData]:
         fields = github.utility.get_merged_graphql_fields(github.Package, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$packageowner_id:ID!,$repository_id:ID){node(id:$packageowner_id){...on PackageOwner{packages(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by,repositoryId:$repository_id){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:IssueOrder,$packageowner_id:ID!,$repository_id:ID){node(id:$packageowner_id){...on PackageOwner{packages(after:$after,before:$before,first:$first,last:$last,orderBy:$order,repositoryId:$repository_id){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "packages")
 
-        return await self._collect(query, *path, packageowner_id=packageowner_id, order_by=order_by, repository_id=repository_id, **kwargs)
+        return await self._collect(query, *path, packageowner_id=packageowner_id, order=order, repository_id=repository_id, **kwargs)
 
     async def collect_pull_participants(
         self,
@@ -1867,75 +1867,75 @@ class HTTPClient(graphql.client.http.HTTPClient):
     async def collect_query_advisories(
         self,
         /,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[AdvisoryData]:
         fields = github.utility.get_merged_graphql_fields(github.Advisory, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:SecurityAdvisoryOrder){securityAdvisories(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:SecurityAdvisoryOrder){securityAdvisories(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}" % ",".join(fields)
         path = ("securityAdvisories",)
 
-        return await self._collect(query, *path, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, order=order, **kwargs)
 
     async def collect_query_sponsorables(
         self,
         /,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[OrganizationData | UserData]:
         organization_fields = github.utility.get_merged_graphql_fields(github.Organization, fields)
         user_fields = github.utility.get_merged_graphql_fields(github.User, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:SponsorableOrder){sponsorables(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{...on Organization{%s}...on User{%s}},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}" % (",".join(organization_fields), ",".join(user_fields))
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:SponsorableOrder){sponsorables(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{...on Organization{%s}...on User{%s}},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}" % (",".join(organization_fields), ",".join(user_fields))
         path = ("sponsorables",)
 
-        return await self._collect(query, *path, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, order=order, **kwargs)
 
     async def collect_query_vulnerabilities(
         self,
         /,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[VulnerabilityData]:
         fields = github.utility.get_merged_graphql_fields(github.Vulnerability, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:SecurityVulnerabilityOrder){securityVulnerabilities(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:SecurityVulnerabilityOrder){securityVulnerabilities(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}" % ",".join(fields)
         path = ("securityVulnerabilities",)
 
-        return await self._collect(query, *path, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, order=order, **kwargs)
 
     async def collect_reactable_reactions(
         self,
         /,
         reactable_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[ReactionData]:
         fields = github.utility.get_merged_graphql_fields(github.Reaction, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:ReactionOrder,$reactable_id:ID!){node(id:$reactable_id){...on Reactable{reactions(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:ReactionOrder,$reactable_id:ID!){node(id:$reactable_id){...on Reactable{reactions(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "reactions")
 
-        return await self._collect(query, *path, reactable_id=reactable_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, reactable_id=reactable_id, order=order, **kwargs)
 
     async def collect_reference_pulls(
         self,
         /,
         reference_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[PullData]:
         fields = github.utility.get_merged_graphql_fields(github.Pull, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$reference_id:ID!){node(id:$reference_id){...on Ref{associatedPullRequests(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:IssueOrder,$reference_id:ID!){node(id:$reference_id){...on Ref{associatedPullRequests(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "associatedPullRequests")
 
-        return await self._collect(query, *path, reference_id=reference_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, reference_id=reference_id, order=order, **kwargs)
 
     async def collect_repository_assignable_users(
         self,
@@ -1984,137 +1984,137 @@ class HTTPClient(graphql.client.http.HTTPClient):
         /,
         repository_id: str,
         discussioncategory_id: str | None,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[DiscussionData]:
         fields = github.utility.get_merged_graphql_fields(github.Discussion, fields)
-        query = "query($after:String,$before:String,$discussioncategory_id:ID,$first:Int,$last:Int,$order_by:DiscussionOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{discussions(after:$after,before:$before,categoryId:$discussioncategory_id,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$discussioncategory_id:ID,$first:Int,$last:Int,$order:DiscussionOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{discussions(after:$after,before:$before,categoryId:$discussioncategory_id,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "discussions")
 
-        return await self._collect(query, *path, repository_id=repository_id, discussioncategory_id=discussioncategory_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, discussioncategory_id=discussioncategory_id, order=order, **kwargs)
 
     async def collect_repository_forks(
         self,
         /,
         repository_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[RepositoryData]:
         fields = github.utility.get_merged_graphql_fields(github.Repository, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:RepositoryOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{forks(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:RepositoryOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{forks(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "forks")
 
-        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, order=order, **kwargs)
 
     async def collect_repository_issues(
         self,
         /,
         repository_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[IssueData]:
         fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{issues(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:IssueOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{issues(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "issues")
 
-        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, order=order, **kwargs)
 
     async def collect_repository_labels(
         self,
         /,
         repository_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[LabelData]:
         fields = github.utility.get_merged_graphql_fields(github.Label, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:LabelOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{labels(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:LabelOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{labels(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "labels")
 
-        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, order=order, **kwargs)
 
     async def collect_repository_languages(
         self,
         /,
         repository_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[LanguageData]:
         fields = github.utility.get_merged_graphql_fields(github.Language, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:LanguageOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{languages(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:LanguageOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{languages(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "languages")
 
-        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, order=order, **kwargs)
 
     async def collect_repository_milestones(
         self,
         /,
         repository_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[MilestoneData]:
         fields = github.utility.get_merged_graphql_fields(github.Milestone, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:MilestoneOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{milestones(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:MilestoneOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{milestones(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "milestones")
 
-        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, order=order, **kwargs)
 
     async def collect_repository_pulls(
         self,
         /,
         repository_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[PullData]:
         fields = github.utility.get_merged_graphql_fields(github.Pull, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{pullRequests(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:IssueOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{pullRequests(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "pullRequests")
 
-        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, order=order, **kwargs)
 
     async def collect_repository_references(
         self,
         /,
         repository_id: str,
         reference_prefix: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[ReferenceData]:
         fields = github.utility.get_merged_graphql_fields(github.Reference, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:RefOrder,$reference_prefix:String!,$repository_id:ID!){node(id:$repository_id){...on Repository{refs(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by,refPrefix:$reference_prefix){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:RefOrder,$reference_prefix:String!,$repository_id:ID!){node(id:$repository_id){...on Repository{refs(after:$after,before:$before,first:$first,last:$last,orderBy:$order,refPrefix:$reference_prefix){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "refs")
 
-        return await self._collect(query, *path, repository_id=repository_id, reference_prefix=reference_prefix, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, reference_prefix=reference_prefix, order=order, **kwargs)
 
     async def collect_repository_releases(
         self,
         /,
         repository_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[LabelData]:
         fields = github.utility.get_merged_graphql_fields(github.Release, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:ReleaseOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{releases(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:ReleaseOrder,$repository_id:ID!){node(id:$repository_id){...on Repository{releases(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "releases")
 
-        return await self._collect(query, *path, repository_id=repository_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, repository_id=repository_id, order=order, **kwargs)
 
     async def collect_repository_topics(
         self,
@@ -2171,31 +2171,31 @@ class HTTPClient(graphql.client.http.HTTPClient):
         self,
         /,
         repositoryowner_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[RepositoryData]:
         fields = github.utility.get_merged_graphql_fields(github.Repository, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:RepositoryOrder,$repositoryowner_id:ID!){node(id:$repositoryowner_id){... on RepositoryOwner{repositories(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:RepositoryOrder,$repositoryowner_id:ID!){node(id:$repositoryowner_id){... on RepositoryOwner{repositories(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "repositories")
 
-        return await self._collect(query, *path, repositoryowner_id=repositoryowner_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, repositoryowner_id=repositoryowner_id, order=order, **kwargs)
 
     async def collect_starrable_stargazers(
         self,
         /,
         starrable_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[UserData]:
         fields = github.utility.get_merged_graphql_fields(github.User, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:StarOrder,$starrable_id:ID!){node(id:$starrable_id){...on Starrable{stargazers(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:StarOrder,$starrable_id:ID!){node(id:$starrable_id){...on Starrable{stargazers(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "stargazers")
 
-        return await self._collect(query, *path, starrable_id=starrable_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, starrable_id=starrable_id, order=order, **kwargs)
 
     async def collect_team_ancestors(
         self,
@@ -2215,16 +2215,16 @@ class HTTPClient(graphql.client.http.HTTPClient):
         self,
         /,
         topic_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[RepositoryData]:
         fields = github.utility.get_merged_graphql_fields(github.Repository, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:RepositoryOrder,$topic_id:ID!){node(id:$topic_id){... on Topic{repositories(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:RepositoryOrder,$topic_id:ID!){node(id:$topic_id){... on Topic{repositories(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "repositories")
 
-        return await self._collect(query, *path, topic_id=topic_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, topic_id=topic_id, order=order, **kwargs)
 
     async def collect_user_followers(
         self,
@@ -2258,61 +2258,61 @@ class HTTPClient(graphql.client.http.HTTPClient):
         self,
         /,
         user_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[IssueData]:
         fields = github.utility.get_merged_graphql_fields(github.Issue, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$user_id:ID!){node(id:$user_id){...on User{issues(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:IssueOrder,$user_id:ID!){node(id:$user_id){...on User{issues(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "issues")
 
-        return await self._collect(query, *path, user_id=user_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, user_id=user_id, order=order, **kwargs)
 
     async def collect_user_organizations(
         self,
         /,
         user_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[OrganizationData]:
         fields = github.utility.get_merged_graphql_fields(github.Organization, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:OrganizationOrder,$user_id:ID!){node(id:$user_id){...on User{organizations(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:OrganizationOrder,$user_id:ID!){node(id:$user_id){...on User{organizations(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "organizations")
 
-        return await self._collect(query, *path, user_id=user_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, user_id=user_id, order=order, **kwargs)
 
     async def collect_user_pulls(
         self,
         /,
         user_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[PullData]:
         fields = github.utility.get_merged_graphql_fields(github.Pull, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:IssueOrder,$user_id:ID!){node(id:$user_id){...on User{pullRequests(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:IssueOrder,$user_id:ID!){node(id:$user_id){...on User{pullRequests(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "pullRequests")
 
-        return await self._collect(query, *path, user_id=user_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, user_id=user_id, order=order, **kwargs)
 
     async def collect_user_watching(
         self,
         /,
         user_id: str,
-        order_by: str | None,
+        order: str | None,
         *,
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[RepositoryData]:
         fields = github.utility.get_merged_graphql_fields(github.Repository, fields)
-        query = "query($after:String,$before:String,$first:Int,$last:Int,$order_by:RepositoryOrder,$user_id:ID!){node(id:$user_id){... on User{watching(after:$after,before:$before,first:$first,last:$last,orderBy:$order_by){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
+        query = "query($after:String,$before:String,$first:Int,$last:Int,$order:RepositoryOrder,$user_id:ID!){node(id:$user_id){... on User{watching(after:$after,before:$before,first:$first,last:$last,orderBy:$order){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
         path = ("node", "watching")
 
-        return await self._collect(query, *path, user_id=user_id, order_by=order_by, **kwargs)
+        return await self._collect(query, *path, user_id=user_id, order=order, **kwargs)
 
     async def _mutate(
         self,

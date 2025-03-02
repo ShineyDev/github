@@ -1192,7 +1192,7 @@ class User(
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: IssueOrder = MISSING,
+        order: IssueOrder = MISSING,
         reverse: bool = MISSING,
     ) -> Connection[Issue]:
         """
@@ -1207,6 +1207,8 @@ class User(
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
+        order: :class:`~github.IssueOrder`
+            The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
 
@@ -1224,7 +1226,7 @@ class User(
         return github.Connection(
             self._http.collect_user_issues,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Issue._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
@@ -1237,7 +1239,7 @@ class User(
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: OrganizationOrder = MISSING,
+        order: OrganizationOrder = MISSING,
         reverse: bool = MISSING,
     ) -> Connection[Organization]:
         """
@@ -1252,7 +1254,7 @@ class User(
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.OrganizationOrder`
+        order: :class:`~github.OrganizationOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -1271,7 +1273,7 @@ class User(
         return github.Connection(
             self._http.collect_user_organizations,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Organization._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
@@ -1284,7 +1286,7 @@ class User(
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: PullOrder = MISSING,
+        order: PullOrder = MISSING,
         reverse: bool = MISSING,
     ) -> Connection[Pull]:
         """
@@ -1299,7 +1301,7 @@ class User(
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.PullOrder`
+        order: :class:`~github.PullOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -1318,7 +1320,7 @@ class User(
         return github.Connection(
             self._http.collect_user_pulls,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Pull._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
@@ -1331,7 +1333,7 @@ class User(
         *,
         cursor: str | None = MISSING,
         limit: int = MISSING,
-        order_by: RepositoryOrder = MISSING,
+        order: RepositoryOrder = MISSING,
         reverse: bool = MISSING,
     ) -> Connection[Repository]:
         """
@@ -1346,7 +1348,7 @@ class User(
             The cursor to start at.
         limit: :class:`int`
             The maximum number of elements to yield.
-        order_by: :class:`~github.RepositoryOrder`
+        order: :class:`~github.RepositoryOrder`
             The field by which to order the elements.
         reverse: :class:`bool`
             Whether to yield the elements in reverse order.
@@ -1365,7 +1367,7 @@ class User(
         return github.Connection(
             self._http.collect_user_watching,
             self.id,
-            order_by.value if order_by is not MISSING else None,
+            order.value if order is not MISSING else None,
             data_map=lambda d: github.Repository._from_data(d, http=self._http),
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
