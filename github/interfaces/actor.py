@@ -81,7 +81,7 @@ class Actor:
         :rtype: :class:`str`
         """
 
-        if size is MISSING:
+        if size is not MISSING:
             field = f"avatarUrl(size:{size})"
             save = False
         else:
