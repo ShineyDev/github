@@ -40,6 +40,7 @@ if TYPE_CHECKING:
     ):
         __typename: Literal["Milestone"]
 
+        closedIssueCount: int
         createdAt: str
         creator: BotData | UserData
         description: str | None
@@ -47,6 +48,7 @@ if TYPE_CHECKING:
         dueOn: str | None
         issues: ConnectionData[IssueData]
         number: int
+        openIssueCount: int
         progressPercentage: float
         pullRequests: ConnectionData[PullData]
         state: MilestoneStateData
@@ -97,11 +99,13 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
     ]
 
     _graphql_fields = {
+        "closed_count": "closedIssueCount",
         "created_at": "createdAt",
         "description": "description",
         "description_html": "descriptionHTML",
         "due_at": "dueOn",
         "number": "number",
+        "open_count": "openIssueCount",
         "progress": "progressPercentage",
         "state": "state",
         "title": "title",
@@ -109,6 +113,20 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
     }
 
     _node_prefix = "MI"
+
+    @property
+    def closed_count(
+        self,
+        /,
+    ) -> int:
+        """
+        The number of closed issues and pull requests with the
+        milestone.
+
+        :type: :class:`int`
+        """
+
+        return self._data["closedIssueCount"]
 
     @property
     def created_at(
@@ -179,6 +197,19 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
         """
 
         return self._data["number"]
+
+    @property
+    def open_count(
+        self,
+        /,
+    ) -> int:
+        """
+        The number of open issues and pull requests with the milestone.
+
+        :type: :class:`int`
+        """
+
+        return self._data["openIssueCount"]
 
     @property
     def progress(
