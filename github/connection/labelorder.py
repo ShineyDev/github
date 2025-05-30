@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from typing_extensions import TypeAlias
 
 
-    LabelOrderData: TypeAlias = Literal["CREATED_AT", "NAME"]
+    LabelOrderData: TypeAlias = Literal["CREATED_AT", "ISSUE_COUNT", "NAME"]
 
 
 class LabelOrder(enum.Enum):
@@ -22,6 +22,12 @@ class LabelOrder(enum.Enum):
     #:
     #: :meta hide-value:
     created_at = {"direction": "ASC", "field": "CREATED_AT"}
+
+    #: The number of issues with the label, in descending order. ie.
+    #: most labels first.
+    #:
+    #: :meta hide-value:
+    issue_count = {"direction": "DESC", "field": "ISSUE_COUNT"}
 
     #: The name of the label, in ascending order. ie. A-Z.
     #:
