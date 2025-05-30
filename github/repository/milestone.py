@@ -43,6 +43,7 @@ if TYPE_CHECKING:
         createdAt: str
         creator: BotData | UserData
         description: str | None
+        descriptionHTML: str | None
         dueOn: str | None
         issues: ConnectionData[IssueData]
         number: int
@@ -98,6 +99,7 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
     _graphql_fields = {
         "created_at": "createdAt",
         "description": "description",
+        "description_html": "descriptionHTML",
         "due_at": "dueOn",
         "number": "number",
         "progress": "progressPercentage",
@@ -133,6 +135,19 @@ class Milestone(Closable, Node, RepositoryNode, Resource, Type):
         """
 
         return self._data["description"]
+
+    @property
+    def description_html(
+        self,
+        /,
+    ) -> str | None:
+        """
+        The description of the milestone as HTML.
+
+        :type: :class:`str` | None
+        """
+
+        return self._data["descriptionHTML"]
 
     @property
     def due_at(
