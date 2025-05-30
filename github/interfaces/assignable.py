@@ -2,10 +2,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from github.automation import Bot, Mannequin
     from github.connection import Connection
     from github.interfaces import Node
+    from github.organization import Organization
     from github.user import User
-    from github.user.user import UserData
 
 import github
 from github.utility import MISSING
@@ -15,6 +16,9 @@ if TYPE_CHECKING:
     from typing import TypedDict
 
     from github.connection.connection import ConnectionData
+    from github.automation.bot import BotData
+    from github.automation.mannequin import MannequinData
+    from github.organization.organization import OrganizationData
     from github.user.user import UserData
 
 
@@ -81,7 +85,7 @@ class Assignable:
         limit: int = MISSING,
         reverse: bool = MISSING,
         **kwargs,  # TODO
-    ) -> Connection[User]:
+    ) -> Connection[Bot | Mannequin | Organization | User]:
         """
         |aiter|
 
@@ -106,16 +110,28 @@ class Assignable:
             The :attr:`id` attribute is missing.
 
 
-        :rtype: :class:`~github.Connection` of :class:`github.User`
+        :rtype: :class:`~github.Connection` of :class:`github.Bot` | :class:`github.Mannequin` | :class:`github.Organization` | :class:`github.User`
         """
 
         if TYPE_CHECKING and not isinstance(self, Node):
             raise NotImplementedError
 
+        def assigneedata_to_assignee(d: BotData | MannequinData | OrganizationData | UserData) -> Bot | Mannequin | Organization | User:
+            # TODO[type-from-data]
+
+            if d["__typename"] == "Bot":
+                return github.Bot._from_data(d, http=self._http)
+            elif d["__typename"] == "Mannequin":
+                return github.Mannequin._from_data(d, http=self._http)
+            elif d["__typename"] == "Organization":
+                return github.Organization._from_data(d, http=self._http)
+            elif d["__typename"] == "User":
+                return github.User._from_data(d, http=self._http)
+
         return github.Connection(
             self._http.collect_assignable_assignees,
             self.id,
-            data_map=lambda d: github.User._from_data(d, http=self._http),
+            data_map=assigneedata_to_assignee,
             cursor=cursor if cursor is not MISSING else None,
             limit=limit if limit is not MISSING else None,
             reverse=reverse if reverse is not MISSING else None,

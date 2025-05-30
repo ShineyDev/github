@@ -1679,9 +1679,12 @@ class HTTPClient(graphql.client.http.HTTPClient):
         fields: Iterable[str] = MISSING,
         **kwargs,
     ) -> ConnectionData[UserData]:
-        fields = github.utility.get_merged_graphql_fields(github.User, fields)
-        query = "query($assignable_id:ID!){node(id:$assignable_id){...on Assignable{assignees(after:$after,before:$before,first:$first,last:$last){nodes{%s},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % ",".join(fields)
-        path = ("node", "assignees")
+        bot_fields = github.utility.get_merged_graphql_fields(github.Bot, fields)
+        mannequin_fields = github.utility.get_merged_graphql_fields(github.Mannequin, fields)
+        organization_fields = github.utility.get_merged_graphql_fields(github.Organization, fields)
+        user_fields = github.utility.get_merged_graphql_fields(github.User, fields)
+        query = "query($assignable_id:ID!){node(id:$assignable_id){...on Assignable{assignedActors(after:$after,before:$before,first:$first,last:$last){nodes{...on Bot{%s}...on Mannequin{%s}...on Organization{%s}...on User{%s}},pageInfo{endCursor,hasNextPage,hasPreviousPage,startCursor}}}}}" % (",".join(bot_fields), ",".join(mannequin_fields), ",".join(organization_fields), ",".join(user_fields))
+        path = ("node", "assignedActors")
 
         return await self._collect(query, *path, assignable_id=assignable_id, **kwargs)
 
